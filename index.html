@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- Google tag (gtag.js) GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3PFHN6VW7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K3PFHN6VW7');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>RunAnalyz (런애널라이즈) — 러닝화 마일리지 &amp; 유산소 효율(EF) 대시보드</title>
+  
+  <!-- Google Fonts: Inter, Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Chart.js & html2canvas CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  
+  <!-- Leaflet.js CDN for Running Heatmap -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Global Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-icon">
+          <i class="bi bi-lightning-charge-fill"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">RUN<span style="color:var(--accent-orange);">ANALYZ</span></span>
+          <span class="brand-badge">RUNNING &amp; AEROBIC EF ENGINE</span>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span class="meta-tag"><i class="bi bi-calendar-check"></i> 2026년 8월 실데이터</span>
+        <button class="btn-ghost" id="btn-reload" title="데이터 새로고침"><i class="bi bi-arrow-clockwise"></i></button>
+      </div>
+    </header>
+
+    <!-- Sport Environment Filter Bar -->
+    <div class="filter-bar">
+      <div class="filter-label"><i class="bi bi-funnel-fill"></i> 훈련 환경 필터</div>
+      <div class="filter-btn-group">
+        <button class="filter-btn active" data-filter="all" id="filter-all">
+          <i class="bi bi-collection-play"></i> 전체 보기 <span class="badge-num" id="filter-count-all">(18)</span>
+        </button>
+        <button class="filter-btn" data-filter="treadmill" id="filter-treadmill">
+          <i class="bi bi-speedometer"></i> 🏃 실내 트레드밀 <span class="badge-num" id="filter-count-tm">(15)</span>
+        </button>
+        <button class="filter-btn" data-filter="outdoor" id="filter-outdoor">
+          <i class="bi bi-tree"></i> 🌲 야외 러닝 <span class="badge-num" id="filter-count-od">(3)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Navigation Tabs -->
+    <nav class="main-tabs" role="tablist">
+      <button class="tab-btn active" data-tab="single" role="tab" id="tab-btn-single">
+        <i class="bi bi-stopwatch"></i>
+        <span>단일 세션</span>
+        <small class="tab-hint">데일리 EF 분석</small>
+      </button>
+      <button class="tab-btn" data-tab="weekly" role="tab" id="tab-btn-weekly">
+        <i class="bi bi-bar-chart-line-fill"></i>
+        <span>주간 정산</span>
+        <small class="tab-hint">10% 룰 &amp; 부상 진단</small>
+      </button>
+      <button class="tab-btn" data-tab="monthly" role="tab" id="tab-btn-monthly">
+        <i class="bi bi-trophy-fill"></i>
+        <span>월간 결산</span>
+        <small class="tab-hint">인스타 카드 생성</small>
+      </button>
+      <button class="tab-btn" data-tab="heatmap" role="tab" id="tab-btn-heatmap">
+        <i class="bi bi-map-fill"></i>
+        <span>러닝 히트맵</span>
+        <small class="tab-hint">GPS 코스 아카이브</small>
+      </button>
+    </nav>
+
+    <!-- TAB 1: SINGLE SESSION -->
+    <section class="tab-panel active" id="panel-single">
+      <!-- Session Selector Banner -->
+      <div class="session-selector-card">
+        <div class="selector-header">
+          <label for="session-select"><i class="bi bi-calendar-event"></i> 분석할 러닝 세션 선택</label>
+          <div>
+            <span class="badge-count" id="session-sport-badge" style="margin-right: 0.4rem; background: rgba(255, 87, 34, 0.15); color: var(--accent-orange);"></span>
+            <span class="badge-count" id="session-count">총 18개 세션</span>
+          </div>
+        </div>
+        <select id="session-select" class="custom-select">
+          <!-- Populated by JS -->
+        </select>
+      </div>
+
+      <!-- Single Session Summary Grid -->
+      <div class="metrics-grid">
+        <!-- Metric: Distance -->
+        <div class="metric-card highlight-cyan">
+          <div class="metric-header">
+            <span class="metric-label">달린 거리</span>
+            <i class="bi bi-geo-alt-fill"></i>
+          </div>
+          <div class="metric-val" id="single-dist">0.00 <span class="unit">km</span></div>
+          <div class="metric-sub" id="single-duration"><i class="bi bi-clock"></i> 00:00</div>
+        </div>
+
+        <!-- Metric: Pace -->
+        <div class="metric-card highlight-orange">
+          <div class="metric-header">
+            <span class="metric-label">평균 페이스</span>
+            <i class="bi bi-speedometer2"></i>
+          </div>
+          <div class="metric-val" id="single-pace">0'00" <span class="unit">/km</span></div>
+          <div class="metric-sub" id="single-speed"><i class="bi bi-wind"></i> 0.0 m/min</div>
+        </div>
+
+        <!-- Metric: Heart Rate -->
+        <div class="metric-card highlight-pink">
+          <div class="metric-header">
+            <span class="metric-label">평균 심박수</span>
+            <i class="bi bi-heart-pulse-fill"></i>
+          </div>
+          <div class="metric-val" id="single-hr">0 <span class="unit">bpm</span></div>
+          <div class="metric-sub" id="single-max-hr"><i class="bi bi-graph-up-arrow"></i> 최고 0 bpm</div>
+        </div>
+
+        <!-- Metric: Efficiency Factor (EF) - Core Highlight -->
+        <div class="metric-card highlight-lime hero-metric">
+          <div class="metric-header">
+            <span class="metric-label">유산소 효율 (EF)</span>
+            <span class="badge-core">CORE ENGINE</span>
+          </div>
+          <div class="metric-val" id="single-ef">0.000 <span class="unit">m/min/bpm</span></div>
+          <div class="metric-sub" id="single-ef-status"><i class="bi bi-shield-check"></i> 심폐 효율 평가 중...</div>
+        </div>
+      </div>
+
+      <!-- Detail Diagnostics Row -->
+      <div class="detail-cards-row">
+        <!-- Aerobic Decoupling Card -->
+        <div class="card detail-card">
+          <div class="card-header">
+            <div class="card-title"><i class="bi bi-activity"></i> 유산소 디커플링 (심박 드리프트)</div>
+            <span class="info-tag" title="전반부 대비 후반부 심박/속도 분리율. 5% 미만이면 유산소 베이스 탄탄!">기준: 5% 미만 권장</span>
+          </div>
+          <div class="decoupling-box">
+            <div class="decoupling-score" id="single-decoupling">0.0%</div>
+            <div class="decoupling-text">
+              <h4 id="decoupling-title">유산소 지구력 안정</h4>
+              <p id="decoupling-desc">전반부와 후반부의 페이스 대비 심박수 비율이 일정하게 유지되어 심폐 피로도가 매우 낮습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary Specs (Cadence, Power, Calories, Elevation) -->
+        <div class="card detail-card">
+          <div class="card-header">
+            <div class="card-title"><i class="bi bi-sliders"></i> 러닝 다이내믹스 &amp; 부하</div>
+          </div>
+          <div class="dynamics-grid">
+            <div class="dyn-item">
+              <span class="dyn-label"><i class="bi bi-arrow-repeat"></i> 케이던스</span>
+              <span class="dyn-val" id="single-cadence">0 spm</span>
+            </div>
+            <div class="dyn-item">
+              <span class="dyn-label"><i class="bi bi-lightning-charge"></i> 평균 파워</span>
+              <span class="dyn-val" id="single-power">0 W</span>
+            </div>
+            <div class="dyn-item">
+              <span class="dyn-label"><i class="bi bi-fire"></i> 소모 칼로리</span>
+              <span class="dyn-val" id="single-cal">0 kcal</span>
+            </div>
+            <div class="dyn-item">
+              <span class="dyn-label"><i class="bi bi-trophy"></i> 추정 VDOT</span>
+              <span class="dyn-val text-cyan" id="single-vdot">0.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Time Series Chart Card -->
+      <div class="card chart-card">
+        <div class="card-header">
+          <div class="card-title"><i class="bi bi-graph-up"></i> 주행 중 심박수 &amp; 케이던스 스트림</div>
+          <span class="badge-subtle">1초 단위 타임시리즈</span>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="singleSessionChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: WEEKLY RECAP -->
+    <section class="tab-panel" id="panel-weekly">
+      <!-- Weekly Overview Banner -->
+      <div class="weekly-hero-card">
+        <div class="wh-content">
+          <span class="sub-title">MARATHON MILEAGE &amp; 10% PROGRESSION RULE</span>
+          <h2 class="main-title">8월 주차별 마일리지 빌드업 &amp; 부상 위험 진단</h2>
+          <p class="description">
+            마라톤 부상 방지의 황금률인 <strong>10% Rule(전주 대비 주간 거리 증가율 10% 이내)</strong>과 <strong>LSD(최장 런) 비율</strong>을 실시간 진단합니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- Weekly Summary Table / Cards -->
+      <div class="weekly-cards-container" id="weekly-cards-list">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Weekly Chart Card -->
+      <div class="card chart-card">
+        <div class="card-header">
+          <div class="card-title"><i class="bi bi-bar-chart-fill"></i> 주차별 마일리지 변동 및 평균 EF 추세</div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="weeklyChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: MONTHLY RECAP & INSTA CARD -->
+    <section class="tab-panel" id="panel-monthly">
+      <!-- Monthly Recap Top Metrics -->
+      <div class="month-hero-grid">
+        <div class="month-stat-box">
+          <span class="m-label">8월 총 마일리지</span>
+          <span class="m-val text-orange" id="month-total-dist">0.0 <small>km</small></span>
+          <span class="m-sub" id="month-run-count">총 0회 러닝 완료</span>
+        </div>
+        <div class="month-stat-box">
+          <span class="m-label">8월 총 러닝 시간</span>
+          <span class="m-val text-cyan" id="month-total-time">00<small>h</small> 00<small>m</small></span>
+          <span class="m-sub" id="month-total-cal">0 kcal 소모</span>
+        </div>
+        <div class="month-stat-box">
+          <span class="m-label">8월 평균 페이스</span>
+          <span class="m-val text-lime" id="month-avg-pace">0'00" <small>/km</small></span>
+          <span class="m-sub" id="month-avg-hr">평균 심박수 0 bpm</span>
+        </div>
+        <div class="month-stat-box">
+          <span class="m-label">심폐 엔진(EF) 성장도</span>
+          <span class="m-val text-purple" id="month-ef-growth">+0.0%</span>
+          <span class="m-sub">월초 대비 월말 심폐효율</span>
+        </div>
+      </div>
+
+      <!-- Instagram Recap Card Studio -->
+      <div class="card-studio-section">
+        <div class="studio-header">
+          <div>
+            <h3><i class="bi bi-instagram"></i> 인스타그램 러닝 결산 카드 스튜디오</h3>
+            <p>인스타 스토리(9:16) 규격의 감성 결산 카드를 원클릭으로 생성하고 다운로드하세요.</p>
+          </div>
+          <div class="studio-actions">
+            <button class="btn-theme active" data-theme="dark">Dark Tech</button>
+            <button class="btn-theme" data-theme="neon">Neon Cyber</button>
+            <button class="btn-theme" data-theme="minimal">Minimal White</button>
+            <button class="btn-primary" id="btn-download-card">
+              <i class="bi bi-download"></i> 인스타 카드 저장하기
+            </button>
+          </div>
+        </div>
+
+        <!-- The Printable / Renderable Insta Card -->
+        <div class="insta-card-wrapper">
+          <div class="insta-card theme-dark" id="instaCard">
+            <!-- Card Header -->
+            <div class="ic-header">
+              <div class="ic-badge">AUGUST 2026 RUNNING RECAP</div>
+              <div class="ic-brand">
+                <i class="bi bi-lightning-charge-fill"></i> RUN<span style="color:var(--accent-orange);">ANALYZ</span>
+              </div>
+            </div>
+
+            <!-- Card Athlete Title -->
+            <div class="ic-title-area">
+              <div class="ic-sub">MONTHLY ENDURANCE ARCHIVE</div>
+              <h1 class="ic-main-distance" id="card-dist">166.5 <span class="unit">KM</span></h1>
+              <div class="ic-quote">"기록은 멈추지 않는다. 한 달간 달린 나의 유산소 엔진."</div>
+            </div>
+
+            <!-- Card Key Stats Grid -->
+            <div class="ic-stats-grid">
+              <div class="ic-stat-item">
+                <span class="ic-stat-label">RUN SESSIONS</span>
+                <span class="ic-stat-val" id="card-runs">21 <small>회</small></span>
+              </div>
+              <div class="ic-stat-item">
+                <span class="ic-stat-label">AVG PACE</span>
+                <span class="ic-stat-val" id="card-pace">5'04"</span>
+              </div>
+              <div class="ic-stat-item">
+                <span class="ic-stat-label">TOTAL TIME</span>
+                <span class="ic-stat-val" id="card-time">14h 22m</span>
+              </div>
+              <div class="ic-stat-item">
+                <span class="ic-stat-label">AVG HEART RATE</span>
+                <span class="ic-stat-val" id="card-hr">144 <small>bpm</small></span>
+              </div>
+            </div>
+
+            <!-- Card Highlight: EF & LSD -->
+            <div class="ic-highlight-banner">
+              <div class="ic-hl-box">
+                <span class="hl-title"><i class="bi bi-fire"></i> LONGEST RUN (LSD)</span>
+                <span class="hl-value" id="card-lsd">16.08 km (8/29)</span>
+              </div>
+              <div class="ic-hl-box">
+                <span class="hl-title"><i class="bi bi-graph-up-arrow"></i> AEROBIC EF SCORE</span>
+                <span class="hl-value" id="card-ef">1.378 (+4.2%)</span>
+              </div>
+            </div>
+
+            <!-- Mini Weekly Sparkline Bars -->
+            <div class="ic-weeks-row">
+              <div class="ic-week-col">
+                <div class="ic-bar-wrap"><div class="ic-bar" id="c-bar-1" style="height: 65%;"></div></div>
+                <span class="ic-week-lbl">W1</span>
+              </div>
+              <div class="ic-week-col">
+                <div class="ic-bar-wrap"><div class="ic-bar" id="c-bar-2" style="height: 80%;"></div></div>
+                <span class="ic-week-lbl">W2</span>
+              </div>
+              <div class="ic-week-col">
+                <div class="ic-bar-wrap"><div class="ic-bar" id="c-bar-3" style="height: 70%;"></div></div>
+                <span class="ic-week-lbl">W3</span>
+              </div>
+              <div class="ic-week-col">
+                <div class="ic-bar-wrap"><div class="ic-bar" id="c-bar-4" style="height: 95%;"></div></div>
+                <span class="ic-week-lbl">W4</span>
+              </div>
+              <div class="ic-week-col">
+                <div class="ic-bar-wrap"><div class="ic-bar" id="c-bar-5" style="height: 50%;"></div></div>
+                <span class="ic-week-lbl">W5</span>
+              </div>
+            </div>
+
+            <!-- Card Footer -->
+            <div class="ic-footer">
+              <div class="ic-author-tag">
+                <span class="dot"></span> VERIFIED RUNNER DATA
+              </div>
+              <div class="ic-watermark">runanalyz.run</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: RUNNING HEATMAP (GPS TRACKS) -->
+    <section class="tab-panel" id="panel-heatmap">
+      <!-- Heatmap Control Hero -->
+      <div class="heatmap-hero-card">
+        <div class="hh-info">
+          <span class="sub-title"><i class="bi bi-geo-alt-fill"></i> PERSONAL RUNNING HEATMAP</span>
+          <h2 class="main-title">8월 야외 러닝 &amp; 액티비티 GPS 누적 히트맵</h2>
+          <p class="description">
+            사용자님이 실제로 달리고 걸으신 야외 GPS 이동 궤적을 하나의 인터랙티브 다크 지도 위에 오버레이합니다. 반복해서 달린 코스는 네온 빛으로 더 강렬하게 빛납니다.
+          </p>
+        </div>
+        <div class="hh-stats">
+          <div class="hh-stat-item">
+            <span class="lbl">기록된 GPS 트랙</span>
+            <span class="val text-orange" id="hm-track-count">5개 코스</span>
+          </div>
+          <div class="hh-stat-item">
+            <span class="lbl">야외 총 거리</span>
+            <span class="val text-cyan" id="hm-total-dist">24.5 km</span>
+          </div>
+          <div class="hh-stat-item">
+            <span class="lbl">GPS 포인트</span>
+            <span class="val text-lime">1,750+ pts</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Container Card -->
+      <div class="card map-card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="bi bi-compass-fill"></i> 글로벌 다크 러닝 맵 (국내외 자유 탐색)
+          </div>
+          <div class="map-actions">
+            <!-- Outdoor Activity Filter: Running Only vs Include Walking -->
+            <div class="heatmap-sport-filter">
+              <button class="hm-filter-btn active" data-hm-filter="running" id="hm-filter-running">
+                <i class="bi bi-lightning-charge-fill"></i> 🏃 순수 러닝만
+              </button>
+              <button class="hm-filter-btn" data-hm-filter="all" id="hm-filter-all">
+                <i class="bi bi-compass"></i> 전체 야외 궤적 (산책 포함)
+              </button>
+            </div>
+
+            <!-- Theme Color Selector for Tracks -->
+            <div class="track-color-picker">
+              <span class="tcp-label">트랙 네온 테마:</span>
+              <button class="tcp-btn active" data-color="#ff5722" style="background:#ff5722;" title="네온 오렌지 (Strava Fire)"></button>
+              <button class="tcp-btn" data-color="#00f2fe" style="background:#00f2fe;" title="사이버 시안 (Garmin Cyan)"></button>
+              <button class="tcp-btn" data-color="#00ff87" style="background:#00ff87;" title="일렉트릭 라임 (Electric Lime)"></button>
+              <button class="tcp-btn" data-color="#f43f5e" style="background:#f43f5e;" title="핫 핑크 (Hot Pink)"></button>
+            </div>
+            <div class="map-quick-buttons">
+              <button class="btn-ghost" id="btn-zoom-namyangju" title="남양주 러닝 코스로 이동">
+                <i class="bi bi-geo-alt"></i> 🏃 남양주 러닝
+              </button>
+              <button class="btn-ghost" id="btn-zoom-seoul" title="서울 하이킹/산책 코스로 이동">
+                <i class="bi bi-geo-alt"></i> ⛰️ 서울 산책
+              </button>
+              <button class="btn-ghost active-ghost" id="btn-reset-map-zoom" title="전체 코스 한눈에 보기">
+                <i class="bi bi-aspect-ratio"></i> 전체 뷰
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Leaflet Map Canvas -->
+        <div id="runningHeatmap" class="running-map-view"></div>
+        <div class="map-footer-hint">
+          <span><i class="bi bi-info-circle"></i> 지도를 드래그하여 이동하거나 휠로 확대/축소할 수 있습니다. 특정 코스를 클릭하면 해당 러닝의 상세 정보 팝업이 뜹니다.</span>
+        </div>
+      </div>
+
+      <!-- Outdoor Routes List Cards -->
+      <div class="outdoor-routes-section">
+        <div class="section-title"><i class="bi bi-signpost-2-fill"></i> 8월 야외 GPS 코스 목록</div>
+        <div class="routes-grid" id="routes-grid-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+    <footer class="app-footer">
+      <p>RunAnalyz Engine &copy; 2026. Running Shoes &amp; Aerobic EF Analytics.</p>
+    </footer>
+
+  </div>
+
+  <script src="activities_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
