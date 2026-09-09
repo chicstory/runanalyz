@@ -3,11 +3,12 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Data Source
-  const rawActivities = (window.RUN_ACTIVITIES || []).filter(a => a.distance_km > 0.5);
-  console.log(`Loaded ${rawActivities.length} running activities.`);
+  // 1. Data Source: Filter ONLY pure running activities for stats!
+  const allActivities = window.RUN_ACTIVITIES || [];
+  const pureRunningActivities = allActivities.filter(a => a.is_pure_running && a.distance_km > 0.5);
+  console.log(`Loaded ${pureRunningActivities.length} pure running activities out of ${allActivities.length} total.`);
 
-  if (!rawActivities || rawActivities.length === 0) {
+  if (!pureRunningActivities || pureRunningActivities.length === 0) {
     alert('러닝 활동 데이터를 불러오지 못했습니다.');
     return;
   }
@@ -15,20 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Filter State
   let currentFilter = 'all'; // 'all', 'treadmill', 'outdoor'
 
-  // Update Badge Counts
-  const tmCount = rawActivities.filter(a => a.sub_sport === 'treadmill').length;
-  const odCount = rawActivities.filter(a => a.sub_sport !== 'treadmill').length;
-  document.getElementById('filter-count-all').textContent = `(${rawActivities.length})`;
-  document.getElementById('filter-count-tm').textContent = `(${tmCount})`;
-  document.getElementById('filter-count-od').textContent = `(${odCount})`;
+  // Update Badge Counts strictly for pure running
+  const tmRuns = pureRunningActivities.filter(a => a.sub_sport === 'treadmill');
+  const odRuns = pureRunningActivities.filter(a => a.sub_sport !== 'treadmill');
+  document.getElementById('filter-count-all').textContent = `(${pureRunningActivities.length})`;
+  document.getElementById('filter-count-tm').textContent = `(${tmRuns.length})`;
+  document.getElementById('filter-count-od').textContent = `(${odRuns.length})`;
 
   function getFilteredActivities() {
     if (currentFilter === 'treadmill') {
-      return rawActivities.filter(a => a.sub_sport === 'treadmill');
+      return tmRuns;
     } else if (currentFilter === 'outdoor') {
-      return rawActivities.filter(a => a.sub_sport !== 'treadmill');
+      return odRuns;
     }
-    return rawActivities;
+    return pureRunningActivities;
   }
 
   // 2. Tab Switching Logic
