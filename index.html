@@ -269,12 +269,25 @@
             <p>인스타 스토리(9:16) 규격의 감성 결산 카드를 원클릭으로 생성하고 다운로드하세요.</p>
           </div>
           <div class="studio-actions">
-            <button class="btn-theme active" data-theme="dark">Dark Tech</button>
-            <button class="btn-theme" data-theme="neon">Neon Cyber</button>
-            <button class="btn-theme" data-theme="minimal">Minimal White</button>
-            <button class="btn-primary" id="btn-download-card">
-              <i class="bi bi-download"></i> 인스타 카드 저장하기
-            </button>
+            <div class="theme-picker-group">
+              <button class="btn-theme-chip active" data-theme="dark" title="Dark Tech 테마">
+                <span class="chip-dot dot-dark"></span> 🌙 Dark
+              </button>
+              <button class="btn-theme-chip" data-theme="neon" title="Neon Cyber 테마">
+                <span class="chip-dot dot-neon"></span> ⚡ Cyber
+              </button>
+              <button class="btn-theme-chip" data-theme="minimal" title="Minimal White 테마">
+                <span class="chip-dot dot-minimal"></span> ☀️ White
+              </button>
+            </div>
+            <div class="studio-btn-group">
+              <button class="btn-primary" id="btn-share-card" title="인스타그램 스토리로 공유 또는 저장">
+                <i class="bi bi-instagram"></i> 스토리 공유
+              </button>
+              <button class="btn-secondary" id="btn-download-card" title="PNG 이미지 파일로 직접 다운로드">
+                <i class="bi bi-download"></i> 저장
+              </button>
+            </div>
           </div>
         </div>
 
@@ -400,31 +413,32 @@
           <div class="map-actions">
             <!-- Outdoor Activity Filter: Running Only vs Include Walking -->
             <div class="heatmap-sport-filter">
-              <button class="hm-filter-btn active" data-hm-filter="running" id="hm-filter-running">
-                <i class="bi bi-lightning-charge-fill"></i> 🏃 순수 러닝만
+              <button class="hm-filter-btn active" data-hm-filter="running" id="hm-filter-running" title="순수 야외 러닝 3개 코스만 표시">
+                <i class="bi bi-lightning-charge-fill"></i> 🏃 러닝 (3)
               </button>
-              <button class="hm-filter-btn" data-hm-filter="all" id="hm-filter-all">
-                <i class="bi bi-compass"></i> 전체 야외 궤적 (산책 포함)
+              <button class="hm-filter-btn" data-hm-filter="all" id="hm-filter-all" title="등산 및 산책 포함 5개 코스 전체 표시">
+                <i class="bi bi-compass"></i> 🚶 산책포함 (5)
               </button>
             </div>
 
             <!-- Theme Color Selector for Tracks -->
             <div class="track-color-picker">
-              <span class="tcp-label">트랙 네온 테마:</span>
-              <button class="tcp-btn active" data-color="#ff5722" style="background:#ff5722;" title="네온 오렌지 (Strava Fire)"></button>
-              <button class="tcp-btn" data-color="#00f2fe" style="background:#00f2fe;" title="사이버 시안 (Garmin Cyan)"></button>
-              <button class="tcp-btn" data-color="#00ff87" style="background:#00ff87;" title="일렉트릭 라임 (Electric Lime)"></button>
-              <button class="tcp-btn" data-color="#f43f5e" style="background:#f43f5e;" title="핫 핑크 (Hot Pink)"></button>
+              <span class="tcp-label">네온:</span>
+              <button class="tcp-btn active" data-color="#ff5722" style="background:#ff5722;" title="오렌지"></button>
+              <button class="tcp-btn" data-color="#00f2fe" style="background:#00f2fe;" title="시안"></button>
+              <button class="tcp-btn" data-color="#00ff87" style="background:#00ff87;" title="라임"></button>
+              <button class="tcp-btn" data-color="#f43f5e" style="background:#f43f5e;" title="핑크"></button>
             </div>
+
             <div class="map-quick-buttons">
               <button class="btn-ghost" id="btn-zoom-namyangju" title="남양주 러닝 코스로 이동">
-                <i class="bi bi-geo-alt"></i> 🏃 남양주 러닝
+                <i class="bi bi-geo-alt-fill"></i> 남양주
               </button>
               <button class="btn-ghost" id="btn-zoom-seoul" title="서울 하이킹/산책 코스로 이동">
-                <i class="bi bi-geo-alt"></i> ⛰️ 서울 산책
+                <i class="bi bi-geo-alt-fill"></i> 서울
               </button>
               <button class="btn-ghost active-ghost" id="btn-reset-map-zoom" title="전체 코스 한눈에 보기">
-                <i class="bi bi-aspect-ratio"></i> 전체 뷰
+                <i class="bi bi-aspect-ratio"></i> 전체
               </button>
             </div>
           </div>

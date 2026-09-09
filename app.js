@@ -80,11 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initSingleSession(currentList);
     initWeeklyRecap(currentList);
     initMonthlyRecap(currentList, currentFilter);
-    initRunningHeatmap(rawActivities); // Heatmap always has access to all outdoor GPS tracks
   }
 
   // Initial Render
   refreshAllViews();
+  initRunningHeatmap(allActivities); // Heatmap always has access to all outdoor GPS tracks
 
   // Reload Button
   document.getElementById('btn-reload')?.addEventListener('click', () => {
@@ -542,8 +542,8 @@ function initMonthlyRecap(activities, currentFilter) {
   document.getElementById('card-lsd').textContent = `${maxLsd.toFixed(2)} km (${lsdAct?.date?.slice(5) || '8/29'})`;
   document.getElementById('card-ef').textContent = `${avgEf.toFixed(3)} (${efGrowthPct >= 0 ? '+' : ''}${efGrowthPct.toFixed(1)}%)`;
 
-  // Theme switcher for Insta Card
-  const themeBtns = document.querySelectorAll('.btn-theme');
+  // Theme switcher for Insta Card (supports both chips and buttons)
+  const themeBtns = document.querySelectorAll('.btn-theme-chip, .btn-theme');
   const instaCard = document.getElementById('instaCard');
 
   themeBtns.forEach(btn => {
@@ -551,38 +551,113 @@ function initMonthlyRecap(activities, currentFilter) {
       themeBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const theme = btn.dataset.theme;
-      instaCard.className = `insta-card theme-${theme}`;
+      if (instaCard) {
+        instaCard.className = `insta-card theme-${theme}`;
+      }
     };
   });
 
-  // Download Card as PNG Image
+  // Helper: Render Insta Card Canvas
+  async function generateCardCanvas() {
+    return await html2canvas(instaCard, {
+      scale: 3,
+      useCORS: true,
+      backgroundColor: null
+    });
+  }
+
+  // Helper: Trigger Direct File Download
+  function triggerImageDownload(canvas) {
+    const link = document.createElement('a');
+    link.download = `RunAnalyz_August_Recap_${currentFilter}_${new Date().toISOString().slice(0, 10)}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }
+
+  // Smart Share Button (Web Share API for Mobile Instagram/AirDrop/Kakao + fallback)
+  const btnShare = document.getElementById('btn-share-card');
+  if (btnShare) {
+    btnShare.onclick = async () => {
+      const origHtml = btnShare.innerHTML;
+      btnShare.innerHTML = `<i class="bi bi-hourglass-split"></i> 생성 중...`;
+      btnShare.disabled = true;
+
+      try {
+        const canvas = await generateCardCanvas();
+
+        if (navigator.canShare) {
+          canvas.toBlob(async (blob) => {
+            if (!blob) {
+              triggerImageDownload(canvas);
+              resetShareBtn();
+              return;
+            }
+            const file = new File([blob], `RunAnalyz_Recap_${new Date().toISOString().slice(0, 10)}.png`, { type: 'image/png' });
+            if (navigator.canShare({ files: [file] })) {
+              try {
+                await navigator.share({
+                  files: [file],
+                  title: 'RunAnalyz 8월 러닝 결산',
+                  text: 'RunAnalyz 러닝 대시보드에서 생성된 8월 러닝 결산 카드입니다.'
+                });
+                btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> 공유 완료!`;
+              } catch (shareErr) {
+                if (shareErr.name !== 'AbortError') {
+                  triggerImageDownload(canvas);
+                  btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> 저장 완료!`;
+                } else {
+                  btnShare.innerHTML = origHtml;
+                  btnShare.disabled = false;
+                  return;
+                }
+              }
+            } else {
+              triggerImageDownload(canvas);
+              btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> 저장 완료!`;
+            }
+            resetShareBtn();
+          }, 'image/png');
+        } else {
+          triggerImageDownload(canvas);
+          btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> 저장 완료!`;
+          resetShareBtn();
+        }
+      } catch (err) {
+        console.error('Card export error:', err);
+        alert('카드 이미지 생성 중 오류가 발생했습니다.');
+        resetShareBtn();
+      }
+
+      function resetShareBtn() {
+        setTimeout(() => {
+          btnShare.innerHTML = origHtml;
+          btnShare.disabled = false;
+        }, 2000);
+      }
+    };
+  }
+
+  // Dedicated Direct Download Button
   const btnDownload = document.getElementById('btn-download-card');
   if (btnDownload) {
-    btnDownload.onclick = () => {
-      btnDownload.innerHTML = `<i class="bi bi-hourglass-split"></i> 렌더링 중...`;
+    btnDownload.onclick = async () => {
+      const origHtml = btnDownload.innerHTML;
+      btnDownload.innerHTML = `<i class="bi bi-hourglass-split"></i>`;
       btnDownload.disabled = true;
 
-      html2canvas(instaCard, {
-        scale: 3,
-        useCORS: true,
-        backgroundColor: null
-      }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = `RunAnalyz_August_Recap_${currentFilter}_${new Date().toISOString().slice(0, 10)}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-
-        btnDownload.innerHTML = `<i class="bi bi-check-circle-fill"></i> 저장 완료!`;
+      try {
+        const canvas = await generateCardCanvas();
+        triggerImageDownload(canvas);
+        btnDownload.innerHTML = `<i class="bi bi-check-circle-fill"></i>`;
+      } catch (err) {
+        console.error('Download error:', err);
+        alert('카드 이미지 저장 중 오류가 발생했습니다.');
+      } finally {
         setTimeout(() => {
-          btnDownload.innerHTML = `<i class="bi bi-download"></i> 인스타 카드 저장하기`;
+          btnDownload.innerHTML = origHtml;
           btnDownload.disabled = false;
         }, 2000);
-      }).catch(err => {
-        console.error('Card export error:', err);
-        alert('카드 이미지 저장 중 오류가 발생했습니다.');
-        btnDownload.innerHTML = `<i class="bi bi-download"></i> 인스타 카드 저장하기`;
-        btnDownload.disabled = false;
-      });
+      }
     };
   }
 }
