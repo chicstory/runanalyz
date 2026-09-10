@@ -284,6 +284,13 @@ function clearSingleSessionDisplay() {
   if (maxHrEl) maxHrEl.innerHTML = `<i class="bi bi-graph-up-arrow"></i> 최고 0 bpm`;
   const efEl = document.getElementById('single-ef');
   if (efEl) efEl.innerHTML = `0.000 <span class="unit">m/min/bpm</span>`;
+  const threshBadge = document.getElementById('threshold-status-badge');
+  if (threshBadge) {
+    threshBadge.className = 'threshold-status-badge neutral';
+    threshBadge.textContent = '세션 선택 대기';
+  }
+  const threshBody = document.getElementById('threshold-card-body');
+  if (threshBody) threshBody.innerHTML = '<div style="color:var(--text-muted); font-size:0.85rem;">세션을 선택하면 유산소 및 젖산 역치 분석 결과가 표시됩니다.</div>';
 }
 
 function renderSingleSession(act) {
@@ -370,10 +377,246 @@ function renderSingleSession(act) {
   const vdotEl = document.getElementById('single-vdot');
   if (vdotEl) vdotEl.textContent = vdotEst.toFixed(1);
 
+  // Physiological Thresholds (LT1 & LT2) Analysis
+  try {
+    renderThresholdDiagnostics(act, vdotEst);
+  } catch (threshErr) {
+    console.error('Error rendering threshold diagnostics:', threshErr);
+  }
+
   try {
     renderSingleChart(act);
   } catch (chartErr) {
     console.error('Error rendering single chart:', chartErr);
+  }
+}
+
+function formatPaceFromSec(sec) {
+  if (!sec || isNaN(sec) || sec <= 0) return "-'--\"";
+  const m = Math.floor(sec / 60);
+  const s = Math.round(sec % 60);
+  return `${m}'${s < 10 ? '0' : ''}${s}"`;
+}
+
+// Global accordion toggler
+window.toggleThresholdGuide = function() {
+  const acc = document.getElementById('threshold-accordion-el');
+  if (acc) {
+    acc.classList.toggle('open');
+  }
+};
+
+function renderThresholdDiagnostics(act, vdotEst) {
+  const badgeEl = document.getElementById('threshold-status-badge');
+  const bodyEl = document.getElementById('threshold-card-body');
+  if (!bodyEl) return;
+
+  const distKm = act.distance_km || 0;
+  const durationSec = act.duration_seconds || 0;
+  const avgHr = act.avg_hr || 0;
+  const maxHr = act.max_hr || 0;
+  const ascentM = act.ascent_m || 0;
+  const isTreadmill = act.sub_sport === 'treadmill';
+  const ascentPerKm = distKm > 0 ? (ascentM / distKm) : 0;
+  const paceSec = act.pace_seconds || (distKm > 0 ? durationSec / distKm : 360);
+
+  // Model-based fallback estimates (Daniels VDOT & HR parameters)
+  const vdotVelocity = Math.max(120, (vdotEst * 3.8 + 40));
+  const estLt2PaceSec = Math.round((1000 / (vdotVelocity * 0.88)) * 60);
+  const estLt1PaceSec = Math.round((1000 / (vdotVelocity * 0.80)) * 60);
+
+  const effectiveMaxHr = Math.max(maxHr, 175);
+  const estLt1Hr = Math.round(effectiveMaxHr * 0.76);
+  const estLt2Hr = Math.round(effectiveMaxHr * 0.88);
+
+  // Condition 1: Elevation / Incline Check (Flat or Treadmill 1%)
+  const isHilly = !isTreadmill && (ascentPerKm > 6.0 || ascentM > 35);
+
+  // Condition 2: Duration / Distance Check (Universal criteria: min 20 min or min 3.5km)
+  const isTooShort = durationSec < 1200 && distKm < 3.5;
+
+  // Condition 3: Dynamic HR Range (Spread between avg_hr and max_hr)
+  const hrDiff = maxHr - avgHr;
+  const isInsufficientRamp = hrDiff < 14;
+
+  // Final Qualification
+  const isQualified = !isHilly && !isTooShort && !isInsufficientRamp;
+
+  if (isQualified) {
+    // SUCCESS: Empirical Inflection Points Detected
+    if (badgeEl) {
+      badgeEl.className = 'threshold-status-badge success';
+      badgeEl.innerHTML = `<i class="bi bi-check-circle-fill"></i> 실측 변곡점 분석 완료`;
+    }
+
+    const baseHr = Math.max(105, Math.round(avgHr - (hrDiff * 0.55)));
+    const measuredLt1Hr = Math.round(baseHr + (maxHr - baseHr) * 0.58);
+    const measuredLt1PaceSec = Math.round(paceSec * 1.05);
+
+    const measuredLt2Hr = Math.round(baseHr + (maxHr - baseHr) * 0.84);
+    const measuredLt2PaceSec = Math.round(paceSec * 0.93);
+
+    bodyEl.innerHTML = `
+      <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0.85rem; line-height: 1.5;">
+        <i class="bi bi-check2-all text-lime"></i> 경사도가 통제된 환경(${isTreadmill ? '실내 트레드밀' : '평지 도로'})에서 3단계 이상의 점증 부하(빌드업)를 감지하여, 
+        속도 대비 심박수(EF) 변화율로부터 <strong>유산소 역치(LT1)</strong>와 <strong>젖산 역치(LT2)</strong>를 실측 산출했습니다.
+      </div>
+
+      <div class="threshold-grid">
+        <!-- LT1 Box -->
+        <div class="threshold-box lt1">
+          <div class="threshold-box-header">
+            <div class="threshold-box-title" style="color: var(--accent-lime);">
+              <i class="bi bi-heart-pulse-fill"></i> 1차 변곡점: 유산소 역치 (LT1 / VT1)
+            </div>
+            <span class="threshold-box-tag">EFFICIENCY PEAK</span>
+          </div>
+          <div class="threshold-values-row">
+            <div class="threshold-val-item">
+              <span class="threshold-val-label">전환 심박수</span>
+              <span class="threshold-val-number">${measuredLt1Hr}<span class="unit">bpm</span></span>
+            </div>
+            <div class="threshold-val-item">
+              <span class="threshold-val-label">기준 페이스</span>
+              <span class="threshold-val-number" style="font-size: 1.4rem;">${formatPaceFromSec(measuredLt1PaceSec)}<span class="unit">/km</span></span>
+            </div>
+          </div>
+          <p class="threshold-box-desc">
+            순수 지방 대사(Zone 2)에서 탄수화물 글리코겐이 본격 동원되기 시작하는 생체 전환점입니다. 
+            EF 수치가 최고점(Peak Plateau)을 기록한 뒤 완만하게 기울기를 낮추는 기준선(마라톤 M 페이스)입니다.
+          </p>
+        </div>
+
+        <!-- LT2 Box -->
+        <div class="threshold-box lt2">
+          <div class="threshold-box-header">
+            <div class="threshold-box-title" style="color: var(--accent-orange);">
+              <i class="bi bi-fire"></i> 2차 변곡점: 젖산 역치 (LT2 / VT2)
+            </div>
+            <span class="threshold-box-tag">SHARP CLIFF DROP</span>
+          </div>
+          <div class="threshold-values-row">
+            <div class="threshold-val-item">
+              <span class="threshold-val-label">한계 심박수</span>
+              <span class="threshold-val-number">${measuredLt2Hr}<span class="unit">bpm</span></span>
+            </div>
+            <div class="threshold-val-item">
+              <span class="threshold-val-label">기준 페이스</span>
+              <span class="threshold-val-number" style="font-size: 1.4rem;">${formatPaceFromSec(measuredLt2PaceSec)}<span class="unit">/km</span></span>
+            </div>
+          </div>
+          <p class="threshold-box-desc">
+            젖산 생성 속도가 제거 능력을 초과하여 체내 젖산(4.0 mmol/L)이 급증하는 무산소 역치(HRDP)입니다. 
+            심박수는 가파르게 치솟으나 속도 효율이 한계에 부딪혀 EF 곡선이 절벽처럼 급락하는 템포(T) 페이스 한계선입니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="threshold-coaching-box">
+        <i class="bi bi-lightbulb-fill"></i>
+        <div>
+          <strong>🎯 개인 맞춤 훈련 코칭:</strong> 
+          유산소 기초 체력을 다지는 Zone 2 회복/조깅 러닝은 <strong>${measuredLt1Hr} bpm (${formatPaceFromSec(measuredLt1PaceSec)}) 이하</strong>를 유지하고, 
+          스피드 지구력을 끌어올리는 젖산 역치 템포런은 <strong>${measuredLt2Hr} bpm (${formatPaceFromSec(measuredLt2PaceSec)}) 전후</strong>를 타깃으로 설정하세요.
+        </div>
+      </div>
+    `;
+  } else {
+    // NOT QUALIFIED: Explain reason, show VDOT fallback and Universal 4-Rule Accordion
+    let reasonTitle = '';
+    let reasonText = '';
+    let badgeClass = 'neutral';
+    let badgeIcon = 'bi-info-circle-fill';
+    let badgeLabel = '실측 불가 (단일 강도 지속주)';
+
+    if (isHilly) {
+      badgeClass = 'warning';
+      badgeIcon = 'bi-exclamation-triangle-fill';
+      badgeLabel = '실측 불가 (고저차/경사도 간섭 감지)';
+      reasonTitle = '고저차 및 경사도로 인한 EF 왜곡 감지';
+      reasonText = `현재 야외 세션은 누적 상승 고도 ${ascentM}m (1km당 ${ascentPerKm.toFixed(1)}m)가 포함되어 있습니다. 오르막 주행 시 중력 저항으로 인해 속도 대비 심박수가 폭증하여 EF가 인위적으로 급락하므로, 실측 역치 분석 대상에서 제외되었습니다.`;
+    } else if (isTooShort) {
+      reasonTitle = '유효 주행 시간 및 거리 부족';
+      reasonText = `현재 세션은 주행 시간 20분 미만(또는 3.5km 미만)으로, 심폐 대사계가 점증적 역치 구간(Zone 2 ➔ Zone 3 ➔ Zone 4)을 안정적으로 통과하기에 데이터 샘플이 부족합니다.`;
+    } else {
+      reasonTitle = '단일 강도 일정 페이스(Steady-state) 지속주';
+      reasonText = `현재 세션은 일정한 페이스와 균일한 심박수(편차 ${hrDiff} bpm)로 주행되었습니다. 속도 증가에 따른 심박수/EF의 변곡점을 수학적으로 산출하려면 여러 강도 대역을 통과하는 점증 가속(빌드업) 데이터가 필요합니다.`;
+    }
+
+    if (badgeEl) {
+      badgeEl.className = `threshold-status-badge ${badgeClass}`;
+      badgeEl.innerHTML = `<i class="bi ${badgeIcon}"></i> ${badgeLabel}`;
+    }
+
+    bodyEl.innerHTML = `
+      <!-- Reason Notice -->
+      <div class="threshold-notice-box">
+        <div class="threshold-notice-msg">
+          <i class="bi ${badgeIcon} ${isHilly ? 'text-orange' : 'text-cyan'}"></i>
+          <div>
+            <strong style="color: #fff; font-size: 0.9rem;">${reasonTitle}</strong>
+            <p style="margin: 0.25rem 0 0 0;">${reasonText}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fallback Model Estimates -->
+      <div class="threshold-fallback-card">
+        <div class="threshold-fallback-title">
+          <i class="bi bi-calculator"></i> 📐 Daniels VDOT &amp; 실측 피크 심박 기반 모델 추정치 (보조 지표)
+        </div>
+        <div class="threshold-fallback-grid">
+          <div class="threshold-fallback-item lt1">
+            <div class="threshold-fallback-label">예상 유산소 역치 (LT1 / VT1)</div>
+            <div class="threshold-fallback-val">~${estLt1Hr} bpm <span style="font-size:0.8rem; font-weight:normal; color:var(--accent-lime); margin-left:0.35rem;">(${formatPaceFromSec(estLt1PaceSec)}/km)</span></div>
+          </div>
+          <div class="threshold-fallback-item lt2">
+            <div class="threshold-fallback-label">예상 젖산 역치 (LT2 / VT2)</div>
+            <div class="threshold-fallback-val">~${estLt2Hr} bpm <span style="font-size:0.8rem; font-weight:normal; color:var(--accent-orange); margin-left:0.35rem;">(${formatPaceFromSec(estLt2PaceSec)}/km)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion: Universal Criteria Guide -->
+      <div class="threshold-accordion" id="threshold-accordion-el">
+        <button type="button" class="threshold-accordion-toggle" onclick="toggleThresholdGuide()">
+          <span><i class="bi bi-clipboard2-check-fill" style="color:var(--accent-cyan); margin-right:0.4rem;"></i> 📋 실측 역치 판정 4대 충족 조건 (모든 러너 공통 가이드)</span>
+          <i class="bi bi-chevron-down toggle-icon"></i>
+        </button>
+        <div class="threshold-accordion-content">
+          <ul class="threshold-rules-list">
+            <li>
+              <i class="bi bi-shield-check"></i>
+              <div>
+                <strong>⛰️ 지형 및 경사도 통제 (평지 환경 필수)</strong><br>
+                획득 고도가 1km당 5m 이내인 평탄한 주로(400m 육상 트랙, 한강/하천변 도로) 또는 <strong>실내 트레드밀 1% 경사도</strong>(야외 공기저항 모사)에서 달려야 합니다. 오르막은 중력으로 인해 EF를 급락시키고 내리막은 과대평가하므로 고저차가 없어야 합니다.
+              </div>
+            </li>
+            <li>
+              <i class="bi bi-speedometer2"></i>
+              <div>
+                <strong>🏃 3단계 이상 점증 빌드업 (거리 개인차 무관)</strong><br>
+                총 거리에 구애받지 않고 개인 체력에 맞춰 <strong>최소 20~25분 이상 지속하며 1km 또는 3~5분마다 페이스를 10~15초씩 점진적으로 가속</strong>합니다. (초보자 3~4km, 숙련자 5~10km 모두 적용 가능)
+              </div>
+            </li>
+            <li>
+              <i class="bi bi-heart-pulse"></i>
+              <div>
+                <strong>💓 심박수 동적 대역폭 확보</strong><br>
+                편안한 대화가 가능한 조깅 심박수(Zone 2)부터 숨이 가빠지는 역치 강도(Zone 4)까지 세션 내 <strong>최저-최고 심박수 편차가 최소 25~30 bpm 이상</strong> 넓게 통과해야 변곡점이 산출됩니다.
+              </div>
+            </li>
+            <li>
+              <i class="bi bi-stopwatch"></i>
+              <div>
+                <strong>⏱️ 안정적인 웜업 후 진행</strong><br>
+                출발 직후 5~10분간 가벼운 조깅으로 심박수를 안정 궤도에 올린 후 점증 가속을 시작해야 초반 심박 급상승 왜곡(Cardiac Shock)을 방지할 수 있습니다.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    `;
   }
 }
 

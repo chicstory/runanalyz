@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20260910_v15">
+  <link rel="stylesheet" href="style.css?v=20260911_v1">
 </head>
 <body>
   <div class="app-container">
@@ -230,6 +230,19 @@
               <span class="dyn-val text-cyan" id="single-vdot">0.0</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Physiological Threshold Diagnostics Card (LT1 & LT2) -->
+      <div class="card detail-card threshold-card" id="threshold-diagnostics-card">
+        <div class="card-header threshold-header">
+          <div class="card-title">
+            <i class="bi bi-cpu-fill" style="color:var(--accent-cyan);"></i> 유산소 역치(LT1) &amp; 젖산 역치(LT2) 생체 진단
+          </div>
+          <span class="threshold-status-badge" id="threshold-status-badge">분석 중...</span>
+        </div>
+        <div class="threshold-card-body" id="threshold-card-body">
+          <!-- Populated dynamically by app.js -->
         </div>
       </div>
 
@@ -556,8 +569,8 @@
 
   </div>
 
-  <script src="garmin_all_activities.js?v=20260910_v14"></script>
-  <script src="activities_data.js?v=20260910_v14"></script>
-  <script src="app.js?v=20260910_v14"></script>
+  <script src="garmin_all_activities.js?v=20260911_v1"></script>
+  <script src="activities_data.js?v=20260911_v1"></script>
+  <script src="app.js?v=20260911_v1"></script>
 </body>
 </html>

@@ -735,6 +735,332 @@ body {
 .text-lime { color: var(--accent-lime) !important; }
 .text-purple { color: var(--accent-purple) !important; }
 
+/* ---------------- Threshold Diagnostics Card ---------------- */
+.threshold-card {
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(18, 26, 44, 0.9));
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+}
+
+.threshold-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.threshold-status-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 0.7rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.threshold-status-badge.success {
+  background: rgba(16, 185, 129, 0.18);
+  color: var(--accent-lime);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.threshold-status-badge.warning {
+  background: rgba(245, 158, 11, 0.18);
+  color: var(--accent-yellow);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.threshold-status-badge.neutral {
+  background: rgba(148, 163, 184, 0.15);
+  color: var(--text-secondary);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.threshold-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 0.75rem;
+}
+
+.threshold-box {
+  background: rgba(11, 17, 32, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.threshold-box:hover {
+  transform: translateY(-2px);
+}
+
+.threshold-box.lt1 {
+  border-left: 4px solid var(--accent-lime);
+}
+
+.threshold-box.lt2 {
+  border-left: 4px solid var(--accent-orange);
+}
+
+.threshold-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.4rem;
+}
+
+.threshold-box-title {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.threshold-box-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.threshold-values-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+}
+
+.threshold-val-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.threshold-val-label {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.threshold-val-number {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.threshold-box.lt1 .threshold-val-number {
+  color: var(--accent-lime);
+}
+
+.threshold-box.lt2 .threshold-val-number {
+  color: var(--accent-orange);
+}
+
+.threshold-val-number .unit {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-left: 0.15rem;
+}
+
+.threshold-box-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.threshold-coaching-box {
+  margin-top: 1rem;
+  background: rgba(0, 242, 254, 0.05);
+  border: 1px dashed rgba(0, 242, 254, 0.25);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.1rem;
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.threshold-coaching-box i {
+  color: var(--accent-cyan);
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+/* Notice box when unable to determine */
+.threshold-notice-box {
+  background: rgba(11, 17, 32, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.threshold-notice-msg {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.threshold-notice-msg i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* Fallback Estimates */
+.threshold-fallback-card {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.threshold-fallback-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.threshold-fallback-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.threshold-fallback-item {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--text-muted);
+}
+
+.threshold-fallback-item.lt1 {
+  border-left-color: var(--accent-lime);
+}
+
+.threshold-fallback-item.lt2 {
+  border-left-color: var(--accent-orange);
+}
+
+.threshold-fallback-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 0.2rem;
+}
+
+.threshold-fallback-val {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Accordion Test Guide */
+.threshold-accordion {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.4);
+}
+
+.threshold-accordion-toggle {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: none;
+  color: var(--text-primary);
+  padding: 0.85rem 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.threshold-accordion-toggle:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.threshold-accordion-toggle .toggle-icon {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: transform 0.3s ease;
+}
+
+.threshold-accordion.open .threshold-accordion-toggle .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.threshold-accordion-content {
+  display: none;
+  padding: 1rem 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.threshold-accordion.open .threshold-accordion-content {
+  display: block;
+}
+
+.threshold-rules-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+}
+
+.threshold-rules-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.threshold-rules-list li i {
+  color: var(--accent-cyan);
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.threshold-rules-list strong {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .threshold-grid, .threshold-fallback-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---------------- Chart Card ---------------- */
 .chart-card {
   margin-bottom: 1.5rem;
