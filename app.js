@@ -1252,56 +1252,13 @@ function initRunningHeatmap(activities) {
     };
   });
 
-  // Reset Zoom Button
+  // Reset Zoom Button (Fit all current routes in view)
   const btnResetZoom = document.getElementById('btn-reset-map-zoom');
   if (btnResetZoom) {
     btnResetZoom.onclick = () => {
-      document.querySelectorAll('.map-quick-buttons .btn-ghost').forEach(b => b.classList.remove('active-ghost'));
       btnResetZoom.classList.add('active-ghost');
       if (window.heatmapAllBounds) {
         window.leafletMap.fitBounds(window.heatmapAllBounds, { padding: [40, 40], maxZoom: 16 });
-      }
-    };
-  }
-
-  // Quick Zoom: Namyangju Outdoor Runs
-  const btnZoomNamyangju = document.getElementById('btn-zoom-namyangju');
-  if (btnZoomNamyangju) {
-    btnZoomNamyangju.onclick = () => {
-      document.querySelectorAll('.map-quick-buttons .btn-ghost').forEach(b => b.classList.remove('active-ghost'));
-      btnZoomNamyangju.classList.add('active-ghost');
-      const allGps = activities.filter(a => a.has_gps && a.gps_points && a.gps_points.length > 0);
-      const namyangjuRuns = allGps.filter(a => {
-        const pt = a.gps_points[0];
-        return pt && pt[0] >= 37.60 && pt[0] <= 37.75 && pt[1] >= 127.15 && pt[1] <= 127.40;
-      });
-      if (namyangjuRuns.length > 0) {
-        let b = L.latLngBounds(namyangjuRuns[0].gps_points);
-        namyangjuRuns.forEach(r => b.extend(r.gps_points));
-        window.leafletMap.flyToBounds(b, { padding: [40, 40], maxZoom: 15, duration: 1.2 });
-      } else {
-        window.leafletMap.flyTo([37.669, 127.304], 14, { duration: 1.2 });
-      }
-    };
-  }
-
-  // Quick Zoom: Seoul Hiking/Walking
-  const btnZoomSeoul = document.getElementById('btn-zoom-seoul');
-  if (btnZoomSeoul) {
-    btnZoomSeoul.onclick = () => {
-      document.querySelectorAll('.map-quick-buttons .btn-ghost').forEach(b => b.classList.remove('active-ghost'));
-      btnZoomSeoul.classList.add('active-ghost');
-      const allGps = activities.filter(a => a.has_gps && a.gps_points && a.gps_points.length > 0);
-      const seoulActs = allGps.filter(a => {
-        const pt = a.gps_points[0];
-        return pt && pt[0] >= 37.45 && pt[0] <= 37.65 && pt[1] >= 126.85 && pt[1] <= 127.12;
-      });
-      if (seoulActs.length > 0) {
-        let b = L.latLngBounds(seoulActs[0].gps_points);
-        seoulActs.forEach(r => b.extend(r.gps_points));
-        window.leafletMap.flyToBounds(b, { padding: [40, 40], maxZoom: 15, duration: 1.2 });
-      } else {
-        window.leafletMap.flyTo([37.566, 126.978], 13, { duration: 1.2 });
       }
     };
   }

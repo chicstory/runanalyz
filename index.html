@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20260910_v12">
+  <link rel="stylesheet" href="style.css?v=20260910_v13">
 </head>
 <body>
   <div class="app-container">
@@ -499,13 +499,13 @@
             <i class="bi bi-compass-fill"></i> 글로벌 다크 러닝 맵 (국내외 자유 탐색)
           </div>
           <div class="map-actions">
-            <!-- Outdoor Activity Filter: Running Only vs Include Walking -->
+            <!-- Outdoor Activity Filter: Running vs All Activities -->
             <div class="heatmap-sport-filter">
-              <button class="hm-filter-btn active" data-hm-filter="running" id="hm-filter-running" title="순수 야외 러닝 3개 코스만 표시">
-                <i class="bi bi-lightning-charge-fill"></i> 🏃 러닝 (3)
+              <button class="hm-filter-btn active" data-hm-filter="running" id="hm-filter-running" title="순수 야외 러닝 코스만 표시">
+                <i class="bi bi-lightning-charge-fill text-orange"></i> 🏃 러닝
               </button>
-              <button class="hm-filter-btn" data-hm-filter="all" id="hm-filter-all" title="등산 및 산책 포함 5개 코스 전체 표시">
-                <i class="bi bi-compass"></i> 🚶 산책포함 (5)
+              <button class="hm-filter-btn" data-hm-filter="all" id="hm-filter-all" title="야외 전체 활동(등산·산책 포함) 코스 표시">
+                <i class="bi bi-globe2 text-cyan"></i> 🌐 전체 활동
               </button>
             </div>
 
@@ -519,14 +519,8 @@
             </div>
 
             <div class="map-quick-buttons">
-              <button class="btn-ghost" id="btn-zoom-namyangju" title="남양주 러닝 코스로 이동">
-                <i class="bi bi-geo-alt-fill"></i> 남양주
-              </button>
-              <button class="btn-ghost" id="btn-zoom-seoul" title="서울 하이킹/산책 코스로 이동">
-                <i class="bi bi-geo-alt-fill"></i> 서울
-              </button>
-              <button class="btn-ghost active-ghost" id="btn-reset-map-zoom" title="전체 코스 한눈에 보기">
-                <i class="bi bi-aspect-ratio"></i> 전체
+              <button class="btn-ghost active-ghost" id="btn-reset-map-zoom" title="현재 코스 전체 한눈에 보기">
+                <i class="bi bi-arrows-fullscreen"></i> 코스 전체 보기
               </button>
             </div>
           </div>
@@ -562,8 +556,8 @@
 
   </div>
 
-  <script src="garmin_all_activities.js?v=20260910_v11"></script>
-  <script src="activities_data.js?v=20260910_v11"></script>
-  <script src="app.js?v=20260910_v11"></script>
+  <script src="garmin_all_activities.js?v=20260910_v13"></script>
+  <script src="activities_data.js?v=20260910_v13"></script>
+  <script src="app.js?v=20260910_v13"></script>
 </body>
 </html>
