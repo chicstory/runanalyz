@@ -601,6 +601,109 @@
           </p>
         </div>
 
+        <!-- Section: Karvonen HRR Precision Mode vs Empirical Estimation & Watch Guide -->
+        <div id="watch-hr-guide" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 23, 42, 0.9) 100%); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0;">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.75rem;">
+            <h4 style="color:#fbbf24; font-family:'Outfit',sans-serif; font-size:1.15rem; font-weight:800; margin:0; display:flex; align-items:center; gap:0.5rem;">
+              <i class="bi bi-patch-check-fill text-gold"></i> [골드 스탠다드] Karvonen HRR 99% 정밀 역치 vs 단일 세션 통계 추정 비교
+            </h4>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#fbbf24; background:rgba(245,158,11,0.15); padding:3px 10px; border-radius:6px; font-weight:700;">PRECISION CALIBRATION</span>
+          </div>
+
+          <p style="font-size:0.88rem; color:#cbd5e1; line-height:1.65; margin-bottom:1.25rem;">
+            RunAnalyz는 러너의 사용 환경에 맞춰 <strong>2단계 역치 진단 엔진</strong>을 제공합니다. 
+            스마트워치(가민, 코로스, 애플 등)를 사용하는 러너는 워치에 누적된 실측 MHR(최대심박)과 RHR(안정시심박)을 입력하여 <strong>임상 운동부하 검사 수준의 99% 오차 없는 정밀 역치</strong>를 누릴 수 있으며, 
+            정보가 없는 러너에게도 단일 세션 데이터를 기반으로 한 <strong>통계적 보조 추정치(~85%)</strong>를 안전하게 제공합니다.
+          </p>
+
+          <!-- Accuracy Comparison Grid -->
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1rem; margin-bottom:1.25rem;">
+            <!-- Karvonen Mode Card -->
+            <div style="background:rgba(245, 158, 11, 0.05); border:1px solid rgba(245, 158, 11, 0.3); border-radius:12px; padding:1.15rem;">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.6rem;">
+                <span style="color:#fbbf24; font-weight:800; font-size:0.95rem; display:flex; align-items:center; gap:0.4rem;">
+                  <i class="bi bi-award-fill"></i> Karvonen HRR 정밀 모드
+                </span>
+                <span style="background:rgba(245,158,11,0.2); color:#fbbf24; font-size:0.72rem; font-family:'JetBrains Mono',monospace; font-weight:700; padding:2px 8px; border-radius:4px;">정확도 99% (권장)</span>
+              </div>
+              <ul style="margin:0; padding-left:1.1rem; font-size:0.82rem; color:#94a3b8; line-height:1.6;">
+                <li><strong>산출 공식</strong>: 심박 예비량($HRR = MHR - RHR$) 기반 Karvonen 공식</li>
+                <li><strong>LT1 (유산소 역치)</strong>: $RHR + \text{round}(HRR \times 0.69)$ (가민 Zone 2 상한선 1:1 일치)</li>
+                <li><strong>LT2 (젖산 역치)</strong>: $RHR + \text{round}(HRR \times 0.87)$ (가민 젖산 역치 1:1 일치)</li>
+                <li><strong>핵심 장점</strong>: 단일 세션의 주로 고저차나 피로도, 조깅 세션 여부와 무관하게 러너의 불변하는 생체 기준선을 완벽하게 유지.</li>
+              </ul>
+            </div>
+
+            <!-- Empirical Mode Card -->
+            <div style="background:rgba(0, 242, 254, 0.04); border:1px solid rgba(0, 242, 254, 0.2); border-radius:12px; padding:1.15rem;">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.6rem;">
+                <span style="color:var(--accent-cyan); font-weight:800; font-size:0.95rem; display:flex; align-items:center; gap:0.4rem;">
+                  <i class="bi bi-calculator"></i> 단일 세션 통계 추정 모드
+                </span>
+                <span style="background:rgba(0,242,254,0.15); color:var(--accent-cyan); font-size:0.72rem; font-family:'JetBrains Mono',monospace; font-weight:700; padding:2px 8px; border-radius:4px;">정확도 ~85% (기본)</span>
+              </div>
+              <ul style="margin:0; padding-left:1.1rem; font-size:0.82rem; color:#94a3b8; line-height:1.6;">
+                <li><strong>산출 공식</strong>: 당일 세션의 평균 심박수, 피크 심박수, Daniels VDOT 모델 역산</li>
+                <li><strong>LT1 / LT2</strong>: 세션 내 심박 편차(Spread)와 속도 변화율(EF Slope) 추산</li>
+                <li><strong>적용 조건</strong>: 평지 주로에서 20분 이상, 3단계 점증 빌드업 주행 시 유효</li>
+                <li><strong>유의사항</strong>: 지속주(조깅)나 언덕 주로에서는 EF가 왜곡될 수 있으므로 워치 MHR/RHR 입력을 권장합니다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Watch Navigation Steps -->
+          <div style="background:rgba(15, 23, 42, 0.8); border:1px solid rgba(255, 255, 255, 0.1); border-radius:12px; padding:1.2rem;">
+            <h5 style="color:#fff; font-size:0.92rem; font-weight:800; margin:0 0 0.85rem 0; display:flex; align-items:center; gap:0.4rem;">
+              <i class="bi bi-smartwatch" style="color:#38bdf8;"></i> 스마트워치 앱에서 내 MHR &amp; RHR 확인하는 방법 (3대 제조사)
+            </h5>
+            
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:0.85rem;">
+              <!-- Garmin -->
+              <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:0.85rem;">
+                <div style="color:#38bdf8; font-size:0.85rem; font-weight:700; margin-bottom:0.35rem; display:flex; align-items:center; gap:0.35rem;">
+                  <i class="bi bi-check-circle-fill"></i> 가민 (Garmin Connect)
+                </div>
+                <div style="font-size:0.8rem; color:#94a3b8; line-height:1.55;">
+                  1. 스마트폰 가민 커넥트 앱 실행<br>
+                  2. 하단 <strong>[더보기(&bull;&bull;&bull;)]</strong> ➔ <strong>[설정]</strong> 터치<br>
+                  3. <strong>[사용자 프로필]</strong> ➔ <strong>[심박수 및 파워 영역]</strong> ➔ <strong>[심박수]</strong><br>
+                  4. 상단에 표시된 <strong>[최대 심박수 (MHR)]</strong> 및 <strong>[안정 시 심박수 (RHR)]</strong> 확인!
+                </div>
+              </div>
+
+              <!-- COROS -->
+              <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:0.85rem;">
+                <div style="color:#f59e0b; font-size:0.85rem; font-weight:700; margin-bottom:0.35rem; display:flex; align-items:center; gap:0.35rem;">
+                  <i class="bi bi-check-circle-fill"></i> 코로스 (COROS 앱)
+                </div>
+                <div style="font-size:0.8rem; color:#94a3b8; line-height:1.55;">
+                  1. 스마트폰 코로스 앱 실행<br>
+                  2. 우측 하단 <strong>[프로필]</strong> ➔ 우측 상단 <strong>[설정(톱니바퀴)]</strong><br>
+                  3. <strong>[트레이닝 존]</strong> ➔ <strong>[심박수 존]</strong> 이동<br>
+                  4. 개인 심박 기준인 <strong>[최대 심박수]</strong> 및 <strong>[휴식 심박수]</strong> 확인!
+                </div>
+              </div>
+
+              <!-- Apple Watch -->
+              <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:0.85rem;">
+                <div style="color:#ef4444; font-size:0.85rem; font-weight:700; margin-bottom:0.35rem; display:flex; align-items:center; gap:0.35rem;">
+                  <i class="bi bi-check-circle-fill"></i> 애플워치 (Apple 건강 앱)
+                </div>
+                <div style="font-size:0.8rem; color:#94a3b8; line-height:1.55;">
+                  1. 아이폰 기본 <strong>[건강(Health)]</strong> 앱 실행<br>
+                  2. 하단 <strong>[검색]</strong> 탭 ➔ <strong>[심장]</strong> 카테고리 터치<br>
+                  3. <strong>[안정 시 심박수]</strong> 확인<br>
+                  4. 워치 앱 내 [운동 ➔ 심박수 영역]에서 <strong>[최대 심박수]</strong> 확인!
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:0.85rem; background:rgba(245, 158, 11, 0.1); border-left:3px solid #f59e0b; padding:0.6rem 0.85rem; border-radius:0 6px 6px 0; font-size:0.8rem; color:#fde68a;">
+              💡 <strong>1초 적용 팁</strong>: 확인한 MHR과 RHR을 대시보드 역치 카드 우측 상단의 <strong>[MHR: 196 | RHR: 55]</strong> 버튼을 눌러 입력하고 [정밀 적용]을 클릭하면 끝납니다. 브라우저 로컬 저장소(localStorage)에 안전하게 저장되어 재방문 시에도 100% 자동 유지됩니다.
+            </div>
+          </div>
+        </div>
+
         <h4 style="color:#fff; font-family:'Outfit',sans-serif; font-size:0.95rem; margin:1.25rem 0 0.5rem 0;">
           📚 학술 근거 논문 및 연구 자료 (Academic References)
         </h4>

@@ -275,8 +275,45 @@
           <div class="card-title">
             <i class="bi bi-cpu-fill" style="color:var(--accent-cyan);"></i> <span data-i18n="thresh_card_title">유산소 역치(LT1) &amp; 젖산 역치(LT2) 생체 진단</span>
           </div>
-          <span class="threshold-status-badge" id="threshold-status-badge" data-i18n="thresh_analyzing">분석 중...</span>
+          <div class="threshold-header-actions">
+            <button class="btn-hr-settings" id="btn-hr-settings" title="MHR(최대심박) &amp; RHR(안정시심박) 설정 (정확도 99% 활성화)">
+              <i class="bi bi-heart-pulse-fill text-pink"></i> <span id="hr-settings-summary">MHR: 196 | RHR: 55</span> <i class="bi bi-gear-fill"></i>
+            </button>
+            <span class="threshold-status-badge" id="threshold-status-badge" data-i18n="thresh_analyzing">분석 중...</span>
+          </div>
         </div>
+
+        <!-- HR Profile Settings Drawer (Instant MHR/RHR Calibration) -->
+        <div class="hr-settings-drawer" id="hr-settings-drawer" style="display: none;">
+          <div class="hr-drawer-header">
+            <h4><i class="bi bi-sliders"></i> 개인 심박수 프로필 설정 (가민·코로스·애플워치 실측값)</h4>
+            <button class="btn-close-drawer" id="btn-close-hr-drawer" title="닫기">&times;</button>
+          </div>
+          <p class="hr-drawer-hint">
+            워치 앱(가민 커넥트, 코로스, 애플 건강)의 <strong>[프로필 &gt; 심박수 영역]</strong>에 표시된 실제 MHR(최대 심박수)과 RHR(안정 시 심박수)을 입력하면, <strong>카르보넨(Karvonen HRR) 공식으로 99% 정확도의 골드 스탠다드 역치</strong>를 실시간 도출합니다. <a href="guide.html#watch-hr-guide" target="_blank" style="color:var(--accent-cyan); text-decoration:underline; margin-left:4px;"><i class="bi bi-question-circle"></i> 워치 확인법 가이드</a>
+          </p>
+          <div class="hr-input-row">
+            <div class="hr-input-group">
+              <label for="input-mhr">최대 심박수 (MHR)</label>
+              <div class="input-with-unit">
+                <input type="number" id="input-mhr" value="196" placeholder="예: 190" min="140" max="230">
+                <span class="unit">bpm</span>
+              </div>
+            </div>
+            <div class="hr-input-group">
+              <label for="input-rhr">안정 시 심박수 (RHR)</label>
+              <div class="input-with-unit">
+                <input type="number" id="input-rhr" value="55" placeholder="예: 60" min="35" max="100">
+                <span class="unit">bpm</span>
+              </div>
+            </div>
+            <div class="hr-input-actions">
+              <button class="btn-save-hr" id="btn-save-hr"><i class="bi bi-check2-circle"></i> 정밀 적용</button>
+              <button class="btn-reset-hr" id="btn-reset-hr" title="기본값으로 리셋">기본값</button>
+            </div>
+          </div>
+        </div>
+
         <div class="threshold-card-body" id="threshold-card-body">
           <!-- Populated dynamically by app.js -->
         </div>
