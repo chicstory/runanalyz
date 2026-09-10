@@ -257,8 +257,7 @@ function initSingleSession(activities) {
   sortedActs.forEach((act, idx) => {
     const opt = document.createElement('option');
     opt.value = act.id;
-    const gearTag = act.gear_name && act.gear_name !== '미지정' ? ` [${act.gear_name}]` : '';
-    opt.textContent = `${act.date} (${act.time}) — ${act.sport_label} ${act.distance_km}km | ${act.pace_formatted} | EF: ${act.ef}${gearTag}`;
+    opt.textContent = `${act.date} (${act.time}) — ${act.sport_label} ${act.distance_km}km | ${act.pace_formatted} | EF: ${act.ef}`;
     select.appendChild(opt);
   });
 
@@ -292,8 +291,7 @@ function renderSingleSession(act) {
 
   const sportBadge = document.getElementById('session-sport-badge');
   if (sportBadge) {
-    const gearStr = act.gear_name && act.gear_name !== '미지정' ? ` &bull; 👟 ${act.gear_name}` : '';
-    sportBadge.innerHTML = `<i class="bi bi-tag-fill"></i> ${act.sport_label || '러닝'}${gearStr}`;
+    sportBadge.innerHTML = `<i class="bi bi-tag-fill"></i> ${act.sport_label || '러닝'}`;
   }
 
   // Hero Metrics
@@ -854,7 +852,7 @@ function getMonthName(m) {
 function initYearlyRecap(archive, pureRunningActivities) {
   const cardsContainer = document.getElementById('yearly-cards-list');
   const shoeContainer = document.getElementById('shoe-list-container');
-  if (!cardsContainer || !shoeContainer) return;
+  if (!cardsContainer) return;
 
   const yearlySummary = archive?.metadata?.yearly_summary || {};
   const years = Object.keys(yearlySummary).sort().filter(y => yearlySummary[y].running_sessions > 0);
@@ -887,52 +885,54 @@ function initYearlyRecap(archive, pureRunningActivities) {
   // 2. Render Yearly Chart (Mileage Bar + EF Line)
   renderYearlyChart(years, yearlySummary);
 
-  // 3. Render Shoe Lifespan & Mileage Tracker
-  const shoeMap = {};
-  pureRunningActivities.forEach(a => {
-    const gName = a.gear_name || "미지정";
-    if (!shoeMap[gName]) {
-      shoeMap[gName] = { name: gName, totalKm: 0, count: 0, avgPaceSec: 0, paces: [] };
-    }
-    shoeMap[gName].totalKm += a.distance_km;
-    shoeMap[gName].count += 1;
-    if (a.pace_seconds > 0) shoeMap[gName].paces.push(a.pace_seconds);
-  });
+  // 3. Render Shoe Lifespan & Mileage Tracker (Optional)
+  if (shoeContainer) {
+    const shoeMap = {};
+    pureRunningActivities.forEach(a => {
+      const gName = a.gear_name || "미지정";
+      if (!shoeMap[gName]) {
+        shoeMap[gName] = { name: gName, totalKm: 0, count: 0, avgPaceSec: 0, paces: [] };
+      }
+      shoeMap[gName].totalKm += a.distance_km;
+      shoeMap[gName].count += 1;
+      if (a.pace_seconds > 0) shoeMap[gName].paces.push(a.pace_seconds);
+    });
 
-  const sortedShoes = Object.values(shoeMap).sort((a, b) => b.totalKm - a.totalKm);
+    const sortedShoes = Object.values(shoeMap).sort((a, b) => b.totalKm - a.totalKm);
 
-  shoeContainer.innerHTML = sortedShoes.map(s => {
-    const km = Math.round(s.totalKm * 10) / 10;
-    const maxLife = 800.0; // 800km standard shoe lifespan
-    const pct = Math.min(Math.round((km / maxLife) * 100), 100);
+    shoeContainer.innerHTML = sortedShoes.map(s => {
+      const km = Math.round(s.totalKm * 10) / 10;
+      const maxLife = 800.0; // 800km standard shoe lifespan
+      const pct = Math.min(Math.round((km / maxLife) * 100), 100);
 
-    let barColor = 'var(--accent-lime)';
-    let statusBadge = `<span style="color:var(--accent-lime);">정상 주행 (${pct}%)</span>`;
+      let barColor = 'var(--accent-lime)';
+      let statusBadge = `<span style="color:var(--accent-lime);">정상 주행 (${pct}%)</span>`;
 
-    if (km >= 800) {
-      barColor = 'var(--accent-red)';
-      statusBadge = `<span style="color:var(--accent-red);">⚠️ 수명 도달/은퇴 (${km}km)</span>`;
-    } else if (km >= 600) {
-      barColor = 'var(--accent-orange)';
-      statusBadge = `<span style="color:var(--accent-orange);">교체 권장 (${pct}%)</span>`;
-    }
+      if (km >= 800) {
+        barColor = 'var(--accent-red)';
+        statusBadge = `<span style="color:var(--accent-red);">⚠️ 수명 도달/은퇴 (${km}km)</span>`;
+      } else if (km >= 600) {
+        barColor = 'var(--accent-orange)';
+        statusBadge = `<span style="color:var(--accent-orange);">교체 권장 (${pct}%)</span>`;
+      }
 
-    return `
-      <div class="shoe-item-card">
-        <div class="shoe-header">
-          <span class="shoe-name">👟 ${s.name}</span>
-          <span class="shoe-dist">${km} km</span>
+      return `
+        <div class="shoe-item-card">
+          <div class="shoe-header">
+            <span class="shoe-name">👟 ${s.name}</span>
+            <span class="shoe-dist">${km} km</span>
+          </div>
+          <div class="shoe-progress-track">
+            <div class="shoe-progress-bar" style="width: ${pct}%; background: ${barColor};"></div>
+          </div>
+          <div class="shoe-footer">
+            <span>총 ${s.count}회 착용</span>
+            ${statusBadge}
+          </div>
         </div>
-        <div class="shoe-progress-track">
-          <div class="shoe-progress-bar" style="width: ${pct}%; background: ${barColor};"></div>
-        </div>
-        <div class="shoe-footer">
-          <span>총 ${s.count}회 착용</span>
-          ${statusBadge}
-        </div>
-      </div>
-    `;
-  }).join('');
+      `;
+    }).join('');
+  }
 }
 
 function renderYearlyChart(years, summary) {
