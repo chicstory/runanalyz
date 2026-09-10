@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20260910_v13">
+  <link rel="stylesheet" href="style.css?v=20260910_v14">
 </head>
 <body>
   <div class="app-container">
@@ -122,7 +122,7 @@
       <button class="tab-btn" data-tab="yearly" role="tab" id="tab-btn-yearly">
         <i class="bi bi-graph-up-arrow"></i>
         <span>연간 결산</span>
-        <small class="tab-hint">역대 마일리지 &amp; 성장률</small>
+        <small class="tab-hint">마일리지 &amp; 유산소 EF</small>
       </button>
       <button class="tab-btn" data-tab="heatmap" role="tab" id="tab-btn-heatmap">
         <i class="bi bi-map-fill"></i>
@@ -440,10 +440,10 @@
       <!-- Yearly Overview Banner -->
       <div class="yearly-hero-card">
         <div class="yh-content">
-          <span class="sub-title">YEARLY ENDURANCE ARCHIVE &amp; PERFORMANCE</span>
-          <h2 class="main-title">2022~2026 연도별 러닝 마일리지 &amp; 유산소 엔진(EF) 성장</h2>
+          <span class="sub-title">YEARLY RUNNING MILEAGE &amp; AEROBIC ENGINE</span>
+          <h2 class="main-title">연간 러닝 마일리지 &amp; 유산소 엔진(EF)</h2>
           <p class="description">
-            가민 커넥트 전수 데이터를 기반으로 연도별 마일리지 빌드업 추이, 심폐 효율(EF)의 장기 성장도(+49.5%), 연간 최장 LSD 기록을 한눈에 진단합니다.
+            기록된 러닝 데이터를 기반으로 연도별 마일리지 빌드업 추이, 심폐 효율(EF)의 장기 변화, 연간 최장 LSD 기록을 한눈에 진단합니다.
           </p>
         </div>
       </div>
@@ -457,7 +457,7 @@
       <div class="card chart-card">
         <div class="card-header">
           <div class="card-title"><i class="bi bi-bar-chart-fill"></i> 연도별 총 마일리지 &amp; 평균 유산소 효율(EF) 추이</div>
-          <span class="badge-subtle">2022 ~ 2026 가민 전수 기록</span>
+          <span class="badge-subtle">연도별 전수 기록</span>
         </div>
         <div class="chart-wrapper">
           <canvas id="yearlyChart"></canvas>
@@ -471,9 +471,9 @@
       <div class="heatmap-hero-card">
         <div class="hh-content">
           <span class="sub-title">DYNAMIC GPS ROUTE HEATMAP</span>
-          <h2 class="main-title">2022~2026 글로벌 야외 러닝 &amp; 액티비티 맵</h2>
+          <h2 class="main-title">러닝 및 야외활동 GPS Review</h2>
           <p class="description">
-            실제 가민 GPS 좌표를 기반으로 남양주, 한강, 서울 및 해외를 넘나드는 모든 야외 활동 궤적을 네온 라인으로 오버레이합니다.
+            실제 GPS 좌표를 기반으로 야외 러닝 및 활동 궤적을 네온 라인으로 시각화하여 코스 흐름을 리뷰합니다.
           </p>
         </div>
         <div class="hh-quick-stats">
@@ -556,8 +556,8 @@
 
   </div>
 
-  <script src="garmin_all_activities.js?v=20260910_v13"></script>
-  <script src="activities_data.js?v=20260910_v13"></script>
-  <script src="app.js?v=20260910_v13"></script>
+  <script src="garmin_all_activities.js?v=20260910_v14"></script>
+  <script src="activities_data.js?v=20260910_v14"></script>
+  <script src="app.js?v=20260910_v14"></script>
 </body>
 </html>
