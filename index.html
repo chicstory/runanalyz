@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20260910_v10">
+  <link rel="stylesheet" href="style.css?v=20260910_v11">
 </head>
 <body>
   <div class="app-container">
@@ -79,6 +79,10 @@
         <button class="btn-refresh" id="btn-reload" title="데이터 즉시 새로고침">
           <i class="bi bi-arrow-clockwise"></i> <span>새로고침</span>
         </button>
+        <div class="header-nav-quick">
+          <a href="guide.html" class="btn-header-link" title="메뉴 이용 가이드"><i class="bi bi-book-half text-orange"></i> <span>가이드</span></a>
+          <a href="about.html" class="btn-header-link" title="서비스 소개 및 문의"><i class="bi bi-info-circle text-cyan"></i> <span>소개·문의</span></a>
+        </div>
       </div>
     </header>
 
@@ -544,13 +548,22 @@
       </div>
     </section>
     <footer class="app-footer">
+      <div class="footer-links">
+        <a href="about.html"><i class="bi bi-info-circle-fill text-orange"></i> <span>소개 및 문의</span></a>
+        <span class="sep">&middot;</span>
+        <a href="guide.html"><i class="bi bi-book-half text-cyan"></i> <span>메뉴 이용 가이드</span></a>
+        <span class="sep">&middot;</span>
+        <a href="privacy.html"><i class="bi bi-shield-check"></i> <span>개인정보처리방침</span></a>
+        <span class="sep">&middot;</span>
+        <a href="about.html#contact-section"><i class="bi bi-envelope-at-fill"></i> <span>Contact</span></a>
+      </div>
       <p>RunAnalyz Engine &copy; 2026. Running &amp; Aerobic EF Analytics.</p>
     </footer>
 
   </div>
 
-  <script src="garmin_all_activities.js?v=20260910_v10"></script>
-  <script src="activities_data.js?v=20260910_v10"></script>
-  <script src="app.js?v=20260910_v10"></script>
+  <script src="garmin_all_activities.js?v=20260910_v11"></script>
+  <script src="activities_data.js?v=20260910_v11"></script>
+  <script src="app.js?v=20260910_v11"></script>
 </body>
 </html>
