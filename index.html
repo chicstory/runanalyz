@@ -12,7 +12,7 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ShoeF (슈에프) — 러닝화 마일리지 &amp; 유산소 효율(EF) 대시보드</title>
+  <title>RunAnalyz (런애널라이즈) — 러닝화 마일리지 &amp; 유산소 효율(EF) 대시보드</title>
   
   <!-- Google Fonts: Inter, Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20260910_v3">
 </head>
 <body>
   <div class="app-container">
@@ -48,16 +48,15 @@
       </div>
       <div class="header-meta">
         <div class="period-control-group">
-          <label for="select-year" class="period-lbl"><i class="bi bi-calendar3"></i></label>
+          <span class="period-title"><i class="bi bi-calendar3"></i> 기간 필터:</span>
           <select id="select-year" class="header-select" title="분석할 연도 선택">
-            <option value="all">전체 (2017~2026)</option>
+            <option value="all">전체 누적 (2017~2026)</option>
             <option value="2026" selected>2026년</option>
             <option value="2025">2025년</option>
             <option value="2024">2024년</option>
             <option value="2023">2023년</option>
             <option value="2022">2022년</option>
           </select>
-          <label for="select-month" class="period-lbl"><i class="bi bi-calendar-event"></i></label>
           <select id="select-month" class="header-select" title="분석할 월 선택">
             <option value="all">연간 전체</option>
             <option value="1">1월</option>
@@ -74,7 +73,12 @@
             <option value="12">12월</option>
           </select>
         </div>
-        <button class="btn-ghost" id="btn-reload" title="데이터 새로고침"><i class="bi bi-arrow-clockwise"></i></button>
+        <div class="period-active-badge" id="period-active-badge" title="현재 필터링된 러닝 요약">
+          <i class="bi bi-fire text-orange"></i> <strong id="period-badge-text">2026년 8월</strong>
+        </div>
+        <button class="btn-refresh" id="btn-reload" title="데이터 즉시 새로고침">
+          <i class="bi bi-arrow-clockwise"></i> <span>새로고침</span>
+        </button>
       </div>
     </header>
 
@@ -243,7 +247,7 @@
       <div class="weekly-hero-card">
         <div class="wh-content">
           <span class="sub-title">MARATHON MILEAGE &amp; 10% PROGRESSION RULE</span>
-          <h2 class="main-title">8월 주차별 마일리지 빌드업 &amp; 부상 위험 진단</h2>
+          <h2 class="main-title" id="weekly-main-title">8월 주차별 마일리지 빌드업 &amp; 부상 위험 진단</h2>
           <p class="description">
             마라톤 부상 방지의 황금률인 <strong>10% Rule(전주 대비 주간 거리 증가율 10% 이내)</strong>과 <strong>LSD(최장 런) 비율</strong>을 실시간 진단합니다.
           </p>
@@ -271,17 +275,17 @@
       <!-- Monthly Recap Top Metrics -->
       <div class="month-hero-grid">
         <div class="month-stat-box">
-          <span class="m-label">8월 총 마일리지</span>
+          <span class="m-label" id="month-label-dist">8월 총 마일리지</span>
           <span class="m-val text-orange" id="month-total-dist">0.0 <small>km</small></span>
           <span class="m-sub" id="month-run-count">총 0회 러닝 완료</span>
         </div>
         <div class="month-stat-box">
-          <span class="m-label">8월 총 러닝 시간</span>
+          <span class="m-label" id="month-label-time">8월 총 러닝 시간</span>
           <span class="m-val text-cyan" id="month-total-time">00<small>h</small> 00<small>m</small></span>
           <span class="m-sub" id="month-total-cal">0 kcal 소모</span>
         </div>
         <div class="month-stat-box">
-          <span class="m-label">8월 평균 페이스</span>
+          <span class="m-label" id="month-label-pace">8월 평균 페이스</span>
           <span class="m-val text-lime" id="month-avg-pace">0'00" <small>/km</small></span>
           <span class="m-sub" id="month-avg-hr">평균 심박수 0 bpm</span>
         </div>
@@ -525,7 +529,7 @@
 
       <!-- Outdoor Routes List Cards -->
       <div class="outdoor-routes-section">
-        <div class="section-title"><i class="bi bi-signpost-2-fill"></i> 8월 야외 GPS 코스 목록</div>
+        <div class="section-title"><i class="bi bi-signpost-2-fill"></i> 야외 GPS 코스 목록</div>
         <div class="routes-grid" id="routes-grid-container">
           <!-- Populated by JS -->
         </div>
@@ -537,8 +541,8 @@
 
   </div>
 
-  <script src="garmin_all_activities.js"></script>
-  <script src="activities_data.js"></script>
-  <script src="app.js"></script>
+  <script src="garmin_all_activities.js?v=20260910_v3"></script>
+  <script src="activities_data.js?v=20260910_v3"></script>
+  <script src="app.js?v=20260910_v3"></script>
 </body>
 </html>

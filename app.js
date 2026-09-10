@@ -17,26 +17,78 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  // 2. Filter States
-  let currentYear = document.getElementById('select-year')?.value || '2026';
-  let currentMonth = document.getElementById('select-month')?.value || '8';
-  let currentSportFilter = 'all'; // 'all', 'treadmill', 'outdoor'
-
-  // Filter Selectors Listeners
+  // 2. Filter States & Persistence
   const selectYear = document.getElementById('select-year');
   const selectMonth = document.getElementById('select-month');
 
+  // Restore saved filter from sessionStorage
+  const savedYear = sessionStorage.getItem('shoef_selected_year');
+  const savedMonth = sessionStorage.getItem('shoef_selected_month');
+  if (savedYear && selectYear) selectYear.value = savedYear;
+  if (savedMonth && selectMonth) selectMonth.value = savedMonth;
+
+  let currentYear = selectYear?.value || '2026';
+  let currentMonth = selectMonth?.value || '8';
+  let currentSportFilter = 'all'; // 'all', 'treadmill', 'outdoor'
+
+  // Toast Notification Helper
+  function showToast(message) {
+    let toast = document.getElementById('shoef-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'shoef-toast';
+      toast.className = 'shoef-toast';
+      document.body.appendChild(toast);
+    }
+    toast.innerHTML = `<i class="bi bi-check-circle-fill" style="color:var(--accent-orange);"></i> <span>${message}</span>`;
+    toast.classList.add('show');
+    clearTimeout(window._shoefToastTimer);
+    window._shoefToastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2400);
+  }
+
+  // Update Period Badge (Instant Real-time Feedback)
+  function updatePeriodBadge(currentList) {
+    const badgeTextEl = document.getElementById('period-badge-text');
+    const badgeContainer = document.getElementById('period-active-badge');
+    if (!badgeTextEl) return;
+
+    let periodLabel = '';
+    if (currentYear === 'all') {
+      periodLabel = currentMonth === 'all' ? '역대 전체 (2017~2026)' : `역대 ${currentMonth}월 누적`;
+    } else {
+      periodLabel = currentMonth === 'all' ? `${currentYear}년 전체` : `${currentYear}년 ${currentMonth}월`;
+    }
+
+    const totalKm = currentList.reduce((sum, a) => sum + (a.distance_km || 0), 0);
+    badgeTextEl.textContent = `${periodLabel} (${currentList.length}회 · ${totalKm.toFixed(1)}km)`;
+
+    if (badgeContainer) {
+      badgeContainer.classList.remove('badge-highlight');
+      void badgeContainer.offsetWidth; // Force reflow
+      badgeContainer.classList.add('badge-highlight');
+    }
+  }
+
+  // Filter Selectors Listeners
   if (selectYear) {
     selectYear.addEventListener('change', (e) => {
       currentYear = e.target.value;
+      sessionStorage.setItem('shoef_selected_year', currentYear);
       refreshAllViews();
+      const pText = currentYear === 'all' ? '역대 전체' : `${currentYear}년`;
+      showToast(`📅 기간 필터가 [${pText}] 데이터로 갱신되었습니다.`);
     });
   }
 
   if (selectMonth) {
     selectMonth.addEventListener('change', (e) => {
       currentMonth = e.target.value;
+      sessionStorage.setItem('shoef_selected_month', currentMonth);
       refreshAllViews();
+      const mText = currentMonth === 'all' ? '연간 전체' : `${currentMonth}월`;
+      showToast(`📅 기간 필터가 [${mText}] 데이터로 갱신되었습니다.`);
     });
   }
 
@@ -116,8 +168,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function refreshAllViews() {
     updateBadgeCounts();
     const currentList = getFilteredActivities();
+    updatePeriodBadge(currentList);
     initSingleSession(currentList);
-    initWeeklyRecap(currentList);
+    initWeeklyRecap(currentList, currentYear, currentMonth);
     initMonthlyRecap(currentList, currentYear, currentMonth);
     initYearlyRecap(archive, pureRunningActivities);
   }
@@ -126,10 +179,18 @@ document.addEventListener('DOMContentLoaded', () => {
   refreshAllViews();
   initRunningHeatmap(allActivities);
 
-  // Reload Button
-  document.getElementById('btn-reload')?.addEventListener('click', () => {
-    location.reload();
-  });
+  // Reload Button (In-memory recalculation with visual feedback)
+  const btnReload = document.getElementById('btn-reload');
+  if (btnReload) {
+    btnReload.addEventListener('click', () => {
+      btnReload.classList.add('spinning');
+      refreshAllViews();
+      showToast(`⚡ 데이터 재계산 완료! 최신 분석 결과가 반영되었습니다.`);
+      setTimeout(() => {
+        btnReload.classList.remove('spinning');
+      }, 600);
+    });
+  }
 });
 
 /* ==========================================================================
@@ -324,9 +385,29 @@ function renderSingleChart(act) {
 /* ==========================================================================
    MODULE 2: WEEKLY RECAP LOGIC
    ========================================================================== */
-function initWeeklyRecap(activities) {
+function initWeeklyRecap(activities, year = '2026', month = '8') {
   const container = document.getElementById('weekly-cards-list');
   if (!container) return;
+
+  const weeklyTitleEl = document.getElementById('weekly-main-title');
+  if (weeklyTitleEl) {
+    let pLabel = '';
+    if (year === 'all') {
+      pLabel = month === 'all' ? '역대 전체' : `역대 ${month}월`;
+    } else {
+      pLabel = month === 'all' ? `${year}년 전체` : `${year}년 ${month}월`;
+    }
+    weeklyTitleEl.textContent = `${pLabel} 주차별 마일리지 빌드업 & 부상 위험 진단`;
+  }
+
+  if (activities.length === 0) {
+    container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);"><i class="bi bi-calendar-x" style="font-size: 2.2rem; color: var(--accent-orange); display: block; margin-bottom: 0.6rem;"></i>선택한 기간에 등록된 주간 러닝 기록이 없습니다.</div>`;
+    if (window.weeklyChartInstance) {
+      window.weeklyChartInstance.destroy();
+      window.weeklyChartInstance = null;
+    }
+    return;
+  }
 
   // Group by ISO week
   const weekMap = {};
@@ -518,8 +599,23 @@ function initMonthlyRecap(activities, year, month) {
   });
 
   // Period title text
-  const periodTitle = month === 'all' ? `${year}년 연간` : `${year}년 ${month}월`;
-  const engPeriodTitle = month === 'all' ? `YEAR ${year} RUNNING RECAP` : `${getMonthName(month).toUpperCase()} ${year} RUNNING RECAP`;
+  let periodTitle = '';
+  let engPeriodTitle = '';
+  if (year === 'all') {
+    periodTitle = month === 'all' ? '역대 전체' : `역대 ${month}월`;
+    engPeriodTitle = month === 'all' ? 'ALL-TIME RUNNING RECAP' : `ALL-TIME ${getMonthName(month).toUpperCase()} RECAP`;
+  } else {
+    periodTitle = month === 'all' ? `${year}년 전체` : `${year}년 ${month}월`;
+    engPeriodTitle = month === 'all' ? `YEAR ${year} RUNNING RECAP` : `${getMonthName(month).toUpperCase()} ${year} RUNNING RECAP`;
+  }
+
+  // Update Monthly Dashboard Labels
+  const elLabelDist = document.getElementById('month-label-dist');
+  if (elLabelDist) elLabelDist.textContent = `${periodTitle} 총 마일리지`;
+  const elLabelTime = document.getElementById('month-label-time');
+  if (elLabelTime) elLabelTime.textContent = `${periodTitle} 총 러닝 시간`;
+  const elLabelPace = document.getElementById('month-label-pace');
+  if (elLabelPace) elLabelPace.textContent = `${periodTitle} 평균 페이스`;
 
   // Update Monthly Dashboard Cards
   const elDist = document.getElementById('month-total-dist');
