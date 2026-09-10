@@ -120,6 +120,46 @@ body {
   gap: 0.75rem;
 }
 
+.period-control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.2rem 0.4rem;
+}
+
+.period-lbl {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.header-select {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.25rem 0.35rem;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+}
+
+.header-select:hover, .header-select:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.header-select option {
+  background: #0f172a;
+  color: #fff;
+}
+
 .meta-tag {
   font-size: 0.75rem;
   font-weight: 600;
@@ -1168,9 +1208,137 @@ body {
   box-shadow: 0 0 8px var(--accent-lime);
 }
 
-.ic-watermark {
+/* ---------------- TAB 4: YEARLY RECAP & SHOE TRACKER ---------------- */
+.yearly-hero-card {
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.08) 0%, rgba(0, 242, 254, 0.04) 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.yearly-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.yearly-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.yearly-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-orange);
+}
+
+.yc-year {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.yc-distance {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--accent-orange);
+  margin-bottom: 0.5rem;
+}
+
+.yc-distance small {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.yc-metrics-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.6rem;
+}
+
+.yc-metric-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.yc-metric-item strong {
+  color: var(--text-primary);
+}
+
+/* Shoe Tracker Cards */
+.shoe-tracker-card {
+  margin-top: 2rem;
+}
+
+.shoe-list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.shoe-item-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.shoe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.shoe-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.shoe-dist {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent-orange);
+}
+
+.shoe-progress-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.shoe-progress-bar {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.8s ease;
+}
+
+.shoe-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
   color: var(--text-muted);
 }
 

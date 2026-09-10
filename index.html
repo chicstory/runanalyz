@@ -12,7 +12,7 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>RunAnalyz (런애널라이즈) — 러닝화 마일리지 &amp; 유산소 효율(EF) 대시보드</title>
+  <title>ShoeF (슈에프) — 러닝화 마일리지 &amp; 유산소 효율(EF) 대시보드</title>
   
   <!-- Google Fonts: Inter, Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,7 +47,33 @@
         </div>
       </div>
       <div class="header-meta">
-        <span class="meta-tag"><i class="bi bi-calendar-check"></i> 2026년 8월 실데이터</span>
+        <div class="period-control-group">
+          <label for="select-year" class="period-lbl"><i class="bi bi-calendar3"></i></label>
+          <select id="select-year" class="header-select" title="분석할 연도 선택">
+            <option value="all">전체 (2017~2026)</option>
+            <option value="2026" selected>2026년</option>
+            <option value="2025">2025년</option>
+            <option value="2024">2024년</option>
+            <option value="2023">2023년</option>
+            <option value="2022">2022년</option>
+          </select>
+          <label for="select-month" class="period-lbl"><i class="bi bi-calendar-event"></i></label>
+          <select id="select-month" class="header-select" title="분석할 월 선택">
+            <option value="all">연간 전체</option>
+            <option value="1">1월</option>
+            <option value="2">2월</option>
+            <option value="3">3월</option>
+            <option value="4">4월</option>
+            <option value="5">5월</option>
+            <option value="6">6월</option>
+            <option value="7">7월</option>
+            <option value="8" selected>8월</option>
+            <option value="9">9월</option>
+            <option value="10">10월</option>
+            <option value="11">11월</option>
+            <option value="12">12월</option>
+          </select>
+        </div>
         <button class="btn-ghost" id="btn-reload" title="데이터 새로고침"><i class="bi bi-arrow-clockwise"></i></button>
       </div>
     </header>
@@ -57,13 +83,13 @@
       <div class="filter-label"><i class="bi bi-funnel-fill"></i> 훈련 환경 필터</div>
       <div class="filter-btn-group">
         <button class="filter-btn active" data-filter="all" id="filter-all">
-          <i class="bi bi-collection-play"></i> 전체 보기 <span class="badge-num" id="filter-count-all">(18)</span>
+          <i class="bi bi-collection-play"></i> 전체 보기 <span class="badge-num" id="filter-count-all">(0)</span>
         </button>
         <button class="filter-btn" data-filter="treadmill" id="filter-treadmill">
-          <i class="bi bi-speedometer"></i> 🏃 실내 트레드밀 <span class="badge-num" id="filter-count-tm">(15)</span>
+          <i class="bi bi-speedometer"></i> 🏃 실내 트레드밀 <span class="badge-num" id="filter-count-tm">(0)</span>
         </button>
         <button class="filter-btn" data-filter="outdoor" id="filter-outdoor">
-          <i class="bi bi-tree"></i> 🌲 야외 러닝 <span class="badge-num" id="filter-count-od">(3)</span>
+          <i class="bi bi-tree"></i> 🌲 야외 러닝 <span class="badge-num" id="filter-count-od">(0)</span>
         </button>
       </div>
     </div>
@@ -84,6 +110,11 @@
         <i class="bi bi-trophy-fill"></i>
         <span>월간 결산</span>
         <small class="tab-hint">인스타 카드 생성</small>
+      </button>
+      <button class="tab-btn" data-tab="yearly" role="tab" id="tab-btn-yearly">
+        <i class="bi bi-graph-up-arrow"></i>
+        <span>연간 결산</span>
+        <small class="tab-hint">역대 마일리지 &amp; 신발</small>
       </button>
       <button class="tab-btn" data-tab="heatmap" role="tab" id="tab-btn-heatmap">
         <i class="bi bi-map-fill"></i>
@@ -370,22 +401,63 @@
               <div class="ic-author-tag">
                 <span class="dot"></span> VERIFIED RUNNER DATA
               </div>
-              <div class="ic-watermark">runanalyz.run</div>
+              <div class="ic-watermark">runanalyz.com</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 4: RUNNING HEATMAP (GPS TRACKS) -->
+    <!-- TAB 4: YEARLY RECAP & SHOE MILEAGE -->
+    <section class="tab-panel" id="panel-yearly">
+      <!-- Yearly Overview Banner -->
+      <div class="yearly-hero-card">
+        <div class="yh-content">
+          <span class="sub-title">YEARLY ENDURANCE ARCHIVE &amp; SHOE LIFESPAN</span>
+          <h2 class="main-title">2022~2026 연도별 러닝 마일리지 &amp; 유산소 엔진(EF) 성장</h2>
+          <p class="description">
+            가민 커넥트 전수 데이터를 기반으로 연도별 마일리지 빌드업 추이, 심폐 효율(EF)의 장기 성장도(+49.5%), 그리고 각 러닝화의 실제 주행 거리를 한눈에 진단합니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- Yearly Summary Cards Grid -->
+      <div class="yearly-cards-grid" id="yearly-cards-list">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Yearly Chart Card: Mileage Bar & EF Trend Line -->
+      <div class="card chart-card">
+        <div class="card-header">
+          <div class="card-title"><i class="bi bi-bar-chart-fill"></i> 연도별 총 마일리지 &amp; 평균 유산소 효율(EF) 추이</div>
+          <span class="badge-subtle">2022 ~ 2026 가민 전수 기록</span>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="yearlyChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Shoe Lifespan & Mileage Tracker (RunAnalyz Core Engine) -->
+      <div class="card shoe-tracker-card">
+        <div class="card-header">
+          <div class="card-title"><i class="bi bi-tag-fill"></i> 러닝화 수명 &amp; 누적 마일리지 트래커 (RunAnalyz)</div>
+          <span class="badge-subtle">가민 기어 실시간 매핑</span>
+        </div>
+        <div class="shoe-list-container" id="shoe-list-container">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: RUNNING HEATMAP (GPS TRACKS) -->
     <section class="tab-panel" id="panel-heatmap">
       <!-- Heatmap Control Hero -->
       <div class="heatmap-hero-card">
         <div class="hh-info">
           <span class="sub-title"><i class="bi bi-geo-alt-fill"></i> PERSONAL RUNNING HEATMAP</span>
-          <h2 class="main-title">8월 야외 러닝 &amp; 액티비티 GPS 누적 히트맵</h2>
+          <h2 class="main-title">야외 러닝 &amp; 액티비티 GPS 누적 히트맵</h2>
           <p class="description">
-            사용자님이 실제로 달리고 걸으신 야외 GPS 이동 궤적을 하나의 인터랙티브 다크 지도 위에 오버레이합니다. 반복해서 달린 코스는 네온 빛으로 더 강렬하게 빛납니다.
+            사용자님이 실제로 달리고 움직이신 야외 GPS 이동 궤적을 하나의 인터랙티브 다크 지도 위에 오버레이합니다. 러닝 외 사이클/산책 궤적도 시각화 전용으로 탐색할 수 있습니다.
           </p>
         </div>
         <div class="hh-stats">
@@ -465,6 +537,7 @@
 
   </div>
 
+  <script src="garmin_all_activities.js"></script>
   <script src="activities_data.js"></script>
   <script src="app.js"></script>
 </body>
