@@ -43,61 +43,61 @@
         </div>
         <div class="brand-text">
           <span class="brand-title">RUN<span style="color:var(--accent-orange);">ANALYZ</span></span>
-          <span class="brand-badge">RUNNING &amp; AEROBIC EF ENGINE</span>
+          <span class="brand-badge" data-i18n="brand_sub">RUNNING &amp; AEROBIC EF ENGINE</span>
         </div>
       </div>
       <div class="header-meta">
         <div class="period-control-group">
-          <span class="period-title"><i class="bi bi-calendar3"></i> 기간 필터:</span>
+          <span class="period-title"><i class="bi bi-calendar3"></i> <span data-i18n="period_filter">기간 필터:</span></span>
           <select id="select-year" class="header-select" title="분석할 연도 선택">
-            <option value="all">전체 누적 (2017~2026)</option>
-            <option value="2026" selected>2026년</option>
-            <option value="2025">2025년</option>
-            <option value="2024">2024년</option>
-            <option value="2023">2023년</option>
-            <option value="2022">2022년</option>
+            <option value="all" data-i18n="period_all_years">전체 누적 (2017~2026)</option>
+            <option value="2026" selected>2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
           </select>
           <select id="select-month" class="header-select" title="분석할 월 선택">
-            <option value="all">연간 전체</option>
-            <option value="1">1월</option>
-            <option value="2">2월</option>
-            <option value="3">3월</option>
-            <option value="4">4월</option>
-            <option value="5">5월</option>
-            <option value="6">6월</option>
-            <option value="7">7월</option>
-            <option value="8" selected>8월</option>
-            <option value="9">9월</option>
-            <option value="10">10월</option>
-            <option value="11">11월</option>
-            <option value="12">12월</option>
+            <option value="all" data-i18n="period_all_months">연간 전체</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8" selected>8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
           </select>
         </div>
         <div class="period-active-badge" id="period-active-badge" title="현재 필터링된 러닝 요약">
           <i class="bi bi-fire text-orange"></i> <strong id="period-badge-text">2026년 8월</strong>
         </div>
         <button class="btn-refresh" id="btn-reload" title="데이터 즉시 새로고침">
-          <i class="bi bi-arrow-clockwise"></i> <span>새로고침</span>
+          <i class="bi bi-arrow-clockwise"></i> <span data-i18n="btn_refresh">새로고침</span>
         </button>
         <div class="header-nav-quick">
-          <a href="guide.html" class="btn-header-link" title="메뉴 이용 가이드"><i class="bi bi-book-half text-orange"></i> <span>가이드</span></a>
-          <a href="about.html" class="btn-header-link" title="서비스 소개 및 문의"><i class="bi bi-info-circle text-cyan"></i> <span>소개·문의</span></a>
+          <a href="guide.html" class="btn-header-link" title="메뉴 이용 가이드"><i class="bi bi-book-half text-orange"></i> <span data-i18n="nav_guide">가이드</span></a>
+          <a href="about.html" class="btn-header-link" title="서비스 소개 및 문의"><i class="bi bi-info-circle text-cyan"></i> <span data-i18n="nav_about">소개·문의</span></a>
         </div>
       </div>
     </header>
 
     <!-- Sport Environment Filter Bar -->
     <div class="filter-bar">
-      <div class="filter-label"><i class="bi bi-funnel-fill"></i> 훈련 환경 필터</div>
+      <div class="filter-label"><i class="bi bi-funnel-fill"></i> <span data-i18n="filter_label">훈련 환경 필터</span></div>
       <div class="filter-btn-group">
         <button class="filter-btn active" data-filter="all" id="filter-all">
-          <i class="bi bi-collection-play"></i> 전체 보기 <span class="badge-num" id="filter-count-all">(0)</span>
+          <i class="bi bi-collection-play"></i> <span data-i18n="filter_all">전체 보기</span> <span class="badge-num" id="filter-count-all">(0)</span>
         </button>
         <button class="filter-btn" data-filter="treadmill" id="filter-treadmill">
-          <i class="bi bi-speedometer"></i> 🏃 실내 트레드밀 <span class="badge-num" id="filter-count-tm">(0)</span>
+          <i class="bi bi-speedometer"></i> 🏃 <span data-i18n="filter_treadmill">실내 트레드밀</span> <span class="badge-num" id="filter-count-tm">(0)</span>
         </button>
         <button class="filter-btn" data-filter="outdoor" id="filter-outdoor">
-          <i class="bi bi-tree"></i> 🌲 야외 러닝 <span class="badge-num" id="filter-count-od">(0)</span>
+          <i class="bi bi-tree"></i> 🌲 <span data-i18n="filter_outdoor">야외 러닝</span> <span class="badge-num" id="filter-count-od">(0)</span>
         </button>
       </div>
     </div>
@@ -106,28 +106,28 @@
     <nav class="main-tabs" role="tablist">
       <button class="tab-btn active" data-tab="single" role="tab" id="tab-btn-single">
         <i class="bi bi-stopwatch"></i>
-        <span>단일 세션</span>
-        <small class="tab-hint">데일리 EF 분석</small>
+        <span data-i18n="tab_single">단일 세션</span>
+        <small class="tab-hint" data-i18n="tab_single_sub">데일리 EF 분석</small>
       </button>
       <button class="tab-btn" data-tab="weekly" role="tab" id="tab-btn-weekly">
         <i class="bi bi-bar-chart-line-fill"></i>
-        <span>주간 정산</span>
-        <small class="tab-hint">10% 룰 &amp; 부상 진단</small>
+        <span data-i18n="tab_weekly">주간 정산</span>
+        <small class="tab-hint" data-i18n="tab_weekly_sub">10% 룰 &amp; 부상 진단</small>
       </button>
       <button class="tab-btn" data-tab="monthly" role="tab" id="tab-btn-monthly">
         <i class="bi bi-trophy-fill"></i>
-        <span>월간 결산</span>
-        <small class="tab-hint">인스타 카드 생성</small>
+        <span data-i18n="tab_monthly">월간 결산</span>
+        <small class="tab-hint" data-i18n="tab_monthly_sub">인스타 카드 생성</small>
       </button>
       <button class="tab-btn" data-tab="yearly" role="tab" id="tab-btn-yearly">
         <i class="bi bi-graph-up-arrow"></i>
-        <span>연간 결산</span>
-        <small class="tab-hint">마일리지 &amp; 유산소 EF</small>
+        <span data-i18n="tab_yearly">연간 결산</span>
+        <small class="tab-hint" data-i18n="tab_yearly_sub">마일리지 &amp; 유산소 EF</small>
       </button>
       <button class="tab-btn" data-tab="heatmap" role="tab" id="tab-btn-heatmap">
         <i class="bi bi-map-fill"></i>
-        <span>러닝 히트맵</span>
-        <small class="tab-hint">GPS 코스 아카이브</small>
+        <span data-i18n="tab_heatmap">러닝 히트맵</span>
+        <small class="tab-hint" data-i18n="tab_heatmap_sub">GPS 코스 아카이브</small>
       </button>
     </nav>
 
@@ -136,7 +136,7 @@
       <!-- Session Selector Banner -->
       <div class="session-selector-card">
         <div class="selector-header">
-          <label for="session-select"><i class="bi bi-calendar-event"></i> 분석할 러닝 세션 선택</label>
+          <label for="session-select"><i class="bi bi-calendar-event"></i> <span data-i18n="session_select_label">분석할 러닝 세션 선택</span></label>
           <div>
             <span class="badge-count" id="session-sport-badge" style="margin-right: 0.4rem; background: rgba(255, 87, 34, 0.15); color: var(--accent-orange);"></span>
             <span class="badge-count" id="session-count">총 18개 세션</span>
@@ -152,7 +152,7 @@
         <!-- Metric: Distance -->
         <div class="metric-card highlight-cyan">
           <div class="metric-header">
-            <span class="metric-label">달린 거리</span>
+            <span class="metric-label" data-i18n="metric_dist">달린 거리</span>
             <i class="bi bi-geo-alt-fill"></i>
           </div>
           <div class="metric-val" id="single-dist">0.00 <span class="unit">km</span></div>
@@ -162,7 +162,7 @@
         <!-- Metric: Pace -->
         <div class="metric-card highlight-orange">
           <div class="metric-header">
-            <span class="metric-label">평균 페이스</span>
+            <span class="metric-label" data-i18n="metric_pace">평균 페이스</span>
             <i class="bi bi-speedometer2"></i>
           </div>
           <div class="metric-val" id="single-pace">0'00" <span class="unit">/km</span></div>
@@ -172,7 +172,7 @@
         <!-- Metric: Heart Rate -->
         <div class="metric-card highlight-pink">
           <div class="metric-header">
-            <span class="metric-label">평균 심박수</span>
+            <span class="metric-label" data-i18n="metric_hr">평균 심박수</span>
             <i class="bi bi-heart-pulse-fill"></i>
           </div>
           <div class="metric-val" id="single-hr">0 <span class="unit">bpm</span></div>
@@ -182,8 +182,8 @@
         <!-- Metric: Efficiency Factor (EF) - Core Highlight -->
         <div class="metric-card highlight-lime hero-metric">
           <div class="metric-header">
-            <span class="metric-label">유산소 효율 (EF)</span>
-            <span class="badge-core">CORE ENGINE</span>
+            <span class="metric-label" data-i18n="metric_ef">유산소 효율 (EF)</span>
+            <span class="badge-core" data-i18n="core_engine">CORE ENGINE</span>
           </div>
           <div class="metric-val" id="single-ef">0.000 <span class="unit">m/min/bpm</span></div>
           <div class="metric-sub" id="single-ef-status"><i class="bi bi-shield-check"></i> 심폐 효율 평가 중...</div>
@@ -195,8 +195,8 @@
         <!-- Aerobic Decoupling Card -->
         <div class="card detail-card">
           <div class="card-header">
-            <div class="card-title"><i class="bi bi-activity"></i> 유산소 디커플링 (심박 드리프트)</div>
-            <span class="info-tag" title="전반부 대비 후반부 심박/속도 분리율. 5% 미만이면 유산소 베이스 탄탄!">기준: 5% 미만 권장</span>
+            <div class="card-title"><i class="bi bi-activity"></i> <span data-i18n="decoupling_title">유산소 디커플링 (심박 드리프트)</span></div>
+            <span class="info-tag" data-i18n="decoupling_crit" title="전반부 대비 후반부 심박/속도 분리율. 5% 미만이면 유산소 베이스 탄탄!">기준: 5% 미만 권장</span>
           </div>
           <div class="decoupling-box">
             <div class="decoupling-score" id="single-decoupling">0.0%</div>
@@ -210,7 +210,7 @@
         <!-- VDOT & 5 Training Paces Card -->
         <div class="card detail-card vdot-paces-card">
           <div class="card-header">
-            <div class="card-title"><i class="bi bi-speedometer2"></i> VDOT &amp; 5대 훈련 페이스</div>
+            <div class="card-title"><i class="bi bi-speedometer2"></i> <span data-i18n="vdot_title">VDOT &amp; 5대 훈련 페이스</span></div>
             <div class="vdot-cadence-badge" title="분당 평균 발걸음 수">
               <i class="bi bi-arrow-repeat text-cyan"></i> <span id="single-cadence">0 spm</span>
             </div>
@@ -220,50 +220,50 @@
               <span class="vdot-score-label">SESSION VDOT</span>
               <span class="vdot-score-val" id="single-vdot">0.0</span>
             </div>
-            <div class="vdot-score-desc">
+            <div class="vdot-score-desc" data-i18n="vdot_banner_desc" data-i18n-html="true">
               이 세션 기록(거리·시간) 기반의 최대산소섭취능력(VDOT)과 <strong>5대 권장 훈련 페이스</strong>입니다.
             </div>
           </div>
           <div class="training-paces-grid">
             <div class="pace-zone-item pace-e">
               <div class="pz-header">
-                <span class="pz-code">E 페이스</span>
-                <span class="pz-name">이지·회복</span>
+                <span class="pz-code" data-i18n="pace_e_code">E 페이스</span>
+                <span class="pz-name" data-i18n="pace_e_name">이지·회복</span>
               </div>
               <div class="pz-val" id="vdot-pace-e">-</div>
-              <div class="pz-desc">Zone 2 기초 유산소</div>
+              <div class="pz-desc" data-i18n="pace_e_desc">Zone 2 기초 유산소</div>
             </div>
             <div class="pace-zone-item pace-m">
               <div class="pz-header">
-                <span class="pz-code">M 페이스</span>
-                <span class="pz-name">마라톤</span>
+                <span class="pz-code" data-i18n="pace_m_code">M 페이스</span>
+                <span class="pz-name" data-i18n="pace_m_name">마라톤</span>
               </div>
               <div class="pz-val" id="vdot-pace-m">-</div>
-              <div class="pz-desc">풀코스 목표 (LT1)</div>
+              <div class="pz-desc" data-i18n="pace_m_desc">풀코스 목표 (LT1)</div>
             </div>
             <div class="pace-zone-item pace-t">
               <div class="pz-header">
-                <span class="pz-code">T 페이스</span>
-                <span class="pz-name">역치·템포</span>
+                <span class="pz-code" data-i18n="pace_t_code">T 페이스</span>
+                <span class="pz-name" data-i18n="pace_t_name">역치·템포</span>
               </div>
               <div class="pz-val" id="vdot-pace-t">-</div>
-              <div class="pz-desc">젖산 역치 (LT2)</div>
+              <div class="pz-desc" data-i18n="pace_t_desc">젖산 역치 (LT2)</div>
             </div>
             <div class="pace-zone-item pace-i">
               <div class="pz-header">
-                <span class="pz-code">I 페이스</span>
-                <span class="pz-name">인터벌</span>
+                <span class="pz-code" data-i18n="pace_i_code">I 페이스</span>
+                <span class="pz-name" data-i18n="pace_i_name">인터벌</span>
               </div>
               <div class="pz-val" id="vdot-pace-i">-</div>
-              <div class="pz-desc">VO2max 산소 확장</div>
+              <div class="pz-desc" data-i18n="pace_i_desc">VO2max 산소 확장</div>
             </div>
             <div class="pace-zone-item pace-r">
               <div class="pz-header">
-                <span class="pz-code">R 페이스</span>
-                <span class="pz-name">레피티션</span>
+                <span class="pz-code" data-i18n="pace_r_code">R 페이스</span>
+                <span class="pz-name" data-i18n="pace_r_name">레피티션</span>
               </div>
               <div class="pz-val" id="vdot-pace-r">-</div>
-              <div class="pz-desc">무산소 스피드 &amp; 자세</div>
+              <div class="pz-desc" data-i18n="pace_r_desc">무산소 스피드 &amp; 자세</div>
             </div>
           </div>
         </div>
@@ -273,9 +273,9 @@
       <div class="card detail-card threshold-card" id="threshold-diagnostics-card">
         <div class="card-header threshold-header">
           <div class="card-title">
-            <i class="bi bi-cpu-fill" style="color:var(--accent-cyan);"></i> 유산소 역치(LT1) &amp; 젖산 역치(LT2) 생체 진단
+            <i class="bi bi-cpu-fill" style="color:var(--accent-cyan);"></i> <span data-i18n="thresh_card_title">유산소 역치(LT1) &amp; 젖산 역치(LT2) 생체 진단</span>
           </div>
-          <span class="threshold-status-badge" id="threshold-status-badge">분석 중...</span>
+          <span class="threshold-status-badge" id="threshold-status-badge" data-i18n="thresh_analyzing">분석 중...</span>
         </div>
         <div class="threshold-card-body" id="threshold-card-body">
           <!-- Populated dynamically by app.js -->
@@ -285,8 +285,8 @@
       <!-- Time Series Chart Card -->
       <div class="card chart-card">
         <div class="card-header">
-          <div class="card-title"><i class="bi bi-graph-up"></i> 주행 중 심박수 &amp; 케이던스 스트림</div>
-          <span class="badge-subtle">1초 단위 타임시리즈</span>
+          <div class="card-title"><i class="bi bi-graph-up"></i> <span data-i18n="chart_stream_title">주행 중 심박수 &amp; 케이던스 스트림</span></div>
+          <span class="badge-subtle" data-i18n="chart_badge_sub">1초 단위 타임시리즈</span>
         </div>
         <div class="chart-wrapper">
           <canvas id="singleSessionChart"></canvas>
@@ -551,10 +551,10 @@
             <!-- Outdoor Activity Filter: Running vs All Activities -->
             <div class="heatmap-sport-filter">
               <button class="hm-filter-btn active" data-hm-filter="running" id="hm-filter-running" title="순수 야외 러닝 코스만 표시">
-                <i class="bi bi-lightning-charge-fill text-orange"></i> 🏃 러닝
+                <i class="bi bi-lightning-charge-fill text-orange"></i> 🏃 <span data-i18n="heatmap_filter_run">러닝</span>
               </button>
               <button class="hm-filter-btn" data-hm-filter="all" id="hm-filter-all" title="야외 전체 활동(등산·산책 포함) 코스 표시">
-                <i class="bi bi-globe2 text-cyan"></i> 🌐 전체 활동
+                <i class="bi bi-globe2 text-cyan"></i> 🌐 <span data-i18n="heatmap_filter_all">전체 활동</span>
               </button>
             </div>
 
@@ -569,7 +569,7 @@
 
             <div class="map-quick-buttons">
               <button class="btn-ghost active-ghost" id="btn-reset-map-zoom" title="현재 코스 전체 한눈에 보기">
-                <i class="bi bi-arrows-fullscreen"></i> 코스 전체 보기
+                <i class="bi bi-arrows-fullscreen"></i> <span data-i18n="heatmap_btn_reset">코스 전체 보기</span>
               </button>
             </div>
           </div>
@@ -592,11 +592,11 @@
     </section>
     <footer class="app-footer">
       <div class="footer-links">
-        <a href="about.html"><i class="bi bi-info-circle-fill text-orange"></i> <span>소개 및 문의</span></a>
+        <a href="about.html"><i class="bi bi-info-circle-fill text-orange"></i> <span data-i18n="nav_about">소개 및 문의</span></a>
         <span class="sep">&middot;</span>
-        <a href="guide.html"><i class="bi bi-book-half text-cyan"></i> <span>메뉴 이용 가이드</span></a>
+        <a href="guide.html"><i class="bi bi-book-half text-cyan"></i> <span data-i18n="nav_guide">메뉴 이용 가이드</span></a>
         <span class="sep">&middot;</span>
-        <a href="privacy.html"><i class="bi bi-shield-check"></i> <span>개인정보처리방침</span></a>
+        <a href="privacy.html"><i class="bi bi-shield-check"></i> <span data-i18n="footer_privacy">개인정보처리방침</span></a>
         <span class="sep">&middot;</span>
         <a href="about.html#contact-section"><i class="bi bi-envelope-at-fill"></i> <span>Contact</span></a>
       </div>
@@ -605,8 +605,9 @@
 
   </div>
 
-  <script src="garmin_all_activities.js?v=20260911_v2"></script>
-  <script src="activities_data.js?v=20260911_v2"></script>
-  <script src="app.js?v=20260911_v2"></script>
+  <script src="garmin_all_activities.js?v=20260911_v3"></script>
+  <script src="activities_data.js?v=20260911_v3"></script>
+  <script src="i18n.js?v=20260911_v3"></script>
+  <script src="app.js?v=20260911_v3"></script>
 </body>
 </html>

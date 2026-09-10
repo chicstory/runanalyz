@@ -3,6 +3,11 @@
    Supports: 2017-2026 Multi-Year Data, Shoe Mileage Tracker, Heatmap
    ========================================================================== */
 
+// Helper to access i18n translations safely
+function _t(key, fallback) {
+  return (window.I18N && typeof window.I18N.t === 'function') ? window.I18N.t(key, fallback) : fallback;
+}
+
 // Global filter states accessible by all modules
 let currentYear = '2026';
 let currentMonth = '8';
@@ -334,13 +339,13 @@ function renderSingleSession(act) {
   const efSub = document.getElementById('single-ef-status');
   if (efSub) {
     if (efVal >= 1.35) {
-      efSub.innerHTML = `<i class="bi bi-fire text-lime"></i> <strong>최상급 유산소 엔진 (Elite Base)</strong>`;
+      efSub.innerHTML = `<i class="bi bi-fire text-lime"></i> <strong>${_t('ef_elite', '최상급 유산소 엔진 (Elite Base)')}</strong>`;
     } else if (efVal >= 1.25) {
-      efSub.innerHTML = `<i class="bi bi-shield-check text-cyan"></i> <strong>우수한 유산소 효율성 (Good Conditioning)</strong>`;
+      efSub.innerHTML = `<i class="bi bi-shield-check text-cyan"></i> <strong>${_t('ef_good', '우수한 유산소 효율성 (Good Conditioning)')}</strong>`;
     } else if (efVal >= 1.10) {
-      efSub.innerHTML = `<i class="bi bi-speedometer text-orange"></i> <strong>표준 유산소 베이스 (Moderate Base)</strong>`;
+      efSub.innerHTML = `<i class="bi bi-speedometer text-orange"></i> <strong>${_t('ef_mod', '표준 유산소 베이스 (Moderate Base)')}</strong>`;
     } else {
-      efSub.innerHTML = `<i class="bi bi-sun text-yellow"></i> <strong>초기 유산소 적응 or 웜업/리커버리</strong>`;
+      efSub.innerHTML = `<i class="bi bi-sun text-yellow"></i> <strong>${_t('ef_adapt', '초기 유산소 적응 or 웜업/리커버리')}</strong>`;
     }
   }
 
@@ -355,16 +360,16 @@ function renderSingleSession(act) {
   if (decTitle && decDesc) {
     if (Math.abs(decVal) < 5.0) {
       if (decouplingEl) decouplingEl.style.color = 'var(--accent-lime)';
-      decTitle.textContent = '유산소 지구력 최적 안정 (Excellent Base)';
-      decDesc.textContent = `후반부 페이스 대비 심박수 상승률(드리프트)이 ${decVal}%로 기준치(5% 미만)를 충족합니다.`;
+      decTitle.textContent = _t('dec_excellent_title', '유산소 지구력 최적 안정 (Excellent Base)');
+      decDesc.textContent = _t('dec_excellent_desc', `후반부 페이스 대비 심박수 상승률(드리프트)이 ${decVal}%로 기준치(5% 미만)를 충족합니다.`);
     } else if (decVal >= 5.0 && decVal <= 8.5) {
       if (decouplingEl) decouplingEl.style.color = 'var(--accent-yellow)';
-      decTitle.textContent = '경미한 심폐 드리프트 (Mild Cardiac Drift)';
-      decDesc.textContent = `후반부 심폐 부하가 ${decVal}% 증가했습니다. 기온 또는 훈련 후반부 피로 누적이 발생했습니다.`;
+      decTitle.textContent = _t('dec_mild_title', '경미한 심폐 드리프트 (Mild Cardiac Drift)');
+      decDesc.textContent = _t('dec_mild_desc', `후반부 심폐 부하가 ${decVal}% 증가했습니다. 기온 또는 훈련 후반부 피로 누적이 발생했습니다.`);
     } else {
       if (decouplingEl) decouplingEl.style.color = 'var(--accent-red)';
-      decTitle.textContent = '후반부 심박 분리 심화 (High Fatigue)';
-      decDesc.textContent = `후반부 심박수가 ${decVal}% 상승하여 심폐 탈진 및 피로도가 급증했습니다.`;
+      decTitle.textContent = _t('dec_high_title', '후반부 심박 분리 심화 (High Fatigue)');
+      decDesc.textContent = _t('dec_high_desc', `후반부 심박수가 ${decVal}% 상승하여 심폐 탈진 및 피로도가 급증했습니다.`);
     }
   }
 
@@ -458,7 +463,7 @@ function renderThresholdDiagnostics(act, vdotEst) {
     // SUCCESS: Empirical Inflection Points Detected
     if (badgeEl) {
       badgeEl.className = 'threshold-status-badge success';
-      badgeEl.innerHTML = `<i class="bi bi-check-circle-fill"></i> 실측 변곡점 분석 완료`;
+      badgeEl.innerHTML = `<i class="bi bi-check-circle-fill"></i> ${_t('thresh_qualified_badge', '실측 변곡점 분석 완료')}`;
     }
 
     const baseHr = Math.max(105, Math.round(avgHr - (hrDiff * 0.55)));
@@ -479,23 +484,22 @@ function renderThresholdDiagnostics(act, vdotEst) {
         <div class="threshold-box lt1">
           <div class="threshold-box-header">
             <div class="threshold-box-title" style="color: var(--accent-lime);">
-              <i class="bi bi-heart-pulse-fill"></i> 1차 변곡점: 유산소 역치 (LT1 / VT1)
+              <i class="bi bi-heart-pulse-fill"></i> ${_t('thresh_lt1_title', '1차 변곡점: 유산소 역치 (LT1 / VT1)')}
             </div>
             <span class="threshold-box-tag">EFFICIENCY PEAK</span>
           </div>
           <div class="threshold-values-row">
             <div class="threshold-val-item">
-              <span class="threshold-val-label">전환 심박수</span>
+              <span class="threshold-val-label">${_t('thresh_hr_label', '전환 심박수')}</span>
               <span class="threshold-val-number">${measuredLt1Hr}<span class="unit">bpm</span></span>
             </div>
             <div class="threshold-val-item">
-              <span class="threshold-val-label">기준 페이스</span>
+              <span class="threshold-val-label">${_t('thresh_pace_label', '기준 페이스')}</span>
               <span class="threshold-val-number" style="font-size: 1.4rem;">${formatPaceFromSec(measuredLt1PaceSec)}<span class="unit">/km</span></span>
             </div>
           </div>
           <p class="threshold-box-desc">
-            순수 지방 대사(Zone 2)에서 탄수화물 글리코겐이 본격 동원되기 시작하는 생체 전환점입니다. 
-            EF 수치가 최고점(Peak Plateau)을 기록한 뒤 완만하게 기울기를 낮추는 기준선(마라톤 M 페이스)입니다.
+            ${_t('thresh_lt1_desc', '순수 지방 대사(Zone 2)에서 탄수화물 글리코겐이 본격 동원되기 시작하는 생체 전환점입니다. EF 수치가 최고점(Peak Plateau)을 기록한 뒤 완만하게 기울기를 낮추는 기준선(마라톤 M 페이스)입니다.')}
           </p>
         </div>
 
@@ -503,23 +507,22 @@ function renderThresholdDiagnostics(act, vdotEst) {
         <div class="threshold-box lt2">
           <div class="threshold-box-header">
             <div class="threshold-box-title" style="color: var(--accent-orange);">
-              <i class="bi bi-fire"></i> 2차 변곡점: 젖산 역치 (LT2 / VT2)
+              <i class="bi bi-fire"></i> ${_t('thresh_lt2_title', '2차 변곡점: 젖산 역치 (LT2 / VT2)')}
             </div>
             <span class="threshold-box-tag">SHARP CLIFF DROP</span>
           </div>
           <div class="threshold-values-row">
             <div class="threshold-val-item">
-              <span class="threshold-val-label">한계 심박수</span>
+              <span class="threshold-val-label">${_t('thresh_limit_hr_label', '한계 심박수')}</span>
               <span class="threshold-val-number">${measuredLt2Hr}<span class="unit">bpm</span></span>
             </div>
             <div class="threshold-val-item">
-              <span class="threshold-val-label">기준 페이스</span>
+              <span class="threshold-val-label">${_t('thresh_pace_label', '기준 페이스')}</span>
               <span class="threshold-val-number" style="font-size: 1.4rem;">${formatPaceFromSec(measuredLt2PaceSec)}<span class="unit">/km</span></span>
             </div>
           </div>
           <p class="threshold-box-desc">
-            젖산 생성 속도가 제거 능력을 초과하여 체내 젖산(4.0 mmol/L)이 급증하는 무산소 역치(HRDP)입니다. 
-            심박수는 가파르게 치솟으나 속도 효율이 한계에 부딪혀 EF 곡선이 절벽처럼 급락하는 템포(T) 페이스 한계선입니다.
+            ${_t('thresh_lt2_desc', '젖산 생성 속도가 제거 능력을 초과하여 체내 젖산(4.0 mmol/L)이 급증하는 무산소 역치(HRDP)입니다. 심박수는 가파르게 치솟으나 속도 효율이 한계에 부딪혀 EF 곡선이 절벽처럼 급락하는 템포(T) 페이스 한계선입니다.')}
           </p>
         </div>
       </div>
