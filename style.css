@@ -702,32 +702,143 @@ body {
   line-height: 1.4;
 }
 
-.dynamics-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.85rem;
+/* ---------------- VDOT & 5 Training Paces Card ---------------- */
+.vdot-cadence-badge {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  background: rgba(0, 242, 254, 0.1);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
-.dyn-item {
+.vdot-score-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   background: rgba(11, 17, 32, 0.6);
-  padding: 0.85rem;
+  padding: 0.75rem 1rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
+  margin-bottom: 0.85rem;
 }
 
-.dyn-label {
-  font-size: 0.75rem;
+.vdot-score-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 242, 254, 0.12);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  min-width: 78px;
+}
+
+.vdot-score-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  letter-spacing: 0.5px;
+}
+
+.vdot-score-val {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.vdot-score-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.training-paces-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+
+.pace-zone-item {
+  background: rgba(11, 17, 32, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.pace-zone-item:hover {
+  transform: translateY(-2px);
+}
+
+.pace-zone-item.pace-e { border-top: 3px solid #10b981; }
+.pace-zone-item.pace-m { border-top: 3px solid #00f2fe; }
+.pace-zone-item.pace-t { border-top: 3px solid #f59e0b; }
+.pace-zone-item.pace-i { border-top: 3px solid #ff5722; }
+.pace-zone-item.pace-r { border-top: 3px solid #ec4899; }
+
+.pz-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.pz-code {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.pace-e .pz-code { color: #10b981; }
+.pace-m .pz-code { color: #00f2fe; }
+.pace-t .pz-code { color: #f59e0b; }
+.pace-i .pz-code { color: #ff5722; }
+.pace-r .pz-code { color: #ec4899; }
+
+.pz-name {
+  font-size: 0.65rem;
   color: var(--text-muted);
 }
 
-.dyn-val {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
+.pz-val {
+  font-family: var(--font-mono);
+  font-size: 1.02rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: #fff;
+  margin: 0.2rem 0;
+  white-space: nowrap;
+}
+
+.pz-desc {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+@media (max-width: 640px) {
+  .training-paces-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 420px) {
+  .training-paces-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .text-cyan { color: var(--accent-cyan) !important; }

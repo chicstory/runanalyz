@@ -291,6 +291,12 @@ function clearSingleSessionDisplay() {
   }
   const threshBody = document.getElementById('threshold-card-body');
   if (threshBody) threshBody.innerHTML = '<div style="color:var(--text-muted); font-size:0.85rem;">세션을 선택하면 유산소 및 젖산 역치 분석 결과가 표시됩니다.</div>';
+  const vdotEl = document.getElementById('single-vdot');
+  if (vdotEl) vdotEl.textContent = '0.0';
+  ['e', 'm', 't', 'i', 'r'].forEach(p => {
+    const el = document.getElementById(`vdot-pace-${p}`);
+    if (el) el.textContent = '-';
+  });
 }
 
 function renderSingleSession(act) {
@@ -362,20 +368,26 @@ function renderSingleSession(act) {
     }
   }
 
-  // Dynamics & Specs
+  // Cadence
   const cadEl = document.getElementById('single-cadence');
   if (cadEl) cadEl.textContent = act.avg_cadence ? `${act.avg_cadence} spm` : '180 spm';
 
-  const powEl = document.getElementById('single-power');
-  if (powEl) powEl.textContent = act.avg_power ? `${act.avg_power} W` : '- W';
-
-  const calEl = document.getElementById('single-cal');
-  if (calEl) calEl.textContent = `${act.calories || 0} kcal`;
-  
-  // VDOT estimation
+  // VDOT estimation & 5 Training Paces
   const vdotEst = estimateVDOT(act.distance_km || 0, act.duration_seconds || 0);
   const vdotEl = document.getElementById('single-vdot');
   if (vdotEl) vdotEl.textContent = vdotEst.toFixed(1);
+
+  const paces = calculateVDOTPaces(vdotEst);
+  const paceE = document.getElementById('vdot-pace-e');
+  if (paceE) paceE.textContent = paces.e;
+  const paceM = document.getElementById('vdot-pace-m');
+  if (paceM) paceM.textContent = paces.m;
+  const paceT = document.getElementById('vdot-pace-t');
+  if (paceT) paceT.textContent = paces.t;
+  const paceI = document.getElementById('vdot-pace-i');
+  if (paceI) paceI.textContent = paces.i;
+  const paceR = document.getElementById('vdot-pace-r');
+  if (paceR) paceR.textContent = paces.r;
 
   // Physiological Thresholds (LT1 & LT2) Analysis
   try {
@@ -628,6 +640,34 @@ function estimateVDOT(distKm, durationSec) {
   const percent_max = 0.8 + 0.1894393 * Math.exp(-0.012778 * t_min) + 0.2989558 * Math.exp(-0.1932605 * t_min);
   const vdot = vo2 / percent_max;
   return Math.min(Math.max(vdot, 30), 75);
+}
+
+function calculateVDOTPaces(vdot) {
+  if (!vdot || isNaN(vdot) || vdot < 25) {
+    return { e: "-'--\"", m: "-'--\"", t: "-'--\"", i: "-'--\"", r: "-'--\"" };
+  }
+  // Jack Daniels VO2max velocity equation solver
+  const a = 0.000104;
+  const b = 0.182258;
+  const c = -(4.60 + vdot);
+  const disc = b * b - 4 * a * c;
+  if (disc < 0) return { e: "-'--\"", m: "-'--\"", t: "-'--\"", i: "-'--\"", r: "-'--\"" };
+  const vMax = (-b + Math.sqrt(disc)) / (2 * a); // in m/min
+
+  // Daniels velocity ratios:
+  const v_E = vMax * 0.72;   // Easy pace (Zone 2)
+  const v_M = vMax * 0.82;   // Marathon pace (LT1)
+  const v_T = vMax * 0.88;   // Threshold pace (LT2)
+  const v_I = vMax * 0.975;  // Interval pace (VO2max)
+  const v_R = vMax * 1.08;   // Repetition pace (Anaerobic)
+
+  return {
+    e: formatPaceFromSec(Math.round((1000 / v_E) * 60)),
+    m: formatPaceFromSec(Math.round((1000 / v_M) * 60)),
+    t: formatPaceFromSec(Math.round((1000 / v_T) * 60)),
+    i: formatPaceFromSec(Math.round((1000 / v_I) * 60)),
+    r: formatPaceFromSec(Math.round((1000 / v_R) * 60))
+  };
 }
 
 function renderSingleChart(act) {

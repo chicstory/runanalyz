@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20260911_v1">
+  <link rel="stylesheet" href="style.css?v=20260911_v2">
 </head>
 <body>
   <div class="app-container">
@@ -207,27 +207,63 @@
           </div>
         </div>
 
-        <!-- Secondary Specs (Cadence, Power, Calories, Elevation) -->
-        <div class="card detail-card">
+        <!-- VDOT & 5 Training Paces Card -->
+        <div class="card detail-card vdot-paces-card">
           <div class="card-header">
-            <div class="card-title"><i class="bi bi-sliders"></i> 러닝 다이내믹스 &amp; 부하</div>
+            <div class="card-title"><i class="bi bi-speedometer2"></i> VDOT &amp; 5대 훈련 페이스</div>
+            <div class="vdot-cadence-badge" title="분당 평균 발걸음 수">
+              <i class="bi bi-arrow-repeat text-cyan"></i> <span id="single-cadence">0 spm</span>
+            </div>
           </div>
-          <div class="dynamics-grid">
-            <div class="dyn-item">
-              <span class="dyn-label"><i class="bi bi-arrow-repeat"></i> 케이던스</span>
-              <span class="dyn-val" id="single-cadence">0 spm</span>
+          <div class="vdot-score-banner">
+            <div class="vdot-score-box">
+              <span class="vdot-score-label">SESSION VDOT</span>
+              <span class="vdot-score-val" id="single-vdot">0.0</span>
             </div>
-            <div class="dyn-item">
-              <span class="dyn-label"><i class="bi bi-lightning-charge"></i> 평균 파워</span>
-              <span class="dyn-val" id="single-power">0 W</span>
+            <div class="vdot-score-desc">
+              이 세션 기록(거리·시간) 기반의 최대산소섭취능력(VDOT)과 <strong>5대 권장 훈련 페이스</strong>입니다.
             </div>
-            <div class="dyn-item">
-              <span class="dyn-label"><i class="bi bi-fire"></i> 소모 칼로리</span>
-              <span class="dyn-val" id="single-cal">0 kcal</span>
+          </div>
+          <div class="training-paces-grid">
+            <div class="pace-zone-item pace-e">
+              <div class="pz-header">
+                <span class="pz-code">E 페이스</span>
+                <span class="pz-name">이지·회복</span>
+              </div>
+              <div class="pz-val" id="vdot-pace-e">-</div>
+              <div class="pz-desc">Zone 2 기초 유산소</div>
             </div>
-            <div class="dyn-item">
-              <span class="dyn-label"><i class="bi bi-trophy"></i> 추정 VDOT</span>
-              <span class="dyn-val text-cyan" id="single-vdot">0.0</span>
+            <div class="pace-zone-item pace-m">
+              <div class="pz-header">
+                <span class="pz-code">M 페이스</span>
+                <span class="pz-name">마라톤</span>
+              </div>
+              <div class="pz-val" id="vdot-pace-m">-</div>
+              <div class="pz-desc">풀코스 목표 (LT1)</div>
+            </div>
+            <div class="pace-zone-item pace-t">
+              <div class="pz-header">
+                <span class="pz-code">T 페이스</span>
+                <span class="pz-name">역치·템포</span>
+              </div>
+              <div class="pz-val" id="vdot-pace-t">-</div>
+              <div class="pz-desc">젖산 역치 (LT2)</div>
+            </div>
+            <div class="pace-zone-item pace-i">
+              <div class="pz-header">
+                <span class="pz-code">I 페이스</span>
+                <span class="pz-name">인터벌</span>
+              </div>
+              <div class="pz-val" id="vdot-pace-i">-</div>
+              <div class="pz-desc">VO2max 산소 확장</div>
+            </div>
+            <div class="pace-zone-item pace-r">
+              <div class="pz-header">
+                <span class="pz-code">R 페이스</span>
+                <span class="pz-name">레피티션</span>
+              </div>
+              <div class="pz-val" id="vdot-pace-r">-</div>
+              <div class="pz-desc">무산소 스피드 &amp; 자세</div>
             </div>
           </div>
         </div>
@@ -569,8 +605,8 @@
 
   </div>
 
-  <script src="garmin_all_activities.js?v=20260911_v1"></script>
-  <script src="activities_data.js?v=20260911_v1"></script>
-  <script src="app.js?v=20260911_v1"></script>
+  <script src="garmin_all_activities.js?v=20260911_v2"></script>
+  <script src="activities_data.js?v=20260911_v2"></script>
+  <script src="app.js?v=20260911_v2"></script>
 </body>
 </html>
