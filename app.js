@@ -721,22 +721,48 @@ function initMonthlyRecap(activities, year, month) {
   document.getElementById('card-lsd').textContent = `${maxLsd.toFixed(1)} km (${lsdAct?.date?.slice(5) || '-'})`;
   document.getElementById('card-ef').textContent = `${avgEf.toFixed(3)} (${efGrowthPct >= 0 ? '+' : ''}${efGrowthPct.toFixed(1)}%)`;
 
-  // Theme switcher for Insta Card
-  const themeBtns = document.querySelectorAll('.btn-theme-chip, .btn-theme');
+  // Format & Theme state for Insta Card Studio
+  let currentCardFormat = 'story'; // 'story' (9:16), 'square' (1:1), 'portrait' (4:5)
+  let currentCardTheme = 'dark'; // 'dark', 'neon', 'minimal'
   const instaCard = document.getElementById('instaCard');
+  const btnShare = document.getElementById('btn-share-card');
 
+  function updateCardAppearance() {
+    if (instaCard) {
+      instaCard.className = `insta-card theme-${currentCardTheme} format-${currentCardFormat}`;
+    }
+    if (btnShare) {
+      if (currentCardFormat === 'story') {
+        btnShare.innerHTML = `<i class="bi bi-instagram"></i> 스토리 공유`;
+      } else {
+        btnShare.innerHTML = `<i class="bi bi-share-fill"></i> 피드 공유`;
+      }
+    }
+  }
+
+  // Format switcher (Story 9:16 vs Feed Square 1:1 vs Feed Portrait 4:5)
+  const formatBtns = document.querySelectorAll('.btn-format-chip');
+  formatBtns.forEach(btn => {
+    btn.onclick = () => {
+      formatBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCardFormat = btn.dataset.format || 'story';
+      updateCardAppearance();
+    };
+  });
+
+  // Theme switcher
+  const themeBtns = document.querySelectorAll('.btn-theme-chip, .btn-theme');
   themeBtns.forEach(btn => {
     btn.onclick = () => {
       themeBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const theme = btn.dataset.theme;
-      if (instaCard) {
-        instaCard.className = `insta-card theme-${theme}`;
-      }
+      currentCardTheme = btn.dataset.theme || 'dark';
+      updateCardAppearance();
     };
   });
 
-  // Helper: Render Insta Card Canvas
+  // Helper: Render Insta Card Canvas (High-res 3x scale)
   async function generateCardCanvas() {
     return await html2canvas(instaCard, {
       scale: 3,
@@ -747,13 +773,13 @@ function initMonthlyRecap(activities, year, month) {
 
   function triggerImageDownload(canvas) {
     const link = document.createElement('a');
-    link.download = `RunAnalyz_${year}_${month}_Recap_${new Date().toISOString().slice(0, 10)}.png`;
+    const formatName = currentCardFormat === 'square' ? 'FeedSquare_1x1' : (currentCardFormat === 'portrait' ? 'FeedPortrait_4x5' : 'Story_9x16');
+    link.download = `RunAnalyz_${year}_${month}_${formatName}_${new Date().toISOString().slice(0, 10)}.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
   }
 
   // Smart Share Button (Web Share API for Mobile Instagram/AirDrop + fallback)
-  const btnShare = document.getElementById('btn-share-card');
   if (btnShare) {
     btnShare.onclick = async () => {
       const origHtml = btnShare.innerHTML;
@@ -770,13 +796,14 @@ function initMonthlyRecap(activities, year, month) {
               resetShareBtn();
               return;
             }
-            const file = new File([blob], `RunAnalyz_Recap_${year}_${month}.png`, { type: 'image/png' });
+            const formatTitle = currentCardFormat === 'square' ? '피드 정방형 (1:1)' : (currentCardFormat === 'portrait' ? '피드 세로형 (4:5)' : '스토리 (9:16)');
+            const file = new File([blob], `RunAnalyz_Recap_${year}_${month}_${currentCardFormat}.png`, { type: 'image/png' });
             if (navigator.canShare({ files: [file] })) {
               try {
                 await navigator.share({
                   files: [file],
-                  title: `RunAnalyz ${periodTitle} 러닝 결산`,
-                  text: `RunAnalyz 러닝 대시보드에서 생성된 ${periodTitle} 러닝 결산 카드입니다.`
+                  title: `RunAnalyz ${periodTitle} 러닝 결산 (${formatTitle})`,
+                  text: `RunAnalyz 러닝 대시보드에서 생성된 ${periodTitle} 러닝 결산 카드(${formatTitle})입니다.`
                 });
                 btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> 공유 완료!`;
               } catch (shareErr) {

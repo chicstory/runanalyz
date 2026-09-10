@@ -301,9 +301,23 @@
         <div class="studio-header">
           <div>
             <h3><i class="bi bi-instagram"></i> 인스타그램 러닝 결산 카드 스튜디오</h3>
-            <p>인스타 스토리(9:16) 규격의 감성 결산 카드를 원클릭으로 생성하고 다운로드하세요.</p>
+            <p>스토리(9:16) 및 피드 게시물(1:1 / 4:5) 맞춤형 러닝 결산 카드를 원클릭으로 생성하고 다운로드하세요.</p>
           </div>
           <div class="studio-actions">
+            <!-- Format Selector: Story (9:16) vs Feed Square (1:1) vs Feed Portrait (4:5) -->
+            <div class="format-picker-group">
+              <button class="btn-format-chip active" data-format="story" title="인스타 스토리 규격 (9:16)">
+                <i class="bi bi-phone"></i> 스토리 (9:16)
+              </button>
+              <button class="btn-format-chip" data-format="square" title="인스타 피드 정방형 (1:1)">
+                <i class="bi bi-square"></i> 피드 정방형 (1:1)
+              </button>
+              <button class="btn-format-chip" data-format="portrait" title="인스타 피드 세로형 (4:5)">
+                <i class="bi bi-aspect-ratio"></i> 피드 세로형 (4:5)
+              </button>
+            </div>
+
+            <!-- Theme Picker -->
             <div class="theme-picker-group">
               <button class="btn-theme-chip active" data-theme="dark" title="Dark Tech 테마">
                 <span class="chip-dot dot-dark"></span> 🌙 Dark
@@ -316,11 +330,11 @@
               </button>
             </div>
             <div class="studio-btn-group">
-              <button class="btn-primary" id="btn-share-card" title="인스타그램 스토리로 공유 또는 저장">
+              <button class="btn-primary" id="btn-share-card" title="인스타그램 공유 또는 저장">
                 <i class="bi bi-instagram"></i> 스토리 공유
               </button>
               <button class="btn-secondary" id="btn-download-card" title="PNG 이미지 파일로 직접 다운로드">
-                <i class="bi bi-download"></i> 저장
+                <i class="bi bi-download"></i> 카드 저장
               </button>
             </div>
           </div>
@@ -328,7 +342,7 @@
 
         <!-- The Printable / Renderable Insta Card -->
         <div class="insta-card-wrapper">
-          <div class="insta-card theme-dark" id="instaCard">
+          <div class="insta-card theme-dark format-story" id="instaCard">
             <!-- Card Header -->
             <div class="ic-header">
               <div class="ic-badge">AUGUST 2026 RUNNING RECAP</div>
@@ -444,18 +458,18 @@
 
     <!-- TAB 5: RUNNING HEATMAP (GPS TRACKS) -->
     <section class="tab-panel" id="panel-heatmap">
-      <!-- Heatmap Control Hero -->
+      <!-- Heatmap Overview Header -->
       <div class="heatmap-hero-card">
-        <div class="hh-info">
-          <span class="sub-title"><i class="bi bi-geo-alt-fill"></i> PERSONAL RUNNING HEATMAP</span>
-          <h2 class="main-title">야외 러닝 &amp; 액티비티 GPS 누적 히트맵</h2>
+        <div class="hh-content">
+          <span class="sub-title">DYNAMIC GPS ROUTE HEATMAP</span>
+          <h2 class="main-title">2022~2026 글로벌 야외 러닝 &amp; 액티비티 맵</h2>
           <p class="description">
-            사용자님이 실제로 달리고 움직이신 야외 GPS 이동 궤적을 하나의 인터랙티브 다크 지도 위에 오버레이합니다. 러닝 외 사이클/산책 궤적도 시각화 전용으로 탐색할 수 있습니다.
+            실제 가민 GPS 좌표를 기반으로 남양주, 한강, 서울 및 해외를 넘나드는 모든 야외 활동 궤적을 네온 라인으로 오버레이합니다.
           </p>
         </div>
-        <div class="hh-stats">
+        <div class="hh-quick-stats">
           <div class="hh-stat-item">
-            <span class="lbl">기록된 GPS 트랙</span>
+            <span class="lbl">선택 기간 코스</span>
             <span class="val text-orange" id="hm-track-count">5개 코스</span>
           </div>
           <div class="hh-stat-item">
@@ -525,13 +539,13 @@
       </div>
     </section>
     <footer class="app-footer">
-      <p>RunAnalyz Engine &copy; 2026. Running Shoes &amp; Aerobic EF Analytics.</p>
+      <p>RunAnalyz Engine &copy; 2026. Running &amp; Aerobic EF Analytics.</p>
     </footer>
 
   </div>
 
-  <script src="garmin_all_activities.js?v=20260910_v7"></script>
-  <script src="activities_data.js?v=20260910_v7"></script>
-  <script src="app.js?v=20260910_v7"></script>
+  <script src="garmin_all_activities.js?v=20260910_v8"></script>
+  <script src="activities_data.js?v=20260910_v8"></script>
+  <script src="app.js?v=20260910_v8"></script>
 </body>
 </html>
