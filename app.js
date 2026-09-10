@@ -193,16 +193,25 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (err) {
       console.error('Error in initYearlyRecap:', err);
     }
+
+    try {
+      if (window.refreshHeatmap) {
+        window.refreshHeatmap();
+      }
+    } catch (err) {
+      console.error('Error in refreshHeatmap:', err);
+    }
   }
 
-  // Initial Render
-  refreshAllViews();
-
+  // Initial Heatmap Initialization
   try {
     initRunningHeatmap(allActivities);
   } catch (err) {
     console.error('Error in initRunningHeatmap:', err);
   }
+
+  // Initial Render of All Views
+  refreshAllViews();
 
   // Reload Button (In-memory recalculation with visual feedback)
   const btnReload = document.getElementById('btn-reload');
@@ -986,10 +995,19 @@ function initRunningHeatmap(activities) {
   let allBounds = null;
 
   function getHeatmapActivities() {
-    if (currentSportFilter === 'running') {
-      return activities.filter(a => a.is_pure_running && a.has_gps && a.gps_points && a.gps_points.length > 5);
+    let list = activities;
+    // Filter by global period filter
+    if (currentYear !== 'all') {
+      list = list.filter(a => a.year == currentYear);
     }
-    return activities.filter(a => a.has_gps && a.gps_points && a.gps_points.length > 5);
+    if (currentMonth !== 'all') {
+      list = list.filter(a => a.month == currentMonth);
+    }
+
+    if (currentSportFilter === 'running') {
+      return list.filter(a => a.is_pure_running && a.has_gps && a.gps_points && a.gps_points.length > 5);
+    }
+    return list.filter(a => a.has_gps && a.gps_points && a.gps_points.length > 5);
   }
 
   // Initialize Leaflet Map once
@@ -1066,6 +1084,8 @@ function initRunningHeatmap(activities) {
       if (panel && panel.classList.contains('active')) {
         window.leafletMap.fitBounds(allBounds, { padding: [40, 40], maxZoom: 16 });
       }
+    } else {
+      window.heatmapAllBounds = null;
     }
   }
 
@@ -1076,46 +1096,62 @@ function initRunningHeatmap(activities) {
     const totalDistEl = document.getElementById('hm-total-dist');
     if (trackCountEl && totalDistEl) {
       trackCountEl.textContent = `${gpsActs.length}개 코스`;
-      const outdoorKm = gpsActs.reduce((acc, a) => acc + a.distance_km, 0);
+      const outdoorKm = gpsActs.reduce((acc, a) => acc + (a.distance_km || 0), 0);
       totalDistEl.textContent = `${outdoorKm.toFixed(1)} km`;
+    }
+
+    const secTitle = document.getElementById('routes-section-title');
+    if (secTitle) {
+      let pLabel = '';
+      if (currentYear === 'all') {
+        pLabel = currentMonth === 'all' ? '역대 전체' : `역대 ${currentMonth}월`;
+      } else {
+        pLabel = currentMonth === 'all' ? `${currentYear}년 전체` : `${currentYear}년 ${currentMonth}월`;
+      }
+      secTitle.textContent = `${pLabel} 야외 GPS 코스 목록 (${gpsActs.length}개)`;
     }
 
     const routesContainer = document.getElementById('routes-grid-container');
     if (routesContainer) {
-      routesContainer.innerHTML = gpsActs.map((a) => `
-        <div class="route-card" data-act-id="${a.id}">
-          <div class="rc-top">
-            <span class="rc-name">${a.date} ${a.sport_label}</span>
-            <span class="rc-tag" style="${a.is_pure_running ? 'color:var(--accent-orange);background:rgba(255,87,34,0.15);' : ''}">${a.sport_label}</span>
+      if (gpsActs.length === 0) {
+        routesContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);"><i class="bi bi-geo-alt-fill" style="font-size: 2.2rem; color: var(--accent-orange); display: block; margin-bottom: 0.6rem;"></i>선택한 기간에 등록된 야외 GPS 경로가 없습니다.</div>`;
+      } else {
+        routesContainer.innerHTML = gpsActs.map((a) => `
+          <div class="route-card" data-act-id="${a.id}">
+            <div class="rc-top">
+              <span class="rc-name">${a.date} ${a.sport_label}</span>
+              <span class="rc-tag" style="${a.is_pure_running ? 'color:var(--accent-orange);background:rgba(255,87,34,0.15);' : ''}">${a.sport_label}</span>
+            </div>
+            <div class="rc-details">
+              <span>거리: <strong>${a.distance_km}km</strong></span>
+              <span>페이스: <strong>${a.pace_formatted}</strong></span>
+              <span>심박: <strong>${a.avg_hr} bpm</strong></span>
+              ${a.is_pure_running ? `<span>EF: <strong>${a.ef}</strong></span>` : ''}
+            </div>
           </div>
-          <div class="rc-details">
-            <span>거리: <strong>${a.distance_km}km</strong></span>
-            <span>페이스: <strong>${a.pace_formatted}</strong></span>
-            <span>심박: <strong>${a.avg_hr} bpm</strong></span>
-            ${a.is_pure_running ? `<span>EF: <strong>${a.ef}</strong></span>` : ''}
-          </div>
-        </div>
-      `).join('');
+        `).join('');
 
-      document.querySelectorAll('.route-card').forEach(card => {
-        card.onclick = () => {
-          const actId = card.dataset.actId;
-          const currentActs = getHeatmapActivities();
-          const target = currentActs.find(a => a.id === actId);
-          if (target && target.gps_points && target.gps_points.length > 0) {
-            const poly = L.polyline(target.gps_points);
-            window.leafletMap.flyToBounds(poly.getBounds(), { padding: [50, 50], maxZoom: 16, duration: 1.2 });
-            mapContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        };
-      });
+        document.querySelectorAll('.route-card').forEach(card => {
+          card.onclick = () => {
+            const actId = card.dataset.actId;
+            const currentActs = getHeatmapActivities();
+            const target = currentActs.find(a => a.id === actId);
+            if (target && target.gps_points && target.gps_points.length > 0) {
+              const poly = L.polyline(target.gps_points);
+              window.leafletMap.flyToBounds(poly.getBounds(), { padding: [50, 50], maxZoom: 16, duration: 1.2 });
+              mapContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          };
+        });
+      }
     }
 
     drawTracks(currentTrackColor, gpsActs);
   }
 
-  // Initial draw
+  // Initial draw and expose globally
   updateHeatmapDisplay();
+  window.refreshHeatmap = updateHeatmapDisplay;
 
   // Sport Toggle Buttons (Pure Running vs All)
   const hmFilterBtns = document.querySelectorAll('.hm-filter-btn');
@@ -1157,12 +1193,17 @@ function initRunningHeatmap(activities) {
     btnZoomNamyangju.onclick = () => {
       document.querySelectorAll('.map-quick-buttons .btn-ghost').forEach(b => b.classList.remove('active-ghost'));
       btnZoomNamyangju.classList.add('active-ghost');
-      const allGps = activities.filter(a => a.has_gps && a.gps_points);
-      const namyangjuRuns = allGps.filter(a => a.date.startsWith('2026-08-31') || a.date.startsWith('2026-08-24'));
+      const allGps = activities.filter(a => a.has_gps && a.gps_points && a.gps_points.length > 0);
+      const namyangjuRuns = allGps.filter(a => {
+        const pt = a.gps_points[0];
+        return pt && pt[0] >= 37.60 && pt[0] <= 37.75 && pt[1] >= 127.15 && pt[1] <= 127.40;
+      });
       if (namyangjuRuns.length > 0) {
         let b = L.latLngBounds(namyangjuRuns[0].gps_points);
         namyangjuRuns.forEach(r => b.extend(r.gps_points));
-        window.leafletMap.flyToBounds(b, { padding: [40, 40], maxZoom: 16, duration: 1.2 });
+        window.leafletMap.flyToBounds(b, { padding: [40, 40], maxZoom: 15, duration: 1.2 });
+      } else {
+        window.leafletMap.flyTo([37.669, 127.304], 14, { duration: 1.2 });
       }
     };
   }
@@ -1173,12 +1214,17 @@ function initRunningHeatmap(activities) {
     btnZoomSeoul.onclick = () => {
       document.querySelectorAll('.map-quick-buttons .btn-ghost').forEach(b => b.classList.remove('active-ghost'));
       btnZoomSeoul.classList.add('active-ghost');
-      const allGps = activities.filter(a => a.has_gps && a.gps_points);
-      const seoulActs = allGps.filter(a => a.date.startsWith('2026-08-23') || a.date.startsWith('2026-08-30'));
+      const allGps = activities.filter(a => a.has_gps && a.gps_points && a.gps_points.length > 0);
+      const seoulActs = allGps.filter(a => {
+        const pt = a.gps_points[0];
+        return pt && pt[0] >= 37.45 && pt[0] <= 37.65 && pt[1] >= 126.85 && pt[1] <= 127.12;
+      });
       if (seoulActs.length > 0) {
         let b = L.latLngBounds(seoulActs[0].gps_points);
         seoulActs.forEach(r => b.extend(r.gps_points));
-        window.leafletMap.flyToBounds(b, { padding: [40, 40], maxZoom: 16, duration: 1.2 });
+        window.leafletMap.flyToBounds(b, { padding: [40, 40], maxZoom: 15, duration: 1.2 });
+      } else {
+        window.leafletMap.flyTo([37.566, 126.978], 13, { duration: 1.2 });
       }
     };
   }
