@@ -654,6 +654,13 @@ function initMonthlyRecap(activities, year, month) {
 
   const validEfs = activities.filter(a => a.ef > 0.5);
   const avgEf = validEfs.length ? (validEfs.reduce((acc, a) => acc + a.ef, 0) / validEfs.length) : 0;
+  let minEf = 0;
+  let maxEf = 0;
+  if (validEfs.length > 0) {
+    const efVals = validEfs.map(a => a.ef);
+    minEf = Math.min(...efVals);
+    maxEf = Math.max(...efVals);
+  }
 
   // EF Growth rate (first half vs second half of the period)
   let efGrowthPct = 0;
@@ -720,6 +727,15 @@ function initMonthlyRecap(activities, year, month) {
   document.getElementById('card-hr').innerHTML = `${avgHr} <small>bpm</small>`;
   document.getElementById('card-lsd').textContent = `${maxLsd.toFixed(1)} km (${lsdAct?.date?.slice(5) || '-'})`;
   document.getElementById('card-ef').textContent = `${avgEf.toFixed(3)} (${efGrowthPct >= 0 ? '+' : ''}${efGrowthPct.toFixed(1)}%)`;
+
+  const elCardEfRange = document.getElementById('card-ef-range');
+  if (elCardEfRange) {
+    if (validEfs.length > 0) {
+      elCardEfRange.innerHTML = `<i class="bi bi-activity"></i> AEROBIC EF: MIN ${minEf.toFixed(3)} — MAX ${maxEf.toFixed(3)}`;
+    } else {
+      elCardEfRange.innerHTML = `<i class="bi bi-activity"></i> AEROBIC EF: DATA ANALYZING`;
+    }
+  }
 
   // Dynamic Weekly Sparklines & Integer Distance Labels (W1~W5)
   const weeklyDists = [0, 0, 0, 0, 0];

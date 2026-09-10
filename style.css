@@ -1160,8 +1160,10 @@ body {
   font-size: 1.2rem;
 }
 
-.insta-card.format-square .ic-quote {
-  display: none; /* Hide motivational quote in 1:1 square for compact breathing room */
+.insta-card.format-square .ic-ef-range {
+  font-size: 0.62rem;
+  margin-top: 0.2rem;
+  letter-spacing: 0.3px;
 }
 
 .insta-card.format-square .ic-stats-grid {
@@ -1238,6 +1240,11 @@ body {
 
 .insta-card.format-portrait .ic-main-distance {
   font-size: 3.4rem;
+}
+
+.insta-card.format-portrait .ic-ef-range {
+  font-size: 0.7rem;
+  margin-top: 0.35rem;
 }
 
 .insta-card.format-portrait .ic-stats-grid {
@@ -1321,7 +1328,6 @@ body {
 .insta-card.theme-minimal .ic-badge,
 .insta-card.theme-minimal .ic-stat-label,
 .insta-card.theme-minimal .hl-title,
-.insta-card.theme-minimal .ic-quote,
 .insta-card.theme-minimal .ic-sub,
 .insta-card.theme-minimal .ic-week-lbl,
 .insta-card.theme-minimal .ic-author-tag,
@@ -1333,7 +1339,8 @@ body {
 .insta-card.theme-minimal .ic-main-distance,
 .insta-card.theme-minimal .ic-stat-val,
 .insta-card.theme-minimal .hl-value,
-.insta-card.theme-minimal .ic-week-val {
+.insta-card.theme-minimal .ic-week-val,
+.insta-card.theme-minimal .ic-ef-range {
   color: #0f172a;
 }
 
@@ -1398,11 +1405,21 @@ body {
   -webkit-text-fill-color: initial;
 }
 
-.ic-quote {
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-  margin-top: 0.5rem;
-  font-style: italic;
+.ic-ef-range {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  margin-top: 0.45rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ic-ef-range i {
+  color: var(--accent-orange);
+  font-size: 0.75rem;
 }
 
 .ic-stats-grid {
