@@ -45,12 +45,21 @@
   padding: 0;
 }
 
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-sans);
   line-height: 1.5;
   min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
   -webkit-font-smoothing: antialiased;
   background-image: 
     radial-gradient(circle at 15% 10%, rgba(255, 87, 34, 0.08) 0%, transparent 40%),
@@ -61,8 +70,10 @@ body {
 
 .app-container {
   max-width: 1080px;
+  width: 100%;
   margin: 0 auto;
   padding: 1.5rem 1rem 3rem 1rem;
+  overflow-x: hidden;
 }
 
 /* ---------------- Global Header ---------------- */
@@ -379,7 +390,7 @@ body {
 /* ---------------- Tabs ---------------- */
 .main-tabs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 0.5rem;
   background: rgba(15, 23, 42, 0.6);
   padding: 0.35rem;
@@ -1115,6 +1126,8 @@ body {
 .insta-card,
 .insta-card.format-story {
   width: 360px;
+  max-width: 100%;
+  box-sizing: border-box;
   min-height: 640px;
   border-radius: 24px;
   padding: 2rem 1.75rem;
@@ -1130,6 +1143,8 @@ body {
 /* 1:1 Square Feed Post Format */
 .insta-card.format-square {
   width: 440px;
+  max-width: 100%;
+  box-sizing: border-box;
   min-height: 440px;
   aspect-ratio: 1 / 1;
   padding: 1.15rem 1.4rem;
@@ -1228,6 +1243,8 @@ body {
 /* 4:5 Portrait Feed Post Format */
 .insta-card.format-portrait {
   width: 400px;
+  max-width: 100%;
+  box-sizing: border-box;
   min-height: 500px;
   aspect-ratio: 4 / 5;
   padding: 1.85rem 1.75rem;
@@ -1760,12 +1777,14 @@ body {
   gap: 1.25rem;
 }
 
-.hh-info {
+.hh-info,
+.hh-content {
   flex: 1;
-  min-width: 280px;
+  min-width: 260px;
 }
 
-.hh-info .sub-title {
+.hh-info .sub-title,
+.hh-content .sub-title {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 800;
@@ -1773,26 +1792,30 @@ body {
   letter-spacing: 1px;
 }
 
-.hh-info .main-title {
+.hh-info .main-title,
+.hh-content .main-title {
   font-family: var(--font-display);
   font-size: 1.45rem;
   font-weight: 800;
   margin: 0.3rem 0 0.5rem 0;
 }
 
-.hh-info .description {
+.hh-info .description,
+.hh-content .description {
   font-size: 0.84rem;
   color: var(--text-secondary);
   line-height: 1.4;
 }
 
-.hh-stats {
+.hh-stats,
+.hh-quick-stats {
   display: flex;
   gap: 1.5rem;
   background: rgba(11, 17, 32, 0.6);
   padding: 1rem 1.25rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
 }
 
 .hh-stat-item {
@@ -1809,6 +1832,16 @@ body {
   font-family: var(--font-display);
   font-size: 1.35rem;
   font-weight: 800;
+}
+
+/* Map Card & Container Overflow Guard */
+#panel-heatmap,
+.map-card,
+#runningHeatmap,
+.leaflet-container {
+  overflow: hidden !important;
+  max-width: 100% !important;
+  position: relative;
 }
 
 /* Map Card */
@@ -2131,25 +2164,60 @@ body {
   white-space: nowrap;
 }
 
+/* Header Nav Quick Links */
+.header-nav-quick {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-header-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-header-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
 /* Tablet & Mobile Screens (<= 960px) */
 @media (max-width: 960px) {
-  .dashboard-container {
-    padding: 1rem 0.85rem;
+  .app-container {
+    padding: 1rem 0.85rem 3rem 0.85rem;
   }
 
-  .header-content {
+  .app-header {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: stretch;
+    gap: 1.25rem;
   }
 
-  .header-actions {
+  .header-brand {
+    justify-content: flex-start;
+  }
+
+  .header-meta {
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .month-hero-grid,
-  .metric-grid {
+  .metric-grid,
+  .metrics-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -2160,7 +2228,14 @@ body {
   .weekly-hero-card,
   .heatmap-hero-card {
     flex-direction: column;
+    align-items: stretch;
     gap: 1.25rem;
+  }
+
+  .hh-quick-stats,
+  .hh-stats {
+    width: 100%;
+    justify-content: space-around;
   }
 
   .card-header {
@@ -2177,43 +2252,193 @@ body {
 
 /* Smartphone Screens (<= 640px) */
 @media (max-width: 640px) {
+  .app-container {
+    padding: 0.75rem 0.6rem 2.5rem 0.6rem;
+  }
+
   .app-header {
-    padding: 1rem 0;
+    padding: 0.5rem 0 0.85rem 0;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
   }
 
   .brand-title {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
   }
 
-  .brand-sub {
+  .brand-badge {
+    font-size: 0.58rem;
+    letter-spacing: 0.5px;
+  }
+
+  .brand-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .period-control-group {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.3rem 0.4rem;
+  }
+
+  .period-title {
     font-size: 0.72rem;
   }
 
-  .tab-btn {
-    padding: 0.6rem 0.85rem;
-    font-size: 0.82rem;
+  .header-select {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.3rem;
   }
 
-  .filter-btn {
-    padding: 0.35rem 0.7rem;
+  .period-active-badge {
+    justify-content: center;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .btn-refresh {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    justify-content: center;
+  }
+
+  .header-nav-quick {
+    display: flex;
+    gap: 0.35rem;
+    width: 100%;
+  }
+
+  .btn-header-link {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.72rem;
+    padding: 0.32rem 0.4rem;
+  }
+
+  /* Filter Bar Mobile: 3 equal buttons, no overflow */
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 0.55rem 0.5rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  .filter-label {
     font-size: 0.75rem;
   }
 
+  .filter-btn-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 0.2rem;
+  }
+
+  .filter-btn {
+    min-width: 0;
+    justify-content: center;
+    padding: 0.4rem 0.1rem;
+    font-size: 0.65rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: var(--radius-sm);
+  }
+
+  .filter-btn .badge-num {
+    font-size: 0.62rem;
+  }
+
+  /* Main Tabs Mobile: 5 compact buttons with no hint */
+  .main-tabs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.2rem;
+    padding: 0.25rem;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+
+  .tab-btn {
+    padding: 0.5rem 0.1rem;
+    gap: 0.1rem;
+  }
+
+  .tab-btn i {
+    font-size: 0.95rem;
+  }
+
+  .tab-btn span {
+    font-size: 0.68rem;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+  }
+
+  .tab-hint {
+    display: none !important;
+  }
+
+  /* Metrics Grid Mobile: 1 col */
   .month-hero-grid,
-  .metric-grid {
+  .metric-grid,
+  .metrics-grid {
     grid-template-columns: 1fr;
     gap: 0.75rem;
   }
 
+  .metric-card {
+    padding: 1rem;
+  }
+
   .metric-val,
   .m-val {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+  }
+
+  /* Weekly Recap Mobile */
+  .weekly-cards-container {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  /* Monthly Format Chips Mobile */
+  .format-picker-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 0.25rem;
+  }
+
+  .btn-format-chip {
+    padding: 0.45rem 0.15rem;
+    font-size: 0.68rem;
+    justify-content: center;
+    white-space: nowrap;
   }
 
   .studio-header {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.85rem;
   }
 
   .studio-actions {
@@ -2224,13 +2449,13 @@ body {
   }
 
   .theme-picker-group {
-    overflow-x: auto;
     width: 100%;
     justify-content: space-around;
   }
 
   .studio-btn-group {
     width: 100%;
+    display: flex;
   }
 
   .studio-btn-group .btn-primary {
@@ -2238,14 +2463,53 @@ body {
     justify-content: center;
   }
 
-  .insta-card {
-    width: 100%;
-    max-width: 350px;
-    padding: 1.5rem 1.25rem;
+  /* Insta Card Preview Mobile */
+  .insta-card,
+  .insta-card.format-story,
+  .insta-card.format-square,
+  .insta-card.format-portrait {
+    width: 100% !important;
+    max-width: 330px !important;
+    min-width: 0 !important;
+    margin: 0 auto;
+    box-sizing: border-box !important;
   }
 
-  .ic-main-distance {
-    font-size: 2.8rem;
+  .insta-card.format-square {
+    min-height: auto;
+    aspect-ratio: 1 / 1;
+    padding: 0.85rem 1rem;
+  }
+
+  .insta-card.format-square .ic-main-distance {
+    font-size: 2.1rem;
+  }
+
+  .insta-card.format-portrait {
+    min-height: auto;
+    aspect-ratio: 4 / 5;
+    padding: 1.1rem;
+  }
+
+  .insta-card.format-portrait .ic-main-distance {
+    font-size: 2.4rem;
+  }
+
+  /* Heatmap Mobile */
+  .hh-quick-stats,
+  .hh-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+    padding: 0.65rem 0.4rem;
+  }
+
+  .hh-stat-item .val {
+    font-size: 1.05rem;
+  }
+
+  .hh-stat-item .lbl {
+    font-size: 0.62rem;
   }
 
   .map-actions {
@@ -2256,28 +2520,25 @@ body {
 
   .heatmap-sport-filter,
   .map-quick-buttons {
+    display: flex;
     width: 100%;
-    justify-content: flex-start;
   }
 
   .hm-filter-btn {
     flex: 1;
-    text-align: center;
     justify-content: center;
-    padding: 0.45rem 0.6rem;
-    font-size: 0.78rem;
+    padding: 0.42rem 0.35rem;
+    font-size: 0.72rem;
   }
 
   .btn-ghost {
     flex: 1;
-    text-align: center;
     justify-content: center;
-    padding: 0.45rem 0.5rem;
-    font-size: 0.75rem;
   }
 
   .track-color-picker {
-    justify-content: flex-start;
+    width: 100%;
+    justify-content: center;
   }
 }
 
