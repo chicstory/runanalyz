@@ -13,122 +13,390 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>개인정보처리방침 | RunAnalyz (런애널라이즈)</title>
-  <meta name="description" content="RunAnalyz의 개인정보 처리 원칙, 브라우저 로컬 데이터 처리 및 이용자 권리 보호 지침.">
+  <meta name="description" content="RunAnalyz의 개인정보 처리 원칙, 브라우저 로컬 데이터 연산 및 이용자 권리 보호 지침.">
 
   <!-- Google Fonts: Inter, Outfit, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="style.css?v=20260910_v10">
+  <link rel="stylesheet" href="style.css?v=20260910_v12">
+
+  <style>
+    /* Robust Subpage Dark Tech Embedded Styling */
+    body {
+      background-color: #090d16 !important;
+      color: #f8fafc !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(255, 87, 34, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(0, 242, 254, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%) !important;
+      background-attachment: fixed !important;
+    }
+
+    .subpage-wrapper {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 5rem 1.25rem;
+    }
+
+    .subpage-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 1.5rem;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .subpage-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+    }
+
+    .subpage-brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ff5722 0%, #ff8a65 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.1rem;
+      box-shadow: 0 0 15px rgba(255, 87, 34, 0.4);
+    }
+
+    .subpage-brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+
+    .subpage-menu-links {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .subpage-menu-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.42rem 0.85rem;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .subpage-menu-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .subpage-menu-btn.active {
+      color: #ff5722;
+      background: rgba(255, 87, 34, 0.12);
+      border-color: rgba(255, 87, 34, 0.35);
+    }
+
+    .hero-banner {
+      text-align: center;
+      padding: 2.5rem 1rem 3rem 1rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: #94a3b8;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .tech-card {
+      background: rgba(18, 26, 44, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 2.25rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.25s ease;
+    }
+
+    .tech-card:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+
+    .tech-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .tech-card-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.15);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .tech-card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .tech-card p {
+      color: #94a3b8;
+      line-height: 1.75;
+      font-size: 0.96rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tech-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .tech-card ul, .tech-card ol {
+      color: #94a3b8;
+      padding-left: 1.4rem;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+    }
+
+    .tech-card li {
+      margin-bottom: 0.45rem;
+    }
+
+    .tech-card strong {
+      color: #f8fafc;
+    }
+
+    .callout-box {
+      background: rgba(16, 185, 129, 0.06);
+      border-left: 4px solid #10b981;
+      padding: 1.2rem 1.5rem;
+      border-radius: 0 14px 14px 0;
+      margin: 1.5rem 0;
+    }
+
+    .callout-box p {
+      color: #e2e8f0;
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    .email-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(9, 13, 22, 0.9);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      padding: 0.75rem 1.4rem;
+      border-radius: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #00f2fe;
+      margin: 1rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .subpage-wrapper { padding: 1rem 0.85rem 4rem 0.85rem; }
+      .subpage-nav { flex-direction: column; gap: 0.85rem; align-items: stretch; padding: 1rem; }
+      .subpage-menu-links { justify-content: space-around; }
+      .hero-title { font-size: 2rem; }
+      .tech-card { padding: 1.5rem 1.25rem; }
+    }
+  </style>
 </head>
 <body>
-  <div class="subpage-container">
+  <div class="subpage-wrapper">
     
-    <!-- Subpage Navigation -->
-    <nav class="subpage-nav-bar">
-      <a href="index.html" class="subpage-nav-brand">
-        <i class="bi bi-lightning-charge-fill text-orange"></i>
-        <span>RUN<span style="color:var(--accent-orange);">ANALYZ</span></span>
+    <!-- Unified Top Navigation -->
+    <nav class="subpage-nav">
+      <a href="index.html" class="subpage-brand">
+        <div class="subpage-brand-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+        <span class="subpage-brand-title">RUN<span style="color:#ff5722;">ANALYZ</span></span>
       </a>
-      <div class="subpage-nav-links">
-        <a href="index.html" class="subpage-nav-link"><i class="bi bi-speedometer2"></i> 대시보드</a>
-        <a href="guide.html" class="subpage-nav-link"><i class="bi bi-book-half"></i> 이용 가이드</a>
-        <a href="about.html" class="subpage-nav-link"><i class="bi bi-info-circle-fill"></i> 소개 &amp; 문의</a>
-        <a href="privacy.html" class="subpage-nav-link active"><i class="bi bi-shield-check"></i> 개인정보처리방침</a>
+      <div class="subpage-menu-links">
+        <a href="index.html" class="subpage-menu-btn"><i class="bi bi-speedometer2"></i> 대시보드</a>
+        <a href="guide.html" class="subpage-menu-btn"><i class="bi bi-book-half"></i> 이용 가이드</a>
+        <a href="about.html" class="subpage-menu-btn"><i class="bi bi-info-circle-fill"></i> 소개 &amp; 문의</a>
+        <a href="privacy.html" class="subpage-menu-btn active"><i class="bi bi-shield-check"></i> 개인정보처리방침</a>
       </div>
     </nav>
 
-    <!-- Header Hero -->
-    <header class="subpage-header">
-      <div class="subpage-tag"><i class="bi bi-shield-lock-fill"></i> PRIVACY POLICY</div>
-      <h1 class="subpage-title">개인정보처리방침</h1>
-      <p class="subpage-subtitle">
-        RunAnalyz는 이용자의 개인정보 및 민감한 운동·생체 데이터를 소중히 다루며, 관련 법령(개인정보보호법 및 GDPR)을 준수합니다.
+    <!-- Hero Banner -->
+    <header class="hero-banner">
+      <div class="hero-badge"><i class="bi bi-shield-lock-fill"></i> PRIVACY POLICY</div>
+      <h1 class="hero-title">개인정보처리방침</h1>
+      <p class="hero-desc">
+        RunAnalyz는 이용자의 개인정보 및 민감한 운동·생체 데이터를 소중히 다루며, 관련 법령(개인정보보호법 및 GDPR)을 철저히 준수합니다.
       </p>
     </header>
 
-    <!-- Privacy Articles -->
-    <article class="doc-card">
-      <h2 class="doc-section-title"><i class="bi bi-1-circle-fill"></i> 총칙 및 데이터 처리 원칙</h2>
+    <!-- Article 1 -->
+    <article class="tech-card">
+      <div class="tech-card-header">
+        <span class="tech-card-badge">제 1 조</span>
+        <h2 class="tech-card-title">총칙 및 데이터 처리 기본 원칙</h2>
+      </div>
       <p>
         RunAnalyz(이하 "서비스")는 이용자의 신뢰를 최우선으로 생각합니다. 본 방침은 서비스가 수집하는 운동 데이터, 처리 방식, 그리고 사용자가 보유한 권리를 투명하게 설명합니다.
       </p>
-      <div class="doc-highlight-box">
+      <div class="callout-box">
         <p>
-          <strong>🔒 브라우저 클라이언트 연산 원칙 (Zero Server Storage):</strong><br>
-          RunAnalyz에 입력되거나 업로드된 가민(Garmin)/스트라바(Strava) 활동 로그 및 세부 GPS 트랙 좌표는 별도의 중앙 원격 데이터베이스에 무단 전송되거나 저장되지 않으며, 전적으로 이용자의 웹 브라우저(Local / SessionStorage / IndexedDB) 단에서 연산 및 시각화됩니다.
+          <strong>🔒 브라우저 클라이언트 로컬 연산 원칙 (Zero Server Storage):</strong><br>
+          RunAnalyz에 입력되거나 업로드된 가민(Garmin) 및 스트라바(Strava) 활동 로그와 세부 GPS 트랙 좌표는 별도의 외부 중앙 원격 서버에 무단 전송되거나 보관되지 않으며, 전적으로 이용자의 웹 브라우저(Local / SessionStorage / IndexedDB) 메모리 단에서만 안전하게 연산 및 시각화됩니다.
         </p>
       </div>
     </article>
 
-    <article class="doc-card">
-      <h2 class="doc-section-title"><i class="bi bi-2-circle-fill"></i> 처리하는 데이터 항목</h2>
-      <p>서비스 이용 과정에서 다음과 같은 활동 데이터가 브라우저 내에서 처리될 수 있습니다:</p>
+    <!-- Article 2 -->
+    <article class="tech-card">
+      <div class="tech-card-header">
+        <span class="tech-card-badge">제 2 조</span>
+        <h2 class="tech-card-title">처리하는 데이터 항목</h2>
+      </div>
+      <p>서비스 이용 과정에서 브라우저 내에서 처리되는 데이터 항목은 다음과 같습니다:</p>
       <ul>
         <li><strong>기본 활동 정보:</strong> 운동 일시, 총 러닝 거리(km), 운동 지속 시간, 소모 칼로리</li>
         <li><strong>생체 및 페이스 데이터:</strong> 구간별 페이스(pace), 평균/최대 심박수(bpm), 유산소 효율 지표(EF)</li>
         <li><strong>러닝 다이내믹스 지표:</strong> 평균 케이던스(spm), 보폭(stride), 지면 접촉 시간(GCT), 수직 진폭(vertical oscillation)</li>
-        <li><strong>위치 및 경로 정보:</strong> GPS 위·경도 트랙 로그 (러닝 히트맵 및 코스 거리 계산용)</li>
-        <li><strong>서비스 이용 로그:</strong> 접속 일시, 브라우저 종류, 화면 해상도, 참조 URL (Google Analytics 4를 통한 통계 목적)</li>
+        <li><strong>위치 및 경로 정보:</strong> GPS 위·경도 트랙 좌표 (러닝 히트맵 및 코스 거리 계산용)</li>
+        <li><strong>서비스 이용 로그:</strong> 접속 일시, 브라우저 종류, 화면 해상도 (Google Analytics 4를 통한 익명 통계 목적)</li>
       </ul>
     </article>
 
-    <article class="doc-card">
-      <h2 class="doc-section-title"><i class="bi bi-3-circle-fill"></i> 데이터의 처리 목적</h2>
+    <!-- Article 3 -->
+    <article class="tech-card">
+      <div class="tech-card-header">
+        <span class="tech-card-badge">제 3 조</span>
+        <h2 class="tech-card-title">데이터의 처리 목적</h2>
+      </div>
       <p>수집 및 처리된 데이터는 오직 다음의 목적을 위해서만 활용됩니다:</p>
       <ol>
         <li>단일 러닝 세션의 유산소 효율(EF) 및 생체 역학 다이내믹스 분석</li>
         <li>주간 정산 및 부상 방지를 위한 '10% 증량 룰' 안전 진단</li>
-        <li>월간 결산 요약 및 인스타그램 공유용 카드 이미지(Retina 3x) 생성</li>
+        <li>월간 결산 요약 및 인스타그램 공유용 고해상도 카드 이미지 생성</li>
         <li>연간 누적 마일리지 및 다년도 트레이닝 추이 아카이빙</li>
         <li>야외 러닝 코스 인터랙티브 GPS 히트맵 렌더링 및 통계 제공</li>
       </ol>
     </article>
 
-    <article class="doc-card">
-      <h2 class="doc-section-title"><i class="bi bi-4-circle-fill"></i> 쿠키(Cookie) 및 웹 분석 도구 안내</h2>
+    <!-- Article 4 -->
+    <article class="tech-card">
+      <div class="tech-card-header">
+        <span class="tech-card-badge">제 4 조</span>
+        <h2 class="tech-card-title">쿠키(Cookie) 및 구글 애널리틱스 안내</h2>
+      </div>
       <p>
-        서비스는 웹사이트의 성능 최적화 및 사용자 환경 개선을 위해 Google LLC에서 제공하는 웹 로그 분석 도구인 <strong>Google Analytics 4 (추적 ID: G-K3PFHN6VW7)</strong>를 사용하고 있습니다.
+        서비스는 웹사이트 성능 최적화 및 사용자 환경 개선을 위해 Google LLC에서 제공하는 <strong>Google Analytics 4 (추적 ID: G-K3PFHN6VW7)</strong>를 사용하고 있습니다.
       </p>
       <ul>
         <li>구글 애널리틱스는 익명화된 이용 통계(방문 페이지, 체류 시간, 유입 경로 등)를 쿠키를 통해 수집합니다.</li>
-        <li>이용자는 웹 브라우저의 옵션 설정을 통해 쿠키 저장을 거부하거나 삭제할 수 있으며, <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener" style="color:var(--accent-cyan);">Google Analytics Opt-out Browser Add-on</a>을 설치하여 데이터 수집을 상시 거부할 수 있습니다.</li>
+        <li>이용자는 웹 브라우저 설정을 통해 쿠키 저장을 거부하거나 삭제할 수 있으며, <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener" style="color:#00f2fe;">Google Analytics Opt-out</a> 확장 프로그램을 통해 데이터 수집을 상시 거부할 수 있습니다.</li>
       </ul>
     </article>
 
-    <article class="doc-card">
-      <h2 class="doc-section-title"><i class="bi bi-5-circle-fill"></i> 이용자의 권리와 파기</h2>
+    <!-- Article 5 -->
+    <article class="tech-card">
+      <div class="tech-card-header">
+        <span class="tech-card-badge">제 5 조</span>
+        <h2 class="tech-card-title">이용자의 권리와 데이터 파기</h2>
+      </div>
       <p>
-        모든 러닝 활동 데이터는 사용자의 로컬 브라우저 세션에 저장되므로, 브라우저의 캐시 및 저장소(사이트 데이터 삭제)를 초기화하는 즉시 모든 활동 기록이 지체 없이 완벽하게 파기됩니다.
+        모든 러닝 활동 데이터는 사용자의 로컬 브라우저 세션에만 머물므로, 브라우저의 캐시 및 저장소(사이트 데이터 삭제)를 비우는 즉시 모든 활동 기록이 지체 없이 영구 파기됩니다.
       </p>
     </article>
 
-    <article class="doc-card">
-      <h2 class="doc-section-title"><i class="bi bi-6-circle-fill"></i> 개인정보 보호책임자 및 문의처</h2>
-      <p>개인정보 처리 및 서비스 이용과 관련된 모든 문의, 의견, 권리 행사는 아래의 공식 담당자 채널을 통해 신속하게 처리됩니다:</p>
-      <div class="contact-email-wrapper" style="margin: 1rem 0;">
-        <i class="bi bi-envelope-at-fill text-orange"></i>
+    <!-- Article 6 -->
+    <article class="tech-card">
+      <div class="tech-card-header">
+        <span class="tech-card-badge">제 6 조</span>
+        <h2 class="tech-card-title">개인정보 보호책임자 및 문의처</h2>
+      </div>
+      <p>개인정보 처리 및 서비스 이용과 관련된 모든 문의, 권리 행사는 아래의 공식 담당자 채널을 통해 신속하게 처리됩니다:</p>
+      <div class="email-box">
+        <i class="bi bi-envelope-at-fill" style="color:#ff5722;"></i>
         <span id="privacy-email-display">chicstory2nd@gmail.com</span>
       </div>
-      <p style="font-size: 0.88rem; color: var(--text-muted);">
-        * 스팸 수집 봇 방지를 위해 평문 수집이 차단되어 있으며, 클릭 시 공식 문의 메일로 자동 연결됩니다.
+      <p style="font-size: 0.88rem; color: #64748b; margin-top: 0.5rem;">
+        * 스팸 수집 봇 방지를 위해 난독화 처리되어 있으며, 클릭 시 공식 문의 메일로 자동 연결됩니다.
       </p>
-      <div style="margin-top: 1rem;">
-        <a href="about.html#contact-section" class="contact-btn contact-btn-primary">
+      <div style="margin-top: 1.25rem;">
+        <a href="about.html#contact-section" style="display:inline-flex; align-items:center; gap:0.5rem; background:linear-gradient(135deg,#ff5722,#ff8a65); color:#fff; padding:0.75rem 1.5rem; border-radius:12px; font-weight:800; text-decoration:none; font-family:'Outfit',sans-serif;">
           <i class="bi bi-chat-right-text-fill"></i> 문의 및 피드백 페이지로 이동
         </a>
       </div>
     </article>
 
-    <article class="doc-card">
-      <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">
-        공고일자: 2026년 9월 10일 | 시행일자: 2026년 9월 10일
-      </p>
-    </article>
+    <div style="text-align:center; padding:1.5rem; color:#64748b; font-size:0.85rem;">
+      공고일자: 2026년 9월 10일 | 시행일자: 2026년 9월 10일
+    </div>
 
-    <!-- Subpage Footer -->
-    <footer class="app-footer" style="margin-top: 3rem;">
+    <!-- Footer -->
+    <footer style="text-align:center; padding:2rem 1rem 3rem 1rem; border-top:1px solid rgba(255,255,255,0.08); margin-top:2rem; color:#64748b; font-size:0.85rem;">
       <p>RunAnalyz Engine &copy; 2026. Running &amp; Aerobic EF Analytics.</p>
     </footer>
 

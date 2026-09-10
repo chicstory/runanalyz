@@ -12,116 +12,519 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RunAnalyz (런애널라이즈) 소개 &amp; 문의 | About &amp; Contact</title>
-  <meta name="description" content="유산소 효율(Aerobic EF) 기반 차세대 러닝 퍼포먼스 분석 플랫폼 RunAnalyz 소개 및 문의 안내.">
+  <title>About &amp; Contact | RunAnalyz (런애널라이즈)</title>
+  <meta name="description" content="유산소 효율(Aerobic EF) 기반 차세대 스포츠 사이언스 러닝 분석 엔진 RunAnalyz 소개 및 스팸 방지 공식 문의 채널.">
 
   <!-- Google Fonts: Inter, Outfit, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="style.css?v=20260910_v10">
+  <link rel="stylesheet" href="style.css?v=20260910_v12">
+
+  <style>
+    /* Robust Subpage Dark Tech Embedded Styling */
+    body {
+      background-color: #090d16 !important;
+      color: #f8fafc !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(255, 87, 34, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(0, 242, 254, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%) !important;
+      background-attachment: fixed !important;
+    }
+
+    .subpage-wrapper {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 5rem 1.25rem;
+    }
+
+    /* Unified Header */
+    .subpage-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 1.5rem;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .subpage-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+    }
+
+    .subpage-brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ff5722 0%, #ff8a65 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.1rem;
+      box-shadow: 0 0 15px rgba(255, 87, 34, 0.4);
+    }
+
+    .subpage-brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+
+    .subpage-menu-links {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .subpage-menu-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.42rem 0.85rem;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .subpage-menu-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .subpage-menu-btn.active {
+      color: #ff5722;
+      background: rgba(255, 87, 34, 0.12);
+      border-color: rgba(255, 87, 34, 0.35);
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      text-align: center;
+      padding: 2.5rem 1rem 3rem 1rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #ff5722;
+      background: rgba(255, 87, 34, 0.12);
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: #94a3b8;
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Content Cards */
+    .tech-card {
+      background: rgba(18, 26, 44, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 2.25rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.25s ease;
+    }
+
+    .tech-card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .tech-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tech-card-icon {
+      font-size: 1.5rem;
+      color: #ff5722;
+    }
+
+    .tech-card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .tech-card p {
+      color: #94a3b8;
+      line-height: 1.75;
+      font-size: 0.96rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tech-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .callout-box {
+      background: rgba(0, 242, 254, 0.06);
+      border-left: 4px solid #00f2fe;
+      padding: 1.2rem 1.5rem;
+      border-radius: 0 14px 14px 0;
+      margin: 1.5rem 0;
+    }
+
+    .callout-box p {
+      color: #e2e8f0;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .features-3col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .feature-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 1.4rem;
+    }
+
+    .feature-box-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .feature-box-desc {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    /* Contact Special Box */
+    .contact-hero-card {
+      background: linear-gradient(135deg, rgba(255, 87, 34, 0.09) 0%, rgba(0, 242, 254, 0.06) 100%);
+      border: 1px solid rgba(255, 87, 34, 0.25);
+      border-radius: 28px;
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .contact-email-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(9, 13, 22, 0.9);
+      border: 1px solid rgba(0, 242, 254, 0.35);
+      padding: 0.85rem 1.6rem;
+      border-radius: 14px;
+      margin: 1.5rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #00f2fe;
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
+    }
+
+    .contact-btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .c-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.6rem;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .c-btn-primary {
+      background: linear-gradient(135deg, #ff5722 0%, #ff8a65 100%);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+    }
+
+    .c-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(255, 87, 34, 0.6);
+    }
+
+    .c-btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .c-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    /* Form */
+    .inq-form {
+      max-width: 620px;
+      margin: 0 auto;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background: rgba(9, 13, 22, 0.6);
+      padding: 1.75rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .inq-input, .inq-textarea {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .inq-input:focus, .inq-textarea:focus {
+      border-color: #00f2fe;
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+    }
+
+    .inq-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* Toast */
+    .c-toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid #00f2fe;
+      color: #fff;
+      padding: 0.85rem 1.4rem;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10000;
+    }
+
+    .c-toast.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .subpage-wrapper { padding: 1rem 0.85rem 4rem 0.85rem; }
+      .subpage-nav { flex-direction: column; gap: 0.85rem; align-items: stretch; padding: 1rem; }
+      .subpage-menu-links { justify-content: space-around; }
+      .hero-title { font-size: 2rem; }
+      .tech-card { padding: 1.5rem 1.25rem; }
+      .contact-hero-card { padding: 1.75rem 1.25rem; }
+      .contact-email-bar { font-size: 0.95rem; padding: 0.65rem 1rem; }
+    }
+  </style>
 </head>
 <body>
-  <div class="subpage-container">
+  <div class="subpage-wrapper">
     
-    <!-- Subpage Navigation -->
-    <nav class="subpage-nav-bar">
-      <a href="index.html" class="subpage-nav-brand">
-        <i class="bi bi-lightning-charge-fill text-orange"></i>
-        <span>RUN<span style="color:var(--accent-orange);">ANALYZ</span></span>
+    <!-- Unified Top Navigation -->
+    <nav class="subpage-nav">
+      <a href="index.html" class="subpage-brand">
+        <div class="subpage-brand-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+        <span class="subpage-brand-title">RUN<span style="color:#ff5722;">ANALYZ</span></span>
       </a>
-      <div class="subpage-nav-links">
-        <a href="index.html" class="subpage-nav-link"><i class="bi bi-speedometer2"></i> 대시보드</a>
-        <a href="guide.html" class="subpage-nav-link"><i class="bi bi-book-half"></i> 이용 가이드</a>
-        <a href="about.html" class="subpage-nav-link active"><i class="bi bi-info-circle-fill"></i> 소개 &amp; 문의</a>
-        <a href="privacy.html" class="subpage-nav-link"><i class="bi bi-shield-check"></i> 개인정보처리방침</a>
+      <div class="subpage-menu-links">
+        <a href="index.html" class="subpage-menu-btn"><i class="bi bi-speedometer2"></i> 대시보드</a>
+        <a href="guide.html" class="subpage-menu-btn"><i class="bi bi-book-half"></i> 이용 가이드</a>
+        <a href="about.html" class="subpage-menu-btn active"><i class="bi bi-info-circle-fill"></i> 소개 &amp; 문의</a>
+        <a href="privacy.html" class="subpage-menu-btn"><i class="bi bi-shield-check"></i> 개인정보처리방침</a>
       </div>
     </nav>
 
-    <!-- Header Hero -->
-    <header class="subpage-header">
-      <div class="subpage-tag"><i class="bi bi-fire"></i> NEXT-GEN RUNNING ANALYTICS</div>
-      <h1 class="subpage-title">RunAnalyz: 스포츠 사이언스 러닝 분석 엔진</h1>
-      <p class="subpage-subtitle">
-        단순한 '거리와 시간'의 나열을 넘어, 심폐 유산소 효율(EF)과 생체 다이내믹스를 기반으로 러너의 진정한 체력 성장을 진단하는 데이터 분석 플랫폼입니다.
+    <!-- Hero Banner -->
+    <header class="hero-banner">
+      <div class="hero-badge"><i class="bi bi-fire"></i> SPORTS SCIENCE RUNNING ANALYTICS</div>
+      <h1 class="hero-title">RunAnalyz: 유산소 효율(EF) 중심 러닝 분석 엔진</h1>
+      <p class="hero-desc">
+        단순한 '거리와 시간'의 나열을 넘어, 심폐 유산소 효율(EF)과 생체 다이내믹스를 기반으로 러너의 진짜 체력 성장을 진단하는 데이터 분석 플랫폼입니다.
       </p>
     </header>
 
-    <!-- Main Content Cards -->
-    <article class="doc-card">
-      <h2 class="doc-section-title"><i class="bi bi-cpu-fill"></i> 우리의 미션과 철학</h2>
+    <!-- Mission Card -->
+    <article class="tech-card">
+      <div class="tech-card-header">
+        <i class="bi bi-cpu-fill tech-card-icon"></i>
+        <h2 class="tech-card-title">우리의 미션과 철학</h2>
+      </div>
       <p>
         모든 러너는 매일 자신의 한계를 조금씩 넓혀가며 달립니다. 그러나 시중의 대부분의 러닝 앱들은 단순히 "오늘 몇 km를 달렸는가"와 같은 외적 수치만을 강조합니다. 
       </p>
       <p>
-        <strong>RunAnalyz</strong>는 심장이 뛴 비용 대비 산출된 속도를 계산하는 <strong>유산소 효율(Aerobic Efficiency Factor, EF)</strong> 지표를 핵심 엔진으로 삼습니다. 동일한 5분 페이스라도 심박수가 165bpm에서 145bpm으로 안정화되었다면 그것이 바로 진정한 심폐 지구력의 비약적인 성장입니다.
+        <strong>RunAnalyz</strong>는 심장이 뛴 비용(심박수) 대비 산출된 속도를 계산하는 <strong>유산소 효율(Aerobic Efficiency Factor, EF)</strong> 지표를 핵심 엔진으로 삼습니다. 동일한 5분 페이스라도 심박수가 165bpm에서 145bpm으로 안정화되었다면 그것이 바로 진정한 심폐 지구력의 비약적인 성장입니다.
       </p>
-      <div class="doc-highlight-box">
+      <div class="callout-box">
         <p><strong>💡 핵심 신조:</strong> "거리보다 심장, 속도보다 효율. 데이터로 증명되는 건강하고 부상 없는 러닝 라이프를 지향합니다."</p>
       </div>
     </article>
 
-    <article class="doc-card">
-      <h2 class="doc-section-title"><i class="bi bi-gear-wide-connected"></i> 3대 핵심 분석 기술</h2>
-      <ul>
-        <li><strong>Aerobic EF 진단 엔진:</strong> 가민(Garmin) / 스트라바(Strava) 활동 로그에서 휴식·워밍업 잡음을 필터링하고 순수 러닝 구간의 페이스와 평균 심박수를 정밀 결합하여 심폐 효율 점수를 0.001 단위로 산출합니다.</li>
-        <li><strong>부상 방지 10% 룰(Safety Rule) 알고리즘:</strong> 전주 대비 주간 볼륨 증가율을 실시간 추적하여 과훈련(Overtraining)에 따른 아킬레스건염·신스프린트 등 과사용 부상을 선제적으로 경고합니다.</li>
-        <li><strong>클라이언트 사이드 프라이버시 원칙:</strong> 업로드된 GPS 및 생체 데이터는 외부 서버에 강제 저장되지 않으며, 사용자 브라우저 메모리 단에서 100% 안전하게 연산되어 프라이버시를 완벽히 보호합니다.</li>
-      </ul>
+    <!-- Core Features Card -->
+    <article class="tech-card">
+      <div class="tech-card-header">
+        <i class="bi bi-gear-wide-connected tech-card-icon"></i>
+        <h2 class="tech-card-title">3대 핵심 분석 기술</h2>
+      </div>
+      <div class="features-3col">
+        <div class="feature-box">
+          <div class="feature-box-title"><i class="bi bi-activity text-orange"></i> Aerobic EF 진단 엔진</div>
+          <div class="feature-box-desc">가민/스트라바 활동 로그에서 휴식 잡음을 필터링하고 순수 러닝 구간의 페이스와 심박수를 결합하여 유산소 효율을 0.001 단위로 정밀 산출합니다.</div>
+        </div>
+        <div class="feature-box">
+          <div class="feature-box-title"><i class="bi bi-shield-check" style="color:#00f2fe;"></i> 주간 10% 안전 룰</div>
+          <div class="feature-box-desc">전주 대비 주간 볼륨 증가율을 실시간 추적하여 과훈련(Overtraining)에 따른 아킬레스건염·신스프린트 등 과사용 부상을 선제 경고합니다.</div>
+        </div>
+        <div class="feature-box">
+          <div class="feature-box-title"><i class="bi bi-lock-fill" style="color:#10b981;"></i> 로컬 프라이버시 원칙</div>
+          <div class="feature-box-desc">업로드된 GPS 및 생체 데이터는 외부 서버에 강제 저장되지 않으며, 사용자 브라우저 메모리 단에서 안전하게 연산되어 프라이버시를 완벽히 보호합니다.</div>
+        </div>
+      </div>
     </article>
 
-    <!-- Contact & Feedback Section -->
-    <article class="doc-card contact-card-box" id="contact-section">
-      <div class="subpage-tag"><i class="bi bi-envelope-fill"></i> OFFICIAL CONTACT</div>
-      <h2 class="doc-section-title" style="justify-content: center;"><i class="bi bi-chat-dots-fill"></i> 문의 &amp; 제휴 &amp; 피드백</h2>
-      <p>
-        RunAnalyz에 대한 기능 제안, 버그 제보, 데이터 연동 문의, 스포츠 사이언스 기술 제휴는 언제든 환영합니다.<br>
-        자동화된 스팸 수집 봇으로부터 보호하기 위해 아래 안전한 채널을 통해 연결됩니다.
+    <!-- Contact & Feedback Card -->
+    <article class="contact-hero-card" id="contact-section">
+      <div class="hero-badge" style="margin-bottom:0.75rem;"><i class="bi bi-envelope-fill"></i> OFFICIAL CONTACT</div>
+      <h2 style="font-family:'Outfit',sans-serif; font-size:1.8rem; font-weight:900; color:#fff; margin-bottom:0.75rem;">
+        문의 &amp; 제휴 &amp; 피드백
+      </h2>
+      <p style="color:#94a3b8; font-size:0.95rem; max-width:600px; margin:0 auto 1.5rem auto; line-height:1.6;">
+        RunAnalyz에 대한 기능 제안, 버그 제보, 데이터 연동 문의는 언제든 환영합니다.<br>
+        스팸 수집 봇으로부터 보호하기 위해 아래 안전한 원클릭 채널을 통해 연결됩니다.
       </p>
 
-      <!-- Obfuscated Safe Email Display -->
-      <div class="contact-email-wrapper">
-        <i class="bi bi-shield-lock-fill text-orange"></i>
+      <!-- Anti-Spam Decoded Email Bar -->
+      <div class="contact-email-bar">
+        <i class="bi bi-shield-lock-fill" style="color:#ff5722;"></i>
         <span id="safe-email-display">로딩 중...</span>
       </div>
 
-      <div class="contact-actions">
-        <button class="contact-btn contact-btn-primary" id="btn-copy-email">
+      <div class="contact-btn-row">
+        <button class="c-btn c-btn-primary" id="btn-copy-email">
           <i class="bi bi-clipboard-check-fill"></i> 이메일 주소 복사
         </button>
-        <button class="contact-btn contact-btn-secondary" id="btn-open-mail">
+        <button class="c-btn c-btn-secondary" id="btn-open-mail">
           <i class="bi bi-send-fill"></i> 기본 메일 앱으로 전송
         </button>
       </div>
 
       <!-- Quick Inquiry Form -->
-      <form class="inquiry-form" id="quick-inquiry-form" onsubmit="handleInquirySubmit(event)">
-        <input type="text" id="inq-name" class="inquiry-input" placeholder="성함 또는 닉네임" required>
-        <input type="text" id="inq-subject" class="inquiry-input" placeholder="문의 제목 (예: 스트라바 API 연동 제안, 버그 제보)" required>
-        <textarea id="inq-message" class="inquiry-textarea" placeholder="문의하실 내용을 자유롭게 작성해 주세요..." required></textarea>
-        <button type="submit" class="contact-btn contact-btn-primary" style="align-self: flex-start;">
+      <form class="inq-form" id="quick-inquiry-form" onsubmit="handleInquirySubmit(event)">
+        <div style="font-family:'Outfit',sans-serif; font-size:1.05rem; font-weight:800; color:#fff; margin-bottom:0.25rem;">
+          <i class="bi bi-chat-square-text-fill text-orange"></i> 간편 문의 작성
+        </div>
+        <input type="text" id="inq-name" class="inq-input" placeholder="성함 또는 닉네임" required>
+        <input type="text" id="inq-subject" class="inq-input" placeholder="문의 제목 (예: 스트라바 연동 문의, 버그 제보)" required>
+        <textarea id="inq-message" class="inq-textarea" placeholder="문의하실 내용을 자유롭게 작성해 주세요..." required></textarea>
+        <button type="submit" class="c-btn c-btn-primary" style="align-self: flex-start;">
           <i class="bi bi-envelope-paper-heart-fill"></i> 문의 메일 작성 완료
         </button>
       </form>
     </article>
 
-    <!-- Subpage Footer -->
-    <footer class="app-footer" style="margin-top: 3rem;">
+    <!-- Footer -->
+    <footer style="text-align:center; padding:3rem 1rem; border-top:1px solid rgba(255,255,255,0.08); margin-top:3rem; color:#64748b; font-size:0.85rem;">
       <p>RunAnalyz Engine &copy; 2026. Running &amp; Aerobic EF Analytics.</p>
     </footer>
 
   </div>
 
-  <!-- Toast Element -->
-  <div class="subpage-toast" id="subpage-toast">
+  <!-- Toast Notification -->
+  <div class="c-toast" id="c-toast">
     <i class="bi bi-check-circle-fill text-orange"></i>
     <span id="toast-text">이메일 주소가 클립보드에 복사되었습니다!</span>
   </div>
 
   <script>
     // Anti-Spam Email Obfuscation
-    // Obfuscated string: base64 of 'chicstory2nd@gmail.com'
     const _p1 = 'Y2hpY3N0b3J5Mm5k';
     const _p2 = 'QGdtYWlsLmNvbQ==';
     function getDecodedEmail() {
@@ -139,7 +542,6 @@
         displayEl.textContent = email;
       }
 
-      // Copy Email Button
       const btnCopy = document.getElementById('btn-copy-email');
       if (btnCopy) {
         btnCopy.onclick = () => {
@@ -151,7 +553,6 @@
         };
       }
 
-      // Open Mail Client
       const btnOpen = document.getElementById('btn-open-mail');
       if (btnOpen) {
         btnOpen.onclick = () => {
@@ -161,7 +562,7 @@
     });
 
     function showToast(msg) {
-      const toast = document.getElementById('subpage-toast');
+      const toast = document.getElementById('c-toast');
       const text = document.getElementById('toast-text');
       if (toast && text) {
         text.textContent = msg;

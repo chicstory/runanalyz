@@ -12,167 +12,538 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RunAnalyz (런애널라이즈) 메뉴별 종합 이용 가이드 | Guide &amp; Glossary</title>
-  <meta name="description" content="단일 세션 분석, 유산소 효율(EF), 주간 10% 룰, 월간 결산 카드 스튜디오, 다년도 아카이브, GPS 히트맵 완벽 활용 가이드.">
+  <title>5대 메뉴 이용 가이드 &amp; 러닝 용어집 | RunAnalyz (런애널라이즈)</title>
+  <meta name="description" content="RunAnalyz의 5대 핵심 메뉴(단일 세션, 10% 룰, 월간 결산 카드 스튜디오, 연간 아카이브, GPS 히트맵) 상세 이용 가이드.">
 
   <!-- Google Fonts: Inter, Outfit, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="style.css?v=20260910_v10">
+  <link rel="stylesheet" href="style.css?v=20260910_v12">
+
+  <style>
+    /* Robust Subpage Dark Tech Embedded Styling */
+    body {
+      background-color: #090d16 !important;
+      color: #f8fafc !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(255, 87, 34, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(0, 242, 254, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%) !important;
+      background-attachment: fixed !important;
+    }
+
+    .subpage-wrapper {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 5rem 1.25rem;
+    }
+
+    .subpage-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 1.5rem;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .subpage-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+    }
+
+    .subpage-brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ff5722 0%, #ff8a65 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.1rem;
+      box-shadow: 0 0 15px rgba(255, 87, 34, 0.4);
+    }
+
+    .subpage-brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+
+    .subpage-menu-links {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .subpage-menu-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.42rem 0.85rem;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .subpage-menu-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .subpage-menu-btn.active {
+      color: #ff5722;
+      background: rgba(255, 87, 34, 0.12);
+      border-color: rgba(255, 87, 34, 0.35);
+    }
+
+    /* Hero */
+    .hero-banner {
+      text-align: center;
+      padding: 2.5rem 1rem 3rem 1rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #00f2fe;
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: #94a3b8;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Nav Cards Grid */
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .guide-nav-card {
+      background: rgba(18, 26, 44, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .guide-nav-card:hover {
+      background: rgba(28, 38, 65, 0.85);
+      border-color: #00f2fe;
+      transform: translateY(-2px);
+    }
+
+    .guide-nav-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #ff5722;
+    }
+
+    .guide-nav-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* Tech Card Sections */
+    .tech-card {
+      background: rgba(18, 26, 44, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 2.25rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.25s ease;
+    }
+
+    .tech-card:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+
+    .tech-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .tech-card-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #ff5722;
+      background: rgba(255, 87, 34, 0.15);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .tech-card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .tech-card p {
+      color: #94a3b8;
+      line-height: 1.75;
+      font-size: 0.96rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tech-card ul {
+      color: #94a3b8;
+      padding-left: 1.4rem;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+    }
+
+    .tech-card li {
+      margin-bottom: 0.45rem;
+    }
+
+    .tech-card strong {
+      color: #f8fafc;
+    }
+
+    .callout-box {
+      background: rgba(0, 242, 254, 0.06);
+      border-left: 4px solid #00f2fe;
+      padding: 1.2rem 1.5rem;
+      border-radius: 0 14px 14px 0;
+      margin: 1.5rem 0;
+    }
+
+    .callout-box p {
+      color: #e2e8f0;
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    /* Info Table */
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.92rem;
+    }
+
+    .info-table th {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.85rem 1rem;
+      text-align: left;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      color: #00f2fe;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .info-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    .info-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .tag-safe { color: #10b981; font-weight: 700; }
+    .tag-caution { color: #ff9100; font-weight: 700; }
+    .tag-danger { color: #ef4444; font-weight: 700; }
+
+    @media (max-width: 768px) {
+      .subpage-wrapper { padding: 1rem 0.85rem 4rem 0.85rem; }
+      .subpage-nav { flex-direction: column; gap: 0.85rem; align-items: stretch; padding: 1rem; }
+      .subpage-menu-links { justify-content: space-around; }
+      .hero-title { font-size: 2rem; }
+      .tech-card { padding: 1.5rem 1.25rem; }
+      .info-table { display: block; overflow-x: auto; }
+    }
+  </style>
 </head>
 <body>
-  <div class="subpage-container">
+  <div class="subpage-wrapper">
     
-    <!-- Subpage Navigation -->
-    <nav class="subpage-nav-bar">
-      <a href="index.html" class="subpage-nav-brand">
-        <i class="bi bi-lightning-charge-fill text-orange"></i>
-        <span>RUN<span style="color:var(--accent-orange);">ANALYZ</span></span>
+    <!-- Unified Top Navigation -->
+    <nav class="subpage-nav">
+      <a href="index.html" class="subpage-brand">
+        <div class="subpage-brand-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+        <span class="subpage-brand-title">RUN<span style="color:#ff5722;">ANALYZ</span></span>
       </a>
-      <div class="subpage-nav-links">
-        <a href="index.html" class="subpage-nav-link"><i class="bi bi-speedometer2"></i> 대시보드</a>
-        <a href="guide.html" class="subpage-nav-link active"><i class="bi bi-book-half"></i> 이용 가이드</a>
-        <a href="about.html" class="subpage-nav-link"><i class="bi bi-info-circle-fill"></i> 소개 &amp; 문의</a>
-        <a href="privacy.html" class="subpage-nav-link"><i class="bi bi-shield-check"></i> 개인정보처리방침</a>
+      <div class="subpage-menu-links">
+        <a href="index.html" class="subpage-menu-btn"><i class="bi bi-speedometer2"></i> 대시보드</a>
+        <a href="guide.html" class="subpage-menu-btn active"><i class="bi bi-book-half"></i> 이용 가이드</a>
+        <a href="about.html" class="subpage-menu-btn"><i class="bi bi-info-circle-fill"></i> 소개 &amp; 문의</a>
+        <a href="privacy.html" class="subpage-menu-btn"><i class="bi bi-shield-check"></i> 개인정보처리방침</a>
       </div>
     </nav>
 
-    <!-- Header Hero -->
-    <header class="subpage-header">
-      <div class="subpage-tag"><i class="bi bi-compass-fill"></i> COMPREHENSIVE USER GUIDE</div>
-      <h1 class="subpage-title">RunAnalyz 5대 핵심 메뉴 가이드</h1>
-      <p class="subpage-subtitle">
-        단순한 운동 기록 조회를 넘어, 데이터 기반의 스마트한 트레이닝과 안전한 성장을 지원하는 5가지 전문 분석 도구의 활용법을 안내합니다.
+    <!-- Hero Banner -->
+    <header class="hero-banner">
+      <div class="hero-badge"><i class="bi bi-compass-fill"></i> USER GUIDE &amp; GLOSSARY</div>
+      <h1 class="hero-title">RunAnalyz 5대 핵심 메뉴 가이드</h1>
+      <p class="hero-desc">
+        단순한 운동 기록 조회를 넘어, 데이터 기반의 스마트한 트레이닝과 안전한 성장을 지원하는 5가지 전문 분석 도구의 활용법을 상세히 안내합니다.
       </p>
     </header>
 
-    <!-- Menu Overview Grid -->
-    <div class="guide-menu-grid">
-      <div class="guide-menu-item">
-        <span class="guide-menu-badge">MENU 01</span>
-        <h3 class="guide-menu-name"><i class="bi bi-activity text-orange"></i> 단일 세션 분석</h3>
-        <p class="guide-menu-desc">개별 러닝 세션의 유산소 효율(EF), 페이스-심박수 매핑, 케이던스/GCT 등 4대 생체 다이내믹스 정밀 진단.</p>
-      </div>
-      <div class="guide-menu-item">
-        <span class="guide-menu-badge">MENU 02</span>
-        <h3 class="guide-menu-name"><i class="bi bi-shield-check text-cyan"></i> 주간 정산 &amp; 10% 룰</h3>
-        <p class="guide-menu-desc">주차별 마일리지 추이 및 과훈련(Overtraining)에 따른 과사용 부상을 예방하는 주간 10% 증량 안전 룰 판별.</p>
-      </div>
-      <div class="guide-menu-item">
-        <span class="guide-menu-badge">MENU 03</span>
-        <h3 class="guide-menu-name"><i class="bi bi-instagram text-orange"></i> 월간 결산 &amp; 카드 스튜디오</h3>
-        <p class="guide-menu-desc">월간 총 마일리지와 LSD 기록 요약, 인스타그램 피드(1:1, 4:5) 및 스토리(9:16) 초고해상도 이미지 생성.</p>
-      </div>
-      <div class="guide-menu-item">
-        <span class="guide-menu-badge">MENU 04</span>
-        <h3 class="guide-menu-name"><i class="bi bi-calendar3-range text-cyan"></i> 연간 결산 아카이브</h3>
-        <p class="guide-menu-desc">5개년 누적 마일리지 스택 차트 및 월별 추이 비교를 통한 장기적 러닝 라이프사이클 분석.</p>
-      </div>
-      <div class="guide-menu-item">
-        <span class="guide-menu-badge">MENU 05</span>
-        <h3 class="guide-menu-name"><i class="bi bi-geo-alt-fill text-orange"></i> GPS 러닝 히트맵</h3>
-        <p class="guide-menu-desc">내가 달린 모든 야외 러닝 코스 인터랙티브 시각화, 최다 방문 코스 및 최장 코스 상세 제원 탐색.</p>
-      </div>
+    <!-- Quick Jump Menu Cards -->
+    <div class="guide-grid">
+      <a href="#guide-session" class="guide-nav-card">
+        <span class="guide-nav-num">TAB 01</span>
+        <span class="guide-nav-name"><i class="bi bi-activity text-orange"></i> 단일 세션 분석</span>
+      </a>
+      <a href="#guide-weekly" class="guide-nav-card">
+        <span class="guide-nav-num">TAB 02</span>
+        <span class="guide-nav-name"><i class="bi bi-shield-check" style="color:#00f2fe;"></i> 주간 10% 룰</span>
+      </a>
+      <a href="#guide-monthly" class="guide-nav-card">
+        <span class="guide-nav-num">TAB 03</span>
+        <span class="guide-nav-name"><i class="bi bi-instagram text-orange"></i> 월간 결산 카드</span>
+      </a>
+      <a href="#guide-yearly" class="guide-nav-card">
+        <span class="guide-nav-num">TAB 04</span>
+        <span class="guide-nav-name"><i class="bi bi-calendar3-range" style="color:#00f2fe;"></i> 연간 아카이브</span>
+      </a>
+      <a href="#guide-heatmap" class="guide-nav-card">
+        <span class="guide-nav-num">TAB 05</span>
+        <span class="guide-nav-name"><i class="bi bi-geo-alt-fill text-orange"></i> GPS 히트맵</span>
+      </a>
     </div>
 
-    <!-- Detailed Section 1: Single Session -->
-    <article class="doc-card" id="guide-session">
-      <h2 class="doc-section-title"><i class="bi bi-1-circle-fill"></i> 단일 세션 분석: 유산소 효율(EF)과 생체 다이내믹스</h2>
+    <!-- Section 1: Single Session -->
+    <article class="tech-card" id="guide-session">
+      <div class="tech-card-header">
+        <span class="tech-card-badge">MENU 01</span>
+        <h2 class="tech-card-title"><i class="bi bi-activity text-orange"></i> 단일 세션 분석 (유산소 효율 &amp; 다이내믹스)</h2>
+      </div>
       <p>
         상단 좌측의 러닝 세션 리스트에서 특정 러닝을 클릭하면 해당 세션의 정밀 진단 리포트가 펼쳐집니다.
       </p>
       
-      <h3 style="color:var(--accent-cyan); font-size:1.1rem; margin:1.25rem 0 0.5rem 0;">1. 유산소 효율 점수 (Aerobic Efficiency Factor, EF)</h3>
-      <p>
-        <strong>EF = 속도 (m/min) &divide; 평균 심박수 (bpm)</strong><br>
-        자동차의 '연비'와 같은 지표로, 심장이 1분 동안 뛴 박동 수 대비 얼마나 먼 거리를 이동했는지를 정량화합니다.
-      </p>
-      <ul>
-        <li><strong>EF 1.10 미만:</strong> 유산소 기초(베이스)를 다지는 단계. Zone 2 편안한 조깅 훈련 권장.</li>
-        <li><strong>EF 1.10 ~ 1.30:</strong> 건강하고 안정적인 중급 러너의 유산소 효율.</li>
-        <li><strong>EF 1.30 ~ 1.45:</strong> 우수한 심폐 지구력과 젖산 역치 능력을 보유한 상급 러너.</li>
-        <li><strong>EF 1.45 이상:</strong> 마라톤 풀코스 서브3급 또는 엘리트 수준의 강력한 유산소 엔진.</li>
-      </ul>
-
-      <h3 style="color:var(--accent-cyan); font-size:1.1rem; margin:1.25rem 0 0.5rem 0;">2. 러닝 다이내믹스 4대 지표 해석법</h3>
-      <ul>
-        <li><strong>케이던스 (Cadence, 권장 170~185 spm):</strong> 분당 발걸음 수. 케이던스가 높을수록 한 번에 받는 착지 충격량이 분산되어 무릎 및 관절 부상 위험이 크게 줄어듭니다.</li>
-        <li><strong>보폭 (Stride Length, 권장 0.9m~1.3m):</strong> 신장과 페이스에 비례하는 보폭. 발이 무게중심보다 과도하게 앞으로 나가는 '오버스트라이드'를 피해야 합니다.</li>
-        <li><strong>지면 접촉 시간 (Ground Contact Time, 권장 200~240ms):</strong> 발이 지면에 머무는 시간. 엘리트 러너일수록 반발 탄성을 활용하여 200ms 안팎으로 지면을 짧고 강하게 밀어냅니다.</li>
-        <li><strong>수직 진폭 (Vertical Oscillation, 권장 6~9cm):</strong> 달리는 동안 몸이 위아래로 튀는 높이. 수직 진폭이 너무 크면 전진해야 할 에너지가 공중으로 낭비됩니다.</li>
-      </ul>
-    </article>
-
-    <!-- Detailed Section 2: Weekly Recap -->
-    <article class="doc-card" id="guide-weekly">
-      <h2 class="doc-section-title"><i class="bi bi-2-circle-fill"></i> 주간 정산 &amp; 부상 방지 10% 룰 (Safety Rule)</h2>
-      <p>
-        러너의 가장 큰 적은 '갑작스러운 무리'에서 오는 과사용 부상입니다. RunAnalyz는 스포츠 의학계의 황금률인 <strong>주간 마일리지 10% 룰</strong>을 실시간 진단합니다.
-      </p>
-      <div class="doc-highlight-box">
+      <div class="callout-box">
         <p>
-          <strong>⚠️ 10% 룰이란?</strong><br>
-          한 주 동안 달리는 총 거리가 직전 주 대비 10%를 초과하지 않도록 점진적으로 늘려가는 원칙입니다. 건(Tendon)과 인대(Ligament)는 심폐보다 적응 속도가 훨씬 느리기 때문에 급격한 증량은 족저근막염이나 피로골절의 주원인이 됩니다.
+          <strong>💡 유산소 효율 점수 (Aerobic Efficiency Factor, EF)</strong><br>
+          <strong>공식:</strong> 속도 (m/min) &divide; 평균 심박수 (bpm)<br>
+          자동차의 '연비'와 같은 핵심 생체 지표로, 심장이 1분 동안 뛴 박동 수 대비 얼마나 먼 거리를 이동했는지를 정량화합니다.
         </p>
       </div>
+
+      <table class="info-table">
+        <thead>
+          <tr>
+            <th>EF 지수 범위</th>
+            <th>러너 수준</th>
+            <th>상세 의미 및 트레이닝 조언</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1.10 미만</strong></td>
+            <td>유산소 기초 단계</td>
+            <td>심폐 베이스를 다지는 구간입니다. Zone 2(편안하게 대화 가능한 강도)의 조깅 위주 훈련을 권장합니다.</td>
+          </tr>
+          <tr>
+            <td><strong>1.10 ~ 1.30</strong></td>
+            <td>중급 러너</td>
+            <td>안정적이고 건강한 심폐 지구력을 갖춘 러너입니다. 하프 마라톤 완주 및 10km 빌드업에 이상적입니다.</td>
+          </tr>
+          <tr>
+            <td><strong>1.30 ~ 1.45</strong></td>
+            <td>상급 러너</td>
+            <td>뛰어난 젖산 역치와 강한 유산소 엔진을 보유한 러너입니다. 서브3.5~서브330 마라톤에 도전할 수 있습니다.</td>
+          </tr>
+          <tr>
+            <td><strong>1.45 이상</strong></td>
+            <td>엘리트 / 서브3급</td>
+            <td>낮은 심박수에서도 폭발적인 스피드를 유지하는 극강의 유산소 심폐 효율을 의미합니다.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="color:#fff; font-family:'Outfit',sans-serif; font-size:1.15rem; margin:1.75rem 0 0.75rem 0;">
+        러닝 다이내믹스 4대 지표 해석법
+      </h3>
       <ul>
-        <li><span style="color:var(--accent-lime); font-weight:700;">🟢 SAFE (안전):</span> 전주 대비 증량률 10% 이하. 근골격계에 무리 없는 가장 이상적인 빌드업 구간입니다.</li>
-        <li><span style="color:var(--accent-orange); font-weight:700;">🟠 CAUTION (주의):</span> 전주 대비 10%~20% 증량. 가벼운 피로 누적 주의 필요, 리커버리 스트레칭 권장.</li>
-        <li><span style="color:#ef4444; font-weight:700;">🔴 DANGER (경고):</span> 전주 대비 20% 초과 증량. 부상 위험 극대화 단계로 즉시 마일리지 조절이 필요합니다.</li>
+        <li><strong>케이던스 (Cadence, 권장 170~185 spm):</strong> 분당 발걸음 수. 케이던스가 높을수록 착지 시 무릎과 발목에 가해지는 충격 하중이 분산되어 부상 위험이 크게 줄어듭니다.</li>
+        <li><strong>보폭 (Stride Length, 권장 0.9m~1.3m):</strong> 발이 몸의 무게중심보다 과도하게 앞으로 착지하는 '오버스트라이드'를 방지하고 자연스러운 미드풋 착지를 유도합니다.</li>
+        <li><strong>지면 접촉 시간 (Ground Contact Time, 권장 200~240ms):</strong> 발이 지면에 머무는 시간. 탄성 반발력이 좋을수록 지면을 짧고 경쾌하게 밀어냅니다.</li>
+        <li><strong>수직 진폭 (Vertical Oscillation, 권장 6~9cm):</strong> 상하로 몸이 튀어 오르는 높이. 낭비되는 수직 에너지를 줄이고 수평 전진 에너지를 극대화해야 합니다.</li>
       </ul>
     </article>
 
-    <!-- Detailed Section 3: Monthly Recap & Card Studio -->
-    <article class="doc-card" id="guide-monthly">
-      <h2 class="doc-section-title"><i class="bi bi-3-circle-fill"></i> 월간 결산 &amp; 인스타그램 카드 스튜디오</h2>
+    <!-- Section 2: Weekly Recap -->
+    <article class="tech-card" id="guide-weekly">
+      <div class="tech-card-header">
+        <span class="tech-card-badge">MENU 02</span>
+        <h2 class="tech-card-title"><i class="bi bi-shield-check" style="color:#00f2fe;"></i> 주간 정산 &amp; 부상 방지 10% 룰 (Safety Rule)</h2>
+      </div>
       <p>
-        한 달간의 훈련 성과를 한눈에 요약하고, 소셜 미디어(Instagram)에 고품격 인포그래픽으로 공유할 수 있는 통합 스튜디오입니다.
+        러너의 가장 큰 위험은 '갑작스러운 과훈련'에서 오는 과사용 부상(신스프린트, 장경인대염, 아킬레스건염)입니다. RunAnalyz는 스포츠 의학계의 안전 원칙을 알고리즘화하여 주차별 볼륨 증량을 실시간 진단합니다.
+      </p>
+      
+      <div class="callout-box">
+        <p>
+          <strong>⚠️ 10% 룰(Rule of 10)이란?</strong><br>
+          이번 주의 총 러닝 거리가 직전 주 대비 10%를 초과하지 않도록 안전하게 빌드업하는 원칙입니다. 건(Tendon)과 연골은 근육보다 적응 속도가 느리기 때문에 급격한 증량을 엄격히 통제해야 합니다.
+        </p>
+      </div>
+
+      <table class="info-table">
+        <thead>
+          <tr>
+            <th>상태 배지</th>
+            <th>전주 대비 증량률</th>
+            <th>신체 부하 및 권장 가이드</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag-safe">🟢 SAFE (안전)</span></td>
+            <td>+10% 이하 또는 감량</td>
+            <td>가장 이상적이고 안전한 빌드업 구간입니다. 부상 위험 없이 체력이 점진적으로 상승합니다.</td>
+          </tr>
+          <tr>
+            <td><span class="tag-caution">🟠 CAUTION (주의)</span></td>
+            <td>+10% ~ +20%</td>
+            <td>근육 피로가 누적될 수 있습니다. 폼롤러 스트레칭과 충분한 수면, 영양 섭취를 권장합니다.</td>
+          </tr>
+          <tr>
+            <td><span class="tag-danger">🔴 DANGER (위험)</span></td>
+            <td>+20% 초과</td>
+            <td>과사용 부상 위험 극대화 단계입니다. 다음 주차에는 반드시 마일리지를 15~20% 낮추어 회복(Deload)하십시오.</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+
+    <!-- Section 3: Monthly Recap & Card Studio -->
+    <article class="tech-card" id="guide-monthly">
+      <div class="tech-card-header">
+        <span class="tech-card-badge">MENU 03</span>
+        <h2 class="tech-card-title"><i class="bi bi-instagram text-orange"></i> 월간 결산 &amp; 인스타그램 카드 스튜디오</h2>
+      </div>
+      <p>
+        한 달 동안 달린 총 마일리지, 최장거리(LSD), 유산소 효율(EF) 성장률을 요약하고, 인스타그램 피드 및 스토리에 최적화된 고화질 포스터 카드를 즉시 생성합니다.
       </p>
 
-      <h3 style="color:var(--accent-cyan); font-size:1.1rem; margin:1.25rem 0 0.5rem 0;">1. 3대 인스타그램 규격 완벽 지원</h3>
+      <h3 style="color:#fff; font-family:'Outfit',sans-serif; font-size:1.15rem; margin:1.5rem 0 0.75rem 0;">
+        3대 인스타그램 규격 선택 기능
+      </h3>
       <ul>
-        <li><strong>📱 스토리 (9:16):</strong> 세로로 시원하게 뻗은 인스타 스토리 및 스마트폰 배경화면 전용 포스터 규격.</li>
-        <li><strong>⏹️ 피드 정방형 (1:1):</strong> 인스타그램 피드 썸네일에서 완벽한 비율로 꽉 차는 정사각형 규격. 핵심 지표가 한눈에 들어오는 황금 밸런스.</li>
-        <li><strong>🖼️ 피드 세로형 (4:5):</strong> 인스타 피드 스크롤 시 모바일 화면을 최대로 점유하는 권장 직사각형 규격.</li>
+        <li><strong>📱 스토리 (9:16):</strong> 세로로 시원하게 뻗은 인스타 스토리 및 스마트폰 잠금화면 전용 규격 (360x640px).</li>
+        <li><strong>⏹️ 피드 정방형 (1:1):</strong> 인스타그램 피드 썸네일에서 한 치의 잘림 없이 꽉 차는 정사각형 규격 (440x440px). 상하단 여백 압축으로 핵심 수치 완벽 안착.</li>
+        <li><strong>🖼️ 피드 세로형 (4:5):</strong> 피드 스크롤 시 화면을 최대로 점유하는 인스타그램 공식 권장 규격 (400x500px).</li>
       </ul>
 
-      <h3 style="color:var(--accent-cyan); font-size:1.1rem; margin:1.25rem 0 0.5rem 0;">2. 주요 카드 지표 안내</h3>
+      <h3 style="color:#fff; font-family:'Outfit',sans-serif; font-size:1.15rem; margin:1.5rem 0 0.75rem 0;">
+        핵심 데이터 지표 안내
+      </h3>
       <ul>
-        <li><strong>AEROBIC EF RANGE:</strong> 감성 문구 대신 해당 월에 기록한 최소 유산소 효율과 최고 유산소 효율의 범위를 실데이터로 표출합니다.</li>
-        <li><strong>주차별 러닝 마일리지 바 (W1~W5):</strong> 1일부터 말일까지 주차별 거리를 소수점 없는 정수(`15k`, `28k` 등)로 표기하여 월간 운동량 배분을 직관적으로 파악할 수 있습니다.</li>
-        <li><strong>초고해상도 3x Retina 저장:</strong> html2canvas 기반으로 일반 화면의 3배 밀도(1,300px 이상) 무손실 PNG로 선명하게 내려받거나 모바일 기기에서 원클릭 공유가 가능합니다.</li>
+        <li><strong>AEROBIC EF RANGE:</strong> 감성적인 문구 대신 해당 월에 기록한 최소 유산소 효율과 최고 유산소 효율(예: `MIN 1.250 — MAX 1.428`)을 한 줄 실데이터로 표기합니다.</li>
+        <li><strong>주차별 정수 마일리지 바 (W1~W5):</strong> 각 주차별 거리를 소수점을 버린 정수(`15k`, `28k` 등)로 막대 상단에 선명하게 표기하여 월간 훈련 배분을 한눈에 확인합니다.</li>
+        <li><strong>초고해상도 3x Retina 저장:</strong> html2canvas 기반으로 1,300px 이상의 선명한 무손실 PNG로 즉시 저장하거나, 모바일에서 원클릭 소셜 공유를 지원합니다.</li>
       </ul>
     </article>
 
-    <!-- Detailed Section 4: Yearly Archive -->
-    <article class="doc-card" id="guide-yearly">
-      <h2 class="doc-section-title"><i class="bi bi-4-circle-fill"></i> 연간 결산 &amp; 다년도 러닝 아카이브</h2>
+    <!-- Section 4: Yearly Archive -->
+    <article class="tech-card" id="guide-yearly">
+      <div class="tech-card-header">
+        <span class="tech-card-badge">MENU 04</span>
+        <h2 class="tech-card-title"><i class="bi bi-calendar3-range" style="color:#00f2fe;"></i> 연간 결산 &amp; 다년도 아카이브</h2>
+      </div>
       <p>
         러너의 성장은 수개월이 아닌 수년간의 누적 마일리지 속에서 완성됩니다.
       </p>
       <ul>
-        <li><strong>5개년 누적 스택 차트:</strong> 연도별 총 마일리지의 성장 추이를 다크 테크 스타일의 인터랙티브 차트로 확인합니다.</li>
-        <li><strong>월별 마일리지 히스토그램:</strong> 봄(동아마라톤·JTBC마라톤 시즌)과 가을에 집중되는 훈련 피크, 그리고 여름/겨울 리커버리 시즌의 주기화(Periodization) 패턴을 한눈에 비교할 수 있습니다.</li>
+        <li><strong>5개년 누적 스택 차트:</strong> 연도별 총 마일리지의 성장 곡선을 다크 테크 스타일의 인터랙티브 차트로 확인합니다.</li>
+        <li><strong>월별 마일리지 추이:</strong> 봄 마라톤 시즌(3~4월)과 가을 마라톤 시즌(10~11월)에 집중되는 피크 볼륨, 그리고 혹서기·혹한기 리커버리의 주기화(Periodization)를 체계적으로 분석합니다.</li>
       </ul>
     </article>
 
-    <!-- Detailed Section 5: GPS Heatmap -->
-    <article class="doc-card" id="guide-heatmap">
-      <h2 class="doc-section-title"><i class="bi bi-5-circle-fill"></i> GPS 러닝 히트맵 &amp; 코스 탐색기</h2>
+    <!-- Section 5: GPS Heatmap -->
+    <article class="tech-card" id="guide-heatmap">
+      <div class="tech-card-header">
+        <span class="tech-card-badge">MENU 05</span>
+        <h2 class="tech-card-title"><i class="bi bi-geo-alt-fill text-orange"></i> GPS 러닝 히트맵 &amp; 코스 탐색</h2>
+      </div>
       <p>
-        가민 GPS 러닝 워치로 기록된 실제 위경도 좌표를 오픈스트리트맵(Leaflet) 엔진 위에 시각화합니다.
+        가민 GPS 워치로 기록된 실제 위·경도 트랙을 오픈스트리트맵(Leaflet) 엔진 위에 시각화합니다.
       </p>
       <ul>
-        <li><strong>연도별 코스 필터링:</strong> 상단 연도 필터를 변경하면 해당 연도에 달린 실제 야외 코스만 맵에 즉각 반영됩니다. ('역대 전체' 선택 시 수백 개 전수 코스 동시 렌더링)</li>
-        <li><strong>트랙 컬러 커스텀:</strong> 네온 오렌지, 네온 사이언, 형광 라임 등 테마에 맞춰 GPS 경로 선 색상을 자유롭게 변경할 수 있습니다.</li>
+        <li><strong>연도별 코스 즉시 전환:</strong> 상단 연도 필터를 바꾸면 해당 연도에 달린 실제 야외 코스만 맵에 즉시 반영됩니다. ('역대 전체' 선택 시 제주도부터 한강까지 900개 이상의 전수 코스 동시 렌더링)</li>
+        <li><strong>트랙 컬러 커스텀:</strong> 네온 오렌지, 네온 사이언, 형광 라임 등 테마에 맞춰 GPS 경로 색상을 자유롭게 변경할 수 있습니다.</li>
         <li><strong>야외 코스 제원표:</strong> 내가 가장 자주 달린 홈그라운드 코스(최다 횟수)와 인생 최장거리(LSD) 코스의 거리, 누적 상승고도, 일시 정보를 상세 카드로 탐색합니다.</li>
       </ul>
     </article>
 
-    <!-- Subpage Footer -->
-    <footer class="app-footer" style="margin-top: 3rem;">
+    <!-- Footer -->
+    <footer style="text-align:center; padding:3rem 1rem; border-top:1px solid rgba(255,255,255,0.08); margin-top:3rem; color:#64748b; font-size:0.85rem;">
       <p>RunAnalyz Engine &copy; 2026. Running &amp; Aerobic EF Analytics.</p>
     </footer>
 
