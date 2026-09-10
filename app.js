@@ -169,15 +169,40 @@ document.addEventListener('DOMContentLoaded', () => {
     updateBadgeCounts();
     const currentList = getFilteredActivities();
     updatePeriodBadge(currentList);
-    initSingleSession(currentList);
-    initWeeklyRecap(currentList, currentYear, currentMonth);
-    initMonthlyRecap(currentList, currentYear, currentMonth);
-    initYearlyRecap(archive, pureRunningActivities);
+
+    try {
+      initSingleSession(currentList);
+    } catch (err) {
+      console.error('Error in initSingleSession:', err);
+    }
+
+    try {
+      initWeeklyRecap(currentList, currentYear, currentMonth);
+    } catch (err) {
+      console.error('Error in initWeeklyRecap:', err);
+    }
+
+    try {
+      initMonthlyRecap(currentList, currentYear, currentMonth);
+    } catch (err) {
+      console.error('Error in initMonthlyRecap:', err);
+    }
+
+    try {
+      initYearlyRecap(archive, pureRunningActivities);
+    } catch (err) {
+      console.error('Error in initYearlyRecap:', err);
+    }
   }
 
   // Initial Render
   refreshAllViews();
-  initRunningHeatmap(allActivities);
+
+  try {
+    initRunningHeatmap(allActivities);
+  } catch (err) {
+    console.error('Error in initRunningHeatmap:', err);
+  }
 
   // Reload Button (In-memory recalculation with visual feedback)
   const btnReload = document.getElementById('btn-reload');
@@ -229,42 +254,66 @@ function initSingleSession(activities) {
 }
 
 function clearSingleSessionDisplay() {
-  document.getElementById('single-distance').innerHTML = `0.0 <span class="unit">km</span>`;
-  document.getElementById('single-duration').innerHTML = `<i class="bi bi-clock"></i> 00:00`;
-  document.getElementById('single-pace').innerHTML = `- <span class="unit">/km</span>`;
-  document.getElementById('single-speed').innerHTML = `<i class="bi bi-wind"></i> 0 m/min`;
-  document.getElementById('single-hr').innerHTML = `0 <span class="unit">bpm</span>`;
-  document.getElementById('single-max-hr').innerHTML = `<i class="bi bi-graph-up-arrow"></i> 최고 0 bpm`;
-  document.getElementById('single-ef').innerHTML = `0.000 <span class="unit">m/min/bpm</span>`;
+  const distEl = document.getElementById('single-dist') || document.getElementById('single-distance');
+  if (distEl) distEl.innerHTML = `0.0 <span class="unit">km</span>`;
+  const durEl = document.getElementById('single-duration');
+  if (durEl) durEl.innerHTML = `<i class="bi bi-clock"></i> 00:00`;
+  const paceEl = document.getElementById('single-pace');
+  if (paceEl) paceEl.innerHTML = `- <span class="unit">/km</span>`;
+  const speedEl = document.getElementById('single-speed');
+  if (speedEl) speedEl.innerHTML = `<i class="bi bi-wind"></i> 0 m/min`;
+  const hrEl = document.getElementById('single-hr');
+  if (hrEl) hrEl.innerHTML = `0 <span class="unit">bpm</span>`;
+  const maxHrEl = document.getElementById('single-max-hr');
+  if (maxHrEl) maxHrEl.innerHTML = `<i class="bi bi-graph-up-arrow"></i> 최고 0 bpm`;
+  const efEl = document.getElementById('single-ef');
+  if (efEl) efEl.innerHTML = `0.000 <span class="unit">m/min/bpm</span>`;
 }
 
 function renderSingleSession(act) {
+  if (!act) return;
+
   const sportBadge = document.getElementById('session-sport-badge');
   if (sportBadge) {
     const gearStr = act.gear_name && act.gear_name !== '미지정' ? ` &bull; 👟 ${act.gear_name}` : '';
-    sportBadge.innerHTML = `<i class="bi bi-tag-fill"></i> ${act.sport_label}${gearStr}`;
+    sportBadge.innerHTML = `<i class="bi bi-tag-fill"></i> ${act.sport_label || '러닝'}${gearStr}`;
   }
 
   // Hero Metrics
-  document.getElementById('single-distance').innerHTML = `${act.distance_km.toFixed(2)} <span class="unit">km</span>`;
-  document.getElementById('single-duration').innerHTML = `<i class="bi bi-clock"></i> ${act.duration_formatted}`;
-  document.getElementById('single-pace').innerHTML = `${act.pace_formatted} <span class="unit">/km</span>`;
-  document.getElementById('single-speed').innerHTML = `<i class="bi bi-wind"></i> ${act.speed_m_per_min.toFixed(1)} m/min`;
-  document.getElementById('single-hr').innerHTML = `${act.avg_hr} <span class="unit">bpm</span>`;
-  document.getElementById('single-max-hr').innerHTML = `<i class="bi bi-graph-up-arrow"></i> 최고 ${act.max_hr} bpm`;
+  const distEl = document.getElementById('single-dist') || document.getElementById('single-distance');
+  if (distEl) distEl.innerHTML = `${(act.distance_km || 0).toFixed(2)} <span class="unit">km</span>`;
+
+  const durEl = document.getElementById('single-duration');
+  if (durEl) durEl.innerHTML = `<i class="bi bi-clock"></i> ${act.duration_formatted || '00:00'}`;
+
+  const paceEl = document.getElementById('single-pace');
+  if (paceEl) paceEl.innerHTML = `${act.pace_formatted || "-'--\""} <span class="unit">/km</span>`;
+
+  const speedEl = document.getElementById('single-speed');
+  if (speedEl) speedEl.innerHTML = `<i class="bi bi-wind"></i> ${(act.speed_m_per_min || 0).toFixed(1)} m/min`;
+
+  const hrEl = document.getElementById('single-hr');
+  if (hrEl) hrEl.innerHTML = `${act.avg_hr || 0} <span class="unit">bpm</span>`;
+
+  const maxHrEl = document.getElementById('single-max-hr');
+  if (maxHrEl) maxHrEl.innerHTML = `<i class="bi bi-graph-up-arrow"></i> 최고 ${act.max_hr || 0} bpm`;
 
   // EF (Efficiency Factor)
-  document.getElementById('single-ef').innerHTML = `${act.ef.toFixed(3)} <span class="unit">m/min/bpm</span>`;
+  const efVal = typeof act.ef === 'number' ? act.ef : (parseFloat(act.ef) || 0);
+  const efEl = document.getElementById('single-ef');
+  if (efEl) efEl.innerHTML = `${efVal.toFixed(3)} <span class="unit">m/min/bpm</span>`;
   
   const efSub = document.getElementById('single-ef-status');
-  if (act.ef >= 1.35) {
-    efSub.innerHTML = `<i class="bi bi-fire text-lime"></i> <strong>최상급 유산소 엔진 (Elite Base)</strong>`;
-  } else if (act.ef >= 1.25) {
-    efSub.innerHTML = `<i class="bi bi-shield-check text-cyan"></i> <strong>우수한 유산소 효율성 (Good Conditioning)</strong>`;
-  } else if (act.ef >= 1.10) {
-    efSub.innerHTML = `<i class="bi bi-speedometer text-orange"></i> <strong>표준 유산소 베이스 (Moderate Base)</strong>`;
-  } else {
-    efSub.innerHTML = `<i class="bi bi-sun text-yellow"></i> <strong>초기 유산소 적응 or 웜업/리커버리</strong>`;
+  if (efSub) {
+    if (efVal >= 1.35) {
+      efSub.innerHTML = `<i class="bi bi-fire text-lime"></i> <strong>최상급 유산소 엔진 (Elite Base)</strong>`;
+    } else if (efVal >= 1.25) {
+      efSub.innerHTML = `<i class="bi bi-shield-check text-cyan"></i> <strong>우수한 유산소 효율성 (Good Conditioning)</strong>`;
+    } else if (efVal >= 1.10) {
+      efSub.innerHTML = `<i class="bi bi-speedometer text-orange"></i> <strong>표준 유산소 베이스 (Moderate Base)</strong>`;
+    } else {
+      efSub.innerHTML = `<i class="bi bi-sun text-yellow"></i> <strong>초기 유산소 적응 or 웜업/리커버리</strong>`;
+    }
   }
 
   // Aerobic Decoupling
@@ -272,33 +321,45 @@ function renderSingleSession(act) {
   const decTitle = document.getElementById('decoupling-title');
   const decDesc = document.getElementById('decoupling-desc');
 
-  const decVal = act.aerobic_decoupling_pct || 0.0;
-  decouplingEl.textContent = `${decVal >= 0 ? '+' : ''}${decVal.toFixed(1)}%`;
+  const decVal = typeof act.aerobic_decoupling_pct === 'number' ? act.aerobic_decoupling_pct : 0.0;
+  if (decouplingEl) decouplingEl.textContent = `${decVal >= 0 ? '+' : ''}${decVal.toFixed(1)}%`;
 
-  if (Math.abs(decVal) < 5.0) {
-    decouplingEl.style.color = 'var(--accent-lime)';
-    decTitle.textContent = '유산소 지구력 최적 안정 (Excellent Base)';
-    decDesc.textContent = `후반부 페이스 대비 심박수 상승률(드리프트)이 ${decVal}%로 기준치(5% 미만)를 충족합니다.`;
-  } else if (decVal >= 5.0 && decVal <= 8.5) {
-    decouplingEl.style.color = 'var(--accent-yellow)';
-    decTitle.textContent = '경미한 심폐 드리프트 (Mild Cardiac Drift)';
-    decDesc.textContent = `후반부 심폐 부하가 ${decVal}% 증가했습니다. 기온 또는 훈련 후반부 피로 누적이 발생했습니다.`;
-  } else {
-    decouplingEl.style.color = 'var(--accent-red)';
-    decTitle.textContent = '후반부 심박 분리 심화 (High Fatigue)';
-    decDesc.textContent = `후반부 심박수가 ${decVal}% 상승하여 심폐 탈진 및 피로도가 급증했습니다.`;
+  if (decTitle && decDesc) {
+    if (Math.abs(decVal) < 5.0) {
+      if (decouplingEl) decouplingEl.style.color = 'var(--accent-lime)';
+      decTitle.textContent = '유산소 지구력 최적 안정 (Excellent Base)';
+      decDesc.textContent = `후반부 페이스 대비 심박수 상승률(드리프트)이 ${decVal}%로 기준치(5% 미만)를 충족합니다.`;
+    } else if (decVal >= 5.0 && decVal <= 8.5) {
+      if (decouplingEl) decouplingEl.style.color = 'var(--accent-yellow)';
+      decTitle.textContent = '경미한 심폐 드리프트 (Mild Cardiac Drift)';
+      decDesc.textContent = `후반부 심폐 부하가 ${decVal}% 증가했습니다. 기온 또는 훈련 후반부 피로 누적이 발생했습니다.`;
+    } else {
+      if (decouplingEl) decouplingEl.style.color = 'var(--accent-red)';
+      decTitle.textContent = '후반부 심박 분리 심화 (High Fatigue)';
+      decDesc.textContent = `후반부 심박수가 ${decVal}% 상승하여 심폐 탈진 및 피로도가 급증했습니다.`;
+    }
   }
 
   // Dynamics & Specs
-  document.getElementById('single-cadence').textContent = act.avg_cadence ? `${act.avg_cadence} spm` : '180 spm';
-  document.getElementById('single-power').textContent = act.avg_power ? `${act.avg_power} W` : '- W';
-  document.getElementById('single-cal').textContent = `${act.calories} kcal`;
+  const cadEl = document.getElementById('single-cadence');
+  if (cadEl) cadEl.textContent = act.avg_cadence ? `${act.avg_cadence} spm` : '180 spm';
+
+  const powEl = document.getElementById('single-power');
+  if (powEl) powEl.textContent = act.avg_power ? `${act.avg_power} W` : '- W';
+
+  const calEl = document.getElementById('single-cal');
+  if (calEl) calEl.textContent = `${act.calories || 0} kcal`;
   
   // VDOT estimation
-  const vdotEst = estimateVDOT(act.distance_km, act.duration_seconds);
-  document.getElementById('single-vdot').textContent = vdotEst.toFixed(1);
+  const vdotEst = estimateVDOT(act.distance_km || 0, act.duration_seconds || 0);
+  const vdotEl = document.getElementById('single-vdot');
+  if (vdotEl) vdotEl.textContent = vdotEst.toFixed(1);
 
-  renderSingleChart(act);
+  try {
+    renderSingleChart(act);
+  } catch (chartErr) {
+    console.error('Error rendering single chart:', chartErr);
+  }
 }
 
 function estimateVDOT(distKm, durationSec) {
