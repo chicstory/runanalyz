@@ -3,6 +3,11 @@
    Supports: 2017-2026 Multi-Year Data, Shoe Mileage Tracker, Heatmap
    ========================================================================== */
 
+// Global filter states accessible by all modules
+let currentYear = '2026';
+let currentMonth = '8';
+let currentSportFilter = 'all'; // 'all', 'treadmill', 'outdoor'
+
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Data Sources (Prefers full Garmin Archive, fallbacks to August data)
   const archive = window.GARMIN_ARCHIVE;
@@ -27,9 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (savedYear && selectYear) selectYear.value = savedYear;
   if (savedMonth && selectMonth) selectMonth.value = savedMonth;
 
-  let currentYear = selectYear?.value || '2026';
-  let currentMonth = selectMonth?.value || '8';
-  let currentSportFilter = 'all'; // 'all', 'treadmill', 'outdoor'
+  currentYear = selectYear?.value || '2026';
+  currentMonth = selectMonth?.value || '8';
+  currentSportFilter = 'all';
 
   // Toast Notification Helper
   function showToast(message) {
@@ -146,6 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.heatmapAllBounds) {
               window.leafletMap.fitBounds(window.heatmapAllBounds, { padding: [40, 40], maxZoom: 16 });
             }
+          }
+          if (window.refreshHeatmap) {
+            window.refreshHeatmap(currentYear, currentMonth);
           }
         }, 150);
       }
@@ -989,7 +997,7 @@ function initRunningHeatmap(activities) {
   const mapContainer = document.getElementById('runningHeatmap');
   if (!mapContainer) return;
 
-  let currentSportFilter = 'running'; // 'running' (default) or 'all'
+  let currentHmSportFilter = 'running'; // 'running' (default) or 'all'
   let currentTrackColor = '#ff5722';
   let polylineLayers = [];
   let allBounds = null;
@@ -1004,7 +1012,7 @@ function initRunningHeatmap(activities) {
       list = list.filter(a => a.month == currentMonth);
     }
 
-    if (currentSportFilter === 'running') {
+    if (currentHmSportFilter === 'running') {
       return list.filter(a => a.is_pure_running && a.has_gps && a.gps_points && a.gps_points.length > 5);
     }
     return list.filter(a => a.has_gps && a.gps_points && a.gps_points.length > 5);
@@ -1159,7 +1167,7 @@ function initRunningHeatmap(activities) {
     btn.onclick = () => {
       hmFilterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      currentSportFilter = btn.dataset.hmFilter;
+      currentHmSportFilter = btn.dataset.hmFilter;
       updateHeatmapDisplay();
     };
   });
