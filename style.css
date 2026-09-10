@@ -1132,49 +1132,95 @@ body {
   width: 440px;
   min-height: 440px;
   aspect-ratio: 1 / 1;
-  padding: 1.5rem 1.6rem;
+  padding: 1.15rem 1.4rem;
   border-radius: 20px;
 }
 
+.insta-card.format-square .ic-header {
+  margin-bottom: 0.2rem;
+}
+
 .insta-card.format-square .ic-title-area {
-  margin: 0.6rem 0 0.8rem 0;
+  margin: 0.15rem 0 0.45rem 0;
+}
+
+.insta-card.format-square .ic-sub {
+  font-size: 0.62rem;
+  margin-bottom: 0.1rem;
+  letter-spacing: 0.5px;
 }
 
 .insta-card.format-square .ic-main-distance {
-  font-size: 3.2rem;
+  font-size: 2.85rem;
+  line-height: 0.95;
+  letter-spacing: -1px;
+}
+
+.insta-card.format-square .ic-main-distance .unit {
+  font-size: 1.2rem;
 }
 
 .insta-card.format-square .ic-quote {
-  font-size: 0.72rem;
-  margin-top: 0.35rem;
+  display: none; /* Hide motivational quote in 1:1 square for compact breathing room */
 }
 
 .insta-card.format-square .ic-stats-grid {
-  gap: 0.75rem;
-  margin-bottom: 0.85rem;
+  gap: 0.35rem 0.75rem;
+  margin-bottom: 0.45rem;
+}
+
+.insta-card.format-square .ic-stat-label {
+  font-size: 0.58rem;
 }
 
 .insta-card.format-square .ic-stat-val {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
 }
 
 .insta-card.format-square .ic-highlight-banner {
-  padding: 0.65rem 0.8rem;
-  margin-bottom: 0.85rem;
-  gap: 0.5rem;
+  padding: 0.4rem 0.65rem;
+  margin-bottom: 0.45rem;
+  gap: 0.4rem;
+}
+
+.insta-card.format-square .hl-title {
+  font-size: 0.58rem;
+  margin-bottom: 0.1rem;
+}
+
+.insta-card.format-square .hl-value {
+  font-size: 0.88rem;
 }
 
 .insta-card.format-square .ic-weeks-row {
-  height: 40px;
-  margin-bottom: 0.85rem;
+  height: 48px;
+  margin-bottom: 0.45rem;
+  gap: 0.35rem;
+  padding: 0 0.2rem;
+}
+
+.insta-card.format-square .ic-week-val {
+  font-size: 0.62rem;
 }
 
 .insta-card.format-square .ic-bar-wrap {
-  height: 26px;
+  height: 22px;
+}
+
+.insta-card.format-square .ic-week-lbl {
+  font-size: 0.58rem;
 }
 
 .insta-card.format-square .ic-footer {
-  padding-top: 0.65rem;
+  padding-top: 0.45rem;
+}
+
+.insta-card.format-square .ic-author-tag {
+  font-size: 0.58rem;
+}
+
+.insta-card.format-square .ic-watermark {
+  font-size: 0.62rem;
 }
 
 /* 4:5 Portrait Feed Post Format */
@@ -1216,20 +1262,35 @@ body {
 /* Mobile responsive for card formats */
 @media (max-width: 480px) {
   .insta-card.format-square {
-    width: 340px;
-    min-height: 340px;
-    padding: 1.25rem;
+    width: 330px;
+    min-height: 330px;
+    padding: 0.95rem 1.1rem;
   }
   .insta-card.format-square .ic-main-distance {
-    font-size: 2.6rem;
+    font-size: 2.3rem;
+  }
+  .insta-card.format-square .ic-stats-grid {
+    gap: 0.25rem 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+  .insta-card.format-square .ic-stat-val {
+    font-size: 0.95rem;
+  }
+  .insta-card.format-square .ic-highlight-banner {
+    padding: 0.35rem 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+  .insta-card.format-square .ic-weeks-row {
+    height: 42px;
+    margin-bottom: 0.35rem;
   }
   .insta-card.format-portrait {
-    width: 340px;
-    min-height: 425px;
-    padding: 1.35rem;
+    width: 330px;
+    min-height: 412px;
+    padding: 1.25rem;
   }
   .insta-card.format-portrait .ic-main-distance {
-    font-size: 2.8rem;
+    font-size: 2.7rem;
   }
 }
 
@@ -1253,6 +1314,10 @@ body {
   border: 1px solid #e2e8f0;
 }
 
+.insta-card.theme-neon .ic-week-val {
+  color: var(--accent-lime);
+}
+
 .insta-card.theme-minimal .ic-badge,
 .insta-card.theme-minimal .ic-stat-label,
 .insta-card.theme-minimal .hl-title,
@@ -1267,7 +1332,8 @@ body {
 .insta-card.theme-minimal .ic-brand,
 .insta-card.theme-minimal .ic-main-distance,
 .insta-card.theme-minimal .ic-stat-val,
-.insta-card.theme-minimal .hl-value {
+.insta-card.theme-minimal .hl-value,
+.insta-card.theme-minimal .ic-week-val {
   color: #0f172a;
 }
 
@@ -1406,9 +1472,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  height: 54px;
+  height: 58px;
   gap: 0.4rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   padding: 0 0.5rem;
 }
 
@@ -1417,13 +1483,23 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.3rem;
+  justify-content: flex-end;
+  gap: 0.2rem;
   height: 100%;
+}
+
+.ic-week-val {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--accent-orange);
+  line-height: 1;
+  letter-spacing: -0.2px;
 }
 
 .ic-bar-wrap {
   width: 100%;
-  height: 38px;
+  height: 34px;
   background: rgba(255, 255, 255, 0.06);
   border-radius: 4px;
   display: flex;
@@ -1440,7 +1516,7 @@ body {
 
 .ic-week-lbl {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   color: var(--text-muted);
 }
 

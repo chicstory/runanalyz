@@ -721,6 +721,32 @@ function initMonthlyRecap(activities, year, month) {
   document.getElementById('card-lsd').textContent = `${maxLsd.toFixed(1)} km (${lsdAct?.date?.slice(5) || '-'})`;
   document.getElementById('card-ef').textContent = `${avgEf.toFixed(3)} (${efGrowthPct >= 0 ? '+' : ''}${efGrowthPct.toFixed(1)}%)`;
 
+  // Dynamic Weekly Sparklines & Integer Distance Labels (W1~W5)
+  const weeklyDists = [0, 0, 0, 0, 0];
+  activities.forEach(a => {
+    if (!a.date) return;
+    const parts = a.date.split('-');
+    if (parts.length < 3) return;
+    const day = parseInt(parts[2], 10);
+    if (isNaN(day)) return;
+    const wIdx = Math.min(Math.floor((day - 1) / 7), 4);
+    weeklyDists[wIdx] += (a.distance_km || 0);
+  });
+
+  const maxWeekly = Math.max(...weeklyDists, 1);
+  weeklyDists.forEach((d, idx) => {
+    const bar = document.getElementById(`c-bar-${idx + 1}`);
+    const valEl = document.getElementById(`c-val-${idx + 1}`);
+    const intDist = Math.floor(d); // Truncate decimals to integer
+    if (valEl) {
+      valEl.textContent = intDist > 0 ? `${intDist}k` : '-';
+    }
+    if (bar) {
+      const pct = d > 0 ? Math.max(14, Math.round((d / maxWeekly) * 100)) : 6;
+      bar.style.height = `${pct}%`;
+    }
+  });
+
   // Format & Theme state for Insta Card Studio
   let currentCardFormat = 'story'; // 'story' (9:16), 'square' (1:1), 'portrait' (4:5)
   let currentCardTheme = 'dark'; // 'dark', 'neon', 'minimal'
