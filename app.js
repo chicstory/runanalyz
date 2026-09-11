@@ -221,29 +221,30 @@ function setupStravaAuthButton(isCustomUser, athlete) {
   if (isCustomUser && athlete) {
     const athleteName = athlete.firstname || athlete.username || '러너';
     btnAuth.classList.add('connected');
-    btnAuth.title = `${athleteName}님의 Strava 계정이 연동되어 있습니다. 클릭하여 연동을 해제하고 기본 데이터로 돌아갈 수 있습니다.`;
-    btnAuth.onclick = async () => {
-      const wantResync = confirm(`현재 [${athleteName}]님의 Strava 계정이 연동되어 있습니다.\n\n[확인]: Strava에서 역대 전체 러닝 데이터를 최신으로 '다시 동기화'합니다.\n[취소]: 연동 해제 메뉴로 이동합니다.`);
+    btnAuth.title = `${athleteName}님 Strava 연동 중 (클릭하여 재동기화 또는 연결 해제)`;
+    if (btnText) btnText.innerHTML = `<i class="bi bi-check2-circle"></i> ${athleteName}`;
+
+    btnAuth.onclick = (e) => {
+      e.preventDefault();
+      const wantResync = confirm(`현재 [${athleteName}]님의 Strava 계정이 연동되어 있습니다.\n\n[확인]: Strava에서 역대 전체 러닝 데이터를 최신으로 '다시 동기화'합니다.\n[취소]: 연동을 완전히 해제하려면 다음 화면에서 확인을 누르세요.`);
       if (wantResync) {
         const token = localStorage.getItem('runanalyz_strava_token');
         if (token) {
           showSyncOverlay('전체 러닝 기록 동기화 중...', `${athleteName}님의 역대 전체 활동 데이터를 수집하고 있습니다.`, 30, '데이터 요청 중...');
-          try {
-            const customArchive = await fetchUserStravaActivities(token);
+          fetchUserStravaActivities(token).then(customArchive => {
             if (customArchive && customArchive.activities.length > 0) {
               localStorage.setItem('runanalyz_custom_archive', JSON.stringify(customArchive));
               updateSyncProgress(100, '동기화 완료!');
-              setTimeout(() => {
-                window.location.reload();
-              }, 600);
+              setTimeout(() => window.location.reload(), 600);
             } else {
               hideSyncOverlay();
+              alert('동기화할 러닝 데이터를 찾지 못했습니다.');
             }
-          } catch (e) {
-            console.error(e);
-            alert('동기화 중 오류가 발생했습니다. 다시 시도해주세요.');
+          }).catch(err => {
+            console.error(err);
             hideSyncOverlay();
-          }
+            alert('Strava 동기화 중 오류가 발생했습니다.');
+          });
         }
       } else {
         if (confirm(`Strava 계정 연동을 완전히 해제하고 기본 샘플 데이터로 복귀하시겠습니까?`)) {
@@ -256,10 +257,11 @@ function setupStravaAuthButton(isCustomUser, athlete) {
     };
   } else {
     btnAuth.classList.remove('connected');
-    btnAuth.title = '내 Strava 계정을 연동하여 1초 만에 개인 러닝 데이터 분석';
+    btnAuth.title = '내 Strava 계정 실시간 연동 (원클릭)';
     if (btnText) btnText.innerHTML = `Strava 연동`;
 
-    btnAuth.onclick = () => {
+    btnAuth.onclick = (e) => {
+      e.preventDefault();
       let redirectUri = window.location.origin + window.location.pathname;
       if (!redirectUri.endsWith('/') && !redirectUri.endsWith('.html')) {
         redirectUri += '/';
@@ -270,7 +272,7 @@ function setupStravaAuthButton(isCustomUser, athlete) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
+async function startRunAnalyz() {
   // Cancel sync button handler
   const cancelBtn = document.getElementById('btn-cancel-sync');
   if (cancelBtn) {
@@ -322,47 +324,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Determine active dataset (Custom user dataset vs Global archive)
   let archive = null;
-  const savedArchiveJson = localStorage.getItem('runanalyz_custom_archive');
-  const savedAthleteJson = localStorage.getItem('runanalyz_strava_athlete');
   let currentAthlete = null;
 
-  if (savedArchiveJson) {
-    try {
-      archive = JSON.parse(savedArchiveJson);
-      if (savedAthleteJson) currentAthlete = JSON.parse(savedAthleteJson);
-    } catch (e) {
-      archive = null;
+  try {
+    const savedArchiveJson = localStorage.getItem('runanalyz_custom_archive');
+    if (savedArchiveJson) {
+      const parsed = JSON.parse(savedArchiveJson);
+      if (parsed && Array.isArray(parsed.activities) && parsed.activities.length > 0) {
+        archive = parsed;
+        const savedAthleteJson = localStorage.getItem('runanalyz_strava_athlete');
+        if (savedAthleteJson) currentAthlete = JSON.parse(savedAthleteJson);
+      } else {
+        localStorage.removeItem('runanalyz_custom_archive');
+      }
     }
+  } catch (e) {
+    console.warn('Saved custom archive parse error:', e);
+    localStorage.removeItem('runanalyz_custom_archive');
   }
 
   const isCustomUser = !!(archive && archive.activities && archive.activities.length > 0);
   setupStravaAuthButton(isCustomUser, currentAthlete);
 
-  const btnReload = document.getElementById('btn-reload');
-  if (btnReload) {
-    btnReload.onclick = async () => {
-      const token = localStorage.getItem('runanalyz_strava_token');
-      if (token && isCustomUser) {
-        showSyncOverlay('러닝 데이터 동기화', 'Strava에서 최신 활동 기록을 동기화하고 있습니다...', 30, '데이터 수집 중...');
-        try {
-          const customArchive = await fetchUserStravaActivities(token);
-          if (customArchive && customArchive.activities.length > 0) {
-            localStorage.setItem('runanalyz_custom_archive', JSON.stringify(customArchive));
-            updateSyncProgress(100, '동기화 완료!');
-            setTimeout(() => window.location.reload(), 500);
-          } else {
-            hideSyncOverlay();
-          }
-        } catch (e) {
-          hideSyncOverlay();
-          window.location.reload();
-        }
-      } else {
-        window.location.reload();
-      }
-    };
-  }
-  if (!archive) {
+  // Fallback to embedded static archive if custom archive not loaded
+  if (!archive || !archive.activities || archive.activities.length === 0) {
     archive = window.STRAVA_ARCHIVE || window.GARMIN_ARCHIVE;
   }
 
@@ -373,15 +358,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     allActivities = [...window.RUN_ACTIVITIES];
   }
 
-  const pureRunningActivities = allActivities.filter(a => a.is_pure_running && a.distance_km > 0.3);
+  let pureRunningActivities = allActivities.filter(a => a.is_pure_running && a.distance_km > 0.3);
+  if (pureRunningActivities.length === 0) {
+    pureRunningActivities = allActivities.filter(a => a.distance_km > 0.1);
+  }
   const nonRunningActivities = allActivities.filter(a => !a.is_pure_running);
 
   console.log(`[RunAnalyz] Loaded ${allActivities.length} total activities (${pureRunningActivities.length} pure running) from ${archive?.metadata?.source || 'local'}.`);
-
-  if (!pureRunningActivities || pureRunningActivities.length === 0) {
-    alert('러닝 활동 데이터를 불러오지 못했습니다.');
-    return;
-  }
 
   // 2. Dynamic Year & Month Filter Builder (Adapts to ANY user's dataset)
   const selectYear = document.getElementById('select-year');
@@ -692,36 +675,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       }, 600);
     });
   }
+}
 
-  // Strava Web OAuth Connect / Disconnect Button
-  const btnStravaAuth = document.getElementById('btn-strava-auth');
-  const btnStravaText = document.getElementById('strava-auth-btn-text');
-
-  if (btnStravaAuth) {
-    if (isCustomUser && currentAthlete) {
-      btnStravaAuth.classList.add('connected');
-      btnStravaAuth.title = `${currentAthlete.firstname || '러너'}님 Strava 연동 중 (클릭 시 연결 해제)`;
-      if (btnStravaText) btnStravaText.textContent = `${currentAthlete.firstname || '러너'} (연결 해제)`;
-      btnStravaAuth.onclick = () => {
-        if (confirm(`${currentAthlete.firstname || '러너'}님의 Strava 연동을 해제하고 기본 데이터로 돌아가시겠습니까?`)) {
-          localStorage.removeItem('runanalyz_custom_archive');
-          localStorage.removeItem('runanalyz_strava_token');
-          localStorage.removeItem('runanalyz_strava_athlete');
-          window.location.reload();
-        }
-      };
-    } else {
-      btnStravaAuth.classList.remove('connected');
-      btnStravaAuth.title = '내 Strava 계정 실시간 연동 (원클릭)';
-      if (btnStravaText) btnStravaText.textContent = 'Strava 연동';
-      btnStravaAuth.onclick = () => {
-        const redirectUri = window.location.origin + window.location.pathname;
-        const stravaAuthUrl = `https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&approval_prompt=auto&scope=read,activity:read_all`;
-        window.location.href = stravaAuthUrl;
-      };
-    }
-  }
-});
+// Guarantee execution whether DOM is already parsed or loading
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startRunAnalyz);
+} else {
+  startRunAnalyz();
+}
 
 /* ==========================================================================
    MODULE 1: SINGLE SESSION LOGIC
