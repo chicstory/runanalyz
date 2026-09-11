@@ -13,9 +13,298 @@ let currentYear = 'all';
 let currentMonth = 'all';
 let currentSportFilter = 'all'; // 'all', 'treadmill', 'outdoor'
 
-document.addEventListener('DOMContentLoaded', () => {
-  // 1. Data Sources (Prefers Strava Archive, fallbacks to Garmin Archive or RUN_ACTIVITIES)
-  const archive = window.STRAVA_ARCHIVE || window.GARMIN_ARCHIVE;
+const STRAVA_CLIENT_ID = '278575';
+const STRAVA_WORKER_URL = 'https://runanalyz-auth.chicstory.workers.dev';
+
+function updateSyncProgress(percent, statusText) {
+  const pFill = document.getElementById('sync-progress-fill');
+  const sText = document.getElementById('sync-modal-status');
+  if (pFill) pFill.style.width = `${percent}%`;
+  if (sText) sText.textContent = statusText;
+}
+
+function showSyncOverlay(title, desc, percent = 20, status = '연동 진행 중...') {
+  const el = document.getElementById('strava-sync-overlay');
+  if (!el) return;
+  if (title) {
+    const tEl = document.getElementById('sync-modal-title');
+    if (tEl) tEl.textContent = title;
+  }
+  if (desc) {
+    const dEl = document.getElementById('sync-modal-desc');
+    if (dEl) dEl.textContent = desc;
+  }
+  updateSyncProgress(percent, status);
+  const cancelBtn = document.getElementById('btn-cancel-sync');
+  if (cancelBtn) cancelBtn.style.display = 'none';
+  el.style.display = 'flex';
+}
+
+function hideSyncOverlay() {
+  const el = document.getElementById('strava-sync-overlay');
+  if (el) el.style.display = 'none';
+}
+
+// Convert raw Strava activity list to standard RunAnalyz format
+function parseStravaActivities(rawActs) {
+  const processed = [];
+  const yearlyStats = {};
+
+  rawActs.forEach(act => {
+    const isRun = (act.type === 'Run');
+    const distKm = (act.distance || 0) / 1000.0;
+    const movSec = act.moving_time || 0;
+    const paceSec = distKm > 0 ? (movSec / distKm) : 0;
+    const pMin = Math.floor(paceSec / 60);
+    const pSec = Math.round(paceSec % 60);
+    const pFmt = `${pMin}'${pSec < 10 ? '0' : ''}${pSec}"`;
+
+    const spdMMin = distKm > 0 ? (distKm * 1000.0) / (movSec / 60.0) : 0;
+    const aHr = act.average_heartrate || 0;
+    const mHr = act.max_heartrate || 0;
+    const ef = (aHr > 0) ? Math.round((spdMMin / aHr) * 1000) / 1000 : 0;
+
+    const sDate = act.start_date_local || act.start_date || '';
+    const cleanDate = sDate.replace('T', ' ').replace('Z', '');
+    const dParts = cleanDate.split(' ');
+    const ymd = dParts[0] || '2026-01-01';
+    const hms = dParts[1] || '00:00:00';
+
+    const dateTokens = ymd.split('-');
+    const yVal = parseInt(dateTokens[0], 10) || 2026;
+    const mVal = parseInt(dateTokens[1], 10) || 1;
+    const dayVal = parseInt(dateTokens[2], 10) || 1;
+
+    const monthWeek = Math.min(Math.floor((dayVal - 1) / 7) + 1, 5);
+    const isoWeek = typeof getISOWeek === 'function' ? getISOWeek(ymd) : 1;
+
+    const cad = act.average_cadence || 0;
+    const avgCad = Math.round(cad * 2) || 174;
+    const elev = act.total_elevation_gain || 0;
+    const poly = (act.map && act.map.summary_polyline) ? act.map.summary_polyline : '';
+    const subSp = (elev > 0 || poly) ? 'outdoor' : 'treadmill';
+
+    let spLbl = '야외 러닝';
+    if (!isRun) {
+      spLbl = act.type === 'Hike' ? '하이킹' : (act.type === 'Walk' ? '산책/워킹' : '야외 활동');
+    } else {
+      spLbl = subSp === 'outdoor' ? '야외 러닝' : '트레드밀';
+    }
+
+    const dMin = Math.floor(movSec / 60);
+    const dSec = movSec % 60;
+    const dFmt = `${dMin < 10 ? '0' : ''}${dMin}:${dSec < 10 ? '0' : ''}${dSec}`;
+
+    const actObj = {
+      id: `strava-${act.id}`,
+      filename: `strava_${act.id}`,
+      sport: isRun ? 'running' : 'other',
+      sub_sport: subSp,
+      sport_label: spLbl,
+      is_pure_running: isRun,
+      has_gps: !!poly,
+      summary_polyline: poly,
+      date: ymd,
+      time: hms,
+      datetime: `${ymd} ${hms}`,
+      year: yVal,
+      month: mVal,
+      week: monthWeek,
+      iso_week: isoWeek,
+      distance_km: Math.round(distKm * 100) / 100,
+      duration_seconds: movSec,
+      duration_formatted: dFmt,
+      pace_seconds: Math.round(paceSec * 10) / 10,
+      pace_formatted: pFmt,
+      speed_m_per_min: Math.round(spdMMin * 10) / 10,
+      avg_hr: Math.round(aHr),
+      max_hr: Math.round(mHr),
+      avg_cadence: avgCad,
+      max_cadence: avgCad + 10,
+      avg_power: 0,
+      max_power: 0,
+      calories: act.calories || Math.round(distKm * 60),
+      ascent_m: elev,
+      ef: ef,
+      power_ef: 0,
+      aerobic_decoupling_pct: 0,
+      stream_summary: []
+    };
+    processed.push(actObj);
+
+    if (isRun) {
+      const yStr = String(yVal);
+      if (!yearlyStats[yStr]) {
+        yearlyStats[yStr] = {
+          year: yVal,
+          total_running_km: 0,
+          running_sessions: 0,
+          avg_ef: 0.0,
+          avg_hr: 0,
+          max_lsd_km: 0.0
+        };
+      }
+      yearlyStats[yStr].total_running_km = Math.round((yearlyStats[yStr].total_running_km + distKm) * 10) / 10;
+      yearlyStats[yStr].running_sessions += 1;
+      yearlyStats[yStr].max_lsd_km = Math.max(yearlyStats[yStr].max_lsd_km, Math.round(distKm * 100) / 100);
+    }
+  });
+
+  // Calculate avg EF per year
+  for (const yStr in yearlyStats) {
+    const yActs = processed.filter(a => a.is_pure_running && String(a.year) === yStr && a.ef > 0);
+    if (yActs.length > 0) {
+      yearlyStats[yStr].avg_ef = Math.round((yActs.reduce((acc, a) => acc + a.ef, 0) / yActs.length) * 1000) / 1000;
+      const validHrs = yActs.filter(a => a.avg_hr > 0);
+      yearlyStats[yStr].avg_hr = validHrs.length ? Math.round(validHrs.reduce((acc, a) => acc + a.avg_hr, 0) / validHrs.length) : 0;
+    }
+  }
+
+  const availableYears = Object.keys(yearlyStats).map(Number).sort((a, b) => b - a);
+
+  return {
+    metadata: {
+      generated_at: new Date().toISOString(),
+      source: 'strava_live_sync',
+      total_activities: processed.length,
+      pure_running_sessions: processed.filter(a => a.is_pure_running).length,
+      gps_track_count: processed.filter(a => a.has_gps).length,
+      available_years: availableYears,
+      yearly_summary: yearlyStats
+    },
+    activities: processed
+  };
+}
+
+// Fetch activities from Strava API using access token
+async function fetchUserStravaActivities(accessToken) {
+  const allActs = [];
+  for (let page = 1; page <= 3; page++) {
+    updateSyncProgress(40 + page * 15, `Strava 활동 기록 수집 중... (${page}/3 페이지)`);
+    try {
+      const resp = await fetch(`https://www.strava.com/api/v3/athlete/activities?per_page=100&page=${page}`, {
+        headers: { 'Authorization': `Bearer ${accessToken}` }
+      });
+      if (!resp.ok) break;
+      const acts = await resp.json();
+      if (!Array.isArray(acts) || acts.length === 0) break;
+      allActs.push(...acts);
+      if (acts.length < 100) break;
+    } catch (fetchErr) {
+      console.warn('Strava page fetch error:', fetchErr);
+      break;
+    }
+  }
+  updateSyncProgress(90, '러닝 심폐효율(EF) 및 주간 통계 산출 중...');
+  return parseStravaActivities(allActs);
+}
+
+function setupStravaAuthButton(isCustomUser, athlete) {
+  const btnAuth = document.getElementById('btn-strava-auth');
+  const btnText = document.getElementById('strava-auth-btn-text');
+  if (!btnAuth) return;
+
+  if (isCustomUser && athlete) {
+    const athleteName = athlete.firstname || athlete.username || '러너';
+    btnAuth.classList.add('connected');
+    btnAuth.title = `${athleteName}님의 Strava 계정이 연동되어 있습니다. 클릭하여 연동을 해제하고 기본 데이터로 돌아갈 수 있습니다.`;
+    if (btnText) btnText.innerHTML = `<i class="bi bi-check2-circle"></i> ${athleteName}`;
+
+    btnAuth.onclick = () => {
+      if (confirm(`현재 [${athleteName}]님의 Strava 러닝 데이터를 분석 중입니다.\n\n연동을 해제하고 기본 샘플 데이터로 돌아가시겠습니까?`)) {
+        localStorage.removeItem('runanalyz_custom_archive');
+        localStorage.removeItem('runanalyz_strava_athlete');
+        localStorage.removeItem('runanalyz_strava_token');
+        window.location.reload();
+      }
+    };
+  } else {
+    btnAuth.classList.remove('connected');
+    btnAuth.title = '내 Strava 계정을 연동하여 1초 만에 개인 러닝 데이터 분석';
+    if (btnText) btnText.innerHTML = `Strava 연동`;
+
+    btnAuth.onclick = () => {
+      let redirectUri = window.location.origin + window.location.pathname;
+      if (!redirectUri.endsWith('/') && !redirectUri.endsWith('.html')) {
+        redirectUri += '/';
+      }
+      const authUrl = `https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&approval_prompt=auto&scope=read,activity:read_all`;
+      window.location.href = authUrl;
+    };
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  // Cancel sync button handler
+  const cancelBtn = document.getElementById('btn-cancel-sync');
+  if (cancelBtn) {
+    cancelBtn.onclick = () => hideSyncOverlay();
+  }
+
+  // Check OAuth callback redirect (code query parameter)
+  const urlParams = new URLSearchParams(window.location.search);
+  const authCode = urlParams.get('code');
+
+  if (authCode) {
+    window.history.replaceState({}, document.title, window.location.pathname);
+    showSyncOverlay('Strava 계정 인증 중...', 'Cloudflare Workers를 통해 안전하게 인증 토큰을 교환하고 있습니다.', 25, '인증 토큰 확인 중 (1/3)');
+
+    try {
+      const tokenResp = await fetch(`${STRAVA_WORKER_URL}/?code=${authCode}`);
+      if (!tokenResp.ok) throw new Error('Worker token exchange failed');
+      const tokenData = await tokenResp.json();
+
+      if (tokenData.access_token) {
+        localStorage.setItem('runanalyz_strava_token', tokenData.access_token);
+        if (tokenData.athlete) {
+          localStorage.setItem('runanalyz_strava_athlete', JSON.stringify(tokenData.athlete));
+        }
+
+        updateSyncProgress(50, '인증 성공! 활동 기록 요청 준비 중 (2/3)');
+        showSyncOverlay('러닝 활동 기록 동기화 중...', `${tokenData.athlete?.firstname || '러너'}님의 Strava 활동 데이터를 수집하고 있습니다.`, 50, '활동 데이터 수집 중 (2/3)');
+        
+        const customArchive = await fetchUserStravaActivities(tokenData.access_token);
+        if (customArchive && customArchive.activities.length > 0) {
+          localStorage.setItem('runanalyz_custom_archive', JSON.stringify(customArchive));
+          updateSyncProgress(100, '동기화 완료 (3/3)');
+          setTimeout(() => {
+            hideSyncOverlay();
+            showToast(`🎉 ${tokenData.athlete?.firstname || '러너'}님의 Strava 러닝 데이터가 연동되었습니다!`);
+          }, 600);
+        } else {
+          hideSyncOverlay();
+        }
+      } else {
+        throw new Error(tokenData.error || 'Access token missing');
+      }
+    } catch (authErr) {
+      console.error('Strava OAuth Error:', authErr);
+      showSyncOverlay('연동 실패', 'Strava 인증 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 100, '오류 발생');
+      if (cancelBtn) cancelBtn.style.display = 'inline-block';
+    }
+  }
+
+  // Determine active dataset (Custom user dataset vs Global archive)
+  let archive = null;
+  const savedArchiveJson = localStorage.getItem('runanalyz_custom_archive');
+  const savedAthleteJson = localStorage.getItem('runanalyz_strava_athlete');
+  let currentAthlete = null;
+
+  if (savedArchiveJson) {
+    try {
+      archive = JSON.parse(savedArchiveJson);
+      if (savedAthleteJson) currentAthlete = JSON.parse(savedAthleteJson);
+    } catch (e) {
+      archive = null;
+    }
+  }
+
+  const isCustomUser = !!(archive && archive.activities && archive.activities.length > 0);
+  setupStravaAuthButton(isCustomUser, currentAthlete);
+  if (!archive) {
+    archive = window.STRAVA_ARCHIVE || window.GARMIN_ARCHIVE;
+  }
+
   let allActivities = [];
   if (archive && Array.isArray(archive.activities)) {
     allActivities = [...archive.activities];
@@ -341,6 +630,35 @@ document.addEventListener('DOMContentLoaded', () => {
         btnReload.classList.remove('spinning');
       }, 600);
     });
+  }
+
+  // Strava Web OAuth Connect / Disconnect Button
+  const btnStravaAuth = document.getElementById('btn-strava-auth');
+  const btnStravaText = document.getElementById('strava-auth-btn-text');
+
+  if (btnStravaAuth) {
+    if (isCustomUser && currentAthlete) {
+      btnStravaAuth.classList.add('connected');
+      btnStravaAuth.title = `${currentAthlete.firstname || '러너'}님 Strava 연동 중 (클릭 시 연결 해제)`;
+      if (btnStravaText) btnStravaText.textContent = `${currentAthlete.firstname || '러너'} (연결 해제)`;
+      btnStravaAuth.onclick = () => {
+        if (confirm(`${currentAthlete.firstname || '러너'}님의 Strava 연동을 해제하고 기본 데이터로 돌아가시겠습니까?`)) {
+          localStorage.removeItem('runanalyz_custom_archive');
+          localStorage.removeItem('runanalyz_strava_token');
+          localStorage.removeItem('runanalyz_strava_athlete');
+          window.location.reload();
+        }
+      };
+    } else {
+      btnStravaAuth.classList.remove('connected');
+      btnStravaAuth.title = '내 Strava 계정 실시간 연동 (원클릭)';
+      if (btnStravaText) btnStravaText.textContent = 'Strava 연동';
+      btnStravaAuth.onclick = () => {
+        const redirectUri = window.location.origin + window.location.pathname;
+        const stravaAuthUrl = `https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&approval_prompt=auto&scope=read,activity:read_all`;
+        window.location.href = stravaAuthUrl;
+      };
+    }
   }
 });
 
