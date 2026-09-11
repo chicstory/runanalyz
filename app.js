@@ -176,26 +176,40 @@ function parseStravaActivities(rawActs) {
   };
 }
 
-// Fetch activities from Strava API using access token
+// Fetch activities from Strava API using access token (Supports multi-year up to 2,000 activities)
 async function fetchUserStravaActivities(accessToken) {
   const allActs = [];
-  for (let page = 1; page <= 3; page++) {
-    updateSyncProgress(40 + page * 15, `Strava 활동 기록 수집 중... (${page}/3 페이지)`);
+  const maxPages = 10; // Max 2,000 activities (covers 5~10 years of running history)
+
+  for (let page = 1; page <= maxPages; page++) {
+    const currentProgress = Math.min(40 + Math.round((page / maxPages) * 50), 90);
+    updateSyncProgress(currentProgress, `Strava 활동 기록 수집 중... (${allActs.length}개 누적 수집, ${page}페이지)`);
+
     try {
-      const resp = await fetch(`https://www.strava.com/api/v3/athlete/activities?per_page=100&page=${page}`, {
+      const resp = await fetch(`https://www.strava.com/api/v3/athlete/activities?per_page=200&page=${page}`, {
         headers: { 'Authorization': `Bearer ${accessToken}` }
       });
-      if (!resp.ok) break;
+      if (!resp.ok) {
+        console.warn(`Strava API status ${resp.status} on page ${page}`);
+        break;
+      }
       const acts = await resp.json();
-      if (!Array.isArray(acts) || acts.length === 0) break;
+      if (!Array.isArray(acts) || acts.length === 0) {
+        break;
+      }
       allActs.push(...acts);
-      if (acts.length < 100) break;
+
+      // If returned count is less than per_page (200), we reached the earliest record
+      if (acts.length < 200) {
+        break;
+      }
     } catch (fetchErr) {
       console.warn('Strava page fetch error:', fetchErr);
       break;
     }
   }
-  updateSyncProgress(90, '러닝 심폐효율(EF) 및 주간 통계 산출 중...');
+
+  updateSyncProgress(92, `총 ${allActs.length}개 활동 분석 및 연도별 심폐효율(EF) 산출 중...`);
   return parseStravaActivities(allActs);
 }
 
@@ -208,14 +222,36 @@ function setupStravaAuthButton(isCustomUser, athlete) {
     const athleteName = athlete.firstname || athlete.username || '러너';
     btnAuth.classList.add('connected');
     btnAuth.title = `${athleteName}님의 Strava 계정이 연동되어 있습니다. 클릭하여 연동을 해제하고 기본 데이터로 돌아갈 수 있습니다.`;
-    if (btnText) btnText.innerHTML = `<i class="bi bi-check2-circle"></i> ${athleteName}`;
-
-    btnAuth.onclick = () => {
-      if (confirm(`현재 [${athleteName}]님의 Strava 러닝 데이터를 분석 중입니다.\n\n연동을 해제하고 기본 샘플 데이터로 돌아가시겠습니까?`)) {
-        localStorage.removeItem('runanalyz_custom_archive');
-        localStorage.removeItem('runanalyz_strava_athlete');
-        localStorage.removeItem('runanalyz_strava_token');
-        window.location.reload();
+    btnAuth.onclick = async () => {
+      const wantResync = confirm(`현재 [${athleteName}]님의 Strava 계정이 연동되어 있습니다.\n\n[확인]: Strava에서 역대 전체 러닝 데이터를 최신으로 '다시 동기화'합니다.\n[취소]: 연동 해제 메뉴로 이동합니다.`);
+      if (wantResync) {
+        const token = localStorage.getItem('runanalyz_strava_token');
+        if (token) {
+          showSyncOverlay('전체 러닝 기록 동기화 중...', `${athleteName}님의 역대 전체 활동 데이터를 수집하고 있습니다.`, 30, '데이터 요청 중...');
+          try {
+            const customArchive = await fetchUserStravaActivities(token);
+            if (customArchive && customArchive.activities.length > 0) {
+              localStorage.setItem('runanalyz_custom_archive', JSON.stringify(customArchive));
+              updateSyncProgress(100, '동기화 완료!');
+              setTimeout(() => {
+                window.location.reload();
+              }, 600);
+            } else {
+              hideSyncOverlay();
+            }
+          } catch (e) {
+            console.error(e);
+            alert('동기화 중 오류가 발생했습니다. 다시 시도해주세요.');
+            hideSyncOverlay();
+          }
+        }
+      } else {
+        if (confirm(`Strava 계정 연동을 완전히 해제하고 기본 샘플 데이터로 복귀하시겠습니까?`)) {
+          localStorage.removeItem('runanalyz_custom_archive');
+          localStorage.removeItem('runanalyz_strava_athlete');
+          localStorage.removeItem('runanalyz_strava_token');
+          window.location.reload();
+        }
       }
     };
   } else {
@@ -301,6 +337,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const isCustomUser = !!(archive && archive.activities && archive.activities.length > 0);
   setupStravaAuthButton(isCustomUser, currentAthlete);
+
+  const btnReload = document.getElementById('btn-reload');
+  if (btnReload) {
+    btnReload.onclick = async () => {
+      const token = localStorage.getItem('runanalyz_strava_token');
+      if (token && isCustomUser) {
+        showSyncOverlay('러닝 데이터 동기화', 'Strava에서 최신 활동 기록을 동기화하고 있습니다...', 30, '데이터 수집 중...');
+        try {
+          const customArchive = await fetchUserStravaActivities(token);
+          if (customArchive && customArchive.activities.length > 0) {
+            localStorage.setItem('runanalyz_custom_archive', JSON.stringify(customArchive));
+            updateSyncProgress(100, '동기화 완료!');
+            setTimeout(() => window.location.reload(), 500);
+          } else {
+            hideSyncOverlay();
+          }
+        } catch (e) {
+          hideSyncOverlay();
+          window.location.reload();
+        }
+      } else {
+        window.location.reload();
+      }
+    };
+  }
   if (!archive) {
     archive = window.STRAVA_ARCHIVE || window.GARMIN_ARCHIVE;
   }
