@@ -283,11 +283,20 @@
       line-height: 1.65;
     }
 
-    /* Info Table */
+    /* Info Table & Responsive Wrapper */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1.5rem 0;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
     .info-table {
       width: 100%;
+      min-width: 520px;
       border-collapse: collapse;
-      margin: 1.5rem 0;
       font-size: 0.92rem;
     }
 
@@ -338,6 +347,41 @@
 
     .science-box-title i {
       color: #00f2fe;
+    }
+
+    .adaptation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .watch-hr-guide-box {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .hr-mode-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .watch-nav-steps-box {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.2rem;
+    }
+
+    .watch-nav-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
     }
 
     .threshold-flow {
@@ -448,10 +492,16 @@
       .subpage-nav { flex-direction: column; gap: 0.85rem; align-items: stretch; padding: 1rem; }
       .subpage-menu-links { justify-content: space-around; }
       .hero-title { font-size: 2rem; }
-      .tech-card { padding: 1.5rem 1.25rem; }
-      .info-table { display: block; overflow-x: auto; }
+      .tech-card { padding: 1.25rem 0.9rem; border-radius: 16px; }
+      .tech-card-title { font-size: 1.2rem; }
+      .watch-hr-guide-box { padding: 1.15rem 0.85rem; border-radius: 12px; }
+      .watch-nav-steps-box { padding: 0.95rem 0.75rem; }
+      .hr-mode-grid, .watch-nav-steps-grid, .adaptation-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+      .science-box { padding: 1.15rem 0.85rem; }
+      .callout-box { padding: 0.95rem 0.85rem; }
       .threshold-flow { grid-template-columns: 1fr; }
-      .paper-link-card { padding: 0.75rem 0.9rem; }
+      .threshold-item-title { flex-wrap: wrap; gap: 0.35rem; }
+      .paper-link-card { flex-direction: column; align-items: flex-start; gap: 0.5rem; padding: 0.75rem 0.9rem; }
     }
   </style>
 </head>
@@ -565,7 +615,7 @@
           <p style="font-size:0.88rem; color:#cbd5e1; line-height:1.65; margin-bottom:0.75rem;">
             지속적인 유산소 베이스 및 역치 훈련을 거치면 심근 비대와 모세혈관망 확장, 미토콘드리아 밀도 증가로 인해 신체의 생체 역치 지점들이 드라마틱하게 변화합니다.
           </p>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem; margin-bottom: 0.85rem;">
+          <div class="adaptation-grid">
             <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 0.85rem;">
               <div style="color: #34d399; font-size: 0.82rem; font-weight: 700; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.3rem;">
                 <i class="bi bi-arrow-right-circle-fill"></i> LT1 우측 이동 (Zone 2 페이스의 확장)
@@ -602,7 +652,7 @@
         </div>
 
         <!-- Section: Karvonen HRR Precision Mode vs Empirical Estimation & Watch Guide -->
-        <div id="watch-hr-guide" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 23, 42, 0.9) 100%); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0;">
+        <div id="watch-hr-guide" class="watch-hr-guide-box">
           <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.75rem;">
             <h4 style="color:#fbbf24; font-family:'Outfit',sans-serif; font-size:1.15rem; font-weight:800; margin:0; display:flex; align-items:center; gap:0.5rem;">
               <i class="bi bi-patch-check-fill text-gold"></i> [골드 스탠다드] Karvonen HRR 99% 정밀 역치 vs 단일 세션 통계 추정 비교
@@ -617,7 +667,7 @@
           </p>
 
           <!-- Accuracy Comparison Grid -->
-          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1rem; margin-bottom:1.25rem;">
+          <div class="hr-mode-grid">
             <!-- Karvonen Mode Card -->
             <div style="background:rgba(245, 158, 11, 0.05); border:1px solid rgba(245, 158, 11, 0.3); border-radius:12px; padding:1.15rem;">
               <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.6rem;">
@@ -652,12 +702,12 @@
           </div>
 
           <!-- Watch Navigation Steps -->
-          <div style="background:rgba(15, 23, 42, 0.8); border:1px solid rgba(255, 255, 255, 0.1); border-radius:12px; padding:1.2rem;">
+          <div class="watch-nav-steps-box">
             <h5 style="color:#fff; font-size:0.92rem; font-weight:800; margin:0 0 0.85rem 0; display:flex; align-items:center; gap:0.4rem;">
               <i class="bi bi-smartwatch" style="color:#38bdf8;"></i> 스마트워치 앱에서 내 MHR &amp; RHR 확인하는 방법 (3대 제조사)
             </h5>
             
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:0.85rem;">
+            <div class="watch-nav-steps-grid">
               <!-- Garmin -->
               <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:0.85rem;">
                 <div style="color:#38bdf8; font-size:0.85rem; font-weight:700; margin-bottom:0.35rem; display:flex; align-items:center; gap:0.35rem;">
@@ -746,37 +796,39 @@
         </div>
       </div>
 
-      <table class="info-table">
-        <thead>
-          <tr>
-            <th>EF 지수 범위</th>
-            <th>러너 수준</th>
-            <th>상세 의미 및 트레이닝 조언</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>1.10 미만</strong></td>
-            <td>유산소 기초 단계</td>
-            <td>심폐 베이스를 다지는 구간입니다. Zone 2(편안하게 대화 가능한 강도)의 조깅 위주 훈련을 권장합니다.</td>
-          </tr>
-          <tr>
-            <td><strong>1.10 ~ 1.30</strong></td>
-            <td>중급 러너</td>
-            <td>안정적이고 건강한 심폐 지구력을 갖춘 러너입니다. 하프 마라톤 완주 및 10km 빌드업에 이상적입니다.</td>
-          </tr>
-          <tr>
-            <td><strong>1.30 ~ 1.45</strong></td>
-            <td>상급 러너</td>
-            <td>뛰어난 젖산 역치와 강한 유산소 엔진을 보유한 러너입니다. 서브3.5~서브330 마라톤에 도전할 수 있습니다.</td>
-          </tr>
-          <tr>
-            <td><strong>1.45 이상</strong></td>
-            <td>엘리트 / 서브3급</td>
-            <td>낮은 심박수에서도 폭발적인 스피드를 유지하는 극강의 유산소 심폐 효율을 의미합니다.</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="info-table">
+          <thead>
+            <tr>
+              <th>EF 지수 범위</th>
+              <th>러너 수준</th>
+              <th>상세 의미 및 트레이닝 조언</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1.10 미만</strong></td>
+              <td>유산소 기초 단계</td>
+              <td>심폐 베이스를 다지는 구간입니다. Zone 2(편안하게 대화 가능한 강도)의 조깅 위주 훈련을 권장합니다.</td>
+            </tr>
+            <tr>
+              <td><strong>1.10 ~ 1.30</strong></td>
+              <td>중급 러너</td>
+              <td>안정적이고 건강한 심폐 지구력을 갖춘 러너입니다. 하프 마라톤 완주 및 10km 빌드업에 이상적입니다.</td>
+            </tr>
+            <tr>
+              <td><strong>1.30 ~ 1.45</strong></td>
+              <td>상급 러너</td>
+              <td>뛰어난 젖산 역치와 강한 유산소 엔진을 보유한 러너입니다. 서브3.5~서브330 마라톤에 도전할 수 있습니다.</td>
+            </tr>
+            <tr>
+              <td><strong>1.45 이상</strong></td>
+              <td>엘리트 / 서브3급</td>
+              <td>낮은 심박수에서도 폭발적인 스피드를 유지하는 극강의 유산소 심폐 효율을 의미합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <h3 style="color:#fff; font-family:'Outfit',sans-serif; font-size:1.15rem; margin:1.75rem 0 0.75rem 0;">
         VDOT 기반 5대 권장 훈련 페이스 &amp; 케이던스 가이드
@@ -808,32 +860,34 @@
         </p>
       </div>
 
-      <table class="info-table">
-        <thead>
-          <tr>
-            <th>상태 배지</th>
-            <th>전주 대비 증량률</th>
-            <th>신체 부하 및 권장 가이드</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="tag-safe">🟢 SAFE (안전)</span></td>
-            <td>+10% 이하 또는 감량</td>
-            <td>가장 이상적이고 안전한 빌드업 구간입니다. 부상 위험 없이 체력이 점진적으로 상승합니다.</td>
-          </tr>
-          <tr>
-            <td><span class="tag-caution">🟠 CAUTION (주의)</span></td>
-            <td>+10% ~ +20%</td>
-            <td>근육 피로가 누적될 수 있습니다. 폼롤러 스트레칭과 충분한 수면, 영양 섭취를 권장합니다.</td>
-          </tr>
-          <tr>
-            <td><span class="tag-danger">🔴 DANGER (위험)</span></td>
-            <td>+20% 초과</td>
-            <td>과사용 부상 위험 극대화 단계입니다. 다음 주차에는 반드시 마일리지를 15~20% 낮추어 회복(Deload)하십시오.</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="info-table">
+          <thead>
+            <tr>
+              <th>상태 배지</th>
+              <th>전주 대비 증량률</th>
+              <th>신체 부하 및 권장 가이드</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag-safe">🟢 SAFE (안전)</span></td>
+              <td>+10% 이하 또는 감량</td>
+              <td>가장 이상적이고 안전한 빌드업 구간입니다. 부상 위험 없이 체력이 점진적으로 상승합니다.</td>
+            </tr>
+            <tr>
+              <td><span class="tag-caution">🟠 CAUTION (주의)</span></td>
+              <td>+10% ~ +20%</td>
+              <td>근육 피로가 누적될 수 있습니다. 폼롤러 스트레칭과 충분한 수면, 영양 섭취를 권장합니다.</td>
+            </tr>
+            <tr>
+              <td><span class="tag-danger">🔴 DANGER (위험)</span></td>
+              <td>+20% 초과</td>
+              <td>과사용 부상 위험 극대화 단계입니다. 다음 주차에는 반드시 마일리지를 15~20% 낮추어 회복(Deload)하십시오.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </article>
 
     <!-- Section 3: Monthly Recap & Card Studio -->

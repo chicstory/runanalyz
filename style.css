@@ -1154,6 +1154,8 @@ html[lang="en"], html[lang="es"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   padding-bottom: 0.4rem;
 }
@@ -1177,7 +1179,8 @@ html[lang="en"], html[lang="es"] {
 .threshold-values-row {
   display: flex;
   align-items: baseline;
-  gap: 1.25rem;
+  gap: 0.85rem;
+  flex-wrap: wrap;
 }
 
 .threshold-val-item {
@@ -3205,6 +3208,153 @@ html[lang="en"], html[lang="es"] {
   .track-color-picker {
     width: 100%;
     justify-content: center;
+  }
+
+  /* Mobile Card Padding Optimization (Prevent horizontal overflow) */
+  .card {
+    padding: 1.15rem 0.85rem;
+    border-radius: var(--radius-md);
+  }
+
+  /* Threshold Diagnostics Mobile Optimization */
+  .threshold-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .threshold-header .card-title {
+    width: 100%;
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .threshold-header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.45rem;
+  }
+
+  .btn-hr-settings,
+  .threshold-status-badge {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .hr-settings-drawer {
+    padding: 0.85rem 0.75rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .hr-drawer-header h4 {
+    font-size: 0.82rem;
+    line-height: 1.3;
+  }
+
+  .hr-input-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .hr-input-group,
+  .input-with-unit,
+  .hr-input-actions {
+    width: 100%;
+  }
+
+  .input-with-unit input {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .btn-save-hr,
+  .btn-reset-hr {
+    flex: 1;
+    justify-content: center;
+    padding: 0.55rem 0.75rem;
+  }
+
+  .threshold-box {
+    padding: 0.95rem 0.85rem;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .threshold-val-number {
+    font-size: 1.35rem;
+  }
+
+  .threshold-coaching-box {
+    padding: 0.75rem 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  /* Aerobic Decoupling Box Mobile */
+  .decoupling-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.9rem 0.85rem;
+  }
+
+  /* VDOT & Paces Banner Mobile */
+  .vdot-score-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+    padding: 0.75rem 0.85rem;
+  }
+
+  .vdot-score-box {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.45rem 0.85rem;
+    box-sizing: border-box;
+  }
+
+  .training-paces-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.4rem;
+  }
+
+  .pace-zone-item {
+    padding: 0.5rem 0.35rem;
+  }
+
+  .pz-val {
+    font-size: 0.9rem;
+  }
+
+  /* Outdoor Routes & Yearly Grids Mobile */
+  .routes-grid,
+  .yearly-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  /* Studio Button Group Mobile */
+  .studio-btn-group .btn-secondary {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .theme-picker-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 0.25rem;
+  }
+
+  .btn-theme-chip {
+    padding: 0.45rem 0.15rem;
+    font-size: 0.68rem;
+    justify-content: center;
+    white-space: nowrap;
   }
 }
 
