@@ -946,6 +946,15 @@ function renderSingleChart(act) {
   });
 }
 
+function getISOWeek(dateStr) {
+  if (!dateStr) return 1;
+  const d = new Date(dateStr + 'T00:00:00');
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+}
+
 /* ==========================================================================
    MODULE 2: WEEKLY RECAP LOGIC
    ========================================================================== */
@@ -973,14 +982,34 @@ function initWeeklyRecap(activities, year = '2026', month = '8') {
     return;
   }
 
-  // Group by ISO week
+  // Group by week (Month week when viewing specific month, ISO week when annual/all-time)
   const weekMap = {};
   activities.forEach(a => {
-    const wKey = `W${a.week || 1}`;
+    let wNum = 1;
+    let wKey = '';
+    let wName = '';
+
+    if (month !== 'all') {
+      let day = 1;
+      if (a.date) {
+        const parts = a.date.split('-');
+        if (parts.length >= 3) day = parseInt(parts[2], 10) || 1;
+      }
+      wNum = a.week || Math.min(Math.floor((day - 1) / 7) + 1, 5);
+      wKey = `W${wNum}`;
+      const sDay = (wNum - 1) * 7 + 1;
+      const eDay = wNum === 5 ? 31 : wNum * 7;
+      wName = `${wNum}주차 (${month}/${sDay < 10 ? '0' : ''}${sDay}~${month}/${eDay < 10 ? '0' : ''}${eDay})`;
+    } else {
+      wNum = a.iso_week || (a.date ? getISOWeek(a.date) : 1);
+      wKey = `W${wNum}`;
+      wName = `${wNum}주차 (${a.date ? a.date.slice(5, 10) : ''})`;
+    }
+
     if (!weekMap[wKey]) {
       weekMap[wKey] = {
-        name: `${wKey} (${a.date.slice(5, 10)})`,
-        weekNum: a.week,
+        name: wName,
+        weekNum: wNum,
         runs: [],
         totalKm: 0,
         totalTimeSec: 0,
@@ -1547,6 +1576,33 @@ function renderYearlyChart(years, summary) {
   });
 }
 
+// Google Encoded Polyline Decoder (Decodes summary_polyline into [lat, lng] array)
+function decodePolyline(str, precision = 5) {
+  if (!str) return [];
+  let index = 0, lat = 0, lng = 0, coordinates = [];
+  const factor = Math.pow(10, precision);
+  while (index < str.length) {
+    let byte = null, shift = 0, result = 0;
+    do {
+      byte = str.charCodeAt(index++) - 63;
+      result |= (byte & 0x1f) << shift;
+      shift += 5;
+    } while (byte >= 0x20);
+    const latitude_change = ((result & 1) ? ~(result >> 1) : (result >> 1));
+    shift = result = 0;
+    do {
+      byte = str.charCodeAt(index++) - 63;
+      result |= (byte & 0x1f) << shift;
+      shift += 5;
+    } while (byte >= 0x20);
+    const longitude_change = ((result & 1) ? ~(result >> 1) : (result >> 1));
+    lat += latitude_change;
+    lng += longitude_change;
+    coordinates.push([lat / factor, lng / factor]);
+  }
+  return coordinates;
+}
+
 /* ==========================================================================
    MODULE 5: RUNNING HEATMAP (GPS TRACKS OVERLAY)
    ========================================================================== */
@@ -1569,10 +1625,14 @@ function initRunningHeatmap(activities) {
       list = list.filter(a => a.month == currentMonth);
     }
 
-    if (currentHmSportFilter === 'running') {
-      return list.filter(a => a.is_pure_running && a.has_gps && a.gps_points && a.gps_points.length > 5);
-    }
-    return list.filter(a => a.has_gps && a.gps_points && a.gps_points.length > 5);
+    return list.filter(a => {
+      if (!a.has_gps) return false;
+      if (currentHmSportFilter === 'running' && !a.is_pure_running) return false;
+      if ((!a.gps_points || a.gps_points.length === 0) && a.summary_polyline) {
+        a.gps_points = decodePolyline(a.summary_polyline);
+      }
+      return a.gps_points && a.gps_points.length >= 2;
+    });
   }
 
   // Initialize Leaflet Map once
