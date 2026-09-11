@@ -1,5 +1,523 @@
 window.RUN_ACTIVITIES = [
   {
+    "id": "strava-20101815031",
+    "filename": "strava_20101815031.fit",
+    "sport": "running",
+    "sub_sport": "treadmill",
+    "sport_label": "트레드밀",
+    "is_pure_running": true,
+    "has_gps": false,
+    "date": "2026-09-09",
+    "time": "20:28:42",
+    "datetime": "2026-09-09 20:28:42",
+    "timestamp_epoch": 1789108300,
+    "distance_km": 8.03,
+    "duration_seconds": 2484,
+    "duration_formatted": "41:24",
+    "pace_seconds": 309.4,
+    "pace_formatted": "5'09\"",
+    "speed_m_per_min": 193.9,
+    "avg_hr": 143,
+    "max_hr": 167,
+    "avg_cadence": 184,
+    "max_cadence": 192,
+    "avg_power": 0,
+    "max_power": 0,
+    "calories": 481,
+    "ascent_m": 0,
+    "ef": 1.356,
+    "power_ef": 0,
+    "aerobic_decoupling_pct": 4.58,
+    "stream_summary": [
+      {
+        "dist_m": 1.2,
+        "hr": 104,
+        "cadence": 174,
+        "power": 0
+      },
+      {
+        "dist_m": 59.6,
+        "hr": 115,
+        "cadence": 176,
+        "power": 0
+      },
+      {
+        "dist_m": 135.4,
+        "hr": 117,
+        "cadence": 174,
+        "power": 0
+      },
+      {
+        "dist_m": 213.3,
+        "hr": 122,
+        "cadence": 172,
+        "power": 0
+      },
+      {
+        "dist_m": 288.9,
+        "hr": 123,
+        "cadence": 172,
+        "power": 0
+      },
+      {
+        "dist_m": 373.8,
+        "hr": 124,
+        "cadence": 180,
+        "power": 0
+      },
+      {
+        "dist_m": 460.8,
+        "hr": 124,
+        "cadence": 180,
+        "power": 0
+      },
+      {
+        "dist_m": 548.3,
+        "hr": 126,
+        "cadence": 180,
+        "power": 0
+      },
+      {
+        "dist_m": 635.6,
+        "hr": 127,
+        "cadence": 180,
+        "power": 0
+      },
+      {
+        "dist_m": 724.2,
+        "hr": 126,
+        "cadence": 180,
+        "power": 0
+      },
+      {
+        "dist_m": 811.8,
+        "hr": 129,
+        "cadence": 182,
+        "power": 0
+      },
+      {
+        "dist_m": 901.0,
+        "hr": 124,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 994.0,
+        "hr": 130,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 1087.9,
+        "hr": 126,
+        "cadence": 182,
+        "power": 0
+      },
+      {
+        "dist_m": 1183.7,
+        "hr": 130,
+        "cadence": 188,
+        "power": 0
+      },
+      {
+        "dist_m": 1280.6,
+        "hr": 131,
+        "cadence": 188,
+        "power": 0
+      },
+      {
+        "dist_m": 1374.5,
+        "hr": 131,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 1477.7,
+        "hr": 133,
+        "cadence": 188,
+        "power": 0
+      },
+      {
+        "dist_m": 1574.9,
+        "hr": 131,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 1671.7,
+        "hr": 133,
+        "cadence": 182,
+        "power": 0
+      },
+      {
+        "dist_m": 1766.3,
+        "hr": 135,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 1865.8,
+        "hr": 131,
+        "cadence": 182,
+        "power": 0
+      },
+      {
+        "dist_m": 1966.0,
+        "hr": 132,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 2068.5,
+        "hr": 136,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 2165.9,
+        "hr": 133,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 2263.9,
+        "hr": 134,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 2365.6,
+        "hr": 137,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 2466.8,
+        "hr": 133,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 2570.3,
+        "hr": 136,
+        "cadence": 188,
+        "power": 0
+      },
+      {
+        "dist_m": 2671.2,
+        "hr": 137,
+        "cadence": 188,
+        "power": 0
+      },
+      {
+        "dist_m": 2772.0,
+        "hr": 138,
+        "cadence": 188,
+        "power": 0
+      },
+      {
+        "dist_m": 2868.2,
+        "hr": 136,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 2963.8,
+        "hr": 137,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 3068.7,
+        "hr": 139,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 3171.2,
+        "hr": 137,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 3274.2,
+        "hr": 139,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 3375.3,
+        "hr": 140,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 3480.7,
+        "hr": 142,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 3581.1,
+        "hr": 142,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 3682.4,
+        "hr": 141,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 3781.7,
+        "hr": 140,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 3887.9,
+        "hr": 143,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 3993.5,
+        "hr": 141,
+        "cadence": 182,
+        "power": 0
+      },
+      {
+        "dist_m": 4095.5,
+        "hr": 144,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 4193.5,
+        "hr": 143,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 4295.1,
+        "hr": 145,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 4397.8,
+        "hr": 146,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 4501.8,
+        "hr": 148,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 4610.5,
+        "hr": 148,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 4717.9,
+        "hr": 149,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 4824.5,
+        "hr": 149,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 4929.0,
+        "hr": 151,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 5034.6,
+        "hr": 150,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 5140.9,
+        "hr": 149,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 5248.5,
+        "hr": 150,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 5353.3,
+        "hr": 151,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 5461.4,
+        "hr": 153,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 5562.7,
+        "hr": 154,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 5667.3,
+        "hr": 156,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 5768.9,
+        "hr": 152,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 5872.0,
+        "hr": 154,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 5977.3,
+        "hr": 154,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 6084.9,
+        "hr": 157,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 6190.8,
+        "hr": 154,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 6298.4,
+        "hr": 159,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 6405.1,
+        "hr": 157,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 6509.9,
+        "hr": 157,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 6609.1,
+        "hr": 159,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 6713.9,
+        "hr": 159,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 6822.9,
+        "hr": 160,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 6928.7,
+        "hr": 159,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 7034.4,
+        "hr": 161,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 7143.6,
+        "hr": 161,
+        "cadence": 186,
+        "power": 0
+      },
+      {
+        "dist_m": 7252.8,
+        "hr": 163,
+        "cadence": 182,
+        "power": 0
+      },
+      {
+        "dist_m": 7356.3,
+        "hr": 163,
+        "cadence": 184,
+        "power": 0
+      },
+      {
+        "dist_m": 7464.3,
+        "hr": 164,
+        "cadence": 190,
+        "power": 0
+      },
+      {
+        "dist_m": 7572.7,
+        "hr": 166,
+        "cadence": 190,
+        "power": 0
+      },
+      {
+        "dist_m": 7682.4,
+        "hr": 166,
+        "cadence": 190,
+        "power": 0
+      },
+      {
+        "dist_m": 7792.5,
+        "hr": 166,
+        "cadence": 190,
+        "power": 0
+      },
+      {
+        "dist_m": 7903.8,
+        "hr": 166,
+        "cadence": 190,
+        "power": 0
+      },
+      {
+        "dist_m": 8014.9,
+        "hr": 166,
+        "cadence": 190,
+        "power": 0
+      }
+    ]
+  },
+  {
     "id": "2026-08-04-20-31-23",
     "filename": "2026-08-04-20-31-23.fit",
     "sport": "running",

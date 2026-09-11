@@ -9,54 +9,132 @@ function _t(key, fallback) {
 }
 
 // Global filter states accessible by all modules
-let currentYear = '2026';
-let currentMonth = '9';
+let currentYear = 'all';
+let currentMonth = 'all';
 let currentSportFilter = 'all'; // 'all', 'treadmill', 'outdoor'
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Data Sources (Merges Garmin Archive + latest Strava activities)
-  const archive = window.GARMIN_ARCHIVE;
+  // 1. Data Sources (Prefers Strava Archive, fallbacks to Garmin Archive or RUN_ACTIVITIES)
+  const archive = window.STRAVA_ARCHIVE || window.GARMIN_ARCHIVE;
   let allActivities = [];
   if (archive && Array.isArray(archive.activities)) {
     allActivities = [...archive.activities];
-    // Merge Strava activities from window.RUN_ACTIVITIES
-    if (window.RUN_ACTIVITIES && Array.isArray(window.RUN_ACTIVITIES)) {
-      const stravaActs = window.RUN_ACTIVITIES.filter(a => a.id && a.id.toString().startsWith('strava-'));
-      for (const sa of stravaActs) {
-        if (!allActivities.some(x => x.id === sa.id)) {
-          const dParts = (sa.date || '').split('-');
-          sa.year = sa.year || (dParts[0] ? parseInt(dParts[0]) : 2026);
-          sa.month = sa.month || (dParts[1] ? parseInt(dParts[1]) : 9);
-          allActivities.unshift(sa);
-        }
-      }
-    }
-  } else {
-    allActivities = window.RUN_ACTIVITIES || [];
+  } else if (window.RUN_ACTIVITIES && Array.isArray(window.RUN_ACTIVITIES)) {
+    allActivities = [...window.RUN_ACTIVITIES];
   }
 
   const pureRunningActivities = allActivities.filter(a => a.is_pure_running && a.distance_km > 0.3);
   const nonRunningActivities = allActivities.filter(a => !a.is_pure_running);
 
-  console.log(`Loaded ${allActivities.length} total activities: ${pureRunningActivities.length} pure running, ${nonRunningActivities.length} other activities.`);
+  console.log(`[RunAnalyz] Loaded ${allActivities.length} total activities (${pureRunningActivities.length} pure running) from ${archive?.metadata?.source || 'local'}.`);
 
   if (!pureRunningActivities || pureRunningActivities.length === 0) {
     alert('러닝 활동 데이터를 불러오지 못했습니다.');
     return;
   }
 
-  // 2. Filter States & Persistence
+  // 2. Dynamic Year & Month Filter Builder (Adapts to ANY user's dataset)
   const selectYear = document.getElementById('select-year');
   const selectMonth = document.getElementById('select-month');
 
-  // Restore saved filter from sessionStorage
-  const savedYear = sessionStorage.getItem('shoef_selected_year');
-  const savedMonth = sessionStorage.getItem('shoef_selected_month');
-  if (savedYear && selectYear) selectYear.value = savedYear;
-  if (savedMonth && selectMonth) selectMonth.value = savedMonth;
+  // Extract all available years from pureRunningActivities
+  let availableYears = archive?.metadata?.available_years;
+  if (!availableYears || availableYears.length === 0) {
+    const ySet = new Set();
+    pureRunningActivities.forEach(a => {
+      if (a.year) ySet.add(parseInt(a.year));
+    });
+    availableYears = Array.from(ySet).sort((a, b) => b - a);
+  } else {
+    availableYears = [...availableYears].sort((a, b) => b - a);
+  }
 
-  currentYear = selectYear?.value || '2026';
-  currentMonth = selectMonth?.value || '9';
+  const latestYear = availableYears.length > 0 ? availableYears[0] : new Date().getFullYear();
+  const minYear = availableYears.length > 0 ? availableYears[availableYears.length - 1] : latestYear;
+
+  // Build Year Selector Options Dynamically
+  if (selectYear) {
+    selectYear.innerHTML = '';
+    const allYearsOpt = document.createElement('option');
+    allYearsOpt.value = 'all';
+    allYearsOpt.setAttribute('data-i18n', 'period_all_years');
+    allYearsOpt.textContent = `전체 누적 (${minYear}~${latestYear})`;
+    selectYear.appendChild(allYearsOpt);
+
+    availableYears.forEach(y => {
+      const opt = document.createElement('option');
+      opt.value = String(y);
+      const yearCount = pureRunningActivities.filter(a => String(a.year) === String(y)).length;
+      opt.textContent = `${y}년 (${yearCount}회)`;
+      selectYear.appendChild(opt);
+    });
+  }
+
+  // Determine initial Year (from session storage or latest available year)
+  const savedYear = sessionStorage.getItem('shoef_selected_year');
+  if (savedYear && (savedYear === 'all' || availableYears.includes(parseInt(savedYear)))) {
+    currentYear = savedYear;
+  } else {
+    currentYear = String(latestYear);
+  }
+  if (selectYear) selectYear.value = currentYear;
+
+  // Function to dynamically build month selector options based on selected year
+  function populateMonthOptions(targetYear, preferredMonth = null) {
+    if (!selectMonth) return;
+    selectMonth.innerHTML = '';
+
+    let runsInPeriod = [];
+    if (targetYear === 'all') {
+      runsInPeriod = pureRunningActivities;
+    } else {
+      runsInPeriod = pureRunningActivities.filter(a => String(a.year) === String(targetYear));
+    }
+
+    // Count runs per month
+    const monthCounts = {};
+    runsInPeriod.forEach(a => {
+      const m = parseInt(a.month);
+      if (!isNaN(m) && m >= 1 && m <= 12) {
+        monthCounts[m] = (monthCounts[m] || 0) + 1;
+      }
+    });
+
+    // Ascending months that have data
+    const availableMonths = Object.keys(monthCounts).map(Number).sort((a, b) => a - b);
+
+    // 'All months' option
+    const optAll = document.createElement('option');
+    optAll.value = 'all';
+    optAll.setAttribute('data-i18n', 'period_all_months');
+    optAll.textContent = targetYear === 'all' ? `전체 월 (${runsInPeriod.length}회)` : `연간 전체 (${runsInPeriod.length}회)`;
+    selectMonth.appendChild(optAll);
+
+    // Dynamic month options
+    availableMonths.forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = String(m);
+      opt.textContent = `${m}월 (${monthCounts[m]}회)`;
+      selectMonth.appendChild(opt);
+    });
+
+    // Determine which month to select
+    let monthToSelect = 'all';
+    if (preferredMonth && (preferredMonth === 'all' || availableMonths.includes(Number(preferredMonth)))) {
+      monthToSelect = String(preferredMonth);
+    } else if (availableMonths.length > 0) {
+      // Auto-select the latest active month in that year
+      monthToSelect = String(availableMonths[availableMonths.length - 1]);
+    }
+
+    currentMonth = monthToSelect;
+    sessionStorage.setItem('shoef_selected_month', currentMonth);
+    selectMonth.value = currentMonth;
+  }
+
+  // Populate Month selector initially with saved or latest month
+  const savedMonth = sessionStorage.getItem('shoef_selected_month');
+  populateMonthOptions(currentYear, savedMonth);
   currentSportFilter = 'all';
 
   // Toast Notification Helper
@@ -84,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let periodLabel = '';
     if (currentYear === 'all') {
-      periodLabel = currentMonth === 'all' ? '역대 전체 (2017~2026)' : `역대 ${currentMonth}월 누적`;
+      periodLabel = currentMonth === 'all' ? `역대 전체 (${minYear}~${latestYear})` : `역대 ${currentMonth}월 누적`;
     } else {
       periodLabel = currentMonth === 'all' ? `${currentYear}년 전체` : `${currentYear}년 ${currentMonth}월`;
     }
@@ -104,6 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     selectYear.addEventListener('change', (e) => {
       currentYear = e.target.value;
       sessionStorage.setItem('shoef_selected_year', currentYear);
+      populateMonthOptions(currentYear); // dynamically rebuild months for newly chosen year
       refreshAllViews();
       const pText = currentYear === 'all' ? '역대 전체' : `${currentYear}년`;
       showToast(`📅 기간 필터가 [${pText}] 데이터로 갱신되었습니다.`);
