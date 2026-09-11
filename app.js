@@ -10,13 +10,31 @@ function _t(key, fallback) {
 
 // Global filter states accessible by all modules
 let currentYear = '2026';
-let currentMonth = '8';
+let currentMonth = '9';
 let currentSportFilter = 'all'; // 'all', 'treadmill', 'outdoor'
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Data Sources (Prefers full Garmin Archive, fallbacks to August data)
+  // 1. Data Sources (Merges Garmin Archive + latest Strava activities)
   const archive = window.GARMIN_ARCHIVE;
-  const allActivities = archive?.activities || window.RUN_ACTIVITIES || [];
+  let allActivities = [];
+  if (archive && Array.isArray(archive.activities)) {
+    allActivities = [...archive.activities];
+    // Merge Strava activities from window.RUN_ACTIVITIES
+    if (window.RUN_ACTIVITIES && Array.isArray(window.RUN_ACTIVITIES)) {
+      const stravaActs = window.RUN_ACTIVITIES.filter(a => a.id && a.id.toString().startsWith('strava-'));
+      for (const sa of stravaActs) {
+        if (!allActivities.some(x => x.id === sa.id)) {
+          const dParts = (sa.date || '').split('-');
+          sa.year = sa.year || (dParts[0] ? parseInt(dParts[0]) : 2026);
+          sa.month = sa.month || (dParts[1] ? parseInt(dParts[1]) : 9);
+          allActivities.unshift(sa);
+        }
+      }
+    }
+  } else {
+    allActivities = window.RUN_ACTIVITIES || [];
+  }
+
   const pureRunningActivities = allActivities.filter(a => a.is_pure_running && a.distance_km > 0.3);
   const nonRunningActivities = allActivities.filter(a => !a.is_pure_running);
 
@@ -38,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (savedMonth && selectMonth) selectMonth.value = savedMonth;
 
   currentYear = selectYear?.value || '2026';
-  currentMonth = selectMonth?.value || '8';
+  currentMonth = selectMonth?.value || '9';
   currentSportFilter = 'all';
 
   // Toast Notification Helper
