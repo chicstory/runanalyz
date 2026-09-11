@@ -5,6 +5,9 @@
 *.key
 credentials.json
 secrets.json
+strava_config.json
+strava_tokens.json
+strava_*.json
 
 # Raw fit & binary files
 *.fit
