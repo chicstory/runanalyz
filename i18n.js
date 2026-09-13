@@ -31,6 +31,9 @@
       wo_lsd: "장거리 LSD (저강도 볼륨)",
       wo_other: "기타 활동",
       wo_like_comp: "동급 세션 최근 3회 대비",
+      card_pol_tag: "80/20 POLARIZED",
+      card_low_short: "저강도",
+      card_high_short: "고강도",
 
       // Tabs
       tab_single: "단일 세션",
@@ -170,6 +173,9 @@
       wo_lsd: "Long Run / LSD (Low-Intensity Volume)",
       wo_other: "Other Activity",
       wo_like_comp: "vs trailing 3 like-workouts",
+      card_pol_tag: "80/20 POLARIZED",
+      card_low_short: "Low",
+      card_high_short: "High",
 
       // Tabs
       tab_single: "Single Session",
@@ -309,6 +315,9 @@
       wo_lsd: "長距離 LSD (低強度ボリューム)",
       wo_other: "その他のアクティビティ",
       wo_like_comp: "同種セッション直近3回比",
+      card_pol_tag: "80/20 POLARIZED",
+      card_low_short: "低強度",
+      card_high_short: "高強度",
 
       // Tabs
       tab_single: "単一セッション",
@@ -448,6 +457,9 @@
       wo_lsd: "Tirada Larga / LSD (Volumen)",
       wo_other: "Otras actividades",
       wo_like_comp: "vs últimas 3 sesiones similares",
+      card_pol_tag: "80/20 POLARIZADO",
+      card_low_short: "Baja",
+      card_high_short: "Alta",
 
       // Tabs
       tab_single: "Sesión Individual",

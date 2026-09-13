@@ -1874,6 +1874,39 @@ function initMonthlyRecap(activities, year, month) {
     }
   }
 
+  // 80/20 Polarized Monthly Ratio Calculation for Insta Card
+  let monthLowKm = 0;
+  let monthHighKm = 0;
+  activities.forEach(a => {
+    if (!a.is_pure_running) return;
+    const wo = classifyWorkout(a);
+    if (wo.intensity === 'high') {
+      monthHighKm += (a.distance_km || 0);
+    } else {
+      monthLowKm += (a.distance_km || 0);
+    }
+  });
+
+  const monthRunningKm = monthLowKm + monthHighKm;
+  const monthLowRatio = monthRunningKm > 0 ? Math.round((monthLowKm / monthRunningKm) * 100) : 100;
+  const monthHighRatio = 100 - monthLowRatio;
+
+  const elPolTag = document.getElementById('card-pol-tag');
+  if (elPolTag) elPolTag.textContent = _t('card_pol_tag', '80/20 POLARIZED');
+
+  const elPolBarLow = document.getElementById('card-pol-bar-low');
+  if (elPolBarLow) elPolBarLow.style.width = `${monthLowRatio}%`;
+
+  const elPolBarHigh = document.getElementById('card-pol-bar-high');
+  if (elPolBarHigh) elPolBarHigh.style.width = `${monthHighRatio}%`;
+
+  const elPolVal = document.getElementById('card-pol-val');
+  if (elPolVal) {
+    const lowLabel = _t('card_low_short', '저강도');
+    const highLabel = _t('card_high_short', '고강도');
+    elPolVal.innerHTML = `<span style="color:var(--accent-lime);">${lowLabel} ${monthLowRatio}%</span> <span style="color:var(--text-muted);">:</span> <span style="color:var(--accent-orange);">${highLabel} ${monthHighRatio}%</span>`;
+  }
+
   // Dynamic Weekly Sparklines & Integer Distance Labels (W1~W5)
   const weeklyDists = [0, 0, 0, 0, 0];
   activities.forEach(a => {

@@ -1898,14 +1898,14 @@ html[lang="en"], html[lang="es"] {
 }
 
 .insta-card.format-square .ic-footer {
-  padding-top: 0.45rem;
+  padding-top: 0.4rem;
 }
 
-.insta-card.format-square .ic-author-tag {
+.insta-card.format-square .ic-pol-tag {
   font-size: 0.58rem;
 }
 
-.insta-card.format-square .ic-watermark {
+.insta-card.format-square .ic-pol-val {
   font-size: 0.62rem;
 }
 
@@ -2016,9 +2016,12 @@ html[lang="en"], html[lang="es"] {
 .insta-card.theme-minimal .hl-title,
 .insta-card.theme-minimal .ic-sub,
 .insta-card.theme-minimal .ic-week-lbl,
-.insta-card.theme-minimal .ic-author-tag,
-.insta-card.theme-minimal .ic-watermark {
+.insta-card.theme-minimal .ic-pol-tag {
   color: #64748b;
+}
+
+.insta-card.theme-minimal .ic-pol-bar-wrap {
+  background: #e2e8f0;
 }
 
 .insta-card.theme-minimal .ic-brand,
@@ -2231,22 +2234,52 @@ html[lang="en"], html[lang="es"] {
   padding-top: 0.85rem;
 }
 
-.ic-author-tag {
+.ic-pol-footer {
+  gap: 0.5rem;
+}
+
+.ic-pol-tag {
   font-family: var(--font-mono);
   font-size: 0.65rem;
   font-weight: 700;
-  color: var(--accent-lime);
+  color: var(--text-muted);
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
 }
 
-.ic-author-tag .dot {
-  width: 6px;
+.ic-pol-bar-wrap {
+  flex: 1;
   height: 6px;
-  border-radius: 50%;
-  background: var(--accent-lime);
-  box-shadow: 0 0 8px var(--accent-lime);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+  min-width: 40px;
+}
+
+.ic-pol-bar-low {
+  height: 100%;
+  background: linear-gradient(90deg, #00e676, #00b0ff);
+  transition: width 0.4s ease;
+}
+
+.ic-pol-bar-high {
+  height: 100%;
+  background: linear-gradient(90deg, #ff7043, #ff1744);
+  transition: width 0.4s ease;
+}
+
+.ic-pol-val {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
 }
 
 /* ---------------- TAB 4: YEARLY RECAP & SHOE TRACKER ---------------- */
