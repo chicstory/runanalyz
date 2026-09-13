@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20260914_v4_instapol">
+  <link rel="stylesheet" href="style.css?v=20260914_v5_acwr">
 </head>
 <body>
   <div class="app-container">
@@ -98,7 +98,7 @@
       <button class="tab-btn" data-tab="weekly" role="tab" id="tab-btn-weekly">
         <i class="bi bi-bar-chart-line-fill"></i>
         <span data-i18n="tab_weekly">주간 정산</span>
-        <small class="tab-hint" data-i18n="tab_weekly_sub">10% 룰 &amp; 부상 진단</small>
+        <small class="tab-hint" data-i18n="tab_weekly_sub">4주 부하 &amp; 부상 진단</small>
       </button>
       <button class="tab-btn" data-tab="monthly" role="tab" id="tab-btn-monthly">
         <i class="bi bi-trophy-fill"></i>
@@ -324,10 +324,10 @@
       <!-- Weekly Overview Banner -->
       <div class="weekly-hero-card">
         <div class="wh-content">
-          <span class="sub-title">MARATHON MILEAGE &amp; 10% PROGRESSION RULE</span>
+          <span class="sub-title">ACWR TRAINING LOAD &amp; 4-WEEK BASELINE AUDIT</span>
           <h2 class="main-title" id="weekly-main-title">8월 주차별 마일리지 빌드업 &amp; 부상 위험 진단</h2>
           <p class="description">
-            마라톤 부상 방지의 황금률인 <strong>10% Rule(전주 대비 주간 거리 증가율 10% 이내)</strong>과 <strong>80/20 양극화(Polarized) 훈련 비율</strong>을 실시간 진단합니다.
+            스포츠 생리학의 부상 방지 글로벌 표준인 <strong>ACWR(최근 4주 만성 베이스 대비 이번 주 부하 비율)</strong>과 <strong>80/20 양극화(Polarized) 훈련 비율</strong>을 실시간 진단합니다.
           </p>
         </div>
       </div>
@@ -658,9 +658,9 @@
     </div>
   </div>
 
-  <script src="strava_all_activities.js?v=20260914_v4_instapol"></script>
-  <script src="activities_data.js?v=20260914_v4_instapol"></script>
-  <script src="i18n.js?v=20260914_v4_instapol"></script>
-  <script src="app.js?v=20260914_v4_instapol"></script>
+  <script src="strava_all_activities.js?v=20260914_v5_acwr"></script>
+  <script src="activities_data.js?v=20260914_v5_acwr"></script>
+  <script src="i18n.js?v=20260914_v5_acwr"></script>
+  <script src="app.js?v=20260914_v5_acwr"></script>
 </body>
 </html>

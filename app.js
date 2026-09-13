@@ -364,6 +364,7 @@ async function startRunAnalyz() {
     pureRunningActivities = allActivities.filter(a => a.distance_km > 0.1);
   }
   const nonRunningActivities = allActivities.filter(a => !a.is_pure_running);
+  window.RUNANALYZ_PURE_ACTIVITIES = pureRunningActivities;
 
   console.log(`[RunAnalyz] Loaded ${allActivities.length} total activities (${pureRunningActivities.length} pure running) from ${archive?.metadata?.source || 'local'}.`);
 
@@ -628,7 +629,7 @@ async function startRunAnalyz() {
     }
 
     try {
-      initWeeklyRecap(currentList, currentYear, currentMonth);
+      initWeeklyRecap(currentList, currentYear, currentMonth, pureRunningActivities);
     } catch (err) {
       console.error('Error in initWeeklyRecap:', err);
     }
@@ -1477,9 +1478,11 @@ function getISOWeek(dateStr) {
 /* ==========================================================================
    MODULE 2: WEEKLY RECAP LOGIC
    ========================================================================== */
-function initWeeklyRecap(activities, year = '2026', month = '8') {
+function initWeeklyRecap(activities, year = '2026', month = '8', allActivities = null) {
   const container = document.getElementById('weekly-cards-list');
   if (!container) return;
+
+  const allRuns = allActivities || window.RUNANALYZ_PURE_ACTIVITIES || activities;
 
   const weeklyTitleEl = document.getElementById('weekly-main-title');
   if (weeklyTitleEl) {
@@ -1507,6 +1510,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8') {
     let wNum = 1;
     let wKey = '';
     let wName = '';
+    let sDateStr = '';
 
     if (month !== 'all') {
       let day = 1;
@@ -1519,16 +1523,21 @@ function initWeeklyRecap(activities, year = '2026', month = '8') {
       const sDay = (wNum - 1) * 7 + 1;
       const eDay = wNum === 5 ? 31 : wNum * 7;
       wName = `${wNum}주차 (${month}/${sDay < 10 ? '0' : ''}${sDay}~${month}/${eDay < 10 ? '0' : ''}${eDay})`;
+      const mStr = String(month).padStart(2, '0');
+      const dStr = String(sDay).padStart(2, '0');
+      sDateStr = `${year}-${mStr}-${dStr}`;
     } else {
       wNum = a.iso_week || (a.date ? getISOWeek(a.date) : 1);
       wKey = `W${wNum}`;
       wName = `${wNum}주차 (${a.date ? a.date.slice(5, 10) : ''})`;
+      sDateStr = (a.date || '').slice(0, 10);
     }
 
     if (!weekMap[wKey]) {
       weekMap[wKey] = {
         name: wName,
         weekNum: wNum,
+        startDateStr: sDateStr,
         runs: [],
         totalKm: 0,
         totalTimeSec: 0,
@@ -1547,33 +1556,80 @@ function initWeeklyRecap(activities, year = '2026', month = '8') {
 
   const weeks = Object.values(weekMap).sort((a, b) => a.weekNum - b.weekNum);
 
-  // Compute 10% progression rule & 80/20 Polarized Breakdown
+  // Compute 4-Week Rolling ACWR Progression Rule & 80/20 Polarized Breakdown
   let prevKm = 0;
   weeks.forEach((w) => {
     w.totalKm = Math.round(w.totalKm * 100) / 100;
-    if (prevKm > 0) {
-      w.increasePct = Math.round(((w.totalKm - prevKm) / prevKm) * 1000) / 10;
-    } else {
-      w.increasePct = 0;
+
+    // Compute 4-week (28-day) Rolling Chronic Baseline (ACWR)
+    let prior28dKm = 0;
+    let sDate = w.startDateStr;
+    if (!sDate && w.runs.length > 0) {
+      sDate = w.runs[0].date ? w.runs[0].date.slice(0, 10) : '';
     }
+
+    if (sDate && allRuns.length > 0) {
+      const startDt = new Date(sDate + 'T00:00:00');
+      if (!isNaN(startDt.getTime())) {
+        const priorEndStr = new Date(startDt.getTime() - 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        const priorStartStr = new Date(startDt.getTime() - 28 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+
+        allRuns.forEach(r => {
+          if (!r.is_pure_running) return;
+          const d = (r.date || r.datetime || '').slice(0, 10);
+          if (d >= priorStartStr && d <= priorEndStr) {
+            prior28dKm += (r.distance_km || 0);
+          }
+        });
+      }
+    }
+
+    let chronicAvg = prior28dKm / 4.0;
+    if (chronicAvg === 0 && prevKm > 0) {
+      chronicAvg = prevKm;
+    } else if (chronicAvg === 0) {
+      chronicAvg = w.totalKm;
+    }
+
+    w.chronicAvg = Math.round(chronicAvg * 10) / 10;
+    const floorChronic = Math.max(w.chronicAvg, 10.0);
+    const acwr = floorChronic > 0 ? (w.totalKm / floorChronic) : 1.0;
+    const diffPct = Math.round((acwr - 1.0) * 100);
+    w.acwr = Math.round(acwr * 100) / 100;
+    w.diffPct = diffPct;
+
+    // Realistic Sports Science ACWR Safety Rule (With 5km / 15km absolute buffer)
+    if (w.totalKm <= 15.0 || (w.totalKm - w.chronicAvg) <= 5.0) {
+      if (acwr < 0.75 && w.totalKm > 0 && w.chronicAvg >= 20.0) {
+        w.ruleClass = 'rule-recovery';
+        w.ruleText = `회복주 (${w.diffPct}%)`;
+        w.ruleShort = `회복주 (${w.diffPct}%)`;
+      } else {
+        w.ruleClass = 'rule-safe';
+        w.ruleText = `안전 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
+        w.ruleShort = `안전 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
+      }
+    } else if (acwr < 0.8) {
+      w.ruleClass = 'rule-recovery';
+      w.ruleText = `회복주 (${w.diffPct}%)`;
+      w.ruleShort = `회복주 (${w.diffPct}%)`;
+    } else if (acwr <= 1.3) {
+      w.ruleClass = 'rule-safe';
+      w.ruleText = `최적 부하 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
+      w.ruleShort = `최적 부하 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
+    } else if (acwr <= 1.5) {
+      w.ruleClass = 'rule-caution';
+      w.ruleText = `부하 주의 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
+      w.ruleShort = `부하 주의 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
+    } else {
+      w.ruleClass = 'rule-danger';
+      w.ruleText = `급증 위험 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
+      w.ruleShort = `급증 위험 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
+    }
+
     w.avgEf = w.efList.length ? Math.round((w.efList.reduce((a,b)=>a+b,0)/w.efList.length)*1000)/1000 : 0;
     w.avgHr = w.hrList.length ? Math.round(w.hrList.reduce((a,b)=>a+b,0)/w.hrList.length) : 0;
     w.lsdRatio = w.totalKm > 0 ? Math.round((w.maxLsd / w.totalKm) * 1000) / 10 : 0;
-
-    // Safety rule
-    if (w.increasePct > 15) {
-      w.ruleClass = 'rule-danger';
-      w.ruleText = `⚠️ 위험 (+${w.increasePct}%)`;
-    } else if (w.increasePct > 10) {
-      w.ruleClass = 'rule-caution';
-      w.ruleText = `주의 (+${w.increasePct}%)`;
-    } else if (w.increasePct < -10) {
-      w.ruleClass = 'rule-recovery';
-      w.ruleText = `회복주 (-${Math.abs(w.increasePct)}%)`;
-    } else {
-      w.ruleClass = 'rule-safe';
-      w.ruleText = `안전 (${w.increasePct >= 0 ? '+' : ''}${w.increasePct}%)`;
-    }
 
     // Workout category breakdown & 80/20 Polarized calculations (2-tier: low vs high + LSD volume)
     const typeCounts = { low: 0, high: 0, lsd: 0, other: 0 };
@@ -1634,7 +1690,11 @@ function initWeeklyRecap(activities, year = '2026', month = '8') {
     } else {
       badgeClass = 'green';
       badgeText = '✅ 안정적인 주간 트레이닝 밸런스';
-      coachingMsg = `이번 주 저강도 ${low}% : 고강도 ${high}%로 안정적인 볼륨을 유지하고 있습니다. 주간 10% 증량 룰을 함께 점검하며 다음 주 훈련을 설계하세요.`;
+      coachingMsg = `이번 주는 최근 4주 만성 베이스(주당 ${latestWeek.chronicAvg.toFixed(1)}km) 대비 <strong>${latestWeek.acwr.toFixed(2)}배</strong>의 적정 훈련 부하(${latestWeek.ruleShort})와 저강도 ${low}% : 고강도 ${high}%의 균형 잡힌 마일리지를 유지하고 있습니다.`;
+    }
+
+    if (latestWeek.acwr > 1.5) {
+      coachingMsg += `<br><br><span style="color:var(--accent-red);">⚠️ <strong>부상 위험 주의 (ACWR ${latestWeek.acwr.toFixed(2)}x)</strong>: 이번 주 훈련량(${latestWeek.totalKm.toFixed(1)}km)이 최근 4주 평균치(${latestWeek.chronicAvg.toFixed(1)}km)보다 50% 이상 급증했습니다. 관절과 건의 부상 예방을 위해 다음 주는 볼륨을 20~30% 낮추는 회복주를 권장합니다.</span>`;
     }
 
     coachingCard.innerHTML = `
@@ -1682,6 +1742,10 @@ function initWeeklyRecap(activities, year = '2026', month = '8') {
           <div class="wc-stat-row">
             <span>평균 유산소 EF</span>
             <span style="color:var(--accent-lime);">${w.avgEf.toFixed(3)}</span>
+          </div>
+          <div class="wc-stat-row">
+            <span>최근 4주 평균 (베이스)</span>
+            <span style="color:var(--text-muted);">${w.chronicAvg > 0 ? w.chronicAvg.toFixed(1) + ' km/주' : '-'} (${w.acwr.toFixed(2)}배)</span>
           </div>
           <div class="wc-stat-row">
             <span>최장 거리 (LSD)</span>
