@@ -3961,3 +3961,272 @@ html[lang="en"], html[lang="es"] {
   color: #ffffff;
 }
 
+/* ==========================================================================
+   Workout Classification & Like-for-Like EF Intelligence Styles
+   ========================================================================== */
+.badge-wo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.badge-wo i {
+  font-size: 0.8rem;
+}
+
+.badge-wo-lsd {
+  background: rgba(0, 229, 255, 0.14);
+  color: #00e5ff;
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
+}
+
+.badge-wo-interval {
+  background: rgba(255, 82, 82, 0.14);
+  color: #ff5252;
+  border: 1px solid rgba(255, 82, 82, 0.35);
+  box-shadow: 0 0 10px rgba(255, 82, 82, 0.15);
+}
+
+.badge-wo-tempo {
+  background: rgba(255, 171, 0, 0.14);
+  color: #ffab00;
+  border: 1px solid rgba(255, 171, 0, 0.35);
+  box-shadow: 0 0 10px rgba(255, 171, 0, 0.15);
+}
+
+.badge-wo-easy {
+  background: rgba(0, 230, 118, 0.14);
+  color: #00e676;
+  border: 1px solid rgba(0, 230, 118, 0.35);
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.15);
+}
+
+.badge-wo-recovery {
+  background: rgba(178, 255, 89, 0.14);
+  color: #b2ff59;
+  border: 1px solid rgba(178, 255, 89, 0.35);
+}
+
+.badge-wo-other {
+  background: rgba(148, 163, 184, 0.12);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+/* Like-for-Like EF Subtext in Hero Card */
+.metric-sub-like {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  line-height: 1.4;
+}
+
+.metric-sub-like strong {
+  font-weight: 700;
+}
+
+.metric-sub-like .ef-up {
+  color: #00e676;
+}
+
+.metric-sub-like .ef-down {
+  color: #ff9100;
+}
+
+.metric-sub-like .ef-flat {
+  color: var(--text-muted);
+}
+
+/* Weekly 80/20 Polarized Coaching Card */
+.weekly-coaching-card {
+  background: linear-gradient(135deg, rgba(20, 26, 40, 0.85) 0%, rgba(13, 18, 28, 0.95) 100%);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: var(--radius-lg, 14px);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.weekly-coaching-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #00e5ff, #00e676, #ffab00);
+}
+
+.wcc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.wcc-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
+
+.wcc-title i {
+  color: var(--accent-cyan, #00e5ff);
+}
+
+.wcc-badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+}
+
+.wcc-badge.gold {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.wcc-badge.green {
+  background: rgba(0, 230, 118, 0.15);
+  color: #00e676;
+  border: 1px solid rgba(0, 230, 118, 0.3);
+}
+
+.wcc-badge.orange {
+  background: rgba(255, 112, 67, 0.15);
+  color: #ff7043;
+  border: 1px solid rgba(255, 112, 67, 0.3);
+}
+
+/* 80/20 Ratio Progress Bar */
+.wcc-ratio-wrap {
+  margin-bottom: 1rem;
+}
+
+.wcc-ratio-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.wcc-ratio-labels .low-lbl {
+  color: #00e676;
+}
+
+.wcc-ratio-labels .high-lbl {
+  color: #ff9100;
+}
+
+.wcc-bar-container {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+}
+
+.wcc-bar-low {
+  height: 100%;
+  background: linear-gradient(90deg, #00e676, #00e5ff);
+  transition: width 0.5s ease;
+}
+
+.wcc-bar-high {
+  height: 100%;
+  background: linear-gradient(90deg, #ff9100, #ff5252);
+  transition: width 0.5s ease;
+}
+
+.wcc-coaching-text {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-secondary, #cbd5e1);
+  background: rgba(0, 0, 0, 0.25);
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm, 8px);
+  border-left: 3px solid var(--accent-orange, #ff5722);
+}
+
+.wcc-coaching-text strong {
+  color: #fff;
+}
+
+/* Weekly Card Workout Breakdown Chips */
+.wc-type-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.65rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.wc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.wc-chip-lsd { background: rgba(0, 229, 255, 0.12); color: #00e5ff; }
+.wc-chip-interval { background: rgba(255, 82, 82, 0.12); color: #ff5252; }
+.wc-chip-tempo { background: rgba(255, 171, 0, 0.12); color: #ffab00; }
+.wc-chip-easy { background: rgba(0, 230, 118, 0.12); color: #00e676; }
+.wc-chip-recovery { background: rgba(178, 255, 89, 0.12); color: #b2ff59; }
+
+/* 80/20 Mini Bar inside Weekly Card */
+.wc-mini-bar-wrap {
+  margin-top: 0.55rem;
+}
+
+.wc-mini-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-bottom: 0.2rem;
+  font-family: var(--font-mono);
+}
+
+.wc-mini-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+}
+
+.wc-mini-bar-low {
+  height: 100%;
+  background: #00e676;
+}
+
+.wc-mini-bar-high {
+  height: 100%;
+  background: #ff9100;
+}

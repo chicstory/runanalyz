@@ -25,6 +25,15 @@
       filter_treadmill: "실내 트레드밀",
       filter_outdoor: "야외 러닝",
 
+      // Workout Classification
+      wo_lsd: "장거리 LSD",
+      wo_interval: "스피드 인터벌",
+      wo_tempo: "젖산역치 템포런",
+      wo_easy: "기초 유산소 이지런",
+      wo_recovery: "회복 조깅",
+      wo_other: "기타 활동",
+      wo_like_comp: "동급 세션 최근 3회 대비",
+
       // Tabs
       tab_single: "단일 세션",
       tab_single_sub: "데일리 EF 분석",
@@ -156,6 +165,15 @@
       filter_all: "All Activities",
       filter_treadmill: "Indoor Treadmill",
       filter_outdoor: "Outdoor Running",
+
+      // Workout Classification
+      wo_lsd: "Long Run (LSD)",
+      wo_interval: "Speed Intervals",
+      wo_tempo: "Threshold Tempo",
+      wo_easy: "Aerobic Easy Run",
+      wo_recovery: "Recovery Jog",
+      wo_other: "Other Activity",
+      wo_like_comp: "vs trailing 3 like-workouts",
 
       // Tabs
       tab_single: "Single Session",
@@ -289,6 +307,15 @@
       filter_treadmill: "屋内トレッドミル",
       filter_outdoor: "屋外ランニング",
 
+      // Workout Classification
+      wo_lsd: "長距離 LSD",
+      wo_interval: "インターバル・スピード",
+      wo_tempo: "乳酸性作業閾値 テンポ走",
+      wo_easy: "基礎有酸素 イージー走",
+      wo_recovery: "リカバリージョグ",
+      wo_other: "その他のアクティビティ",
+      wo_like_comp: "同種セッション直近3回比",
+
       // Tabs
       tab_single: "単一セッション",
       tab_single_sub: "デイリーEF分析",
@@ -420,6 +447,15 @@
       filter_all: "Todas las Actividades",
       filter_treadmill: "Cinta de Correr",
       filter_outdoor: "Carrera al Aire Libre",
+
+      // Workout Classification
+      wo_lsd: "Tirada Larga (LSD)",
+      wo_interval: "Series e Intervalos",
+      wo_tempo: "Ritmo Umbral (Tempo)",
+      wo_easy: "Carrera Fácil Aeróbica",
+      wo_recovery: "Trote de Recuperación",
+      wo_other: "Otras actividades",
+      wo_like_comp: "vs últimas 3 sesiones similares",
 
       // Tabs
       tab_single: "Sesión Individual",
