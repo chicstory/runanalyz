@@ -793,8 +793,10 @@ function classifyWorkout(act, userThresholds = null, weekMaxDist = 0) {
   const hrSpread = maxHr - avgHr;
 
   const isLsd = (dist >= 15.0) || (dist >= 13.0 && dur >= 4500) || (weekMaxDist > 0 && dist >= weekMaxDist * 0.75 && dist >= 12.0 && dur >= 4200);
-  const isInterval = (maxHr >= th.lt2Hr - 2) && (hrSpread >= 26) && (dist < 12.5) && (dur >= 900);
-  const isTempo = !isLsd && (avgHr >= th.lt1Hr) && (dur >= 1200);
+  // Standard interval (long or track) OR Short interval / strides (e.g. 1~3km with high HR spikes)
+  const isInterval = ((maxHr >= th.lt2Hr - 2) && (hrSpread >= 26) && (dist < 12.5) && (dur >= 900)) ||
+                     ((dist < 4.0) && (dur >= 180) && (maxHr >= th.lt1Hr + 15) && (avgHr >= th.lt1Hr - 5));
+  const isTempo = !isLsd && !isInterval && (avgHr >= th.lt1Hr) && (dur >= 1200);
   const isRecovery = !isLsd && !isInterval && (dist < 5.5) && (avgHr > 0 && avgHr < th.lt1Hr - 5);
 
   if (isLsd) {
