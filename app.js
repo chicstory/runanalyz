@@ -793,11 +793,23 @@ function classifyWorkout(act, userThresholds = null, weekMaxDist = 0) {
   const hrSpread = maxHr - avgHr;
 
   const isLsd = (dist >= 15.0) || (dist >= 13.0 && dur >= 4500) || (weekMaxDist > 0 && dist >= weekMaxDist * 0.75 && dist >= 12.0 && dur >= 4200);
-  // Standard interval (long or track) OR Short interval / strides (e.g. 1~3km with high HR spikes)
-  const isInterval = ((maxHr >= th.lt2Hr - 2) && (hrSpread >= 26) && (dist < 12.5) && (dur >= 900)) ||
-                     ((dist < 4.0) && (dur >= 180) && (maxHr >= th.lt1Hr + 15) && (avgHr >= th.lt1Hr - 5));
-  const isTempo = !isLsd && !isInterval && (avgHr >= th.lt1Hr) && (dur >= 1200);
-  const isRecovery = !isLsd && !isInterval && (dist < 5.5) && (avgHr > 0 && avgHr < th.lt1Hr - 5);
+  const paceSec = act.pace_seconds || (dist > 0 ? (dur / dist) : 0);
+
+  // Speed Interval requires fast running pace (<= 5'35"/km or very short sprint <= 2.5km)
+  // Prevents slow jog with sensor spike or hill resistance from falsely becoming "Interval"
+  const isSpeedPace = (paceSec > 0 && paceSec <= 335) || (dist <= 2.5 && dur <= 600);
+
+  const isInterval = isSpeedPace && (
+    ((maxHr >= th.lt2Hr - 2) && (hrSpread >= 26) && (dist < 12.5) && (dur >= 900)) ||
+    ((dist < 3.0) && (dur >= 180 && dur <= 720) && (maxHr >= th.lt1Hr + 15) && (avgHr >= th.lt1Hr - 5))
+  );
+
+  // Tempo / Threshold: Sustained physiological effort above LT1 (Zone 3~4) for min 15 minutes.
+  // Covers flat threshold runs AND hill tempo resistance runs (counts toward High-Intensity 20% in 80/20 rule)
+  const isTempo = !isLsd && !isInterval && (avgHr >= th.lt1Hr) && (dur >= 900);
+
+  // Recovery: Short and very gentle (< 5.5km and Avg HR well below LT1)
+  const isRecovery = !isLsd && !isInterval && !isTempo && (dist < 5.5) && (avgHr > 0 && avgHr < th.lt1Hr - 5);
 
   if (isLsd) {
     return {
