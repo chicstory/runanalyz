@@ -2029,7 +2029,9 @@ html[lang="en"], html[lang="es"] {
 .insta-card.theme-minimal .ic-stat-val,
 .insta-card.theme-minimal .hl-value,
 .insta-card.theme-minimal .ic-week-val,
-.insta-card.theme-minimal .ic-ef-range {
+.insta-card.theme-minimal .ic-ef-range,
+.insta-card.theme-minimal .ic-pol-val,
+.insta-card.theme-minimal #sc-footer-metrics {
   color: #0f172a;
 }
 

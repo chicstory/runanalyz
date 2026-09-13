@@ -664,6 +664,7 @@ async function startRunAnalyz() {
 
   // Initial Render of All Views
   refreshAllViews();
+  initAllCardStudios();
 
   // Reload Button (In-memory recalculation with visual feedback)
   const btnReload = document.getElementById('btn-reload');
@@ -1031,6 +1032,122 @@ function renderSingleSession(act) {
     renderSingleChart(act);
   } catch (chartErr) {
     console.error('Error rendering single chart:', chartErr);
+  }
+
+  try {
+    renderSingleInstaCard(act);
+  } catch (cardErr) {
+    console.error('Error rendering single insta card:', cardErr);
+  }
+}
+
+function renderSingleInstaCard(act) {
+  const card = document.getElementById('instaCardSingle');
+  if (!card || !act) return;
+
+  // Header date badge: e.g. "2026.09.12 SATURDAY"
+  const badgeEl = document.getElementById('sc-badge');
+  if (badgeEl) {
+    const rawDate = act.date || act.start_date_local || act.start_time || '';
+    if (rawDate) {
+      const dStr = rawDate.slice(0, 10);
+      const d = new Date(dStr + 'T12:00:00');
+      if (!isNaN(d.getTime())) {
+        const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+        badgeEl.textContent = `${dStr.replace(/-/g, '.')} ${days[d.getDay()]}`;
+      } else {
+        badgeEl.textContent = 'DAILY RUNNING LOG';
+      }
+    } else {
+      badgeEl.textContent = 'DAILY RUNNING LOG';
+    }
+  }
+
+  // Subtitle
+  const subEl = document.getElementById('sc-sub');
+  if (subEl) subEl.textContent = 'DAILY AEROBIC EF LOG';
+
+  // Distance
+  const distEl = document.getElementById('sc-dist');
+  if (distEl) {
+    distEl.innerHTML = `${(act.distance_km || 0).toFixed(2)} <span class="unit">KM</span>`;
+  }
+
+  // Workout Classification Badge
+  const wo = classifyWorkout(act);
+  const woBadge = document.getElementById('sc-wo-badge');
+  if (woBadge) {
+    woBadge.className = `badge-count badge-wo ${wo.badgeClass}`;
+    woBadge.innerHTML = `<i class="bi ${wo.icon}"></i> ${wo.label}`;
+  }
+
+  // Key Stats: Pace, Time, Avg HR, EF (NO VDOT)
+  const paceEl = document.getElementById('sc-pace');
+  if (paceEl) {
+    paceEl.innerHTML = `${act.pace_formatted || "-'--\""} <small>/km</small>`;
+  }
+
+  const timeEl = document.getElementById('sc-time');
+  if (timeEl) {
+    timeEl.textContent = act.duration_formatted || '00:00';
+  }
+
+  const hrEl = document.getElementById('sc-hr');
+  if (hrEl) {
+    hrEl.innerHTML = `${act.avg_hr || 0} <small>bpm</small>`;
+  }
+
+  const efVal = typeof act.ef === 'number' ? act.ef : (parseFloat(act.ef) || 0);
+  const efEl = document.getElementById('sc-ef');
+  if (efEl) {
+    efEl.textContent = efVal.toFixed(3);
+  }
+
+  // EF Engine Status
+  const statusEl = document.getElementById('sc-ef-status');
+  if (statusEl) {
+    if (efVal >= 1.35) {
+      statusEl.textContent = '최상급 유산소 엔진';
+    } else if (efVal >= 1.25) {
+      statusEl.textContent = '우수한 유산소 효율';
+    } else if (efVal >= 1.10) {
+      statusEl.textContent = '표준 유산소 베이스';
+    } else {
+      statusEl.textContent = '초기 적응 / 회복 조깅';
+    }
+  }
+
+  // Like-for-Like EF
+  const likeEl = document.getElementById('sc-ef-like');
+  if (likeEl) {
+    const allActs = (window.STRAVA_ARCHIVE && window.STRAVA_ARCHIVE.activities) ? window.STRAVA_ARCHIVE.activities : (window.GARMIN_ARCHIVE && window.GARMIN_ARCHIVE.activities ? window.GARMIN_ARCHIVE.activities : []);
+    const comp = calcLikeForLikeEF(act, allActs);
+    if (comp && comp.hasComparison) {
+      const sign = comp.diff >= 0 ? '+' : '';
+      likeEl.textContent = `동급 직전 ${comp.sampleCount}회 대비 EF ${sign}${comp.diff.toFixed(3)} (${sign}${comp.pct.toFixed(1)}%)`;
+    } else {
+      likeEl.textContent = '동급 세션 기준 수립 완료';
+    }
+  }
+
+  // Footer: Cadence, LT1 Threshold, Calories
+  const cadEl = document.getElementById('sc-cadence');
+  if (cadEl) {
+    cadEl.textContent = `⚡ ${act.avg_cadence || 178} spm`;
+  }
+
+  const lt1El = document.getElementById('sc-lt1');
+  if (lt1El) {
+    const profile = getUserHRProfile();
+    const hrr = profile.mhr - profile.rhr;
+    const lt1Hr = profile.isKarvonen ? Math.round(profile.rhr + 0.69 * hrr) : 152;
+    lt1El.textContent = `LT1 ${lt1Hr} bpm`;
+  }
+
+  const calEl = document.getElementById('sc-cal');
+  if (calEl) {
+    const cal = act.calories || Math.round((act.distance_km || 0) * 65);
+    calEl.textContent = `${cal} kcal`;
   }
 }
 
@@ -1775,8 +1892,86 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
     `).join('');
   }
 
+  // Render Weekly Insta Card
+  if (weeks.length > 0) {
+    const latestWeek = weeks[weeks.length - 1];
+    window.currentWeeklyRecap = latestWeek;
+    try {
+      renderWeeklyInstaCard(latestWeek);
+    } catch (wCardErr) {
+      console.error('Error rendering weekly insta card:', wCardErr);
+    }
+  }
+
   // Render Weekly Chart
   renderWeeklyChart(weeks);
+}
+
+function renderWeeklyInstaCard(w) {
+  const card = document.getElementById('instaCardWeekly');
+  if (!card || !w) return;
+
+  // Header badge: e.g. "WEEK 36 RECAP"
+  const badgeEl = document.getElementById('wc-card-badge');
+  if (badgeEl) {
+    badgeEl.textContent = `${(w.name || 'WEEK').toUpperCase()} RECAP`;
+  }
+
+  // Distance
+  const distEl = document.getElementById('wc-card-dist');
+  if (distEl) {
+    distEl.innerHTML = `${(w.totalKm || 0).toFixed(1)} <span class="unit">KM</span>`;
+  }
+
+  // Runs & Rule Badge
+  const runsRuleEl = document.getElementById('wc-card-runs-rule');
+  if (runsRuleEl) {
+    runsRuleEl.innerHTML = `총 ${(w.runs || []).length}회 러닝 &middot; <span class="rule-badge ${w.ruleClass || 'rule-safe'}" id="wc-card-rule-badge" style="margin-bottom:0; padding:0.15rem 0.45rem; font-size:0.65rem;">${w.ruleText || '안전'}</span>`;
+  }
+
+  // Key Stats: Avg EF, Longest LSD, Avg HR, 4-Week Base
+  const efEl = document.getElementById('wc-card-ef');
+  if (efEl) {
+    efEl.textContent = (w.avgEf || 0).toFixed(3);
+  }
+
+  const lsdEl = document.getElementById('wc-card-lsd');
+  if (lsdEl) {
+    lsdEl.innerHTML = `${(w.longestRun || 0).toFixed(1)} <small>km</small>`;
+  }
+
+  const hrEl = document.getElementById('wc-card-hr');
+  if (hrEl) {
+    hrEl.innerHTML = `${w.avgHr || 0} <small>bpm</small>`;
+  }
+
+  const baseEl = document.getElementById('wc-card-base');
+  if (baseEl) {
+    baseEl.innerHTML = `${(w.chronicAvg || 0).toFixed(1)} <small>km (${(w.acwr || 1).toFixed(2)}x)</small>`;
+  }
+
+  // Workout Breakdown Chips
+  const chipsEl = document.getElementById('wc-card-chips');
+  if (chipsEl && w.typeCounts) {
+    const chipItems = [];
+    if (w.typeCounts.low > 0) chipItems.push(`<span class="badge-count badge-wo-low" style="font-size:0.65rem; padding:0.2rem 0.45rem;">🟢 저강도 ${w.typeCounts.low}회</span>`);
+    if (w.typeCounts.high > 0) chipItems.push(`<span class="badge-count badge-wo-high" style="font-size:0.65rem; padding:0.2rem 0.45rem;">🔴 고강도 ${w.typeCounts.high}회</span>`);
+    if (w.typeCounts.lsd > 0) chipItems.push(`<span class="badge-count badge-wo-lsd" style="font-size:0.65rem; padding:0.2rem 0.45rem;">🔵 LSD ${w.typeCounts.lsd}회</span>`);
+    chipsEl.innerHTML = chipItems.join(' ');
+  }
+
+  // 80/20 Polarized single-line bar
+  const lowBar = document.getElementById('wc-card-pol-bar-low');
+  const highBar = document.getElementById('wc-card-pol-bar-high');
+  const polVal = document.getElementById('wc-card-pol-val');
+  const low = (typeof w.lowRatio === 'number') ? w.lowRatio : 80;
+  const high = (typeof w.highRatio === 'number') ? w.highRatio : 20;
+
+  if (lowBar) lowBar.style.width = `${low}%`;
+  if (highBar) highBar.style.width = `${high}%`;
+  if (polVal) {
+    polVal.innerHTML = `<span style="color:var(--accent-lime);">저강도 ${low}%</span> : <span style="color:var(--accent-orange);">고강도 ${high}%</span>`;
+  }
 }
 
 function renderWeeklyChart(weeks) {
@@ -1918,7 +2113,7 @@ function initMonthlyRecap(activities, year, month) {
   if (elGrowth) elGrowth.textContent = `${efGrowthPct >= 0 ? '+' : ''}${efGrowthPct.toFixed(1)}%`;
 
   // Update Insta Card
-  const cardBadge = document.querySelector('.ic-badge');
+  const cardBadge = document.querySelector('#instaCard .ic-badge');
   if (cardBadge) cardBadge.textContent = engPeriodTitle;
 
   document.getElementById('card-dist').innerHTML = `${totalDist.toFixed(1)} <span class="unit">KM</span>`;
@@ -1997,18 +2192,37 @@ function initMonthlyRecap(activities, year, month) {
     }
   });
 
-  // Format & Theme state for Insta Card Studio
-  let currentCardFormat = 'story'; // 'story' (9:16), 'square' (1:1), 'portrait' (4:5)
-  let currentCardTheme = 'dark'; // 'dark', 'neon', 'minimal'
-  const instaCard = document.getElementById('instaCard');
-  const btnShare = document.getElementById('btn-share-card');
+  // Store monthly state for card download / sharing
+  window.currentMonthlyYear = year;
+  window.currentMonthlyMonth = month;
+  window.currentMonthlyPeriodTitle = periodTitle;
+}
 
-  function updateCardAppearance() {
-    if (instaCard) {
-      instaCard.className = `insta-card theme-${currentCardTheme} format-${currentCardFormat}`;
-    }
+/* ==========================================================================
+   MODULE 4: MULTI-VIEW INSTAGRAM CARD STUDIO (DAILY, WEEKLY, MONTHLY)
+   ========================================================================== */
+function initCardStudioController({
+  containerSelector,
+  cardId,
+  btnShareId,
+  btnDownloadId,
+  getDownloadFilename,
+  getShareMeta
+}) {
+  const container = document.querySelector(containerSelector);
+  const card = document.getElementById(cardId);
+  const btnShare = document.getElementById(btnShareId);
+  const btnDownload = document.getElementById(btnDownloadId);
+
+  if (!card || !container) return;
+
+  let currentFormat = 'story'; // 'story', 'square', 'portrait'
+  let currentTheme = 'dark';   // 'dark', 'neon', 'minimal'
+
+  function updateAppearance() {
+    card.className = `insta-card theme-${currentTheme} format-${currentFormat}`;
     if (btnShare) {
-      if (currentCardFormat === 'story') {
+      if (currentFormat === 'story') {
         btnShare.innerHTML = `<i class="bi bi-instagram"></i> 스토리 공유`;
       } else {
         btnShare.innerHTML = `<i class="bi bi-share-fill"></i> 피드 공유`;
@@ -2016,46 +2230,47 @@ function initMonthlyRecap(activities, year, month) {
     }
   }
 
-  // Format switcher (Story 9:16 vs Feed Square 1:1 vs Feed Portrait 4:5)
-  const formatBtns = document.querySelectorAll('.btn-format-chip');
+  // Format Switchers scoped to container
+  const formatBtns = container.querySelectorAll('.btn-format-chip');
   formatBtns.forEach(btn => {
     btn.onclick = () => {
       formatBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      currentCardFormat = btn.dataset.format || 'story';
-      updateCardAppearance();
+      currentFormat = btn.dataset.format || 'story';
+      updateAppearance();
     };
   });
 
-  // Theme switcher
-  const themeBtns = document.querySelectorAll('.btn-theme-chip, .btn-theme');
+  // Theme Switchers scoped to container
+  const themeBtns = container.querySelectorAll('.btn-theme-chip');
   themeBtns.forEach(btn => {
     btn.onclick = () => {
       themeBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      currentCardTheme = btn.dataset.theme || 'dark';
-      updateCardAppearance();
+      currentTheme = btn.dataset.theme || 'dark';
+      updateAppearance();
     };
   });
 
-  // Helper: Render Insta Card Canvas (High-res 3x scale)
-  async function generateCardCanvas() {
-    return await html2canvas(instaCard, {
+  async function generateCanvas() {
+    if (typeof html2canvas !== 'function') {
+      throw new Error('html2canvas library is not loaded');
+    }
+    return await html2canvas(card, {
       scale: 3,
       useCORS: true,
       backgroundColor: null
     });
   }
 
-  function triggerImageDownload(canvas) {
+  function triggerDownload(canvas) {
     const link = document.createElement('a');
-    const formatName = currentCardFormat === 'square' ? 'FeedSquare_1x1' : (currentCardFormat === 'portrait' ? 'FeedPortrait_4x5' : 'Story_9x16');
-    link.download = `RunAnalyz_${year}_${month}_${formatName}_${new Date().toISOString().slice(0, 10)}.png`;
+    const formatSuffix = currentFormat === 'square' ? '1x1' : (currentFormat === 'portrait' ? '4x5' : '9x16');
+    link.download = getDownloadFilename ? getDownloadFilename(formatSuffix) : `RunAnalyz_${formatSuffix}.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
   }
 
-  // Smart Share Button (Web Share API for Mobile Instagram/AirDrop + fallback)
   if (btnShare) {
     btnShare.onclick = async () => {
       const origHtml = btnShare.innerHTML;
@@ -2063,28 +2278,28 @@ function initMonthlyRecap(activities, year, month) {
       btnShare.disabled = true;
 
       try {
-        const canvas = await generateCardCanvas();
+        const canvas = await generateCanvas();
 
         if (navigator.canShare) {
           canvas.toBlob(async (blob) => {
             if (!blob) {
-              triggerImageDownload(canvas);
+              triggerDownload(canvas);
               resetShareBtn();
               return;
             }
-            const formatTitle = currentCardFormat === 'square' ? '피드 정방형 (1:1)' : (currentCardFormat === 'portrait' ? '피드 세로형 (4:5)' : '스토리 (9:16)');
-            const file = new File([blob], `RunAnalyz_Recap_${year}_${month}_${currentCardFormat}.png`, { type: 'image/png' });
+            const meta = getShareMeta ? getShareMeta(currentFormat) : { filename: `RunAnalyz_${currentFormat}.png`, title: 'RunAnalyz', text: 'RunAnalyz' };
+            const file = new File([blob], meta.filename, { type: 'image/png' });
             if (navigator.canShare({ files: [file] })) {
               try {
                 await navigator.share({
                   files: [file],
-                  title: `RunAnalyz ${periodTitle} 러닝 결산 (${formatTitle})`,
-                  text: `RunAnalyz 러닝 대시보드에서 생성된 ${periodTitle} 러닝 결산 카드(${formatTitle})입니다.`
+                  title: meta.title,
+                  text: meta.text
                 });
                 btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> 공유 완료!`;
               } catch (shareErr) {
                 if (shareErr.name !== 'AbortError') {
-                  triggerImageDownload(canvas);
+                  triggerDownload(canvas);
                   btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> 저장 완료!`;
                 } else {
                   btnShare.innerHTML = origHtml;
@@ -2093,13 +2308,13 @@ function initMonthlyRecap(activities, year, month) {
                 }
               }
             } else {
-              triggerImageDownload(canvas);
+              triggerDownload(canvas);
               btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> 저장 완료!`;
             }
             resetShareBtn();
           }, 'image/png');
         } else {
-          triggerImageDownload(canvas);
+          triggerDownload(canvas);
           btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> 저장 완료!`;
           resetShareBtn();
         }
@@ -2118,8 +2333,6 @@ function initMonthlyRecap(activities, year, month) {
     };
   }
 
-  // Dedicated Direct Download Button
-  const btnDownload = document.getElementById('btn-download-card');
   if (btnDownload) {
     btnDownload.onclick = async () => {
       const origHtml = btnDownload.innerHTML;
@@ -2127,8 +2340,8 @@ function initMonthlyRecap(activities, year, month) {
       btnDownload.disabled = true;
 
       try {
-        const canvas = await generateCardCanvas();
-        triggerImageDownload(canvas);
+        const canvas = await generateCanvas();
+        triggerDownload(canvas);
         btnDownload.innerHTML = `<i class="bi bi-check-circle-fill"></i>`;
       } catch (err) {
         console.error('Download error:', err);
@@ -2141,6 +2354,83 @@ function initMonthlyRecap(activities, year, month) {
       }
     };
   }
+}
+
+let allStudiosInitialized = false;
+
+function initAllCardStudios() {
+  if (allStudiosInitialized) return;
+  allStudiosInitialized = true;
+
+  // 1. Single Session Studio
+  initCardStudioController({
+    containerSelector: '#single-card-studio-section',
+    cardId: 'instaCardSingle',
+    btnShareId: 'btn-share-single-card',
+    btnDownloadId: 'btn-download-single-card',
+    getDownloadFilename: (fmt) => {
+      const act = window.currentSingleAct;
+      const dateStr = (act && (act.date || act.start_date_local)) ? (act.date || act.start_date_local).slice(0, 10) : new Date().toISOString().slice(0, 10);
+      return `RunAnalyz_Daily_${dateStr}_${fmt}.png`;
+    },
+    getShareMeta: (fmt) => {
+      const act = window.currentSingleAct;
+      const dateStr = (act && (act.date || act.start_date_local)) ? (act.date || act.start_date_local).slice(0, 10) : new Date().toISOString().slice(0, 10);
+      const fmtTitle = fmt === 'square' ? '피드 정방형 (1:1)' : (fmt === 'portrait' ? '피드 세로형 (4:5)' : '스토리 (9:16)');
+      return {
+        filename: `RunAnalyz_Daily_${dateStr}_${fmt}.png`,
+        title: `RunAnalyz 데일리 러닝 기록 (${dateStr})`,
+        text: `RunAnalyz 데일리 러닝 기록 카드(${fmtTitle})입니다.`
+      };
+    }
+  });
+
+  // 2. Weekly Recap Studio
+  initCardStudioController({
+    containerSelector: '#weekly-card-studio-section',
+    cardId: 'instaCardWeekly',
+    btnShareId: 'btn-share-weekly-card',
+    btnDownloadId: 'btn-download-weekly-card',
+    getDownloadFilename: (fmt) => {
+      const w = window.currentWeeklyRecap;
+      const wName = (w && w.name) ? w.name.replace(/\s+/g, '_') : 'Weekly';
+      return `RunAnalyz_${wName}_${fmt}.png`;
+    },
+    getShareMeta: (fmt) => {
+      const w = window.currentWeeklyRecap;
+      const wName = (w && w.name) ? w.name : '주간';
+      const fmtTitle = fmt === 'square' ? '피드 정방형 (1:1)' : (fmt === 'portrait' ? '피드 세로형 (4:5)' : '스토리 (9:16)');
+      return {
+        filename: `RunAnalyz_${wName}_${fmt}.png`,
+        title: `RunAnalyz ${wName} 러닝 결산 (${fmtTitle})`,
+        text: `RunAnalyz 주간 트레이닝 밸런스 & 80/20 결산 카드(${fmtTitle})입니다.`
+      };
+    }
+  });
+
+  // 3. Monthly Recap Studio
+  initCardStudioController({
+    containerSelector: '#monthly-card-studio-section',
+    cardId: 'instaCard',
+    btnShareId: 'btn-share-card',
+    btnDownloadId: 'btn-download-card',
+    getDownloadFilename: (fmt) => {
+      const y = window.currentMonthlyYear || '2026';
+      const m = window.currentMonthlyMonth || '8';
+      return `RunAnalyz_Recap_${y}_${m}_${fmt}.png`;
+    },
+    getShareMeta: (fmt) => {
+      const y = window.currentMonthlyYear || '2026';
+      const m = window.currentMonthlyMonth || '8';
+      const pTitle = window.currentMonthlyPeriodTitle || `${y}년 ${m}월`;
+      const fmtTitle = fmt === 'square' ? '피드 정방형 (1:1)' : (fmt === 'portrait' ? '피드 세로형 (4:5)' : '스토리 (9:16)');
+      return {
+        filename: `RunAnalyz_Recap_${y}_${m}_${fmt}.png`,
+        title: `RunAnalyz ${pTitle} 러닝 결산 (${fmtTitle})`,
+        text: `RunAnalyz 러닝 대시보드에서 생성된 ${pTitle} 러닝 결산 카드(${fmtTitle})입니다.`
+      };
+    }
+  });
 }
 
 function getMonthName(m) {

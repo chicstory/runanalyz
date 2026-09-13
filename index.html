@@ -317,6 +317,115 @@
           <canvas id="singleSessionChart"></canvas>
         </div>
       </div>
+
+      <!-- Single Session Instagram Card Studio -->
+      <div class="card-studio-section" id="single-card-studio-section">
+        <div class="studio-header">
+          <div>
+            <h3><i class="bi bi-instagram text-orange"></i> 데일리 러닝 인스타 카드 스튜디오</h3>
+            <p>오늘 달린 기록을 스토리(9:16) 및 피드(1:1 / 4:5) 맞춤형 카드로 원클릭 생성하고 공유하세요.</p>
+          </div>
+          <div class="studio-actions">
+            <!-- Format Picker -->
+            <div class="format-picker-group">
+              <button class="btn-format-chip active" data-studio="single" data-format="story" title="인스타 스토리 규격 (9:16)">
+                <i class="bi bi-phone"></i> 스토리 (9:16)
+              </button>
+              <button class="btn-format-chip" data-studio="single" data-format="square" title="인스타 피드 정방형 (1:1)">
+                <i class="bi bi-square"></i> 피드 정방형 (1:1)
+              </button>
+              <button class="btn-format-chip" data-studio="single" data-format="portrait" title="인스타 피드 세로형 (4:5)">
+                <i class="bi bi-aspect-ratio"></i> 피드 세로형 (4:5)
+              </button>
+            </div>
+
+            <!-- Theme Picker -->
+            <div class="theme-picker-group">
+              <button class="btn-theme-chip active" data-studio="single" data-theme="dark" title="Dark Tech 테마">
+                <span class="chip-dot dot-dark"></span> 🌙 Dark
+              </button>
+              <button class="btn-theme-chip" data-studio="single" data-theme="neon" title="Neon Cyber 테마">
+                <span class="chip-dot dot-neon"></span> ⚡ Cyber
+              </button>
+              <button class="btn-theme-chip" data-studio="single" data-theme="minimal" title="Minimal White 테마">
+                <span class="chip-dot dot-minimal"></span> ☀️ White
+              </button>
+            </div>
+            <div class="studio-btn-group">
+              <button class="btn-primary" id="btn-share-single-card" title="인스타그램 공유 또는 저장">
+                <i class="bi bi-instagram"></i> 스토리 공유
+              </button>
+              <button class="btn-secondary" id="btn-download-single-card" title="PNG 이미지 파일로 직접 다운로드">
+                <i class="bi bi-download"></i> 카드 저장
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Single Session Printable Insta Card -->
+        <div class="insta-card-wrapper">
+          <div class="insta-card theme-dark format-story" id="instaCardSingle">
+            <!-- Card Header -->
+            <div class="ic-header">
+              <div class="ic-badge" id="sc-badge">DAILY RUNNING LOG</div>
+              <div class="ic-brand">
+                <i class="bi bi-lightning-charge-fill"></i> RUN<span style="color:var(--accent-orange);">ANALYZ</span>
+              </div>
+            </div>
+
+            <!-- Card Athlete Title -->
+            <div class="ic-title-area">
+              <div class="ic-sub" id="sc-sub">DAILY AEROBIC EF LOG</div>
+              <h1 class="ic-main-distance" id="sc-dist">0.00 <span class="unit">KM</span></h1>
+              <div class="ic-type-badge-wrap" style="margin-top:0.4rem;">
+                <span class="badge-count badge-wo" id="sc-wo-badge">🟢 저강도 유산소 (Zone 1~2)</span>
+              </div>
+            </div>
+
+            <!-- Card Key Stats Grid: Pace, Time, Avg HR, EF -->
+            <div class="ic-stats-grid">
+              <div class="ic-stat-item">
+                <span class="ic-stat-label">AVG PACE</span>
+                <span class="ic-stat-val" id="sc-pace">0'00" <small>/km</small></span>
+              </div>
+              <div class="ic-stat-item">
+                <span class="ic-stat-label">RUN TIME</span>
+                <span class="ic-stat-val" id="sc-time">00:00</span>
+              </div>
+              <div class="ic-stat-item">
+                <span class="ic-stat-label">AVG HEART RATE</span>
+                <span class="ic-stat-val" id="sc-hr">0 <small>bpm</small></span>
+              </div>
+              <div class="ic-stat-item">
+                <span class="ic-stat-label">AEROBIC EF</span>
+                <span class="ic-stat-val" id="sc-ef" style="color:var(--accent-lime);">0.000</span>
+              </div>
+            </div>
+
+            <!-- Card Highlight: EF Status & Like-for-Like Comparison -->
+            <div class="ic-highlight-banner">
+              <div class="ic-hl-box">
+                <span class="hl-title"><i class="bi bi-shield-check"></i> EF ENGINE STATUS</span>
+                <span class="hl-value" id="sc-ef-status">최상급 유산소 엔진</span>
+              </div>
+              <div class="ic-hl-box">
+                <span class="hl-title"><i class="bi bi-graph-up-arrow"></i> LIKE-FOR-LIKE</span>
+                <span class="hl-value" id="sc-ef-like">동급 세션 최근 3회 대비</span>
+              </div>
+            </div>
+
+            <!-- Single Card Footer: Cadence, LT1 Threshold, Calories -->
+            <div class="ic-footer ic-pol-footer">
+              <div class="ic-pol-tag" id="sc-footer-tag">
+                <i class="bi bi-activity text-lime"></i> RUN BIOMETRICS
+              </div>
+              <div class="ic-pol-val" id="sc-footer-metrics" style="font-size: 0.64rem;">
+                <span id="sc-cadence">⚡ 178 spm</span> &middot; <span id="sc-lt1">LT1 152 bpm</span> &middot; <span id="sc-cal">640 kcal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- TAB 2: WEEKLY RECAP -->
@@ -349,6 +458,110 @@
         </div>
         <div class="chart-wrapper">
           <canvas id="weeklyChart"></canvas>
+      <!-- Weekly Recap Instagram Card Studio -->
+      <div class="card-studio-section" id="weekly-card-studio-section">
+        <div class="studio-header">
+          <div>
+            <h3><i class="bi bi-instagram text-orange"></i> 주간 러닝 결산 인스타 카드 스튜디오</h3>
+            <p>한 주간의 마일리지 빌드업과 80/20 양극화 비율, ACWR 부하를 인스타 맞춤 카드로 제작하세요.</p>
+          </div>
+          <div class="studio-actions">
+            <!-- Format Picker -->
+            <div class="format-picker-group">
+              <button class="btn-format-chip active" data-studio="weekly" data-format="story" title="인스타 스토리 규격 (9:16)">
+                <i class="bi bi-phone"></i> 스토리 (9:16)
+              </button>
+              <button class="btn-format-chip" data-studio="weekly" data-format="square" title="인스타 피드 정방형 (1:1)">
+                <i class="bi bi-square"></i> 피드 정방형 (1:1)
+              </button>
+              <button class="btn-format-chip" data-studio="weekly" data-format="portrait" title="인스타 피드 세로형 (4:5)">
+                <i class="bi bi-aspect-ratio"></i> 피드 세로형 (4:5)
+              </button>
+            </div>
+
+            <!-- Theme Picker -->
+            <div class="theme-picker-group">
+              <button class="btn-theme-chip active" data-studio="weekly" data-theme="dark" title="Dark Tech 테마">
+                <span class="chip-dot dot-dark"></span> 🌙 Dark
+              </button>
+              <button class="btn-theme-chip" data-studio="weekly" data-theme="neon" title="Neon Cyber 테마">
+                <span class="chip-dot dot-neon"></span> ⚡ Cyber
+              </button>
+              <button class="btn-theme-chip" data-studio="weekly" data-theme="minimal" title="Minimal White 테마">
+                <span class="chip-dot dot-minimal"></span> ☀️ White
+              </button>
+            </div>
+            <div class="studio-btn-group">
+              <button class="btn-primary" id="btn-share-weekly-card" title="인스타그램 공유 또는 저장">
+                <i class="bi bi-instagram"></i> 스토리 공유
+              </button>
+              <button class="btn-secondary" id="btn-download-weekly-card" title="PNG 이미지 파일로 직접 다운로드">
+                <i class="bi bi-download"></i> 카드 저장
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Weekly Printable Insta Card -->
+        <div class="insta-card-wrapper">
+          <div class="insta-card theme-dark format-story" id="instaCardWeekly">
+            <!-- Card Header -->
+            <div class="ic-header">
+              <div class="ic-badge" id="wc-card-badge">WEEKLY RUNNING RECAP</div>
+              <div class="ic-brand">
+                <i class="bi bi-lightning-charge-fill"></i> RUN<span style="color:var(--accent-orange);">ANALYZ</span>
+              </div>
+            </div>
+
+            <!-- Card Athlete Title -->
+            <div class="ic-title-area">
+              <div class="ic-sub" id="wc-card-sub">WEEKLY TRAINING &amp; ACWR AUDIT</div>
+              <h1 class="ic-main-distance" id="wc-card-dist">0.0 <span class="unit">KM</span></h1>
+              <div class="ic-ef-range" id="wc-card-runs-rule">총 0회 러닝 &middot; <span class="rule-badge rule-safe" id="wc-card-rule-badge" style="margin-bottom:0; padding:0.15rem 0.45rem; font-size:0.65rem;">안전</span></div>
+            </div>
+
+            <!-- Card Key Stats Grid: Avg EF, Longest LSD, Avg HR, 4-Week Base -->
+            <div class="ic-stats-grid">
+              <div class="ic-stat-item">
+                <span class="ic-stat-label">AVG AEROBIC EF</span>
+                <span class="ic-stat-val" id="wc-card-ef" style="color:var(--accent-lime);">0.000</span>
+              </div>
+              <div class="ic-stat-item">
+                <span class="ic-stat-label">LONGEST LSD</span>
+                <span class="ic-stat-val" id="wc-card-lsd">0.0 <small>km</small></span>
+              </div>
+              <div class="ic-stat-item">
+                <span class="ic-stat-label">AVG HEART RATE</span>
+                <span class="ic-stat-val" id="wc-card-hr">0 <small>bpm</small></span>
+              </div>
+              <div class="ic-stat-item">
+                <span class="ic-stat-label">4-WEEK BASE</span>
+                <span class="ic-stat-val" id="wc-card-base">0.0 <small>km</small></span>
+              </div>
+            </div>
+
+            <!-- Card Highlight: Workout Breakdown Chips -->
+            <div class="ic-highlight-banner" style="display:flex; flex-direction:column; gap:0.4rem;">
+              <div class="hl-title"><i class="bi bi-pie-chart-fill"></i> WORKOUT BREAKDOWN</div>
+              <div class="wc-type-chips" id="wc-card-chips" style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+
+            <!-- Card Footer: 80/20 Polarized Ratio Bar (Single Line) -->
+            <div class="ic-footer ic-pol-footer">
+              <div class="ic-pol-tag">
+                <i class="bi bi-pie-chart-fill text-orange"></i> 80/20 POLARIZED
+              </div>
+              <div class="ic-pol-bar-wrap">
+                <div class="ic-pol-bar-low" id="wc-card-pol-bar-low" style="width: 80%;"></div>
+                <div class="ic-pol-bar-high" id="wc-card-pol-bar-high" style="width: 20%;"></div>
+              </div>
+              <div class="ic-pol-val" id="wc-card-pol-val">
+                <span style="color:var(--accent-lime);">저강도 80%</span> : <span style="color:var(--accent-orange);">고강도 20%</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -380,7 +593,7 @@
       </div>
 
       <!-- Instagram Recap Card Studio -->
-      <div class="card-studio-section">
+      <div class="card-studio-section" id="monthly-card-studio-section">
         <div class="studio-header">
           <div>
             <h3><i class="bi bi-instagram"></i> 인스타그램 러닝 결산 카드 스튜디오</h3>
@@ -389,26 +602,26 @@
           <div class="studio-actions">
             <!-- Format Selector: Story (9:16) vs Feed Square (1:1) vs Feed Portrait (4:5) -->
             <div class="format-picker-group">
-              <button class="btn-format-chip active" data-format="story" title="인스타 스토리 규격 (9:16)">
+              <button class="btn-format-chip active" data-studio="monthly" data-format="story" title="인스타 스토리 규격 (9:16)">
                 <i class="bi bi-phone"></i> 스토리 (9:16)
               </button>
-              <button class="btn-format-chip" data-format="square" title="인스타 피드 정방형 (1:1)">
+              <button class="btn-format-chip" data-studio="monthly" data-format="square" title="인스타 피드 정방형 (1:1)">
                 <i class="bi bi-square"></i> 피드 정방형 (1:1)
               </button>
-              <button class="btn-format-chip" data-format="portrait" title="인스타 피드 세로형 (4:5)">
+              <button class="btn-format-chip" data-studio="monthly" data-format="portrait" title="인스타 피드 세로형 (4:5)">
                 <i class="bi bi-aspect-ratio"></i> 피드 세로형 (4:5)
               </button>
             </div>
 
             <!-- Theme Picker -->
             <div class="theme-picker-group">
-              <button class="btn-theme-chip active" data-theme="dark" title="Dark Tech 테마">
+              <button class="btn-theme-chip active" data-studio="monthly" data-theme="dark" title="Dark Tech 테마">
                 <span class="chip-dot dot-dark"></span> 🌙 Dark
               </button>
-              <button class="btn-theme-chip" data-theme="neon" title="Neon Cyber 테마">
+              <button class="btn-theme-chip" data-studio="monthly" data-theme="neon" title="Neon Cyber 테마">
                 <span class="chip-dot dot-neon"></span> ⚡ Cyber
               </button>
-              <button class="btn-theme-chip" data-theme="minimal" title="Minimal White 테마">
+              <button class="btn-theme-chip" data-studio="monthly" data-theme="minimal" title="Minimal White 테마">
                 <span class="chip-dot dot-minimal"></span> ☀️ White
               </button>
             </div>
@@ -658,9 +871,9 @@
     </div>
   </div>
 
-  <script src="strava_all_activities.js?v=20260914_v5_acwr"></script>
-  <script src="activities_data.js?v=20260914_v5_acwr"></script>
-  <script src="i18n.js?v=20260914_v5_acwr"></script>
-  <script src="app.js?v=20260914_v5_acwr"></script>
+  <script src="strava_all_activities.js?v=20260914_v6_studios"></script>
+  <script src="activities_data.js?v=20260914_v6_studios"></script>
+  <script src="i18n.js?v=20260914_v6_studios"></script>
+  <script src="app.js?v=20260914_v6_studios"></script>
 </body>
 </html>
