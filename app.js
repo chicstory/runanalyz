@@ -262,9 +262,10 @@ function setupStravaAuthButton(isCustomUser, athlete) {
 
     btnAuth.onclick = (e) => {
       e.preventDefault();
-      let redirectUri = window.location.origin + window.location.pathname;
-      if (!redirectUri.endsWith('/') && !redirectUri.endsWith('.html')) {
-        redirectUri += '/';
+      // Always normalize to canonical live GitHub Pages callback URL
+      let redirectUri = 'https://chicstory.github.io/runanalyz/';
+      if (window.location.hostname.includes('github.io')) {
+        redirectUri = `${window.location.origin}/runanalyz/`;
       }
       const authUrl = `https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&approval_prompt=auto&scope=read,activity:read_all`;
       window.location.href = authUrl;
