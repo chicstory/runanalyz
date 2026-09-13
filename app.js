@@ -789,76 +789,43 @@ function classifyWorkout(act, userThresholds = null, weekMaxDist = 0) {
   const dist = act.distance_km || 0;
   const dur = act.duration_seconds || 0;
   const avgHr = act.avg_hr || 0;
-  const maxHr = act.max_hr || 0;
-  const hrSpread = maxHr - avgHr;
 
+  // 1. Long Distance Aerobic Volume (LSD, >=15km or >=75min): Low-Intensity Aerobic Volume
   const isLsd = (dist >= 15.0) || (dist >= 13.0 && dur >= 4500) || (weekMaxDist > 0 && dist >= weekMaxDist * 0.75 && dist >= 12.0 && dur >= 4200);
-  const paceSec = act.pace_seconds || (dist > 0 ? (dur / dist) : 0);
 
-  // Speed Interval requires fast running pace (<= 5'35"/km or very short sprint <= 2.5km)
-  // Prevents slow jog with sensor spike or hill resistance from falsely becoming "Interval"
-  const isSpeedPace = (paceSec > 0 && paceSec <= 335) || (dist <= 2.5 && dur <= 600);
-
-  const isInterval = isSpeedPace && (
-    ((maxHr >= th.lt2Hr - 2) && (hrSpread >= 26) && (dist < 12.5) && (dur >= 900)) ||
-    ((dist < 3.0) && (dur >= 180 && dur <= 720) && (maxHr >= th.lt1Hr + 15) && (avgHr >= th.lt1Hr - 5))
-  );
-
-  // Tempo / Threshold: Sustained physiological effort above LT1 (Zone 3~4) for min 15 minutes.
-  // Covers flat threshold runs AND hill tempo resistance runs (counts toward High-Intensity 20% in 80/20 rule)
-  const isTempo = !isLsd && !isInterval && (avgHr >= th.lt1Hr) && (dur >= 900);
-
-  // Recovery: Short and very gentle (< 5.5km and Avg HR well below LT1)
-  const isRecovery = !isLsd && !isInterval && !isTempo && (dist < 5.5) && (avgHr > 0 && avgHr < th.lt1Hr - 5);
+  // 2. 80/20 Polarized Core Cutoff: Average Heart Rate vs LT1 (Zone 2 Ceiling)
+  // - High-Intensity (Quality 20%): Average HR pushed past LT1 into Zone 3~5 (Tempo, Threshold, Intervals, Hill resistance)
+  // - Low-Intensity (Aerobic Base 80%): Average HR stayed comfortably at or below LT1 (Zone 1~2, Easy, Recovery)
+  const isHighIntensity = !isLsd && (avgHr > th.lt1Hr);
 
   if (isLsd) {
     return {
       type: 'lsd',
       code: 'LSD',
-      label: _t('wo_lsd', '장거리 LSD'),
+      label: _t('wo_lsd', '장거리 LSD (저강도)'),
       icon: 'bi-geo-alt-fill',
       color: '#00e5ff',
       badgeClass: 'badge-wo-lsd',
       intensity: 'low'
     };
-  } else if (isInterval) {
+  } else if (isHighIntensity) {
     return {
-      type: 'interval',
-      code: 'INTERVAL',
-      label: _t('wo_interval', '스피드 인터벌'),
-      icon: 'bi-lightning-charge-fill',
-      color: '#ff5252',
-      badgeClass: 'badge-wo-interval',
-      intensity: 'high'
-    };
-  } else if (isTempo) {
-    return {
-      type: 'tempo',
-      code: 'TEMPO',
-      label: _t('wo_tempo', '젖산역치 템포런'),
+      type: 'high',
+      code: 'HIGH',
+      label: _t('wo_high', '고강도 포인트 (Zone 3+)'),
       icon: 'bi-fire',
-      color: '#ffab00',
-      badgeClass: 'badge-wo-tempo',
+      color: '#ff7043',
+      badgeClass: 'badge-wo-high',
       intensity: 'high'
-    };
-  } else if (isRecovery) {
-    return {
-      type: 'recovery',
-      code: 'RECOVERY',
-      label: _t('wo_recovery', '회복 조깅'),
-      icon: 'bi-heart-pulse',
-      color: '#b2ff59',
-      badgeClass: 'badge-wo-recovery',
-      intensity: 'low'
     };
   } else {
     return {
-      type: 'easy',
-      code: 'EASY',
-      label: _t('wo_easy', '기초 유산소 이지런'),
-      icon: 'bi-check-circle-fill',
+      type: 'low',
+      code: 'LOW',
+      label: _t('wo_low', '저강도 유산소 (Zone 1~2)'),
+      icon: 'bi-shield-check',
       color: '#00e676',
-      badgeClass: 'badge-wo-easy',
+      badgeClass: 'badge-wo-low',
       intensity: 'low'
     };
   }
@@ -895,21 +862,21 @@ function calcLikeForLikeEF(targetAct, allActs) {
   const pct = (diff / refEf) * 100;
 
   let insight = '';
-  if (targetWo === 'easy' || targetWo === 'recovery') {
+  if (targetWo === 'low') {
     if (diff > 0.01) {
-      insight = '유산소 베이스 확장 (동일 심박 대비 속도 증가)';
+      insight = '유산소 심폐 효율(EF) 향상 (심박 대비 속도 증가)';
     } else if (diff < -0.01) {
-      insight = '심폐 피로 누적 or 기온 영향 (회복주 권장)';
+      insight = '유산소 효율 저하 또는 피로 누적 (충분한 회복 권장)';
     } else {
-      insight = '안정적인 기초 유산소 유지';
+      insight = '안정적인 기초 유산소 상태 유지';
     }
-  } else if (targetWo === 'tempo') {
+  } else if (targetWo === 'high') {
     if (diff > 0.01) {
-      insight = '젖산 역치 파워 향상 (LT2 지속 속도 개선)';
+      insight = '고강도 젖산 내성 및 역치 파워 개선';
     } else if (diff < -0.01) {
-      insight = '역치 피로 구간 (충분한 회복 필요)';
+      insight = '고강도 피로 누적 (충분한 회복 권장)';
     } else {
-      insight = '목표 템포 페이스 견고하게 유지';
+      insight = '목표 고강도 파워 유지 완료';
     }
   } else if (targetWo === 'lsd') {
     if (diff > 0.01) {
@@ -917,13 +884,7 @@ function calcLikeForLikeEF(targetAct, allActs) {
     } else if (diff < -0.01) {
       insight = '장거리 후반 드리프트 발생 (수분/글리코겐 점검)';
     } else {
-      insight = '안정적인 풀코스 마라톤 지구력 유지';
-    }
-  } else if (targetWo === 'interval') {
-    if (diff > 0.01) {
-      insight = '최대산소섭취량(VO2max) 및 젖산 내성 증가';
-    } else {
-      insight = '고강도 스피드 파워 훈련 완료';
+      insight = '안정적인 마라톤 지구력 유지';
     }
   }
 
@@ -1614,9 +1575,9 @@ function initWeeklyRecap(activities, year = '2026', month = '8') {
       w.ruleText = `안전 (${w.increasePct >= 0 ? '+' : ''}${w.increasePct}%)`;
     }
 
-    // Workout category breakdown & 80/20 Polarized calculations
-    const typeCounts = { easy: 0, recovery: 0, lsd: 0, tempo: 0, interval: 0, other: 0 };
-    const typeKm = { easy: 0, recovery: 0, lsd: 0, tempo: 0, interval: 0, other: 0 };
+    // Workout category breakdown & 80/20 Polarized calculations (2-tier: low vs high + LSD volume)
+    const typeCounts = { low: 0, high: 0, lsd: 0, other: 0 };
+    const typeKm = { low: 0, high: 0, lsd: 0, other: 0 };
     let lowKm = 0;
     let highKm = 0;
 
@@ -1661,7 +1622,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8') {
     if (high > 30) {
       badgeClass = 'orange';
       badgeText = '⚠️ 고강도 비중 과다 (부상 경고)';
-      coachingMsg = `이번 주는 고강도 훈련(템포·인터벌) 비중이 <strong>${high}%</strong>로 높습니다. 마라톤 훈련 생리학상 고강도가 25%를 초과하면 아킬레스건, 족저근막 및 무릎 관절에 피로 물질이 누적되어 부상 위험이 급증합니다. 다음 주는 <strong>Zone 2 이지런과 가벼운 회복 조깅 비중을 80% 이상으로 확보</strong>하여 유산소 모세혈관을 회복시키세요.`;
+      coachingMsg = `이번 주는 고강도 포인트 훈련(Zone 3+) 비중이 <strong>${high}%</strong>로 높습니다. 마라톤 훈련 생리학상 고강도가 25%를 초과하면 아킬레스건, 족저근막 및 무릎 관절에 피로 물질이 누적되어 부상 위험이 급증합니다. 다음 주는 <strong>Zone 1~2 저강도 유산소 런과 가벼운 회복 조깅 비중을 80% 이상으로 확보</strong>하여 유산소 모세혈관을 회복시키세요.`;
     } else if (low >= 75 && low <= 88) {
       badgeClass = 'gold';
       badgeText = '🏆 이상적인 80/20 양극화 달성';
@@ -1669,7 +1630,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8') {
     } else if (high === 0 && latestWeek.totalKm >= 15) {
       badgeClass = 'green';
       badgeText = '🌱 100% 순수 유산소 베이스 빌딩';
-      coachingMsg = `이번 주 모든 러닝이 저강도 유산소 세션(이지/회복/LSD)으로 구성되었습니다. 심폐 지구력과 지방 대사 효율을 극대화하는 매우 안전한 훈련 주간입니다. 마라톤 레이스를 준비 중이라면 주 1회 <strong>20~30분의 젖산 역치 템포런</strong>을 추가하면 레이스 페이스 유지력이 한 단계 도약합니다.`;
+      coachingMsg = `이번 주 모든 러닝이 저강도 유산소 세션(Zone 1~2 및 LSD)으로 구성되었습니다. 심폐 지구력과 지방 대사 효율을 극대화하는 매우 안전한 훈련 주간입니다. 마라톤 레이스를 준비 중이라면 주 1회 <strong>20~30분의 역치/고강도 포인트 세션</strong>을 추가하면 레이스 페이스 유지력이 한 단계 도약합니다.`;
     } else {
       badgeClass = 'green';
       badgeText = '✅ 안정적인 주간 트레이닝 밸런스';
@@ -1686,8 +1647,8 @@ function initWeeklyRecap(activities, year = '2026', month = '8') {
       </div>
       <div class="wcc-ratio-wrap">
         <div class="wcc-ratio-labels">
-          <span class="low-lbl"><i class="bi bi-shield-check"></i> 저강도 (이지·회복·LSD): <strong>${low}%</strong> (${latestWeek.lowKm.toFixed(1)}km)</span>
-          <span class="high-lbl"><i class="bi bi-fire"></i> 고강도 (템포·인터벌): <strong>${high}%</strong> (${latestWeek.highKm.toFixed(1)}km)</span>
+          <span class="low-lbl"><i class="bi bi-shield-check"></i> 저강도 유산소·LSD (Zone 1~2): <strong>${low}%</strong> (${latestWeek.lowKm.toFixed(1)}km)</span>
+          <span class="high-lbl"><i class="bi bi-fire"></i> 고강도 포인트 (Zone 3+): <strong>${high}%</strong> (${latestWeek.highKm.toFixed(1)}km)</span>
         </div>
         <div class="wcc-bar-container">
           <div class="wcc-bar-low" style="width: ${low}%;"></div>
@@ -1742,11 +1703,9 @@ function initWeeklyRecap(activities, year = '2026', month = '8') {
           </div>
         </div>
         <div class="wc-type-chips">
-          ${w.typeCounts.lsd > 0 ? `<span class="wc-chip wc-chip-lsd">🔵 LSD ${w.typeCounts.lsd}회 (${w.typeKm.lsd.toFixed(1)}k)</span>` : ''}
-          ${w.typeCounts.tempo > 0 ? `<span class="wc-chip wc-chip-tempo">🟡 템포 ${w.typeCounts.tempo}회 (${w.typeKm.tempo.toFixed(1)}k)</span>` : ''}
-          ${w.typeCounts.interval > 0 ? `<span class="wc-chip wc-chip-interval">🔴 인터벌 ${w.typeCounts.interval}회 (${w.typeKm.interval.toFixed(1)}k)</span>` : ''}
-          ${w.typeCounts.easy > 0 ? `<span class="wc-chip wc-chip-easy">🟢 이지 ${w.typeCounts.easy}회 (${w.typeKm.easy.toFixed(1)}k)</span>` : ''}
-          ${w.typeCounts.recovery > 0 ? `<span class="wc-chip wc-chip-recovery">⚪ 회복 ${w.typeCounts.recovery}회 (${w.typeKm.recovery.toFixed(1)}k)</span>` : ''}
+          ${w.typeCounts.low > 0 ? `<span class="wc-chip wc-chip-low">🟢 ${_t('wo_low', '저강도')} ${w.typeCounts.low}회 (${w.typeKm.low.toFixed(1)}k)</span>` : ''}
+          ${w.typeCounts.high > 0 ? `<span class="wc-chip wc-chip-high">🔴 ${_t('wo_high', '고강도')} ${w.typeCounts.high}회 (${w.typeKm.high.toFixed(1)}k)</span>` : ''}
+          ${w.typeCounts.lsd > 0 ? `<span class="wc-chip wc-chip-lsd">🔵 ${_t('wo_lsd', 'LSD')} ${w.typeCounts.lsd}회 (${w.typeKm.lsd.toFixed(1)}k)</span>` : ''}
         </div>
       </div>
     `).join('');

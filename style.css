@@ -3981,38 +3981,25 @@ html[lang="en"], html[lang="es"] {
   font-size: 0.8rem;
 }
 
-.badge-wo-lsd {
-  background: rgba(0, 229, 255, 0.14);
-  color: #00e5ff;
-  border: 1px solid rgba(0, 229, 255, 0.35);
-  box-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
-}
-
-.badge-wo-interval {
-  background: rgba(255, 82, 82, 0.14);
-  color: #ff5252;
-  border: 1px solid rgba(255, 82, 82, 0.35);
-  box-shadow: 0 0 10px rgba(255, 82, 82, 0.15);
-}
-
-.badge-wo-tempo {
-  background: rgba(255, 171, 0, 0.14);
-  color: #ffab00;
-  border: 1px solid rgba(255, 171, 0, 0.35);
-  box-shadow: 0 0 10px rgba(255, 171, 0, 0.15);
-}
-
-.badge-wo-easy {
+.badge-wo-low {
   background: rgba(0, 230, 118, 0.14);
   color: #00e676;
   border: 1px solid rgba(0, 230, 118, 0.35);
   box-shadow: 0 0 10px rgba(0, 230, 118, 0.15);
 }
 
-.badge-wo-recovery {
-  background: rgba(178, 255, 89, 0.14);
-  color: #b2ff59;
-  border: 1px solid rgba(178, 255, 89, 0.35);
+.badge-wo-high {
+  background: rgba(255, 87, 34, 0.14);
+  color: #ff7043;
+  border: 1px solid rgba(255, 87, 34, 0.35);
+  box-shadow: 0 0 10px rgba(255, 87, 34, 0.15);
+}
+
+.badge-wo-lsd {
+  background: rgba(0, 229, 255, 0.14);
+  color: #00e5ff;
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
 }
 
 .badge-wo-other {
@@ -4193,11 +4180,9 @@ html[lang="en"], html[lang="es"] {
   border-radius: 4px;
 }
 
+.wc-chip-low { background: rgba(0, 230, 118, 0.12); color: #00e676; }
+.wc-chip-high { background: rgba(255, 87, 34, 0.12); color: #ff7043; }
 .wc-chip-lsd { background: rgba(0, 229, 255, 0.12); color: #00e5ff; }
-.wc-chip-interval { background: rgba(255, 82, 82, 0.12); color: #ff5252; }
-.wc-chip-tempo { background: rgba(255, 171, 0, 0.12); color: #ffab00; }
-.wc-chip-easy { background: rgba(0, 230, 118, 0.12); color: #00e676; }
-.wc-chip-recovery { background: rgba(178, 255, 89, 0.12); color: #b2ff59; }
 
 /* 80/20 Mini Bar inside Weekly Card */
 .wc-mini-bar-wrap {
