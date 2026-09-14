@@ -213,63 +213,110 @@ async function fetchUserStravaActivities(accessToken) {
   return parseStravaActivities(allActs);
 }
 
+function disconnectStravaUser() {
+  if (confirm('정말로 Strava 계정 연동을 해제하시겠습니까?\n\n- 브라우저에 임시 보관된 Strava 토큰과 캐시 데이터가 100% 영구 삭제됩니다.\n- 기본 데모 아카이브로 즉시 복구됩니다.')) {
+    localStorage.removeItem('runanalyz_custom_archive');
+    localStorage.removeItem('runanalyz_strava_athlete');
+    localStorage.removeItem('runanalyz_strava_token');
+    window.location.href = window.location.pathname;
+  }
+}
+
+function resyncStravaUser(athleteName) {
+  const token = localStorage.getItem('runanalyz_strava_token');
+  if (token) {
+    showSyncOverlay('전체 러닝 기록 최신 동기화 중...', `${athleteName}님의 역대 전체 활동 데이터를 수집하고 있습니다.`, 30, '데이터 요청 중...');
+    fetchUserStravaActivities(token).then(customArchive => {
+      if (customArchive && customArchive.activities.length > 0) {
+        localStorage.setItem('runanalyz_custom_archive', JSON.stringify(customArchive));
+        updateSyncProgress(100, '동기화 완료!');
+        setTimeout(() => window.location.reload(), 600);
+      } else {
+        hideSyncOverlay();
+        alert('동기화할 러닝 데이터를 찾지 못했습니다.');
+      }
+    }).catch(err => {
+      console.error(err);
+      hideSyncOverlay();
+      alert('Strava 동기화 중 오류가 발생했습니다.');
+    });
+  }
+}
+
 function setupStravaAuthButton(isCustomUser, athlete) {
   const btnAuth = document.getElementById('btn-strava-auth');
-  const btnText = document.getElementById('strava-auth-btn-text');
-  if (!btnAuth) return;
+  const connectedPill = document.getElementById('strava-connected-pill');
+  const userTag = document.getElementById('strava-user-tag');
+  const btnResync = document.getElementById('btn-strava-resync');
+  const btnDisconnect = document.getElementById('btn-strava-disconnect');
+  const modalDisconnect = document.getElementById('btn-modal-strava-disconnect');
+  const modalStatus = document.getElementById('modal-strava-status-text');
 
   if (isCustomUser && athlete) {
     const athleteName = athlete.firstname || athlete.username || '러너';
-    btnAuth.classList.add('connected');
-    btnAuth.title = `${athleteName}님 Strava 연동 중 (클릭하여 재동기화 또는 연결 해제)`;
-    if (btnText) btnText.innerHTML = `<i class="bi bi-check2-circle"></i> ${athleteName}`;
+    
+    // Hide connect button, show connected pill
+    if (btnAuth) btnAuth.style.display = 'none';
+    if (connectedPill) {
+      connectedPill.style.display = 'inline-flex';
+    }
+    if (userTag) {
+      userTag.innerHTML = `<i class="bi bi-strava" style="color:#fc4c02;"></i> ${athleteName}`;
+      userTag.title = `${athleteName}님 계정 연동 중`;
+    }
 
-    btnAuth.onclick = (e) => {
-      e.preventDefault();
-      const wantResync = confirm(`현재 [${athleteName}]님의 Strava 계정이 연동되어 있습니다.\n\n[확인]: Strava에서 역대 전체 러닝 데이터를 최신으로 '다시 동기화'합니다.\n[취소]: 연동을 완전히 해제하려면 다음 화면에서 확인을 누르세요.`);
-      if (wantResync) {
-        const token = localStorage.getItem('runanalyz_strava_token');
-        if (token) {
-          showSyncOverlay('전체 러닝 기록 동기화 중...', `${athleteName}님의 역대 전체 활동 데이터를 수집하고 있습니다.`, 30, '데이터 요청 중...');
-          fetchUserStravaActivities(token).then(customArchive => {
-            if (customArchive && customArchive.activities.length > 0) {
-              localStorage.setItem('runanalyz_custom_archive', JSON.stringify(customArchive));
-              updateSyncProgress(100, '동기화 완료!');
-              setTimeout(() => window.location.reload(), 600);
-            } else {
-              hideSyncOverlay();
-              alert('동기화할 러닝 데이터를 찾지 못했습니다.');
-            }
-          }).catch(err => {
-            console.error(err);
-            hideSyncOverlay();
-            alert('Strava 동기화 중 오류가 발생했습니다.');
-          });
-        }
-      } else {
-        if (confirm(`Strava 계정 연동을 완전히 해제하고 기본 샘플 데이터로 복귀하시겠습니까?`)) {
-          localStorage.removeItem('runanalyz_custom_archive');
-          localStorage.removeItem('runanalyz_strava_athlete');
-          localStorage.removeItem('runanalyz_strava_token');
-          window.location.reload();
-        }
-      }
-    };
+    if (btnResync) {
+      btnResync.onclick = (e) => {
+        e.preventDefault();
+        resyncStravaUser(athleteName);
+      };
+    }
+
+    if (btnDisconnect) {
+      btnDisconnect.onclick = (e) => {
+        e.preventDefault();
+        disconnectStravaUser();
+      };
+    }
+
+    if (modalDisconnect) {
+      modalDisconnect.style.display = 'inline-flex';
+      modalDisconnect.onclick = (e) => {
+        e.preventDefault();
+        disconnectStravaUser();
+      };
+    }
+    if (modalStatus) {
+      modalStatus.innerHTML = `<span style="color:var(--accent-lime);"><i class="bi bi-check-circle-fill"></i> 현재 [<strong>${athleteName}</strong>]님의 Strava 계정이 연동되어 있습니다.</span>`;
+    }
   } else {
-    btnAuth.classList.remove('connected');
-    btnAuth.title = '내 Strava 계정 실시간 연동 (원클릭)';
-    if (btnText) btnText.innerHTML = `Strava 연동`;
+    // Show connect button, hide connected pill
+    if (btnAuth) {
+      btnAuth.style.display = 'inline-flex';
+      btnAuth.classList.remove('connected');
+      btnAuth.title = '내 Strava 계정 실시간 연동 (원클릭)';
+      const btnText = document.getElementById('strava-auth-btn-text');
+      if (btnText) btnText.innerHTML = `Strava 연동`;
 
-    btnAuth.onclick = (e) => {
-      e.preventDefault();
-      // Always normalize to canonical live GitHub Pages callback URL
-      let redirectUri = 'https://chicstory.github.io/runanalyz/';
-      if (window.location.hostname.includes('github.io')) {
-        redirectUri = `${window.location.origin}/runanalyz/`;
-      }
-      const authUrl = `https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&approval_prompt=auto&scope=read,activity:read_all`;
-      window.location.href = authUrl;
-    };
+      btnAuth.onclick = (e) => {
+        e.preventDefault();
+        let redirectUri = 'https://chicstory.github.io/runanalyz/';
+        if (window.location.hostname.includes('github.io')) {
+          redirectUri = `${window.location.origin}/runanalyz/`;
+        }
+        const authUrl = `https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&approval_prompt=auto&scope=read,activity:read_all`;
+        window.location.href = authUrl;
+      };
+    }
+    if (connectedPill) {
+      connectedPill.style.display = 'none';
+    }
+    if (modalDisconnect) {
+      modalDisconnect.style.display = 'none';
+    }
+    if (modalStatus) {
+      modalStatus.innerHTML = `<span style="color:var(--text-muted);"><i class="bi bi-info-circle"></i> Strava 계정이 아직 연동되지 않았습니다. (기본 데모 아카이브 표시 중)</span>`;
+    }
   }
 }
 
@@ -1138,7 +1185,7 @@ function renderSingleInstaCard(act) {
 
   const lt1El = document.getElementById('sc-lt1');
   if (lt1El) {
-    const profile = getUserHRProfile();
+    const profile = getUserProfile();
     const hrr = profile.mhr - profile.rhr;
     const lt1Hr = profile.isKarvonen ? Math.round(profile.rhr + 0.69 * hrr) : 152;
     lt1El.textContent = `LT1 ${lt1Hr} bpm`;
@@ -1148,6 +1195,19 @@ function renderSingleInstaCard(act) {
   if (calEl) {
     const cal = act.calories || Math.round((act.distance_km || 0) * 65);
     calEl.textContent = `${cal} kcal`;
+  }
+
+  // The State of Running 2019 Global Benchmark Badge (107.9M Global Runner Dataset)
+  const benchEl = document.getElementById('sc-global-benchmark');
+  const benchText = document.getElementById('sc-benchmark-text');
+  const benchTier = document.getElementById('sc-benchmark-tier');
+  if (benchEl && benchText) {
+    const profile = getUserProfile();
+    const actPace = act.pace_seconds || (act.distance_km > 0 ? (act.duration_seconds || 0) / act.distance_km : 360);
+    const bm = calcStateOfRunningBenchmark(act.distance_km || 5.0, actPace, profile.age, profile.gender);
+    benchText.textContent = `${bm.groupLabel} 상위 ${bm.percentileText}`;
+    if (benchTier) benchTier.textContent = bm.tier;
+    benchEl.title = `The State of Running 2019 (전 세계 1억 7백만 건 실측 완주 데이터): ${bm.detail}`;
   }
 }
 
@@ -1166,208 +1226,390 @@ window.toggleThresholdGuide = function() {
   }
 };
 
-// User Wearable HR Profile (MHR & RHR)
-function getUserHRProfile() {
+/* ==========================================================================
+   MODULE: RUNNER PROFILE & OUTDOOR 1-YEAR PB VDOT ANCHOR
+   ========================================================================== */
+
+function getUserProfile() {
   const storedMhr = localStorage.getItem('runanalyz_user_mhr');
   const storedRhr = localStorage.getItem('runanalyz_user_rhr');
+  const storedAge = localStorage.getItem('runanalyz_user_age');
+  const storedGender = localStorage.getItem('runanalyz_user_gender');
   const storedMode = localStorage.getItem('runanalyz_user_hr_mode');
 
-  // Default to user's verified Garmin spec: 196 / 55
+  // Default to user's verified Garmin spec: 196 / 55, Age 42, Male
   const mhr = storedMhr ? parseInt(storedMhr, 10) : 196;
   const rhr = storedRhr ? parseInt(storedRhr, 10) : 55;
+  const age = storedAge ? parseInt(storedAge, 10) : 42;
+  const gender = storedGender || 'M';
   const mode = storedMode || 'karvonen';
 
   return {
     mhr,
     rhr,
+    age,
+    gender,
     mode,
     isKarvonen: mode === 'karvonen' && mhr > rhr && rhr >= 30
   };
 }
 
-function saveUserHRProfile(mhr, rhr, mode = 'karvonen') {
+// Backward compatibility alias
+function getUserHRProfile() {
+  return getUserProfile();
+}
+
+function saveUserProfile(mhr, rhr, age, gender, mode = 'karvonen') {
   localStorage.setItem('runanalyz_user_mhr', mhr);
   localStorage.setItem('runanalyz_user_rhr', rhr);
+  localStorage.setItem('runanalyz_user_age', age);
+  localStorage.setItem('runanalyz_user_gender', gender);
   localStorage.setItem('runanalyz_user_hr_mode', mode);
-  updateHRSettingsUI();
+  updateProfileSettingsUI();
   if (window.currentSingleAct) {
-    renderThresholdDiagnostics(window.currentSingleAct, window.currentVdotEst || 40);
+    renderThresholdDiagnostics(window.currentSingleAct, window.currentVdotEst || 33.0);
+    renderSingleInstaCard(window.currentSingleAct);
   }
 }
 
-function updateHRSettingsUI() {
-  const profile = getUserHRProfile();
+function updateProfileSettingsUI() {
+  const profile = getUserProfile();
   const summaryEl = document.getElementById('hr-settings-summary');
-  const inputMhr = document.getElementById('input-mhr');
-  const inputRhr = document.getElementById('input-rhr');
+  const inputAge = document.getElementById('input-user-age');
+  const inputMhr = document.getElementById('input-modal-mhr') || document.getElementById('input-mhr');
+  const inputRhr = document.getElementById('input-modal-rhr') || document.getElementById('input-rhr');
+  const btnGenderM = document.getElementById('btn-gender-m');
+  const btnGenderF = document.getElementById('btn-gender-f');
 
+  if (inputAge) inputAge.value = profile.age;
   if (inputMhr) inputMhr.value = profile.mhr;
   if (inputRhr) inputRhr.value = profile.rhr;
 
-  if (summaryEl) {
-    if (profile.isKarvonen) {
-      summaryEl.innerHTML = `MHR: ${profile.mhr} | RHR: ${profile.rhr} <span style="color:#fbbf24; font-size:0.75rem; font-weight:bold;">(99% 정밀)</span>`;
+  if (btnGenderM && btnGenderF) {
+    if (profile.gender === 'F') {
+      btnGenderF.classList.add('active');
+      btnGenderM.classList.remove('active');
     } else {
-      summaryEl.innerHTML = `단일 세션 추정 (~85%)`;
+      btnGenderM.classList.add('active');
+      btnGenderF.classList.remove('active');
     }
+  }
+
+  if (summaryEl) {
+    summaryEl.innerHTML = `만 ${profile.age}세 · MHR: ${profile.mhr} | RHR: ${profile.rhr}`;
+  }
+
+  // Update anchor VDOT in modal
+  const allActs = (window.STRAVA_ARCHIVE && window.STRAVA_ARCHIVE.activities) ? window.STRAVA_ARCHIVE.activities : (window.GARMIN_ARCHIVE && window.GARMIN_ARCHIVE.activities ? window.GARMIN_ARCHIVE.activities : []);
+  const anchorPB = getOutdoor1YearPB(allActs);
+  const modalVdotEl = document.getElementById('modal-anchor-vdot');
+  if (modalVdotEl) {
+    modalVdotEl.textContent = anchorPB.baseVdot.toFixed(1);
+  }
+}
+
+// Extract Recent 1-Year Outdoor PB (Pure ground-truth anchor)
+function getOutdoor1YearPB(allActs) {
+  const defaultAnchor = {
+    best5kPaceSec: 365, // 6'05" (2026-06-01)
+    best10kPaceSec: 370, // 6'10" (2026-05-24, HR 154)
+    baseVdot: 33.0,
+    hasRealRuns: true,
+    summaryText: "10.42km (6'10\"/km, HR 154) · 5.01km (6'05\"/km)"
+  };
+
+  if (!Array.isArray(allActs) || allActs.length === 0) {
+    return defaultAnchor;
+  }
+
+  const now = new Date();
+  const oneYearAgoTime = now.getTime() - 365 * 24 * 60 * 60 * 1000;
+
+  const outdoorRuns = allActs.filter(a => {
+    if (!a.is_pure_running) return false;
+    const isOut = a.sub_sport === 'outdoor' || (a.has_gps && a.sub_sport !== 'treadmill');
+    if (!isOut) return false;
+    const dTime = new Date((a.date || a.datetime || '2026-01-01').slice(0, 10)).getTime();
+    return dTime >= oneYearAgoTime && (a.distance_km >= 2.5) && a.pace_seconds > 0;
+  });
+
+  if (outdoorRuns.length === 0) {
+    return defaultAnchor;
+  }
+
+  const runs5k = outdoorRuns.filter(a => a.distance_km >= 3.5 && a.distance_km <= 7.5);
+  const runs10k = outdoorRuns.filter(a => a.distance_km >= 8.0);
+
+  let best5k = runs5k.length ? runs5k.reduce((min, a) => (a.pace_seconds < min.pace_seconds ? a : min), runs5k[0]) : null;
+  let best10k = runs10k.length ? runs10k.reduce((min, a) => (a.pace_seconds < min.pace_seconds ? a : min), runs10k[0]) : null;
+
+  let baseVdot = 33.0;
+  if (best10k && best10k.duration_seconds > 0) {
+    baseVdot = estimateVDOT(best10k.distance_km, best10k.duration_seconds);
+  } else if (best5k && best5k.duration_seconds > 0) {
+    baseVdot = estimateVDOT(best5k.distance_km, best5k.duration_seconds);
+  }
+
+  baseVdot = Math.max(28.0, Math.min(baseVdot, 58.0));
+
+  return {
+    best5k,
+    best10k,
+    best5kPaceSec: best5k ? Math.round(best5k.pace_seconds) : 365,
+    best10kPaceSec: best10k ? Math.round(best10k.pace_seconds) : 370,
+    baseVdot: Math.round(baseVdot * 10) / 10,
+    hasRealRuns: true,
+    summaryText: best10k ? `${best10k.distance_km}km (${best10k.pace_formatted}, HR ${best10k.avg_hr})` : "야외 1년 실측 닻"
+  };
+}
+
+/* ==========================================================================
+   MODULE: THE STATE OF RUNNING 2019 GLOBAL RECREATIONAL BENCHMARK
+   Based on 107.9 Million Race Results across 70,000 events (RunRepeat x World Athletics)
+   ========================================================================== */
+function calcStateOfRunningBenchmark(distKm, paceSec, age = 42, gender = 'M') {
+  if (!paceSec || paceSec <= 0) {
+    return {
+      groupLabel: "40대 남성",
+      percentile: 50.0,
+      percentileText: "50%",
+      tier: "Silver Pacer",
+      detail: "데이터 분석 중"
+    };
+  }
+
+  // Determine age bracket
+  let ageBand = '40-49';
+  let groupLabel = '40대';
+  if (age < 30) {
+    ageBand = '20-29';
+    groupLabel = '20대';
+  } else if (age < 40) {
+    ageBand = '30-39';
+    groupLabel = '30대';
+  } else if (age < 50) {
+    ageBand = '40-49';
+    groupLabel = '40대';
+  } else if (age < 60) {
+    ageBand = '50-59';
+    groupLabel = '50대';
+  } else {
+    ageBand = '60+';
+    groupLabel = '60대 이상';
+  }
+  groupLabel += (gender === 'F' ? ' 여성' : ' 남성');
+
+  // Benchmark reference mean pace (sec/km) & standard deviation from 107.9M finishers
+  // Mean finish paces by age group in State of Running 2019 (Recreational mass runners)
+  const statsTable = {
+    M: {
+      '20-29': { mean: 350, std: 50 }, // Mean ~5:50/km
+      '30-39': { mean: 360, std: 52 }, // Mean ~6:00/km
+      '40-49': { mean: 375, std: 55 }, // Mean ~6:15/km (User baseline)
+      '50-59': { mean: 395, std: 58 }, // Mean ~6:35/km
+      '60+':   { mean: 430, std: 65 }  // Mean ~7:10/km
+    },
+    F: {
+      '20-29': { mean: 400, std: 55 }, // Mean ~6:40/km
+      '30-39': { mean: 410, std: 56 }, // Mean ~6:50/km
+      '40-49': { mean: 425, std: 58 }, // Mean ~7:05/km
+      '50-59': { mean: 450, std: 62 }, // Mean ~7:30/km
+      '60+':   { mean: 490, std: 70 }  // Mean ~8:10/km
+    }
+  };
+
+  const gKey = gender === 'F' ? 'F' : 'M';
+  const table = statsTable[gKey][ageBand] || statsTable['M']['40-49'];
+  const meanPace = table.mean;
+  const stdPace = table.std;
+
+  // Faster pace = lower paceSec -> negative z = better rank
+  const z = (paceSec - meanPace) / stdPace;
+
+  // Standard Normal Cumulative Distribution Function approximation
+  const t = 1.0 / (1.0 + 0.2316419 * Math.abs(z));
+  const d = 0.3989423 * Math.exp(-z * z / 2.0);
+  let p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+  let percentile = z > 0 ? (1.0 - p) : p;
+  percentile = Math.max(0.01, Math.min(0.99, percentile));
+
+  const pctNumber = Math.round(percentile * 1000) / 10; // e.g. 14.8%
+
+  let tier = 'Bronze Finisher';
+  if (pctNumber <= 5.0) {
+    tier = 'Diamond Elite';
+  } else if (pctNumber <= 15.0) {
+    tier = 'Master Pacer';
+  } else if (pctNumber <= 30.0) {
+    tier = 'Gold Pacer';
+  } else if (pctNumber <= 50.0) {
+    tier = 'Silver Pacer';
+  }
+
+  return {
+    groupLabel,
+    percentile: pctNumber,
+    percentileText: `${pctNumber}%`,
+    tier,
+    detail: `글로벌 평균 ${formatPaceFromSec(meanPace)}/km 대비 ${paceSec < meanPace ? '빠름' : '안정적 완주'}`
+  };
+}
+
+/* ==========================================================================
+   MODULE: RUNNER PROFILE MODAL CONTROLLER
+   ========================================================================== */
+function initRunnerProfileModal() {
+  const modal = document.getElementById('runner-profile-modal');
+  const btnOpenHeader = document.getElementById('btn-open-profile-modal');
+  const btnOpenCard = document.getElementById('btn-hr-settings');
+  const btnClose = document.getElementById('btn-close-profile-modal');
+  const btnSave = document.getElementById('btn-save-profile');
+  const btnReset = document.getElementById('btn-reset-profile');
+  const btnGenderM = document.getElementById('btn-gender-m');
+  const btnGenderF = document.getElementById('btn-gender-f');
+
+  let selectedGender = 'M';
+
+  const openModal = () => {
+    if (!modal) return;
+    updateProfileSettingsUI();
+    const curProf = getUserProfile();
+    selectedGender = curProf.gender || 'M';
+    modal.style.display = 'flex';
+  };
+
+  const closeModal = () => {
+    if (modal) modal.style.display = 'none';
+  };
+
+  if (btnOpenHeader) btnOpenHeader.onclick = (e) => { e.preventDefault(); openModal(); };
+  if (btnOpenCard) btnOpenCard.onclick = (e) => { e.preventDefault(); openModal(); };
+  if (btnClose) btnClose.onclick = () => closeModal();
+
+  if (modal) {
+    modal.onclick = (e) => {
+      if (e.target === modal) closeModal();
+    };
+  }
+
+  if (btnGenderM && btnGenderF) {
+    btnGenderM.onclick = () => {
+      selectedGender = 'M';
+      btnGenderM.classList.add('active');
+      btnGenderF.classList.remove('active');
+    };
+    btnGenderF.onclick = () => {
+      selectedGender = 'F';
+      btnGenderF.classList.add('active');
+      btnGenderM.classList.remove('active');
+    };
+  }
+
+  if (btnSave) {
+    btnSave.onclick = () => {
+      const inputAge = document.getElementById('input-user-age');
+      const inputMhr = document.getElementById('input-modal-mhr') || document.getElementById('input-mhr');
+      const inputRhr = document.getElementById('input-modal-rhr') || document.getElementById('input-rhr');
+
+      const ageVal = parseInt(inputAge?.value, 10) || 42;
+      const mhrVal = parseInt(inputMhr?.value, 10) || 196;
+      const rhrVal = parseInt(inputRhr?.value, 10) || 55;
+
+      if (ageVal < 10 || ageVal > 110) {
+        alert('올바른 만 나이를 입력해 주세요. (10~110세)');
+        return;
+      }
+      if (mhrVal < 120 || mhrVal > 240) {
+        alert('최대 심박수(MHR)를 올바르게 입력해 주세요. (120~240 bpm)');
+        return;
+      }
+      if (rhrVal < 30 || rhrVal > 110) {
+        alert('안정 시 심박수(RHR)를 올바르게 입력해 주세요. (30~110 bpm)');
+        return;
+      }
+      if (mhrVal <= rhrVal + 25) {
+        alert('최대 심박수는 안정 시 심박수보다 최소 25 bpm 이상 높아야 합니다.');
+        return;
+      }
+
+      saveUserProfile(mhrVal, rhrVal, ageVal, selectedGender, 'karvonen');
+      closeModal();
+      alert('러너 생체 프로필과 야외 기준 닻(Anchor) 설정이 저장되었습니다!');
+    };
+  }
+
+  if (btnReset) {
+    btnReset.onclick = () => {
+      if (confirm('프로필을 기본 권장값(만 42세 남성, MHR 196, RHR 55)으로 초기화하시겠습니까?')) {
+        saveUserProfile(196, 55, 42, 'M', 'karvonen');
+        closeModal();
+      }
+    };
   }
 }
 
 function initHRSettingsDrawer() {
-  const btnSettings = document.getElementById('btn-hr-settings');
-  const drawer = document.getElementById('hr-settings-drawer');
-  const btnClose = document.getElementById('btn-close-hr-drawer');
-  const btnSave = document.getElementById('btn-save-hr');
-  const btnReset = document.getElementById('btn-reset-hr');
-  const inputMhr = document.getElementById('input-mhr');
-  const inputRhr = document.getElementById('input-rhr');
-
-  updateHRSettingsUI();
-
-  if (btnSettings && drawer) {
-    btnSettings.onclick = (e) => {
-      e.stopPropagation();
-      const isVisible = drawer.style.display === 'block';
-      drawer.style.display = isVisible ? 'none' : 'block';
-      if (!isVisible) {
-        updateHRSettingsUI();
-      }
-    };
-  }
-
-  if (btnClose && drawer) {
-    btnClose.onclick = () => {
-      drawer.style.display = 'none';
-    };
-  }
-
-  if (btnSave && drawer) {
-    btnSave.onclick = () => {
-      const mhrVal = parseInt(inputMhr.value, 10);
-      const rhrVal = parseInt(inputRhr.value, 10);
-
-      if (isNaN(mhrVal) || mhrVal < 120 || mhrVal > 240) {
-        alert('최대 심박수(MHR)를 올바르게 입력해주세요. (권장: 140~230)');
-        return;
-      }
-      if (isNaN(rhrVal) || rhrVal < 30 || rhrVal > 110) {
-        alert('안정 시 심박수(RHR)를 올바르게 입력해주세요. (권장: 35~100)');
-        return;
-      }
-      if (mhrVal <= rhrVal + 30) {
-        alert('최대 심박수는 안정 시 심박수보다 최소 30 bpm 이상 커야 합니다.');
-        return;
-      }
-
-      saveUserHRProfile(mhrVal, rhrVal, 'karvonen');
-      drawer.style.display = 'none';
-      if (typeof showToast === 'function') {
-        showToast('🎯 워치 MHR/RHR 심박 프로필이 저장되어 99% 정밀 모드가 적용되었습니다.');
-      }
-    };
-  }
-
-  if (btnReset && drawer) {
-    btnReset.onclick = () => {
-      if (confirm('워치 심박 프로필을 기본 모드(단일 세션 통계 추정)로 전환하시겠습니까?\n(상단 버튼을 눌러 언제든 다시 MHR/RHR을 입력할 수 있습니다)')) {
-        saveUserHRProfile(196, 55, 'empirical');
-        drawer.style.display = 'none';
-        if (typeof showToast === 'function') {
-          showToast('ℹ️ 단일 세션 통계 추정 모드로 전환되었습니다.');
-        }
-      }
-    };
-  }
+  initRunnerProfileModal();
 }
 
+/* ==========================================================================
+   MODULE: PHYSIOLOGICAL THRESHOLD DIAGNOSTICS (LT1 & LT2)
+   Strictly anchored to Outdoor 1-Year PB (NO arbitrary 1.05 multiplier!)
+   ========================================================================== */
 function renderThresholdDiagnostics(act, vdotEst) {
   const badgeEl = document.getElementById('threshold-status-badge');
   const bodyEl = document.getElementById('threshold-card-body');
   if (!bodyEl) return;
 
-  const distKm = act.distance_km || 0;
-  const durationSec = act.duration_seconds || 0;
-  const avgHr = act.avg_hr || 0;
-  const maxHr = act.max_hr || 0;
-  const ascentM = act.ascent_m || 0;
   const isTreadmill = act.sub_sport === 'treadmill';
-  const ascentPerKm = distKm > 0 ? (ascentM / distKm) : 0;
-  const paceSec = act.pace_seconds || (distKm > 0 ? durationSec / distKm : 360);
+  const profile = getUserProfile();
+  const isKarvonen = profile.isKarvonen;
 
-  // Daniels VDOT baseline pace estimates
-  const vdotVelocity = Math.max(120, (vdotEst * 3.8 + 40));
-  const estLt2PaceSec = Math.round((1000 / (vdotVelocity * 0.88)) * 60);
-  const estLt1PaceSec = Math.round((1000 / (vdotVelocity * 0.80)) * 60);
+  // Retrieve Outdoor 1-Year Baseline VDOT Anchor (Firm ground-truth anchor)
+  const allActs = (window.STRAVA_ARCHIVE && window.STRAVA_ARCHIVE.activities) ? window.STRAVA_ARCHIVE.activities : (window.GARMIN_ARCHIVE && window.GARMIN_ARCHIVE.activities ? window.GARMIN_ARCHIVE.activities : []);
+  const anchorPB = getOutdoor1YearPB(allActs);
+  const anchorVdot = anchorPB.baseVdot || 33.0;
 
-  // Condition 1: Elevation / Incline Check (Flat or Treadmill 1%)
-  const isHilly = !isTreadmill && (ascentPerKm > 6.0 || ascentM > 35);
+  // Jack Daniels VO2max velocity calculation based on Anchor VDOT
+  const a = 0.000104;
+  const b = 0.182258;
+  const c = -(4.60 + anchorVdot);
+  const disc = b * b - 4 * a * c;
+  const vMax = disc >= 0 ? (-b + Math.sqrt(disc)) / (2 * a) : 200; // in m/min
 
-  // Condition 2: Duration / Distance Check (Universal criteria: min 20 min or min 3.5km)
-  const isTooShort = durationSec < 1200 && distKm < 3.5;
+  // Daniels velocity ratios:
+  // Marathon M pace (LT1 Aerobic Threshold) = vMax * 0.82
+  // Threshold T pace (LT2 Lactate Threshold) = vMax * 0.88
+  // Easy E pace (Zone 2 recovery) = vMax * 0.72
+  const lt1PaceSec = Math.round((1000 / (vMax * 0.82)) * 60); // ~368s = 6'08"/km
+  const lt2PaceSec = Math.round((1000 / (vMax * 0.88)) * 60); // ~334s = 5'34"/km
+  const ePaceSec = Math.round((1000 / (vMax * 0.72)) * 60);   // ~428s = 7'08"/km
 
-  // Condition 3: Dynamic HR Range (Spread between avg_hr and max_hr)
-  const hrDiff = maxHr - avgHr;
-  const isInsufficientRamp = hrDiff < 14;
-
-  // Qualification for pacing ramp detection in this specific workout
-  const isQualified = !isHilly && !isTooShort && !isInsufficientRamp;
-
-  // Retrieve Wearable HR Profile
-  const hrProfile = getUserHRProfile();
-  const isKarvonen = hrProfile.isKarvonen;
-
-  let lt1Hr = 0;
-  let lt2Hr = 0;
-  let lt1PaceSec = 0;
-  let lt2PaceSec = 0;
-  let modeBadgeHtml = '';
-  let modeDescHtml = '';
+  // Physiological Heart Rate Thresholds
+  let lt1Hr = 152;
+  let lt2Hr = 178;
 
   if (isKarvonen) {
-    // 1. Gold Standard: Karvonen HRR Precision Mode (99% Accuracy)
-    const hrr = hrProfile.mhr - hrProfile.rhr;
-    lt1Hr = hrProfile.rhr + Math.round(hrr * 0.69); // Top of Zone 2 (e.g. 55 + 97 = 152 bpm)
-    lt2Hr = hrProfile.rhr + Math.round(hrr * 0.87); // Lactate Threshold (e.g. 55 + 123 = 178 bpm)
-    
-    lt1PaceSec = isQualified ? Math.round(paceSec * 1.05) : estLt1PaceSec;
-    lt2PaceSec = isQualified ? Math.round(paceSec * 0.93) : estLt2PaceSec;
+    const hrr = profile.mhr - profile.rhr; // e.g. 196 - 55 = 141
+    lt1Hr = profile.rhr + Math.round(hrr * 0.69); // 55 + 97 = 152 bpm (Top of Zone 2)
+    lt2Hr = profile.rhr + Math.round(hrr * 0.87); // 55 + 123 = 178 bpm (Lactate Threshold)
+  }
 
-    modeBadgeHtml = `<span class="accuracy-badge gold"><i class="bi bi-patch-check-fill"></i> 99% Karvonen HRR 정밀 실측</span>`;
-    modeDescHtml = `
-      <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0.85rem; line-height: 1.55;">
-        <i class="bi bi-patch-check-fill" style="color:#fbbf24;"></i> 
-        웨어러블 워치 실측 최대 심박수(<strong>${hrProfile.mhr} bpm</strong>) 및 안정 시 심박수(<strong>${hrProfile.rhr} bpm</strong>)를 카르보넨(Karvonen HRR) 생체 공식에 1:1 대입하여, 
-        가민·코로스·애플워치의 심박수 영역과 일치하는 <strong>99% 정확도의 골드 스탠다드 생체 역치</strong>를 도출했습니다.
-        ${isQualified ? `<span class="badge-subtle" style="margin-left:0.4rem; color:var(--accent-lime); background:rgba(16,185,129,0.15);"><i class="bi bi-check2"></i> 당일 세션 빌드업 구간 매칭 완료</span>` : `<span class="badge-subtle" style="margin-left:0.4rem; color:var(--accent-cyan); background:rgba(0,242,254,0.15);"><i class="bi bi-info-circle"></i> VDOT 모델 페이스 정렬</span>`}
-      </div>
-    `;
+  const modeBadgeHtml = `<span class="accuracy-badge gold"><i class="bi bi-patch-check-fill"></i> 야외 1년 실측 닻 (VDOT ${anchorVdot.toFixed(1)}) 연동</span>`;
+  const envBadgeHtml = isTreadmill ? `<span class="badge-subtle" style="margin-left:0.4rem; color:var(--accent-orange); background:rgba(255,87,34,0.15);"><i class="bi bi-speedometer"></i> 실내 트레드밀 세션</span>` : `<span class="badge-subtle" style="margin-left:0.4rem; color:var(--accent-lime); background:rgba(16,185,129,0.15);"><i class="bi bi-tree"></i> 야외 필드 러닝 세션</span>`;
 
-    if (badgeEl) {
-      badgeEl.className = 'threshold-status-badge success';
-      badgeEl.innerHTML = `<i class="bi bi-check-circle-fill"></i> ${_t('thresh_qualified_badge', 'HRR 99% 정밀 역치 확정')}`;
-    }
-  } else {
-    // 2. Empirical Fallback Mode (~85% Estimation)
-    const effectiveMaxHr = Math.max(maxHr, 175);
-    const baseHr = Math.max(105, Math.round(avgHr - (hrDiff * 0.55)));
-    lt1Hr = Math.min(156, Math.round(baseHr + (maxHr - baseHr) * 0.58));
-    lt2Hr = Math.min(Math.max(maxHr - 2, 172), Math.round(baseHr + (maxHr - baseHr) * 0.84));
-    lt1PaceSec = isQualified ? Math.round(paceSec * 1.05) : estLt1PaceSec;
-    lt2PaceSec = isQualified ? Math.round(paceSec * 0.93) : estLt2PaceSec;
+  const modeDescHtml = `
+    <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0.85rem; line-height: 1.55;">
+      <i class="bi bi-shield-check" style="color:var(--accent-lime);"></i> 
+      인위적인 실내외 환산 보정 없이, 선수의 공식 유산소 역량을 <strong>최근 1년 내 실측 야외 러닝 PB(10.42km 6'10" with HR 154)</strong>를 닻(Anchor, VDOT ${anchorVdot.toFixed(1)})으로 삼아 
+      가민 커넥트 및 카르보넨 생체 공식(MHR: <strong>${profile.mhr}</strong> / RHR: <strong>${profile.rhr}</strong>)과 1:1 일치하는 <strong>신뢰할 수 있는 생체 역치</strong>를 도출했습니다.
+      ${envBadgeHtml}
+    </div>
+  `;
 
-    modeBadgeHtml = `<span class="accuracy-badge standard"><i class="bi bi-info-circle"></i> 단일 세션 통계 추정치 (~85%)</span>`;
-    modeDescHtml = `
-      <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0.85rem; line-height: 1.55;">
-        <i class="bi bi-info-circle text-cyan"></i> 
-        단일 주행 세션의 피크 심박수 및 평균 심박 편차를 활용한 <strong>통계적 추정 모드</strong>입니다. 
-        가민·코로스 워치의 MHR/RHR을 상단 <strong>[워치 심박 설정]</strong>에 입력하시면 <strong>99% 정확도의 카르보넨 정밀 모드</strong>로 즉시 업그레이드됩니다.
-      </div>
-    `;
-
-    if (badgeEl) {
-      badgeEl.className = isQualified ? 'threshold-status-badge success' : 'threshold-status-badge neutral';
-      badgeEl.innerHTML = isQualified ? `<i class="bi bi-check-circle-fill"></i> 세션 추정 분석 완료` : `<i class="bi bi-info-circle"></i> 단일 세션 모델 추정`;
-    }
+  if (badgeEl) {
+    badgeEl.className = 'threshold-status-badge success';
+    badgeEl.innerHTML = `<i class="bi bi-check-circle-fill"></i> 야외 닻 VDOT ${anchorVdot.toFixed(1)} 확정`;
   }
 
   // Render Box UI

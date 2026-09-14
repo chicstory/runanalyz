@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20260914_v8_cardfit">
+  <link rel="stylesheet" href="style.css?v=20260915_v9_anchor">
 </head>
 <body>
   <div class="app-container">
@@ -63,8 +63,18 @@
           <i class="bi bi-arrow-clockwise"></i> <span data-i18n="btn_refresh">새로고침</span>
         </button>
         <div class="header-nav-quick">
-          <button class="btn-strava-auth" id="btn-strava-auth" title="내 Strava 계정 실시간 연동">
-            <i class="bi bi-strava" style="color: #ffffff;"></i> <span id="strava-auth-btn-text">Strava 연동</span>
+          <div class="strava-nav-box" id="strava-nav-box">
+            <button class="btn-strava-auth" id="btn-strava-auth" title="내 Strava 계정 실시간 연동">
+              <i class="bi bi-strava" style="color: #ffffff;"></i> <span id="strava-auth-btn-text">Strava 연동</span>
+            </button>
+            <div class="strava-connected-pill" id="strava-connected-pill" style="display: none;">
+              <span class="strava-user-tag" id="strava-user-tag"><i class="bi bi-strava"></i> 러너</span>
+              <button class="btn-strava-sync-mini" id="btn-strava-resync" title="Strava 최신 기록 다시 동기화"><i class="bi bi-arrow-repeat"></i></button>
+              <button class="btn-strava-disconnect-mini" id="btn-strava-disconnect" title="Strava 연동 해제 및 로컬 캐시 초기화"><i class="bi bi-power"></i> 해제</button>
+            </div>
+          </div>
+          <button class="btn-header-link" id="btn-open-profile-modal" title="러너 생체 프로필 &amp; 심박 설정">
+            <i class="bi bi-person-gear text-orange"></i> <span data-i18n="nav_profile">러너 프로필</span>
           </button>
           <a href="guide.html" class="btn-header-link" title="메뉴 이용 가이드"><i class="bi bi-book-half text-orange"></i> <span data-i18n="nav_guide">가이드</span></a>
           <a href="about.html" class="btn-header-link" title="서비스 소개 및 문의"><i class="bi bi-info-circle text-cyan"></i> <span data-i18n="nav_about">소개·문의</span></a>
@@ -399,6 +409,18 @@
               <div class="ic-stat-item">
                 <span class="ic-stat-label">AEROBIC EF</span>
                 <span class="ic-stat-val" id="sc-ef" style="color:var(--accent-lime);">0.000</span>
+              </div>
+            </div>
+
+            <!-- The State of Running 2019 Global Benchmark Badge -->
+            <div class="ic-global-benchmark-badge" id="sc-global-benchmark">
+              <div class="ic-gb-left">
+                <i class="bi bi-globe-americas text-cyan"></i>
+                <span id="sc-benchmark-text">40대 남성 상위 14.8%</span>
+              </div>
+              <div class="ic-gb-right">
+                <span class="badge-tier" id="sc-benchmark-tier">Master Pacer</span>
+                <span class="badge-source">State of Running 2019</span>
               </div>
             </div>
 
@@ -863,6 +885,86 @@
 
   </div>
 
+  <!-- Runner Profile & Heart Rate Modal -->
+  <div id="runner-profile-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-card runner-profile-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="bi bi-person-bounding-box text-orange"></i> 러너 생체 프로필 &amp; 기준 설정
+        </div>
+        <button class="btn-modal-close" id="btn-close-profile-modal" title="닫기">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">
+          입력하신 나이와 심박 정보는 <strong>외부 서버로 전송되지 않으며, 사용자 브라우저에만 안전하게 보관</strong>됩니다.<br>
+          글로벌 벤치마크(The State of Running 2019) 및 Karvonen 99% 정밀 역치 산출에 사용됩니다.
+        </p>
+
+        <!-- Profile Inputs Grid -->
+        <div class="profile-inputs-grid">
+          <div class="profile-field">
+            <label for="input-user-age"><i class="bi bi-calendar-event"></i> 만 나이 (Age)</label>
+            <div class="input-unit-wrap">
+              <input type="number" id="input-user-age" value="42" min="15" max="99">
+              <span class="unit-text">세</span>
+            </div>
+          </div>
+          <div class="profile-field">
+            <label><i class="bi bi-gender-ambiguous"></i> 성별 (Gender)</label>
+            <div class="gender-toggle-group">
+              <button type="button" class="btn-gender active" data-gender="M" id="btn-gender-m">남성 (M)</button>
+              <button type="button" class="btn-gender" data-gender="F" id="btn-gender-f">여성 (F)</button>
+            </div>
+          </div>
+          <div class="profile-field">
+            <label for="input-modal-mhr"><i class="bi bi-heart-pulse-fill text-pink"></i> 최대 심박수 (MHR)</label>
+            <div class="input-unit-wrap">
+              <input type="number" id="input-modal-mhr" value="196" min="140" max="230">
+              <span class="unit-text">bpm</span>
+            </div>
+          </div>
+          <div class="profile-field">
+            <label for="input-modal-rhr"><i class="bi bi-heart text-cyan"></i> 안정 시 심박수 (RHR)</label>
+            <div class="input-unit-wrap">
+              <input type="number" id="input-modal-rhr" value="55" min="35" max="100">
+              <span class="unit-text">bpm</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1-Year Outdoor Anchor Summary Card -->
+        <div class="outdoor-anchor-card">
+          <div class="oac-header">
+            <i class="bi bi-tree-fill text-lime"></i> <strong>공인 야외 기준 닻 (Outdoor Anchor Baseline)</strong>
+          </div>
+          <div class="oac-body">
+            <div>🌲 최근 1년 야외 실측 PB: <strong>10.42km (6'10"/km, HR 154)</strong> &middot; 5.01km (6'05"/km)</div>
+            <div>닻 기준 VDOT: <strong id="modal-anchor-vdot" style="color:var(--accent-lime);">33.0</strong> (야외 유산소 역치 LT1: <strong>6'08" ~ 6'15"/km</strong>, 152 bpm)</div>
+          </div>
+        </div>
+
+        <!-- Strava Account Management in Modal -->
+        <div class="modal-strava-section" id="modal-strava-section">
+          <div class="mss-header">
+            <i class="bi bi-strava text-orange"></i> <strong>Strava 연동 계정 관리</strong>
+          </div>
+          <div class="mss-content" id="modal-strava-status-text">
+            현재 Strava 계정 연결 상태를 관리합니다.
+          </div>
+          <div class="mss-actions" style="margin-top:0.6rem;">
+            <button type="button" class="btn-danger-outline" id="btn-modal-strava-disconnect" style="display:none;">
+              <i class="bi bi-power"></i> Strava 계정 연동 해제 (로컬 캐시 100% 영구 삭제)
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-ghost" id="btn-reset-profile">기본값 복원</button>
+        <button type="button" class="btn-primary-gradient" id="btn-save-profile">프로필 저장 및 적용</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Strava OAuth & Data Sync Loading Overlay Modal -->
   <div id="strava-sync-overlay" class="strava-sync-overlay" style="display: none;">
     <div class="sync-modal-box">
@@ -880,9 +982,9 @@
     </div>
   </div>
 
-  <script src="strava_all_activities.js?v=20260914_v8_cardfit"></script>
-  <script src="activities_data.js?v=20260914_v8_cardfit"></script>
-  <script src="i18n.js?v=20260914_v8_cardfit"></script>
-  <script src="app.js?v=20260914_v8_cardfit"></script>
+  <script src="strava_all_activities.js?v=20260915_v9_anchor"></script>
+  <script src="activities_data.js?v=20260915_v9_anchor"></script>
+  <script src="i18n.js?v=20260915_v9_anchor"></script>
+  <script src="app.js?v=20260915_v9_anchor"></script>
 </body>
 </html>

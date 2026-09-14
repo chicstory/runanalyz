@@ -4353,3 +4353,449 @@ html[lang="en"], html[lang="es"] {
   height: 100%;
   background: #ff9100;
 }
+
+/* ==========================================================================
+   HEADER STRAVA CONNECTED PILL & RUNNER PROFILE BUTTON
+   ========================================================================== */
+.strava-nav-box {
+  display: inline-flex;
+  align-items: center;
+}
+
+.strava-connected-pill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(252, 76, 2, 0.12);
+  border: 1px solid rgba(252, 76, 2, 0.35);
+  border-radius: 12px;
+  padding: 0.25rem 0.5rem;
+  gap: 0.4rem;
+  font-family: var(--font-outfit);
+}
+
+.strava-user-tag {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding-right: 0.35rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-strava-sync-mini {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0.2rem 0.35rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+.btn-strava-sync-mini:hover {
+  color: var(--accent-cyan);
+  background: rgba(0, 242, 254, 0.15);
+}
+
+.btn-strava-disconnect-mini {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  cursor: pointer;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  font-family: var(--font-outfit);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+}
+.btn-strava-disconnect-mini:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+.btn-runner-profile {
+  border-color: rgba(255, 87, 34, 0.35) !important;
+  background: rgba(255, 87, 34, 0.08) !important;
+  cursor: pointer;
+}
+.btn-runner-profile:hover {
+  background: rgba(255, 87, 34, 0.2) !important;
+  border-color: rgba(255, 87, 34, 0.6) !important;
+}
+
+/* ==========================================================================
+   RUNNER PROFILE MODAL
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(3, 7, 18, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.runner-profile-card {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 87, 34, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: modalFadeIn 0.25s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.runner-profile-card .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.runner-profile-card .modal-title {
+  font-family: var(--font-outfit);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-modal-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.2rem;
+  transition: color 0.2s;
+}
+.btn-modal-close:hover {
+  color: #fff;
+}
+
+.runner-profile-card .modal-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.runner-profile-card .modal-desc {
+  font-size: 0.84rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin: 0;
+  background: rgba(0, 242, 254, 0.05);
+  border-left: 3px solid var(--accent-cyan);
+  padding: 0.65rem 0.85rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.profile-inputs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.profile-field label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  font-family: var(--font-outfit);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.input-unit-wrap {
+  display: flex;
+  align-items: center;
+  background: rgba(9, 13, 22, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 0.5rem 0.85rem;
+  transition: border-color 0.2s;
+}
+.input-unit-wrap:focus-within {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+}
+
+.input-unit-wrap input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.input-unit-wrap .unit-text {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  font-weight: 600;
+  margin-left: 0.3rem;
+}
+
+.gender-toggle-group {
+  display: flex;
+  background: rgba(9, 13, 22, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 3px;
+  gap: 3px;
+  height: 42px;
+  box-sizing: border-box;
+}
+
+.btn-gender {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: var(--font-outfit);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-gender.active {
+  background: rgba(255, 87, 34, 0.25);
+  color: #ff8a65;
+  box-shadow: 0 0 10px rgba(255, 87, 34, 0.2);
+}
+
+.outdoor-anchor-card {
+  background: rgba(16, 185, 129, 0.06);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+}
+.oac-header {
+  font-size: 0.84rem;
+  font-family: var(--font-outfit);
+  color: #10b981;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.oac-body {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.modal-strava-section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+}
+.mss-header {
+  font-size: 0.84rem;
+  font-family: var(--font-outfit);
+  color: #fc4c02;
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.mss-content {
+  font-size: 0.82rem;
+  color: #94a3b8;
+}
+
+.btn-danger-outline {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #f87171;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: var(--font-outfit);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: all 0.2s;
+}
+.btn-danger-outline:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+.runner-profile-card .modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.15rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(9, 13, 22, 0.5);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #94a3b8;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: var(--font-outfit);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-ghost:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary-gradient {
+  background: linear-gradient(135deg, #ff5722 0%, #ff8a65 100%);
+  color: #fff;
+  border: none;
+  padding: 0.65rem 1.4rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  font-family: var(--font-outfit);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+  transition: all 0.2s;
+}
+.btn-primary-gradient:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 87, 34, 0.6);
+}
+
+/* ==========================================================================
+   DAILY INSTA CARD: THE STATE OF RUNNING 2019 GLOBAL BENCHMARK BADGE
+   ========================================================================== */
+.ic-global-benchmark-badge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 242, 254, 0.06);
+  border: 1px solid rgba(0, 242, 254, 0.22);
+  border-radius: 10px;
+  padding: 0.4rem 0.75rem;
+  margin-bottom: 0.75rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.ic-gb-left {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #fff;
+  font-family: var(--font-outfit);
+}
+
+.ic-gb-right {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.badge-tier {
+  font-family: var(--font-outfit);
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #00f2fe;
+  background: rgba(0, 242, 254, 0.15);
+  border-radius: 6px;
+  padding: 0.15rem 0.45rem;
+}
+
+.badge-source {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  letter-spacing: 0.2px;
+}
+
+/* Theme overrides for Benchmark Badge */
+.insta-card.theme-minimal .ic-global-benchmark-badge {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+.insta-card.theme-minimal .ic-gb-left {
+  color: #0f172a;
+}
+.insta-card.theme-minimal .badge-tier {
+  color: #0284c7;
+  background: #e0f2fe;
+}
+.insta-card.theme-minimal .badge-source {
+  color: #64748b;
+}
+
+/* Format scale for square (1:1) and mobile */
+.insta-card.format-square .ic-global-benchmark-badge {
+  padding: 0.25rem 0.55rem;
+  margin-bottom: 0.45rem;
+}
+.insta-card.format-square .ic-gb-left {
+  font-size: 0.68rem;
+}
+.insta-card.format-square .badge-tier {
+  font-size: 0.6rem;
+  padding: 0.1rem 0.35rem;
+}
+.insta-card.format-square .badge-source {
+  display: none; /* Hide source tag in tight square to prevent wrapping */
+}
+
+@media (max-width: 480px) {
+  .profile-inputs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
