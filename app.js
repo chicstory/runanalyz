@@ -1954,9 +1954,9 @@ function renderWeeklyInstaCard(w) {
   const chipsEl = document.getElementById('wc-card-chips');
   if (chipsEl && w.typeCounts) {
     const chipItems = [];
-    if (w.typeCounts.low > 0) chipItems.push(`<span class="badge-count badge-wo-low" style="font-size:0.65rem; padding:0.2rem 0.45rem;">🟢 저강도 ${w.typeCounts.low}회</span>`);
-    if (w.typeCounts.high > 0) chipItems.push(`<span class="badge-count badge-wo-high" style="font-size:0.65rem; padding:0.2rem 0.45rem;">🔴 고강도 ${w.typeCounts.high}회</span>`);
-    if (w.typeCounts.lsd > 0) chipItems.push(`<span class="badge-count badge-wo-lsd" style="font-size:0.65rem; padding:0.2rem 0.45rem;">🔵 LSD ${w.typeCounts.lsd}회</span>`);
+    if (w.typeCounts.low > 0) chipItems.push(`<span class="badge-count badge-wo-low">🟢 저강도 ${w.typeCounts.low}회</span>`);
+    if (w.typeCounts.high > 0) chipItems.push(`<span class="badge-count badge-wo-high">🔴 고강도 ${w.typeCounts.high}회</span>`);
+    if (w.typeCounts.lsd > 0) chipItems.push(`<span class="badge-count badge-wo-lsd">🔵 LSD ${w.typeCounts.lsd}회</span>`);
     chipsEl.innerHTML = chipItems.join(' ');
   }
 

@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20260914_v5_acwr">
+  <link rel="stylesheet" href="style.css?v=20260914_v8_cardfit">
 </head>
 <body>
   <div class="app-container">
@@ -416,11 +416,13 @@
 
             <!-- Single Card Footer: Cadence, LT1 Threshold, Calories -->
             <div class="ic-footer ic-pol-footer">
-              <div class="ic-pol-tag" id="sc-footer-tag">
-                <i class="bi bi-activity text-lime"></i> RUN BIOMETRICS
-              </div>
-              <div class="ic-pol-val" id="sc-footer-metrics" style="font-size: 0.64rem;">
-                <span id="sc-cadence">⚡ 178 spm</span> &middot; <span id="sc-lt1">LT1 152 bpm</span> &middot; <span id="sc-cal">640 kcal</span>
+              <div class="ic-pol-labels-row">
+                <div class="ic-pol-tag" id="sc-footer-tag">
+                  <i class="bi bi-activity text-lime"></i> RUN BIOMETRICS
+                </div>
+                <div class="ic-pol-val" id="sc-footer-metrics">
+                  <span id="sc-cadence">⚡ 178 spm</span> &middot; <span id="sc-lt1">LT1 152 bpm</span> &middot; <span id="sc-cal">640 kcal</span>
+                </div>
               </div>
             </div>
           </div>
@@ -551,17 +553,19 @@
               </div>
             </div>
 
-            <!-- Card Footer: 80/20 Polarized Ratio Bar (Single Line) -->
+            <!-- Card Footer: 80/20 Polarized Ratio Bar -->
             <div class="ic-footer ic-pol-footer">
-              <div class="ic-pol-tag">
-                <i class="bi bi-pie-chart-fill text-orange"></i> 80/20 POLARIZED
+              <div class="ic-pol-labels-row">
+                <div class="ic-pol-tag">
+                  <i class="bi bi-pie-chart-fill text-orange"></i> 80/20 POLARIZED
+                </div>
+                <div class="ic-pol-val" id="wc-card-pol-val">
+                  <span style="color:var(--accent-lime);">저강도 80%</span> : <span style="color:var(--accent-orange);">고강도 20%</span>
+                </div>
               </div>
               <div class="ic-pol-bar-wrap">
                 <div class="ic-pol-bar-low" id="wc-card-pol-bar-low" style="width: 80%;"></div>
                 <div class="ic-pol-bar-high" id="wc-card-pol-bar-high" style="width: 20%;"></div>
-              </div>
-              <div class="ic-pol-val" id="wc-card-pol-val">
-                <span style="color:var(--accent-lime);">저강도 80%</span> : <span style="color:var(--accent-orange);">고강도 20%</span>
               </div>
             </div>
           </div>
@@ -718,17 +722,19 @@
               </div>
             </div>
 
-            <!-- Card Footer: 80/20 Polarized Ratio Bar (Single Line) -->
+            <!-- Card Footer: 80/20 Polarized Ratio Bar -->
             <div class="ic-footer ic-pol-footer">
-              <div class="ic-pol-tag">
-                <i class="bi bi-pie-chart-fill text-orange"></i> <span id="card-pol-tag">80/20 POLARIZED</span>
+              <div class="ic-pol-labels-row">
+                <div class="ic-pol-tag">
+                  <i class="bi bi-pie-chart-fill text-orange"></i> <span id="card-pol-tag">80/20 POLARIZED</span>
+                </div>
+                <div class="ic-pol-val" id="card-pol-val">
+                  <span style="color:var(--accent-lime);">저강도 80%</span> <span style="color:var(--text-muted);">:</span> <span style="color:var(--accent-orange);">고강도 20%</span>
+                </div>
               </div>
               <div class="ic-pol-bar-wrap">
                 <div class="ic-pol-bar-low" id="card-pol-bar-low" style="width: 80%;"></div>
                 <div class="ic-pol-bar-high" id="card-pol-bar-high" style="width: 20%;"></div>
-              </div>
-              <div class="ic-pol-val" id="card-pol-val">
-                <span style="color:var(--accent-lime);">저강도 80%</span> <span style="color:var(--text-muted);">:</span> <span style="color:var(--accent-orange);">고강도 20%</span>
               </div>
             </div>
           </div>
@@ -874,9 +880,9 @@
     </div>
   </div>
 
-  <script src="strava_all_activities.js?v=20260914_v7_weeklyfix"></script>
-  <script src="activities_data.js?v=20260914_v7_weeklyfix"></script>
-  <script src="i18n.js?v=20260914_v7_weeklyfix"></script>
-  <script src="app.js?v=20260914_v7_weeklyfix"></script>
+  <script src="strava_all_activities.js?v=20260914_v8_cardfit"></script>
+  <script src="activities_data.js?v=20260914_v8_cardfit"></script>
+  <script src="i18n.js?v=20260914_v8_cardfit"></script>
+  <script src="app.js?v=20260914_v8_cardfit"></script>
 </body>
 </html>
