@@ -3065,3 +3065,557 @@ function initRunningHeatmap(activities) {
     };
   }
 }
+
+// ==========================================================================
+// 7-Day Training Plan & Instagram Card Engine (Interactive Module)
+// ==========================================================================
+function calcVdotFromRace(distM, timeSec) {
+  const tMin = timeSec / 60.0;
+  if (tMin <= 0 || distM <= 0) return 33.0;
+  const v = distM / tMin; // m/min
+  const vo2 = -4.60 + (0.182258 * v) + (0.000104 * v * v);
+  const percentMax = 0.8 + (0.1894393 * Math.exp(-0.012778 * tMin)) + (0.2989558 * Math.exp(-0.1932605 * tMin));
+  if (percentMax <= 0) return 33.0;
+  const vdot = vo2 / percentMax;
+  return Math.max(15, Math.min(85, vdot));
+}
+
+function calcDanielsPaces(vdot) {
+  function vo2ToPaceSec(targetVo2) {
+    const a = 0.000104;
+    const b = 0.182258;
+    const c = -(4.60 + targetVo2);
+    const disc = b * b - 4 * a * c;
+    if (disc < 0) return 360;
+    const v = (-b + Math.sqrt(disc)) / (2 * a);
+    return Math.round(1000.0 / (v / 60.0));
+  }
+  return {
+    easySec: vo2ToPaceSec(vdot * 0.70),
+    tempoSec: vo2ToPaceSec(vdot * 0.86)
+  };
+}
+
+function formatPaceSec(sec) {
+  const m = Math.floor(sec / 60);
+  const s = Math.round(sec % 60);
+  return `${m}'${s < 10 ? '0' : ''}${s}"/km`;
+}
+
+function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec, tempoSec, mhr, rhr, mafHr) {
+  // Karvonen HR zones
+  const hrr = Math.max(40, mhr - rhr);
+  const hrEasyMin = Math.round(rhr + (hrr * 0.58));
+  const hrEasyMax = Math.round(rhr + (hrr * 0.72));
+  const hrTempoMin = Math.round(rhr + (hrr * 0.82));
+  const hrTempoMax = Math.round(rhr + (hrr * 0.90));
+
+  const easyPaceStr = `${formatPaceSec(easySec)} ~ ${formatPaceSec(easySec + 25)}`;
+  const tempoPaceStr = formatPaceSec(tempoSec);
+  const easyHrStr = `${hrEasyMin}~${hrEasyMax} bpm (≤ ${mafHr})`;
+  const tempoHrStr = `${hrTempoMin}~${hrTempoMax} bpm`;
+
+  // Distribute distances
+  // LSD is ~38% of total mileage
+  const lsdKm = Math.max(4.0, Math.round(totalKm * 0.38 * 10) / 10);
+  // High intensity tempo is highKm
+  const tKm = Math.max(3.0, Math.round(highKm * 10) / 10);
+  // Remaining low distance for other easy run days
+  const remLowKm = Math.max(0, lowKm - lsdKm);
+
+  const daysMeta = [
+    { dayEng: 'MON', dayKor: '월', key: 'mon' },
+    { dayEng: 'TUE', dayKor: '화', key: 'tue' },
+    { dayEng: 'WED', dayKor: '수', key: 'wed' },
+    { dayEng: 'THU', dayKor: '목', key: 'thu' },
+    { dayEng: 'FRI', dayKor: '금', key: 'fri' },
+    { dayEng: 'SAT', dayKor: '토', key: 'sat' },
+    { dayEng: 'SUN', dayKor: '일', key: 'sun' }
+  ];
+
+  // Configure templates based on running days
+  const result = [];
+
+  daysMeta.forEach(dm => {
+    const isWeekendLong = (longDay === 'sun' && dm.key === 'sun') || (longDay === 'sat' && dm.key === 'sat');
+
+    if (isWeekendLong) {
+      result.push({
+        ...dm,
+        type: 'LSD',
+        badgeClass: 'badge-lsd',
+        typeText: '롱런 (LSD)',
+        title: '주말 장거리 빌드업 LSD',
+        guide: '대화가 편안한 Zone 2 저심박을 끝까지 지키며 지구력 기초 유산소 용량을 확장합니다.',
+        distKm: lsdKm,
+        paceStr: easyPaceStr,
+        hrStr: easyHrStr,
+        intensityTag: '저강도 유산소 80%'
+      });
+    } else if (dm.key === 'thu') {
+      // 80/20 Key Quality Session (Thursday Tempo)
+      result.push({
+        ...dm,
+        type: 'TEMPO',
+        badgeClass: 'badge-tempo',
+        typeText: '역치 (T-Pace)',
+        title: '80/20 고강도 젖산역치 템포런',
+        guide: `워밍업 1km + 본세션 ${(tKm - 2.0).toFixed(1)}km T페이스 지속주 + 쿨다운 1km. Zone 3 블랙홀을 배제하고 정확한 역치 자극에 집중합니다.`,
+        distKm: tKm,
+        paceStr: tempoPaceStr,
+        hrStr: tempoHrStr,
+        intensityTag: '고강도 역치 20%'
+      });
+    } else if (daysPerWeek >= 4 && dm.key === 'tue') {
+      const eDist = daysPerWeek === 5 ? (remLowKm * 0.45) : (remLowKm * 0.55);
+      result.push({
+        ...dm,
+        type: 'EASY',
+        badgeClass: 'badge-easy',
+        typeText: '이지런 (Easy)',
+        title: '회복 & 유산소 베이스 이지런',
+        guide: '호흡이 가쁘지 않도록 케이던스 175~180을 가볍게 유지하며 몸을 부드럽게 풉니다.',
+        distKm: Math.max(3.0, Math.round(eDist * 10) / 10),
+        paceStr: easyPaceStr,
+        hrStr: easyHrStr,
+        intensityTag: '저강도 유산소 80%'
+      });
+    } else if (daysPerWeek >= 5 && dm.key === 'sat' && longDay === 'sun') {
+      const eDist = remLowKm * 0.35;
+      result.push({
+        ...dm,
+        type: 'EASY',
+        badgeClass: 'badge-easy',
+        typeText: '조깅 (Shakeout)',
+        title: '주말 롱런 대비 셰이크아웃 조깅',
+        guide: '내일 장거리 러닝을 앞두고 다리 근육의 혈류 순환을 촉진하는 가벼운 조깅.',
+        distKm: Math.max(3.0, Math.round(eDist * 10) / 10),
+        paceStr: easyPaceStr,
+        hrStr: easyHrStr,
+        intensityTag: '저강도 유산소 80%'
+      });
+    } else if (daysPerWeek === 3 && dm.key === 'sat' && longDay === 'sun') {
+      result.push({
+        ...dm,
+        type: 'REST',
+        badgeClass: 'badge-rest',
+        typeText: '완전 휴식',
+        title: '주말 롱런 대비 에너지 비축 & 충전',
+        guide: '충분한 수분 섭취와 탄수화물 보충, 폼롤러 스트레칭으로 롱런 컨디션을 준비합니다.',
+        distKm: 0,
+        paceStr: '휴식 (N/A)',
+        hrStr: '안정시 회복',
+        intensityTag: '회복 & 재생'
+      });
+    } else if (dm.key === 'wed') {
+      result.push({
+        ...dm,
+        type: 'REST',
+        badgeClass: 'badge-rest',
+        typeText: '보강 운동',
+        title: '러너 보강운동 (코어 & 중둔근 강화)',
+        guide: '플랭크, 카프레이즈, 둔근 밴드 운동으로 무릎 부상을 예방하고 러닝 자세 안정성을 높입니다.',
+        distKm: 0,
+        paceStr: '보강 운동',
+        hrStr: '체중 저항 운동',
+        intensityTag: '부상 방지'
+      });
+    } else {
+      result.push({
+        ...dm,
+        type: 'REST',
+        badgeClass: 'badge-rest',
+        typeText: '완전 휴식',
+        title: '완전 휴식 & 근육 재생 (Rest & Recovery)',
+        guide: '80/20 트레이닝의 핵심은 쉬는 날 확실히 쉬어 근육 초회복을 유도하는 것입니다.',
+        distKm: 0,
+        paceStr: '완전 휴식',
+        hrStr: '안정시 회복',
+        intensityTag: '회복 & 재생'
+      });
+    }
+  });
+
+  return result;
+}
+
+function initTrainingPlanModule() {
+  const planPanel = document.getElementById('panel-plan');
+  if (!planPanel) return;
+
+  // 1. Interactive Form Controls
+  // 1-1. Gender Selector
+  let selectedGender = 'M';
+  const genderBtns = document.querySelectorAll('#plan-gender-group .plan-seg-btn');
+  genderBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      genderBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedGender = btn.dataset.gender || 'M';
+    });
+  });
+
+  // 1-2. Baseline Mode Switcher (PB vs MAF)
+  let currentPlanMode = 'pb';
+  const btnModePb = document.getElementById('btn-mode-pb');
+  const btnModeMaf = document.getElementById('btn-mode-maf');
+  const modePbBox = document.getElementById('plan-mode-pb-box');
+  const modeMafBox = document.getElementById('plan-mode-maf-box');
+
+  if (btnModePb && btnModeMaf) {
+    btnModePb.addEventListener('click', () => {
+      btnModePb.classList.add('active');
+      btnModeMaf.classList.remove('active');
+      currentPlanMode = 'pb';
+      if (modePbBox) modePbBox.style.display = 'block';
+      if (modeMafBox) modeMafBox.style.display = 'none';
+    });
+
+    btnModeMaf.addEventListener('click', () => {
+      btnModeMaf.classList.add('active');
+      btnModePb.classList.remove('active');
+      currentPlanMode = 'maf';
+      if (modeMafBox) modeMafBox.style.display = 'block';
+      if (modePbBox) modePbBox.style.display = 'none';
+    });
+  }
+
+  // 1-3. Race Distance Chips (PB Mode)
+  let selectedRaceDist = 10000;
+  const raceDistChips = document.querySelectorAll('#plan-race-dist-group .plan-chip');
+  raceDistChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      raceDistChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      selectedRaceDist = parseFloat(chip.dataset.dist) || 10000;
+    });
+  });
+
+  // 1-4. Longest Run (LSD) Chips
+  let selectedLsdKm = 10;
+  const lsdChips = document.querySelectorAll('#plan-lsd-group .plan-chip');
+  lsdChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      lsdChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      selectedLsdKm = parseFloat(chip.dataset.lsd) || 10;
+    });
+  });
+
+  // 1-5. Days per week Selector
+  let selectedDaysPerWeek = 4;
+  const daysBtns = document.querySelectorAll('#plan-days-group .plan-seg-btn');
+  daysBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      daysBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedDaysPerWeek = parseInt(btn.dataset.days) || 4;
+    });
+  });
+
+  // 1-6. Long Run Weekend Day Selector
+  let selectedLongDay = 'sun';
+  const longDayBtns = document.querySelectorAll('#plan-longday-group .plan-seg-btn');
+  longDayBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      longDayBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedLongDay = btn.dataset.longday || 'sun';
+    });
+  });
+
+  // 1-7. Strava Autofill Banner
+  const autofillBanner = document.getElementById('plan-autofill-banner');
+  const btnAutofill = document.getElementById('btn-plan-strava-autofill');
+  const hasStravaToken = !!(localStorage.getItem('strava_access_token') || (window.stravaAllActivities && window.stravaAllActivities.length > 0));
+  if (autofillBanner && hasStravaToken) {
+    autofillBanner.style.display = 'flex';
+  }
+
+  if (btnAutofill) {
+    btnAutofill.addEventListener('click', () => {
+      const storedProfile = JSON.parse(localStorage.getItem('shoef_runner_profile') || '{}');
+      if (storedProfile.age) {
+        const elAge = document.getElementById('plan-age');
+        if (elAge) elAge.value = storedProfile.age;
+      }
+      if (storedProfile.gender) {
+        selectedGender = storedProfile.gender;
+        genderBtns.forEach(b => b.classList.toggle('active', b.dataset.gender === selectedGender));
+      }
+      if (storedProfile.mhr) {
+        const elMhr = document.getElementById('plan-mhr');
+        if (elMhr) elMhr.value = storedProfile.mhr;
+      }
+      if (storedProfile.rhr) {
+        const elRhr = document.getElementById('plan-rhr');
+        if (elRhr) elRhr.value = storedProfile.rhr;
+      }
+
+      const allActs = (window.stravaAllActivities || window.activitiesData || []);
+      const outdoorPB = typeof getOutdoor1YearPB === 'function' ? getOutdoor1YearPB(allActs) : null;
+      if (outdoorPB && outdoorPB.distanceKm > 0) {
+        if (btnModePb) btnModePb.click();
+        const distM = outdoorPB.distanceKm * 1000;
+        let chosenChip = '10000';
+        if (distM < 7500) chosenChip = '5000';
+        else if (distM >= 15000 && distM < 30000) chosenChip = '21097';
+        else if (distM >= 30000) chosenChip = '42195';
+
+        raceDistChips.forEach(c => {
+          c.classList.toggle('active', c.dataset.dist === chosenChip);
+          if (c.dataset.dist === chosenChip) selectedRaceDist = parseFloat(chosenChip);
+        });
+
+        const totSec = outdoorPB.paceSec * (selectedRaceDist / 1000.0);
+        const minVal = Math.floor(totSec / 60);
+        const secVal = Math.round(totSec % 60);
+        const elMin = document.getElementById('plan-race-min');
+        const elSec = document.getElementById('plan-race-sec');
+        if (elMin) elMin.value = minVal;
+        if (elSec) elSec.value = secVal;
+      }
+
+      if (typeof showToast === 'function') {
+        showToast('내 Strava 실측 기록(PB 및 생체 프로필)이 1초 만에 자동 채워졌습니다!');
+      }
+    });
+  }
+
+  // 1-8. Insta Format Chips
+  const fmtBtns = document.querySelectorAll('.pis-fmt-btn');
+  const instaCardPlan = document.getElementById('instaCardPlan');
+  fmtBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      fmtBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const fmt = btn.dataset.fmt;
+      if (instaCardPlan) {
+        instaCardPlan.classList.remove('fmt-story', 'fmt-square', 'fmt-portrait');
+        instaCardPlan.classList.add(`fmt-${fmt}`);
+      }
+    });
+  });
+
+  // 2. Generate Plan Execution Button
+  const btnGenerate = document.getElementById('btn-generate-plan');
+  if (btnGenerate) {
+    btnGenerate.addEventListener('click', () => {
+      generateAndRender7DayPlan();
+    });
+  }
+
+  // 3. Instagram Plan Card Download Button
+  const btnDownloadPlanCard = document.getElementById('btn-download-plan-card');
+  if (btnDownloadPlanCard) {
+    btnDownloadPlanCard.addEventListener('click', () => {
+      if (!instaCardPlan) return;
+      btnDownloadPlanCard.disabled = true;
+      btnDownloadPlanCard.innerHTML = '<i class="bi bi-hourglass-split"></i> 고해상도 카드 렌더링 중...';
+
+      if (typeof html2canvas === 'function') {
+        html2canvas(instaCardPlan, {
+          scale: 3,
+          useCORS: true,
+          backgroundColor: '#090d16'
+        }).then(canvas => {
+          const link = document.createElement('a');
+          link.download = `RunAnalyz_7Day_Plan_${new Date().toISOString().slice(0, 10)}.png`;
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          btnDownloadPlanCard.disabled = false;
+          btnDownloadPlanCard.innerHTML = '<i class="bi bi-download"></i> 인스타그램 훈련 카드 고해상도(3x) 저장';
+          if (typeof showToast === 'function') {
+            showToast('7-Day 플랜 인스타그램 카드가 저장되었습니다!');
+          }
+        }).catch(err => {
+          console.error(err);
+          btnDownloadPlanCard.disabled = false;
+          btnDownloadPlanCard.innerHTML = '<i class="bi bi-download"></i> 인스타그램 훈련 카드 고해상도(3x) 저장';
+          alert('카드 이미지 렌더링 중 오류가 발생했습니다.');
+        });
+      } else {
+        btnDownloadPlanCard.disabled = false;
+        btnDownloadPlanCard.innerHTML = '<i class="bi bi-download"></i> 인스타그램 훈련 카드 고해상도(3x) 저장';
+      }
+    });
+  }
+
+  // Core Execution Function
+  function generateAndRender7DayPlan() {
+    const age = parseInt(document.getElementById('plan-age')?.value) || 42;
+    const mhrInput = parseInt(document.getElementById('plan-mhr')?.value) || 0;
+    const rhrInput = parseInt(document.getElementById('plan-rhr')?.value) || 0;
+    const targetKm = parseFloat(document.getElementById('plan-target-km')?.value) || 25.0;
+
+    // Heart rates
+    const effectiveMhr = mhrInput > 120 ? mhrInput : Math.round(208 - (0.7 * age));
+    const effectiveRhr = rhrInput > 35 ? rhrInput : 60;
+    const mafHr = 180 - age;
+
+    // VDOT & Paces
+    let vdot = 33.0;
+    let easyPaceSec = 390; // 6'30"
+    let tempoPaceSec = 340; // 5'40"
+    let vdotDisplay = '33.0';
+
+    if (currentPlanMode === 'pb') {
+      const minVal = parseInt(document.getElementById('plan-race-min')?.value) || 60;
+      const secVal = parseInt(document.getElementById('plan-race-sec')?.value) || 0;
+      const raceTotalSec = (minVal * 60) + secVal;
+      vdot = calcVdotFromRace(selectedRaceDist, raceTotalSec);
+      vdotDisplay = vdot.toFixed(1);
+      const paces = calcDanielsPaces(vdot);
+      easyPaceSec = paces.easySec;
+      tempoPaceSec = paces.tempoSec;
+    } else {
+      const mafMin = parseInt(document.getElementById('plan-maf-min')?.value) || 6;
+      const mafSec = parseInt(document.getElementById('plan-maf-sec')?.value) || 30;
+      easyPaceSec = (mafMin * 60) + mafSec;
+      tempoPaceSec = Math.max(210, easyPaceSec - 35);
+      vdotDisplay = 'MAF 180';
+    }
+
+    // Runner Level
+    let levelNum = 2;
+    let levelTitle = '10K 챌린저';
+    let levelTag = 'LEVEL 2 · 10K CHALLENGER';
+    if (selectedLsdKm < 5) {
+      levelNum = 1;
+      levelTitle = '비기너 러너';
+      levelTag = 'LEVEL 1 · BEGINNER';
+    } else if (selectedLsdKm >= 10 && selectedLsdKm < 20) {
+      levelNum = 3;
+      levelTitle = '하프 도전자';
+      levelTag = 'LEVEL 3 · HALF RUNNER';
+    } else if (selectedLsdKm >= 20) {
+      levelNum = 4;
+      levelTitle = '풀코스/마스터즈';
+      levelTag = 'LEVEL 4 · MARATHONER';
+    }
+
+    // 80/20 Balance
+    const lowKm = Math.round(targetKm * 0.8 * 10) / 10;
+    const highKm = Math.round((targetKm - lowKm) * 10) / 10;
+
+    // Populate Top Metrics Grid
+    const resLevel = document.getElementById('res-plan-level');
+    const resLevelTitle = document.getElementById('res-plan-level-title');
+    const resStat1Lbl = document.getElementById('res-plan-stat1-lbl');
+    const resStat1Val = document.getElementById('res-plan-stat1-val');
+    const resStat1Sub = document.getElementById('res-plan-stat1-sub');
+    const resTotalKm = document.getElementById('res-plan-total-km');
+    const resDaysSub = document.getElementById('res-plan-days-sub');
+    const resBalance = document.getElementById('res-plan-balance');
+
+    if (resLevel) resLevel.textContent = `LEVEL ${levelNum}`;
+    if (resLevelTitle) resLevelTitle.textContent = levelTitle;
+    if (resStat1Lbl) resStat1Lbl.textContent = currentPlanMode === 'pb' ? '기준 VDOT' : 'MAF 저심박 타깃';
+    if (resStat1Val) resStat1Val.innerHTML = currentPlanMode === 'pb' ? `${vdotDisplay} <small>점</small>` : `${mafHr} <small>bpm</small>`;
+    if (resStat1Sub) resStat1Sub.textContent = currentPlanMode === 'pb' ? '최근 1년 PB 기준' : `180 - 나이(${age}세)`;
+    if (resTotalKm) resTotalKm.innerHTML = `${targetKm.toFixed(1)} <small>km</small>`;
+    if (resDaysSub) resDaysSub.textContent = `주 ${selectedDaysPerWeek}회 트레이닝`;
+    if (resBalance) resBalance.textContent = `${lowKm.toFixed(1)}k : ${highKm.toFixed(1)}k`;
+
+    // Ratio Bar
+    const elBarLowKm = document.getElementById('res-bar-low-km');
+    const elBarHighKm = document.getElementById('res-bar-high-km');
+    const elBarFillLow = document.getElementById('res-bar-fill-low');
+    const elBarFillHigh = document.getElementById('res-bar-fill-high');
+    if (elBarLowKm) elBarLowKm.textContent = `${lowKm.toFixed(1)} km (80%)`;
+    if (elBarHighKm) elBarHighKm.textContent = `${highKm.toFixed(1)} km (20%)`;
+    if (elBarFillLow) elBarFillLow.style.width = '80%';
+    if (elBarFillHigh) elBarFillHigh.style.width = '20%';
+
+    // Generate 7-Day Schedule Items
+    const schedule = build7DaySchedule(targetKm, lowKm, highKm, selectedDaysPerWeek, selectedLongDay, easyPaceSec, tempoPaceSec, effectiveMhr, effectiveRhr, mafHr);
+
+    // Render Vertical Card Stack
+    const stackContainer = document.getElementById('plan-days-stack');
+    if (stackContainer) {
+      stackContainer.innerHTML = '';
+      schedule.forEach(item => {
+        const card = document.createElement('div');
+        card.className = `pday-card ${item.type.toLowerCase()}`;
+        card.innerHTML = `
+          <div class="pday-left">
+            <div class="pday-badge-col">
+              <span class="pday-badge ${item.badgeClass}">${item.dayKor}</span>
+              <span class="pday-type-tag">${item.typeText}</span>
+            </div>
+            <div class="pday-info-col">
+              <div class="pday-title">${item.title}</div>
+              <div class="pday-guide">${item.guide}</div>
+              <div class="pday-meta">
+                <span><i class="bi bi-speedometer"></i> ${item.paceStr}</span>
+                <span><i class="bi bi-heart-pulse"></i> ${item.hrStr}</span>
+              </div>
+            </div>
+          </div>
+          <div class="pday-right">
+            <div class="pday-dist">${item.distKm > 0 ? `${item.distKm.toFixed(1)}<small>km</small>` : '휴식'}</div>
+            <div class="pday-sub">${item.intensityTag}</div>
+          </div>
+        `;
+        stackContainer.appendChild(card);
+      });
+    }
+
+    // Render Insta Card
+    const cardLevel = document.getElementById('card-plan-level');
+    const cardDist = document.getElementById('card-plan-dist');
+    const cardVdot = document.getElementById('card-plan-vdot');
+    const cardSchedule = document.getElementById('card-plan-schedule');
+
+    if (cardLevel) cardLevel.textContent = levelTag;
+    if (cardDist) cardDist.innerHTML = `${targetKm.toFixed(1)}<small>KM</small>`;
+    if (cardVdot) {
+      cardVdot.textContent = currentPlanMode === 'pb' 
+        ? `VDOT ${vdotDisplay} · MAF ${mafHr} BPM · 80/20 POLARIZED`
+        : `MAF ${mafHr} BPM (180-AGE) · 80/20 POLARIZED BASE`;
+    }
+
+    if (cardSchedule) {
+      cardSchedule.innerHTML = '';
+      schedule.forEach(item => {
+        const sRow = document.createElement('div');
+        sRow.className = `pic-item ${item.type.toLowerCase()}`;
+        sRow.innerHTML = `
+          <div class="pic-col-day">
+            <span class="pic-day-pill">${item.dayEng}</span>
+            <span class="pic-day-type">${item.typeText}</span>
+          </div>
+          <div class="pic-col-desc">
+            <div class="pic-item-title">${item.title}</div>
+            <div class="pic-item-meta">${item.paceStr} &middot; ${item.hrStr}</div>
+          </div>
+          <div class="pic-col-dist">
+            ${item.distKm > 0 ? `${item.distKm.toFixed(1)}<small>k</small>` : '<span class="text-muted">REST</span>'}
+          </div>
+        `;
+        cardSchedule.appendChild(sRow);
+      });
+    }
+
+    // Show Result Section with smooth scroll
+    const resultSection = document.getElementById('plan-result-section');
+    if (resultSection) {
+      resultSection.style.display = 'block';
+      resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    if (typeof showToast === 'function') {
+      showToast('이번 주 7-Day 맞춤 훈련 플랜이 성공적으로 생성되었습니다!');
+    }
+  }
+
+  // Pre-generate once with default values so user sees initial blueprint immediately
+  generateAndRender7DayPlan();
+}
+
+// Auto-run when DOM is loaded or script finishes
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTrainingPlanModule);
+} else {
+  initTrainingPlanModule();
+}
