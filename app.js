@@ -632,6 +632,11 @@ async function startRunAnalyz() {
       const activePanel = document.getElementById(`panel-${target}`);
       if (activePanel) activePanel.classList.add('active');
 
+      // Mobile-First: smoothly center active tab in horizontal scroll container
+      if (btn.scrollIntoView) {
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+
       if (target === 'single' && window.singleChartInstance) window.singleChartInstance.resize();
       if (target === 'weekly' && window.weeklyChartInstance) window.weeklyChartInstance.resize();
       if (target === 'yearly' && window.yearlyChartInstance) window.yearlyChartInstance.resize();
