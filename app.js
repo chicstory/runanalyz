@@ -8,6 +8,41 @@ function _t(key, fallback) {
   return (window.I18N && typeof window.I18N.t === 'function') ? window.I18N.t(key, fallback) : fallback;
 }
 
+// Security: XSS Prevention Sanitizer
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// Performance: Lazy-load 2.2MB demo archive only when needed
+let _demoDataLoadingPromise = null;
+function ensureDemoDataLoaded() {
+  if (window.STRAVA_ARCHIVE || window.GARMIN_ARCHIVE || window.RUN_ACTIVITIES) {
+    return Promise.resolve();
+  }
+  if (_demoDataLoadingPromise) return _demoDataLoadingPromise;
+
+  _demoDataLoadingPromise = new Promise((resolve) => {
+    const s = document.createElement('script');
+    s.src = 'strava_all_activities.js?v=20260915_v14_sec_perf';
+    s.onload = () => {
+      console.log('[RunAnalyz] 2.2MB Demo Archive asynchronously loaded.');
+      resolve();
+    };
+    s.onerror = (err) => {
+      console.warn('[RunAnalyz] Failed to load demo archive:', err);
+      resolve(); // graceful fallback
+    };
+    document.head.appendChild(s);
+  });
+  return _demoDataLoadingPromise;
+}
+
 // Global filter states accessible by all modules
 let currentYear = 'all';
 let currentMonth = 'all';
@@ -253,7 +288,8 @@ function setupStravaAuthButton(isCustomUser, athlete) {
   const modalStatus = document.getElementById('modal-strava-status-text');
 
   if (isCustomUser && athlete) {
-    const athleteName = athlete.firstname || athlete.username || '러너';
+    const rawName = athlete.firstname || athlete.username || '러너';
+    const athleteName = escapeHtml(rawName);
     
     // Hide connect button, show connected pill
     if (btnAuth) btnAuth.style.display = 'none';
@@ -300,10 +336,8 @@ function setupStravaAuthButton(isCustomUser, athlete) {
 
       btnAuth.onclick = (e) => {
         e.preventDefault();
-        let redirectUri = 'https://chicstory.github.io/runanalyz/';
-        if (window.location.hostname.includes('github.io')) {
-          redirectUri = `${window.location.origin}/runanalyz/`;
-        }
+        // Dynamic origin & pathname ensures 100% compatibility with any custom domain or subpath
+        const redirectUri = `${window.location.origin}${window.location.pathname}`;
         const authUrl = `https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&approval_prompt=auto&scope=read,activity:read_all`;
         window.location.href = authUrl;
       };
@@ -396,6 +430,7 @@ async function startRunAnalyz() {
 
   // Fallback to embedded static archive if custom archive not loaded
   if (!archive || !archive.activities || archive.activities.length === 0) {
+    await ensureDemoDataLoaded();
     archive = window.STRAVA_ARCHIVE || window.GARMIN_ARCHIVE;
   }
 
@@ -528,7 +563,7 @@ async function startRunAnalyz() {
       toast.className = 'shoef-toast';
       document.body.appendChild(toast);
     }
-    toast.innerHTML = `<i class="bi bi-check-circle-fill" style="color:var(--accent-orange);"></i> <span>${message}</span>`;
+    toast.innerHTML = `<i class="bi bi-check-circle-fill" style="color:var(--accent-orange);"></i> <span>${escapeHtml(message)}</span>`;
     toast.classList.add('show');
     clearTimeout(window._shoefToastTimer);
     window._shoefToastTimer = setTimeout(() => {
@@ -3713,9 +3748,10 @@ function initWelcomeGateway() {
 
   // Demo Action
   if (btnDemo) {
-    btnDemo.addEventListener('click', () => {
+    btnDemo.addEventListener('click', async () => {
       closeGateway();
       sessionStorage.setItem('shoef_gateway_dismissed', '1');
+      await ensureDemoDataLoaded();
       const tabSingle = document.getElementById('tab-btn-single');
       if (tabSingle) tabSingle.click();
       if (typeof showToast === 'function') {
