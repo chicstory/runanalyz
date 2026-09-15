@@ -1795,12 +1795,23 @@ function calculateVDOTPaces(vdot) {
 }
 
 function renderSingleChart(act) {
-  const ctx = document.getElementById('singleSessionChart')?.getContext('2d');
-  if (!ctx) return;
+  const canvas = document.getElementById('singleSessionChart');
+  if (!canvas) return;
 
   if (window.singleChartInstance) {
-    window.singleChartInstance.destroy();
+    try {
+      window.singleChartInstance.destroy();
+    } catch (e) {}
+    window.singleChartInstance = null;
   }
+
+  // Crucial: remove stale inline styles and canvas attributes left by Chart.js destroy()
+  canvas.removeAttribute('style');
+  canvas.removeAttribute('width');
+  canvas.removeAttribute('height');
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
 
   const stream = act.stream_summary || [];
   let labels = [];
@@ -1852,18 +1863,61 @@ function renderSingleChart(act) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      resizeDelay: 50,
       interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: { labels: { color: '#94a3b8', font: { family: 'Outfit' } } }
+        legend: {
+          labels: {
+            color: '#94a3b8',
+            boxWidth: 12,
+            padding: 8,
+            font: { family: 'Outfit', size: 11 }
+          }
+        }
       },
       scales: {
-        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b' } },
-        yHr: { type: 'linear', position: 'left', min: 100, max: 200, ticks: { color: '#f43f5e' } },
-        yCad: { type: 'linear', position: 'right', min: 140, max: 210, grid: { drawOnChartArea: false }, ticks: { color: '#00f2fe' } }
+        x: {
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: {
+            color: '#64748b',
+            maxTicksLimit: 7,
+            maxRotation: 0,
+            autoSkip: true,
+            font: { family: 'Outfit', size: 10 }
+          }
+        },
+        yHr: {
+          type: 'linear',
+          position: 'left',
+          min: 100,
+          max: 200,
+          ticks: { color: '#f43f5e', font: { family: 'Outfit', size: 10 } }
+        },
+        yCad: {
+          type: 'linear',
+          position: 'right',
+          min: 140,
+          max: 210,
+          grid: { drawOnChartArea: false },
+          ticks: { color: '#00f2fe', font: { family: 'Outfit', size: 10 } }
+        }
       }
     }
   });
+
+  // Ensure chart expands to full width once DOM layout stabilizes on mobile
+  requestAnimationFrame(() => {
+    if (window.singleChartInstance) {
+      window.singleChartInstance.resize();
+    }
+  });
+  setTimeout(() => {
+    if (window.singleChartInstance) {
+      window.singleChartInstance.resize();
+    }
+  }, 150);
 }
+
 
 function getISOWeek(dateStr) {
   if (!dateStr) return 1;
@@ -2349,12 +2403,23 @@ function renderWeeklyInstaCard(w) {
 }
 
 function renderWeeklyChart(weeks) {
-  const ctx = document.getElementById('weeklyChart')?.getContext('2d');
-  if (!ctx) return;
+  const canvas = document.getElementById('weeklyChart');
+  if (!canvas) return;
 
   if (window.weeklyChartInstance) {
-    window.weeklyChartInstance.destroy();
+    try {
+      window.weeklyChartInstance.destroy();
+    } catch (e) {}
+    window.weeklyChartInstance = null;
   }
+
+  // Clean stale styles
+  canvas.removeAttribute('style');
+  canvas.removeAttribute('width');
+  canvas.removeAttribute('height');
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
 
   const labels = weeks.map(w => w.name);
   const mileageData = weeks.map(w => w.totalKm);
@@ -2390,17 +2455,58 @@ function renderWeeklyChart(weeks) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      resizeDelay: 50,
       plugins: {
-        legend: { labels: { color: '#94a3b8', font: { family: 'Outfit' } } }
+        legend: {
+          labels: {
+            color: '#94a3b8',
+            boxWidth: 12,
+            padding: 8,
+            font: { family: 'Outfit', size: 11 }
+          }
+        }
       },
       scales: {
-        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b' } },
-        yDist: { type: 'linear', position: 'left', min: 0, ticks: { color: '#ff5722' } },
-        yEf: { type: 'linear', position: 'right', min: 0.5, max: 1.6, grid: { drawOnChartArea: false }, ticks: { color: '#00ff87' } }
+        x: {
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: {
+            color: '#64748b',
+            maxTicksLimit: 8,
+            maxRotation: 0,
+            autoSkip: true,
+            font: { family: 'Outfit', size: 10 }
+          }
+        },
+        yDist: {
+          type: 'linear',
+          position: 'left',
+          min: 0,
+          ticks: { color: '#ff5722', font: { family: 'Outfit', size: 10 } }
+        },
+        yEf: {
+          type: 'linear',
+          position: 'right',
+          min: 0.5,
+          max: 1.6,
+          grid: { drawOnChartArea: false },
+          ticks: { color: '#00ff87', font: { family: 'Outfit', size: 10 } }
+        }
       }
     }
   });
+
+  requestAnimationFrame(() => {
+    if (window.weeklyChartInstance) {
+      window.weeklyChartInstance.resize();
+    }
+  });
+  setTimeout(() => {
+    if (window.weeklyChartInstance) {
+      window.weeklyChartInstance.resize();
+    }
+  }, 150);
 }
+
 
 /* ==========================================================================
    MODULE 3: MONTHLY RECAP & INSTA CARD
@@ -2903,12 +3009,23 @@ function initYearlyRecap(archive, pureRunningActivities) {
 }
 
 function renderYearlyChart(years, summary) {
-  const ctx = document.getElementById('yearlyChart')?.getContext('2d');
-  if (!ctx) return;
+  const canvas = document.getElementById('yearlyChart');
+  if (!canvas) return;
 
   if (window.yearlyChartInstance) {
-    window.yearlyChartInstance.destroy();
+    try {
+      window.yearlyChartInstance.destroy();
+    } catch (e) {}
+    window.yearlyChartInstance = null;
   }
+
+  // Clean stale styles
+  canvas.removeAttribute('style');
+  canvas.removeAttribute('width');
+  canvas.removeAttribute('height');
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
 
   const labels = years.map(y => `${y}년`);
   const mileages = years.map(y => summary[y].total_running_km);
@@ -2945,17 +3062,58 @@ function renderYearlyChart(years, summary) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      resizeDelay: 50,
       plugins: {
-        legend: { labels: { color: '#94a3b8', font: { family: 'Outfit' } } }
+        legend: {
+          labels: {
+            color: '#94a3b8',
+            boxWidth: 12,
+            padding: 8,
+            font: { family: 'Outfit', size: 11 }
+          }
+        }
       },
       scales: {
-        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b' } },
-        yDist: { type: 'linear', position: 'left', min: 0, ticks: { color: '#ff5722' } },
-        yEf: { type: 'linear', position: 'right', min: 0.7, max: 1.5, grid: { drawOnChartArea: false }, ticks: { color: '#00f2fe' } }
+        x: {
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: {
+            color: '#64748b',
+            maxTicksLimit: 8,
+            maxRotation: 0,
+            autoSkip: true,
+            font: { family: 'Outfit', size: 10 }
+          }
+        },
+        yDist: {
+          type: 'linear',
+          position: 'left',
+          min: 0,
+          ticks: { color: '#ff5722', font: { family: 'Outfit', size: 10 } }
+        },
+        yEf: {
+          type: 'linear',
+          position: 'right',
+          min: 0.7,
+          max: 1.5,
+          grid: { drawOnChartArea: false },
+          ticks: { color: '#00f2fe', font: { family: 'Outfit', size: 10 } }
+        }
       }
     }
   });
+
+  requestAnimationFrame(() => {
+    if (window.yearlyChartInstance) {
+      window.yearlyChartInstance.resize();
+    }
+  });
+  setTimeout(() => {
+    if (window.yearlyChartInstance) {
+      window.yearlyChartInstance.resize();
+    }
+  }, 150);
 }
+
 
 // Google Encoded Polyline Decoder (Decodes summary_polyline into [lat, lng] array)
 function decodePolyline(str, precision = 5) {
@@ -3871,4 +4029,28 @@ if (document.readyState === 'loading') {
 } else {
   runAllInitializers();
 }
+
+// Global Responsive Chart Resize Safeguard for Mobile & Orientation Change
+window.addEventListener('resize', () => {
+  if (window.singleChartInstance) window.singleChartInstance.resize();
+  if (window.weeklyChartInstance) window.weeklyChartInstance.resize();
+  if (window.yearlyChartInstance) window.yearlyChartInstance.resize();
+});
+
+window.addEventListener('orientationchange', () => {
+  setTimeout(() => {
+    if (window.singleChartInstance) window.singleChartInstance.resize();
+    if (window.weeklyChartInstance) window.weeklyChartInstance.resize();
+    if (window.yearlyChartInstance) window.yearlyChartInstance.resize();
+  }, 200);
+});
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    if (window.singleChartInstance) window.singleChartInstance.resize();
+    if (window.weeklyChartInstance) window.weeklyChartInstance.resize();
+    if (window.yearlyChartInstance) window.yearlyChartInstance.resize();
+  }, 300);
+});
+
 

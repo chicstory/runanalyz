@@ -1407,13 +1407,25 @@ html[lang="en"], html[lang="es"] {
 /* ---------------- Chart Card ---------------- */
 .chart-card {
   margin-bottom: 1.5rem;
+  width: 100%;
+  overflow: hidden;
 }
 
 .chart-wrapper {
   position: relative;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   height: 280px;
 }
+
+.chart-wrapper canvas {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
 
 /* ---------------- TAB 2: WEEKLY RECAP ---------------- */
 .weekly-hero-card {
@@ -3353,6 +3365,19 @@ html[lang="en"], html[lang="es"] {
     padding: 1.15rem 0.85rem;
     border-radius: var(--radius-md);
   }
+
+  /* Mobile Responsive Chart Container */
+  .chart-card {
+    padding-left: 0.65rem !important;
+    padding-right: 0.65rem !important;
+  }
+
+  .chart-wrapper {
+    height: 240px;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
 
   /* Threshold Diagnostics Mobile Optimization */
   .threshold-header {
