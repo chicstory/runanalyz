@@ -4298,6 +4298,132 @@ html[lang="en"], html[lang="es"] {
   color: #fff;
 }
 
+/* AI Coach Prescription Box inside Weekly Coaching Card */
+.wcc-prescription-card {
+  margin-top: 1rem;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.1rem 1.25rem;
+  backdrop-filter: blur(8px);
+}
+
+.wpc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.wpc-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.wpc-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(0, 229, 255, 0.15);
+  color: var(--accent-cyan, #00e5ff);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+}
+
+.wpc-note {
+  font-size: 0.84rem;
+  color: var(--text-secondary, #94a3b8);
+  line-height: 1.55;
+  margin-bottom: 0.85rem;
+}
+
+.wpc-note strong {
+  color: var(--accent-orange, #ff5722);
+}
+
+.wpc-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.wpc-metric-item {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  text-align: center;
+}
+
+.wpc-lbl {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted, #64748b);
+  margin-bottom: 0.25rem;
+}
+
+.wpc-val {
+  font-size: 1.05rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: #f8fafc;
+}
+
+.wpc-val small {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.btn-create-plan-from-weekly {
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  min-height: 46px;
+  background: linear-gradient(135deg, #ff5722 0%, #ff8f00 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(255, 87, 34, 0.35);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-create-plan-from-weekly:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(255, 87, 34, 0.5);
+  background: linear-gradient(135deg, #ff6e40 0%, #ffa000 100%);
+}
+
+.btn-create-plan-from-weekly:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  .wpc-metric-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .btn-create-plan-from-weekly {
+    font-size: 0.85rem;
+    padding: 0.8rem 1rem;
+  }
+}
+
 /* Weekly Card Workout Breakdown Chips */
 .wc-type-chips {
   display: flex;

@@ -2096,11 +2096,31 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
       coachingMsg += `<br><br><span style="color:var(--accent-red);">⚠️ <strong>부상 위험 주의 (ACWR ${latestWeek.acwr.toFixed(2)}x)</strong>: 이번 주 훈련량(${latestWeek.totalKm.toFixed(1)}km)이 최근 4주 평균치(${latestWeek.chronicAvg.toFixed(1)}km)보다 50% 이상 급증했습니다. 관절과 건의 부상 예방을 위해 다음 주는 볼륨을 20~30% 낮추는 회복주를 권장합니다.</span>`;
     }
 
+    // AI Coach Next Week Prescription Calculation
+    let nextTargetKm = Math.round(latestWeek.totalKm * 1.07 * 10) / 10; // +7% progressive overload
+    let prescriptionBadge = '📈 안전 점진 증량 (+7%)';
+    let prescriptionNote = `이번 주(${latestWeek.totalKm.toFixed(1)}km) 훈련 부하가 안정적이므로 다음 주는 <strong>${nextTargetKm.toFixed(1)}km</strong>로 안전하게 증량하는 것을 권장합니다.`;
+
+    if (latestWeek.acwr > 1.4 || high > 30) {
+      nextTargetKm = Math.max(10, Math.round(latestWeek.totalKm * 0.85 * 10) / 10);
+      prescriptionBadge = '🛡️ 회복 디로드 (-15%)';
+      prescriptionNote = `피로 누적 및 고강도 비중을 감안하여 다음 주는 <strong>${nextTargetKm.toFixed(1)}km</strong>로 볼륨을 15% 줄여 관절과 인대를 초회복시키세요.`;
+    } else if (latestWeek.totalKm < 10) {
+      nextTargetKm = Math.round((latestWeek.totalKm + 3.0) * 10) / 10;
+      prescriptionBadge = '🌱 유산소 베이스 확장';
+      prescriptionNote = `기초 유산소 용량 확장을 위해 다음 주는 <strong>${nextTargetKm.toFixed(1)}km</strong> 목표를 권장합니다.`;
+    }
+
+    const recommendedDays = Math.min(5, Math.max(3, latestWeek.runs ? latestWeek.runs.length : 4));
+    const rawLsd = latestWeek.maxLsd || (latestWeek.totalKm * 0.38);
+    const lsdSteps = [5, 10, 15, 20, 25, 30];
+    const recommendedLsd = lsdSteps.reduce((prev, curr) => Math.abs(curr - rawLsd) < Math.abs(prev - rawLsd) ? curr : prev, 10);
+
     coachingCard.innerHTML = `
       <div class="wcc-header">
         <div class="wcc-title">
-          <i class="bi bi-cpu-fill"></i>
-          <span>${latestWeek.name} 트레이닝 밸런스 &amp; 부상 진단</span>
+          <i class="bi bi-robot text-cyan"></i>
+          <span>${escapeHtml(latestWeek.name)} AI 스포츠 사이언스 코칭 리포트</span>
         </div>
         <span class="wcc-badge ${badgeClass}">${badgeText}</span>
       </div>
@@ -2117,8 +2137,80 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
       <div class="wcc-coaching-text">
         ${coachingMsg}
       </div>
+
+      <!-- AI Coach Next Week Prescription Box -->
+      <div class="wcc-prescription-card">
+        <div class="wpc-header">
+          <div class="wpc-title"><i class="bi bi-calendar-check-fill text-orange"></i> AI 러닝 코치의 다음 주 처방</div>
+          <span class="wpc-badge">${prescriptionBadge}</span>
+        </div>
+        <div class="wpc-note">${prescriptionNote}</div>
+        <div class="wpc-metric-grid">
+          <div class="wpc-metric-item">
+            <span class="wpc-lbl">다음 주 권장 목표</span>
+            <span class="wpc-val text-orange">${nextTargetKm.toFixed(1)} <small>KM</small></span>
+          </div>
+          <div class="wpc-metric-item">
+            <span class="wpc-lbl">권장 훈련 횟수</span>
+            <span class="wpc-val">주 ${recommendedDays}회</span>
+          </div>
+          <div class="wpc-metric-item">
+            <span class="wpc-lbl">주말 롱런 상한선</span>
+            <span class="wpc-val">${recommendedLsd} KM</span>
+          </div>
+        </div>
+        <button type="button" class="btn-create-plan-from-weekly" id="btn-create-plan-from-weekly">
+          <i class="bi bi-lightning-charge-fill"></i> 이 실측 분석 기반 다음 주 7-Day 맞춤 플랜 자동 생성
+        </button>
+      </div>
     `;
     coachingCard.style.display = 'block';
+
+    // Bind one-click 7-Day Plan generator button
+    const btnCreatePlan = document.getElementById('btn-create-plan-from-weekly');
+    if (btnCreatePlan) {
+      btnCreatePlan.onclick = () => {
+        // 1. Fill Target KM in plan form
+        const inputKm = document.getElementById('plan-target-km');
+        if (inputKm) inputKm.value = nextTargetKm.toFixed(1);
+
+        // 2. Select matching Days chip
+        const daysBtns = document.querySelectorAll('#plan-days-group .plan-chip-btn');
+        daysBtns.forEach(b => {
+          if (parseInt(b.dataset.days) === recommendedDays) {
+            b.click();
+          }
+        });
+
+        // 3. Select matching LSD chip
+        const lsdBtns = document.querySelectorAll('#plan-lsd-group .plan-chip-btn');
+        lsdBtns.forEach(b => {
+          if (parseInt(b.dataset.km) === recommendedLsd) {
+            b.click();
+          }
+        });
+
+        // 4. Switch to 7-Day Plan Tab
+        const tabPlan = document.getElementById('tab-btn-plan');
+        if (tabPlan) tabPlan.click();
+
+        // 5. Trigger Plan Generation
+        const btnGenerate = document.getElementById('btn-generate-plan');
+        if (btnGenerate) {
+          btnGenerate.click();
+        }
+
+        // 6. Smooth scroll to result
+        setTimeout(() => {
+          const resSec = document.getElementById('plan-result-section');
+          if (resSec) resSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+
+        if (typeof showToast === 'function') {
+          showToast(`🤖 [${latestWeek.name}] 실측 데이터를 바탕으로 다음 주 7-Day 맞춤 플랜이 완성되었습니다!`);
+        }
+      };
+    }
   } else if (coachingCard) {
     coachingCard.style.display = 'none';
   }
