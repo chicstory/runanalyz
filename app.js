@@ -3579,18 +3579,20 @@ function initTrainingPlanModule() {
       cardSchedule.innerHTML = '';
       schedule.forEach(item => {
         const sRow = document.createElement('div');
-        sRow.className = `pic-item ${item.type.toLowerCase()}`;
+        sRow.className = `pic-day-row ${item.type.toLowerCase()}`;
+        
+        // Compact 1-line layout: [요일] - [훈련타입] - [거리] - [페이스]
+        const paceDisplay = item.distKm > 0 ? (item.type === 'TEMPO' ? formatPaceSec(tempoPaceSec) : formatPaceSec(easyPaceSec)) : '-';
+        const distDisplay = item.distKm > 0 ? `${item.distKm.toFixed(1)} km` : 'REST';
+        
         sRow.innerHTML = `
-          <div class="pic-col-day">
-            <span class="pic-day-pill">${item.dayEng}</span>
-            <span class="pic-day-type">${item.typeText}</span>
+          <div class="pic-day-left">
+            <span class="pic-day-lbl">${item.dayEng}</span>
+            <span class="pic-day-task">${item.typeText}</span>
           </div>
-          <div class="pic-col-desc">
-            <div class="pic-item-title">${item.title}</div>
-            <div class="pic-item-meta">${item.paceStr} &middot; ${item.hrStr}</div>
-          </div>
-          <div class="pic-col-dist">
-            ${item.distKm > 0 ? `${item.distKm.toFixed(1)}<small>k</small>` : '<span class="text-muted">REST</span>'}
+          <div class="pic-day-right">
+            <span class="pic-day-km">${distDisplay}</span>
+            <span class="pic-day-pace">${paceDisplay}</span>
           </div>
         `;
         cardSchedule.appendChild(sRow);
@@ -3613,9 +3615,99 @@ function initTrainingPlanModule() {
   generateAndRender7DayPlan();
 }
 
-// Auto-run when DOM is loaded or script finishes
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initTrainingPlanModule);
-} else {
-  initTrainingPlanModule();
+// ==========================================================================
+// 2-Track Onboarding Gateway Module (Track A: Strava vs Track B: 7-Day Plan)
+// ==========================================================================
+function initWelcomeGateway() {
+  const gatewayOverlay = document.getElementById('welcome-gateway-overlay');
+  const btnOpenModal = document.getElementById('btn-open-gateway-modal');
+  const btnTrackA = document.getElementById('btn-gateway-track-a');
+  const btnTrackB = document.getElementById('btn-gateway-track-b');
+  const btnDemo = document.getElementById('btn-gateway-demo');
+
+  if (!gatewayOverlay) return;
+
+  function openGateway() {
+    gatewayOverlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeGateway() {
+    gatewayOverlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // Header quick button
+  if (btnOpenModal) {
+    btnOpenModal.addEventListener('click', openGateway);
+  }
+
+  // Track A Action (Strava Live Sync)
+  if (btnTrackA) {
+    btnTrackA.addEventListener('click', () => {
+      closeGateway();
+      sessionStorage.setItem('shoef_gateway_dismissed', '1');
+      const hasToken = !!localStorage.getItem('strava_access_token');
+      if (hasToken) {
+        if (typeof showToast === 'function') {
+          showToast('Strava 계정이 이미 연동되어 있습니다. 대시보드로 이동합니다.');
+        }
+      } else {
+        const btnStrava = document.getElementById('btn-strava-auth');
+        if (btnStrava) btnStrava.click();
+      }
+    });
+  }
+
+  // Track B Action (Non-login 7-Day Plan)
+  if (btnTrackB) {
+    btnTrackB.addEventListener('click', () => {
+      closeGateway();
+      sessionStorage.setItem('shoef_gateway_dismissed', '1');
+      const tabPlan = document.getElementById('tab-btn-plan');
+      if (tabPlan) tabPlan.click();
+      const planForm = document.getElementById('plan-form-card');
+      if (planForm) {
+        setTimeout(() => {
+          planForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+      }
+      if (typeof showToast === 'function') {
+        showToast('로그인 없이 7-Day 훈련플랜을 맞춤 설정하세요!');
+      }
+    });
+  }
+
+  // Demo Action
+  if (btnDemo) {
+    btnDemo.addEventListener('click', () => {
+      closeGateway();
+      sessionStorage.setItem('shoef_gateway_dismissed', '1');
+      const tabSingle = document.getElementById('tab-btn-single');
+      if (tabSingle) tabSingle.click();
+      if (typeof showToast === 'function') {
+        showToast('데모 데이터 모드로 전체 대시보드를 탐색합니다.');
+      }
+    });
+  }
+
+  // Auto-display gateway if user hasn't chosen a track in this session and not logged into Strava
+  const hasToken = !!localStorage.getItem('strava_access_token');
+  const dismissed = sessionStorage.getItem('shoef_gateway_dismissed');
+  if (!hasToken && !dismissed) {
+    openGateway();
+  }
 }
+
+// Auto-run modules when DOM is loaded or script finishes
+function runAllInitializers() {
+  initTrainingPlanModule();
+  initWelcomeGateway();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', runAllInitializers);
+} else {
+  runAllInitializers();
+}
+

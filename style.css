@@ -4713,6 +4713,262 @@ html[lang="en"], html[lang="es"] {
 }
 
 /* ==========================================================================
+   2-Track Onboarding Gateway Modal Styling
+   ========================================================================== */
+.welcome-gateway-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(5, 8, 16, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  overflow-y: auto;
+  animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gateway-modal-box {
+  background: linear-gradient(135deg, rgba(18, 26, 44, 0.96), rgba(15, 23, 42, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-xl);
+  max-width: 920px;
+  width: 100%;
+  padding: 2.25rem 2rem 1.75rem 2rem;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 40px rgba(0, 242, 254, 0.08);
+  box-sizing: border-box;
+}
+
+.gateway-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.gateway-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  background: rgba(0, 242, 254, 0.1);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  letter-spacing: 0.8px;
+  margin-bottom: 0.75rem;
+}
+
+.gateway-title {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.gateway-sub {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.gateway-sub strong {
+  color: #fff;
+}
+
+.gateway-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.gateway-track-card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.gateway-track-card:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.gateway-track-card.track-a:hover {
+  border-color: rgba(255, 87, 34, 0.5);
+  box-shadow: 0 10px 30px rgba(255, 87, 34, 0.18);
+}
+
+.gateway-track-card.track-b:hover {
+  border-color: rgba(0, 242, 254, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 242, 254, 0.18);
+}
+
+.gtc-top {
+  margin-bottom: 1.25rem;
+}
+
+.gtc-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+}
+
+.gtc-tag-orange {
+  color: var(--accent-orange);
+  background: rgba(255, 87, 34, 0.12);
+  border: 1px solid rgba(255, 87, 34, 0.3);
+}
+
+.gtc-tag-cyan {
+  color: var(--accent-cyan);
+  background: rgba(0, 242, 254, 0.12);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+}
+
+.gtc-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+
+.gtc-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.gtc-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+}
+
+.gtc-features li {
+  font-size: 0.84rem;
+  color: #cbd5e1;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.5;
+}
+
+.gtc-features li i {
+  font-size: 1rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+}
+
+.btn-gateway-action {
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+  border: none;
+}
+
+.btn-track-a {
+  background: linear-gradient(135deg, #fc5200 0%, #ff7043 100%);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(252, 82, 0, 0.35);
+}
+
+.btn-track-a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(252, 82, 0, 0.55);
+}
+
+.btn-track-b {
+  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+  color: #0f172a;
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.35);
+}
+
+.btn-track-b:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 242, 254, 0.55);
+}
+
+.gateway-footer {
+  text-align: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.btn-gateway-demo {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.btn-gateway-demo:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Instagram Plan Card Row Types */
+.pic-day-row.easy {
+  border-left: 3px solid var(--accent-lime);
+  background: rgba(16, 185, 129, 0.05);
+}
+.pic-day-row.tempo {
+  border-left: 3px solid var(--accent-orange);
+  background: rgba(255, 87, 34, 0.08);
+}
+.pic-day-row.lsd {
+  border-left: 3px solid var(--accent-cyan);
+  background: rgba(0, 242, 254, 0.06);
+}
+.pic-day-row.rest {
+  border-left: 3px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ==========================================================================
    DAILY INSTA CARD: THE STATE OF RUNNING 2019 GLOBAL BENCHMARK BADGE
    ========================================================================== */
 .ic-global-benchmark-badge {
@@ -5890,9 +6146,46 @@ html[lang="en"], html[lang="es"] {
   .plan-insta-card {
     max-width: 100%;
   }
+
+  /* Gateway Modal Mobile */
+  .gateway-modal-box {
+    padding: 1.5rem 1.15rem;
+    border-radius: var(--radius-lg);
+  }
+  .gateway-title {
+    font-size: 1.35rem;
+  }
+  .gateway-sub {
+    font-size: 0.82rem;
+  }
+  .gateway-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+  .gateway-track-card {
+    padding: 1.25rem;
+  }
+  .btn-gateway-action {
+    height: 46px;
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {
+  .gateway-modal-box {
+    padding: 1.25rem 0.95rem;
+  }
+  .gateway-title {
+    font-size: 1.2rem;
+  }
+  .gtc-title {
+    font-size: 1.1rem;
+  }
+  .gtc-features li {
+    font-size: 0.8rem;
+  }
+
   .plan-metrics-grid {
     grid-template-columns: 1fr;
   }
@@ -5926,6 +6219,7 @@ html[lang="en"], html[lang="es"] {
     font-size: 0.76rem;
   }
 }
+
 
 
 

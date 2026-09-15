@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20260915_v11_plan_engine">
+  <link rel="stylesheet" href="style.css?v=20260915_v12_gateway">
 </head>
 <body>
   <div class="app-container">
@@ -73,6 +73,9 @@
               <button class="btn-strava-disconnect-mini" id="btn-strava-disconnect" title="Strava 연동 해제 및 로컬 캐시 초기화"><i class="bi bi-power"></i> 해제</button>
             </div>
           </div>
+          <button class="btn-header-link" id="btn-open-gateway-modal" title="러너 진입 트랙 선택 (A: Strava vs B: 7-Day 플랜)">
+            <i class="bi bi-signpost-split text-cyan"></i> <span>트랙 선택</span>
+          </button>
           <button class="btn-header-link" id="btn-open-profile-modal" title="러너 생체 프로필 &amp; 심박 설정">
             <i class="bi bi-person-gear text-orange"></i> <span data-i18n="nav_profile">러너 프로필</span>
           </button>
@@ -1247,6 +1250,67 @@
     </div>
   </div>
 
+  <!-- 2-Track Onboarding Gateway Modal (A/B Entry Selector) -->
+  <div id="welcome-gateway-overlay" class="welcome-gateway-overlay" style="display: none;">
+    <div class="gateway-modal-box">
+      <div class="gateway-header">
+        <div class="gateway-badge">
+          <i class="bi bi-compass"></i> RUNNER ONBOARDING GATEWAY
+        </div>
+        <h2 class="gateway-title">RunAnalyz 시작하기</h2>
+        <p class="gateway-sub">
+          실시간 러닝 기록과 생체역치 분석을 원하시면 <strong>[Track A]</strong>, 로그인 없이 이번 주 훈련 플랜과 인스타 카드를 즉시 발급받으시려면 <strong>[Track B]</strong>를 선택하세요.
+        </p>
+      </div>
+
+      <div class="gateway-cards-grid">
+        <!-- Track A: Strava Connected Runner -->
+        <div class="gateway-track-card track-a">
+          <div class="gtc-top">
+            <span class="gtc-tag gtc-tag-orange"><i class="bi bi-strava"></i> Track A · 정밀 기록 분석</span>
+            <h3 class="gtc-title">내 Strava 계정으로 시작하기</h3>
+            <p class="gtc-desc">내 모든 야외·실내 러닝을 실시간으로 가져와 생체역치와 심폐 연비를 진단합니다.</p>
+          </div>
+          <ul class="gtc-features">
+            <li><i class="bi bi-check2-circle text-orange"></i> 최근 1년 야외 실측 PB 자동 추출 &amp; VDOT 닻(Anchor) 연동</li>
+            <li><i class="bi bi-check2-circle text-orange"></i> 데일리 유산소 효율(EF) &amp; 심폐 연비 정밀 진단</li>
+            <li><i class="bi bi-check2-circle text-orange"></i> 주간 10% 안전 증량 룰 &amp; 4주 ACWR 부상 위험 지수 분석</li>
+            <li><i class="bi bi-check2-circle text-orange"></i> 월간/연간 결산 인스타그램 스토리(9:16)·피드 카드 원클릭 발급</li>
+            <li><i class="bi bi-check2-circle text-orange"></i> 역대 야외 전수 GPS 코스 인터랙티브 네온 히트맵</li>
+          </ul>
+          <button type="button" class="btn-gateway-action btn-track-a" id="btn-gateway-track-a">
+            <i class="bi bi-strava"></i> Strava 계정으로 시작하기
+          </button>
+        </div>
+
+        <!-- Track B: 7-Day Plan Non-Login Runner -->
+        <div class="gateway-track-card track-b">
+          <div class="gtc-top">
+            <span class="gtc-tag gtc-tag-cyan"><i class="bi bi-calendar-check"></i> Track B · 즉시 플랜 생성</span>
+            <h3 class="gtc-title">로그인 없이 7-Day 플랜 만들기</h3>
+            <p class="gtc-desc">회원가입 없이 0초 만에 잭 다니엘스 VDOT 공식 기반 이번 주 맞춤 훈련표를 만듭니다.</p>
+          </div>
+          <ul class="gtc-features">
+            <li><i class="bi bi-check2-circle text-cyan"></i> 회원가입·로그인 0초, 개인정보 일체 미저장 (Zero-Server)</li>
+            <li><i class="bi bi-check2-circle text-cyan"></i> 나이·PB(또는 MAF 180 조깅) 기반 80/20 극성 훈련표 발급</li>
+            <li><i class="bi bi-check2-circle text-cyan"></i> 잭 다니엘스 공식 5대 맞춤 훈련 페이스 (Easy, Tempo 등)</li>
+            <li><i class="bi bi-check2-circle text-cyan"></i> 월~일 7일 훈련 체크박스 스케줄러 즉시 생성</li>
+            <li><i class="bi bi-check2-circle text-cyan"></i> 스마트폰 배경화면 &amp; 인스타 스토리(9:16)·피드 카드 발급</li>
+          </ul>
+          <button type="button" class="btn-gateway-action btn-track-b" id="btn-gateway-track-b">
+            <i class="bi bi-lightning-charge-fill"></i> 로그인 없이 7-Day 플랜 만들기
+          </button>
+        </div>
+      </div>
+
+      <div class="gateway-footer">
+        <button type="button" class="btn-gateway-demo" id="btn-gateway-demo">
+          <i class="bi bi-eye"></i> 샘플 데모 데이터로 전체 대시보드 먼저 둘러보기
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Strava OAuth & Data Sync Loading Overlay Modal -->
   <div id="strava-sync-overlay" class="strava-sync-overlay" style="display: none;">
     <div class="sync-modal-box">
@@ -1267,6 +1331,6 @@
   <script src="strava_all_activities.js?v=20260915_v11_plan_engine"></script>
   <script src="activities_data.js?v=20260915_v11_plan_engine"></script>
   <script src="i18n.js?v=20260915_v11_plan_engine"></script>
-  <script src="app.js?v=20260915_v11_plan_engine"></script>
+  <script src="app.js?v=20260915_v12_gateway"></script>
 </body>
 </html>
