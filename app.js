@@ -3136,8 +3136,31 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
   // Configure templates based on running days
   const result = [];
 
+  // Determine which days are designated for Easy runs based on daysPerWeek and longDay
+  const easyDays = [];
+  if (daysPerWeek === 3) {
+    easyDays.push('tue');
+  } else if (daysPerWeek === 4) {
+    easyDays.push('tue');
+    if (longDay === 'sun') {
+      easyDays.push('fri'); // Tue(Easy) -> Wed(Rest) -> Thu(Tempo) -> Fri(Easy) -> Sat(Rest) -> Sun(LSD)
+    } else {
+      easyDays.push('wed'); // Tue(Easy) -> Wed(Easy) -> Thu(Tempo) -> Fri(Rest) -> Sat(LSD)
+    }
+  } else if (daysPerWeek >= 5) {
+    easyDays.push('tue');
+    easyDays.push('wed');
+    if (longDay === 'sun') {
+      easyDays.push('sat'); // Tue(Easy), Wed(Easy), Thu(Tempo), Sat(Shakeout), Sun(LSD)
+    } else {
+      easyDays.push('fri'); // Tue(Easy), Wed(Easy), Thu(Tempo), Fri(Shakeout), Sat(LSD)
+    }
+  }
+
   daysMeta.forEach(dm => {
     const isWeekendLong = (longDay === 'sun' && dm.key === 'sun') || (longDay === 'sat' && dm.key === 'sat');
+    const isTempo = (dm.key === 'thu');
+    const isEasy = easyDays.includes(dm.key);
 
     if (isWeekendLong) {
       result.push({
@@ -3152,7 +3175,7 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
         hrStr: easyHrStr,
         intensityTag: '저강도 유산소 80%'
       });
-    } else if (dm.key === 'thu') {
+    } else if (isTempo) {
       // 80/20 Key Quality Session (Thursday Tempo)
       result.push({
         ...dm,
@@ -3166,46 +3189,43 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
         hrStr: tempoHrStr,
         intensityTag: '고강도 역치 20%'
       });
-    } else if (daysPerWeek >= 4 && dm.key === 'tue') {
-      const eDist = daysPerWeek === 5 ? (remLowKm * 0.45) : (remLowKm * 0.55);
+    } else if (isEasy) {
+      let eDist = 0;
+      let eTitle = '회복 & 유산소 베이스 이지런';
+      let eType = '이지런 (Easy)';
+      let eGuide = '호흡이 가쁘지 않도록 케이던스 175~180을 가볍게 유지하며 몸을 부드럽게 풉니다.';
+
+      if (daysPerWeek === 3) {
+        eDist = Math.max(3.0, Math.round(remLowKm * 10) / 10);
+      } else if (daysPerWeek === 4) {
+        eDist = Math.max(3.0, Math.round((remLowKm / 2) * 10) / 10);
+      } else {
+        // 5 days
+        if (dm.key === 'tue') {
+          eDist = Math.max(3.0, Math.round((remLowKm * 0.38) * 10) / 10);
+        } else if (dm.key === 'wed') {
+          eDist = Math.max(3.0, Math.round((remLowKm * 0.34) * 10) / 10);
+          eType = '회복런 (Recovery)';
+          eTitle = '피로 완화 리커버리 이지런';
+        } else {
+          eDist = Math.max(3.0, Math.round((remLowKm * 0.28) * 10) / 10);
+          eType = '조깅 (Shakeout)';
+          eTitle = '주말 롱런 대비 셰이크아웃 조깅';
+          eGuide = '내일 장거리 러닝을 앞두고 다리 근육의 혈류 순환을 촉진하는 가벼운 조깅.';
+        }
+      }
+
       result.push({
         ...dm,
         type: 'EASY',
         badgeClass: 'badge-easy',
-        typeText: '이지런 (Easy)',
-        title: '회복 & 유산소 베이스 이지런',
-        guide: '호흡이 가쁘지 않도록 케이던스 175~180을 가볍게 유지하며 몸을 부드럽게 풉니다.',
-        distKm: Math.max(3.0, Math.round(eDist * 10) / 10),
+        typeText: eType,
+        title: eTitle,
+        guide: eGuide,
+        distKm: eDist,
         paceStr: easyPaceStr,
         hrStr: easyHrStr,
         intensityTag: '저강도 유산소 80%'
-      });
-    } else if (daysPerWeek >= 5 && dm.key === 'sat' && longDay === 'sun') {
-      const eDist = remLowKm * 0.35;
-      result.push({
-        ...dm,
-        type: 'EASY',
-        badgeClass: 'badge-easy',
-        typeText: '조깅 (Shakeout)',
-        title: '주말 롱런 대비 셰이크아웃 조깅',
-        guide: '내일 장거리 러닝을 앞두고 다리 근육의 혈류 순환을 촉진하는 가벼운 조깅.',
-        distKm: Math.max(3.0, Math.round(eDist * 10) / 10),
-        paceStr: easyPaceStr,
-        hrStr: easyHrStr,
-        intensityTag: '저강도 유산소 80%'
-      });
-    } else if (daysPerWeek === 3 && dm.key === 'sat' && longDay === 'sun') {
-      result.push({
-        ...dm,
-        type: 'REST',
-        badgeClass: 'badge-rest',
-        typeText: '완전 휴식',
-        title: '주말 롱런 대비 에너지 비축 & 충전',
-        guide: '충분한 수분 섭취와 탄수화물 보충, 폼롤러 스트레칭으로 롱런 컨디션을 준비합니다.',
-        distKm: 0,
-        paceStr: '휴식 (N/A)',
-        hrStr: '안정시 회복',
-        intensityTag: '회복 & 재생'
       });
     } else if (dm.key === 'wed') {
       result.push({
@@ -3219,6 +3239,19 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
         paceStr: '보강 운동',
         hrStr: '체중 저항 운동',
         intensityTag: '부상 방지'
+      });
+    } else if (dm.key === 'sat' && longDay === 'sun') {
+      result.push({
+        ...dm,
+        type: 'REST',
+        badgeClass: 'badge-rest',
+        typeText: '완전 휴식',
+        title: '주말 롱런 대비 에너지 비축 & 충전',
+        guide: '충분한 수분 섭취와 탄수화물 보충, 폼롤러 스트레칭으로 롱런 컨디션을 준비합니다.',
+        distKm: 0,
+        paceStr: '완전 휴식',
+        hrStr: '안정시 회복',
+        intensityTag: '회복 & 재생'
       });
     } else {
       result.push({
