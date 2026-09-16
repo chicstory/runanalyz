@@ -10,6 +10,9 @@
   const TRANSLATIONS = {
     ko: {
       brand_sub: "RUNNING & AEROBIC EF ENGINE",
+      strava_connected_status: "연동 중",
+      strava_disconnect_btn: "해제",
+      weekly_hero_title: "주차별 마일리지 빌드업 & 부상위험 진단",
       period_filter: "기간 필터:",
       period_all_years: "전체 누적 (2017~2026)",
       period_year_suffix: "년",
@@ -188,6 +191,9 @@
 
     en: {
       brand_sub: "RUNNING & AEROBIC EF ENGINE",
+      strava_connected_status: "Connected",
+      strava_disconnect_btn: "Disconnect",
+      weekly_hero_title: "Weekly Mileage Build-up & Injury Risk Audit",
       period_filter: "Period Filter:",
       period_all_years: "All Time (2017~2026)",
       period_year_suffix: "",
@@ -366,6 +372,9 @@
 
     ja: {
       brand_sub: "RUNNING & AEROBIC EF ENGINE",
+      strava_connected_status: "連携中",
+      strava_disconnect_btn: "解除",
+      weekly_hero_title: "週別走行距離ビルドアップ＆怪我リスク診断",
       period_filter: "期間フィルター:",
       period_all_years: "全期間 (2017~2026)",
       period_year_suffix: "年",
@@ -529,6 +538,9 @@
 
     es: {
       brand_sub: "RUNNING & AEROBIC EF ENGINE",
+      strava_connected_status: "Conectado",
+      strava_disconnect_btn: "Desconectar",
+      weekly_hero_title: "Acumulación Semanal de Kilometraje y Diagnóstico de Lesiones",
       period_filter: "Filtro de Período:",
       period_all_years: "Histórico Total (2017~2026)",
       period_year_suffix: "",

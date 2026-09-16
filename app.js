@@ -297,8 +297,10 @@ function setupStravaAuthButton(isCustomUser, athlete) {
       connectedPill.style.display = 'inline-flex';
     }
     if (userTag) {
-      userTag.innerHTML = `<i class="bi bi-strava" style="color:#fc4c02;"></i> ${athleteName}`;
-      userTag.title = `${athleteName}님 계정 연동 중`;
+      const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+      const statusText = curLang === 'ko' ? '연동 중' : 'Connected';
+      userTag.innerHTML = `<i class="bi bi-strava" style="color:#fc4c02;"></i> <span data-i18n="strava_connected_status">${statusText}</span>`;
+      userTag.title = `${athleteName} 계정 연동 중`;
     }
 
     if (btnResync) {
@@ -471,124 +473,51 @@ async function startRunAnalyz() {
   }
 
   // --------------------------------------------------------------------------
-  // 3. Date Range Filter (Calendar / Date Pickers + 4 Presets)
+  // 3. Period & Sport Filter Controller (Year / Month & Sport Filter)
   // --------------------------------------------------------------------------
-  const inputDateFrom = document.getElementById('input-date-from');
-  const inputDateTo = document.getElementById('input-date-to');
-  const presetBtns = document.querySelectorAll('.date-preset-btn');
+  const selectYear = document.getElementById('select-year');
+  const selectMonth = document.getElementById('select-month');
+  const filterBtns = document.querySelectorAll('.filter-btn');
 
-  let minDateStr = '2020-01-01';
-  let maxDateStr = new Date().toISOString().split('T')[0];
+  let currentYear = sessionStorage.getItem('shoef_year') || '2026';
+  let currentMonth = sessionStorage.getItem('shoef_month') || '8';
+  let currentSportFilter = sessionStorage.getItem('shoef_sport') || 'all';
 
-  if (pureRunningActivities.length > 0) {
-    const sortedDates = pureRunningActivities.map(a => a.date).filter(Boolean).sort();
-    if (sortedDates.length > 0) {
-      minDateStr = sortedDates[0];
-      maxDateStr = sortedDates[sortedDates.length - 1];
-    }
-  }
+  if (selectYear) selectYear.value = currentYear;
+  if (selectMonth) selectMonth.value = currentMonth;
 
-  function toDateStr(d) {
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${y}-${m}-${day}`;
-  }
-
-  let filterStartDate = '';
-  let filterEndDate = '';
-
-  function setDatePreset(presetKey) {
-    const today = new Date();
-    let fromDate = new Date();
-
-    if (presetKey === '1m') {
-      fromDate.setMonth(today.getMonth() - 1);
-      filterStartDate = toDateStr(fromDate);
-      filterEndDate = toDateStr(today);
-    } else if (presetKey === '3m') {
-      fromDate.setMonth(today.getMonth() - 3);
-      filterStartDate = toDateStr(fromDate);
-      filterEndDate = toDateStr(today);
-    } else if (presetKey === 'ytd') {
-      filterStartDate = `${today.getFullYear()}-01-01`;
-      filterEndDate = toDateStr(today);
-    } else { // 'all'
-      filterStartDate = minDateStr;
-      filterEndDate = maxDateStr;
-    }
-
-    if (inputDateFrom) inputDateFrom.value = filterStartDate;
-    if (inputDateTo) inputDateTo.value = filterEndDate;
-
-    presetBtns.forEach(b => {
-      b.classList.toggle('active', b.dataset.preset === presetKey);
-    });
-
-    sessionStorage.setItem('shoef_date_preset', presetKey);
-    sessionStorage.setItem('shoef_date_from', filterStartDate);
-    sessionStorage.setItem('shoef_date_to', filterEndDate);
-
-    // Sync currentYear and currentMonth for legacy submodules
-    if (filterEndDate) {
-      const parts = filterEndDate.split('-');
-      currentYear = parts[0];
-      currentMonth = String(parseInt(parts[1], 10));
-    }
-
-    refreshAllViews();
-  }
-
-  // Initial Date Setup: 1m preset default
-  const savedPreset = sessionStorage.getItem('shoef_date_preset') || '1m';
-  const savedDateFrom = sessionStorage.getItem('shoef_date_from');
-  const savedDateTo = sessionStorage.getItem('shoef_date_to');
-
-  if (savedDateFrom && savedDateTo) {
-    filterStartDate = savedDateFrom;
-    filterEndDate = savedDateTo;
-    if (inputDateFrom) inputDateFrom.value = filterStartDate;
-    if (inputDateTo) inputDateTo.value = filterEndDate;
-    presetBtns.forEach(b => b.classList.toggle('active', b.dataset.preset === savedPreset));
-    if (filterEndDate) {
-      const parts = filterEndDate.split('-');
-      currentYear = parts[0];
-      currentMonth = String(parseInt(parts[1], 10));
-    }
-  } else {
-    setDatePreset('1m');
-  }
-
-  if (inputDateFrom) {
-    inputDateFrom.addEventListener('change', (e) => {
-      filterStartDate = e.target.value;
-      sessionStorage.setItem('shoef_date_from', filterStartDate);
-      presetBtns.forEach(b => b.classList.remove('active'));
+  if (selectYear) {
+    selectYear.addEventListener('change', (e) => {
+      currentYear = e.target.value;
+      sessionStorage.setItem('shoef_year', currentYear);
       refreshAllViews();
     });
   }
 
-  if (inputDateTo) {
-    inputDateTo.addEventListener('change', (e) => {
-      filterEndDate = e.target.value;
-      sessionStorage.setItem('shoef_date_to', filterEndDate);
-      presetBtns.forEach(b => b.classList.remove('active'));
-      if (filterEndDate) {
-        const parts = filterEndDate.split('-');
-        currentYear = parts[0];
-        currentMonth = String(parseInt(parts[1], 10));
-      }
+  if (selectMonth) {
+    selectMonth.addEventListener('change', (e) => {
+      currentMonth = e.target.value;
+      sessionStorage.setItem('shoef_month', currentMonth);
       refreshAllViews();
     });
   }
 
-  presetBtns.forEach(btn => {
+  filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      setDatePreset(btn.dataset.preset);
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSportFilter = btn.dataset.filter;
+      sessionStorage.setItem('shoef_sport', currentSportFilter);
+      refreshAllViews();
     });
   });
 
-  currentSportFilter = 'all';
+  // Restore active filter chip
+  const activeFilterBtn = document.querySelector(`.filter-btn[data-filter="${currentSportFilter}"]`);
+  if (activeFilterBtn) {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    activeFilterBtn.classList.add('active');
+  }
 
   // Toast Notification Helper
   function showToast(message) {
@@ -613,10 +542,11 @@ async function startRunAnalyz() {
     const badgeContainer = document.getElementById('period-active-badge');
     if (!badgeTextEl) return;
 
-    let periodLabel = `${filterStartDate} ~ ${filterEndDate}`;
-    const activePreset = document.querySelector('.date-preset-btn.active');
-    if (activePreset) {
-      periodLabel = activePreset.textContent;
+    let periodLabel = `${currentYear}년`;
+    if (currentMonth !== 'all') {
+      periodLabel += ` ${currentMonth}월`;
+    } else {
+      periodLabel += ` 전체`;
     }
 
     const totalKm = currentList.reduce((sum, a) => sum + (a.distance_km || 0), 0);
@@ -638,8 +568,14 @@ async function startRunAnalyz() {
 
   function getFilteredActivities() {
     return pureRunningActivities.filter(a => {
-      if (filterStartDate && a.date && a.date < filterStartDate) return false;
-      if (filterEndDate && a.date && a.date > filterEndDate) return false;
+      if (currentYear !== 'all') {
+        const aYear = a.date ? a.date.slice(0, 4) : '';
+        if (aYear !== currentYear) return false;
+      }
+      if (currentMonth !== 'all') {
+        const aMonth = a.date ? String(parseInt(a.date.slice(5, 7), 10)) : '';
+        if (aMonth !== currentMonth) return false;
+      }
       if (currentSportFilter === 'treadmill' && a.sub_sport !== 'treadmill') return false;
       if (currentSportFilter === 'outdoor' && a.sub_sport === 'treadmill') return false;
       return true;
@@ -648,8 +584,14 @@ async function startRunAnalyz() {
 
   function updateBadgeCounts() {
     const runsInPeriod = pureRunningActivities.filter(a => {
-      if (filterStartDate && a.date && a.date < filterStartDate) return false;
-      if (filterEndDate && a.date && a.date > filterEndDate) return false;
+      if (currentYear !== 'all') {
+        const aYear = a.date ? a.date.slice(0, 4) : '';
+        if (aYear !== currentYear) return false;
+      }
+      if (currentMonth !== 'all') {
+        const aMonth = a.date ? String(parseInt(a.date.slice(5, 7), 10)) : '';
+        if (aMonth !== currentMonth) return false;
+      }
       return true;
     });
 
@@ -713,6 +655,9 @@ async function startRunAnalyz() {
       } else {
         if (subnavBar) subnavBar.classList.add('hidden');
         activateTab(targetNav);
+        if (targetNav === 'plan' && typeof syncPlanTargetWithChronic === 'function') {
+          syncPlanTargetWithChronic();
+        }
       }
     });
   });
@@ -867,8 +812,13 @@ function initSingleSession(activities) {
     return;
   }
 
-  // Populate Select (latest first)
-  const sortedActs = [...activities].reverse();
+  // Populate Select (latest session first)
+  const sortedActs = [...activities].sort((a, b) => {
+    const dtA = (a.date || '') + ' ' + (a.time || '');
+    const dtB = (b.date || '') + ' ' + (b.time || '');
+    return dtB.localeCompare(dtA);
+  });
+
   sortedActs.forEach((act, idx) => {
     const opt = document.createElement('option');
     opt.value = act.id;
@@ -876,6 +826,7 @@ function initSingleSession(activities) {
     select.appendChild(opt);
   });
 
+  select.value = sortedActs[0].id;
   select.onchange = () => {
     const selectedAct = activities.find(a => a.id === select.value);
     if (selectedAct) renderSingleSession(selectedAct);
@@ -2014,16 +1965,6 @@ function renderSingleChart(act) {
   }, 150);
 }
 
-
-function getISOWeek(dateStr) {
-  if (!dateStr) return 1;
-  const d = new Date(dateStr + 'T00:00:00');
-  const dayNum = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-}
-
 /* ==========================================================================
    MODULE 2: WEEKLY RECAP LOGIC
    ========================================================================== */
@@ -2033,60 +1974,72 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
 
   const allRuns = allActivities || window.RUNANALYZ_PURE_ACTIVITIES || activities;
 
+  // Title: "주차별 마일리지 빌드업 & 부상위험 진단" (Without year/month prefixes)
   const weeklyTitleEl = document.getElementById('weekly-main-title');
   if (weeklyTitleEl) {
-    let pLabel = '';
-    if (year === 'all') {
-      pLabel = month === 'all' ? '역대 전체' : `역대 ${month}월`;
-    } else {
-      pLabel = month === 'all' ? `${year}년 전체` : `${year}년 ${month}월`;
-    }
-    weeklyTitleEl.textContent = `${pLabel} 주차별 마일리지 빌드업 & 부상 위험 진단`;
+    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+    weeklyTitleEl.textContent = curLang === 'ko' ? '주차별 마일리지 빌드업 & 부상위험 진단' : 'Weekly Mileage Build-up & Injury Risk Audit';
   }
 
-  if (activities.length === 0) {
-    container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);"><i class="bi bi-calendar-x" style="font-size: 2.2rem; color: var(--accent-orange); display: block; margin-bottom: 0.6rem;"></i>선택한 기간에 등록된 주간 러닝 기록이 없습니다.</div>`;
-    if (window.weeklyChartInstance) {
-      window.weeklyChartInstance.destroy();
-      window.weeklyChartInstance = null;
-    }
-    return;
+  // Helpers: Monday ~ Sunday standard week calculation
+  function getMondayStr(dateStr) {
+    const parts = (dateStr || '').slice(0, 10).split('-').map(Number);
+    if (parts.length < 3 || isNaN(parts[0])) return '2026-08-03';
+    const d = new Date(parts[0], parts[1] - 1, parts[2]);
+    const day = d.getDay(); // 0 is Sun, 1 is Mon
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+    const mon = new Date(parts[0], parts[1] - 1, diff);
+    const y = mon.getFullYear();
+    const m = String(mon.getMonth() + 1).padStart(2, '0');
+    const dt = String(mon.getDate()).padStart(2, '0');
+    return `${y}-${m}-${dt}`;
   }
 
-  // Group by week (Month week when viewing specific month, ISO week when annual/all-time)
+  function getSundayStr(monStr) {
+    const parts = monStr.split('-').map(Number);
+    const sun = new Date(parts[0], parts[1] - 1, parts[2] + 6);
+    const y = sun.getFullYear();
+    const m = String(sun.getMonth() + 1).padStart(2, '0');
+    const dt = String(sun.getDate()).padStart(2, '0');
+    return `${y}-${m}-${dt}`;
+  }
+
+  function getISOWeekInfo(monStr) {
+    const parts = monStr.split('-').map(Number);
+    const dt = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+    const dayNum = dt.getUTCDay() || 7;
+    dt.setUTCDate(dt.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(dt.getUTCFullYear(), 0, 1));
+    const weekNo = Math.ceil((((dt - yearStart) / 86400000) + 1) / 7);
+    const yr = String(dt.getUTCFullYear()).slice(2);
+    return { weekNo, yearShort: yr, fullYear: dt.getUTCFullYear() };
+  }
+
+  // Group all pure running activities by Monday-start weeks
   const weekMap = {};
-  activities.forEach(a => {
-    let wNum = 1;
-    let wKey = '';
-    let wName = '';
-    let sDateStr = '';
+  allRuns.forEach(a => {
+    if (!a.date || !a.is_pure_running) return;
+    const monStr = getMondayStr(a.date);
+    if (!weekMap[monStr]) {
+      const sunStr = getSundayStr(monStr);
+      const iso = getISOWeekInfo(monStr);
+      const monParts = monStr.split('-');
+      const sunParts = sunStr.split('-');
+      const dateRangeStr = `${parseInt(monParts[1], 10)}/${parseInt(monParts[2], 10)}~${parseInt(sunParts[1], 10)}/${parseInt(sunParts[2], 10)}`;
+      
+      const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+      const isKo = (curLang === 'ko');
+      const wName = isKo 
+        ? `${iso.yearShort}년 ${iso.weekNo}주차 (${dateRangeStr})`
+        : `'${iso.yearShort} W${iso.weekNo} (${dateRangeStr})`;
 
-    if (month !== 'all') {
-      let day = 1;
-      if (a.date) {
-        const parts = a.date.split('-');
-        if (parts.length >= 3) day = parseInt(parts[2], 10) || 1;
-      }
-      wNum = a.week || Math.min(Math.floor((day - 1) / 7) + 1, 5);
-      wKey = `W${wNum}`;
-      const sDay = (wNum - 1) * 7 + 1;
-      const eDay = wNum === 5 ? 31 : wNum * 7;
-      wName = `${wNum}주차 (${month}/${sDay < 10 ? '0' : ''}${sDay}~${month}/${eDay < 10 ? '0' : ''}${eDay})`;
-      const mStr = String(month).padStart(2, '0');
-      const dStr = String(sDay).padStart(2, '0');
-      sDateStr = `${year}-${mStr}-${dStr}`;
-    } else {
-      wNum = a.iso_week || (a.date ? getISOWeek(a.date) : 1);
-      wKey = `W${wNum}`;
-      wName = `${wNum}주차 (${a.date ? a.date.slice(5, 10) : ''})`;
-      sDateStr = (a.date || '').slice(0, 10);
-    }
-
-    if (!weekMap[wKey]) {
-      weekMap[wKey] = {
+      weekMap[monStr] = {
+        key: monStr,
         name: wName,
-        weekNum: wNum,
-        startDateStr: sDateStr,
+        weekNum: iso.weekNo,
+        year: iso.fullYear,
+        startDateStr: monStr,
+        endDateStr: sunStr,
         runs: [],
         totalKm: 0,
         totalTimeSec: 0,
@@ -2095,27 +2048,31 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
         maxLsd: 0
       };
     }
-    weekMap[wKey].runs.push(a);
-    weekMap[wKey].totalKm += a.distance_km;
-    weekMap[wKey].totalTimeSec += a.duration_seconds;
-    if (a.ef > 0.5) weekMap[wKey].efList.push(a.ef);
-    if (a.avg_hr > 60) weekMap[wKey].hrList.push(a.avg_hr);
-    if (a.distance_km > weekMap[wKey].maxLsd) weekMap[wKey].maxLsd = a.distance_km;
+    weekMap[monStr].runs.push(a);
+    weekMap[monStr].totalKm += (a.distance_km || 0);
+    weekMap[monStr].totalTimeSec += (a.duration_seconds || 0);
+    if (a.ef > 0.5) weekMap[monStr].efList.push(a.ef);
+    if (a.avg_hr > 60) weekMap[monStr].hrList.push(a.avg_hr);
+    if ((a.distance_km || 0) > weekMap[monStr].maxLsd) weekMap[monStr].maxLsd = a.distance_km;
   });
 
-  const weeks = Object.values(weekMap).sort((a, b) => a.weekNum - b.weekNum);
+  const allWeeksSorted = Object.values(weekMap).sort((a, b) => a.startDateStr.localeCompare(b.startDateStr));
 
-  // Compute 4-Week Rolling ACWR Progression Rule & 80/20 Polarized Breakdown
-  let prevKm = 0;
-  weeks.forEach((w) => {
+  if (allWeeksSorted.length === 0) {
+    container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);"><i class="bi bi-calendar-x" style="font-size: 2.2rem; color: var(--accent-orange); display: block; margin-bottom: 0.6rem;"></i>등록된 주간 러닝 기록이 없습니다.</div>`;
+    if (window.weeklyChartInstance) {
+      window.weeklyChartInstance.destroy();
+      window.weeklyChartInstance = null;
+    }
+    return;
+  }
+
+  // Calculate 4-week (28-day) Rolling Chronic Baseline & ACWR for every week
+  allWeeksSorted.forEach((w) => {
     w.totalKm = Math.round(w.totalKm * 100) / 100;
 
-    // Compute 4-week (28-day) Rolling Chronic Baseline (ACWR)
     let prior28dKm = 0;
-    let sDate = w.startDateStr;
-    if (!sDate && w.runs.length > 0) {
-      sDate = w.runs[0].date ? w.runs[0].date.slice(0, 10) : '';
-    }
+    const sDate = w.startDateStr;
 
     if (sDate && allRuns.length > 0) {
       const startDt = new Date(sDate + 'T00:00:00');
@@ -2134,9 +2091,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
     }
 
     let chronicAvg = prior28dKm / 4.0;
-    if (chronicAvg === 0 && prevKm > 0) {
-      chronicAvg = prevKm;
-    } else if (chronicAvg === 0) {
+    if (chronicAvg === 0) {
       chronicAvg = w.totalKm;
     }
 
@@ -2147,100 +2102,94 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
     w.acwr = Math.round(acwr * 100) / 100;
     w.diffPct = diffPct;
 
-    // Realistic Sports Science ACWR Safety Rule (With 5km / 15km absolute buffer)
-    if (w.totalKm <= 15.0 || (w.totalKm - w.chronicAvg) <= 5.0) {
-      if (acwr < 0.75 && w.totalKm > 0 && w.chronicAvg >= 20.0) {
-        w.ruleClass = 'rule-recovery';
-        w.ruleText = `회복주 (${w.diffPct}%)`;
-        w.ruleShort = `회복주 (${w.diffPct}%)`;
-      } else {
-        w.ruleClass = 'rule-safe';
-        w.ruleText = `안전 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
-        w.ruleShort = `안전 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
-      }
-    } else if (acwr < 0.8) {
-      w.ruleClass = 'rule-recovery';
-      w.ruleText = `회복주 (${w.diffPct}%)`;
-      w.ruleShort = `회복주 (${w.diffPct}%)`;
-    } else if (acwr <= 1.3) {
+    // Realistic Sports Science ACWR Safety Rule
+    if (w.totalKm < 15.0) {
+      w.ruleKey = 'safe';
       w.ruleClass = 'rule-safe';
-      w.ruleText = `최적 부하 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
-      w.ruleShort = `최적 부하 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
-    } else if (acwr <= 1.5) {
-      w.ruleClass = 'rule-caution';
-      w.ruleText = `부하 주의 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
-      w.ruleShort = `부하 주의 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
-    } else {
+      w.ruleText = '안전 (기초 빌드업)';
+      w.ruleShort = '안전';
+      w.ruleIcon = 'bi-shield-check';
+    } else if (acwr <= 1.15) {
+      w.ruleKey = 'safe';
+      w.ruleClass = 'rule-safe';
+      w.ruleText = `안전 증량 (${diffPct >= 0 ? '+' : ''}${diffPct}%)`;
+      w.ruleShort = '안전';
+      w.ruleIcon = 'bi-shield-check';
+    } else if (acwr <= 1.35) {
+      w.ruleKey = 'warning';
+      w.ruleClass = 'rule-warning';
+      w.ruleText = `주의 (ACWR ${acwr.toFixed(2)}x)`;
+      w.ruleShort = '주의';
+      w.ruleIcon = 'bi-exclamation-triangle';
+    } else if (acwr > 1.35) {
+      w.ruleKey = 'danger';
       w.ruleClass = 'rule-danger';
-      w.ruleText = `급증 위험 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
-      w.ruleShort = `급증 위험 (${w.diffPct >= 0 ? '+' : ''}${w.diffPct}%)`;
+      w.ruleText = `위험 급증 (ACWR ${acwr.toFixed(2)}x)`;
+      w.ruleShort = '위험';
+      w.ruleIcon = 'bi-fire';
+    } else {
+      w.ruleKey = 'detraining';
+      w.ruleClass = 'rule-detraining';
+      w.ruleText = '부하 감소';
+      w.ruleShort = '감소';
+      w.ruleIcon = 'bi-arrow-down';
     }
 
-    w.avgEf = w.efList.length ? Math.round((w.efList.reduce((a,b)=>a+b,0)/w.efList.length)*1000)/1000 : 0;
-    w.avgHr = w.hrList.length ? Math.round(w.hrList.reduce((a,b)=>a+b,0)/w.hrList.length) : 0;
-    w.lsdRatio = w.totalKm > 0 ? Math.round((w.maxLsd / w.totalKm) * 1000) / 10 : 0;
+    w.avgEf = w.efList.length > 0 ? w.efList.reduce((a, b) => a + b, 0) / w.efList.length : 0;
+    w.avgHr = w.hrList.length > 0 ? Math.round(w.hrList.reduce((a, b) => a + b, 0) / w.hrList.length) : 0;
 
-    // Workout category breakdown & 80/20 Polarized calculations (2-tier: low vs high + LSD volume)
-    const typeCounts = { low: 0, high: 0, lsd: 0, other: 0 };
-    const typeKm = { low: 0, high: 0, lsd: 0, other: 0 };
-    let lowKm = 0;
-    let highKm = 0;
+    // 80/20 Polarized Breakdown
+    const userTh = getCalculatedThresholds();
+    let lowKm = 0, highKm = 0, lsdKm = 0;
+    let lowCount = 0, highCount = 0, lsdCount = 0;
 
-    w.runs.forEach(a => {
-      const wo = classifyWorkout(a, null, w.maxLsd);
-      a.workout_type = wo.type;
-      if (typeCounts[wo.type] !== undefined) {
-        typeCounts[wo.type]++;
-        typeKm[wo.type] += (a.distance_km || 0);
-      }
-      if (wo.intensity === 'high') {
-        highKm += (a.distance_km || 0);
+    (w.runs || []).forEach(r => {
+      const wo = classifyWorkout(r, userTh, w.maxLsd);
+      if (wo.type === 'lsd') {
+        lsdKm += (r.distance_km || 0);
+        lsdCount++;
+      } else if (wo.type === 'high') {
+        highKm += (r.distance_km || 0);
+        highCount++;
       } else {
-        lowKm += (a.distance_km || 0);
+        lowKm += (r.distance_km || 0);
+        lowCount++;
       }
     });
 
-    const totKm = w.totalKm || (lowKm + highKm);
-    const lowRatio = totKm > 0 ? Math.round((lowKm / totKm) * 100) : 100;
-    const highRatio = 100 - lowRatio;
-    w.lowRatio = lowRatio;
-    w.highRatio = highRatio;
-    w.lowKm = lowKm;
+    const totK = (lowKm + highKm + lsdKm) || 1;
+    w.lowRatio = Math.round(((lowKm + lsdKm) / totK) * 100);
+    w.highRatio = 100 - w.lowRatio;
+    w.lsdRatio = Math.round((lsdKm / totK) * 100);
+    w.lowKm = lowKm + lsdKm;
     w.highKm = highKm;
-    w.typeCounts = typeCounts;
-    w.typeKm = typeKm;
-
-    prevKm = w.totalKm;
+    w.typeCounts = { low: lowCount, high: highCount, lsd: lsdCount };
+    w.typeKm = { low: lowKm, high: highKm, lsd: lsdKm };
   });
 
-  // Render Weekly Coaching & 80/20 Polarized Diagnostic Card (Based on latest week in view)
+  // Always show recent 4 completed/active Monday-start weeks
+  const weeks = allWeeksSorted.slice(-4);
+  const latestWeek = weeks[weeks.length - 1];
+
+  // Expose latest chronic base for 7-Day Plan automatic target synchronization
+  if (latestWeek) {
+    window.LATEST_WEEK_CHRONIC_AVG = latestWeek.chronicAvg;
+  }
+
+  // Render Coaching Card for Latest Week
   const coachingCard = document.getElementById('weekly-coaching-card');
-  if (coachingCard && weeks.length > 0) {
-    const latestWeek = weeks[weeks.length - 1];
-    const low = latestWeek.lowRatio;
-    const high = latestWeek.highRatio;
+  if (coachingCard && latestWeek) {
+    const low = latestWeek.lowRatio || 80;
+    const high = latestWeek.highRatio || 20;
 
-    let badgeClass = 'gold';
-    let badgeText = '🏆 이상적인 80/20 양극화 달성';
-    let coachingMsg = '';
+    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+    const isKo = (curLang === 'ko');
 
-    if (high > 30) {
-      badgeClass = 'orange';
-      badgeText = '⚠️ 고강도 비중 과다 (부상 경고)';
-      coachingMsg = `이번 주는 고강도 포인트 훈련(Zone 3+) 비중이 <strong>${high}%</strong>로 높습니다. 마라톤 훈련 생리학상 고강도가 25%를 초과하면 아킬레스건, 족저근막 및 무릎 관절에 피로 물질이 누적되어 부상 위험이 급증합니다. 다음 주는 <strong>Zone 1~2 저강도 유산소 런과 가벼운 회복 조깅 비중을 80% 이상으로 확보</strong>하여 유산소 모세혈관을 회복시키세요.`;
-    } else if (low >= 75 && low <= 88) {
-      badgeClass = 'gold';
-      badgeText = '🏆 이상적인 80/20 양극화 달성';
-      coachingMsg = `이번 주는 <strong>저강도 ${low}% : 고강도 ${high}%</strong>로 세계 엘리트 마라토너들이 채택하는 <strong>양극화 훈련(Polarized Training) 황금 비율</strong>을 완벽히 지켰습니다! 심폐 베이스를 탄탄히 쌓으면서도 역치 자극을 적절히 주어 부상 없이 최대의 유산소 효율(EF) 성장을 거둘 수 있는 최상의 구성입니다.`;
-    } else if (high === 0 && latestWeek.totalKm >= 15) {
-      badgeClass = 'green';
-      badgeText = '🌱 100% 순수 유산소 베이스 빌딩';
-      coachingMsg = `이번 주 모든 러닝이 저강도 유산소 세션(Zone 1~2 및 LSD)으로 구성되었습니다. 심폐 지구력과 지방 대사 효율을 극대화하는 매우 안전한 훈련 주간입니다. 마라톤 레이스를 준비 중이라면 주 1회 <strong>20~30분의 역치/고강도 포인트 세션</strong>을 추가하면 레이스 페이스 유지력이 한 단계 도약합니다.`;
-    } else {
-      badgeClass = 'green';
-      badgeText = '✅ 안정적인 주간 트레이닝 밸런스';
-      coachingMsg = `이번 주는 최근 4주 만성 베이스(주당 ${latestWeek.chronicAvg.toFixed(1)}km) 대비 <strong>${latestWeek.acwr.toFixed(2)}배</strong>의 적정 훈련 부하(${latestWeek.ruleShort})와 저강도 ${low}% : 고강도 ${high}%의 균형 잡힌 마일리지를 유지하고 있습니다.`;
-    }
+    let badgeClass = 'green';
+    let badgeText = isKo ? '✅ 안정적인 주간 트레이닝 밸런스' : '✅ Balanced Training Load';
+    let coachingMsg = isKo
+      ? `이번 주는 최근 4주 만성 베이스(주당 ${latestWeek.chronicAvg.toFixed(1)}km) 대비 <strong>${latestWeek.acwr.toFixed(2)}배</strong>의 적정 훈련 부하(${latestWeek.ruleShort})와 저강도 ${low}% : 고강도 ${high}%의 균형 잡힌 마일리지를 유지하고 있습니다.`
+      : `Trailing 4-week chronic load (<strong>${latestWeek.chronicAvg.toFixed(1)} km/wk</strong>) maintains an optimal ACWR ratio of <strong>${latestWeek.acwr.toFixed(2)}x</strong> (${low}% Low : ${high}% High intensity).`;
 
     if (latestWeek.acwr > 1.5) {
       coachingMsg += `<br><br><span style="color:var(--accent-red);">⚠️ <strong>부상 위험 주의 (ACWR ${latestWeek.acwr.toFixed(2)}x)</strong>: 이번 주 훈련량(${latestWeek.totalKm.toFixed(1)}km)이 최근 4주 평균치(${latestWeek.chronicAvg.toFixed(1)}km)보다 50% 이상 급증했습니다. 관절과 건의 부상 예방을 위해 다음 주는 볼륨을 20~30% 낮추는 회복주를 권장합니다.</span>`;
@@ -3751,9 +3700,29 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
   return result;
 }
 
+function syncPlanTargetWithChronic() {
+  const inputKm = document.getElementById('plan-target-km');
+  if (inputKm && !inputKm.dataset.userEdited) {
+    if (window.LATEST_WEEK_CHRONIC_AVG && window.LATEST_WEEK_CHRONIC_AVG > 0) {
+      const safeTarget = (window.LATEST_WEEK_CHRONIC_AVG * 1.05).toFixed(1);
+      inputKm.value = safeTarget;
+      inputKm.placeholder = `최근 4주 기반 권장: ${safeTarget}km`;
+    }
+  }
+}
+
 function initTrainingPlanModule() {
   const planPanel = document.getElementById('panel-plan');
   if (!planPanel) return;
+
+  // Sync chronic mileage with target KM if available
+  const inputKm = document.getElementById('plan-target-km');
+  if (inputKm) {
+    inputKm.addEventListener('input', () => {
+      inputKm.dataset.userEdited = 'true';
+    });
+    syncPlanTargetWithChronic();
+  }
 
   // 1. Interactive Form Controls
   // 1-1. Gender Selector
@@ -3800,6 +3769,28 @@ function initTrainingPlanModule() {
       raceDistChips.forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
       selectedRaceDist = parseFloat(chip.dataset.dist) || 10000;
+
+      // 거리별 디폴트 완주 시간(시/분/초) 프리셋 자동 채우기
+      const elHour = document.getElementById('plan-race-hour');
+      const elMin = document.getElementById('plan-race-min');
+      const elSec = document.getElementById('plan-race-sec');
+      if (selectedRaceDist === 5000) {
+        if (elHour) elHour.value = 0;
+        if (elMin) elMin.value = 28;
+        if (elSec) elSec.value = 0;
+      } else if (selectedRaceDist === 10000) {
+        if (elHour) elHour.value = 0;
+        if (elMin) elMin.value = 58;
+        if (elSec) elSec.value = 0;
+      } else if (selectedRaceDist === 21097) {
+        if (elHour) elHour.value = 2;
+        if (elMin) elMin.value = 5;
+        if (elSec) elSec.value = 0;
+      } else if (selectedRaceDist === 42195) {
+        if (elHour) elHour.value = 4;
+        if (elMin) elMin.value = 15;
+        if (elSec) elSec.value = 0;
+      }
     });
   });
 
@@ -3880,10 +3871,13 @@ function initTrainingPlanModule() {
         });
 
         const totSec = outdoorPB.paceSec * (selectedRaceDist / 1000.0);
-        const minVal = Math.floor(totSec / 60);
+        const hourVal = Math.floor(totSec / 3600);
+        const minVal = Math.floor((totSec % 3600) / 60);
         const secVal = Math.round(totSec % 60);
+        const elHour = document.getElementById('plan-race-hour');
         const elMin = document.getElementById('plan-race-min');
         const elSec = document.getElementById('plan-race-sec');
+        if (elHour) elHour.value = hourVal;
         if (elMin) elMin.value = minVal;
         if (elSec) elSec.value = secVal;
       }
@@ -3992,10 +3986,11 @@ function initTrainingPlanModule() {
     let vdotDisplay = '33.0';
 
     if (currentPlanMode === 'pb') {
-      const minVal = parseInt(document.getElementById('plan-race-min')?.value) || 60;
+      const hourVal = parseInt(document.getElementById('plan-race-hour')?.value) || 0;
+      const minVal = parseInt(document.getElementById('plan-race-min')?.value) || 0;
       const secVal = parseInt(document.getElementById('plan-race-sec')?.value) || 0;
-      const raceTotalSec = (minVal * 60) + secVal;
-      vdot = calcVdotFromRace(selectedRaceDist, raceTotalSec);
+      const raceTotalSec = (hourVal * 3600) + (minVal * 60) + secVal;
+      vdot = calcVdotFromRace(selectedRaceDist, raceTotalSec > 0 ? raceTotalSec : 3600);
       vdotDisplay = vdot.toFixed(1);
       const paces = calcDanielsPaces(vdot);
       easyPaceSec = paces.easySec;

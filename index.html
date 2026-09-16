@@ -87,9 +87,9 @@
               <i class="bi bi-strava" style="color: #ffffff;"></i> <span id="strava-auth-btn-text">Strava 연동</span>
             </button>
             <div class="strava-connected-pill" id="strava-connected-pill" style="display: none;">
-              <span class="strava-user-tag" id="strava-user-tag"><i class="bi bi-strava"></i> 러너</span>
+              <span class="strava-user-tag" id="strava-user-tag"><i class="bi bi-strava"></i> <span data-i18n="strava_connected_status">연동 중</span></span>
               <button class="btn-strava-sync-mini" id="btn-strava-resync" title="Strava 최신 기록 다시 동기화"><i class="bi bi-arrow-repeat"></i></button>
-              <button class="btn-strava-disconnect-mini" id="btn-strava-disconnect" title="Strava 연동 해제 및 로컬 캐시 초기화"><i class="bi bi-power"></i> 해제</button>
+              <button class="btn-strava-disconnect-mini" id="btn-strava-disconnect" title="Strava 연동 해제 및 로컬 캐시 초기화"><i class="bi bi-power"></i> <span data-i18n="strava_disconnect_btn">해제</span></button>
             </div>
           </div>
 
@@ -111,28 +111,43 @@
         </div>
       </div>
 
-      <!-- Sub Header Controls: Date Range Filter & Refresh & Guide -->
+      <!-- Sub Header Controls: Period Filter & Refresh & Guide -->
       <div class="header-meta">
-        <!-- Date Range Filter (Calendar / Date Pickers + Presets) -->
-        <div class="date-range-filter-group">
-          <div class="date-inputs-wrap">
-            <span class="date-filter-label"><i class="bi bi-calendar3"></i> <span data-i18n="filter_date_range">기간</span></span>
-            <input type="date" id="input-date-from" class="date-picker-input" title="시작일">
-            <span class="date-sep">~</span>
-            <input type="date" id="input-date-to" class="date-picker-input" title="종료일">
-          </div>
-          <div class="date-preset-chips">
-            <button type="button" class="date-preset-btn active" data-preset="1m" data-i18n="preset_1m">최근 1개월</button>
-            <button type="button" class="date-preset-btn" data-preset="3m" data-i18n="preset_3m">최근 3개월</button>
-            <button type="button" class="date-preset-btn" data-preset="ytd" data-i18n="preset_ytd">올해(YTD)</button>
-            <button type="button" class="date-preset-btn" data-preset="all" data-i18n="preset_all">전체</button>
+        <div class="filter-controls-group">
+          <div class="period-selectors">
+            <span class="filter-label"><i class="bi bi-calendar3"></i> <span data-i18n="period_filter">기간:</span></span>
+            <select id="select-year" class="form-select-sm" title="연도 선택">
+              <option value="2026" selected>2026년</option>
+              <option value="2025">2025년</option>
+              <option value="2024">2024년</option>
+              <option value="2023">2023년</option>
+              <option value="2022">2022년</option>
+              <option value="2021">2021년</option>
+              <option value="2020">2020년</option>
+              <option value="2019">2019년</option>
+              <option value="2018">2018년</option>
+              <option value="2017">2017년</option>
+              <option value="all" data-i18n="period_all_years">전체 누적 (2017~2026)</option>
+            </select>
+            <select id="select-month" class="form-select-sm" title="월 선택">
+              <option value="all" data-i18n="period_all_months">연간 전체</option>
+              <option value="1">1월</option>
+              <option value="2">2월</option>
+              <option value="3">3월</option>
+              <option value="4">4월</option>
+              <option value="5">5월</option>
+              <option value="6">6월</option>
+              <option value="7">7월</option>
+              <option value="8" selected>8월</option>
+              <option value="9">9월</option>
+              <option value="10">10월</option>
+              <option value="11">11월</option>
+              <option value="12">12월</option>
+            </select>
           </div>
         </div>
 
         <div class="header-utility-group">
-          <div class="period-active-badge" id="period-active-badge" title="현재 필터링된 러닝 요약">
-            <i class="bi bi-fire text-orange"></i> <strong id="period-badge-text">최근 1개월</strong>
-          </div>
           <div class="refresh-guide-box">
             <button class="btn-refresh" id="btn-reload" title="데이터 즉시 새로고침">
               <i class="bi bi-arrow-clockwise"></i> <span data-i18n="btn_refresh">새로고침</span>
@@ -549,7 +564,7 @@
       <div class="weekly-hero-card">
         <div class="wh-content">
           <span class="sub-title">ACWR TRAINING LOAD &amp; 4-WEEK BASELINE AUDIT</span>
-          <h2 class="main-title" id="weekly-main-title">8월 주차별 마일리지 빌드업 &amp; 부상 위험 진단</h2>
+          <h2 class="main-title" id="weekly-main-title" data-i18n="weekly_hero_title">주차별 마일리지 빌드업 &amp; 부상위험 진단</h2>
           <p class="description">
             스포츠 생리학의 부상 방지 글로벌 표준인 <strong>ACWR(최근 4주 만성 베이스 대비 이번 주 부하 비율)</strong>과 <strong>80/20 양극화(Polarized) 훈련 비율</strong>을 실시간 진단합니다.
           </p>
@@ -792,11 +807,13 @@
             </div>
             
             <div class="pfg-field" style="margin-top:0.75rem;">
-              <label>100% 전력 완주 시간 (분 : 초)</label>
+              <label>100% 전력 완주 시간 (시 : 분 : 초)</label>
               <div class="pfg-time-inputs">
-                <input type="number" id="plan-race-min" value="61" min="10" max="360" placeholder="분">
+                <input type="number" id="plan-race-hour" value="1" min="0" max="12" placeholder="시" style="max-width: 65px;">
                 <span class="pfg-time-colon">:</span>
-                <input type="number" id="plan-race-sec" value="40" min="0" max="59" placeholder="초">
+                <input type="number" id="plan-race-min" value="01" min="0" max="59" placeholder="분" style="max-width: 65px;">
+                <span class="pfg-time-colon">:</span>
+                <input type="number" id="plan-race-sec" value="40" min="0" max="59" placeholder="초" style="max-width: 65px;">
               </div>
             </div>
             <div class="plan-help-text">
