@@ -2155,9 +2155,18 @@ html[lang="en"], html[lang="es"] {
   letter-spacing: 0.5px;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.35rem;
   color: #fff;
 }
+
+.ic-brand-img {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  object-fit: cover;
+  display: inline-block;
+}
+
 
 .ic-title-area {
   margin: 0.85rem 0 0.65rem 0;
