@@ -679,17 +679,7 @@ async function startRunAnalyz() {
     });
   });
 
-  // 5. Sport Environment Filter Buttons
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
 
-      currentSportFilter = btn.dataset.filter;
-      refreshAllViews();
-    });
-  });
 
   // Refresh All Dashboard Views
   function refreshAllViews() {
@@ -2315,6 +2305,9 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
   }
 
   // Render Weekly Cards
+  const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+  const isKo = (curLang === 'ko');
+
   if (weeks.length === 0) {
     const emptyMsg = isKo ? '선택된 기간에 주간 러닝 기록이 없습니다.' : 'No weekly running records found for the selected period.';
     container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 2rem;">${emptyMsg}</div>`;
@@ -4219,12 +4212,8 @@ function initWelcomeGateway() {
     });
   }
 
-  // Auto-display gateway if user hasn't chosen a track in this session and not logged into Strava
-  const hasToken = !!localStorage.getItem('strava_access_token');
-  const dismissed = sessionStorage.getItem('shoef_gateway_dismissed');
-  if (!hasToken && !dismissed) {
-    openGateway();
-  }
+  // Auto-display gateway disabled so users see the full rich dashboard immediately!
+  // Gateway modal can be opened via runner profile or guidance buttons.
 }
 
 // Auto-run modules when DOM is loaded or script finishes

@@ -111,9 +111,10 @@
         </div>
       </div>
 
-      <!-- Sub Header Controls: Period Filter & Refresh & Guide -->
+      <!-- Sub Header Controls: Period & Sport Environment & Quick Actions -->
       <div class="header-meta">
         <div class="filter-controls-group">
+          <!-- 1. Period Dropdowns -->
           <div class="period-selectors">
             <span class="filter-label"><i class="bi bi-calendar3"></i> <span data-i18n="period_filter">기간:</span></span>
             <select id="select-year" class="form-select-sm" title="연도 선택">
@@ -145,36 +146,31 @@
               <option value="12">12월</option>
             </select>
           </div>
+
+          <!-- 2. Sport Environment Chips (Inline) -->
+          <div class="filter-btn-group header-sport-chips">
+            <button class="filter-btn active" data-filter="all" id="filter-all">
+              <i class="bi bi-collection-play"></i> <span data-i18n="filter_all">전체</span> <span class="badge-num" id="filter-count-all">(0)</span>
+            </button>
+            <button class="filter-btn" data-filter="treadmill" id="filter-treadmill">
+              <i class="bi bi-speedometer"></i> <span data-i18n="filter_treadmill">트레드밀</span> <span class="badge-num" id="filter-count-tm">(0)</span>
+            </button>
+            <button class="filter-btn" data-filter="outdoor" id="filter-outdoor">
+              <i class="bi bi-tree"></i> <span data-i18n="filter_outdoor">야외</span> <span class="badge-num" id="filter-count-od">(0)</span>
+            </button>
+          </div>
         </div>
 
         <div class="header-utility-group">
-          <div class="refresh-guide-box">
-            <button class="btn-refresh" id="btn-reload" title="데이터 즉시 새로고침">
-              <i class="bi bi-arrow-clockwise"></i> <span data-i18n="btn_refresh">새로고침</span>
-            </button>
-            <a href="guide.html" class="btn-guide-sub" title="메뉴 이용 가이드">
-              <i class="bi bi-book-half text-orange"></i> <span data-i18n="nav_guide">가이드</span>
-            </a>
-          </div>
+          <button class="btn-refresh" id="btn-reload" title="데이터 즉시 새로고침">
+            <i class="bi bi-arrow-clockwise"></i> <span data-i18n="btn_refresh">새로고침</span>
+          </button>
+          <a href="guide.html" class="btn-guide-sub" title="메뉴 이용 가이드">
+            <i class="bi bi-book-half text-orange"></i> <span data-i18n="nav_guide">가이드</span>
+          </a>
         </div>
       </div>
     </header>
-
-    <!-- Sport Environment Filter Bar -->
-    <div class="filter-bar">
-      <div class="filter-label"><i class="bi bi-funnel-fill"></i> <span data-i18n="filter_label">훈련 환경 필터</span></div>
-      <div class="filter-btn-group">
-        <button class="filter-btn active" data-filter="all" id="filter-all">
-          <i class="bi bi-collection-play"></i> <span data-i18n="filter_all">전체 보기</span> <span class="badge-num" id="filter-count-all">(0)</span>
-        </button>
-        <button class="filter-btn" data-filter="treadmill" id="filter-treadmill">
-          <i class="bi bi-speedometer"></i> <span data-i18n="filter_treadmill">실내 트레드밀</span> <span class="badge-num" id="filter-count-tm">(0)</span>
-        </button>
-        <button class="filter-btn" data-filter="outdoor" id="filter-outdoor">
-          <i class="bi bi-tree"></i> <span data-i18n="filter_outdoor">야외 러닝</span> <span class="badge-num" id="filter-count-od">(0)</span>
-        </button>
-      </div>
-    </div>
 
     <!-- Main Navigation (3 Core Menus: Running, 7-Day Plan, Heatmap) -->
     <nav class="main-tabs" role="tablist">
