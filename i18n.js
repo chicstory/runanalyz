@@ -18,6 +18,14 @@
       btn_refresh: "새로고침",
       nav_guide: "가이드",
       nav_about: "소개·문의",
+      nav_running: "러닝",
+
+      // Date Range Filter & Presets
+      filter_date_range: "기간",
+      preset_1m: "최근 1개월",
+      preset_3m: "최근 3개월",
+      preset_ytd: "올해(YTD)",
+      preset_all: "전체",
       
       // Sport Filter
       filter_label: "훈련 환경 필터",
@@ -34,6 +42,32 @@
       card_pol_tag: "80/20 POLARIZED",
       card_low_short: "저강도",
       card_high_short: "고강도",
+
+      // Card Items
+      card_ef_status_elite: "최상급 유산소 엔진",
+      card_ef_status_good: "우수한 유산소 효율",
+      card_ef_status_mod: "표준 유산소 베이스",
+      card_ef_status_adapt: "초기 적응 / 회복 조깅",
+      card_like_comp: "동급 직전 {count}회 대비 EF {diff} ({pct}%)",
+      card_like_new: "동급 세션 기준 수립 완료",
+      card_runs_unit: "회",
+      card_pol_bar_text: "저강도 {low}% : 고강도 {high}%",
+      card_runs_summary: "총 {count}회 러닝",
+
+      // 7-Day Plan Types & Rules
+      plan_type_lsd: "롱런 (LSD)",
+      plan_type_tempo: "역치 (T-Pace)",
+      plan_type_easy: "이지런 (Easy)",
+      plan_type_recovery: "회복런 (Recovery)",
+      plan_type_shakeout: "조깅 (Shakeout)",
+      plan_type_strength: "보강 운동",
+      plan_type_rest: "완전 휴식",
+      plan_bar_low: "저강도 80%",
+      plan_bar_high: "역치 20%",
+      rule_safe: "안전",
+      rule_warning: "경고",
+      rule_danger: "위험",
+      rule_detraining: "부하 감소",
 
       // Tabs
       tab_single: "단일 세션",
@@ -162,6 +196,14 @@
       btn_refresh: "Refresh",
       nav_guide: "Guide",
       nav_about: "About & Contact",
+      nav_running: "Running",
+
+      // Date Range Filter & Presets
+      filter_date_range: "Date Range",
+      preset_1m: "Last 1M",
+      preset_3m: "Last 3M",
+      preset_ytd: "YTD",
+      preset_all: "All Time",
 
       // Sport Filter
       filter_label: "Sport Environment Filter",
@@ -178,6 +220,32 @@
       card_pol_tag: "80/20 POLARIZED",
       card_low_short: "Low",
       card_high_short: "High",
+
+      // Card Items
+      card_ef_status_elite: "ELITE AEROBIC ENGINE",
+      card_ef_status_good: "STRONG AEROBIC BASE",
+      card_ef_status_mod: "MODERATE AEROBIC BASE",
+      card_ef_status_adapt: "RECOVERY / ADAPTATION",
+      card_like_comp: "vs trailing {count} like-runs EF {diff} ({pct}%)",
+      card_like_new: "Baseline established",
+      card_runs_unit: "Runs",
+      card_pol_bar_text: "LOW {low}% : HIGH {high}%",
+      card_runs_summary: "{count} Total Runs",
+
+      // 7-Day Plan Types & Rules
+      plan_type_lsd: "Long Run (LSD)",
+      plan_type_tempo: "Threshold (Tempo)",
+      plan_type_easy: "Easy Aerobic",
+      plan_type_recovery: "Recovery Run",
+      plan_type_shakeout: "Shakeout Jog",
+      plan_type_strength: "Strength / Core",
+      plan_type_rest: "Full Rest",
+      plan_bar_low: "Low-Intensity 80%",
+      plan_bar_high: "Threshold 20%",
+      rule_safe: "Safe",
+      rule_warning: "Caution",
+      rule_danger: "Danger",
+      rule_detraining: "Detraining",
 
       // Tabs
       tab_single: "Single Session",
@@ -306,6 +374,14 @@
       btn_refresh: "更新",
       nav_guide: "ガイド",
       nav_about: "紹介・問い合わせ",
+      nav_running: "ランニング",
+
+      // Date Range Filter & Presets
+      filter_date_range: "期間",
+      preset_1m: "直近1ヶ月",
+      preset_3m: "直近3ヶ月",
+      preset_ytd: "今年(YTD)",
+      preset_all: "全期間",
 
       // Sport Filter
       filter_label: "トレーニング環境フィルター",
@@ -322,6 +398,17 @@
       card_pol_tag: "80/20 POLARIZED",
       card_low_short: "低強度",
       card_high_short: "高強度",
+
+      // Card Items
+      card_ef_status_elite: "最高峰エアロビックエンジン",
+      card_ef_status_good: "優れた有酸素効率",
+      card_ef_status_mod: "標準有酸素ベース",
+      card_ef_status_adapt: "リカバリー / 初期適応",
+      card_like_comp: "同級直近{count}回比 EF {diff} ({pct}%)",
+      card_like_new: "基準セッション確立完了",
+      card_runs_unit: "回",
+      card_pol_bar_text: "低強度 {low}% : 高強度 {high}%",
+      card_runs_summary: "計 {count}回ランニング",
 
       // Tabs
       tab_single: "単一セッション",
@@ -450,6 +537,14 @@
       btn_refresh: "Actualizar",
       nav_guide: "Guía",
       nav_about: "Acerca de y Contacto",
+      nav_running: "Carrera",
+
+      // Date Range Filter & Presets
+      filter_date_range: "Rango",
+      preset_1m: "Último 1M",
+      preset_3m: "Último 3M",
+      preset_ytd: "Año actual",
+      preset_all: "Todo",
 
       // Sport Filter
       filter_label: "Filtro de Entorno Deportivo",
@@ -466,6 +561,17 @@
       card_pol_tag: "80/20 POLARIZADO",
       card_low_short: "Baja",
       card_high_short: "Alta",
+
+      // Card Items
+      card_ef_status_elite: "MOTOR AERÓBICO ÉLITE",
+      card_ef_status_good: "BASE AERÓBICA FUERTE",
+      card_ef_status_mod: "BASE AERÓBICA MODERADA",
+      card_ef_status_adapt: "RECUPERACIÓN / ADAPTACIÓN",
+      card_like_comp: "vs ult {count} carreras similares EF {diff} ({pct}%)",
+      card_like_new: "Sesión base establecida",
+      card_runs_unit: "carreras",
+      card_pol_bar_text: "BAJA {low}% : ALTA {high}%",
+      card_runs_summary: "{count} Carreras en total",
 
       // Tabs
       tab_single: "Sesión Individual",
@@ -676,6 +782,9 @@
     setLang: (lang) => {
       if (TRANSLATIONS[lang]) {
         currentLanguage = lang;
+        try {
+          localStorage.setItem('runanalyz_lang', lang);
+        } catch (e) {}
         applyTranslations(lang);
       }
     },

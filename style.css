@@ -323,7 +323,7 @@ html[lang="en"], html[lang="es"] {
   flex-shrink: 0;
 }
 
-/* Theme Toggle Button (Sun/Moon) */
+/* Theme Toggle & Lang Switcher Buttons */
 .btn-theme-toggle,
 .btn-icon-setting {
   background: rgba(255, 255, 255, 0.08);
@@ -340,11 +340,41 @@ html[lang="en"], html[lang="es"] {
   font-size: 1rem;
 }
 
+.btn-lang-toggle {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  height: 36px;
+  padding: 0 0.6rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.btn-lang-toggle i {
+  font-size: 0.9rem;
+  color: var(--accent-cyan);
+}
+
 .btn-theme-toggle:hover,
-.btn-icon-setting:hover {
+.btn-icon-setting:hover,
+.btn-lang-toggle:hover {
   background: rgba(255, 255, 255, 0.15);
-  transform: scale(1.05);
+  transform: scale(1.04);
   border-color: var(--accent-orange);
+}
+
+body.light-theme .btn-lang-toggle {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 /* Toggle icon display based on theme */
@@ -3942,6 +3972,12 @@ body.light-theme .date-picker-input::-webkit-calendar-picker-indicator {
     width: 32px;
     height: 32px;
     font-size: 0.9rem;
+  }
+
+  .btn-lang-toggle {
+    height: 32px;
+    padding: 0 0.45rem;
+    font-size: 0.72rem;
   }
 
   .btn-strava-auth {

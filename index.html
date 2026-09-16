@@ -93,6 +93,11 @@
             </div>
           </div>
 
+          <!-- Language Selector Button (KO / EN) -->
+          <button class="btn-lang-toggle" id="btn-lang-toggle" title="Language (KO / EN)" aria-label="언어 변경">
+            <i class="bi bi-translate"></i> <span id="lang-current-label">KO</span>
+          </button>
+
           <!-- Light/Dark Theme Switcher -->
           <button class="btn-theme-toggle" id="btn-theme-toggle" title="화이트/다크 테마 전환" aria-label="테마 전환">
             <i class="bi bi-sun-fill theme-icon-light"></i>
@@ -111,16 +116,16 @@
         <!-- Date Range Filter (Calendar / Date Pickers + Presets) -->
         <div class="date-range-filter-group">
           <div class="date-inputs-wrap">
-            <span class="date-filter-label"><i class="bi bi-calendar3"></i> 기간</span>
+            <span class="date-filter-label"><i class="bi bi-calendar3"></i> <span data-i18n="filter_date_range">기간</span></span>
             <input type="date" id="input-date-from" class="date-picker-input" title="시작일">
             <span class="date-sep">~</span>
             <input type="date" id="input-date-to" class="date-picker-input" title="종료일">
           </div>
           <div class="date-preset-chips">
-            <button type="button" class="date-preset-btn active" data-preset="1m">최근 1개월</button>
-            <button type="button" class="date-preset-btn" data-preset="3m">최근 3개월</button>
-            <button type="button" class="date-preset-btn" data-preset="ytd">올해(YTD)</button>
-            <button type="button" class="date-preset-btn" data-preset="all">전체</button>
+            <button type="button" class="date-preset-btn active" data-preset="1m" data-i18n="preset_1m">최근 1개월</button>
+            <button type="button" class="date-preset-btn" data-preset="3m" data-i18n="preset_3m">최근 3개월</button>
+            <button type="button" class="date-preset-btn" data-preset="ytd" data-i18n="preset_ytd">올해(YTD)</button>
+            <button type="button" class="date-preset-btn" data-preset="all" data-i18n="preset_all">전체</button>
           </div>
         </div>
 
@@ -161,7 +166,7 @@
       <!-- 1. Running Group Tab -->
       <button class="tab-btn main-nav-btn active" data-main-nav="running" role="tab" id="nav-btn-running">
         <i class="bi bi-activity"></i>
-        <span>러닝</span>
+        <span data-i18n="nav_running">러닝</span>
         <i class="bi bi-chevron-down subnav-arrow"></i>
       </button>
 
@@ -474,7 +479,7 @@
               <div class="ic-sub" id="sc-sub">DAILY AEROBIC EF LOG</div>
               <h1 class="ic-main-distance" id="sc-dist">0.00 <span class="unit">KM</span></h1>
               <div class="ic-type-badge-wrap" style="margin-top:0.4rem;">
-                <span class="badge-count badge-wo" id="sc-wo-badge">저강도 유산소 (Zone 1~2)</span>
+                <span class="badge-count badge-wo" id="sc-wo-badge" data-i18n="wo_low">Low-Intensity Aerobic (Zone 1~2)</span>
               </div>
             </div>
 
@@ -502,7 +507,7 @@
             <div class="ic-global-benchmark-badge" id="sc-global-benchmark">
               <div class="ic-gb-left">
                 <i class="bi bi-globe-americas text-cyan"></i>
-                <span id="sc-benchmark-text">40대 남성 상위 14.8%</span>
+                <span id="sc-benchmark-text">Top 15% (Global)</span>
               </div>
               <div class="ic-gb-right">
                 <span class="badge-tier" id="sc-benchmark-tier">Master Pacer</span>
@@ -514,11 +519,11 @@
             <div class="ic-highlight-banner">
               <div class="ic-hl-box">
                 <span class="hl-title"><i class="bi bi-shield-check"></i> EF ENGINE STATUS</span>
-                <span class="hl-value" id="sc-ef-status">최상급 유산소 엔진</span>
+                <span class="hl-value" id="sc-ef-status" data-i18n="card_ef_status_elite">ELITE AEROBIC ENGINE</span>
               </div>
               <div class="ic-hl-box">
                 <span class="hl-title"><i class="bi bi-graph-up-arrow"></i> LIKE-FOR-LIKE</span>
-                <span class="hl-value" id="sc-ef-like">동급 세션 최근 3회 대비</span>
+                <span class="hl-value" id="sc-ef-like" data-i18n="wo_like_comp">vs trailing 3 like-workouts</span>
               </div>
             </div>
 
@@ -647,7 +652,7 @@
             <div class="ic-title-area">
               <div class="ic-sub" id="wc-card-sub">WEEKLY TRAINING &amp; ACWR AUDIT</div>
               <h1 class="ic-main-distance" id="wc-card-dist">0.0 <span class="unit">KM</span></h1>
-              <div class="ic-ef-range" id="wc-card-runs-rule">총 0회 러닝 &middot; <span class="rule-badge rule-safe" id="wc-card-rule-badge" style="margin-bottom:0; padding:0.15rem 0.45rem; font-size:0.65rem;">안전</span></div>
+              <div class="ic-ef-range" id="wc-card-runs-rule">0 Total Runs &middot; <span class="rule-badge rule-safe" id="wc-card-rule-badge" data-i18n="rule_safe" style="margin-bottom:0; padding:0.15rem 0.45rem; font-size:0.65rem;">Safe</span></div>
             </div>
 
             <!-- Card Key Stats Grid: Avg EF, Longest LSD, Avg HR, 4-Week Base -->
@@ -685,7 +690,7 @@
                   <i class="bi bi-pie-chart-fill text-orange"></i> 80/20 POLARIZED
                 </div>
                 <div class="ic-pol-val" id="wc-card-pol-val">
-                  <span style="color:var(--accent-lime);">저강도 80%</span> : <span style="color:var(--accent-orange);">고강도 20%</span>
+                  <span style="color:var(--accent-lime);">Low 80%</span> : <span style="color:var(--accent-orange);">High 20%</span>
                 </div>
               </div>
               <div class="ic-pol-bar-wrap">
@@ -963,8 +968,8 @@
               <!-- 80/20 Footer Bar -->
               <div class="pic-footer">
                 <div class="pic-footer-labels">
-                  <span class="text-lime"><i class="bi bi-shield-check"></i> 저강도 80%</span>
-                  <span class="text-orange"><i class="bi bi-lightning-charge-fill"></i> 역치 20%</span>
+                  <span class="text-lime"><i class="bi bi-shield-check"></i> <span data-i18n="plan_bar_low">Low-Intensity 80%</span></span>
+                  <span class="text-orange"><i class="bi bi-lightning-charge-fill"></i> <span data-i18n="plan_bar_high">Threshold 20%</span></span>
                 </div>
                 <div class="pic-footer-bar">
                   <div class="pic-bar-low" id="card-bar-low" style="width:80%;"></div>
@@ -1158,7 +1163,7 @@
                   <i class="bi bi-pie-chart-fill text-orange"></i> <span id="card-pol-tag">80/20 POLARIZED</span>
                 </div>
                 <div class="ic-pol-val" id="card-pol-val">
-                  <span style="color:var(--accent-lime);">저강도 80%</span> <span style="color:var(--text-muted);">:</span> <span style="color:var(--accent-orange);">고강도 20%</span>
+                  <span style="color:var(--accent-lime);">Low 80%</span> <span style="color:var(--text-muted);">:</span> <span style="color:var(--accent-orange);">High 20%</span>
                 </div>
               </div>
               <div class="ic-pol-bar-wrap">

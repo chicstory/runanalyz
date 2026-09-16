@@ -808,6 +808,39 @@ async function startRunAnalyz() {
       }, 600);
     });
   }
+
+  // Language Switcher Toggle (KO <-> EN)
+  const btnLangToggle = document.getElementById('btn-lang-toggle');
+  const langLabel = document.getElementById('lang-current-label');
+
+  const updateLangUI = (lang) => {
+    if (langLabel) {
+      langLabel.textContent = (lang || 'ko').toUpperCase();
+    }
+  };
+
+  if (window.I18N && window.I18N.getLang) {
+    updateLangUI(window.I18N.getLang());
+  }
+
+  if (btnLangToggle) {
+    btnLangToggle.addEventListener('click', () => {
+      const cur = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+      const next = (cur === 'en') ? 'ko' : 'en';
+      if (window.I18N && window.I18N.setLang) {
+        window.I18N.setLang(next);
+      }
+      updateLangUI(next);
+      refreshAllViews();
+      if (typeof generateAndRender7DayPlan === 'function') {
+        generateAndRender7DayPlan();
+      }
+      const toastMsg = next === 'ko' ? '🌐 한국어로 변경되었습니다.' : '🌐 Switched to English.';
+      if (typeof showToast === 'function') {
+        showToast(toastMsg);
+      }
+    });
+  }
 }
 
 // Guarantee execution whether DOM is already parsed or loading
@@ -1237,13 +1270,13 @@ function renderSingleInstaCard(act) {
   const statusEl = document.getElementById('sc-ef-status');
   if (statusEl) {
     if (efVal >= 1.35) {
-      statusEl.textContent = '최상급 유산소 엔진';
+      statusEl.textContent = _t('card_ef_status_elite', 'ELITE AEROBIC ENGINE');
     } else if (efVal >= 1.25) {
-      statusEl.textContent = '우수한 유산소 효율';
+      statusEl.textContent = _t('card_ef_status_good', 'STRONG AEROBIC BASE');
     } else if (efVal >= 1.10) {
-      statusEl.textContent = '표준 유산소 베이스';
+      statusEl.textContent = _t('card_ef_status_mod', 'MODERATE AEROBIC BASE');
     } else {
-      statusEl.textContent = '초기 적응 / 회복 조깅';
+      statusEl.textContent = _t('card_ef_status_adapt', 'RECOVERY / ADAPTATION');
     }
   }
 
@@ -1254,9 +1287,13 @@ function renderSingleInstaCard(act) {
     const comp = calcLikeForLikeEF(act, allActs);
     if (comp && comp.hasComparison) {
       const sign = comp.diff >= 0 ? '+' : '';
-      likeEl.textContent = `동급 직전 ${comp.sampleCount}회 대비 EF ${sign}${comp.diff.toFixed(3)} (${sign}${comp.pct.toFixed(1)}%)`;
+      const tmpl = _t('card_like_comp', 'vs trailing {count} like-runs EF {diff} ({pct}%)');
+      likeEl.textContent = tmpl
+        .replace('{count}', comp.sampleCount)
+        .replace('{diff}', sign + comp.diff.toFixed(3))
+        .replace('{pct}', sign + comp.pct.toFixed(1));
     } else {
-      likeEl.textContent = '동급 세션 기준 수립 완료';
+      likeEl.textContent = _t('card_like_new', 'Baseline established');
     }
   }
 
@@ -1288,9 +1325,15 @@ function renderSingleInstaCard(act) {
     const profile = getUserProfile();
     const actPace = act.pace_seconds || (act.distance_km > 0 ? (act.duration_seconds || 0) / act.distance_km : 360);
     const bm = calcStateOfRunningBenchmark(act.distance_km || 5.0, actPace, profile.age, profile.gender);
-    benchText.textContent = `${bm.groupLabel} 상위 ${bm.percentileText}`;
+    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+    if (curLang === 'ko') {
+      benchText.textContent = `${bm.groupLabel} 상위 ${bm.percentileText}`;
+      benchEl.title = `The State of Running 2019 (전 세계 1억 7백만 건 실측 완주 데이터): ${bm.detail}`;
+    } else {
+      benchText.textContent = `Top ${bm.percentileText} (${bm.engGroupLabel || 'Global'})`;
+      benchEl.title = `The State of Running 2019 (107.9M Global Finishers Dataset): ${bm.engDetail || bm.detail}`;
+    }
     if (benchTier) benchTier.textContent = bm.tier;
-    benchEl.title = `The State of Running 2019 (전 세계 1억 7백만 건 실측 완주 데이터): ${bm.detail}`;
   }
 }
 
@@ -1464,23 +1507,31 @@ function calcStateOfRunningBenchmark(distKm, paceSec, age = 42, gender = 'M') {
   // Determine age bracket
   let ageBand = '40-49';
   let groupLabel = '40대';
+  let engGroupLabel = '40s';
   if (age < 30) {
     ageBand = '20-29';
     groupLabel = '20대';
+    engGroupLabel = '20s';
   } else if (age < 40) {
     ageBand = '30-39';
     groupLabel = '30대';
+    engGroupLabel = '30s';
   } else if (age < 50) {
     ageBand = '40-49';
     groupLabel = '40대';
+    engGroupLabel = '40s';
   } else if (age < 60) {
     ageBand = '50-59';
     groupLabel = '50대';
+    engGroupLabel = '50s';
   } else {
     ageBand = '60+';
     groupLabel = '60대 이상';
+    engGroupLabel = '60+';
   }
-  groupLabel += (gender === 'F' ? ' 여성' : ' 남성');
+  const isFemale = (gender === 'F' || gender === 'female');
+  groupLabel += (isFemale ? ' 여성' : ' 남성');
+  engGroupLabel += (isFemale ? ' Women' : ' Men');
 
   // Benchmark reference mean pace (sec/km) & standard deviation from 107.9M finishers
   // Mean finish paces by age group in State of Running 2019 (Recreational mass runners)
@@ -1501,7 +1552,7 @@ function calcStateOfRunningBenchmark(distKm, paceSec, age = 42, gender = 'M') {
     }
   };
 
-  const gKey = gender === 'F' ? 'F' : 'M';
+  const gKey = isFemale ? 'F' : 'M';
   const table = statsTable[gKey][ageBand] || statsTable['M']['40-49'];
   const meanPace = table.mean;
   const stdPace = table.std;
@@ -1531,10 +1582,12 @@ function calcStateOfRunningBenchmark(distKm, paceSec, age = 42, gender = 'M') {
 
   return {
     groupLabel,
+    engGroupLabel,
     percentile: pctNumber,
     percentileText: `${pctNumber}%`,
     tier,
-    detail: `글로벌 평균 ${formatPaceFromSec(meanPace)}/km 대비 ${paceSec < meanPace ? '빠름' : '안정적 완주'}`
+    detail: `글로벌 평균 ${formatPaceFromSec(meanPace)}/km 대비 ${paceSec < meanPace ? '빠름' : '안정적 완주'}`,
+    engDetail: `vs global average ${formatPaceFromSec(meanPace)}/km (${paceSec < meanPace ? 'faster' : 'steady finisher'})`
   };
 }
 
@@ -2314,40 +2367,53 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
 
   // Render Weekly Cards
   if (weeks.length === 0) {
-    container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 2rem;">선택된 기간에 주간 러닝 기록이 없습니다.</div>`;
+    const emptyMsg = isKo ? '선택된 기간에 주간 러닝 기록이 없습니다.' : 'No weekly running records found for the selected period.';
+    container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 2rem;">${emptyMsg}</div>`;
   } else {
-    container.innerHTML = weeks.map(w => `
+    container.innerHTML = weeks.map(w => {
+      let badgeLabel = w.ruleText;
+      if (w.ruleClass === 'rule-safe') badgeLabel = _t('rule_safe', 'Safe');
+      else if (w.ruleClass === 'rule-warning') badgeLabel = _t('rule_warning', 'Caution');
+      else if (w.ruleClass === 'rule-danger') badgeLabel = _t('rule_danger', 'Danger');
+      else if (w.ruleClass === 'rule-detraining') badgeLabel = _t('rule_detraining', 'Detraining');
+
+      const runsTxt = _t('card_runs_summary', '{count} Runs').replace('{count}', w.runs.length);
+      const lowTxt = _t('card_low_short', 'Low');
+      const highTxt = _t('card_high_short', 'High');
+      const countSuffix = isKo ? '회' : '';
+
+      return `
       <div class="weekly-card">
         <div class="wc-header">
           <span class="wc-name">${w.name}</span>
-          <span class="wc-runs">${w.runs.length}회 러닝</span>
+          <span class="wc-runs">${runsTxt}</span>
         </div>
         <div class="wc-distance">${w.totalKm.toFixed(1)} <small>km</small></div>
         <div class="rule-badge ${w.ruleClass}">
-          <i class="bi bi-shield-check"></i> ${w.ruleText}
+          <i class="bi bi-shield-check"></i> ${badgeLabel}
         </div>
         <div class="wc-stats-list">
           <div class="wc-stat-row">
-            <span>평균 유산소 EF</span>
+            <span>${isKo ? '평균 유산소 EF' : 'Avg Aerobic EF'}</span>
             <span style="color:var(--accent-lime);">${w.avgEf.toFixed(3)}</span>
           </div>
           <div class="wc-stat-row">
-            <span>최근 4주 평균 (베이스)</span>
-            <span style="color:var(--text-muted);">${w.chronicAvg > 0 ? w.chronicAvg.toFixed(1) + ' km/주' : '-'} (${w.acwr.toFixed(2)}배)</span>
+            <span>${isKo ? '최근 4주 평균 (베이스)' : '4-Week Base'}</span>
+            <span style="color:var(--text-muted);">${w.chronicAvg > 0 ? w.chronicAvg.toFixed(1) + (isKo ? ' km/주' : ' km/wk') : '-'} (${w.acwr.toFixed(2)}x)</span>
           </div>
           <div class="wc-stat-row">
-            <span>최장 거리 (LSD)</span>
+            <span>${isKo ? '최장 거리 (LSD)' : 'Longest LSD'}</span>
             <span>${w.maxLsd.toFixed(1)}km (${w.lsdRatio}%)</span>
           </div>
           <div class="wc-stat-row">
-            <span>평균 심박수</span>
+            <span>${isKo ? '평균 심박수' : 'Avg Heart Rate'}</span>
             <span>${w.avgHr} bpm</span>
           </div>
         </div>
         <div class="wc-mini-bar-wrap">
           <div class="wc-mini-bar-labels">
-            <span>80/20 훈련비율</span>
-            <span>저강도 ${w.lowRatio}% : 고강도 ${w.highRatio}%</span>
+            <span>${isKo ? '80/20 훈련비율' : '80/20 Ratio'}</span>
+            <span>${lowTxt} ${w.lowRatio}% : ${highTxt} ${w.highRatio}%</span>
           </div>
           <div class="wc-mini-bar">
             <div class="wc-mini-bar-low" style="width: ${w.lowRatio}%;"></div>
@@ -2355,12 +2421,13 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
           </div>
         </div>
         <div class="wc-type-chips">
-          ${w.typeCounts.low > 0 ? `<span class="wc-chip wc-chip-low">🟢 ${_t('wo_low', '저강도')} ${w.typeCounts.low}회 (${w.typeKm.low.toFixed(1)}k)</span>` : ''}
-          ${w.typeCounts.high > 0 ? `<span class="wc-chip wc-chip-high">🔴 ${_t('wo_high', '고강도')} ${w.typeCounts.high}회 (${w.typeKm.high.toFixed(1)}k)</span>` : ''}
-          ${w.typeCounts.lsd > 0 ? `<span class="wc-chip wc-chip-lsd">🔵 ${_t('wo_lsd', 'LSD')} ${w.typeCounts.lsd}회 (${w.typeKm.lsd.toFixed(1)}k)</span>` : ''}
+          ${w.typeCounts.low > 0 ? `<span class="wc-chip wc-chip-low">🟢 ${lowTxt} ${w.typeCounts.low}${countSuffix} (${w.typeKm.low.toFixed(1)}k)</span>` : ''}
+          ${w.typeCounts.high > 0 ? `<span class="wc-chip wc-chip-high">🔴 ${highTxt} ${w.typeCounts.high}${countSuffix} (${w.typeKm.high.toFixed(1)}k)</span>` : ''}
+          ${w.typeCounts.lsd > 0 ? `<span class="wc-chip wc-chip-lsd">🔵 LSD ${w.typeCounts.lsd}${countSuffix} (${w.typeKm.lsd.toFixed(1)}k)</span>` : ''}
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
   }
 
   // Render Weekly Insta Card
@@ -2397,7 +2464,15 @@ function renderWeeklyInstaCard(w) {
   // Runs & Rule Badge
   const runsRuleEl = document.getElementById('wc-card-runs-rule');
   if (runsRuleEl) {
-    runsRuleEl.innerHTML = `총 ${(w.runs || []).length}회 러닝 &middot; <span class="rule-badge ${w.ruleClass || 'rule-safe'}" id="wc-card-rule-badge" style="margin-bottom:0; padding:0.15rem 0.45rem; font-size:0.65rem;">${w.ruleText || '안전'}</span>`;
+    const runCount = (w.runs || []).length;
+    const runsText = _t('card_runs_summary', '{count} Total Runs').replace('{count}', runCount);
+    let ruleBadgeText = _t('rule_safe', 'Safe');
+    if (w.ruleClass === 'rule-safe') ruleBadgeText = _t('rule_safe', 'Safe');
+    else if (w.ruleClass === 'rule-warning') ruleBadgeText = _t('rule_warning', 'Caution');
+    else if (w.ruleClass === 'rule-danger') ruleBadgeText = _t('rule_danger', 'Danger');
+    else if (w.ruleClass === 'rule-detraining') ruleBadgeText = _t('rule_detraining', 'Detraining');
+
+    runsRuleEl.innerHTML = `${runsText} &middot; <span class="rule-badge ${w.ruleClass || 'rule-safe'}" id="wc-card-rule-badge" style="margin-bottom:0; padding:0.15rem 0.45rem; font-size:0.65rem;">${ruleBadgeText}</span>`;
   }
 
   // Key Stats: Avg EF, Longest LSD, Avg HR, 4-Week Base
@@ -2425,9 +2500,13 @@ function renderWeeklyInstaCard(w) {
   const chipsEl = document.getElementById('wc-card-chips');
   if (chipsEl && w.typeCounts) {
     const chipItems = [];
-    if (w.typeCounts.low > 0) chipItems.push(`<span class="badge-count badge-wo-low">🟢 저강도 ${w.typeCounts.low}회</span>`);
-    if (w.typeCounts.high > 0) chipItems.push(`<span class="badge-count badge-wo-high">🔴 고강도 ${w.typeCounts.high}회</span>`);
-    if (w.typeCounts.lsd > 0) chipItems.push(`<span class="badge-count badge-wo-lsd">🔵 LSD ${w.typeCounts.lsd}회</span>`);
+    const lowTxt = _t('card_low_short', 'Low');
+    const highTxt = _t('card_high_short', 'High');
+    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+    const countSuffix = curLang === 'ko' ? '회' : '';
+    if (w.typeCounts.low > 0) chipItems.push(`<span class="badge-count badge-wo-low">🟢 ${lowTxt} ${w.typeCounts.low}${countSuffix}</span>`);
+    if (w.typeCounts.high > 0) chipItems.push(`<span class="badge-count badge-wo-high">🔴 ${highTxt} ${w.typeCounts.high}${countSuffix}</span>`);
+    if (w.typeCounts.lsd > 0) chipItems.push(`<span class="badge-count badge-wo-lsd">🔵 LSD ${w.typeCounts.lsd}${countSuffix}</span>`);
     chipsEl.innerHTML = chipItems.join(' ');
   }
 
@@ -2441,7 +2520,9 @@ function renderWeeklyInstaCard(w) {
   if (lowBar) lowBar.style.width = `${low}%`;
   if (highBar) highBar.style.width = `${high}%`;
   if (polVal) {
-    polVal.innerHTML = `<span style="color:var(--accent-lime);">저강도 ${low}%</span> : <span style="color:var(--accent-orange);">고강도 ${high}%</span>`;
+    const lowTxt = _t('card_low_short', 'Low');
+    const highTxt = _t('card_high_short', 'High');
+    polVal.innerHTML = `<span style="color:var(--accent-lime);">${lowTxt} ${low}%</span> : <span style="color:var(--accent-orange);">${highTxt} ${high}%</span>`;
   }
 }
 
@@ -2611,27 +2692,30 @@ function initMonthlyRecap(activities, year, month) {
     engPeriodTitle = month === 'all' ? `YEAR ${year} RUNNING RECAP` : `${getMonthName(month).toUpperCase()} ${year} RUNNING RECAP`;
   }
 
+  const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+  const isKo = (curLang === 'ko');
+
   // Update Monthly Dashboard Labels
   const elLabelDist = document.getElementById('month-label-dist');
-  if (elLabelDist) elLabelDist.textContent = `${periodTitle} 총 마일리지`;
+  if (elLabelDist) elLabelDist.textContent = isKo ? `${periodTitle} 총 마일리지` : `${engPeriodTitle} Distance`;
   const elLabelTime = document.getElementById('month-label-time');
-  if (elLabelTime) elLabelTime.textContent = `${periodTitle} 총 러닝 시간`;
+  if (elLabelTime) elLabelTime.textContent = isKo ? `${periodTitle} 총 러닝 시간` : `${engPeriodTitle} Time`;
   const elLabelPace = document.getElementById('month-label-pace');
-  if (elLabelPace) elLabelPace.textContent = `${periodTitle} 평균 페이스`;
+  if (elLabelPace) elLabelPace.textContent = isKo ? `${periodTitle} 평균 페이스` : `${engPeriodTitle} Avg Pace`;
 
   // Update Monthly Dashboard Cards
   const elDist = document.getElementById('month-total-dist');
   if (elDist) elDist.innerHTML = `${totalDist.toFixed(1)} <small>km</small>`;
   const elCount = document.getElementById('month-run-count');
-  if (elCount) elCount.textContent = `총 ${activities.length}회 러닝 완료`;
+  if (elCount) elCount.textContent = isKo ? `총 ${activities.length}회 러닝 완료` : `${activities.length} Runs Completed`;
   const elTime = document.getElementById('month-total-time');
   if (elTime) elTime.innerHTML = `${hours}<small>h</small> ${minutes}<small>m</small>`;
   const elCal = document.getElementById('month-total-cal');
-  if (elCal) elCal.textContent = `${totalCal.toLocaleString()} kcal 소모`;
+  if (elCal) elCal.textContent = isKo ? `${totalCal.toLocaleString()} kcal 소모` : `${totalCal.toLocaleString()} kcal burned`;
   const elPace = document.getElementById('month-avg-pace');
   if (elPace) elPace.innerHTML = `${avgPaceStr} <small>/km</small>`;
   const elHr = document.getElementById('month-avg-hr');
-  if (elHr) elHr.textContent = `평균 심박수 ${avgHr} bpm`;
+  if (elHr) elHr.textContent = isKo ? `평균 심박수 ${avgHr} bpm` : `Avg HR ${avgHr} bpm`;
   const elGrowth = document.getElementById('month-ef-growth');
   if (elGrowth) elGrowth.textContent = `${efGrowthPct >= 0 ? '+' : ''}${efGrowthPct.toFixed(1)}%`;
 
@@ -2640,7 +2724,7 @@ function initMonthlyRecap(activities, year, month) {
   if (cardBadge) cardBadge.textContent = engPeriodTitle;
 
   document.getElementById('card-dist').innerHTML = `${totalDist.toFixed(1)} <span class="unit">KM</span>`;
-  document.getElementById('card-runs').innerHTML = `${activities.length} <small>회</small>`;
+  document.getElementById('card-runs').innerHTML = `${activities.length} <small>${_t('card_runs_unit', 'Runs')}</small>`;
   document.getElementById('card-pace').textContent = avgPaceStr;
   document.getElementById('card-time').textContent = `${hours}h ${minutes}m`;
   document.getElementById('card-hr').innerHTML = `${avgHr} <small>bpm</small>`;
@@ -3535,6 +3619,9 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
     }
   }
 
+  const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+  const isKo = (curLang === 'ko');
+
   daysMeta.forEach(dm => {
     const isWeekendLong = (longDay === 'sun' && dm.key === 'sun') || (longDay === 'sat' && dm.key === 'sat');
     const isTempo = (dm.key === 'thu');
@@ -3545,13 +3632,15 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
         ...dm,
         type: 'LSD',
         badgeClass: 'badge-lsd',
-        typeText: '롱런 (LSD)',
-        title: '주말 장거리 빌드업 LSD',
-        guide: '대화가 편안한 Zone 2 저심박을 끝까지 지키며 지구력 기초 유산소 용량을 확장합니다.',
+        typeText: isKo ? '롱런 (LSD)' : 'Long Run (LSD)',
+        title: isKo ? '주말 장거리 빌드업 LSD' : 'Weekend Long Aerobic Build-up (LSD)',
+        guide: isKo 
+          ? '대화가 편안한 Zone 2 저심박을 끝까지 지키며 지구력 기초 유산소 용량을 확장합니다.'
+          : 'Maintain conversational Zone 2 low HR to expand your foundational aerobic base.',
         distKm: lsdKm,
         paceStr: easyPaceStr,
         hrStr: easyHrStr,
-        intensityTag: '저강도 유산소 80%'
+        intensityTag: isKo ? '저강도 유산소 80%' : 'Low Intensity 80%'
       });
     } else if (isTempo) {
       // 80/20 Key Quality Session (Thursday Tempo)
@@ -3559,19 +3648,23 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
         ...dm,
         type: 'TEMPO',
         badgeClass: 'badge-tempo',
-        typeText: '역치 (T-Pace)',
-        title: '80/20 고강도 젖산역치 템포런',
-        guide: `워밍업 1km + 본세션 ${(tKm - 2.0).toFixed(1)}km T페이스 지속주 + 쿨다운 1km. Zone 3 블랙홀을 배제하고 정확한 역치 자극에 집중합니다.`,
+        typeText: isKo ? '역치 (T-Pace)' : 'Threshold (Tempo)',
+        title: isKo ? '80/20 고강도 젖산역치 템포런' : '80/20 Lactate Threshold Tempo Run',
+        guide: isKo 
+          ? `워밍업 1km + 본세션 ${(tKm - 2.0).toFixed(1)}km T페이스 지속주 + 쿨다운 1km. Zone 3 블랙홀을 배제하고 정확한 역치 자극에 집중합니다.`
+          : `1km warmup + ${(tKm - 2.0).toFixed(1)}km T-Pace tempo + 1km cooldown. Focus on lactate clearance adaptation.`,
         distKm: tKm,
         paceStr: tempoPaceStr,
         hrStr: tempoHrStr,
-        intensityTag: '고강도 역치 20%'
+        intensityTag: isKo ? '고강도 역치 20%' : 'High Intensity 20%'
       });
     } else if (isEasy) {
       let eDist = 0;
-      let eTitle = '회복 & 유산소 베이스 이지런';
-      let eType = '이지런 (Easy)';
-      let eGuide = '호흡이 가쁘지 않도록 케이던스 175~180을 가볍게 유지하며 몸을 부드럽게 풉니다.';
+      let eTitle = isKo ? '회복 & 유산소 베이스 이지런' : 'Aerobic Base Easy Run';
+      let eType = isKo ? '이지런 (Easy)' : 'Easy Aerobic';
+      let eGuide = isKo 
+        ? '호흡이 가쁘지 않도록 케이던스 175~180을 가볍게 유지하며 몸을 부드럽게 풉니다.'
+        : 'Keep cadence 175-180 light and relaxed with comfortable breathing.';
 
       if (daysPerWeek === 3) {
         eDist = Math.max(3.0, Math.round(remLowKm * 10) / 10);
@@ -3583,13 +3676,15 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
           eDist = Math.max(3.0, Math.round((remLowKm * 0.38) * 10) / 10);
         } else if (dm.key === 'wed') {
           eDist = Math.max(3.0, Math.round((remLowKm * 0.34) * 10) / 10);
-          eType = '회복런 (Recovery)';
-          eTitle = '피로 완화 리커버리 이지런';
+          eType = isKo ? '회복런 (Recovery)' : 'Recovery Run';
+          eTitle = isKo ? '피로 완화 리커버리 이지런' : 'Active Recovery Easy Jog';
         } else {
           eDist = Math.max(3.0, Math.round((remLowKm * 0.28) * 10) / 10);
-          eType = '조깅 (Shakeout)';
-          eTitle = '주말 롱런 대비 셰이크아웃 조깅';
-          eGuide = '내일 장거리 러닝을 앞두고 다리 근육의 혈류 순환을 촉진하는 가벼운 조깅.';
+          eType = isKo ? '조깅 (Shakeout)' : 'Shakeout Jog';
+          eTitle = isKo ? '주말 롱런 대비 셰이크아웃 조깅' : 'Pre-Long Run Shakeout Jog';
+          eGuide = isKo 
+            ? '내일 장거리 러닝을 앞두고 다리 근육의 혈류 순환을 촉진하는 가벼운 조깅.'
+            : 'Light jog to promote leg circulation ahead of tomorrow long run.';
         }
       }
 
@@ -3603,46 +3698,52 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
         distKm: eDist,
         paceStr: easyPaceStr,
         hrStr: easyHrStr,
-        intensityTag: '저강도 유산소 80%'
+        intensityTag: isKo ? '저강도 유산소 80%' : 'Low Intensity 80%'
       });
     } else if (dm.key === 'wed') {
       result.push({
         ...dm,
         type: 'REST',
         badgeClass: 'badge-rest',
-        typeText: '보강 운동',
-        title: '러너 보강운동 (코어 & 중둔근 강화)',
-        guide: '플랭크, 카프레이즈, 둔근 밴드 운동으로 무릎 부상을 예방하고 러닝 자세 안정성을 높입니다.',
+        typeText: isKo ? '보강 운동' : 'Strength / Core',
+        title: isKo ? '러너 보강운동 (코어 & 중둔근 강화)' : 'Runner Strength (Core & Glute Reinforcement)',
+        guide: isKo 
+          ? '플랭크, 카프레이즈, 둔근 밴드 운동으로 무릎 부상을 예방하고 러닝 자세 안정성을 높입니다.'
+          : 'Planks, calf raises, and glute resistance bands to prevent injury and stabilize form.',
         distKm: 0,
-        paceStr: '보강 운동',
-        hrStr: '체중 저항 운동',
-        intensityTag: '부상 방지'
+        paceStr: isKo ? '보강 운동' : 'Strength',
+        hrStr: isKo ? '체중 저항 운동' : 'Bodyweight',
+        intensityTag: isKo ? '부상 방지' : 'Injury Prevention'
       });
     } else if (dm.key === 'sat' && longDay === 'sun') {
       result.push({
         ...dm,
         type: 'REST',
         badgeClass: 'badge-rest',
-        typeText: '완전 휴식',
-        title: '주말 롱런 대비 에너지 비축 & 충전',
-        guide: '충분한 수분 섭취와 탄수화물 보충, 폼롤러 스트레칭으로 롱런 컨디션을 준비합니다.',
+        typeText: isKo ? '완전 휴식' : 'Full Rest',
+        title: isKo ? '주말 롱런 대비 에너지 비축 & 충전' : 'Pre-LSD Rest & Glycogen Recharge',
+        guide: isKo 
+          ? '충분한 수분 섭취와 탄수화물 보충, 폼롤러 스트레칭으로 롱런 컨디션을 준비합니다.'
+          : 'Hydration, carb reloading, and light foam rolling for peak condition.',
         distKm: 0,
-        paceStr: '완전 휴식',
-        hrStr: '안정시 회복',
-        intensityTag: '회복 & 재생'
+        paceStr: isKo ? '완전 휴식' : 'Full Rest',
+        hrStr: isKo ? '안정시 회복' : 'Resting Recovery',
+        intensityTag: isKo ? '회복 & 재생' : 'Rest & Recharge'
       });
     } else {
       result.push({
         ...dm,
         type: 'REST',
         badgeClass: 'badge-rest',
-        typeText: '완전 휴식',
-        title: '완전 휴식 & 근육 재생 (Rest & Recovery)',
-        guide: '80/20 트레이닝의 핵심은 쉬는 날 확실히 쉬어 근육 초회복을 유도하는 것입니다.',
+        typeText: isKo ? '완전 휴식' : 'Full Rest',
+        title: isKo ? '완전 휴식 & 근육 재생 (Rest & Recovery)' : 'Full Rest & Muscle Supercompensation',
+        guide: isKo 
+          ? '80/20 트레이닝의 핵심은 쉬는 날 확실히 쉬어 근육 초회복을 유도하는 것입니다.'
+          : 'The core of 80/20 training is prioritizing deep recovery for muscle adaptation.',
         distKm: 0,
-        paceStr: '완전 휴식',
-        hrStr: '안정시 회복',
-        intensityTag: '회복 & 재생'
+        paceStr: isKo ? '완전 휴식' : 'Full Rest',
+        hrStr: isKo ? '안정시 회복' : 'Resting Recovery',
+        intensityTag: isKo ? '회복 & 재생' : 'Rest & Recovery'
       });
     }
   });
