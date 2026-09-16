@@ -2697,7 +2697,8 @@ function initCardStudioController({
   if (!card || !container) return;
 
   let currentFormat = 'story'; // 'story', 'square', 'portrait'
-  let currentTheme = 'dark';   // 'dark', 'neon', 'minimal'
+  let currentTheme = 'dark';   // 'dark', 'green', 'neon', 'minimal', 'hud'
+  let uploadedBgUrl = null;
 
   function updateAppearance() {
     card.className = `insta-card theme-${currentTheme} format-${currentFormat}`;
@@ -2728,9 +2729,58 @@ function initCardStudioController({
       themeBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentTheme = btn.dataset.theme || 'dark';
+
+      if (currentTheme === 'hud') {
+        if (uploadedBgUrl) {
+          card.style.backgroundImage = `url("${uploadedBgUrl}")`;
+          if (btnClearPhoto) btnClearPhoto.style.display = 'inline-flex';
+        }
+      } else {
+        card.style.backgroundImage = '';
+      }
       updateAppearance();
     };
   });
+
+  // Photo Upload & Clear Logic for HUD Background
+  const photoInput = container.querySelector('.card-bg-input');
+  const btnUploadPhoto = container.querySelector('.btn-photo-upload');
+  const btnClearPhoto = container.querySelector('.btn-photo-clear');
+
+  if (btnUploadPhoto && photoInput) {
+    btnUploadPhoto.onclick = () => {
+      photoInput.click();
+    };
+  }
+
+  if (photoInput) {
+    photoInput.onchange = () => {
+      const file = photoInput.files && photoInput.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        uploadedBgUrl = e.target.result;
+        card.style.backgroundImage = `url("${uploadedBgUrl}")`;
+        currentTheme = 'hud';
+        themeBtns.forEach(b => b.classList.toggle('active', b.dataset.theme === 'hud'));
+        if (btnClearPhoto) btnClearPhoto.style.display = 'inline-flex';
+        updateAppearance();
+      };
+      reader.readAsDataURL(file);
+    };
+  }
+
+  if (btnClearPhoto) {
+    btnClearPhoto.onclick = () => {
+      uploadedBgUrl = null;
+      card.style.backgroundImage = '';
+      if (photoInput) photoInput.value = '';
+      btnClearPhoto.style.display = 'none';
+      currentTheme = 'dark';
+      themeBtns.forEach(b => b.classList.toggle('active', b.dataset.theme === 'dark'));
+      updateAppearance();
+    };
+  }
 
   async function generateCanvas() {
     if (typeof html2canvas !== 'function') {
@@ -3714,6 +3764,26 @@ function initTrainingPlanModule() {
       }
     });
   });
+
+  // 1-9. Plan Insta Theme Chips (Dark vs Green)
+  const btnPlanThemeDark = document.getElementById('btn-plan-theme-dark');
+  const btnPlanThemeGreen = document.getElementById('btn-plan-theme-green');
+  if (btnPlanThemeDark && btnPlanThemeGreen) {
+    btnPlanThemeDark.addEventListener('click', () => {
+      btnPlanThemeDark.classList.add('active');
+      btnPlanThemeGreen.classList.remove('active');
+      if (instaCardPlan) {
+        instaCardPlan.classList.remove('theme-green');
+      }
+    });
+    btnPlanThemeGreen.addEventListener('click', () => {
+      btnPlanThemeGreen.classList.add('active');
+      btnPlanThemeDark.classList.remove('active');
+      if (instaCardPlan) {
+        instaCardPlan.classList.add('theme-green');
+      }
+    });
+  }
 
   // 2. Generate Plan Execution Button
   const btnGenerate = document.getElementById('btn-generate-plan');

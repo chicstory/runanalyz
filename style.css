@@ -1750,6 +1750,16 @@ html[lang="en"], html[lang="es"] {
   box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
 }
 
+.dot-green {
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+
+.dot-hud {
+  background: #38bdf8;
+  box-shadow: 0 0 6px #38bdf8;
+}
+
 .studio-btn-group {
   display: flex;
   align-items: center;
@@ -1799,6 +1809,54 @@ html[lang="en"], html[lang="es"] {
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.photo-upload-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.btn-photo-upload {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #a7f3d0;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-photo-upload:hover {
+  background: rgba(16, 185, 129, 0.25);
+  color: #fff;
+  border-color: rgba(16, 185, 129, 0.6);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-photo-clear {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  padding: 0.4rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-photo-clear:hover {
+  background: rgba(239, 68, 68, 0.3);
   color: #fff;
 }
 
@@ -2085,6 +2143,251 @@ html[lang="en"], html[lang="es"] {
   background: linear-gradient(160deg, #090e17 0%, #111a2e 50%, #060a10 100%);
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* THEME: FOREST GREEN (새 앱 아이콘 컬러 매칭) */
+.insta-card.theme-green {
+  background: linear-gradient(160deg, #041d11 0%, #093822 50%, #02140a 100%);
+  color: #fff;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(16, 185, 129, 0.12);
+}
+
+.insta-card.theme-green .ic-badge {
+  color: #34d399;
+}
+
+.insta-card.theme-green .ic-highlight-banner {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.insta-card.theme-green .badge-tier {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.insta-card.theme-green .ic-pol-bar-wrap {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+/* THEME: PHOTO HUD (영상/사진 오버레이 좌측 정렬 컴팩트 HUD) */
+.insta-card.theme-hud {
+  background-color: #080d14;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+  color: #fff;
+  justify-content: space-between;
+}
+
+/* 기본 사진이 없을 때 세련된 나이트 런 프리셋 */
+.insta-card.theme-hud:not([style*="background-image"]) {
+  background-image: 
+    radial-gradient(circle at 85% 15%, rgba(16, 185, 129, 0.22) 0%, transparent 45%),
+    radial-gradient(circle at 15% 90%, rgba(0, 0, 0, 0.9) 0%, transparent 60%),
+    linear-gradient(160deg, #09131d 0%, #0d1e2c 50%, #04090f 100%);
+}
+
+/* 좌하단 비네팅: 사진의 인물/피사체는 맑게 살리고 좌측 하단 텍스트는 선명하게 */
+.insta-card.theme-hud::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top right,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.52) 40%,
+    rgba(0, 0, 0, 0.1) 75%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.insta-card.theme-hud > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* 상단 헤더: 미니멀 글래스 배지 */
+.insta-card.theme-hud .ic-header {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.insta-card.theme-hud .ic-badge {
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.28rem 0.65rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.insta-card.theme-hud .ic-brand {
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.28rem 0.65rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* 좌측 정렬 & 컴팩트 하단 레이아웃 (피사체 보호) */
+.insta-card.theme-hud .ic-title-area {
+  text-align: left;
+  margin-top: auto;
+  margin-bottom: 0.45rem;
+  max-width: 82%;
+}
+
+.insta-card.theme-hud .ic-sub {
+  text-align: left;
+  color: #94a3b8;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
+  margin-bottom: 0.2rem;
+}
+
+.insta-card.theme-hud .ic-main-distance {
+  text-align: left;
+  font-size: 3.2rem;
+  line-height: 0.95;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  color: #ffffff;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.9);
+}
+
+.insta-card.theme-hud .ic-main-distance .unit {
+  font-size: 1.25rem;
+  color: #10b981;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+}
+
+.insta-card.theme-hud .ic-type-badge-wrap {
+  text-align: left;
+  margin-top: 0.35rem;
+}
+
+.insta-card.theme-hud .ic-type-badge-wrap .badge-wo {
+  background: rgba(16, 185, 129, 0.25);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  backdrop-filter: blur(6px);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.insta-card.theme-hud .ic-ef-range {
+  text-align: left;
+  color: #94a3b8;
+  font-size: 0.65rem;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+}
+
+/* 컴팩트 HUD 스탯 박스: 가로로 끝까지 늘리지 않고 좌측 정렬 블록 */
+.insta-card.theme-hud .ic-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: start;
+  gap: 0.55rem 1.35rem;
+  background: rgba(8, 14, 20, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-left: 3.5px solid #10b981;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0 14px 14px 0;
+  padding: 0.8rem 1.1rem;
+  max-width: 85%;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  margin-bottom: 0.5rem;
+}
+
+.insta-card.theme-hud .ic-stat-item {
+  text-align: left;
+}
+
+.insta-card.theme-hud .ic-stat-label {
+  color: #94a3b8;
+  font-size: 0.55rem;
+  letter-spacing: 0.8px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  margin-bottom: 0.15rem;
+}
+
+.insta-card.theme-hud .ic-stat-val {
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
+}
+
+.insta-card.theme-hud .ic-stat-val small {
+  color: #94a3b8;
+}
+
+/* 복잡한 대형 배너류는 HUD 모드에서 숨겨 사진의 주인공(러너/배경)을 부각 */
+.insta-card.theme-hud .ic-global-benchmark-badge,
+.insta-card.theme-hud .ic-highlight-banner,
+.insta-card.theme-hud .ic-weeks-row {
+  display: none !important;
+}
+
+/* 하단 푸터: 초미니멀 반투명 한 줄 텍스트 */
+.insta-card.theme-hud .ic-footer {
+  border-top: none;
+  padding-top: 0.15rem;
+  text-align: left;
+}
+
+.insta-card.theme-hud .ic-pol-labels-row {
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.insta-card.theme-hud .ic-pol-tag,
+.insta-card.theme-hud .ic-pol-val,
+.insta-card.theme-hud #sc-footer-metrics {
+  color: #cbd5e1;
+  font-size: 0.62rem;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
+}
+
+.insta-card.theme-hud .ic-pol-bar-wrap {
+  display: none;
+}
+
+/* 포맷별 HUD 미세 조정 (정방형 1:1, 세로형 4:5) */
+.insta-card.theme-hud.format-square .ic-main-distance {
+  font-size: 2.45rem;
+}
+.insta-card.theme-hud.format-square .ic-stats-grid {
+  padding: 0.55rem 0.85rem;
+  gap: 0.35rem 0.9rem;
+  max-width: 88%;
+}
+.insta-card.theme-hud.format-square .ic-stat-val {
+  font-size: 0.95rem;
+}
+
+.insta-card.theme-hud.format-portrait .ic-main-distance {
+  font-size: 2.85rem;
+}
+.insta-card.theme-hud.format-portrait .ic-stats-grid {
+  padding: 0.7rem 1rem;
 }
 
 .insta-card.theme-neon {
@@ -5899,6 +6202,27 @@ html[lang="en"], html[lang="es"] {
 
 .plan-insta-card.fmt-story {
   height: 640px;
+}
+
+.plan-insta-card.theme-green {
+  background: #03170e;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(16, 185, 129, 0.1);
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(16, 185, 129, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 90% 90%, rgba(5, 150, 105, 0.12) 0%, transparent 45%);
+}
+
+.plan-insta-card.theme-green .pic-badge {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.plan-insta-card.theme-green .pic-level-tag {
+  background: rgba(16, 185, 129, 0.18);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.35);
 }
 
 .plan-insta-card.fmt-square {

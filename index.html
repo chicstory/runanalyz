@@ -394,11 +394,28 @@
               <button class="btn-theme-chip active" data-studio="single" data-theme="dark" title="Dark Tech 테마">
                 <span class="chip-dot dot-dark"></span> Dark
               </button>
+              <button class="btn-theme-chip" data-studio="single" data-theme="green" title="Forest Green 테마 (새 아이콘 컬러 매칭)">
+                <span class="chip-dot dot-green"></span> Green
+              </button>
               <button class="btn-theme-chip" data-studio="single" data-theme="neon" title="Neon Cyber 테마">
                 <span class="chip-dot dot-neon"></span> Cyber
               </button>
               <button class="btn-theme-chip" data-studio="single" data-theme="minimal" title="Minimal White 테마">
                 <span class="chip-dot dot-minimal"></span> White
+              </button>
+              <button class="btn-theme-chip" data-studio="single" data-theme="hud" title="영상/사진 오버레이 HUD 테마">
+                <span class="chip-dot dot-hud"></span> HUD
+              </button>
+            </div>
+
+            <!-- Photo Upload for HUD Background -->
+            <div class="photo-upload-group">
+              <input type="file" id="photo-input-single" class="card-bg-input" data-studio="single" accept="image/*" style="display:none;">
+              <button type="button" class="btn-photo-upload" data-target="photo-input-single" title="내 러닝 사진/영상 캡처 업로드">
+                <i class="bi bi-camera-fill text-lime"></i> 사진 배경
+              </button>
+              <button type="button" class="btn-photo-clear" data-studio="single" style="display:none;" title="사진 배경 제거">
+                <i class="bi bi-x-circle"></i>
               </button>
             </div>
             <div class="studio-btn-group">
@@ -551,11 +568,28 @@
               <button class="btn-theme-chip active" data-studio="weekly" data-theme="dark" title="Dark Tech 테마">
                 <span class="chip-dot dot-dark"></span> Dark
               </button>
+              <button class="btn-theme-chip" data-studio="weekly" data-theme="green" title="Forest Green 테마 (새 아이콘 컬러 매칭)">
+                <span class="chip-dot dot-green"></span> Green
+              </button>
               <button class="btn-theme-chip" data-studio="weekly" data-theme="neon" title="Neon Cyber 테마">
                 <span class="chip-dot dot-neon"></span> Cyber
               </button>
               <button class="btn-theme-chip" data-studio="weekly" data-theme="minimal" title="Minimal White 테마">
                 <span class="chip-dot dot-minimal"></span> White
+              </button>
+              <button class="btn-theme-chip" data-studio="weekly" data-theme="hud" title="영상/사진 오버레이 HUD 테마">
+                <span class="chip-dot dot-hud"></span> HUD
+              </button>
+            </div>
+
+            <!-- Photo Upload for HUD Background -->
+            <div class="photo-upload-group">
+              <input type="file" id="photo-input-weekly" class="card-bg-input" data-studio="weekly" accept="image/*" style="display:none;">
+              <button type="button" class="btn-photo-upload" data-target="photo-input-weekly" title="내 러닝 사진/영상 캡처 업로드">
+                <i class="bi bi-camera-fill text-lime"></i> 사진 배경
+              </button>
+              <button type="button" class="btn-photo-clear" data-studio="weekly" style="display:none;" title="사진 배경 제거">
+                <i class="bi bi-x-circle"></i>
               </button>
             </div>
             <div class="studio-btn-group">
@@ -850,17 +884,27 @@
             <div class="pis-sub">이번 주 훈련 플랜을 고해상도 인스타그램 포스터 카드로 다운로드하여 스마트폰 배경화면이나 인스타에 공유하세요.</div>
           </div>
 
-          <!-- Format Selector Chips -->
-          <div class="pis-formats">
-            <button type="button" class="pis-fmt-btn active" data-fmt="story">
-              <i class="bi bi-phone"></i> 스토리 (9:16)
-            </button>
-            <button type="button" class="pis-fmt-btn" data-fmt="square">
-              <i class="bi bi-square"></i> 피드 정방형 (1:1)
-            </button>
-            <button type="button" class="pis-fmt-btn" data-fmt="portrait">
-              <i class="bi bi-aspect-ratio"></i> 피드 세로형 (4:5)
-            </button>
+          <!-- Format Selector Chips & Theme Selector -->
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:1.5rem;">
+            <div class="pis-formats" style="margin-bottom:0;">
+              <button type="button" class="pis-fmt-btn active" data-fmt="story">
+                <i class="bi bi-phone"></i> 스토리 (9:16)
+              </button>
+              <button type="button" class="pis-fmt-btn" data-fmt="square">
+                <i class="bi bi-square"></i> 피드 정방형 (1:1)
+              </button>
+              <button type="button" class="pis-fmt-btn" data-fmt="portrait">
+                <i class="bi bi-aspect-ratio"></i> 피드 세로형 (4:5)
+              </button>
+            </div>
+            <div class="theme-picker-group">
+              <button type="button" class="btn-theme-chip active" id="btn-plan-theme-dark" data-theme="dark" title="Dark Tech 테마">
+                <span class="chip-dot dot-dark"></span> Dark
+              </button>
+              <button type="button" class="btn-theme-chip" id="btn-plan-theme-green" data-theme="green" title="Forest Green 테마 (새 아이콘 컬러 매칭)">
+                <span class="chip-dot dot-green"></span> Green
+              </button>
+            </div>
           </div>
 
           <!-- Plan Card Render Container -->
@@ -964,11 +1008,28 @@
               <button class="btn-theme-chip active" data-studio="monthly" data-theme="dark" title="Dark Tech 테마">
                 <span class="chip-dot dot-dark"></span> Dark
               </button>
+              <button class="btn-theme-chip" data-studio="monthly" data-theme="green" title="Forest Green 테마 (새 아이콘 컬러 매칭)">
+                <span class="chip-dot dot-green"></span> Green
+              </button>
               <button class="btn-theme-chip" data-studio="monthly" data-theme="neon" title="Neon Cyber 테마">
                 <span class="chip-dot dot-neon"></span> Cyber
               </button>
               <button class="btn-theme-chip" data-studio="monthly" data-theme="minimal" title="Minimal White 테마">
                 <span class="chip-dot dot-minimal"></span> White
+              </button>
+              <button class="btn-theme-chip" data-studio="monthly" data-theme="hud" title="영상/사진 오버레이 HUD 테마">
+                <span class="chip-dot dot-hud"></span> HUD
+              </button>
+            </div>
+
+            <!-- Photo Upload for HUD Background -->
+            <div class="photo-upload-group">
+              <input type="file" id="photo-input-monthly" class="card-bg-input" data-studio="monthly" accept="image/*" style="display:none;">
+              <button type="button" class="btn-photo-upload" data-target="photo-input-monthly" title="내 러닝 사진/영상 캡처 업로드">
+                <i class="bi bi-camera-fill text-lime"></i> 사진 배경
+              </button>
+              <button type="button" class="btn-photo-clear" data-studio="monthly" style="display:none;" title="사진 배경 제거">
+                <i class="bi bi-x-circle"></i>
               </button>
             </div>
             <div class="studio-btn-group">
