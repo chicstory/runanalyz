@@ -450,108 +450,144 @@ async function startRunAnalyz() {
 
   console.log(`[RunAnalyz] Loaded ${allActivities.length} total activities (${pureRunningActivities.length} pure running) from ${archive?.metadata?.source || 'local'}.`);
 
-  // 2. Dynamic Year & Month Filter Builder (Adapts to ANY user's dataset)
-  const selectYear = document.getElementById('select-year');
-  const selectMonth = document.getElementById('select-month');
-
-  // Extract all available years from pureRunningActivities
-  let availableYears = archive?.metadata?.available_years;
-  if (!availableYears || availableYears.length === 0) {
-    const ySet = new Set();
-    pureRunningActivities.forEach(a => {
-      if (a.year) ySet.add(parseInt(a.year));
-    });
-    availableYears = Array.from(ySet).sort((a, b) => b - a);
-  } else {
-    availableYears = [...availableYears].sort((a, b) => b - a);
+  // --------------------------------------------------------------------------
+  // 2. Theme Manager (Clean White Light & Dark Tech System)
+  // --------------------------------------------------------------------------
+  const btnTheme = document.getElementById('btn-theme-toggle');
+  const savedTheme = localStorage.getItem('runanalyz_theme') || 'dark';
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-theme');
   }
 
-  const latestYear = availableYears.length > 0 ? availableYears[0] : new Date().getFullYear();
-  const minYear = availableYears.length > 0 ? availableYears[availableYears.length - 1] : latestYear;
-
-  // Build Year Selector Options Dynamically
-  if (selectYear) {
-    selectYear.innerHTML = '';
-    const allYearsOpt = document.createElement('option');
-    allYearsOpt.value = 'all';
-    allYearsOpt.setAttribute('data-i18n', 'period_all_years');
-    allYearsOpt.textContent = `전체 누적 (${minYear}~${latestYear})`;
-    selectYear.appendChild(allYearsOpt);
-
-    availableYears.forEach(y => {
-      const opt = document.createElement('option');
-      opt.value = String(y);
-      const yearCount = pureRunningActivities.filter(a => String(a.year) === String(y)).length;
-      opt.textContent = `${y}년 (${yearCount}회)`;
-      selectYear.appendChild(opt);
+  if (btnTheme) {
+    btnTheme.addEventListener('click', () => {
+      const isLight = document.body.classList.toggle('light-theme');
+      localStorage.setItem('runanalyz_theme', isLight ? 'light' : 'dark');
+      showToast(isLight ? '☀️ 화이트 테마가 적용되었습니다.' : '🌙 다크 테크 테마가 적용되었습니다.');
+      if (window.singleChartInstance) window.singleChartInstance.resize();
+      if (window.weeklyChartInstance) window.weeklyChartInstance.resize();
+      if (window.yearlyChartInstance) window.yearlyChartInstance.resize();
     });
   }
 
-  // Determine initial Year (from session storage or latest available year)
-  const savedYear = sessionStorage.getItem('shoef_selected_year');
-  if (savedYear && (savedYear === 'all' || availableYears.includes(parseInt(savedYear)))) {
-    currentYear = savedYear;
-  } else {
-    currentYear = String(latestYear);
+  // --------------------------------------------------------------------------
+  // 3. Date Range Filter (Calendar / Date Pickers + 4 Presets)
+  // --------------------------------------------------------------------------
+  const inputDateFrom = document.getElementById('input-date-from');
+  const inputDateTo = document.getElementById('input-date-to');
+  const presetBtns = document.querySelectorAll('.date-preset-btn');
+
+  let minDateStr = '2020-01-01';
+  let maxDateStr = new Date().toISOString().split('T')[0];
+
+  if (pureRunningActivities.length > 0) {
+    const sortedDates = pureRunningActivities.map(a => a.date).filter(Boolean).sort();
+    if (sortedDates.length > 0) {
+      minDateStr = sortedDates[0];
+      maxDateStr = sortedDates[sortedDates.length - 1];
+    }
   }
-  if (selectYear) selectYear.value = currentYear;
 
-  // Function to dynamically build month selector options based on selected year
-  function populateMonthOptions(targetYear, preferredMonth = null) {
-    if (!selectMonth) return;
-    selectMonth.innerHTML = '';
+  function toDateStr(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
 
-    let runsInPeriod = [];
-    if (targetYear === 'all') {
-      runsInPeriod = pureRunningActivities;
-    } else {
-      runsInPeriod = pureRunningActivities.filter(a => String(a.year) === String(targetYear));
+  let filterStartDate = '';
+  let filterEndDate = '';
+
+  function setDatePreset(presetKey) {
+    const today = new Date();
+    let fromDate = new Date();
+
+    if (presetKey === '1m') {
+      fromDate.setMonth(today.getMonth() - 1);
+      filterStartDate = toDateStr(fromDate);
+      filterEndDate = toDateStr(today);
+    } else if (presetKey === '3m') {
+      fromDate.setMonth(today.getMonth() - 3);
+      filterStartDate = toDateStr(fromDate);
+      filterEndDate = toDateStr(today);
+    } else if (presetKey === 'ytd') {
+      filterStartDate = `${today.getFullYear()}-01-01`;
+      filterEndDate = toDateStr(today);
+    } else { // 'all'
+      filterStartDate = minDateStr;
+      filterEndDate = maxDateStr;
     }
 
-    // Count runs per month
-    const monthCounts = {};
-    runsInPeriod.forEach(a => {
-      const m = parseInt(a.month);
-      if (!isNaN(m) && m >= 1 && m <= 12) {
-        monthCounts[m] = (monthCounts[m] || 0) + 1;
+    if (inputDateFrom) inputDateFrom.value = filterStartDate;
+    if (inputDateTo) inputDateTo.value = filterEndDate;
+
+    presetBtns.forEach(b => {
+      b.classList.toggle('active', b.dataset.preset === presetKey);
+    });
+
+    sessionStorage.setItem('shoef_date_preset', presetKey);
+    sessionStorage.setItem('shoef_date_from', filterStartDate);
+    sessionStorage.setItem('shoef_date_to', filterEndDate);
+
+    // Sync currentYear and currentMonth for legacy submodules
+    if (filterEndDate) {
+      const parts = filterEndDate.split('-');
+      currentYear = parts[0];
+      currentMonth = String(parseInt(parts[1], 10));
+    }
+
+    refreshAllViews();
+  }
+
+  // Initial Date Setup: 1m preset default
+  const savedPreset = sessionStorage.getItem('shoef_date_preset') || '1m';
+  const savedDateFrom = sessionStorage.getItem('shoef_date_from');
+  const savedDateTo = sessionStorage.getItem('shoef_date_to');
+
+  if (savedDateFrom && savedDateTo) {
+    filterStartDate = savedDateFrom;
+    filterEndDate = savedDateTo;
+    if (inputDateFrom) inputDateFrom.value = filterStartDate;
+    if (inputDateTo) inputDateTo.value = filterEndDate;
+    presetBtns.forEach(b => b.classList.toggle('active', b.dataset.preset === savedPreset));
+    if (filterEndDate) {
+      const parts = filterEndDate.split('-');
+      currentYear = parts[0];
+      currentMonth = String(parseInt(parts[1], 10));
+    }
+  } else {
+    setDatePreset('1m');
+  }
+
+  if (inputDateFrom) {
+    inputDateFrom.addEventListener('change', (e) => {
+      filterStartDate = e.target.value;
+      sessionStorage.setItem('shoef_date_from', filterStartDate);
+      presetBtns.forEach(b => b.classList.remove('active'));
+      refreshAllViews();
+    });
+  }
+
+  if (inputDateTo) {
+    inputDateTo.addEventListener('change', (e) => {
+      filterEndDate = e.target.value;
+      sessionStorage.setItem('shoef_date_to', filterEndDate);
+      presetBtns.forEach(b => b.classList.remove('active'));
+      if (filterEndDate) {
+        const parts = filterEndDate.split('-');
+        currentYear = parts[0];
+        currentMonth = String(parseInt(parts[1], 10));
       }
+      refreshAllViews();
     });
-
-    // Ascending months that have data
-    const availableMonths = Object.keys(monthCounts).map(Number).sort((a, b) => a - b);
-
-    // 'All months' option
-    const optAll = document.createElement('option');
-    optAll.value = 'all';
-    optAll.setAttribute('data-i18n', 'period_all_months');
-    optAll.textContent = targetYear === 'all' ? `전체 월 (${runsInPeriod.length}회)` : `연간 전체 (${runsInPeriod.length}회)`;
-    selectMonth.appendChild(optAll);
-
-    // Dynamic month options
-    availableMonths.forEach(m => {
-      const opt = document.createElement('option');
-      opt.value = String(m);
-      opt.textContent = `${m}월 (${monthCounts[m]}회)`;
-      selectMonth.appendChild(opt);
-    });
-
-    // Determine which month to select
-    let monthToSelect = 'all';
-    if (preferredMonth && (preferredMonth === 'all' || availableMonths.includes(Number(preferredMonth)))) {
-      monthToSelect = String(preferredMonth);
-    } else if (availableMonths.length > 0) {
-      // Auto-select the latest active month in that year
-      monthToSelect = String(availableMonths[availableMonths.length - 1]);
-    }
-
-    currentMonth = monthToSelect;
-    sessionStorage.setItem('shoef_selected_month', currentMonth);
-    selectMonth.value = currentMonth;
   }
 
-  // Populate Month selector initially with saved or latest month
-  const savedMonth = sessionStorage.getItem('shoef_selected_month');
-  populateMonthOptions(currentYear, savedMonth);
+  presetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      setDatePreset(btn.dataset.preset);
+    });
+  });
+
   currentSportFilter = 'all';
 
   // Toast Notification Helper
@@ -577,11 +613,10 @@ async function startRunAnalyz() {
     const badgeContainer = document.getElementById('period-active-badge');
     if (!badgeTextEl) return;
 
-    let periodLabel = '';
-    if (currentYear === 'all') {
-      periodLabel = currentMonth === 'all' ? `역대 전체 (${minYear}~${latestYear})` : `역대 ${currentMonth}월 누적`;
-    } else {
-      periodLabel = currentMonth === 'all' ? `${currentYear}년 전체` : `${currentYear}년 ${currentMonth}월`;
+    let periodLabel = `${filterStartDate} ~ ${filterEndDate}`;
+    const activePreset = document.querySelector('.date-preset-btn.active');
+    if (activePreset) {
+      periodLabel = activePreset.textContent;
     }
 
     const totalKm = currentList.reduce((sum, a) => sum + (a.distance_km || 0), 0);
@@ -594,28 +629,6 @@ async function startRunAnalyz() {
     }
   }
 
-  // Filter Selectors Listeners
-  if (selectYear) {
-    selectYear.addEventListener('change', (e) => {
-      currentYear = e.target.value;
-      sessionStorage.setItem('shoef_selected_year', currentYear);
-      populateMonthOptions(currentYear); // dynamically rebuild months for newly chosen year
-      refreshAllViews();
-      const pText = currentYear === 'all' ? '역대 전체' : `${currentYear}년`;
-      showToast(`📅 기간 필터가 [${pText}] 데이터로 갱신되었습니다.`);
-    });
-  }
-
-  if (selectMonth) {
-    selectMonth.addEventListener('change', (e) => {
-      currentMonth = e.target.value;
-      sessionStorage.setItem('shoef_selected_month', currentMonth);
-      refreshAllViews();
-      const mText = currentMonth === 'all' ? '연간 전체' : `${currentMonth}월`;
-      showToast(`📅 기간 필터가 [${mText}] 데이터로 갱신되었습니다.`);
-    });
-  }
-
   // Initialize HR Settings Drawer (MHR & RHR Precision Calibration)
   try {
     initHRSettingsDrawer();
@@ -625,8 +638,8 @@ async function startRunAnalyz() {
 
   function getFilteredActivities() {
     return pureRunningActivities.filter(a => {
-      if (currentYear !== 'all' && a.year != currentYear) return false;
-      if (currentMonth !== 'all' && a.month != currentMonth) return false;
+      if (filterStartDate && a.date && a.date < filterStartDate) return false;
+      if (filterEndDate && a.date && a.date > filterEndDate) return false;
       if (currentSportFilter === 'treadmill' && a.sub_sport !== 'treadmill') return false;
       if (currentSportFilter === 'outdoor' && a.sub_sport === 'treadmill') return false;
       return true;
@@ -635,8 +648,8 @@ async function startRunAnalyz() {
 
   function updateBadgeCounts() {
     const runsInPeriod = pureRunningActivities.filter(a => {
-      if (currentYear !== 'all' && a.year != currentYear) return false;
-      if (currentMonth !== 'all' && a.month != currentMonth) return false;
+      if (filterStartDate && a.date && a.date < filterStartDate) return false;
+      if (filterEndDate && a.date && a.date > filterEndDate) return false;
       return true;
     });
 
@@ -652,46 +665,76 @@ async function startRunAnalyz() {
     if (elOd) elOd.textContent = `(${odRuns.length})`;
   }
 
-  // 3. Tab Switching Logic
-  const tabBtns = document.querySelectorAll('.tab-btn');
+  // --------------------------------------------------------------------------
+  // 4. Main Tabs & Running Subnav Controller
+  // --------------------------------------------------------------------------
+  const mainNavBtns = document.querySelectorAll('.main-nav-btn');
+  const subtabBtns = document.querySelectorAll('.subtab-btn');
+  const subnavBar = document.getElementById('running-subnav-bar');
   const tabPanels = document.querySelectorAll('.tab-panel');
 
-  tabBtns.forEach(btn => {
+  let activeMainNav = 'running'; // 'running', 'plan', 'heatmap'
+  let activeRunningSubtab = 'single'; // 'single', 'weekly', 'monthly', 'yearly'
+
+  function activateTab(tabId) {
+    tabPanels.forEach(p => p.classList.remove('active'));
+    const activePanel = document.getElementById(`panel-${tabId}`);
+    if (activePanel) activePanel.classList.add('active');
+
+    if (tabId === 'single' && window.singleChartInstance) window.singleChartInstance.resize();
+    if (tabId === 'weekly' && window.weeklyChartInstance) window.weeklyChartInstance.resize();
+    if (tabId === 'yearly' && window.yearlyChartInstance) window.yearlyChartInstance.resize();
+    if (tabId === 'heatmap') {
+      setTimeout(() => {
+        if (window.leafletMap) {
+          window.leafletMap.invalidateSize();
+          if (window.heatmapAllBounds) {
+            window.leafletMap.fitBounds(window.heatmapAllBounds, { padding: [40, 40], maxZoom: 16 });
+          }
+        }
+        if (window.refreshHeatmap) {
+          window.refreshHeatmap();
+        }
+      }, 150);
+    }
+  }
+
+  mainNavBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      const target = btn.dataset.tab;
+      const targetNav = btn.dataset.mainNav;
+      activeMainNav = targetNav;
 
-      tabBtns.forEach(b => b.classList.remove('active'));
-      tabPanels.forEach(p => p.classList.remove('active'));
-
+      mainNavBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const activePanel = document.getElementById(`panel-${target}`);
-      if (activePanel) activePanel.classList.add('active');
 
-      // Mobile-First: smoothly center active tab in horizontal scroll container
-      if (btn.scrollIntoView) {
-        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }
-
-      if (target === 'single' && window.singleChartInstance) window.singleChartInstance.resize();
-      if (target === 'weekly' && window.weeklyChartInstance) window.weeklyChartInstance.resize();
-      if (target === 'yearly' && window.yearlyChartInstance) window.yearlyChartInstance.resize();
-      if (target === 'heatmap') {
-        setTimeout(() => {
-          if (window.leafletMap) {
-            window.leafletMap.invalidateSize();
-            if (window.heatmapAllBounds) {
-              window.leafletMap.fitBounds(window.heatmapAllBounds, { padding: [40, 40], maxZoom: 16 });
-            }
-          }
-          if (window.refreshHeatmap) {
-            window.refreshHeatmap(currentYear, currentMonth);
-          }
-        }, 150);
+      if (targetNav === 'running') {
+        if (subnavBar) subnavBar.classList.remove('hidden');
+        activateTab(activeRunningSubtab);
+      } else {
+        if (subnavBar) subnavBar.classList.add('hidden');
+        activateTab(targetNav);
       }
     });
   });
 
-  // 4. Sport Environment Filter Buttons
+  subtabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetSub = btn.dataset.tab;
+      activeRunningSubtab = targetSub;
+
+      // Ensure main nav is on running
+      activeMainNav = 'running';
+      mainNavBtns.forEach(b => b.classList.toggle('active', b.dataset.mainNav === 'running'));
+      if (subnavBar) subnavBar.classList.remove('hidden');
+
+      subtabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      activateTab(targetSub);
+    });
+  });
+
+  // 5. Sport Environment Filter Buttons
   const filterBtns = document.querySelectorAll('.filter-btn');
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
