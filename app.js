@@ -44,9 +44,14 @@ function ensureDemoDataLoaded() {
 }
 
 // Global filter states accessible by all modules
-let currentYear = 'all';
-let currentMonth = 'all';
-let currentSportFilter = 'all'; // 'all', 'treadmill', 'outdoor'
+window.RUNANALYZ_FILTERS = {
+  year: sessionStorage.getItem('shoef_year') || '2026',
+  month: sessionStorage.getItem('shoef_month') || '8',
+  sport: sessionStorage.getItem('shoef_sport') || 'all'
+};
+let currentYear = window.RUNANALYZ_FILTERS.year;
+let currentMonth = window.RUNANALYZ_FILTERS.month;
+let currentSportFilter = window.RUNANALYZ_FILTERS.sport; // 'all', 'treadmill', 'outdoor'
 
 const STRAVA_CLIENT_ID = '278575';
 const STRAVA_WORKER_URL = 'https://runanalyz-auth.chicstory.workers.dev';
@@ -479,9 +484,12 @@ async function startRunAnalyz() {
   const selectMonth = document.getElementById('select-month');
   const filterBtns = document.querySelectorAll('.filter-btn');
 
-  let currentYear = sessionStorage.getItem('shoef_year') || '2026';
-  let currentMonth = sessionStorage.getItem('shoef_month') || '8';
-  let currentSportFilter = sessionStorage.getItem('shoef_sport') || 'all';
+  currentYear = sessionStorage.getItem('shoef_year') || '2026';
+  currentMonth = sessionStorage.getItem('shoef_month') || '8';
+  currentSportFilter = sessionStorage.getItem('shoef_sport') || 'all';
+  window.RUNANALYZ_FILTERS.year = currentYear;
+  window.RUNANALYZ_FILTERS.month = currentMonth;
+  window.RUNANALYZ_FILTERS.sport = currentSportFilter;
 
   if (selectYear) selectYear.value = currentYear;
   if (selectMonth) selectMonth.value = currentMonth;
@@ -489,6 +497,7 @@ async function startRunAnalyz() {
   if (selectYear) {
     selectYear.addEventListener('change', (e) => {
       currentYear = e.target.value;
+      window.RUNANALYZ_FILTERS.year = currentYear;
       sessionStorage.setItem('shoef_year', currentYear);
       refreshAllViews();
     });
@@ -497,6 +506,7 @@ async function startRunAnalyz() {
   if (selectMonth) {
     selectMonth.addEventListener('change', (e) => {
       currentMonth = e.target.value;
+      window.RUNANALYZ_FILTERS.month = currentMonth;
       sessionStorage.setItem('shoef_month', currentMonth);
       refreshAllViews();
     });
@@ -507,6 +517,7 @@ async function startRunAnalyz() {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentSportFilter = btn.dataset.filter;
+      window.RUNANALYZ_FILTERS.sport = currentSportFilter;
       sessionStorage.setItem('shoef_sport', currentSportFilter);
       refreshAllViews();
     });
@@ -2157,16 +2168,40 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
     w.typeKm = { low: lowKm, high: highKm, lsd: lsdKm };
   });
 
-  // Always show recent 4 completed/active Monday-start weeks
-  const weeks = allWeeksSorted.slice(-4);
+  // Filter for fully completed Monday-Sunday weeks (excluding current ongoing week)
+  let maxActDate = '';
+  allRuns.forEach(r => {
+    const d = (r.date || r.datetime || '').slice(0, 10);
+    if (d > maxActDate) maxActDate = d;
+  });
+
+  const now = new Date();
+  const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+  const completedWeeks = allWeeksSorted.filter((w, idx) => {
+    if (w.endDateStr >= todayStr) return false; // Real-world ongoing week
+    const isLatest = (idx === allWeeksSorted.length - 1);
+    if (isLatest && w.endDateStr > maxActDate) return false; // Dataset cutoff ongoing week
+    return true;
+  });
+
+  const ongoingWeek = allWeeksSorted.find(w => !completedWeeks.includes(w));
+
+  // Recent 4 completed weeks (fallback to available weeks if brand new runner)
+  const weeks = completedWeeks.length >= 4
+    ? completedWeeks.slice(-4)
+    : (completedWeeks.length > 0 ? completedWeeks : allWeeksSorted.slice(-4));
   const latestWeek = weeks[weeks.length - 1];
 
-  // Expose latest chronic base for 7-Day Plan automatic target synchronization
-  if (latestWeek) {
-    window.LATEST_WEEK_CHRONIC_AVG = latestWeek.chronicAvg;
-  }
+  // 4-Week Chronic Baseline (Average of the 4 completed weeks)
+  const fourWeekAvg = Math.round((weeks.reduce((sum, w) => sum + w.totalKm, 0) / (weeks.length || 1)) * 10) / 10;
+  const avgRunsPerWeek = Math.round(weeks.reduce((sum, w) => sum + (w.runs ? w.runs.length : 0), 0) / (weeks.length || 1));
+  const avgLsdKm = weeks.reduce((sum, w) => sum + (w.maxLsd || (w.totalKm * 0.35)), 0) / (weeks.length || 1);
 
-  // Render Coaching Card for Latest Week
+  // Expose 4-week chronic base for 7-Day Plan automatic target synchronization
+  window.LATEST_WEEK_CHRONIC_AVG = fourWeekAvg;
+
+  // Render Coaching Card for Latest Completed Week
   const coachingCard = document.getElementById('weekly-coaching-card');
   if (coachingCard && latestWeek) {
     const low = latestWeek.lowRatio || 80;
@@ -2178,32 +2213,31 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
     let badgeClass = 'green';
     let badgeText = isKo ? '✅ 안정적인 주간 트레이닝 밸런스' : '✅ Balanced Training Load';
     let coachingMsg = isKo
-      ? `이번 주는 최근 4주 만성 베이스(주당 ${latestWeek.chronicAvg.toFixed(1)}km) 대비 <strong>${latestWeek.acwr.toFixed(2)}배</strong>의 적정 훈련 부하(${latestWeek.ruleShort})와 저강도 ${low}% : 고강도 ${high}%의 균형 잡힌 마일리지를 유지하고 있습니다.`
-      : `Trailing 4-week chronic load (<strong>${latestWeek.chronicAvg.toFixed(1)} km/wk</strong>) maintains an optimal ACWR ratio of <strong>${latestWeek.acwr.toFixed(2)}x</strong> (${low}% Low : ${high}% High intensity).`;
+      ? `최근 완료된 4주 만성 베이스(주당 평균 ${fourWeekAvg.toFixed(1)}km) 및 직전 완주 주차(${latestWeek.name}, ${latestWeek.totalKm.toFixed(1)}km) 대비 <strong>${latestWeek.acwr.toFixed(2)}배</strong>의 적정 훈련 부하(${latestWeek.ruleShort})와 저강도 ${low}% : 고강도 ${high}%의 균형 잡힌 마일리지를 유지하고 있습니다.`
+      : `Trailing 4 completed weeks base (<strong>${fourWeekAvg.toFixed(1)} km/wk</strong>) maintains an optimal ACWR ratio of <strong>${latestWeek.acwr.toFixed(2)}x</strong> (${low}% Low : ${high}% High intensity).`;
 
-    if (latestWeek.acwr > 1.5) {
-      coachingMsg += `<br><br><span style="color:var(--accent-red);">⚠️ <strong>부상 위험 주의 (ACWR ${latestWeek.acwr.toFixed(2)}x)</strong>: 이번 주 훈련량(${latestWeek.totalKm.toFixed(1)}km)이 최근 4주 평균치(${latestWeek.chronicAvg.toFixed(1)}km)보다 50% 이상 급증했습니다. 관절과 건의 부상 예방을 위해 다음 주는 볼륨을 20~30% 낮추는 회복주를 권장합니다.</span>`;
+    if (latestWeek.acwr > 1.4) {
+      coachingMsg += `<br><br><span style="color:var(--accent-red);">⚠️ <strong>부상 위험 주의 (ACWR ${latestWeek.acwr.toFixed(2)}x)</strong>: 직전 완주 주차(${latestWeek.totalKm.toFixed(1)}km)가 4주 만성 평균치(${fourWeekAvg.toFixed(1)}km)보다 급증했습니다. 관절과 건의 부상 예방을 위해 다음 주는 볼륨을 낮추는 회복주를 권장합니다.</span>`;
     }
 
-    // AI Coach Next Week Prescription Calculation
-    let nextTargetKm = Math.round(latestWeek.totalKm * 1.07 * 10) / 10; // +7% progressive overload
+    // AI Coach Next Week Prescription Calculation based on 4-Week Baseline
+    let nextTargetKm = Math.round(fourWeekAvg * 1.07 * 10) / 10; // +7% progressive overload from 4-week base
     let prescriptionBadge = '📈 안전 점진 증량 (+7%)';
-    let prescriptionNote = `이번 주(${latestWeek.totalKm.toFixed(1)}km) 훈련 부하가 안정적이므로 다음 주는 <strong>${nextTargetKm.toFixed(1)}km</strong>로 안전하게 증량하는 것을 권장합니다.`;
+    let prescriptionNote = `최근 완료된 4주 평균(${fourWeekAvg.toFixed(1)}km) 및 직전 주(${latestWeek.totalKm.toFixed(1)}km) 훈련 부하가 안정적이므로 다음 주는 4주 베이스 대비 +7%인 <strong>${nextTargetKm.toFixed(1)}km</strong>로 안전하게 증량하는 것을 권장합니다.`;
 
     if (latestWeek.acwr > 1.4 || high > 30) {
-      nextTargetKm = Math.max(10, Math.round(latestWeek.totalKm * 0.85 * 10) / 10);
+      nextTargetKm = Math.max(10, Math.round(fourWeekAvg * 0.85 * 10) / 10);
       prescriptionBadge = '🛡️ 회복 디로드 (-15%)';
-      prescriptionNote = `피로 누적 및 고강도 비중을 감안하여 다음 주는 <strong>${nextTargetKm.toFixed(1)}km</strong>로 볼륨을 15% 줄여 관절과 인대를 초회복시키세요.`;
-    } else if (latestWeek.totalKm < 10) {
-      nextTargetKm = Math.round((latestWeek.totalKm + 3.0) * 10) / 10;
+      prescriptionNote = `피로 누적 및 고강도 비중을 감안하여 다음 주는 4주 베이스 대비 15% 감량된 <strong>${nextTargetKm.toFixed(1)}km</strong>로 볼륨을 조절하여 초회복을 유도하세요.`;
+    } else if (fourWeekAvg < 10) {
+      nextTargetKm = Math.round((fourWeekAvg + 3.0) * 10) / 10;
       prescriptionBadge = '🌱 유산소 베이스 확장';
       prescriptionNote = `기초 유산소 용량 확장을 위해 다음 주는 <strong>${nextTargetKm.toFixed(1)}km</strong> 목표를 권장합니다.`;
     }
 
-    const recommendedDays = Math.min(5, Math.max(3, latestWeek.runs ? latestWeek.runs.length : 4));
-    const rawLsd = latestWeek.maxLsd || (latestWeek.totalKm * 0.38);
+    const recommendedDays = Math.min(5, Math.max(3, avgRunsPerWeek || 4));
     const lsdSteps = [5, 10, 15, 20, 25, 30];
-    const recommendedLsd = lsdSteps.reduce((prev, curr) => Math.abs(curr - rawLsd) < Math.abs(prev - rawLsd) ? curr : prev, 10);
+    const recommendedLsd = lsdSteps.reduce((prev, curr) => Math.abs(curr - avgLsdKm) < Math.abs(prev - avgLsdKm) ? curr : prev, 15);
 
     coachingCard.innerHTML = `
       <div class="wcc-header">
@@ -2236,6 +2270,10 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
         <div class="wpc-note">${prescriptionNote}</div>
         <div class="wpc-metric-grid">
           <div class="wpc-metric-item">
+            <span class="wpc-lbl">4주 평균 베이스</span>
+            <span class="wpc-val text-cyan">${fourWeekAvg.toFixed(1)} <small>KM/주</small></span>
+          </div>
+          <div class="wpc-metric-item">
             <span class="wpc-lbl">다음 주 권장 목표</span>
             <span class="wpc-val text-orange">${nextTargetKm.toFixed(1)} <small>KM</small></span>
           </div>
@@ -2249,9 +2287,19 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
           </div>
         </div>
         <button type="button" class="btn-create-plan-from-weekly" id="btn-create-plan-from-weekly">
-          <i class="bi bi-lightning-charge-fill"></i> 이 실측 분석 기반 다음 주 7-Day 맞춤 플랜 자동 생성
+          <i class="bi bi-lightning-charge-fill"></i> 이 4주 실측 분석 기반 다음 주 7-Day 맞춤 플랜 자동 생성
         </button>
       </div>
+
+      ${ongoingWeek ? `
+      <div class="ongoing-week-banner" style="margin-top: 1rem; margin-bottom: 0;">
+        <i class="bi bi-clock-history text-cyan"></i>
+        <div>
+          <strong style="color:var(--accent-cyan);">${escapeHtml(ongoingWeek.name)} 진행 중 (${ongoingWeek.totalKm.toFixed(1)}km, ${ongoingWeek.runs.length}회 러닝)</strong>:
+          현재 진행 중인 주차는 일요일 24시 완주 마감 후 공식 결산에 반영되며, AI 코칭 처방은 완주된 직전 4주차(${weeks[0].weekNum}주차~${latestWeek.weekNum}주차) 실측치를 기준으로 정밀 산출되었습니다.
+        </div>
+      </div>
+      ` : ''}
     `;
     coachingCard.style.display = 'block';
 
@@ -3275,12 +3323,22 @@ function initRunningHeatmap(activities) {
 
   function getHeatmapActivities() {
     let list = activities;
-    // Filter by global period filter
-    if (currentYear !== 'all') {
-      list = list.filter(a => a.year == currentYear);
+    const fYear = (window.RUNANALYZ_FILTERS && window.RUNANALYZ_FILTERS.year) || currentYear;
+    const fMonth = (window.RUNANALYZ_FILTERS && window.RUNANALYZ_FILTERS.month) || currentMonth;
+
+    // Filter by global period filter (Year / Month)
+    if (fYear && fYear !== 'all') {
+      list = list.filter(a => {
+        const d = (a.date || a.datetime || '').slice(0, 10);
+        return d.slice(0, 4) === String(fYear);
+      });
     }
-    if (currentMonth !== 'all') {
-      list = list.filter(a => a.month == currentMonth);
+    if (fMonth && fMonth !== 'all') {
+      list = list.filter(a => {
+        const d = (a.date || a.datetime || '').slice(0, 10);
+        const m = String(parseInt(d.slice(5, 7), 10) || '');
+        return m === String(fMonth);
+      });
     }
 
     return list.filter(a => {
@@ -3369,6 +3427,9 @@ function initRunningHeatmap(activities) {
       }
     } else {
       window.heatmapAllBounds = null;
+      if (window.leafletMap) {
+        window.leafletMap.setView([37.669, 127.304], 13);
+      }
     }
   }
 
@@ -3385,11 +3446,13 @@ function initRunningHeatmap(activities) {
 
     const secTitle = document.getElementById('routes-section-title');
     if (secTitle) {
+      const fYear = (window.RUNANALYZ_FILTERS && window.RUNANALYZ_FILTERS.year) || currentYear;
+      const fMonth = (window.RUNANALYZ_FILTERS && window.RUNANALYZ_FILTERS.month) || currentMonth;
       let pLabel = '';
-      if (currentYear === 'all') {
-        pLabel = currentMonth === 'all' ? '역대 전체' : `역대 ${currentMonth}월`;
+      if (fYear === 'all') {
+        pLabel = fMonth === 'all' ? '역대 전체' : `역대 ${fMonth}월`;
       } else {
-        pLabel = currentMonth === 'all' ? `${currentYear}년 전체` : `${currentYear}년 ${currentMonth}월`;
+        pLabel = fMonth === 'all' ? `${fYear}년 전체` : `${fYear}년 ${fMonth}월`;
       }
       secTitle.textContent = `${pLabel} 야외 GPS 코스 목록 (${gpsActs.length}개)`;
     }

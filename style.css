@@ -7295,6 +7295,28 @@ body.light-theme .form-select-sm {
   }
 }
 
+/* Ongoing Week Notice Banner */
+.ongoing-week-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: rgba(0, 242, 254, 0.06);
+  border: 1px solid rgba(0, 242, 254, 0.22);
+  border-radius: 12px;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
 
+.ongoing-week-banner i {
+  font-size: 1.35rem;
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+}
 
-
+.ongoing-week-banner strong {
+  color: var(--accent-cyan);
+  font-weight: 700;
+}
