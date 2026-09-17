@@ -4839,6 +4839,31 @@ body.light-theme .form-select-sm {
    Strava Web OAuth Button & Real-time Sync Modal Styles
    ========================================================================== */
 
+.btn-shoef-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.85rem;
+  background: rgba(255, 87, 34, 0.12);
+  color: #ff7849;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 87, 34, 0.35);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-shoef-nav:hover {
+  background: rgba(255, 87, 34, 0.22);
+  border-color: rgba(255, 87, 34, 0.7);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 87, 34, 0.35);
+}
+
 .btn-strava-auth {
   display: inline-flex;
   align-items: center;
