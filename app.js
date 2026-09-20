@@ -3,6 +3,33 @@
    Supports: 2017-2026 Multi-Year Data, Shoe Mileage Tracker, Heatmap
    ========================================================================== */
 
+// Global Safe Drawer Handlers
+window.openRunAnalyzDrawer = function() {
+  const navDrawer = document.getElementById('main-nav-drawer');
+  const drawerBackdrop = document.getElementById('drawer-backdrop');
+  if (navDrawer) {
+    navDrawer.classList.add('open', 'active');
+    navDrawer.setAttribute('aria-hidden', 'false');
+  }
+  if (drawerBackdrop) {
+    drawerBackdrop.classList.add('open', 'active');
+  }
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeRunAnalyzDrawer = function() {
+  const navDrawer = document.getElementById('main-nav-drawer');
+  const drawerBackdrop = document.getElementById('drawer-backdrop');
+  if (navDrawer) {
+    navDrawer.classList.remove('open', 'active');
+    navDrawer.setAttribute('aria-hidden', 'true');
+  }
+  if (drawerBackdrop) {
+    drawerBackdrop.classList.remove('open', 'active');
+  }
+  document.body.style.overflow = '';
+};
+
 // Helper to access i18n translations safely
 function _t(key, fallback) {
   return (window.I18N && typeof window.I18N.t === 'function') ? window.I18N.t(key, fallback) : fallback;
@@ -292,6 +319,14 @@ function setupStravaAuthButton(isCustomUser, athlete) {
   const modalDisconnect = document.getElementById('btn-modal-strava-disconnect');
   const modalStatus = document.getElementById('modal-strava-status-text');
 
+  // Hamburger Drawer Strava elements
+  const drawerDesc = document.getElementById('drawer-strava-status-desc');
+  const drawerAuthBtn = document.getElementById('btn-drawer-strava-auth');
+  const drawerConnectedBox = document.getElementById('drawer-strava-connected');
+  const drawerUser = document.getElementById('drawer-strava-user');
+  const drawerResync = document.getElementById('btn-drawer-strava-resync');
+  const drawerDisconnect = document.getElementById('btn-drawer-strava-disconnect');
+
   if (isCustomUser && athlete) {
     const rawName = athlete.firstname || athlete.username || '러너';
     const athleteName = escapeHtml(rawName);
@@ -332,22 +367,40 @@ function setupStravaAuthButton(isCustomUser, athlete) {
     if (modalStatus) {
       modalStatus.innerHTML = `<span style="color:var(--accent-lime);"><i class="bi bi-check-circle-fill"></i> 현재 [<strong>${athleteName}</strong>]님의 Strava 계정이 연동되어 있습니다.</span>`;
     }
+
+    // Drawer state (Connected)
+    if (drawerDesc) drawerDesc.textContent = `${athleteName}님 계정 실시간 연동 중`;
+    if (drawerAuthBtn) drawerAuthBtn.style.display = 'none';
+    if (drawerConnectedBox) drawerConnectedBox.style.display = 'flex';
+    if (drawerUser) drawerUser.textContent = athleteName;
+    if (drawerResync) {
+      drawerResync.onclick = (e) => {
+        e.preventDefault();
+        resyncStravaUser(athleteName);
+      };
+    }
+    if (drawerDisconnect) {
+      drawerDisconnect.onclick = (e) => {
+        e.preventDefault();
+        disconnectStravaUser();
+      };
+    }
   } else {
     // Show connect button, hide connected pill
+    const handleAuthClick = (e) => {
+      e.preventDefault();
+      const redirectUri = `${window.location.origin}${window.location.pathname}`;
+      const authUrl = `https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&approval_prompt=auto&scope=read,activity:read_all`;
+      window.location.href = authUrl;
+    };
+
     if (btnAuth) {
       btnAuth.style.display = 'inline-flex';
       btnAuth.classList.remove('connected');
       btnAuth.title = '내 Strava 계정 실시간 연동 (원클릭)';
       const btnText = document.getElementById('strava-auth-btn-text');
       if (btnText) btnText.innerHTML = `Strava 연동`;
-
-      btnAuth.onclick = (e) => {
-        e.preventDefault();
-        // Dynamic origin & pathname ensures 100% compatibility with any custom domain or subpath
-        const redirectUri = `${window.location.origin}${window.location.pathname}`;
-        const authUrl = `https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&approval_prompt=auto&scope=read,activity:read_all`;
-        window.location.href = authUrl;
-      };
+      btnAuth.onclick = handleAuthClick;
     }
     if (connectedPill) {
       connectedPill.style.display = 'none';
@@ -358,6 +411,14 @@ function setupStravaAuthButton(isCustomUser, athlete) {
     if (modalStatus) {
       modalStatus.innerHTML = `<span style="color:var(--text-muted);"><i class="bi bi-info-circle"></i> Strava 계정이 아직 연동되지 않았습니다. (기본 데모 아카이브 표시 중)</span>`;
     }
+
+    // Drawer state (Disconnected)
+    if (drawerDesc) drawerDesc.textContent = '계정 실시간 동기화 상태';
+    if (drawerAuthBtn) {
+      drawerAuthBtn.style.display = 'inline-flex';
+      drawerAuthBtn.onclick = handleAuthClick;
+    }
+    if (drawerConnectedBox) drawerConnectedBox.style.display = 'none';
   }
 }
 
@@ -452,6 +513,12 @@ async function startRunAnalyz() {
   if (pureRunningActivities.length === 0) {
     pureRunningActivities = allActivities.filter(a => a.distance_km > 0.1);
   }
+  // Sort descending by date & time (index 0 is always the newest session)
+  pureRunningActivities.sort((a, b) => {
+    const dtA = (a.date || '') + ' ' + (a.time || '');
+    const dtB = (b.date || '') + ' ' + (b.time || '');
+    return dtB.localeCompare(dtA);
+  });
   const nonRunningActivities = allActivities.filter(a => !a.is_pure_running);
   window.RUNANALYZ_PURE_ACTIVITIES = pureRunningActivities;
 
@@ -477,59 +544,6 @@ async function startRunAnalyz() {
     });
   }
 
-  // --------------------------------------------------------------------------
-  // 3. Period & Sport Filter Controller (Year / Month & Sport Filter)
-  // --------------------------------------------------------------------------
-  const selectYear = document.getElementById('select-year');
-  const selectMonth = document.getElementById('select-month');
-  const filterBtns = document.querySelectorAll('.filter-btn');
-
-  currentYear = sessionStorage.getItem('shoef_year') || '2026';
-  currentMonth = sessionStorage.getItem('shoef_month') || '8';
-  currentSportFilter = sessionStorage.getItem('shoef_sport') || 'all';
-  window.RUNANALYZ_FILTERS.year = currentYear;
-  window.RUNANALYZ_FILTERS.month = currentMonth;
-  window.RUNANALYZ_FILTERS.sport = currentSportFilter;
-
-  if (selectYear) selectYear.value = currentYear;
-  if (selectMonth) selectMonth.value = currentMonth;
-
-  if (selectYear) {
-    selectYear.addEventListener('change', (e) => {
-      currentYear = e.target.value;
-      window.RUNANALYZ_FILTERS.year = currentYear;
-      sessionStorage.setItem('shoef_year', currentYear);
-      refreshAllViews();
-    });
-  }
-
-  if (selectMonth) {
-    selectMonth.addEventListener('change', (e) => {
-      currentMonth = e.target.value;
-      window.RUNANALYZ_FILTERS.month = currentMonth;
-      sessionStorage.setItem('shoef_month', currentMonth);
-      refreshAllViews();
-    });
-  }
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentSportFilter = btn.dataset.filter;
-      window.RUNANALYZ_FILTERS.sport = currentSportFilter;
-      sessionStorage.setItem('shoef_sport', currentSportFilter);
-      refreshAllViews();
-    });
-  });
-
-  // Restore active filter chip
-  const activeFilterBtn = document.querySelector(`.filter-btn[data-filter="${currentSportFilter}"]`);
-  if (activeFilterBtn) {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    activeFilterBtn.classList.add('active');
-  }
-
   // Toast Notification Helper
   function showToast(message) {
     let toast = document.getElementById('shoef-toast');
@@ -547,92 +561,351 @@ async function startRunAnalyz() {
     }, 2400);
   }
 
-  // Update Period Badge (Instant Real-time Feedback)
-  function updatePeriodBadge(currentList) {
-    const badgeTextEl = document.getElementById('period-badge-text');
-    const badgeContainer = document.getElementById('period-active-badge');
-    if (!badgeTextEl) return;
-
-    let periodLabel = `${currentYear}년`;
-    if (currentMonth !== 'all') {
-      periodLabel += ` ${currentMonth}월`;
-    } else {
-      periodLabel += ` 전체`;
+  // --------------------------------------------------------------------------
+  // 3. Environment & Running Classification Helpers
+  // --------------------------------------------------------------------------
+  function getActEnvironment(a) {
+    if (a.sub_sport === 'treadmill' || a.sport === 'treadmill_running' || a.sport === 'virtual_run' || a.type === 'VirtualRun') {
+      return 'treadmill';
     }
-
-    const totalKm = currentList.reduce((sum, a) => sum + (a.distance_km || 0), 0);
-    badgeTextEl.textContent = `${periodLabel} (${currentList.length}회 · ${totalKm.toFixed(1)}km)`;
-
-    if (badgeContainer) {
-      badgeContainer.classList.remove('badge-highlight');
-      void badgeContainer.offsetWidth; // Force reflow
-      badgeContainer.classList.add('badge-highlight');
+    if (a.sub_sport === 'trail' || a.sport === 'trail_running' || a.type === 'TrailRun' || /트레일|등산|산악|trail/i.test(a.sport_label || a.filename || '')) {
+      return 'trail';
     }
+    return 'outdoor';
   }
 
-  // Initialize HR Settings Drawer (MHR & RHR Precision Calibration)
-  try {
-    initHRSettingsDrawer();
-  } catch (hrInitErr) {
-    console.error('Failed to init HR settings drawer:', hrInitErr);
-  }
+  currentSportFilter = sessionStorage.getItem('shoef_sport') || 'all';
+  window.RUNANALYZ_FILTERS.sport = currentSportFilter;
 
-  function getFilteredActivities() {
+  function getFilteredActivities(overrideEnv) {
+    const env = overrideEnv || currentSportFilter || 'all';
     return pureRunningActivities.filter(a => {
-      if (currentYear !== 'all') {
-        const aYear = a.date ? a.date.slice(0, 4) : '';
-        if (aYear !== currentYear) return false;
-      }
-      if (currentMonth !== 'all') {
-        const aMonth = a.date ? String(parseInt(a.date.slice(5, 7), 10)) : '';
-        if (aMonth !== currentMonth) return false;
-      }
-      if (currentSportFilter === 'treadmill' && a.sub_sport !== 'treadmill') return false;
-      if (currentSportFilter === 'outdoor' && a.sub_sport === 'treadmill') return false;
-      return true;
+      if (env === 'all') return true;
+      return getActEnvironment(a) === env;
     });
   }
 
   function updateBadgeCounts() {
-    const runsInPeriod = pureRunningActivities.filter(a => {
-      if (currentYear !== 'all') {
-        const aYear = a.date ? a.date.slice(0, 4) : '';
-        if (aYear !== currentYear) return false;
-      }
-      if (currentMonth !== 'all') {
-        const aMonth = a.date ? String(parseInt(a.date.slice(5, 7), 10)) : '';
-        if (aMonth !== currentMonth) return false;
-      }
-      return true;
-    });
-
-    const tmRuns = runsInPeriod.filter(a => a.sub_sport === 'treadmill');
-    const odRuns = runsInPeriod.filter(a => a.sub_sport !== 'treadmill');
+    const allCount = pureRunningActivities.length;
+    const odCount = pureRunningActivities.filter(a => getActEnvironment(a) === 'outdoor').length;
+    const tmCount = pureRunningActivities.filter(a => getActEnvironment(a) === 'treadmill').length;
+    const trCount = pureRunningActivities.filter(a => getActEnvironment(a) === 'trail').length;
 
     const elAll = document.getElementById('filter-count-all');
-    const elTm = document.getElementById('filter-count-tm');
     const elOd = document.getElementById('filter-count-od');
+    const elTm = document.getElementById('filter-count-tm');
+    const elTr = document.getElementById('filter-count-tr');
 
-    if (elAll) elAll.textContent = `(${runsInPeriod.length})`;
-    if (elTm) elTm.textContent = `(${tmRuns.length})`;
-    if (elOd) elOd.textContent = `(${odRuns.length})`;
+    if (elAll) elAll.textContent = `(${allCount})`;
+    if (elOd) elOd.textContent = `(${odCount})`;
+    if (elTm) elTm.textContent = `(${tmCount})`;
+    if (elTr) elTr.textContent = `(${trCount})`;
+  }
+
+  // Date & Grouping Helpers (Monday~Sunday standard ISO weeks)
+  function getMondayStr(dateStr) {
+    const parts = (dateStr || '').slice(0, 10).split('-').map(Number);
+    if (parts.length < 3 || isNaN(parts[0])) return '2026-08-03';
+    const d = new Date(parts[0], parts[1] - 1, parts[2]);
+    const day = d.getDay();
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+    const mon = new Date(parts[0], parts[1] - 1, diff);
+    const y = mon.getFullYear();
+    const m = String(mon.getMonth() + 1).padStart(2, '0');
+    const dt = String(mon.getDate()).padStart(2, '0');
+    return `${y}-${m}-${dt}`;
+  }
+
+  function getSundayStr(monStr) {
+    const parts = monStr.split('-').map(Number);
+    const sun = new Date(parts[0], parts[1] - 1, parts[2] + 6);
+    const y = sun.getFullYear();
+    const m = String(sun.getMonth() + 1).padStart(2, '0');
+    const dt = String(sun.getDate()).padStart(2, '0');
+    return `${y}-${m}-${dt}`;
+  }
+
+  function getISOWeekInfo(monStr) {
+    const parts = monStr.split('-').map(Number);
+    const dt = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+    const dayNum = dt.getUTCDay() || 7;
+    dt.setUTCDate(dt.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(dt.getUTCFullYear(), 0, 1));
+    const weekNo = Math.ceil((((dt - yearStart) / 86400000) + 1) / 7);
+    const yr = String(dt.getUTCFullYear()).slice(2);
+    return { weekNo, yearShort: yr, fullYear: dt.getUTCFullYear() };
+  }
+
+  function getGroupedWeeks(allRuns) {
+    const weekMap = {};
+    allRuns.forEach(a => {
+      if (!a.date || !a.is_pure_running) return;
+      const monStr = getMondayStr(a.date);
+      if (!weekMap[monStr]) {
+        const sunStr = getSundayStr(monStr);
+        const iso = getISOWeekInfo(monStr);
+        const monParts = monStr.split('-');
+        const sunParts = sunStr.split('-');
+        const dateRangeStr = `${parseInt(monParts[1], 10)}/${parseInt(monParts[2], 10)}~${parseInt(sunParts[1], 10)}/${parseInt(sunParts[2], 10)}`;
+        const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+        const isKo = (curLang === 'ko');
+        const wName = isKo 
+          ? `${iso.yearShort}년 ${iso.weekNo}주차 (${dateRangeStr})`
+          : `'${iso.yearShort} W${iso.weekNo} (${dateRangeStr})`;
+
+        weekMap[monStr] = {
+          key: monStr,
+          name: wName,
+          weekNum: iso.weekNo,
+          year: iso.fullYear,
+          startDateStr: monStr,
+          endDateStr: sunStr,
+          runs: [],
+          totalKm: 0,
+          maxLsd: 0
+        };
+      }
+      weekMap[monStr].runs.push(a);
+      weekMap[monStr].totalKm += (a.distance_km || 0);
+      if ((a.distance_km || 0) > weekMap[monStr].maxLsd) {
+        weekMap[monStr].maxLsd = a.distance_km;
+      }
+    });
+    return Object.values(weekMap).sort((a, b) => b.startDateStr.localeCompare(a.startDateStr));
+  }
+
+  function getGroupedMonths(acts) {
+    const map = {};
+    acts.forEach(a => {
+      if (!a.date) return;
+      const ym = a.date.slice(0, 7);
+      if (!map[ym]) {
+        const parts = ym.split('-');
+        map[ym] = {
+          key: ym,
+          year: parts[0],
+          month: String(parseInt(parts[1], 10)),
+          runs: [],
+          totalKm: 0,
+          efList: []
+        };
+      }
+      map[ym].runs.push(a);
+      map[ym].totalKm += (a.distance_km || 0);
+      if (a.ef > 0.5) map[ym].efList.push(a.ef);
+    });
+    return Object.values(map)
+      .map(m => {
+        m.avgEf = m.efList.length ? (m.efList.reduce((s, v) => s + v, 0) / m.efList.length) : 0;
+        return m;
+      })
+      .sort((a, b) => b.key.localeCompare(a.key));
+  }
+
+  function getGroupedYears(acts) {
+    const map = {};
+    acts.forEach(a => {
+      if (!a.date) return;
+      const y = a.date.slice(0, 4);
+      if (!map[y]) {
+        map[y] = {
+          year: y,
+          runs: [],
+          totalKm: 0,
+          efList: []
+        };
+      }
+      map[y].runs.push(a);
+      map[y].totalKm += (a.distance_km || 0);
+      if (a.ef > 0.5) map[y].efList.push(a.ef);
+    });
+    return Object.values(map)
+      .map(y => {
+        y.avgEf = y.efList.length ? (y.efList.reduce((s, v) => s + v, 0) / y.efList.length) : 0;
+        return y;
+      })
+      .sort((a, b) => b.year.localeCompare(a.year));
   }
 
   // --------------------------------------------------------------------------
-  // 4. Main Tabs & Running Subnav Controller
+  // 4. NRC Timeline Navigation & Clean 4 Tabs System
   // --------------------------------------------------------------------------
-  const mainNavBtns = document.querySelectorAll('.main-nav-btn');
-  const subtabBtns = document.querySelectorAll('.subtab-btn');
-  const subnavBar = document.getElementById('running-subnav-bar');
+  const cleanTabBtns = document.querySelectorAll('.tab-clean-btn');
   const tabPanels = document.querySelectorAll('.tab-panel');
+  let activeCleanTab = 'single'; // 'single', 'weekly', 'monthly', 'yearly', 'plan', 'heatmap'
 
-  let activeMainNav = 'running'; // 'running', 'plan', 'heatmap'
-  let activeRunningSubtab = 'single'; // 'single', 'weekly', 'monthly', 'yearly'
+  const currentTimelineIndices = {
+    single: 0,
+    weekly: 0,
+    monthly: 0,
+    yearly: 0,
+    heatmap: 0
+  };
 
-  function activateTab(tabId) {
+  function updateTimelineSlider() {
+    const prevBtn = document.getElementById('btn-slide-prev');
+    const nextBtn = document.getElementById('btn-slide-next');
+    const mainLabel = document.getElementById('slide-main-label');
+    const subLabel = document.getElementById('slide-sub-label');
+    if (!mainLabel || !subLabel || !prevBtn || !nextBtn) return;
+
+    const currentList = getFilteredActivities();
+
+    if (activeCleanTab === 'single') {
+      if (currentList.length === 0) {
+        mainLabel.textContent = '러닝 세션 없음';
+        subLabel.textContent = '선택한 환경에 기록이 없습니다';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        clearSingleSessionDisplay();
+        return;
+      }
+
+      let idx = currentTimelineIndices.single || 0;
+      if (idx < 0) idx = 0;
+      if (idx >= currentList.length) idx = currentList.length - 1;
+      currentTimelineIndices.single = idx;
+
+      const act = currentList[idx];
+      const isLatest = (idx === 0);
+      const envLabel = act.sport_label || '야외 러닝';
+
+      mainLabel.textContent = `${act.date}${isLatest ? ' (최신)' : ''}`;
+      subLabel.textContent = `${envLabel} · ${(act.distance_km || 0).toFixed(2)} km · ${act.pace_formatted || "-'--\""}`;
+
+      prevBtn.disabled = (idx >= currentList.length - 1);
+      nextBtn.disabled = (idx <= 0);
+
+      const select = document.getElementById('session-select');
+      if (select) select.value = act.id;
+
+      renderSingleSession(act);
+    } else if (activeCleanTab === 'weekly') {
+      const weeks = getGroupedWeeks(currentList);
+      if (weeks.length === 0) {
+        mainLabel.textContent = '주간 기록 없음';
+        subLabel.textContent = '선택한 환경에 주간 기록이 없습니다';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+      }
+
+      let idx = currentTimelineIndices.weekly || 0;
+      if (idx < 0) idx = 0;
+      if (idx >= weeks.length) idx = weeks.length - 1;
+      currentTimelineIndices.weekly = idx;
+
+      const w = weeks[idx];
+      const isLatest = (idx === 0);
+
+      mainLabel.textContent = `${w.name}${isLatest ? ' (최근 주차)' : ''}`;
+      subLabel.textContent = `총 ${w.totalKm.toFixed(1)} km · ${w.runs.length}회 러닝 (LSD ${w.maxLsd.toFixed(1)}km)`;
+
+      prevBtn.disabled = (idx >= weeks.length - 1);
+      nextBtn.disabled = (idx <= 0);
+
+      initWeeklyRecap(currentList, '2026', '8', pureRunningActivities);
+    } else if (activeCleanTab === 'monthly') {
+      const months = getGroupedMonths(currentList);
+      if (months.length === 0) {
+        mainLabel.textContent = '월간 기록 없음';
+        subLabel.textContent = '선택한 환경에 월간 기록이 없습니다';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+      }
+
+      let idx = currentTimelineIndices.monthly || 0;
+      if (idx < 0) idx = 0;
+      if (idx >= months.length) idx = months.length - 1;
+      currentTimelineIndices.monthly = idx;
+
+      const m = months[idx];
+      const isLatest = (idx === 0);
+
+      mainLabel.textContent = `${m.year}년 ${m.month}월${isLatest ? ' (최신 월)' : ''}`;
+      subLabel.textContent = `총 ${m.totalKm.toFixed(1)} km · ${m.runs.length}회 러닝 (평균 EF: ${m.avgEf.toFixed(3)})`;
+
+      prevBtn.disabled = (idx >= months.length - 1);
+      nextBtn.disabled = (idx <= 0);
+
+      initMonthlyRecap(m.runs, m.year, m.month);
+    } else if (activeCleanTab === 'yearly') {
+      const years = getGroupedYears(currentList);
+      if (years.length === 0) {
+        mainLabel.textContent = '연간 기록 없음';
+        subLabel.textContent = '선택한 환경에 연간 기록이 없습니다';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+      }
+
+      let idx = currentTimelineIndices.yearly || 0;
+      if (idx < 0) idx = 0;
+      if (idx >= years.length) idx = years.length - 1;
+      currentTimelineIndices.yearly = idx;
+
+      const y = years[idx];
+      const isLatest = (idx === 0);
+
+      mainLabel.textContent = `${y.year}년 결산${isLatest ? ' (최근 연도)' : ''}`;
+      subLabel.textContent = `총 ${y.totalKm.toFixed(1)} km · ${y.runs.length}회 러닝 (평균 EF: ${y.avgEf.toFixed(3)})`;
+
+      prevBtn.disabled = (idx >= years.length - 1);
+      nextBtn.disabled = (idx <= 0);
+
+      initYearlyRecap(archive, currentList);
+    } else if (activeCleanTab === 'heatmap') {
+      mainLabel.textContent = `러닝 히트맵 (${currentList.length}개 세션)`;
+      subLabel.textContent = `환경: ${currentSportFilter === 'all' ? '전체' : (currentSportFilter === 'outdoor' ? '야외' : (currentSportFilter === 'treadmill' ? '트레드밀' : '트레일'))}`;
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+    }
+  }
+
+  // Timeline Slider ◀ / ▶ Button Click
+  const btnSlidePrev = document.getElementById('btn-slide-prev');
+  const btnSlideNext = document.getElementById('btn-slide-next');
+
+  if (btnSlidePrev) {
+    btnSlidePrev.addEventListener('click', () => {
+      if (activeCleanTab in currentTimelineIndices) {
+        currentTimelineIndices[activeCleanTab]++;
+        updateTimelineSlider();
+      }
+    });
+  }
+
+  if (btnSlideNext) {
+    btnSlideNext.addEventListener('click', () => {
+      if (activeCleanTab in currentTimelineIndices) {
+        if (currentTimelineIndices[activeCleanTab] > 0) {
+          currentTimelineIndices[activeCleanTab]--;
+          updateTimelineSlider();
+        }
+      }
+    });
+  }
+
+  function activateCleanTab(tabId) {
+    activeCleanTab = tabId;
+    cleanTabBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabId));
+
     tabPanels.forEach(p => p.classList.remove('active'));
     const activePanel = document.getElementById(`panel-${tabId}`);
     if (activePanel) activePanel.classList.add('active');
+
+    const chipsBar = document.getElementById('sport-chips-bar');
+    const sliderBar = document.getElementById('timeline-slider-bar');
+    if (tabId === 'plan') {
+      if (chipsBar) chipsBar.style.display = 'none';
+      if (sliderBar) sliderBar.style.display = 'none';
+    } else {
+      if (chipsBar) chipsBar.style.display = 'flex';
+      if (sliderBar) sliderBar.style.display = 'flex';
+    }
+
+    updateTimelineSlider();
 
     if (tabId === 'single' && window.singleChartInstance) window.singleChartInstance.resize();
     if (tabId === 'weekly' && window.weeklyChartInstance) window.weeklyChartInstance.resize();
@@ -645,58 +918,346 @@ async function startRunAnalyz() {
             window.leafletMap.fitBounds(window.heatmapAllBounds, { padding: [40, 40], maxZoom: 16 });
           }
         }
-        if (window.refreshHeatmap) {
-          window.refreshHeatmap();
-        }
+        if (window.refreshHeatmap) window.refreshHeatmap();
       }, 150);
     }
   }
 
-  mainNavBtns.forEach(btn => {
+  cleanTabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      const targetNav = btn.dataset.mainNav;
-      activeMainNav = targetNav;
+      activateCleanTab(btn.dataset.tab);
+    });
+  });
 
-      mainNavBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+  // --------------------------------------------------------------------------
+  // 5. 4-Environment Chips ([전체] [야외] [트레드밀] [트레일])
+  // --------------------------------------------------------------------------
+  const envChips = document.querySelectorAll('.env-chip-btn');
+  envChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      envChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentSportFilter = chip.dataset.env || 'all';
+      window.RUNANALYZ_FILTERS.sport = currentSportFilter;
+      sessionStorage.setItem('shoef_sport', currentSportFilter);
 
-      if (targetNav === 'running') {
-        if (subnavBar) subnavBar.classList.remove('hidden');
-        activateTab(activeRunningSubtab);
-      } else {
-        if (subnavBar) subnavBar.classList.add('hidden');
-        activateTab(targetNav);
-        if (targetNav === 'plan' && typeof syncPlanTargetWithChronic === 'function') {
-          syncPlanTargetWithChronic();
-        }
+      // Reset current tab index to 0 (latest session in selected environment)
+      currentTimelineIndices[activeCleanTab] = 0;
+      updateBadgeCounts();
+      updateTimelineSlider();
+
+      if (window.refreshHeatmap) {
+        window.refreshHeatmap();
       }
     });
   });
 
-  subtabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetSub = btn.dataset.tab;
-      activeRunningSubtab = targetSub;
+  // Restore active chip
+  const activeChipBtn = document.querySelector(`.env-chip-btn[data-env="${currentSportFilter}"]`);
+  if (activeChipBtn) {
+    envChips.forEach(c => c.classList.remove('active'));
+    activeChipBtn.classList.add('active');
+  }
 
-      // Ensure main nav is on running
-      activeMainNav = 'running';
-      mainNavBtns.forEach(b => b.classList.toggle('active', b.dataset.mainNav === 'running'));
-      if (subnavBar) subnavBar.classList.remove('hidden');
+  // --------------------------------------------------------------------------
+  // 6. Single Session Hero Card Accordion & Instagram Modal
+  // --------------------------------------------------------------------------
+  const btnToggleDetail = document.getElementById('btn-toggle-single-detail');
+  const detailWrapper = document.getElementById('single-detail-wrapper');
+  const textToggleDetail = document.getElementById('text-toggle-single-detail');
+  const iconToggleDetail = document.getElementById('icon-toggle-single-detail');
 
-      subtabBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      activateTab(targetSub);
+  if (btnToggleDetail && detailWrapper) {
+    btnToggleDetail.addEventListener('click', () => {
+      const isCollapsed = detailWrapper.classList.toggle('collapsed');
+      if (textToggleDetail) {
+        textToggleDetail.textContent = isCollapsed 
+          ? '상세 데이터 분석 보기 (랩타임, 심박 그래프, 지도)' 
+          : '상세 데이터 접기';
+      }
+      if (iconToggleDetail) {
+        iconToggleDetail.className = isCollapsed ? 'bi bi-chevron-down toggle-icon' : 'bi bi-chevron-up toggle-icon';
+      }
+      if (!isCollapsed && window.singleChartInstance) {
+        window.singleChartInstance.resize();
+      }
     });
+  }
+
+  const btnOpenInsta = document.getElementById('btn-open-single-insta');
+  const modalSingleInsta = document.getElementById('modal-single-insta-overlay');
+  const btnCloseSingleInsta = document.getElementById('btn-close-single-insta-modal');
+
+  if (btnOpenInsta && modalSingleInsta) {
+    btnOpenInsta.addEventListener('click', () => {
+      const currentList = getFilteredActivities();
+      const act = currentList[currentTimelineIndices.single] || currentList[0];
+      if (act && typeof renderSingleInstaCard === 'function') {
+        renderSingleInstaCard(act);
+      }
+      modalSingleInsta.style.display = 'flex';
+    });
+  }
+
+  if (btnCloseSingleInsta && modalSingleInsta) {
+    btnCloseSingleInsta.addEventListener('click', () => {
+      modalSingleInsta.style.display = 'none';
+    });
+  }
+
+  if (modalSingleInsta) {
+    modalSingleInsta.addEventListener('click', (e) => {
+      if (e.target === modalSingleInsta) {
+        modalSingleInsta.style.display = 'none';
+      }
+    });
+  }
+
+  // --------------------------------------------------------------------------
+  // 7. Hamburger Drawer & Backdrop
+  // --------------------------------------------------------------------------
+  const btnHamburger = document.getElementById('btn-hamburger-toggle');
+  const navDrawer = document.getElementById('main-nav-drawer');
+  const drawerBackdrop = document.getElementById('drawer-backdrop');
+  const btnCloseDrawer = document.getElementById('btn-close-drawer');
+
+  function openDrawer() {
+    if (navDrawer) {
+      navDrawer.classList.add('open', 'active');
+      navDrawer.setAttribute('aria-hidden', 'false');
+    }
+    if (drawerBackdrop) {
+      drawerBackdrop.classList.add('open', 'active');
+    }
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    if (navDrawer) {
+      navDrawer.classList.remove('open', 'active');
+      navDrawer.setAttribute('aria-hidden', 'true');
+    }
+    if (drawerBackdrop) {
+      drawerBackdrop.classList.remove('open', 'active');
+    }
+    document.body.style.overflow = '';
+  }
+
+  window.openRunAnalyzDrawer = openDrawer;
+  window.closeRunAnalyzDrawer = closeDrawer;
+
+  if (btnHamburger) btnHamburger.addEventListener('click', openDrawer);
+  if (btnCloseDrawer) btnCloseDrawer.addEventListener('click', closeDrawer);
+  if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeDrawer();
+      if (modalSingleInsta) modalSingleInsta.style.display = 'none';
+      const efModal = document.getElementById('modal-ef-calc-overlay');
+      if (efModal) efModal.style.display = 'none';
+    }
   });
 
+  // Drawer Menu Items
+  // 1. Profile
+  const btnDrawerProfile = document.getElementById('btn-drawer-profile');
+  if (btnDrawerProfile) {
+    btnDrawerProfile.addEventListener('click', () => {
+      closeDrawer();
+      activateCleanTab('single');
+      const hrDrawer = document.getElementById('hr-settings-drawer');
+      if (hrDrawer) {
+        hrDrawer.style.display = 'block';
+        hrDrawer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  }
 
+  // 2. EF Calculator
+  const btnDrawerCalc = document.getElementById('btn-drawer-calc');
+  const efModal = document.getElementById('modal-ef-calc-overlay');
+  const btnCloseEf = document.getElementById('btn-close-ef-calc');
 
-  // Refresh All Dashboard Views
+  if (btnDrawerCalc && efModal) {
+    btnDrawerCalc.addEventListener('click', () => {
+      closeDrawer();
+      efModal.style.display = 'flex';
+    });
+  }
+
+  if (btnCloseEf && efModal) {
+    btnCloseEf.addEventListener('click', () => {
+      efModal.style.display = 'none';
+    });
+  }
+
+  if (efModal) {
+    efModal.addEventListener('click', (e) => {
+      if (e.target === efModal) {
+        efModal.style.display = 'none';
+      }
+    });
+  }
+
+  window.setModalDistance = function(km) {
+    const distInput = document.getElementById('rc-distance');
+    if (distInput) distInput.value = km;
+    document.querySelectorAll('.rc-preset-btn').forEach(btn => {
+      const txt = btn.textContent;
+      const isMatch = (km === 3 && txt.includes('3')) ||
+                      (km === 5 && txt.includes('5')) ||
+                      (km === 10 && txt.includes('10')) ||
+                      (km === 21.0975 && txt.includes('21.1')) ||
+                      (km === 42.195 && txt.includes('42.2'));
+      btn.classList.toggle('active', isMatch);
+    });
+  };
+
+  window.calculateModalEF = function() {
+    const birthYear = parseInt(document.getElementById('rc-birth-year')?.value, 10) || 1995;
+    const distKm = parseFloat(document.getElementById('rc-distance')?.value) || 5.0;
+    const min = parseInt(document.getElementById('rc-time-min')?.value, 10) || 25;
+    const sec = parseInt(document.getElementById('rc-time-sec')?.value, 10) || 0;
+    const avgHr = parseInt(document.getElementById('rc-avg-hr')?.value, 10) || 155;
+
+    const totalMinutes = min + (sec / 60);
+    const totalSeconds = (min * 60) + sec;
+    if (distKm <= 0 || totalMinutes <= 0 || avgHr <= 0) return;
+
+    const speedMMin = (distKm * 1000) / totalMinutes;
+    const ef = speedMMin / avgHr;
+
+    const currentYr = new Date().getFullYear();
+    const age = currentYr - birthYear;
+    const estMhr = Math.round(208 - (0.7 * age));
+    const hrIntensity = Math.round((avgHr / estMhr) * 100);
+
+    const paceSec = totalSeconds / distKm;
+    const pM = Math.floor(paceSec / 60);
+    const pS = Math.round(paceSec % 60);
+    const paceStr = `${pM}'${pS < 10 ? '0' : ''}${pS}" /km`;
+
+    const v = speedMMin;
+    const vo2 = -4.60 + 0.182258 * v + 0.000104 * v * v;
+    const t = totalMinutes;
+    const percentMax = 0.8 + 0.1894393 * Math.exp(-0.012778 * t) + 0.2989558 * Math.exp(-0.1932605 * t);
+    const vdot = (percentMax > 0) ? (vo2 / percentMax) : 40.0;
+
+    let tierIcon = '⚡';
+    let tierText = '우수 (Good Engine)';
+    let gaugeWidth = '65%';
+    let gaugeDesc = '동일 연령대 러너 중 상위 유산소 효율입니다.';
+    let recZone = 'Zone 2 기초 유산소';
+    let recShoe = '쿠셔닝 데일리 트레이너(스택하이트 30mm 이상, 안정감 높은 폼)가 심폐 강화와 발목 안정성에 적합합니다.';
+
+    if (ef >= 1.35) {
+      tierIcon = '🔥';
+      tierText = '엘리트 (Elite Base)';
+      gaugeWidth = '92%';
+      gaugeDesc = '상위 5% 이내의 탁월한 심폐 연비입니다. 마라톤 서브3~330 잠재력!';
+      recZone = 'Zone 3~4 템포/LT 역치런';
+      recShoe = '카본 플레이트 레이싱화(나이키 베이퍼플라이, 아디다스 프로 등)로 에너지 반환율을 극대화하세요.';
+    } else if (ef >= 1.25) {
+      tierIcon = '⚡';
+      tierText = '우수 (Good Engine)';
+      gaugeWidth = '75%';
+      gaugeDesc = '탄탄한 유산소 베이스를 갖추었습니다. 마라톤 330~400 권역!';
+      recZone = 'Zone 2 LSD & Zone 3 마라톤 페이스';
+      recShoe = '경량 나일론/카본 슈퍼트레이너(엔돌핀 스피드, 보스톤 등)로 경쾌한 탄성을 경험하세요.';
+    } else if (ef >= 1.10) {
+      tierIcon = '🏃';
+      tierText = '표준 (Moderate Base)';
+      gaugeWidth = '50%';
+      gaugeDesc = '꾸준한 러닝으로 유산소 베이스가 안정적으로 구축되는 중입니다.';
+      recZone = 'Zone 2 지속주 40분 이상';
+      recShoe = '올라운드 쿠션 러닝화(노바블라스트, 페가수스, 고스트 등)가 가장 안전한 주력기입니다.';
+    } else {
+      tierIcon = '🌱';
+      tierText = '입문/적응 (Aerobic Build)';
+      gaugeWidth = '28%';
+      gaugeDesc = '심폐 적응 단계입니다. 심박수가 150을 넘지 않는 이지런을 추천합니다.';
+      recZone = 'Zone 1~2 회복/조깅';
+      recShoe = '맥스쿠션 안정화(젤카야노, 인빈서블, 본디 등)로 관절과 건의 충격을 최소화하세요.';
+    }
+
+    const resBox = document.getElementById('rc-result-box');
+    if (resBox) resBox.style.display = 'block';
+
+    const elEf = document.getElementById('res-ef-val');
+    if (elEf) elEf.textContent = ef.toFixed(3);
+
+    const elTierIcon = document.getElementById('res-tier-icon');
+    if (elTierIcon) elTierIcon.textContent = tierIcon;
+
+    const elTierText = document.getElementById('res-tier-text');
+    if (elTierText) elTierText.textContent = tierText;
+
+    const elGaugeFill = document.getElementById('res-gauge-fill');
+    if (elGaugeFill) elGaugeFill.style.width = gaugeWidth;
+
+    const elGaugeFooter = document.getElementById('res-gauge-footer');
+    if (elGaugeFooter) elGaugeFooter.textContent = gaugeDesc;
+
+    const elPace = document.getElementById('res-pace');
+    if (elPace) elPace.textContent = paceStr;
+
+    const elVdot = document.getElementById('res-vdot');
+    if (elVdot) elVdot.textContent = vdot.toFixed(1);
+
+    const elHrInt = document.getElementById('res-hr-intensity');
+    if (elHrInt) elHrInt.textContent = `${hrIntensity}% (추정 MHR ~${estMhr}bpm)`;
+
+    const elZone = document.getElementById('res-train-zone');
+    if (elZone) elZone.textContent = recZone;
+
+    const elShoe = document.getElementById('res-shoe-recommend-text');
+    if (elShoe) elShoe.textContent = recShoe;
+  };
+
+  // 4. 7-Day Plan
+  const btnDrawerPlan = document.getElementById('btn-drawer-plan');
+  if (btnDrawerPlan) {
+    btnDrawerPlan.addEventListener('click', () => {
+      closeDrawer();
+      activateCleanTab('plan');
+      if (typeof generateAndRender7DayPlan === 'function') {
+        generateAndRender7DayPlan();
+      }
+      if (typeof syncPlanTargetWithChronic === 'function') {
+        syncPlanTargetWithChronic();
+      }
+    });
+  }
+
+  // 5. Heatmap
+  const btnDrawerHeatmap = document.getElementById('btn-drawer-heatmap');
+  if (btnDrawerHeatmap) {
+    btnDrawerHeatmap.addEventListener('click', () => {
+      closeDrawer();
+      activateCleanTab('heatmap');
+    });
+  }
+
+  // 6. RunAnalyz Wiki
+  const btnDrawerShoef = document.getElementById('btn-drawer-shoef');
+  if (btnDrawerShoef) {
+    btnDrawerShoef.addEventListener('click', () => {
+      closeDrawer();
+    });
+  }
+
+  // Initialize HR Settings Drawer
+  try {
+    initHRSettingsDrawer();
+  } catch (hrInitErr) {
+    console.error('Failed to init HR settings drawer:', hrInitErr);
+  }
+
+  // Refresh All Views & Initial Slider
   function refreshAllViews() {
     updateBadgeCounts();
     const currentList = getFilteredActivities();
-    updatePeriodBadge(currentList);
 
     try {
       initSingleSession(currentList);
@@ -705,19 +1266,25 @@ async function startRunAnalyz() {
     }
 
     try {
-      initWeeklyRecap(currentList, currentYear, currentMonth, pureRunningActivities);
+      initWeeklyRecap(currentList, '2026', '8', pureRunningActivities);
     } catch (err) {
       console.error('Error in initWeeklyRecap:', err);
     }
 
     try {
-      initMonthlyRecap(currentList, currentYear, currentMonth);
+      const months = getGroupedMonths(currentList);
+      const m = months[currentTimelineIndices.monthly || 0] || months[0];
+      if (m) {
+        initMonthlyRecap(m.runs, m.year, m.month);
+      } else {
+        initMonthlyRecap(currentList, '2026', '8');
+      }
     } catch (err) {
       console.error('Error in initMonthlyRecap:', err);
     }
 
     try {
-      initYearlyRecap(archive, pureRunningActivities);
+      initYearlyRecap(archive, currentList);
     } catch (err) {
       console.error('Error in initYearlyRecap:', err);
     }
@@ -729,6 +1296,8 @@ async function startRunAnalyz() {
     } catch (err) {
       console.error('Error in refreshHeatmap:', err);
     }
+
+    updateTimelineSlider();
   }
 
   // Initial Heatmap Initialization
@@ -827,13 +1396,21 @@ function initSingleSession(activities) {
     select.appendChild(opt);
   });
 
-  select.value = sortedActs[0].id;
+  const curIdx = (typeof currentTimelineIndices !== 'undefined' && currentTimelineIndices.single) ? Math.min(currentTimelineIndices.single, sortedActs.length - 1) : 0;
+  select.value = sortedActs[curIdx].id;
   select.onchange = () => {
     const selectedAct = activities.find(a => a.id === select.value);
-    if (selectedAct) renderSingleSession(selectedAct);
+    if (selectedAct) {
+      if (typeof currentTimelineIndices !== 'undefined') {
+        const foundIdx = sortedActs.findIndex(a => a.id === selectedAct.id);
+        if (foundIdx !== -1) currentTimelineIndices.single = foundIdx;
+      }
+      renderSingleSession(selectedAct);
+      if (typeof updateTimelineSlider === 'function') updateTimelineSlider();
+    }
   };
 
-  renderSingleSession(sortedActs[0]);
+  renderSingleSession(sortedActs[curIdx]);
 }
 
 function clearSingleSessionDisplay() {
@@ -1059,16 +1636,45 @@ function renderSingleSession(act) {
   const efEl = document.getElementById('single-ef');
   if (efEl) efEl.innerHTML = `${efVal.toFixed(3)} <span class="unit">m/min/bpm</span>`;
   
-  const efSub = document.getElementById('single-ef-status');
-  if (efSub) {
+  // Update NRC Hero Card (Layer 1: Big 3 Numbers + EF Insight)
+  const heroSport = document.getElementById('nrc-hero-sport');
+  const heroDate = document.getElementById('nrc-hero-date');
+  const heroDist = document.getElementById('nrc-hero-dist');
+  const heroPace = document.getElementById('nrc-hero-pace');
+  const heroTime = document.getElementById('nrc-hero-time');
+  const heroEf = document.getElementById('nrc-hero-ef');
+  const heroInsight = document.getElementById('nrc-hero-insight');
+
+  if (heroSport) {
+    const isTm = (act.sub_sport === 'treadmill' || act.sport === 'treadmill_running' || act.type === 'VirtualRun');
+    const isTr = (act.sub_sport === 'trail' || act.sport === 'trail_running' || act.type === 'TrailRun');
+    const icon = isTm ? 'bi-speedometer' : (isTr ? 'bi-triangle-half' : 'bi-tree');
+    heroSport.innerHTML = `<i class="bi ${icon}"></i> ${escapeHtml(act.sport_label || '야외 러닝')}`;
+  }
+  if (heroDate) {
+    heroDate.textContent = `${act.date} (${act.time || '00:00'})`;
+  }
+  if (heroDist) {
+    heroDist.textContent = (act.distance_km || 0).toFixed(2);
+  }
+  if (heroPace) {
+    heroPace.textContent = act.pace_formatted || "-'--\"";
+  }
+  if (heroTime) {
+    heroTime.textContent = act.duration_formatted || "00:00";
+  }
+  if (heroEf) {
+    heroEf.textContent = efVal.toFixed(3);
+  }
+  if (heroInsight) {
     if (efVal >= 1.35) {
-      efSub.innerHTML = `<i class="bi bi-fire text-lime"></i> <strong>${_t('ef_elite', '최상급 유산소 엔진 (Elite Base)')}</strong>`;
+      heroInsight.innerHTML = `<i class="bi bi-fire text-lime"></i> <strong>최상급 유산소 엔진 (Elite Base)</strong> — 심박 대비 스피드가 탁월합니다.`;
     } else if (efVal >= 1.25) {
-      efSub.innerHTML = `<i class="bi bi-shield-check text-cyan"></i> <strong>${_t('ef_good', '우수한 유산소 효율성 (Good Conditioning)')}</strong>`;
+      heroInsight.innerHTML = `<i class="bi bi-shield-check text-cyan"></i> <strong>우수한 유산소 효율 (Good Conditioning)</strong> — 탄탄한 심폐 베이스를 갖추었습니다.`;
     } else if (efVal >= 1.10) {
-      efSub.innerHTML = `<i class="bi bi-speedometer text-orange"></i> <strong>${_t('ef_mod', '표준 유산소 베이스 (Moderate Base)')}</strong>`;
+      heroInsight.innerHTML = `<i class="bi bi-speedometer text-orange"></i> <strong>표준 유산소 베이스 (Moderate Base)</strong> — 꾸준한 Zone 2 러닝으로 성장 중입니다.`;
     } else {
-      efSub.innerHTML = `<i class="bi bi-sun text-yellow"></i> <strong>${_t('ef_adapt', '초기 유산소 적응 or 웜업/리커버리')}</strong>`;
+      heroInsight.innerHTML = `<i class="bi bi-sun text-yellow"></i> <strong>기초 유산소 적응 (Aerobic Build)</strong> — 편안한 이지 페이스로 볼륨을 다질 단계입니다.`;
     }
   }
 
