@@ -393,10 +393,12 @@
         <div class="chart-wrapper">
           <canvas id="singleSessionChart"></canvas>
         </div>
-      </div> <!-- /single-detail-wrapper -->
+      </div>
+    </div>
+    <!-- /single-detail-wrapper (Closed cleanly) -->
 
-      <!-- Single Session Instagram Card Studio Modal -->
-      <div class="insta-modal-overlay" id="modal-single-insta-overlay" style="display:none;">
+    <!-- Single Session Instagram Card Studio Modal -->
+    <div class="insta-modal-overlay" id="modal-single-insta-overlay" style="display:none;">
         <div class="insta-modal-dialog">
           <div class="insta-modal-header">
             <div class="imh-title"><i class="bi bi-instagram text-orange"></i> 데일리 인스타 카드 스튜디오</div>
@@ -1233,6 +1235,42 @@
             <span class="val text-lime">1,750+ pts</span>
           </div>
         </div>
+      <!-- Heatmap Year-Month Period Selector (연도-월 수준 기간 선택) -->
+      <div class="heatmap-period-control-bar" id="heatmap-period-control-bar">
+        <div class="hm-period-row">
+          <span class="hm-period-lbl"><i class="bi bi-calendar3"></i> 연도:</span>
+          <div class="hm-chips-scroll" id="hm-year-chips">
+            <button type="button" class="hm-chip-btn active" data-year="2026">2026년</button>
+            <button type="button" class="hm-chip-btn" data-year="2025">2025년</button>
+            <button type="button" class="hm-chip-btn" data-year="2024">2024년</button>
+            <button type="button" class="hm-chip-btn" data-year="2023">2023년</button>
+            <button type="button" class="hm-chip-btn" data-year="2022">2022년</button>
+            <button type="button" class="hm-chip-btn" data-year="2021">2021년</button>
+            <button type="button" class="hm-chip-btn" data-year="2020">2020년</button>
+            <button type="button" class="hm-chip-btn" data-year="2019">2019년</button>
+            <button type="button" class="hm-chip-btn" data-year="2018">2018년</button>
+            <button type="button" class="hm-chip-btn" data-year="2017">2017년</button>
+            <button type="button" class="hm-chip-btn chip-all-years" data-year="all">🔥 10개년 전체</button>
+          </div>
+        </div>
+        <div class="hm-period-row" id="hm-month-row">
+          <span class="hm-period-lbl"><i class="bi bi-clock-history"></i> 월:</span>
+          <div class="hm-chips-scroll" id="hm-month-chips">
+            <button type="button" class="hm-chip-btn active" data-month="8">8월</button>
+            <button type="button" class="hm-chip-btn" data-month="7">7월</button>
+            <button type="button" class="hm-chip-btn" data-month="6">6월</button>
+            <button type="button" class="hm-chip-btn" data-month="5">5월</button>
+            <button type="button" class="hm-chip-btn" data-month="4">4월</button>
+            <button type="button" class="hm-chip-btn" data-month="3">3월</button>
+            <button type="button" class="hm-chip-btn" data-month="2">2월</button>
+            <button type="button" class="hm-chip-btn" data-month="1">1월</button>
+            <button type="button" class="hm-chip-btn" data-month="12">12월</button>
+            <button type="button" class="hm-chip-btn" data-month="11">11월</button>
+            <button type="button" class="hm-chip-btn" data-month="10">10월</button>
+            <button type="button" class="hm-chip-btn" data-month="9">9월</button>
+            <button type="button" class="hm-chip-btn chip-all-months" data-month="all">연간 전체</button>
+          </div>
+        </div>
       </div>
 
       <!-- Map Container Card -->
@@ -1345,6 +1383,32 @@
               <input type="number" id="input-modal-rhr" value="55" min="35" max="100">
               <span class="unit-text">bpm</span>
             </div>
+          </div>
+          <div class="profile-field">
+            <label for="input-modal-weight"><i class="bi bi-person-lines-fill"></i> 체중 (Weight)</label>
+            <div class="input-unit-wrap">
+              <input type="number" id="input-modal-weight" value="68" min="30" max="200">
+              <span class="unit-text">kg</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live HRR & Karvonen Preview inside Profile Modal -->
+        <div class="profile-calc-preview" id="profile-calc-preview" style="background:rgba(255,87,34,0.06); border:1px solid rgba(255,87,34,0.25); border-radius:10px; padding:12px 14px; margin-top:14px; font-size:12px;">
+          <div style="font-weight:700; color:var(--text-main); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+            <i class="bi bi-heart-pulse-fill text-orange"></i> 실시간 생체 역치 산출 미리보기 (Karvonen 99%)
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+            <span style="color:var(--text-muted);">심박 예비량 (HRR = MHR - RHR):</span>
+            <strong id="modal-calc-hrr" style="color:var(--accent-orange); font-family:var(--font-mono);">141 bpm</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+            <span style="color:var(--text-muted);">유산소 역치 (LT1 / Zone 2 상단 69%):</span>
+            <strong id="modal-calc-lt1" style="color:var(--accent-lime); font-family:var(--font-mono);">152 bpm</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:var(--text-muted);">젖산 역치 (LT2 / 템포 런 기준 87%):</span>
+            <strong id="modal-calc-lt2" style="color:var(--accent-pink); font-family:var(--font-mono);">178 bpm</strong>
           </div>
         </div>
 
@@ -1542,15 +1606,41 @@
           </button>
         </li>
 
-        <!-- 6. ShoeF 러닝화 백과 (External) -->
-        <li>
-          <a href="https://shoef.runanalyz.com" target="_blank" rel="noopener" class="drawer-menu-item" id="btn-drawer-shoef">
+        <!-- 6. ShoeF 러닝화 백과 (2*3 작은 버튼식 모바일 최적화) -->
+        <li class="drawer-shoef-box">
+          <div class="drawer-shoef-header">
             <div class="dmi-icon-wrap text-yellow"><i class="bi bi-tag-fill"></i></div>
             <div class="dmi-content">
-              <span class="dmi-title">ShoeF 러닝화 백과 <i class="bi bi-box-arrow-up-right" style="font-size:0.75rem;"></i></span>
-              <span class="dmi-desc">결제 전 1분 팩트체크! 10대 브랜드 94종 스펙 위키</span>
+              <span class="dmi-title">ShoeF 러닝화 백과 <a href="https://shoef.runanalyz.com" target="_blank" rel="noopener" class="shoef-all-link">전체 94종 &rarr;</a></span>
+              <span class="dmi-desc">결제 전 1분 팩트체크! 10대 브랜드 스펙 위키</span>
             </div>
-          </a>
+          </div>
+          <div class="drawer-shoef-grid">
+            <a href="https://shoef.runanalyz.com" target="_blank" class="btn-d-shoef-cat" data-cat="all">
+              <span class="cat-name">전체 94종</span>
+              <span class="cat-tag">전 브랜드</span>
+            </a>
+            <a href="https://shoef.runanalyz.com/?cat=daily" target="_blank" class="btn-d-shoef-cat" data-cat="daily">
+              <span class="cat-name">데일리·쿠션</span>
+              <span class="cat-tag">부상 방지</span>
+            </a>
+            <a href="https://shoef.runanalyz.com/?cat=super_trainer" target="_blank" class="btn-d-shoef-cat" data-cat="super_trainer">
+              <span class="cat-name">슈퍼트레이너</span>
+              <span class="cat-tag">템포·카본</span>
+            </a>
+            <a href="https://shoef.runanalyz.com/?cat=racing" target="_blank" class="btn-d-shoef-cat" data-cat="racing">
+              <span class="cat-name">카본 레이싱</span>
+              <span class="cat-tag">대회용 PB</span>
+            </a>
+            <a href="https://shoef.runanalyz.com/?cat=stability" target="_blank" class="btn-d-shoef-cat" data-cat="stability">
+              <span class="cat-name">안정화</span>
+              <span class="cat-tag">과내번 지지</span>
+            </a>
+            <a href="https://shoef.runanalyz.com/?cat=budget" target="_blank" class="btn-d-shoef-cat" data-cat="budget">
+              <span class="cat-name">가성비 입문</span>
+              <span class="cat-tag">10만원 이하</span>
+            </a>
+          </div>
         </li>
       </ul>
     </div>
@@ -1559,6 +1649,87 @@
       <div class="df-sub">Zero-Server Client Analytics Platform</div>
     </div>
   </aside>
+
+  <!-- Modal: Runner Profile Settings (MHR, RHR, Weight, Age, Gender) -->
+  <div class="modal-overlay" id="modal-profile-settings-overlay" style="display:none;" onclick="if(event.target===this) window.closeProfileModal();">
+    <div class="modal-dialog-large" onclick="event.stopPropagation();">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="bi bi-person-gear text-orange"></i> 러너 생체 프로필 설정
+        </div>
+        <button type="button" class="btn-modal-close" onclick="window.closeProfileModal()" aria-label="닫기">&times;</button>
+      </div>
+      <div class="modal-body profile-modal-body">
+        <p class="profile-hint">
+          워치(가민·코로스·애플) 실측값을 1회 설정하면 <strong>1초 EF 계산기</strong>, <strong>7-Day 플랜</strong>, <strong>단일 세션 심폐 역치(LT1/LT2)</strong>에 100% 자동 연동됩니다.
+        </p>
+
+        <div class="profile-input-grid">
+          <div class="rc-input-group">
+            <label for="prof-gender">성별</label>
+            <div class="rc-input-wrapper">
+              <select id="prof-gender">
+                <option value="male" selected>남성 (Male)</option>
+                <option value="female">여성 (Female)</option>
+              </select>
+            </div>
+          </div>
+          <div class="rc-input-group">
+            <label for="prof-birth-year">출생연도</label>
+            <div class="rc-input-wrapper">
+              <input type="number" id="prof-birth-year" value="1988" min="1930" max="2015" inputmode="numeric" />
+              <span class="rc-unit">년생</span>
+            </div>
+          </div>
+          <div class="rc-input-group">
+            <label for="prof-weight">체중 (Weight)</label>
+            <div class="rc-input-wrapper">
+              <input type="number" id="prof-weight" step="0.5" value="68" min="30" max="150" inputmode="decimal" />
+              <span class="rc-unit">kg</span>
+            </div>
+          </div>
+          <div class="rc-input-group">
+            <label for="prof-mhr">최대 심박수 (MHR)</label>
+            <div class="rc-input-wrapper">
+              <input type="number" id="prof-mhr" value="196" min="130" max="230" inputmode="numeric" />
+              <span class="rc-unit">bpm</span>
+            </div>
+          </div>
+          <div class="rc-input-group">
+            <label for="prof-rhr">안정 시 심박수 (RHR)</label>
+            <div class="rc-input-wrapper">
+              <input type="number" id="prof-rhr" value="55" min="35" max="100" inputmode="numeric" />
+              <span class="rc-unit">bpm</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-calc-preview" id="prof-preview-box">
+          <div class="preview-item">
+            <span class="pv-lbl">심박 예비량 (HRR):</span>
+            <span class="pv-val text-cyan" id="prof-hrr-val">141 bpm</span>
+          </div>
+          <div class="preview-item">
+            <span class="pv-lbl">유산소 역치(LT1):</span>
+            <span class="pv-val text-lime" id="prof-lt1-val">152 bpm</span>
+          </div>
+          <div class="preview-item">
+            <span class="pv-lbl">젖산 역치(LT2):</span>
+            <span class="pv-val text-orange" id="prof-lt2-val">174 bpm</span>
+          </div>
+        </div>
+
+        <div class="profile-actions-row">
+          <button type="button" class="btn-profile-save" id="btn-save-profile" onclick="window.saveAndApplyProfile()">
+            <i class="bi bi-check-circle-fill"></i> 프로필 저장 &amp; 전 시스템 자동 적용
+          </button>
+          <button type="button" class="btn-profile-reset" onclick="window.resetProfileDefaults()">
+            기본값 복원
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Instant 1-Second EF & VDOT Calculator Modal -->
   <div class="modal-overlay" id="modal-ef-calc-overlay" style="display:none;">
@@ -1617,13 +1788,17 @@
             </div>
             <div class="rc-input-group">
               <label>걸린 시간</label>
-              <div class="rc-time-wrapper">
+              <div class="rc-time-wrapper rc-time-3col">
                 <div class="rc-input-wrapper">
-                  <input type="number" id="rc-time-min" placeholder="분" min="0" max="600" value="25" inputmode="numeric" />
+                  <input type="number" id="rc-time-hour" placeholder="0" min="0" max="24" value="0" inputmode="numeric" />
+                  <span class="rc-unit">시</span>
+                </div>
+                <div class="rc-input-wrapper">
+                  <input type="number" id="rc-time-min" placeholder="25" min="0" max="59" value="25" inputmode="numeric" />
                   <span class="rc-unit">분</span>
                 </div>
                 <div class="rc-input-wrapper">
-                  <input type="number" id="rc-time-sec" placeholder="초" min="0" max="59" value="0" inputmode="numeric" />
+                  <input type="number" id="rc-time-sec" placeholder="0" min="0" max="59" value="0" inputmode="numeric" />
                   <span class="rc-unit">초</span>
                 </div>
               </div>
@@ -1708,6 +1883,7 @@
       </div>
     </div>
   </div>
-  <script src="app.js?v=20260916_v17_ui_redesign"></script>
+  <script src="i18n.js?v=20260920_v18_fix"></script>
+  <script src="app.js?v=20260920_v18_fix"></script>
 </body>
 </html>

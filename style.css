@@ -8643,3 +8643,296 @@ body.light-theme .modal-title {
   }
 }
 
+/* ==========================================================================
+   Runner Profile Settings Modal & Sync System
+   ========================================================================== */
+.profile-modal-body {
+  padding: 1.35rem 1.5rem;
+}
+.profile-hint {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  background: rgba(0, 242, 254, 0.06);
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+}
+.profile-hint strong {
+  color: var(--accent-cyan);
+}
+.profile-input-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+  margin-bottom: 1.15rem;
+}
+@media (max-width: 600px) {
+  .profile-input-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 400px) {
+  .profile-input-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.profile-calc-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.preview-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+}
+.pv-lbl {
+  color: var(--text-muted);
+}
+.pv-val {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+.profile-actions-row {
+  display: flex;
+  gap: 0.65rem;
+}
+.btn-profile-save {
+  background: linear-gradient(135deg, var(--accent-orange), #ff7a18);
+  border: none;
+  color: #fff;
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  box-shadow: 0 4px 15px rgba(255, 87, 34, 0.35);
+  transition: all 0.2s ease;
+}
+.btn-profile-save:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 87, 34, 0.5);
+}
+.btn-profile-reset {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 0.8rem 1.15rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-profile-reset:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+body.light-theme .profile-hint {
+  background: rgba(0, 242, 254, 0.08);
+  border-color: rgba(0, 188, 212, 0.3);
+  color: #334155;
+}
+body.light-theme .profile-calc-preview {
+  background: #f8fafc;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+body.light-theme .btn-profile-reset {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* ==========================================================================
+   EF Calculator 3-Column Time Input (Hour / Min / Sec)
+   ========================================================================== */
+.rc-time-3col {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 0.3rem !important;
+}
+.rc-time-3col .rc-input-wrapper {
+  padding: 0.4rem 0.45rem !important;
+}
+.rc-time-3col .rc-input-wrapper input {
+  text-align: center;
+}
+.rc-time-3col .rc-unit {
+  margin-left: 0.15rem;
+  font-size: 0.72rem;
+}
+
+/* ==========================================================================
+   Heatmap Year-Month Period Selector (연도-월 수준 기간 선택)
+   ========================================================================== */
+.heatmap-period-control-bar {
+  background: rgba(18, 26, 44, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.hm-period-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+.hm-period-lbl {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 42px;
+}
+.hm-chips-scroll {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0.15rem 0;
+  -webkit-overflow-scrolling: touch;
+  flex: 1;
+}
+.hm-chips-scroll::-webkit-scrollbar {
+  display: none;
+}
+.hm-chip-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 0.28rem 0.58rem;
+  border-radius: 9999px;
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.hm-chip-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+.hm-chip-btn.active {
+  background: rgba(0, 242, 254, 0.16);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.25);
+}
+.hm-chip-btn.chip-all-years.active {
+  background: rgba(255, 87, 34, 0.2);
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
+  box-shadow: 0 0 10px rgba(255, 87, 34, 0.3);
+}
+
+body.light-theme .heatmap-period-control-bar {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+body.light-theme .hm-chip-btn {
+  background: #f1f5f9;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #475569;
+}
+body.light-theme .hm-chip-btn.active {
+  background: rgba(0, 242, 254, 0.18);
+  border-color: #00bcd4;
+  color: #00838f;
+}
+
+/* ==========================================================================
+   Drawer ShoeF 2*3 Button Grid (모바일 한눈에 보기)
+   ========================================================================== */
+.drawer-shoef-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+}
+.drawer-shoef-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.65rem;
+}
+.shoef-all-link {
+  font-size: 0.72rem;
+  color: var(--accent-cyan);
+  text-decoration: underline;
+  margin-left: 0.35rem;
+}
+.drawer-shoef-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem;
+}
+.btn-d-shoef-cat {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  padding: 0.45rem 0.55rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  transition: all 0.2s ease;
+}
+.btn-d-shoef-cat:hover {
+  background: rgba(255, 87, 34, 0.15);
+  border-color: var(--accent-orange);
+  transform: translateY(-1px);
+}
+.btn-d-shoef-cat .cat-name {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #fff;
+}
+.btn-d-shoef-cat .cat-tag {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+body.light-theme .drawer-shoef-box {
+  background: #f8fafc;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+body.light-theme .btn-d-shoef-cat {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+body.light-theme .btn-d-shoef-cat .cat-name {
+  color: #0f172a;
+}
+

@@ -30,6 +30,193 @@ window.closeRunAnalyzDrawer = function() {
   document.body.style.overflow = '';
 };
 
+// ============================================================================
+// Global Runner Profile System (Unified across EF calc, 7-day plan, LT1/LT2)
+// ============================================================================
+const DEFAULT_RUNNER_PROFILE = {
+  gender: 'male',
+  birthYear: 1988,
+  weight: 68,
+  mhr: 196,
+  rhr: 55
+};
+
+function getRunnerProfile() {
+  try {
+    const raw = localStorage.getItem('RUNANALYZ_RUNNER_PROFILE');
+    if (raw) {
+      const p = JSON.parse(raw);
+      return { ...DEFAULT_RUNNER_PROFILE, ...p };
+    }
+  } catch (e) {
+    console.error('Failed to load profile from storage:', e);
+  }
+  return { ...DEFAULT_RUNNER_PROFILE };
+}
+
+function saveRunnerProfile(profile) {
+  try {
+    localStorage.setItem('RUNANALYZ_RUNNER_PROFILE', JSON.stringify(profile));
+  } catch (e) {
+    console.error('Failed to save profile to storage:', e);
+  }
+}
+
+window.openProfileModal = function() {
+  const modal = document.getElementById('runner-profile-modal') || document.getElementById('modal-profile-settings-overlay');
+  if (!modal) return;
+  const p = getUserProfile();
+
+  const inAge = document.getElementById('input-user-age');
+  const inMhr = document.getElementById('input-modal-mhr') || document.getElementById('input-mhr') || document.getElementById('prof-mhr');
+  const inRhr = document.getElementById('input-modal-rhr') || document.getElementById('input-rhr') || document.getElementById('prof-rhr');
+  const inWeight = document.getElementById('input-modal-weight') || document.getElementById('prof-weight');
+  const btnM = document.getElementById('btn-gender-m');
+  const btnF = document.getElementById('btn-gender-f');
+
+  if (inAge) inAge.value = p.age || 42;
+  if (inMhr) inMhr.value = p.mhr || 196;
+  if (inRhr) inRhr.value = p.rhr || 55;
+  if (inWeight) inWeight.value = p.weight || 68;
+
+  if (btnM && btnF) {
+    if (p.gender === 'F') {
+      btnF.classList.add('active');
+      btnM.classList.remove('active');
+    } else {
+      btnM.classList.add('active');
+      btnF.classList.remove('active');
+    }
+  }
+
+  window.updateProfilePreview();
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeProfileModal = function() {
+  const modal = document.getElementById('runner-profile-modal') || document.getElementById('modal-profile-settings-overlay');
+  if (modal) modal.style.display = 'none';
+  document.body.style.overflow = '';
+};
+
+window.updateProfilePreview = function() {
+  const inMhr = document.getElementById('input-modal-mhr') || document.getElementById('input-mhr') || document.getElementById('prof-mhr');
+  const inRhr = document.getElementById('input-modal-rhr') || document.getElementById('input-rhr') || document.getElementById('prof-rhr');
+  const m = parseInt(inMhr?.value || 196, 10);
+  const r = parseInt(inRhr?.value || 55, 10);
+  const hrr = Math.max(20, m - r);
+  const lt1 = Math.round(r + (hrr * 0.69));
+  const lt2 = Math.round(r + (hrr * 0.87));
+
+  const hrrEl = document.getElementById('modal-calc-hrr') || document.getElementById('prof-hrr-val');
+  const lt1El = document.getElementById('modal-calc-lt1') || document.getElementById('prof-lt1-val');
+  const lt2El = document.getElementById('modal-calc-lt2') || document.getElementById('prof-lt2-val');
+
+  if (hrrEl) hrrEl.textContent = `${hrr} bpm`;
+  if (lt1El) lt1El.textContent = `${lt1} bpm`;
+  if (lt2El) lt2El.textContent = `${lt2} bpm`;
+};
+
+window.saveAndApplyProfile = function() {
+  const inAge = document.getElementById('input-user-age');
+  const inMhr = document.getElementById('input-modal-mhr') || document.getElementById('input-mhr') || document.getElementById('prof-mhr');
+  const inRhr = document.getElementById('input-modal-rhr') || document.getElementById('input-rhr') || document.getElementById('prof-rhr');
+  const inWeight = document.getElementById('input-modal-weight') || document.getElementById('prof-weight');
+  const btnF = document.getElementById('btn-gender-f');
+
+  const age = parseInt(inAge?.value || 42, 10);
+  const mhr = parseInt(inMhr?.value || 196, 10);
+  const rhr = parseInt(inRhr?.value || 55, 10);
+  const weight = parseFloat(inWeight?.value || 68);
+  const gender = (btnF && btnF.classList.contains('active')) ? 'F' : 'M';
+  const currentYr = new Date().getFullYear();
+  const birthYear = currentYr - age;
+
+  if (age < 10 || age > 110) {
+    alert('올바른 만 나이를 입력해 주세요. (10~110세)');
+    return;
+  }
+  if (mhr < 120 || mhr > 240) {
+    alert('최대 심박수(MHR)를 올바르게 입력해 주세요. (120~240 bpm)');
+    return;
+  }
+  if (rhr < 30 || rhr > 120) {
+    alert('안정 시 심박수(RHR)를 올바르게 입력해 주세요. (30~120 bpm)');
+    return;
+  }
+  if (mhr <= rhr + 20) {
+    alert('최대 심박수는 안정 시 심박수보다 최소 20 bpm 이상 높아야 합니다.');
+    return;
+  }
+
+  // Save to unified Runner Profile & LocalStorage
+  const runnerProfile = { gender: gender === 'F' ? 'female' : 'male', birthYear, weight, mhr, rhr };
+  saveRunnerProfile(runnerProfile);
+  localStorage.setItem('runanalyz_user_mhr', mhr);
+  localStorage.setItem('runanalyz_user_rhr', rhr);
+  localStorage.setItem('runanalyz_user_age', age);
+  localStorage.setItem('runanalyz_user_gender', gender);
+  localStorage.setItem('runanalyz_user_weight', weight);
+  localStorage.setItem('runanalyz_user_hr_mode', 'karvonen');
+
+  // 1. Sync to EF Calculator Modal fields automatically
+  const rcB = document.getElementById('rc-birth-year');
+  const rcG = document.getElementById('rc-gender');
+  const rcR = document.getElementById('rc-rhr');
+  if (rcB) rcB.value = birthYear;
+  if (rcG) rcG.value = gender === 'F' ? 'female' : 'male';
+  if (rcR) rcR.value = rhr;
+
+  // 2. Sync to Threshold Inputs & summary
+  const inMhrStatic = document.getElementById('input-mhr');
+  const inRhrStatic = document.getElementById('input-rhr');
+  if (inMhrStatic) inMhrStatic.value = mhr;
+  if (inRhrStatic) inRhrStatic.value = rhr;
+  const summaryEl = document.getElementById('hr-settings-summary');
+  if (summaryEl) {
+    summaryEl.innerHTML = `만 ${age}세 · MHR: ${mhr} | RHR: ${rhr}`;
+  }
+
+  // 3. Sync to 7-Day Plan inputs
+  const planAge = document.getElementById('plan-age');
+  const planMhr = document.getElementById('plan-mhr');
+  const planRhr = document.getElementById('plan-rhr');
+  if (planAge) planAge.value = age;
+  if (planMhr) planMhr.value = mhr;
+  if (planRhr) planRhr.value = rhr;
+
+  window.closeProfileModal();
+
+  if (typeof showToast === 'function') {
+    showToast('✅ 러너 프로필이 저장되었습니다. EF 계산기 및 7-Day 플랜에 자동 반영됩니다.');
+  }
+
+  // 4. Trigger recalculation across views
+  if (window.currentSingleAct) {
+    renderThresholdDiagnostics(window.currentSingleAct, window.currentVdotEst || 33.0);
+  }
+  if (typeof generateAndRender7DayPlan === 'function') {
+    generateAndRender7DayPlan();
+  }
+  if (typeof refreshAllViews === 'function') {
+    refreshAllViews();
+  }
+};
+
+window.resetProfileDefaults = function() {
+  saveRunnerProfile(DEFAULT_RUNNER_PROFILE);
+  localStorage.removeItem('runanalyz_user_mhr');
+  localStorage.removeItem('runanalyz_user_rhr');
+  localStorage.removeItem('runanalyz_user_age');
+  localStorage.removeItem('runanalyz_user_gender');
+  localStorage.removeItem('runanalyz_user_weight');
+  window.openProfileModal();
+  if (typeof showToast === 'function') {
+    showToast('기본 프로필(MHR: 196, RHR: 55, 체중: 68kg)로 복원되었습니다.');
+  }
+};
+
 // Helper to access i18n translations safely
 function _t(key, fallback) {
   return (window.I18N && typeof window.I18N.t === 'function') ? window.I18N.t(key, fallback) : fallback;
@@ -856,8 +1043,11 @@ async function startRunAnalyz() {
 
       initYearlyRecap(archive, currentList);
     } else if (activeCleanTab === 'heatmap') {
-      mainLabel.textContent = `러닝 히트맵 (${currentList.length}개 세션)`;
-      subLabel.textContent = `환경: ${currentSportFilter === 'all' ? '전체' : (currentSportFilter === 'outdoor' ? '야외' : (currentSportFilter === 'treadmill' ? '트레드밀' : '트레일'))}`;
+      const y = window.HEATMAP_FILTER_YEAR || '2026';
+      const m = window.HEATMAP_FILTER_MONTH || '8';
+      const pLabel = (y === 'all') ? '10개년 전체 누적' : (m === 'all' ? `${y}년 전체` : `${y}년 ${m}월`);
+      mainLabel.textContent = `GPS 히트맵: ${pLabel}`;
+      subLabel.textContent = `코스 네온 라인 탐색 · 상단 칩으로 연도/월 1초 전환`;
       prevBtn.disabled = true;
       nextBtn.disabled = true;
     }
@@ -1065,11 +1255,8 @@ async function startRunAnalyz() {
   if (btnDrawerProfile) {
     btnDrawerProfile.addEventListener('click', () => {
       closeDrawer();
-      activateCleanTab('single');
-      const hrDrawer = document.getElementById('hr-settings-drawer');
-      if (hrDrawer) {
-        hrDrawer.style.display = 'block';
-        hrDrawer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (typeof window.openProfileModal === 'function') {
+        window.openProfileModal();
       }
     });
   }
@@ -1082,6 +1269,14 @@ async function startRunAnalyz() {
   if (btnDrawerCalc && efModal) {
     btnDrawerCalc.addEventListener('click', () => {
       closeDrawer();
+      // Auto pre-fill EF modal with saved profile!
+      const p = getRunnerProfile();
+      const rcB = document.getElementById('rc-birth-year');
+      const rcG = document.getElementById('rc-gender');
+      const rcR = document.getElementById('rc-rhr');
+      if (rcB) rcB.value = p.birthYear || 1988;
+      if (rcG) rcG.value = p.gender || 'male';
+      if (rcR) rcR.value = p.rhr || 55;
       efModal.style.display = 'flex';
     });
   }
@@ -1103,6 +1298,34 @@ async function startRunAnalyz() {
   window.setModalDistance = function(km) {
     const distInput = document.getElementById('rc-distance');
     if (distInput) distInput.value = km;
+
+    const hInput = document.getElementById('rc-time-hour');
+    const mInput = document.getElementById('rc-time-min');
+    const sInput = document.getElementById('rc-time-sec');
+
+    // Sensible default times by distance
+    if (km === 3) {
+      if (hInput) hInput.value = 0;
+      if (mInput) mInput.value = 16;
+      if (sInput) sInput.value = 30;
+    } else if (km === 5) {
+      if (hInput) hInput.value = 0;
+      if (mInput) mInput.value = 27;
+      if (sInput) sInput.value = 30;
+    } else if (km === 10) {
+      if (hInput) hInput.value = 0;
+      if (mInput) mInput.value = 55;
+      if (sInput) sInput.value = 0;
+    } else if (km === 21.0975) {
+      if (hInput) hInput.value = 1;
+      if (mInput) mInput.value = 58;
+      if (sInput) sInput.value = 0;
+    } else if (km === 42.195) {
+      if (hInput) hInput.value = 3;
+      if (mInput) mInput.value = 55;
+      if (sInput) sInput.value = 0;
+    }
+
     document.querySelectorAll('.rc-preset-btn').forEach(btn => {
       const txt = btn.textContent;
       const isMatch = (km === 3 && txt.includes('3')) ||
@@ -1115,22 +1338,23 @@ async function startRunAnalyz() {
   };
 
   window.calculateModalEF = function() {
-    const birthYear = parseInt(document.getElementById('rc-birth-year')?.value, 10) || 1995;
+    const birthYear = parseInt(document.getElementById('rc-birth-year')?.value, 10) || 1988;
     const distKm = parseFloat(document.getElementById('rc-distance')?.value) || 5.0;
-    const min = parseInt(document.getElementById('rc-time-min')?.value, 10) || 25;
+    const hour = parseInt(document.getElementById('rc-time-hour')?.value, 10) || 0;
+    const min = parseInt(document.getElementById('rc-time-min')?.value, 10) || 0;
     const sec = parseInt(document.getElementById('rc-time-sec')?.value, 10) || 0;
     const avgHr = parseInt(document.getElementById('rc-avg-hr')?.value, 10) || 155;
 
-    const totalMinutes = min + (sec / 60);
-    const totalSeconds = (min * 60) + sec;
+    const totalSeconds = (hour * 3600) + (min * 60) + sec;
+    const totalMinutes = totalSeconds / 60;
     if (distKm <= 0 || totalMinutes <= 0 || avgHr <= 0) return;
 
     const speedMMin = (distKm * 1000) / totalMinutes;
     const ef = speedMMin / avgHr;
 
-    const currentYr = new Date().getFullYear();
-    const age = currentYr - birthYear;
-    const estMhr = Math.round(208 - (0.7 * age));
+    // Use profile MHR if available or Tanaka formula fallback
+    const prof = getRunnerProfile();
+    const estMhr = prof.mhr || Math.round(208 - (0.7 * (new Date().getFullYear() - birthYear)));
     const hrIntensity = Math.round((avgHr / estMhr) * 100);
 
     const paceSec = totalSeconds / distKm;
@@ -1915,17 +2139,20 @@ window.toggleThresholdGuide = function() {
    ========================================================================== */
 
 function getUserProfile() {
+  const p = getRunnerProfile();
+  const currentYr = new Date().getFullYear();
+  const profileAge = currentYr - (p.birthYear || 1988);
+
   const storedMhr = localStorage.getItem('runanalyz_user_mhr');
   const storedRhr = localStorage.getItem('runanalyz_user_rhr');
   const storedAge = localStorage.getItem('runanalyz_user_age');
   const storedGender = localStorage.getItem('runanalyz_user_gender');
   const storedMode = localStorage.getItem('runanalyz_user_hr_mode');
 
-  // Default to user's verified Garmin spec: 196 / 55, Age 42, Male
-  const mhr = storedMhr ? parseInt(storedMhr, 10) : 196;
-  const rhr = storedRhr ? parseInt(storedRhr, 10) : 55;
-  const age = storedAge ? parseInt(storedAge, 10) : 42;
-  const gender = storedGender || 'M';
+  const mhr = storedMhr ? parseInt(storedMhr, 10) : (p.mhr || 196);
+  const rhr = storedRhr ? parseInt(storedRhr, 10) : (p.rhr || 55);
+  const age = storedAge ? parseInt(storedAge, 10) : (profileAge || 38);
+  const gender = storedGender || (p.gender === 'female' ? 'F' : 'M');
   const mode = storedMode || 'karvonen';
 
   return {
@@ -1933,6 +2160,7 @@ function getUserProfile() {
     rhr,
     age,
     gender,
+    weight: p.weight || 68,
     mode,
     isKarvonen: mode === 'karvonen' && mhr > rhr && rhr >= 30
   };
@@ -1962,12 +2190,14 @@ function updateProfileSettingsUI() {
   const inputAge = document.getElementById('input-user-age');
   const inputMhr = document.getElementById('input-modal-mhr') || document.getElementById('input-mhr');
   const inputRhr = document.getElementById('input-modal-rhr') || document.getElementById('input-rhr');
+  const inputWeight = document.getElementById('input-modal-weight');
   const btnGenderM = document.getElementById('btn-gender-m');
   const btnGenderF = document.getElementById('btn-gender-f');
 
   if (inputAge) inputAge.value = profile.age;
   if (inputMhr) inputMhr.value = profile.mhr;
   if (inputRhr) inputRhr.value = profile.rhr;
+  if (inputWeight) inputWeight.value = profile.weight || 68;
 
   if (btnGenderM && btnGenderF) {
     if (profile.gender === 'F') {
@@ -1977,6 +2207,10 @@ function updateProfileSettingsUI() {
       btnGenderM.classList.add('active');
       btnGenderF.classList.remove('active');
     }
+  }
+
+  if (typeof window.updateProfilePreview === 'function') {
+    window.updateProfilePreview();
   }
 
   if (summaryEl) {
@@ -2161,82 +2395,45 @@ function initRunnerProfileModal() {
   const btnReset = document.getElementById('btn-reset-profile');
   const btnGenderM = document.getElementById('btn-gender-m');
   const btnGenderF = document.getElementById('btn-gender-f');
+  const inMhr = document.getElementById('input-modal-mhr');
+  const inRhr = document.getElementById('input-modal-rhr');
+  const inAge = document.getElementById('input-user-age');
+  const inWeight = document.getElementById('input-modal-weight');
 
-  let selectedGender = 'M';
-
-  const openModal = () => {
-    if (!modal) return;
-    updateProfileSettingsUI();
-    const curProf = getUserProfile();
-    selectedGender = curProf.gender || 'M';
-    modal.style.display = 'flex';
-  };
-
-  const closeModal = () => {
-    if (modal) modal.style.display = 'none';
-  };
-
-  if (btnOpenHeader) btnOpenHeader.onclick = (e) => { e.preventDefault(); openModal(); };
-  if (btnOpenCard) btnOpenCard.onclick = (e) => { e.preventDefault(); openModal(); };
-  if (btnClose) btnClose.onclick = () => closeModal();
+  if (btnOpenHeader) btnOpenHeader.onclick = (e) => { e.preventDefault(); window.openProfileModal(); };
+  if (btnOpenCard) btnOpenCard.onclick = (e) => { e.preventDefault(); window.openProfileModal(); };
+  if (btnClose) btnClose.onclick = () => window.closeProfileModal();
 
   if (modal) {
     modal.onclick = (e) => {
-      if (e.target === modal) closeModal();
+      if (e.target === modal) window.closeProfileModal();
     };
   }
 
   if (btnGenderM && btnGenderF) {
     btnGenderM.onclick = () => {
-      selectedGender = 'M';
       btnGenderM.classList.add('active');
       btnGenderF.classList.remove('active');
+      if (typeof window.updateProfilePreview === 'function') window.updateProfilePreview();
     };
     btnGenderF.onclick = () => {
-      selectedGender = 'F';
       btnGenderF.classList.add('active');
       btnGenderM.classList.remove('active');
+      if (typeof window.updateProfilePreview === 'function') window.updateProfilePreview();
     };
   }
 
+  if (inMhr) inMhr.addEventListener('input', () => { if (typeof window.updateProfilePreview === 'function') window.updateProfilePreview(); });
+  if (inRhr) inRhr.addEventListener('input', () => { if (typeof window.updateProfilePreview === 'function') window.updateProfilePreview(); });
+
   if (btnSave) {
-    btnSave.onclick = () => {
-      const inputAge = document.getElementById('input-user-age');
-      const inputMhr = document.getElementById('input-modal-mhr') || document.getElementById('input-mhr');
-      const inputRhr = document.getElementById('input-modal-rhr') || document.getElementById('input-rhr');
-
-      const ageVal = parseInt(inputAge?.value, 10) || 42;
-      const mhrVal = parseInt(inputMhr?.value, 10) || 196;
-      const rhrVal = parseInt(inputRhr?.value, 10) || 55;
-
-      if (ageVal < 10 || ageVal > 110) {
-        alert('올바른 만 나이를 입력해 주세요. (10~110세)');
-        return;
-      }
-      if (mhrVal < 120 || mhrVal > 240) {
-        alert('최대 심박수(MHR)를 올바르게 입력해 주세요. (120~240 bpm)');
-        return;
-      }
-      if (rhrVal < 30 || rhrVal > 110) {
-        alert('안정 시 심박수(RHR)를 올바르게 입력해 주세요. (30~110 bpm)');
-        return;
-      }
-      if (mhrVal <= rhrVal + 25) {
-        alert('최대 심박수는 안정 시 심박수보다 최소 25 bpm 이상 높아야 합니다.');
-        return;
-      }
-
-      saveUserProfile(mhrVal, rhrVal, ageVal, selectedGender, 'karvonen');
-      closeModal();
-      alert('러너 생체 프로필과 야외 기준 닻(Anchor) 설정이 저장되었습니다!');
-    };
+    btnSave.onclick = window.saveAndApplyProfile;
   }
 
   if (btnReset) {
     btnReset.onclick = () => {
-      if (confirm('프로필을 기본 권장값(만 42세 남성, MHR 196, RHR 55)으로 초기화하시겠습니까?')) {
-        saveUserProfile(196, 55, 42, 'M', 'karvonen');
-        closeModal();
+      if (confirm('프로필을 기본 권장값(만 42세 남성, MHR 196, RHR 55, 체중 68kg)으로 초기화하시겠습니까?')) {
+        window.resetProfileDefaults();
       }
     };
   }
@@ -3927,18 +4124,22 @@ function initRunningHeatmap(activities) {
   let polylineLayers = [];
   let allBounds = null;
 
+  window.HEATMAP_FILTER_YEAR = window.HEATMAP_FILTER_YEAR || '2026';
+  window.HEATMAP_FILTER_MONTH = window.HEATMAP_FILTER_MONTH || '8';
+
   function getHeatmapActivities() {
     let list = activities;
-    const fYear = (window.RUNANALYZ_FILTERS && window.RUNANALYZ_FILTERS.year) || currentYear;
-    const fMonth = (window.RUNANALYZ_FILTERS && window.RUNANALYZ_FILTERS.month) || currentMonth;
+    const fYear = window.HEATMAP_FILTER_YEAR;
+    const fMonth = window.HEATMAP_FILTER_MONTH;
 
-    // Filter by global period filter (Year / Month)
+    // Filter by year
     if (fYear && fYear !== 'all') {
       list = list.filter(a => {
         const d = (a.date || a.datetime || '').slice(0, 10);
         return d.slice(0, 4) === String(fYear);
       });
     }
+    // Filter by month
     if (fMonth && fMonth !== 'all') {
       list = list.filter(a => {
         const d = (a.date || a.datetime || '').slice(0, 10);
@@ -4137,6 +4338,34 @@ function initRunningHeatmap(activities) {
       }
     };
   }
+
+  // Heatmap Year Chips Binding
+  const yearChips = document.querySelectorAll('#hm-year-chips .hm-chip-btn');
+  yearChips.forEach(btn => {
+    btn.onclick = () => {
+      yearChips.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      window.HEATMAP_FILTER_YEAR = btn.dataset.year;
+      const monthRow = document.getElementById('hm-month-row');
+      if (monthRow) {
+        monthRow.style.display = (btn.dataset.year === 'all') ? 'none' : 'flex';
+      }
+      updateHeatmapDisplay();
+      if (typeof updateTimelineSlider === 'function') updateTimelineSlider();
+    };
+  });
+
+  // Heatmap Month Chips Binding
+  const monthChips = document.querySelectorAll('#hm-month-chips .hm-chip-btn');
+  monthChips.forEach(btn => {
+    btn.onclick = () => {
+      monthChips.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      window.HEATMAP_FILTER_MONTH = btn.dataset.month;
+      updateHeatmapDisplay();
+      if (typeof updateTimelineSlider === 'function') updateTimelineSlider();
+    };
+  });
 }
 
 // ==========================================================================
@@ -4631,14 +4860,18 @@ function initTrainingPlanModule() {
 
   // Core Execution Function
   function generateAndRender7DayPlan() {
-    const age = parseInt(document.getElementById('plan-age')?.value) || 42;
-    const mhrInput = parseInt(document.getElementById('plan-mhr')?.value) || 0;
-    const rhrInput = parseInt(document.getElementById('plan-rhr')?.value) || 0;
+    const prof = getRunnerProfile();
+    const currentYr = new Date().getFullYear();
+    const profileAge = currentYr - (prof.birthYear || 1988);
+
+    const ageInput = parseInt(document.getElementById('plan-age')?.value, 10);
+    const mhrInput = parseInt(document.getElementById('plan-mhr')?.value, 10);
+    const rhrInput = parseInt(document.getElementById('plan-rhr')?.value, 10);
     const targetKm = parseFloat(document.getElementById('plan-target-km')?.value) || 25.0;
 
-    // Heart rates
-    const effectiveMhr = mhrInput > 120 ? mhrInput : Math.round(208 - (0.7 * age));
-    const effectiveRhr = rhrInput > 35 ? rhrInput : 60;
+    const age = ageInput > 0 ? ageInput : (profileAge > 0 ? profileAge : 38);
+    const effectiveMhr = mhrInput > 120 ? mhrInput : (prof.mhr || Math.round(208 - (0.7 * age)));
+    const effectiveRhr = rhrInput > 35 ? rhrInput : (prof.rhr || 55);
     const mafHr = 180 - age;
 
     // VDOT & Paces
