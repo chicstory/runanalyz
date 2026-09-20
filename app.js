@@ -31,6 +31,101 @@ window.closeRunAnalyzDrawer = function() {
 };
 
 // ============================================================================
+// Global Robust 7-Day Plan Cross-Module Executor (Callable from Anywhere)
+// ============================================================================
+window.execute7DayPlanFromWeekly = function(targetKm, recommendedDays, recommendedLsd, weekName) {
+  console.log('[RunAnalyz] execute7DayPlanFromWeekly fired:', { targetKm, recommendedDays, recommendedLsd, weekName });
+
+  try {
+    // 1. Fill Target KM in plan form
+    const inputKm = document.getElementById('plan-target-km');
+    if (inputKm && targetKm) {
+      inputKm.value = parseFloat(targetKm).toFixed(1);
+      inputKm.dispatchEvent(new Event('input', { bubbles: true }));
+      inputKm.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    // 2. Select matching Days chip (.plan-seg-btn)
+    if (recommendedDays) {
+      const daysBtns = document.querySelectorAll('#plan-days-group .plan-seg-btn');
+      daysBtns.forEach(b => {
+        if (parseInt(b.dataset.days, 10) === parseInt(recommendedDays, 10)) {
+          b.click();
+        }
+      });
+    }
+
+    // 3. Select matching LSD chip (.plan-chip with dataset.lsd)
+    if (recommendedLsd) {
+      const lsdChips = document.querySelectorAll('#plan-lsd-group .plan-chip');
+      let bestChip = null;
+      let minDiff = Infinity;
+      lsdChips.forEach(c => {
+        const lsdVal = parseFloat(c.dataset.lsd) || 10;
+        const diff = Math.abs(lsdVal - parseFloat(recommendedLsd));
+        if (diff < minDiff) {
+          minDiff = diff;
+          bestChip = c;
+        }
+      });
+      if (bestChip) bestChip.click();
+    }
+
+    // 4. Switch to 7-Day Plan Tab (Safe multi-path tab switch)
+    if (typeof window.activateCleanTab === 'function') {
+      window.activateCleanTab('plan');
+    } else {
+      document.querySelectorAll('.tab-clean-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      const planPanel = document.getElementById('panel-plan');
+      if (planPanel) planPanel.classList.add('active');
+      const chipsBar = document.getElementById('sport-chips-bar');
+      const sliderBar = document.getElementById('timeline-slider-bar');
+      if (chipsBar) chipsBar.style.display = 'none';
+      if (sliderBar) sliderBar.style.display = 'none';
+    }
+
+    // 5. Trigger Plan Generation
+    if (typeof window.generateAndRender7DayPlan === 'function') {
+      window.generateAndRender7DayPlan();
+    } else {
+      const btnGenerate = document.getElementById('btn-generate-plan');
+      if (btnGenerate) btnGenerate.click();
+    }
+
+    // 6. Smooth scroll to result section
+    setTimeout(() => {
+      const resSec = document.getElementById('plan-result-section');
+      if (resSec) {
+        resSec.style.display = 'block';
+        resSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 120);
+
+    const wLabel = weekName ? `[${weekName}] ` : '';
+    if (typeof showToast === 'function') {
+      showToast(`🤖 ${wLabel}실측 데이터를 바탕으로 다음 주 7-Day 맞춤 플랜이 완성되었습니다!`);
+    }
+  } catch (err) {
+    console.error('[RunAnalyz] Error in execute7DayPlanFromWeekly:', err);
+  }
+};
+
+// Global Click Delegation Listener (Catch dynamically created buttons 100%)
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('#btn-create-plan-from-weekly, .btn-create-plan-from-weekly');
+  if (btn) {
+    const tKm = parseFloat(btn.dataset.targetKm) || window.LATEST_WEEK_CHRONIC_AVG || 25;
+    const dVal = parseInt(btn.dataset.days, 10) || 4;
+    const lVal = parseInt(btn.dataset.lsd, 10) || 15;
+    const wName = btn.dataset.weekName || '';
+    if (typeof window.execute7DayPlanFromWeekly === 'function') {
+      window.execute7DayPlanFromWeekly(tKm, dVal, lVal, wName);
+    }
+  }
+});
+
+// ============================================================================
 // Global Runner Profile System (Unified across EF calc, 7-day plan, LT1/LT2)
 // ============================================================================
 const DEFAULT_RUNNER_PROFILE = {
@@ -3092,7 +3187,12 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
             <span class="wpc-val">${recommendedLsd} KM</span>
           </div>
         </div>
-        <button type="button" class="btn-create-plan-from-weekly" id="btn-create-plan-from-weekly">
+        <button type="button" class="btn-create-plan-from-weekly" id="btn-create-plan-from-weekly"
+          data-target-km="${nextTargetKm.toFixed(1)}"
+          data-days="${recommendedDays}"
+          data-lsd="${recommendedLsd}"
+          data-week-name="${escapeHtml(latestWeek.name)}"
+          onclick="if(window.execute7DayPlanFromWeekly) { window.execute7DayPlanFromWeekly(${nextTargetKm.toFixed(1)}, ${recommendedDays}, ${recommendedLsd}, '${escapeHtml(latestWeek.name)}'); }">
           <i class="bi bi-lightning-charge-fill"></i> 이 4주 실측 분석 기반 다음 주 7-Day 맞춤 플랜 자동 생성
         </button>
       </div>
@@ -3112,55 +3212,10 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
     // Bind one-click 7-Day Plan generator button
     const btnCreatePlan = document.getElementById('btn-create-plan-from-weekly');
     if (btnCreatePlan) {
-      btnCreatePlan.onclick = () => {
-        // 1. Fill Target KM in plan form
-        const inputKm = document.getElementById('plan-target-km');
-        if (inputKm) inputKm.value = nextTargetKm.toFixed(1);
-
-        // 2. Select matching Days chip (.plan-seg-btn)
-        const daysBtns = document.querySelectorAll('#plan-days-group .plan-seg-btn');
-        daysBtns.forEach(b => {
-          if (parseInt(b.dataset.days, 10) === recommendedDays) {
-            b.click();
-          }
-        });
-
-        // 3. Select matching LSD chip (.plan-chip with dataset.lsd)
-        const lsdChips = document.querySelectorAll('#plan-lsd-group .plan-chip');
-        let bestChip = null;
-        let minDiff = Infinity;
-        lsdChips.forEach(c => {
-          const lsdVal = parseFloat(c.dataset.lsd) || 10;
-          const diff = Math.abs(lsdVal - recommendedLsd);
-          if (diff < minDiff) {
-            minDiff = diff;
-            bestChip = c;
-          }
-        });
-        if (bestChip) bestChip.click();
-
-        // 4. Switch to 7-Day Plan Tab
-        if (typeof window.activateCleanTab === 'function') {
-          window.activateCleanTab('plan');
-        } else {
-          const tabPlan = document.getElementById('tab-btn-plan');
-          if (tabPlan) tabPlan.click();
-        }
-
-        // 5. Trigger Plan Generation
-        const btnGenerate = document.getElementById('btn-generate-plan');
-        if (btnGenerate) {
-          btnGenerate.click();
-        }
-
-        // 6. Smooth scroll to result
-        setTimeout(() => {
-          const resSec = document.getElementById('plan-result-section');
-          if (resSec) resSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 150);
-
-        if (typeof showToast === 'function') {
-          showToast(`🤖 [${latestWeek.name}] 실측 데이터를 바탕으로 다음 주 7-Day 맞춤 플랜이 완성되었습니다!`);
+      btnCreatePlan.onclick = (e) => {
+        if (e) e.stopPropagation();
+        if (typeof window.execute7DayPlanFromWeekly === 'function') {
+          window.execute7DayPlanFromWeekly(nextTargetKm, recommendedDays, recommendedLsd, latestWeek.name);
         }
       };
     }
@@ -5048,6 +5103,9 @@ function initTrainingPlanModule() {
 
   // Pre-generate once with default values so user sees initial blueprint immediately
   generateAndRender7DayPlan();
+
+  // Expose plan generator globally
+  window.generateAndRender7DayPlan = generateAndRender7DayPlan;
 }
 
 // ==========================================================================
