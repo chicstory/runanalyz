@@ -9,7 +9,7 @@
 
   const TRANSLATIONS = {
     ko: {
-      brand_sub: "RUNNING & AEROBIC EF ENGINE",
+      brand_sub: "RUNNING MPB ENGINE",
       strava_connected_status: "연동 중",
       strava_disconnect_btn: "해제",
       weekly_hero_title: "주차별 마일리지 빌드업 & 부상위험 진단",
@@ -190,7 +190,7 @@
     },
 
     en: {
-      brand_sub: "RUNNING & AEROBIC EF ENGINE",
+      brand_sub: "RUNNING MPB ENGINE",
       strava_connected_status: "Connected",
       strava_disconnect_btn: "Disconnect",
       weekly_hero_title: "Weekly Mileage Build-up & Injury Risk Audit",
@@ -263,7 +263,7 @@
       tab_monthly: "Monthly Studio",
       tab_monthly_sub: "Social Story Card Generator",
       tab_yearly: "Yearly Archive",
-      tab_yearly_sub: "Mileage & Aerobic EF",
+      tab_yearly_sub: "Mileage & MPB",
       tab_heatmap: "Running Heatmap",
       tab_heatmap_sub: "GPS Route Archive",
 
@@ -339,7 +339,7 @@
       // Monthly
       monthly_sub: "MONTHLY RECAP & SOCIAL STORY STUDIO",
       monthly_title: "Monthly Volume & Story Studio",
-      monthly_desc: "Review your monthly cumulative distance, pace, and aerobic efficiency (EF) trend, then export sleek Instagram Story cards.",
+      monthly_desc: "Review your monthly cumulative distance, pace, and running efficiency (MPB) trend, then export sleek Instagram Story cards.",
       monthly_stat_dist: "Total Monthly Distance",
       monthly_stat_runs: "Total Running Sessions",
       monthly_stat_pace: "Avg Monthly Pace",
@@ -371,7 +371,7 @@
     },
 
     ja: {
-      brand_sub: "RUNNING & AEROBIC EF ENGINE",
+      brand_sub: "RUNNING MPB ENGINE",
       strava_connected_status: "連携中",
       strava_disconnect_btn: "解除",
       weekly_hero_title: "週別走行距離ビルドアップ＆怪我リスク診断",
@@ -537,7 +537,7 @@
     },
 
     es: {
-      brand_sub: "RUNNING & AEROBIC EF ENGINE",
+      brand_sub: "RUNNING MPB ENGINE",
       strava_connected_status: "Conectado",
       strava_disconnect_btn: "Desconectar",
       weekly_hero_title: "Acumulación Semanal de Kilometraje y Diagnóstico de Lesiones",

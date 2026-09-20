@@ -2010,7 +2010,7 @@ function renderSingleInstaCard(act) {
 
   // Subtitle
   const subEl = document.getElementById('sc-sub');
-  if (subEl) subEl.textContent = 'DAILY AEROBIC EF LOG';
+  if (subEl) subEl.textContent = 'DAILY MPB LOG';
 
   // Distance
   const distEl = document.getElementById('sc-dist');
@@ -3187,7 +3187,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
         </div>
         <div class="wc-stats-list">
           <div class="wc-stat-row">
-            <span>${isKo ? '평균 유산소 EF' : 'Avg Aerobic EF'}</span>
+            <span>${isKo ? '평균 MPB' : 'Avg MPB'}</span>
             <span style="color:var(--accent-lime);">${w.avgEf.toFixed(3)}</span>
           </div>
           <div class="wc-stat-row">
@@ -3527,9 +3527,9 @@ function initMonthlyRecap(activities, year, month) {
   const elCardEfRange = document.getElementById('card-ef-range');
   if (elCardEfRange) {
     if (validEfs.length > 0) {
-      elCardEfRange.innerHTML = `<i class="bi bi-activity"></i> AEROBIC EF: MIN ${minEf.toFixed(3)} — MAX ${maxEf.toFixed(3)}`;
+      elCardEfRange.innerHTML = `<i class="bi bi-activity"></i> MPB: MIN ${minEf.toFixed(3)} — MAX ${maxEf.toFixed(3)}`;
     } else {
-      elCardEfRange.innerHTML = `<i class="bi bi-activity"></i> AEROBIC EF: DATA ANALYZING`;
+      elCardEfRange.innerHTML = `<i class="bi bi-activity"></i> MPB: DATA ANALYZING`;
     }
   }
 
@@ -3913,7 +3913,7 @@ function initYearlyRecap(archive, pureRunningActivities) {
             <strong>${s.running_sessions}회</strong>
           </div>
           <div class="yc-metric-item">
-            <span>평균 유산소 EF</span>
+            <span>평균 MPB</span>
             <strong style="color:var(--accent-lime);">${s.avg_ef.toFixed(3)}</strong>
           </div>
           <div class="yc-metric-item">
