@@ -48,7 +48,7 @@
 
       // Card Items
       card_ef_status_elite: "최상급 유산소 엔진",
-      card_ef_status_good: "우수한 유산소 효율",
+      card_ef_status_good: "우수한 러닝 연비",
       card_ef_status_mod: "표준 유산소 베이스",
       card_ef_status_adapt: "초기 적응 / 회복 조깅",
       card_like_comp: "동급 직전 {count}회 대비 EF {diff} ({pct}%)",
@@ -94,12 +94,12 @@
       metric_pace: "평균 페이스",
       metric_hr: "평균 심박수",
       metric_max_hr: "최고",
-      metric_ef: "유산소 효율 (EF)",
+      metric_ef: "러닝 연비 (EF)",
       core_engine: "CORE ENGINE",
 
       // EF Evaluations
       ef_elite: "최상급 유산소 엔진 (Elite Base)",
-      ef_good: "우수한 유산소 효율성 (Good Conditioning)",
+      ef_good: "우수한 러닝 연비 (Good Conditioning)",
       ef_mod: "표준 유산소 베이스 (Moderate Base)",
       ef_adapt: "초기 유산소 적응 or 웜업/리커버리",
 
@@ -158,7 +158,7 @@
       // Monthly
       monthly_sub: "MONTHLY RECAP & SOCIAL STORY STUDIO",
       monthly_title: "월간 마일리지 & 인스타 카드 스튜디오",
-      monthly_desc: "한 달간의 총 누적 거리와 평균 페이스, 심폐 유산소 효율(EF) 추이를 확인하고 감각적인 인스타그램 스토리 카드로 저장하세요.",
+      monthly_desc: "한 달간의 총 누적 거리와 평균 페이스, 러닝 연비(EF) 추이를 확인하고 감각적인 인스타그램 스토리 카드로 저장하세요.",
       monthly_stat_dist: "월간 총 마일리지",
       monthly_stat_runs: "총 러닝 세션",
       monthly_stat_pace: "월간 평균 페이스",

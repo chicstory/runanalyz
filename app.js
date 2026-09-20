@@ -1371,7 +1371,7 @@ async function startRunAnalyz() {
     let tierIcon = '⚡';
     let tierText = '우수 (Good Engine)';
     let gaugeWidth = '65%';
-    let gaugeDesc = '동일 연령대 러너 중 상위 유산소 효율입니다.';
+    let gaugeDesc = '동일 연령대 러너 중 상위 러닝 연비입니다.';
     let recZone = 'Zone 2 기초 유산소';
     let recShoe = '쿠셔닝 데일리 트레이너(스택하이트 30mm 이상, 안정감 높은 폼)가 심폐 강화와 발목 안정성에 적합합니다.';
 
@@ -1784,7 +1784,7 @@ function calcLikeForLikeEF(targetAct, allActs) {
     if (diff > 0.01) {
       insight = '유산소 심폐 효율(EF) 향상 (심박 대비 속도 증가)';
     } else if (diff < -0.01) {
-      insight = '유산소 효율 저하 또는 피로 누적 (충분한 회복 권장)';
+      insight = '러닝 연비 저하 또는 피로 누적 (충분한 회복 권장)';
     } else {
       insight = '안정적인 기초 유산소 상태 유지';
     }
@@ -1894,7 +1894,7 @@ function renderSingleSession(act) {
     if (efVal >= 1.35) {
       heroInsight.innerHTML = `<i class="bi bi-fire text-lime"></i> <strong>최상급 유산소 엔진 (Elite Base)</strong> — 심박 대비 스피드가 탁월합니다.`;
     } else if (efVal >= 1.25) {
-      heroInsight.innerHTML = `<i class="bi bi-shield-check text-cyan"></i> <strong>우수한 유산소 효율 (Good Conditioning)</strong> — 탄탄한 심폐 베이스를 갖추었습니다.`;
+      heroInsight.innerHTML = `<i class="bi bi-shield-check text-cyan"></i> <strong>우수한 러닝 연비 (Good Conditioning)</strong> — 탄탄한 심폐 베이스를 갖추었습니다.`;
     } else if (efVal >= 1.10) {
       heroInsight.innerHTML = `<i class="bi bi-speedometer text-orange"></i> <strong>표준 유산소 베이스 (Moderate Base)</strong> — 꾸준한 Zone 2 러닝으로 성장 중입니다.`;
     } else {
