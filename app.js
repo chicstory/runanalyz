@@ -1119,6 +1119,9 @@ async function startRunAnalyz() {
     });
   });
 
+  // Expose tab switcher globally for cross-module navigation (e.g. Weekly Recap -> 7-Day Plan)
+  window.activateCleanTab = activateCleanTab;
+
   // --------------------------------------------------------------------------
   // 5. 4-Environment Chips ([전체] [야외] [트레드밀] [트레일])
   // --------------------------------------------------------------------------
@@ -3114,25 +3117,35 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
         const inputKm = document.getElementById('plan-target-km');
         if (inputKm) inputKm.value = nextTargetKm.toFixed(1);
 
-        // 2. Select matching Days chip
-        const daysBtns = document.querySelectorAll('#plan-days-group .plan-chip-btn');
+        // 2. Select matching Days chip (.plan-seg-btn)
+        const daysBtns = document.querySelectorAll('#plan-days-group .plan-seg-btn');
         daysBtns.forEach(b => {
-          if (parseInt(b.dataset.days) === recommendedDays) {
+          if (parseInt(b.dataset.days, 10) === recommendedDays) {
             b.click();
           }
         });
 
-        // 3. Select matching LSD chip
-        const lsdBtns = document.querySelectorAll('#plan-lsd-group .plan-chip-btn');
-        lsdBtns.forEach(b => {
-          if (parseInt(b.dataset.km) === recommendedLsd) {
-            b.click();
+        // 3. Select matching LSD chip (.plan-chip with dataset.lsd)
+        const lsdChips = document.querySelectorAll('#plan-lsd-group .plan-chip');
+        let bestChip = null;
+        let minDiff = Infinity;
+        lsdChips.forEach(c => {
+          const lsdVal = parseFloat(c.dataset.lsd) || 10;
+          const diff = Math.abs(lsdVal - recommendedLsd);
+          if (diff < minDiff) {
+            minDiff = diff;
+            bestChip = c;
           }
         });
+        if (bestChip) bestChip.click();
 
         // 4. Switch to 7-Day Plan Tab
-        const tabPlan = document.getElementById('tab-btn-plan');
-        if (tabPlan) tabPlan.click();
+        if (typeof window.activateCleanTab === 'function') {
+          window.activateCleanTab('plan');
+        } else {
+          const tabPlan = document.getElementById('tab-btn-plan');
+          if (tabPlan) tabPlan.click();
+        }
 
         // 5. Trigger Plan Generation
         const btnGenerate = document.getElementById('btn-generate-plan');
@@ -5086,8 +5099,12 @@ function initWelcomeGateway() {
     btnTrackB.addEventListener('click', () => {
       closeGateway();
       sessionStorage.setItem('shoef_gateway_dismissed', '1');
-      const tabPlan = document.getElementById('tab-btn-plan');
-      if (tabPlan) tabPlan.click();
+      if (typeof window.activateCleanTab === 'function') {
+        window.activateCleanTab('plan');
+      } else {
+        const tabPlan = document.getElementById('tab-btn-plan');
+        if (tabPlan) tabPlan.click();
+      }
       const planForm = document.getElementById('plan-form-card');
       if (planForm) {
         setTimeout(() => {
