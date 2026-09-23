@@ -365,6 +365,104 @@ let currentSportFilter = window.RUNANALYZ_FILTERS.sport; // 'all', 'treadmill', 
 const STRAVA_CLIENT_ID = '278575';
 const STRAVA_WORKER_URL = 'https://runanalyz-auth.chicstory.workers.dev';
 
+// Strava OAuth Persistent Storage Keys
+const STRAVA_STORAGE_KEYS = {
+  TOKEN: 'runanalyz_strava_token',
+  AUTH: 'runanalyz_strava_auth', // { access_token, refresh_token, expires_at }
+  ATHLETE: 'runanalyz_strava_athlete',
+  ARCHIVE: 'runanalyz_custom_archive'
+};
+
+// Save OAuth tokens & athlete profile to localStorage
+function saveStravaAuthData(tokenData) {
+  if (!tokenData || !tokenData.access_token) return;
+  const nowSec = Math.floor(Date.now() / 1000);
+  const expiresAt = tokenData.expires_at || (nowSec + (tokenData.expires_in || 21600));
+
+  // Preserve existing refresh_token if new response omitted it
+  let existingRefreshToken = null;
+  try {
+    const prev = JSON.parse(localStorage.getItem(STRAVA_STORAGE_KEYS.AUTH) || '{}');
+    existingRefreshToken = prev.refresh_token;
+  } catch (e) {}
+
+  const authObj = {
+    access_token: tokenData.access_token,
+    refresh_token: tokenData.refresh_token || existingRefreshToken || null,
+    expires_at: expiresAt
+  };
+
+  localStorage.setItem(STRAVA_STORAGE_KEYS.AUTH, JSON.stringify(authObj));
+  localStorage.setItem(STRAVA_STORAGE_KEYS.TOKEN, tokenData.access_token);
+
+  if (tokenData.athlete) {
+    localStorage.setItem(STRAVA_STORAGE_KEYS.ATHLETE, JSON.stringify(tokenData.athlete));
+  }
+}
+
+// Get valid access token, auto-refreshing via Cloudflare Worker if expired (5-min buffer)
+async function getValidStravaToken() {
+  let auth = null;
+  try {
+    const raw = localStorage.getItem(STRAVA_STORAGE_KEYS.AUTH);
+    if (raw) auth = JSON.parse(raw);
+  } catch (e) {
+    console.warn('[RunAnalyz] Strava auth parse error:', e);
+  }
+
+  const legacyToken = localStorage.getItem(STRAVA_STORAGE_KEYS.TOKEN);
+
+  // If no auth object exists, fallback to legacy token if present
+  if (!auth) {
+    return legacyToken || null;
+  }
+
+  const nowSec = Math.floor(Date.now() / 1000);
+  const bufferSec = 300; // 5-minute pre-emptive refresh buffer
+
+  // 1. Still valid: return immediately
+  if (auth.expires_at && auth.expires_at > (nowSec + bufferSec)) {
+    return auth.access_token;
+  }
+
+  // 2. Expired or expiring soon: auto-refresh using refresh_token
+  if (auth.refresh_token) {
+    console.log('[RunAnalyz] Strava token expired or expiring soon. Auto-refreshing silently...');
+    try {
+      const resp = await fetch(`${STRAVA_WORKER_URL}/?refresh_token=${encodeURIComponent(auth.refresh_token)}`);
+      if (resp.ok) {
+        const refreshed = await resp.json();
+        if (refreshed.access_token) {
+          saveStravaAuthData(refreshed);
+          console.log('[RunAnalyz] Strava token auto-refreshed successfully (valid for 6 hours)!');
+          return refreshed.access_token;
+        }
+      } else {
+        console.warn(`[RunAnalyz] Worker refresh failed (status: ${resp.status})`);
+      }
+    } catch (err) {
+      console.error('[RunAnalyz] Silent refresh error:', err);
+    }
+  }
+
+  // Fallback to existing token
+  return auth.access_token || legacyToken || null;
+}
+
+// Background silent health check: refresh token when user opens the page if expiring
+function silentCheckAndRefreshStravaToken() {
+  const raw = localStorage.getItem(STRAVA_STORAGE_KEYS.AUTH);
+  if (!raw) return;
+  try {
+    const auth = JSON.parse(raw);
+    const nowSec = Math.floor(Date.now() / 1000);
+    if (auth.expires_at && auth.expires_at <= (nowSec + 1800) && auth.refresh_token) {
+      // If expiring within 30 minutes, refresh silently in the background
+      getValidStravaToken();
+    }
+  } catch (e) {}
+}
+
 function updateSyncProgress(percent, statusText) {
   const pFill = document.getElementById('sync-progress-fill');
   const sText = document.getElementById('sync-modal-status');
@@ -564,31 +662,62 @@ async function fetchUserStravaActivities(accessToken) {
 
 function disconnectStravaUser() {
   if (confirm('정말로 Strava 계정 연동을 해제하시겠습니까?\n\n- 브라우저에 임시 보관된 Strava 토큰과 캐시 데이터가 100% 영구 삭제됩니다.\n- 기본 데모 아카이브로 즉시 복구됩니다.')) {
-    localStorage.removeItem('runanalyz_custom_archive');
-    localStorage.removeItem('runanalyz_strava_athlete');
-    localStorage.removeItem('runanalyz_strava_token');
+    localStorage.removeItem(STRAVA_STORAGE_KEYS.ARCHIVE);
+    localStorage.removeItem(STRAVA_STORAGE_KEYS.ATHLETE);
+    localStorage.removeItem(STRAVA_STORAGE_KEYS.TOKEN);
+    localStorage.removeItem(STRAVA_STORAGE_KEYS.AUTH);
     window.location.href = window.location.pathname;
   }
 }
 
-function resyncStravaUser(athleteName) {
-  const token = localStorage.getItem('runanalyz_strava_token');
-  if (token) {
-    showSyncOverlay('전체 러닝 기록 최신 동기화 중...', `${athleteName}님의 역대 전체 활동 데이터를 수집하고 있습니다.`, 30, '데이터 요청 중...');
-    fetchUserStravaActivities(token).then(customArchive => {
-      if (customArchive && customArchive.activities.length > 0) {
-        localStorage.setItem('runanalyz_custom_archive', JSON.stringify(customArchive));
-        updateSyncProgress(100, '동기화 완료!');
-        setTimeout(() => window.location.reload(), 600);
-      } else {
-        hideSyncOverlay();
-        alert('동기화할 러닝 데이터를 찾지 못했습니다.');
+async function resyncStravaUser(athleteName) {
+  showSyncOverlay('전체 러닝 기록 최신 동기화 중...', `${athleteName}님의 Strava 활동 데이터를 수집하고 있습니다.`, 20, '인증 상태 확인 중...');
+  
+  // 1. Get valid access token (auto-refreshed via Worker if expired)
+  const token = await getValidStravaToken();
+  if (!token) {
+    hideSyncOverlay();
+    alert('Strava 인증 정보가 만료되었거나 유효하지 않습니다. 연동 버튼을 눌러 다시 로그인해주세요.');
+    return;
+  }
+
+  try {
+    updateSyncProgress(30, '최신 활동 데이터 수집 중...');
+    let customArchive = await fetchUserStravaActivities(token);
+
+    // Fail-safe retry: If 0 activities returned (possibly unexpected 401), force-refresh token once
+    if (!customArchive || customArchive.activities.length === 0) {
+      console.warn('[RunAnalyz] Activity fetch returned empty. Attempting forced token refresh...');
+      let auth = null;
+      try { auth = JSON.parse(localStorage.getItem(STRAVA_STORAGE_KEYS.AUTH)); } catch (e) {}
+      if (auth && auth.refresh_token) {
+        try {
+          const resp = await fetch(`${STRAVA_WORKER_URL}/?refresh_token=${encodeURIComponent(auth.refresh_token)}`);
+          if (resp.ok) {
+            const refreshed = await resp.json();
+            if (refreshed.access_token) {
+              saveStravaAuthData(refreshed);
+              customArchive = await fetchUserStravaActivities(refreshed.access_token);
+            }
+          }
+        } catch (retryErr) {
+          console.error('[RunAnalyz] Forced refresh retry failed:', retryErr);
+        }
       }
-    }).catch(err => {
-      console.error(err);
+    }
+
+    if (customArchive && customArchive.activities.length > 0) {
+      localStorage.setItem(STRAVA_STORAGE_KEYS.ARCHIVE, JSON.stringify(customArchive));
+      updateSyncProgress(100, '동기화 완료!');
+      setTimeout(() => window.location.reload(), 600);
+    } else {
       hideSyncOverlay();
-      alert('Strava 동기화 중 오류가 발생했습니다.');
-    });
+      alert('동기화할 러닝 데이터를 찾지 못했습니다. Strava에 새 활동이 있는지 확인해주세요.');
+    }
+  } catch (err) {
+    console.error(err);
+    hideSyncOverlay();
+    alert('Strava 동기화 중 오류가 발생했습니다. 네트워크 상태를 확인해주세요.');
   }
 }
 
@@ -725,17 +854,15 @@ async function startRunAnalyz() {
       const tokenData = await tokenResp.json();
 
       if (tokenData.access_token) {
-        localStorage.setItem('runanalyz_strava_token', tokenData.access_token);
-        if (tokenData.athlete) {
-          localStorage.setItem('runanalyz_strava_athlete', JSON.stringify(tokenData.athlete));
-        }
+        // Save access_token, refresh_token, expires_at, and athlete
+        saveStravaAuthData(tokenData);
 
         updateSyncProgress(50, '인증 성공! 활동 기록 요청 준비 중 (2/3)');
         showSyncOverlay('러닝 활동 기록 동기화 중...', `${tokenData.athlete?.firstname || '러너'}님의 Strava 활동 데이터를 수집하고 있습니다.`, 50, '활동 데이터 수집 중 (2/3)');
         
         const customArchive = await fetchUserStravaActivities(tokenData.access_token);
         if (customArchive && customArchive.activities.length > 0) {
-          localStorage.setItem('runanalyz_custom_archive', JSON.stringify(customArchive));
+          localStorage.setItem(STRAVA_STORAGE_KEYS.ARCHIVE, JSON.stringify(customArchive));
           updateSyncProgress(100, '동기화 완료 (3/3)');
           setTimeout(() => {
             hideSyncOverlay();
@@ -752,6 +879,9 @@ async function startRunAnalyz() {
       showSyncOverlay('연동 실패', 'Strava 인증 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 100, '오류 발생');
       if (cancelBtn) cancelBtn.style.display = 'inline-block';
     }
+  } else {
+    // Check in background if token is near expiration and refresh it
+    silentCheckAndRefreshStravaToken();
   }
 
   // Determine active dataset (Custom user dataset vs Global archive)
@@ -1469,7 +1599,7 @@ async function startRunAnalyz() {
     let tierIcon = '⚡';
     let tierText = '우수 (Good Engine)';
     let gaugeWidth = '65%';
-    let gaugeDesc = '동일 연령대 러너 중 상위 러닝 연비입니다.';
+    let gaugeDesc = '동일 연령대 러너 중 상위 유산소 효율입니다.';
     let recZone = 'Zone 2 기초 유산소';
     let recShoe = '쿠셔닝 데일리 트레이너(스택하이트 30mm 이상, 안정감 높은 폼)가 심폐 강화와 발목 안정성에 적합합니다.';
 
@@ -1882,7 +2012,7 @@ function calcLikeForLikeEF(targetAct, allActs) {
     if (diff > 0.01) {
       insight = '유산소 심폐 효율(EF) 향상 (심박 대비 속도 증가)';
     } else if (diff < -0.01) {
-      insight = '러닝 연비 저하 또는 피로 누적 (충분한 회복 권장)';
+      insight = '유산소 효율 저하 또는 피로 누적 (충분한 회복 권장)';
     } else {
       insight = '안정적인 기초 유산소 상태 유지';
     }
@@ -1992,7 +2122,7 @@ function renderSingleSession(act) {
     if (efVal >= 1.35) {
       heroInsight.innerHTML = `<i class="bi bi-fire text-lime"></i> <strong>최상급 유산소 엔진 (Elite Base)</strong> — 심박 대비 스피드가 탁월합니다.`;
     } else if (efVal >= 1.25) {
-      heroInsight.innerHTML = `<i class="bi bi-shield-check text-cyan"></i> <strong>우수한 러닝 연비 (Good Conditioning)</strong> — 탄탄한 심폐 베이스를 갖추었습니다.`;
+      heroInsight.innerHTML = `<i class="bi bi-shield-check text-cyan"></i> <strong>우수한 유산소 효율 (Good Conditioning)</strong> — 탄탄한 심폐 베이스를 갖추었습니다.`;
     } else if (efVal >= 1.10) {
       heroInsight.innerHTML = `<i class="bi bi-speedometer text-orange"></i> <strong>표준 유산소 베이스 (Moderate Base)</strong> — 꾸준한 Zone 2 러닝으로 성장 중입니다.`;
     } else {
@@ -2108,7 +2238,7 @@ function renderSingleInstaCard(act) {
 
   // Subtitle
   const subEl = document.getElementById('sc-sub');
-  if (subEl) subEl.textContent = 'DAILY MPB LOG';
+  if (subEl) subEl.textContent = 'DAILY AEROBIC EF LOG';
 
   // Distance
   const distEl = document.getElementById('sc-dist');
@@ -3255,7 +3385,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
         </div>
         <div class="wc-stats-list">
           <div class="wc-stat-row">
-            <span>${isKo ? '평균 MPB' : 'Avg MPB'}</span>
+            <span>${isKo ? '평균 유산소 EF' : 'Avg Aerobic EF'}</span>
             <span style="color:var(--accent-lime);">${w.avgEf.toFixed(3)}</span>
           </div>
           <div class="wc-stat-row">
@@ -3595,9 +3725,9 @@ function initMonthlyRecap(activities, year, month) {
   const elCardEfRange = document.getElementById('card-ef-range');
   if (elCardEfRange) {
     if (validEfs.length > 0) {
-      elCardEfRange.innerHTML = `<i class="bi bi-activity"></i> MPB: MIN ${minEf.toFixed(3)} — MAX ${maxEf.toFixed(3)}`;
+      elCardEfRange.innerHTML = `<i class="bi bi-activity"></i> AEROBIC EF: MIN ${minEf.toFixed(3)} — MAX ${maxEf.toFixed(3)}`;
     } else {
-      elCardEfRange.innerHTML = `<i class="bi bi-activity"></i> MPB: DATA ANALYZING`;
+      elCardEfRange.innerHTML = `<i class="bi bi-activity"></i> AEROBIC EF: DATA ANALYZING`;
     }
   }
 
@@ -3981,7 +4111,7 @@ function initYearlyRecap(archive, pureRunningActivities) {
             <strong>${s.running_sessions}회</strong>
           </div>
           <div class="yc-metric-item">
-            <span>평균 MPB</span>
+            <span>평균 유산소 EF</span>
             <strong style="color:var(--accent-lime);">${s.avg_ef.toFixed(3)}</strong>
           </div>
           <div class="yc-metric-item">
