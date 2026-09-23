@@ -898,7 +898,7 @@ function setupStravaAuthButton(isCustomUser, athlete) {
       const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
       const statusText = curLang === 'ko' ? '연동 중' : 'Connected';
       userTag.innerHTML = `<i class="bi bi-strava" style="color:#fc4c02;"></i> <span data-i18n="strava_connected_status">${statusText}</span>`;
-      userTag.title = `${athleteName} 계정 연동 중`;
+      userTag.title = curLang === 'ko' ? `${athleteName} 계정 연동 중` : `${athleteName} Account Connected`;
     }
 
     if (btnResync) {
@@ -927,7 +927,8 @@ function setupStravaAuthButton(isCustomUser, athlete) {
     }
 
     // Drawer state (Connected)
-    if (drawerDesc) drawerDesc.textContent = `${athleteName}님 계정 실시간 연동 중`;
+    const isKoUser = ((window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'ko');
+    if (drawerDesc) drawerDesc.textContent = isKoUser ? `${athleteName}님 계정 실시간 연동 중` : `${athleteName} Account Live Synced`;
     if (drawerAuthBtn) drawerAuthBtn.style.display = 'none';
     if (drawerConnectedBox) drawerConnectedBox.style.display = 'flex';
     if (drawerUser) drawerUser.textContent = athleteName;
@@ -971,7 +972,8 @@ function setupStravaAuthButton(isCustomUser, athlete) {
     }
 
     // Drawer state (Disconnected)
-    if (drawerDesc) drawerDesc.textContent = '계정 실시간 동기화 상태';
+    const isKoUserDis = ((window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'ko');
+    if (drawerDesc) drawerDesc.textContent = isKoUserDis ? '계정 실시간 동기화 상태' : 'Real-time Sync Status';
     if (drawerAuthBtn) {
       drawerAuthBtn.style.display = 'inline-flex';
       drawerAuthBtn.onclick = handleAuthClick;
@@ -1325,11 +1327,12 @@ async function startRunAnalyz() {
       if (idx >= currentList.length) idx = currentList.length - 1;
       currentTimelineIndices.single = idx;
 
+      const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
       const act = currentList[idx];
       const isLatest = (idx === 0);
-      const envLabel = act.sport_label || '야외 러닝';
+      const envLabel = getSportDisplayName(act, isEn);
 
-      mainLabel.textContent = `${act.date}${isLatest ? ' (최신)' : ''}`;
+      mainLabel.textContent = `${act.date}${isLatest ? (isEn ? ' (Latest)' : ' (최신)') : ''}`;
       const dFmt = window.RunAnalyzUnits.formatDistance(act.distance_km || 0).full;
       const pFmt = window.RunAnalyzUnits.formatPace(act.pace_seconds).full;
       subLabel.textContent = `${envLabel} · ${dFmt} · ${pFmt}`;
@@ -1416,22 +1419,36 @@ async function startRunAnalyz() {
       if (idx >= years.length) idx = years.length - 1;
       currentTimelineIndices.yearly = idx;
 
+      const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
       const y = years[idx];
       const isLatest = (idx === 0);
+      const yDist = window.RunAnalyzUnits.formatDistance(y.totalKm || 0, 1);
 
-      mainLabel.textContent = `${y.year}년 결산${isLatest ? ' (최근 연도)' : ''}`;
-      subLabel.textContent = `총 ${y.totalKm.toFixed(1)} km · ${y.runs.length}회 러닝 (평균 EF: ${y.avgEf.toFixed(3)})`;
+      mainLabel.textContent = isEn
+        ? `${y.year} Recap${isLatest ? ' (Latest Year)' : ''}`
+        : `${y.year}년 결산${isLatest ? ' (최근 연도)' : ''}`;
+      subLabel.textContent = isEn
+        ? `Total ${yDist.full} · ${y.runs.length} Runs (Avg EF: ${y.avgEf.toFixed(3)})`
+        : `총 ${y.totalKm.toFixed(1)} km · ${y.runs.length}회 러닝 (평균 EF: ${y.avgEf.toFixed(3)})`;
 
       prevBtn.disabled = (idx >= years.length - 1);
       nextBtn.disabled = (idx <= 0);
 
       initYearlyRecap(archive, currentList);
     } else if (activeCleanTab === 'heatmap') {
+      const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
       const y = window.HEATMAP_FILTER_YEAR || '2026';
       const m = window.HEATMAP_FILTER_MONTH || '8';
-      const pLabel = (y === 'all') ? '10개년 전체 누적' : (m === 'all' ? `${y}년 전체` : `${y}년 ${m}월`);
-      mainLabel.textContent = `GPS 히트맵: ${pLabel}`;
-      subLabel.textContent = `코스 네온 라인 탐색 · 상단 칩으로 연도/월 1초 전환`;
+      const monthNames = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const pLabel = (y === 'all')
+        ? (isEn ? 'All 10 Years' : '10개년 전체 누적')
+        : (m === 'all'
+            ? (isEn ? `${y} All Year` : `${y}년 전체`)
+            : (isEn ? `${monthNames[parseInt(m, 10)] || m} ${y}` : `${y}년 ${m}월`));
+      mainLabel.textContent = isEn ? `GPS Heatmap: ${pLabel}` : `GPS 히트맵: ${pLabel}`;
+      subLabel.textContent = isEn
+        ? `Explore Neon GPS Tracks · Switch Year/Month via top chips`
+        : `코스 네온 라인 탐색 · 상단 칩으로 연도/월 1초 전환`;
       prevBtn.disabled = true;
       nextBtn.disabled = true;
     }
@@ -1548,9 +1565,10 @@ async function startRunAnalyz() {
     btnToggleDetail.addEventListener('click', () => {
       const isCollapsed = detailWrapper.classList.toggle('collapsed');
       if (textToggleDetail) {
+        const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
         textToggleDetail.textContent = isCollapsed 
-          ? '상세 데이터 분석 보기 (랩타임, 심박 그래프, 지도)' 
-          : '상세 데이터 접기';
+          ? (isEn ? 'View Detailed Diagnostics (Splits, HR Graph, Map)' : '상세 데이터 분석 보기 (랩타임, 심박 그래프, 지도)')
+          : (isEn ? 'Collapse Detailed Diagnostics' : '상세 데이터 접기');
       }
       if (iconToggleDetail) {
         iconToggleDetail.className = isCollapsed ? 'bi bi-chevron-down toggle-icon' : 'bi bi-chevron-up toggle-icon';
@@ -2240,6 +2258,24 @@ function calcLikeForLikeEF(targetAct, allActs) {
   };
 }
 
+
+// Helper: Localized Sport Display Name
+function getSportDisplayName(act, isEn) {
+  if (!act) return isEn ? 'Outdoor Run' : '야외 러닝';
+  const subSp = act.sub_sport || '';
+  const rawLbl = act.sport_label || '';
+  if (isEn) {
+    if (/트레드밀|treadmill/i.test(rawLbl) || subSp === 'treadmill') return 'Treadmill';
+    if (/트레일|trail/i.test(rawLbl) || subSp === 'trail') return 'Trail Run';
+    if (/하이킹|hike/i.test(rawLbl)) return 'Hiking';
+    if (/산책|워킹|walk/i.test(rawLbl)) return 'Walk';
+    if (/야외 활동|other/i.test(rawLbl)) return 'Other Activity';
+    return 'Outdoor Run';
+  } else {
+    return rawLbl || (subSp === 'treadmill' ? '트레드밀' : '야외 러닝');
+  }
+}
+
 function renderSingleSession(act) {
   if (!act) return;
 
@@ -2256,7 +2292,8 @@ function renderSingleSession(act) {
 
   const sportBadge = document.getElementById('session-sport-badge');
   if (sportBadge) {
-    sportBadge.innerHTML = `<i class="bi bi-tag-fill"></i> ${act.sport_label || '러닝'}`;
+    const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
+    sportBadge.innerHTML = `<i class="bi bi-tag-fill"></i> ${getSportDisplayName(act, isEn)}`;
   }
 
   // Hero Metrics (Fully Integrated with RunAnalyzUnits & Global i18n)
@@ -2309,10 +2346,11 @@ function renderSingleSession(act) {
   const heroInsight = document.getElementById('nrc-hero-insight');
 
   if (heroSport) {
+    const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
     const isTm = (act.sub_sport === 'treadmill' || act.sport === 'treadmill_running' || act.type === 'VirtualRun');
     const isTr = (act.sub_sport === 'trail' || act.sport === 'trail_running' || act.type === 'TrailRun');
     const icon = isTm ? 'bi-speedometer' : (isTr ? 'bi-triangle-half' : 'bi-tree');
-    heroSport.innerHTML = `<i class="bi ${icon}"></i> ${escapeHtml(act.sport_label || '야외 러닝')}`;
+    heroSport.innerHTML = `<i class="bi ${icon}"></i> ${escapeHtml(getSportDisplayName(act, isEn))}`;
   }
   if (heroDate) {
     heroDate.textContent = `${act.date} (${act.time || '00:00'})`;
@@ -3057,25 +3095,25 @@ function renderThresholdDiagnostics(act, vdotEst) {
           <li>
             <i class="bi bi-patch-check-fill" style="color:#fbbf24;"></i>
             <div>
-              <strong>🎯 Karvonen HRR 모드 vs 단일 세션 추정 모드 정확도 비교</strong><br>
-              &bull; <strong>Karvonen HRR 정밀 모드 (99% 신뢰도)</strong>: 웨어러블 워치의 실측 MHR(최대심박)과 RHR(안정시심박)을 심박 예비량(HRR = MHR - RHR) 공식에 대입하여, 임상 운동부하 검사와 동일한 1:1 맞춤 역치를 도출합니다.<br>
-              &bull; <strong>단일 세션 통계 추정 모드 (~85% 신뢰도)</strong>: 워치 심박 프로필이 없을 때 당일 세션의 평균/최고 심박 편차로 추산하므로 당일 컨디션이나 코스에 따라 오차가 발생할 수 있습니다.
+              <strong>🎯 ${isEn ? 'Karvonen HRR Mode vs Single Session Estimation Accuracy' : 'Karvonen HRR 모드 vs 단일 세션 추정 모드 정확도 비교'}</strong><br>
+              &bull; <strong>${isEn ? 'Karvonen HRR Precision Mode (99% Confidence)' : 'Karvonen HRR 정밀 모드 (99% 신뢰도)'}</strong>: ${isEn ? 'By substituting actual wearable MHR (Max HR) and RHR (Resting HR) into the Heart Rate Reserve formula (HRR = MHR - RHR), personalized 1:1 thresholds identical to clinical exercise stress tests are derived.' : '웨어러블 워치의 실측 MHR(최대심박)과 RHR(안정시심박)을 심박 예비량(HRR = MHR - RHR) 공식에 대입하여, 임상 운동부하 검사와 동일한 1:1 맞춤 역치를 도출합니다.'}<br>
+              &bull; <strong>${isEn ? 'Single Session Statistical Mode (~85% Confidence)' : '단일 세션 통계 추정 모드 (~85% 신뢰도)'}</strong>: ${isEn ? 'Without a calibrated watch profile, thresholds are estimated from single-session average/peak HR variations, which may vary depending on daily condition or terrain.' : '워치 심박 프로필이 없을 때 당일 세션의 평균/최고 심박 편차로 추산하므로 당일 컨디션이나 코스에 따라 오차가 발생할 수 있습니다.'}
             </div>
           </li>
           <li>
             <i class="bi bi-smartwatch" style="color:#38bdf8;"></i>
             <div>
-              <strong>⌚ 제조사별 MHR &amp; RHR 확인 경로</strong><br>
-              &bull; <strong>가민 (Garmin Connect)</strong>: [더보기(&bull;&bull;&bull;)] ➔ [설정] ➔ [사용자 프로필] ➔ [심박수 및 파워 영역] ➔ [심박수] (최대 심박수 &amp; 안정시 심박수 확인)<br>
-              &bull; <strong>코로스 (COROS 앱)</strong>: [프로필] ➔ [설정] ➔ [트레이닝 존] ➔ [심박수 존]<br>
-              &bull; <strong>애플워치 (Apple 건강 앱)</strong>: [건강 앱] ➔ [검색] ➔ [심장] ➔ [안정 시 심박수] &amp; [심박수 영역]
+              <strong>⌚ ${isEn ? 'Manufacturer MHR & RHR Navigation Guide' : '제조사별 MHR & RHR 확인 경로'}</strong><br>
+              &bull; <strong>${isEn ? 'Garmin (Garmin Connect)' : '가민 (Garmin Connect)'}</strong>: ${isEn ? '[More (...)] ➔ [Settings] ➔ [User Profile] ➔ [Heart Rate & Power Zones] ➔ [Heart Rate] (Check Max HR & Resting HR)' : '[더보기(&bull;&bull;&bull;)] ➔ [설정] ➔ [사용자 프로필] ➔ [심박수 및 파워 영역] ➔ [심박수] (최대 심박수 & 안정시 심박수 확인)'}<br>
+              &bull; <strong>${isEn ? 'COROS (COROS App)' : '코로스 (COROS 앱)'}</strong>: ${isEn ? '[Profile] ➔ [Settings] ➔ [Training Zone] ➔ [Heart Rate Zone]' : '[프로필] ➔ [설정] ➔ [트레이닝 존] ➔ [심박수 존]'}<br>
+              &bull; <strong>${isEn ? 'Apple Watch (Apple Health App)' : '애플워치 (Apple 건강 앱)'}</strong>: ${isEn ? '[Health App] ➔ [Browse] ➔ [Heart] ➔ [Resting Heart Rate] & [Heart Rate Zones]' : '[건강 앱] ➔ [검색] ➔ [심장] ➔ [안정 시 심박수] & [심박수 영역]'}
             </div>
           </li>
           <li>
             <i class="bi bi-sliders" style="color:#10b981;"></i>
             <div>
-              <strong>⚡ 1초 간편 등록 방법</strong><br>
-              역치 카드 우측 상단의 <strong>[MHR/RHR 캡슐 버튼]</strong>을 클릭하여 확인한 수치를 입력하고 <strong>[정밀 적용]</strong>을 누르면 1초 만에 브라우저에 영구 저장되며 99% 역치가 즉시 갱신됩니다.
+              <strong>⚡ ${isEn ? '1-Second Easy Calibration' : '1초 간편 등록 방법'}</strong><br>
+              ${isEn ? 'Click the <strong>[MHR/RHR Capsule Button]</strong> at the top right of the threshold card, enter your verified numbers, and click <strong>[Apply Precision]</strong> to permanently store in your browser and instantly recalibrate clinical-grade 99% thresholds.' : '역치 카드 우측 상단의 <strong>[MHR/RHR 캡슐 버튼]</strong>을 클릭하여 확인한 수치를 입력하고 <strong>[정밀 적용]</strong>을 누르면 1초 만에 브라우저에 영구 저장되며 99% 역치가 즉시 갱신됩니다.'}
             </div>
           </li>
         </ul>
@@ -3501,12 +3539,15 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
 
     let badgeClass = 'green';
     let badgeText = isKo ? '✅ 안정적인 주간 트레이닝 밸런스' : '✅ Balanced Training Load';
+    const baseDist = window.RunAnalyzUnits.formatDistance(fourWeekAvg, 1);
     let coachingMsg = isKo
-      ? `최근 완료된 4주 만성 베이스(주당 평균 ${fourWeekAvg.toFixed(1)}km) 및 직전 완주 주차(${latestWeek.name}, ${latestWeek.totalKm.toFixed(1)}km) 대비 <strong>${latestWeek.acwr.toFixed(2)}배</strong>의 적정 훈련 부하(${latestWeek.ruleShort})와 저강도 ${low}% : 고강도 ${high}%의 균형 잡힌 마일리지를 유지하고 있습니다.`
-      : `Trailing 4 completed weeks base (<strong>${fourWeekAvg.toFixed(1)} km/wk</strong>) maintains an optimal ACWR ratio of <strong>${latestWeek.acwr.toFixed(2)}x</strong> (${low}% Low : ${high}% High intensity).`;
+      ? `최근 완료된 4주 만성 베이스(주당 평균 ${baseDist.full}) 및 직전 완주 주차(${latestWeek.name}, ${window.RunAnalyzUnits.formatDistance(latestWeek.totalKm, 1).full}) 대비 <strong>${latestWeek.acwr.toFixed(2)}배</strong>의 적정 훈련 부하(${latestWeek.ruleShort})와 저강도 ${low}% : 고강도 ${high}%의 균형 잡힌 마일리지를 유지하고 있습니다.`
+      : `Trailing 4 completed weeks base (<strong>${baseDist.valFormatted} ${baseDist.unit}/wk</strong>) maintains an optimal ACWR ratio of <strong>${latestWeek.acwr.toFixed(2)}x</strong> (${low}% Low : ${high}% High intensity).`;
 
     if (latestWeek.acwr > 1.4) {
-      coachingMsg += `<br><br><span style="color:var(--accent-red);">⚠️ <strong>부상 위험 주의 (ACWR ${latestWeek.acwr.toFixed(2)}x)</strong>: 직전 완주 주차(${latestWeek.totalKm.toFixed(1)}km)가 4주 만성 평균치(${fourWeekAvg.toFixed(1)}km)보다 급증했습니다. 관절과 건의 부상 예방을 위해 다음 주는 볼륨을 낮추는 회복주를 권장합니다.</span>`;
+      coachingMsg += isKo
+        ? `<br><br><span style="color:var(--accent-red);">⚠️ <strong>부상 위험 주의 (ACWR ${latestWeek.acwr.toFixed(2)}x)</strong>: 직전 완주 주차(${window.RunAnalyzUnits.formatDistance(latestWeek.totalKm, 1).full})가 4주 만성 평균치(${baseDist.full})보다 급증했습니다. 관절과 건의 부상 예방을 위해 다음 주는 볼륨을 낮추는 회복주를 권장합니다.</span>`
+        : `<br><br><span style="color:var(--accent-red);">⚠️ <strong>Injury Risk Warning (ACWR ${latestWeek.acwr.toFixed(2)}x)</strong>: Trailing week (${window.RunAnalyzUnits.formatDistance(latestWeek.totalKm, 1).full}) surged beyond the 4-week base (${baseDist.full}). A deload recovery week is advised to protect joints and tendons.</span>`;
     }
 
     // AI Coach Next Week Prescription Calculation based on 4-Week Baseline
@@ -3589,8 +3630,10 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
       <div class="ongoing-week-banner" style="margin-top: 1rem; margin-bottom: 0;">
         <i class="bi bi-clock-history text-cyan"></i>
         <div>
-          <strong style="color:var(--accent-cyan);">${escapeHtml(ongoingWeek.name)} 진행 중 (${ongoingWeek.totalKm.toFixed(1)}km, ${ongoingWeek.runs.length}회 러닝)</strong>:
-          현재 진행 중인 주차는 일요일 24시 완주 마감 후 공식 결산에 반영되며, AI 코칭 처방은 완주된 직전 4주차(${weeks[0].weekNum}주차~${latestWeek.weekNum}주차) 실측치를 기준으로 정밀 산출되었습니다.
+          <strong style="color:var(--accent-cyan);">${escapeHtml(ongoingWeek.name)} ${isKo ? `진행 중 (${ongoingWeek.totalKm.toFixed(1)}km, ${ongoingWeek.runs.length}회 러닝)` : `In Progress (${window.RunAnalyzUnits.formatDistance(ongoingWeek.totalKm, 1).full}, ${ongoingWeek.runs.length} Runs)`}</strong>:
+          ${isKo
+            ? `현재 진행 중인 주차는 일요일 24시 완주 마감 후 공식 결산에 반영되며, AI 코칭 처방은 완주된 직전 4주차(${weeks[0].weekNum}주차~${latestWeek.weekNum}주차) 실측치를 기준으로 정밀 산출되었습니다.`
+            : `Active week in progress will be officially audited after Sunday 24:00. AI coaching prescription is based on trailing 4 completed weeks (W${weeks[0].weekNum}~W${latestWeek.weekNum}).`}
         </div>
       </div>
       ` : ''}
@@ -4095,10 +4138,11 @@ function initCardStudioController({
   function updateAppearance() {
     card.className = `insta-card theme-${currentTheme} format-${currentFormat}`;
     if (btnShare) {
+      const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
       if (currentFormat === 'story') {
-        btnShare.innerHTML = `<i class="bi bi-instagram"></i> 스토리 공유`;
+        btnShare.innerHTML = `<i class="bi bi-instagram"></i> ${isEn ? 'Share Story' : '스토리 공유'}`;
       } else {
-        btnShare.innerHTML = `<i class="bi bi-share-fill"></i> 피드 공유`;
+        btnShare.innerHTML = `<i class="bi bi-share-fill"></i> ${isEn ? 'Share Feed' : '피드 공유'}`;
       }
     }
   }
@@ -4218,11 +4262,12 @@ function initCardStudioController({
                   title: meta.title,
                   text: meta.text
                 });
-                btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> 공유 완료!`;
+                const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
+                btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> ${isEn ? 'Shared!' : '공유 완료!'}`;
               } catch (shareErr) {
                 if (shareErr.name !== 'AbortError') {
                   triggerDownload(canvas);
-                  btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> 저장 완료!`;
+                  btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> ${(window.I18N && window.I18N.getLang ? window.I18N.getLang() : "en") === "en" ? "Saved!" : "저장 완료!"}`;
                 } else {
                   btnShare.innerHTML = origHtml;
                   btnShare.disabled = false;
@@ -4231,13 +4276,13 @@ function initCardStudioController({
               }
             } else {
               triggerDownload(canvas);
-              btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> 저장 완료!`;
+              btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> ${(window.I18N && window.I18N.getLang ? window.I18N.getLang() : "en") === "en" ? "Saved!" : "저장 완료!"}`;
             }
             resetShareBtn();
           }, 'image/png');
         } else {
           triggerDownload(canvas);
-          btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> 저장 완료!`;
+          btnShare.innerHTML = `<i class="bi bi-check-circle-fill"></i> ${(window.I18N && window.I18N.getLang ? window.I18N.getLang() : "en") === "en" ? "Saved!" : "저장 완료!"}`;
           resetShareBtn();
         }
       } catch (err) {
@@ -4402,9 +4447,10 @@ function initYearlyRecap(archive, pureRunningActivities) {
 
   // 3. Render Shoe Lifespan & Mileage Tracker (Optional)
   if (shoeContainer) {
+    const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
     const shoeMap = {};
     pureRunningActivities.forEach(a => {
-      const gName = a.gear_name || "미지정";
+      const gName = a.gear_name || (isEn ? "Unassigned" : "미지정");
       if (!shoeMap[gName]) {
         shoeMap[gName] = { name: gName, totalKm: 0, count: 0, avgPaceSec: 0, paces: [] };
       }
@@ -4416,32 +4462,33 @@ function initYearlyRecap(archive, pureRunningActivities) {
     const sortedShoes = Object.values(shoeMap).sort((a, b) => b.totalKm - a.totalKm);
 
     shoeContainer.innerHTML = sortedShoes.map(s => {
+      const sDist = window.RunAnalyzUnits.formatDistance(s.totalKm || 0, 1);
       const km = Math.round(s.totalKm * 10) / 10;
       const maxLife = 800.0; // 800km standard shoe lifespan
       const pct = Math.min(Math.round((km / maxLife) * 100), 100);
 
       let barColor = 'var(--accent-lime)';
-      let statusBadge = `<span style="color:var(--accent-lime);">정상 주행 (${pct}%)</span>`;
+      let statusBadge = `<span style="color:var(--accent-lime);">${isEn ? `Healthy Lifespan (${pct}%)` : `정상 주행 (${pct}%)`}</span>`;
 
       if (km >= 800) {
         barColor = 'var(--accent-red)';
-        statusBadge = `<span style="color:var(--accent-red);">⚠️ 수명 도달/은퇴 (${km}km)</span>`;
+        statusBadge = `<span style="color:var(--accent-red);">${isEn ? `⚠️ Max Lifespan Reached (${sDist.full})` : `⚠️ 수명 도달/은퇴 (${km}km)`}</span>`;
       } else if (km >= 600) {
         barColor = 'var(--accent-orange)';
-        statusBadge = `<span style="color:var(--accent-orange);">교체 권장 (${pct}%)</span>`;
+        statusBadge = `<span style="color:var(--accent-orange);">${isEn ? `Replacement Recommended (${pct}%)` : `교체 권장 (${pct}%)`}</span>`;
       }
 
       return `
         <div class="shoe-item-card">
           <div class="shoe-header">
             <span class="shoe-name">👟 ${s.name}</span>
-            <span class="shoe-dist">${km} km</span>
+            <span class="shoe-dist">${sDist.full}</span>
           </div>
           <div class="shoe-progress-track">
             <div class="shoe-progress-bar" style="width: ${pct}%; background: ${barColor};"></div>
           </div>
           <div class="shoe-footer">
-            <span>총 ${s.count}회 착용</span>
+            <span>${isEn ? `Worn ${s.count} times` : `총 ${s.count}회 착용`}</span>
             ${statusBadge}
           </div>
         </div>
@@ -4715,48 +4762,63 @@ function initRunningHeatmap(activities) {
   }
 
   function updateHeatmapDisplay() {
+    const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
     const gpsActs = getHeatmapActivities();
 
     const trackCountEl = document.getElementById('hm-track-count');
     const totalDistEl = document.getElementById('hm-total-dist');
     if (trackCountEl && totalDistEl) {
-      trackCountEl.textContent = `${gpsActs.length}개 코스`;
+      trackCountEl.textContent = isEn ? `${gpsActs.length} Routes` : `${gpsActs.length}개 코스`;
       const outdoorKm = gpsActs.reduce((acc, a) => acc + (a.distance_km || 0), 0);
-      totalDistEl.textContent = `${outdoorKm.toFixed(1)} km`;
+      totalDistEl.textContent = window.RunAnalyzUnits.formatDistance(outdoorKm, 1).full;
     }
 
     const secTitle = document.getElementById('routes-section-title');
     if (secTitle) {
       const fYear = (window.RUNANALYZ_FILTERS && window.RUNANALYZ_FILTERS.year) || currentYear;
       const fMonth = (window.RUNANALYZ_FILTERS && window.RUNANALYZ_FILTERS.month) || currentMonth;
+      const monthNames = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       let pLabel = '';
-      if (fYear === 'all') {
-        pLabel = fMonth === 'all' ? '역대 전체' : `역대 ${fMonth}월`;
+      if (isEn) {
+        if (fYear === 'all') {
+          pLabel = fMonth === 'all' ? 'All 10 Years' : `All-Time ${monthNames[parseInt(fMonth, 10)] || fMonth}`;
+        } else {
+          pLabel = fMonth === 'all' ? `${fYear} All Year` : `${monthNames[parseInt(fMonth, 10)] || fMonth} ${fYear}`;
+        }
+        secTitle.textContent = `${pLabel} Outdoor GPS Routes (${gpsActs.length})`;
       } else {
-        pLabel = fMonth === 'all' ? `${fYear}년 전체` : `${fYear}년 ${fMonth}월`;
+        if (fYear === 'all') {
+          pLabel = fMonth === 'all' ? '역대 전체' : `역대 ${fMonth}월`;
+        } else {
+          pLabel = fMonth === 'all' ? `${fYear}년 전체` : `${fYear}년 ${fMonth}월`;
+        }
+        secTitle.textContent = `${pLabel} 야외 GPS 코스 목록 (${gpsActs.length}개)`;
       }
-      secTitle.textContent = `${pLabel} 야외 GPS 코스 목록 (${gpsActs.length}개)`;
     }
 
     const routesContainer = document.getElementById('routes-grid-container');
     if (routesContainer) {
       if (gpsActs.length === 0) {
-        routesContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);"><i class="bi bi-geo-alt-fill" style="font-size: 2.2rem; color: var(--accent-orange); display: block; margin-bottom: 0.6rem;"></i>선택한 기간에 등록된 야외 GPS 경로가 없습니다.</div>`;
+        routesContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);"><i class="bi bi-geo-alt-fill" style="font-size: 2.2rem; color: var(--accent-orange); display: block; margin-bottom: 0.6rem;"></i>${isEn ? 'No outdoor GPS routes recorded in selected timeframe.' : '선택한 기간에 등록된 야외 GPS 경로가 없습니다.'}</div>`;
       } else {
-        routesContainer.innerHTML = gpsActs.map((a) => `
+        routesContainer.innerHTML = gpsActs.map((a) => {
+          const spName = getSportDisplayName(a, isEn);
+          const dFmt = window.RunAnalyzUnits.formatDistance(a.distance_km || 0).full;
+          const pFmt = window.RunAnalyzUnits.formatPace(a.pace_seconds).full;
+          return `
           <div class="route-card" data-act-id="${a.id}">
             <div class="rc-top">
-              <span class="rc-name">${a.date} ${a.sport_label}</span>
-              <span class="rc-tag" style="${a.is_pure_running ? 'color:var(--accent-orange);background:rgba(255,87,34,0.15);' : ''}">${a.sport_label}</span>
+              <span class="rc-name">${a.date} ${spName}</span>
+              <span class="rc-tag" style="${a.is_pure_running ? 'color:var(--accent-orange);background:rgba(255,87,34,0.15);' : ''}">${spName}</span>
             </div>
             <div class="rc-details">
-              <span>거리: <strong>${a.distance_km}km</strong></span>
-              <span>페이스: <strong>${a.pace_formatted}</strong></span>
-              <span>심박: <strong>${a.avg_hr} bpm</strong></span>
+              <span>${isEn ? 'Dist' : '거리'}: <strong>${dFmt}</strong></span>
+              <span>${isEn ? 'Pace' : '페이스'}: <strong>${pFmt}</strong></span>
+              <span>${isEn ? 'HR' : '심박'}: <strong>${a.avg_hr} bpm</strong></span>
               ${a.is_pure_running ? `<span>EF: <strong>${a.ef}</strong></span>` : ''}
             </div>
           </div>
-        `).join('');
+        `;}).join('');
 
         document.querySelectorAll('.route-card').forEach(card => {
           card.onclick = () => {

@@ -35,6 +35,7 @@
       filter_all: "전체 보기",
       filter_treadmill: "실내 트레드밀",
       filter_outdoor: "야외 러닝",
+      filter_trail: "트레일 러닝",
 
       // Workout Classification (80/20 Polarized Engine)
       wo_low: "저강도 유산소 (Zone 1~2)",
@@ -216,6 +217,7 @@
       filter_all: "All Activities",
       filter_treadmill: "Indoor Treadmill",
       filter_outdoor: "Outdoor Running",
+      filter_trail: "Trail Running",
 
       // Workout Classification (80/20 Polarized Engine)
       wo_low: "Low-Intensity Aerobic (Zone 1~2)",
@@ -397,6 +399,7 @@
       filter_all: "すべて表示",
       filter_treadmill: "屋内トレッドミル",
       filter_outdoor: "屋外ランニング",
+      filter_trail: "トレイルラン",
 
       // Workout Classification (80/20 Polarized Engine)
       wo_low: "低強度 有酸素 (Zone 1~2)",
@@ -563,6 +566,7 @@
       filter_all: "Todas las Actividades",
       filter_treadmill: "Cinta de Correr",
       filter_outdoor: "Carrera al Aire Libre",
+      filter_trail: "Trail Running",
 
       // Workout Classification (80/20 Polarized Engine)
       wo_low: "Baja Intensidad Aeróbica (Zone 1~2)",
