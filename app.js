@@ -365,6 +365,121 @@ let currentSportFilter = window.RUNANALYZ_FILTERS.sport; // 'all', 'treadmill', 
 const STRAVA_CLIENT_ID = '278575';
 const STRAVA_WORKER_URL = 'https://runanalyz-auth.chicstory.workers.dev';
 
+// ============================================================================
+// RunAnalyz Unit System (Imperial: mi/ft default ↔ Metric: km/m toggleable)
+// BPM and EF (Aerobic Efficiency Factor) remain standard physiological metrics
+// ============================================================================
+window.RunAnalyzUnits = (function() {
+  const STORAGE_KEY = 'runanalyz_unit';
+  // Default to US Imperial (mi / ft)
+  let currentUnit = localStorage.getItem(STORAGE_KEY) || 'imperial';
+
+  const KM_TO_MI = 0.621371;
+  const MI_TO_KM = 1.609344;
+  const M_TO_FT = 3.28084;
+
+  function getUnit() {
+    return currentUnit;
+  }
+
+  function setUnit(unit) {
+    if (unit === 'imperial' || unit === 'metric') {
+      currentUnit = unit;
+      try { localStorage.setItem(STORAGE_KEY, unit); } catch(e){}
+    }
+  }
+
+  function toggleUnit() {
+    currentUnit = (currentUnit === 'imperial') ? 'metric' : 'imperial';
+    try { localStorage.setItem(STORAGE_KEY, currentUnit); } catch(e){}
+    return currentUnit;
+  }
+
+  function isImperial() {
+    return currentUnit === 'imperial';
+  }
+
+  // Distance: returns { val: number, valFormatted: string, unit: string, full: string }
+  function formatDistance(distKm, digits = 2) {
+    const d = parseFloat(distKm) || 0;
+    if (currentUnit === 'imperial') {
+      const mi = d * KM_TO_MI;
+      return {
+        val: parseFloat(mi.toFixed(digits)),
+        valFormatted: mi.toFixed(digits),
+        unit: 'mi',
+        full: `${mi.toFixed(digits)} mi`
+      };
+    } else {
+      return {
+        val: parseFloat(d.toFixed(digits)),
+        valFormatted: d.toFixed(digits),
+        unit: 'km',
+        full: `${d.toFixed(digits)} km`
+      };
+    }
+  }
+
+  // Pace: from pace_seconds (seconds per kilometer)
+  function formatPace(paceSecPerKm) {
+    const secKm = parseFloat(paceSecPerKm) || 0;
+    if (secKm <= 0) {
+      return {
+        text: "-'--\"",
+        unit: currentUnit === 'imperial' ? '/mi' : '/km',
+        full: "-'--\""
+      };
+    }
+
+    let sec = secKm;
+    let unitLabel = '/km';
+
+    if (currentUnit === 'imperial') {
+      sec = secKm * MI_TO_KM;
+      unitLabel = '/mi';
+    }
+
+    const min = Math.floor(sec / 60);
+    const s = Math.round(sec % 60);
+    const sStr = s < 10 ? `0${s}` : `${s}`;
+    return {
+      text: `${min}'${sStr}"`,
+      unit: unitLabel,
+      full: `${min}'${sStr}" ${unitLabel}`
+    };
+  }
+
+  // Ascent / Elevation: from meters
+  function formatAscent(elevM) {
+    const m = parseFloat(elevM) || 0;
+    if (currentUnit === 'imperial') {
+      const ft = Math.round(m * M_TO_FT);
+      return {
+        val: ft,
+        unit: 'ft',
+        full: `${ft} ft`
+      };
+    } else {
+      const roundM = Math.round(m);
+      return {
+        val: roundM,
+        unit: 'm',
+        full: `${roundM} m`
+      };
+    }
+  }
+
+  return {
+    getUnit,
+    setUnit,
+    toggleUnit,
+    isImperial,
+    formatDistance,
+    formatPace,
+    formatAscent
+  };
+})();
+
 // Strava OAuth Persistent Storage Keys
 const STRAVA_STORAGE_KEYS = {
   TOKEN: 'runanalyz_strava_token',
@@ -1183,7 +1298,9 @@ async function startRunAnalyz() {
       const envLabel = act.sport_label || '야외 러닝';
 
       mainLabel.textContent = `${act.date}${isLatest ? ' (최신)' : ''}`;
-      subLabel.textContent = `${envLabel} · ${(act.distance_km || 0).toFixed(2)} km · ${act.pace_formatted || "-'--\""}`;
+      const dFmt = window.RunAnalyzUnits.formatDistance(act.distance_km || 0).full;
+      const pFmt = window.RunAnalyzUnits.formatPace(act.pace_seconds).full;
+      subLabel.textContent = `${envLabel} · ${dFmt} · ${pFmt}`;
 
       prevBtn.disabled = (idx >= currentList.length - 1);
       nextBtn.disabled = (idx <= 0);
@@ -1782,7 +1899,7 @@ async function startRunAnalyz() {
 
   const updateLangUI = (lang) => {
     if (langLabel) {
-      langLabel.textContent = (lang || 'ko').toUpperCase();
+      langLabel.textContent = (lang || 'en').toUpperCase();
     }
   };
 
@@ -1792,7 +1909,7 @@ async function startRunAnalyz() {
 
   if (btnLangToggle) {
     btnLangToggle.addEventListener('click', () => {
-      const cur = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+      const cur = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
       const next = (cur === 'en') ? 'ko' : 'en';
       if (window.I18N && window.I18N.setLang) {
         window.I18N.setLang(next);
@@ -1803,6 +1920,39 @@ async function startRunAnalyz() {
         generateAndRender7DayPlan();
       }
       const toastMsg = next === 'ko' ? '🌐 한국어로 변경되었습니다.' : '🌐 Switched to English.';
+      if (typeof showToast === 'function') {
+        showToast(toastMsg);
+      }
+    });
+  }
+
+  // Unit System Switcher Toggle (Imperial: mi/ft ↔ Metric: km/m)
+  const btnUnitToggle = document.getElementById('btn-unit-toggle');
+  const unitLabel = document.getElementById('unit-current-label');
+
+  const updateUnitUI = () => {
+    const isImp = window.RunAnalyzUnits.isImperial();
+    if (unitLabel) {
+      unitLabel.textContent = isImp ? 'mi' : 'km';
+    }
+    if (btnUnitToggle) {
+      btnUnitToggle.title = isImp ? 'Units: Imperial (mi, ft) — Click to switch to Metric (km, m)' : 'Units: Metric (km, m) — Click to switch to Imperial (mi, ft)';
+    }
+  };
+
+  updateUnitUI();
+
+  if (btnUnitToggle) {
+    btnUnitToggle.addEventListener('click', () => {
+      const nextUnit = window.RunAnalyzUnits.toggleUnit();
+      updateUnitUI();
+      refreshAllViews();
+      if (typeof generateAndRender7DayPlan === 'function') {
+        generateAndRender7DayPlan();
+      }
+      const toastMsg = nextUnit === 'imperial' 
+        ? '🇺🇸 Units switched to US Imperial (mi, min/mi, ft).' 
+        : '🌐 Units switched to SI Metric (km, min/km, m).';
       if (typeof showToast === 'function') {
         showToast(toastMsg);
       }
@@ -2107,10 +2257,20 @@ function renderSingleSession(act) {
     heroDate.textContent = `${act.date} (${act.time || '00:00'})`;
   }
   if (heroDist) {
-    heroDist.textContent = (act.distance_km || 0).toFixed(2);
+    const dObj = window.RunAnalyzUnits.formatDistance(act.distance_km || 0);
+    heroDist.textContent = dObj.valFormatted;
+    const dLabel = document.querySelector('.nrc-big-metric [data-i18n="metric_dist"]');
+    if (dLabel) {
+      dLabel.textContent = window.RunAnalyzUnits.isImperial() ? 'Distance (mi)' : 'Distance (km)';
+    }
   }
   if (heroPace) {
-    heroPace.textContent = act.pace_formatted || "-'--\"";
+    const pObj = window.RunAnalyzUnits.formatPace(act.pace_seconds);
+    heroPace.textContent = pObj.text;
+    const pLabel = document.querySelector('.nrc-big-metric [data-i18n="metric_pace"]');
+    if (pLabel) {
+      pLabel.textContent = window.RunAnalyzUnits.isImperial() ? 'Avg Pace (/mi)' : 'Avg Pace (/km)';
+    }
   }
   if (heroTime) {
     heroTime.textContent = act.duration_formatted || "00:00";
@@ -2243,7 +2403,8 @@ function renderSingleInstaCard(act) {
   // Distance
   const distEl = document.getElementById('sc-dist');
   if (distEl) {
-    distEl.innerHTML = `${(act.distance_km || 0).toFixed(2)} <span class="unit">KM</span>`;
+    const dObj = window.RunAnalyzUnits.formatDistance(act.distance_km || 0);
+    distEl.innerHTML = `${dObj.valFormatted} <span class="unit">${dObj.unit.toUpperCase()}</span>`;
   }
 
   // Workout Classification Badge
@@ -2257,7 +2418,8 @@ function renderSingleInstaCard(act) {
   // Key Stats: Pace, Time, Avg HR, EF (NO VDOT)
   const paceEl = document.getElementById('sc-pace');
   if (paceEl) {
-    paceEl.innerHTML = `${act.pace_formatted || "-'--\""} <small>/km</small>`;
+    const pObj = window.RunAnalyzUnits.formatPace(act.pace_seconds);
+    paceEl.innerHTML = `${pObj.text} <small>${pObj.unit}</small>`;
   }
 
   const timeEl = document.getElementById('sc-time');
@@ -3302,11 +3464,11 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
         <div class="wpc-metric-grid">
           <div class="wpc-metric-item">
             <span class="wpc-lbl">4주 평균 베이스</span>
-            <span class="wpc-val text-cyan">${fourWeekAvg.toFixed(1)} <small>KM/주</small></span>
+            <span class="wpc-val text-cyan">${window.RunAnalyzUnits.formatDistance(fourWeekAvg, 1).valFormatted} <small>${window.RunAnalyzUnits.formatDistance(fourWeekAvg, 1).unit.toUpperCase()}/wk</small></span>
           </div>
           <div class="wpc-metric-item">
             <span class="wpc-lbl">다음 주 권장 목표</span>
-            <span class="wpc-val text-orange">${nextTargetKm.toFixed(1)} <small>KM</small></span>
+            <span class="wpc-val text-orange">${window.RunAnalyzUnits.formatDistance(nextTargetKm, 1).valFormatted} <small>${window.RunAnalyzUnits.formatDistance(nextTargetKm, 1).unit.toUpperCase()}</small></span>
           </div>
           <div class="wpc-metric-item">
             <span class="wpc-lbl">권장 훈련 횟수</span>
@@ -3314,7 +3476,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
           </div>
           <div class="wpc-metric-item">
             <span class="wpc-lbl">주말 롱런 상한선</span>
-            <span class="wpc-val">${recommendedLsd} KM</span>
+            <span class="wpc-val">${window.RunAnalyzUnits.formatDistance(recommendedLsd, 1).full.toUpperCase()}</span>
           </div>
         </div>
         <button type="button" class="btn-create-plan-from-weekly" id="btn-create-plan-from-weekly"
@@ -3379,7 +3541,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
           <span class="wc-name">${w.name}</span>
           <span class="wc-runs">${runsTxt}</span>
         </div>
-        <div class="wc-distance">${w.totalKm.toFixed(1)} <small>km</small></div>
+        <div class="wc-distance">${window.RunAnalyzUnits.formatDistance(w.totalKm, 1).valFormatted} <small>${window.RunAnalyzUnits.formatDistance(w.totalKm, 1).unit}</small></div>
         <div class="rule-badge ${w.ruleClass}">
           <i class="bi bi-shield-check"></i> ${badgeLabel}
         </div>
@@ -3474,7 +3636,7 @@ function renderWeeklyInstaCard(w) {
 
   const lsdEl = document.getElementById('wc-card-lsd');
   if (lsdEl) {
-    lsdEl.innerHTML = `${(w.longestRun || 0).toFixed(1)} <small>km</small>`;
+    lsdEl.innerHTML = `${window.RunAnalyzUnits.formatDistance(w.longestRun || 0, 1).valFormatted} <small>${window.RunAnalyzUnits.formatDistance(w.longestRun || 0, 1).unit}</small>`;
   }
 
   const hrEl = document.getElementById('wc-card-hr');
@@ -3696,7 +3858,10 @@ function initMonthlyRecap(activities, year, month) {
 
   // Update Monthly Dashboard Cards
   const elDist = document.getElementById('month-total-dist');
-  if (elDist) elDist.innerHTML = `${totalDist.toFixed(1)} <small>km</small>`;
+  if (elDist) {
+    const mDist = window.RunAnalyzUnits.formatDistance(totalDist, 1);
+    elDist.innerHTML = `${mDist.valFormatted} <small>${mDist.unit}</small>`;
+  }
   const elCount = document.getElementById('month-run-count');
   if (elCount) elCount.textContent = isKo ? `총 ${activities.length}회 러닝 완료` : `${activities.length} Runs Completed`;
   const elTime = document.getElementById('month-total-time');
@@ -3704,7 +3869,10 @@ function initMonthlyRecap(activities, year, month) {
   const elCal = document.getElementById('month-total-cal');
   if (elCal) elCal.textContent = isKo ? `${totalCal.toLocaleString()} kcal 소모` : `${totalCal.toLocaleString()} kcal burned`;
   const elPace = document.getElementById('month-avg-pace');
-  if (elPace) elPace.innerHTML = `${avgPaceStr} <small>/km</small>`;
+  if (elPace) {
+    const mPace = window.RunAnalyzUnits.formatPace(avgPaceSec);
+    elPace.innerHTML = `${mPace.text} <small>${mPace.unit}</small>`;
+  }
   const elHr = document.getElementById('month-avg-hr');
   if (elHr) elHr.textContent = isKo ? `평균 심박수 ${avgHr} bpm` : `Avg HR ${avgHr} bpm`;
   const elGrowth = document.getElementById('month-ef-growth');
@@ -3714,12 +3882,15 @@ function initMonthlyRecap(activities, year, month) {
   const cardBadge = document.querySelector('#instaCard .ic-badge');
   if (cardBadge) cardBadge.textContent = engPeriodTitle;
 
-  document.getElementById('card-dist').innerHTML = `${totalDist.toFixed(1)} <span class="unit">KM</span>`;
+  const cardDistObj = window.RunAnalyzUnits.formatDistance(totalDist, 1);
+  document.getElementById('card-dist').innerHTML = `${cardDistObj.valFormatted} <span class="unit">${cardDistObj.unit.toUpperCase()}</span>`;
   document.getElementById('card-runs').innerHTML = `${activities.length} <small>${_t('card_runs_unit', 'Runs')}</small>`;
-  document.getElementById('card-pace').textContent = avgPaceStr;
+  const cardPaceObj = window.RunAnalyzUnits.formatPace(avgPaceSec);
+  document.getElementById('card-pace').textContent = `${cardPaceObj.text} ${cardPaceObj.unit}`;
   document.getElementById('card-time').textContent = `${hours}h ${minutes}m`;
   document.getElementById('card-hr').innerHTML = `${avgHr} <small>bpm</small>`;
-  document.getElementById('card-lsd').textContent = `${maxLsd.toFixed(1)} km (${lsdAct?.date?.slice(5) || '-'})`;
+  const cardLsdObj = window.RunAnalyzUnits.formatDistance(maxLsd, 1);
+  document.getElementById('card-lsd').textContent = `${cardLsdObj.full} (${lsdAct?.date?.slice(5) || '-'})`;
   document.getElementById('card-ef').textContent = `${avgEf.toFixed(3)} (${efGrowthPct >= 0 ? '+' : ''}${efGrowthPct.toFixed(1)}%)`;
 
   const elCardEfRange = document.getElementById('card-ef-range');
@@ -4103,20 +4274,20 @@ function initYearlyRecap(archive, pureRunningActivities) {
     const s = yearlySummary[y];
     return `
       <div class="yearly-card">
-        <div class="yc-year">${y}년 러닝</div>
-        <div class="yc-distance">${s.total_running_km.toFixed(1)} <small>km</small></div>
+        <div class="yc-year">${y} Running</div>
+        <div class="yc-distance">${window.RunAnalyzUnits.formatDistance(s.total_running_km, 1).valFormatted} <small>${window.RunAnalyzUnits.formatDistance(s.total_running_km, 1).unit}</small></div>
         <div class="yc-metrics-row">
           <div class="yc-metric-item">
-            <span>러닝 세션</span>
-            <strong>${s.running_sessions}회</strong>
+            <span>Runs</span>
+            <strong>${s.running_sessions}</strong>
           </div>
           <div class="yc-metric-item">
-            <span>평균 유산소 EF</span>
+            <span>Avg Aerobic EF</span>
             <strong style="color:var(--accent-lime);">${s.avg_ef.toFixed(3)}</strong>
           </div>
           <div class="yc-metric-item">
-            <span>최장 거리 (LSD)</span>
-            <span>${s.max_lsd_km.toFixed(1)} km</span>
+            <span>Longest Run</span>
+            <span>${window.RunAnalyzUnits.formatDistance(s.max_lsd_km, 1).full}</span>
           </div>
         </div>
       </div>

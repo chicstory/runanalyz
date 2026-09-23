@@ -340,7 +340,8 @@ html[lang="en"], html[lang="es"] {
   font-size: 1rem;
 }
 
-.btn-lang-toggle {
+.btn-lang-toggle,
+.btn-unit-toggle {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid var(--border-subtle);
   color: var(--text-primary);
@@ -363,15 +364,22 @@ html[lang="en"], html[lang="es"] {
   color: var(--accent-cyan);
 }
 
+.btn-unit-toggle i {
+  font-size: 0.9rem;
+  color: var(--accent-orange);
+}
+
 .btn-theme-toggle:hover,
 .btn-icon-setting:hover,
-.btn-lang-toggle:hover {
+.btn-lang-toggle:hover,
+.btn-unit-toggle:hover {
   background: rgba(255, 255, 255, 0.15);
   transform: scale(1.04);
   border-color: var(--accent-orange);
 }
 
-body.light-theme .btn-lang-toggle {
+body.light-theme .btn-lang-toggle,
+body.light-theme .btn-unit-toggle {
   background: #ffffff;
   border-color: rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);

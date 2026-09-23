@@ -717,11 +717,8 @@
       // localStorage may be restricted in private browsing
     }
 
-    const navLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
-    if (navLang.startsWith('ko')) return 'ko';
-    if (navLang.startsWith('ja')) return 'ja';
-    if (navLang.startsWith('es')) return 'es';
-    return 'en'; // Default international fallback
+    // Default to Global English as primary base
+    return 'en';
   }
 
   let currentLanguage = detectBrowserLanguage();
