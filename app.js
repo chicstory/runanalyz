@@ -104,7 +104,10 @@ window.execute7DayPlanFromWeekly = function(targetKm, recommendedDays, recommend
 
     const wLabel = weekName ? `[${weekName}] ` : '';
     if (typeof showToast === 'function') {
-      showToast(`🤖 ${wLabel}실측 데이터를 바탕으로 다음 주 7-Day 맞춤 플랜이 완성되었습니다!`);
+      const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
+      showToast(isKo
+        ? `🤖 ${wLabel}실측 데이터를 바탕으로 다음 주 7-Day 맞춤 플랜이 완성되었습니다!`
+        : `🤖 Personalized 7-Day plan generated based on ${wLabel}activity data!`);
     }
   } catch (err) {
     console.error('[RunAnalyz] Error in execute7DayPlanFromWeekly:', err);
@@ -228,20 +231,22 @@ window.saveAndApplyProfile = function() {
   const currentYr = new Date().getFullYear();
   const birthYear = currentYr - age;
 
+  const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
+
   if (age < 10 || age > 110) {
-    alert('올바른 만 나이를 입력해 주세요. (10~110세)');
+    alert(isKo ? '올바른 만 나이를 입력해 주세요. (10~110세)' : 'Please enter a valid age (10~110).');
     return;
   }
   if (mhr < 120 || mhr > 240) {
-    alert('최대 심박수(MHR)를 올바르게 입력해 주세요. (120~240 bpm)');
+    alert(isKo ? '최대 심박수(MHR)를 올바르게 입력해 주세요. (120~240 bpm)' : 'Please enter a valid Maximum Heart Rate (120~240 bpm).');
     return;
   }
   if (rhr < 30 || rhr > 120) {
-    alert('안정 시 심박수(RHR)를 올바르게 입력해 주세요. (30~120 bpm)');
+    alert(isKo ? '안정 시 심박수(RHR)를 올바르게 입력해 주세요. (30~120 bpm)' : 'Please enter a valid Resting Heart Rate (30~120 bpm).');
     return;
   }
   if (mhr <= rhr + 20) {
-    alert('최대 심박수는 안정 시 심박수보다 최소 20 bpm 이상 높아야 합니다.');
+    alert(isKo ? '최대 심박수는 안정 시 심박수보다 최소 20 bpm 이상 높아야 합니다.' : 'Maximum Heart Rate must be at least 20 bpm higher than Resting Heart Rate.');
     return;
   }
 
@@ -258,19 +263,23 @@ window.saveAndApplyProfile = function() {
   // 1. Sync to EF Calculator Modal fields automatically
   const rcB = document.getElementById('rc-birth-year');
   const rcG = document.getElementById('rc-gender');
+  const rcW = document.getElementById('rc-weight');
+  const rcM = document.getElementById('rc-mhr');
   const rcR = document.getElementById('rc-rhr');
   if (rcB) rcB.value = birthYear;
   if (rcG) rcG.value = gender === 'F' ? 'female' : 'male';
+  if (rcW) rcW.value = weight;
+  if (rcM) rcM.value = mhr;
   if (rcR) rcR.value = rhr;
 
-  // 2. Sync to Threshold Inputs & summary
-  const inMhrStatic = document.getElementById('input-mhr');
-  const inRhrStatic = document.getElementById('input-rhr');
+  // 2. Sync to static Header profile summary
+  const inMhrStatic = document.getElementById('in-user-mhr') || document.getElementById('input-mhr');
+  const inRhrStatic = document.getElementById('in-user-rhr') || document.getElementById('input-rhr');
   if (inMhrStatic) inMhrStatic.value = mhr;
   if (inRhrStatic) inRhrStatic.value = rhr;
   const summaryEl = document.getElementById('hr-settings-summary');
   if (summaryEl) {
-    summaryEl.innerHTML = `만 ${age}세 · MHR: ${mhr} | RHR: ${rhr}`;
+    summaryEl.innerHTML = isKo ? `만 ${age}세 · MHR: ${mhr} | RHR: ${rhr}` : `Age ${age} · MHR: ${mhr} | RHR: ${rhr}`;
   }
 
   // 3. Sync to 7-Day Plan inputs
@@ -308,7 +317,8 @@ window.resetProfileDefaults = function() {
   localStorage.removeItem('runanalyz_user_weight');
   window.openProfileModal();
   if (typeof showToast === 'function') {
-    showToast('기본 프로필(MHR: 196, RHR: 55, 체중: 68kg)로 복원되었습니다.');
+    const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
+    showToast(isKo ? '기본 프로필(MHR: 196, RHR: 55, 체중: 68kg)로 복원되었습니다.' : 'Restored to default profile (MHR: 196, RHR: 55, Weight: 68kg).');
   }
 };
 
@@ -607,7 +617,8 @@ function updateSyncProgress(percent, statusText) {
   if (sText) sText.textContent = statusText;
 }
 
-function showSyncOverlay(title, desc, percent = 20, status = '연동 진행 중...') {
+function showSyncOverlay(title, desc, percent = 20, status = null) {
+  const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
   const el = document.getElementById('strava-sync-overlay');
   if (!el) return;
   if (title) {
@@ -618,7 +629,7 @@ function showSyncOverlay(title, desc, percent = 20, status = '연동 진행 중.
     const dEl = document.getElementById('sync-modal-desc');
     if (dEl) dEl.textContent = desc;
   }
-  updateSyncProgress(percent, status);
+  updateSyncProgress(percent, status || (isKo ? '연동 진행 중...' : 'Syncing in progress...'));
   const cancelBtn = document.getElementById('btn-cancel-sync');
   if (cancelBtn) cancelBtn.style.display = 'none';
   el.style.display = 'flex';
@@ -631,6 +642,7 @@ function hideSyncOverlay() {
 
 // Convert raw Strava activity list to standard RunAnalyz format
 function parseStravaActivities(rawActs) {
+  const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
   const processed = [];
   const yearlyStats = {};
 
@@ -668,11 +680,11 @@ function parseStravaActivities(rawActs) {
     const poly = (act.map && act.map.summary_polyline) ? act.map.summary_polyline : '';
     const subSp = (elev > 0 || poly) ? 'outdoor' : 'treadmill';
 
-    let spLbl = '야외 러닝';
+    let spLbl = isKo ? '야외 러닝' : 'Outdoor Run';
     if (!isRun) {
-      spLbl = act.type === 'Hike' ? '하이킹' : (act.type === 'Walk' ? '산책/워킹' : '야외 활동');
+      spLbl = act.type === 'Hike' ? (isKo ? '하이킹' : 'Hiking') : (act.type === 'Walk' ? (isKo ? '산책/워킹' : 'Walking') : (isKo ? '야외 활동' : 'Outdoor Activity'));
     } else {
-      spLbl = subSp === 'outdoor' ? '야외 러닝' : '트레드밀';
+      spLbl = subSp === 'outdoor' ? (isKo ? '야외 러닝' : 'Outdoor Run') : (isKo ? '트레드밀' : 'Treadmill');
     }
 
     const dMin = Math.floor(movSec / 60);
@@ -765,9 +777,13 @@ async function fetchUserStravaActivities(accessToken) {
   const allActs = [];
   const maxPages = 10; // Max 2,000 activities (covers 5~10 years of running history)
 
+  const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
   for (let page = 1; page <= maxPages; page++) {
     const currentProgress = Math.min(40 + Math.round((page / maxPages) * 50), 90);
-    updateSyncProgress(currentProgress, `Strava 활동 기록 수집 중... (${allActs.length}개 누적 수집, ${page}페이지)`);
+    const progressMsg = isKo
+      ? `Strava 활동 기록 수집 중... (${allActs.length}개 누적 수집, ${page}페이지)`
+      : `Fetching Strava running logs... (${allActs.length} loaded, Page ${page})`;
+    updateSyncProgress(currentProgress, progressMsg);
 
     try {
       const resp = await fetch(`https://www.strava.com/api/v3/athlete/activities?per_page=200&page=${page}`, {
@@ -793,7 +809,10 @@ async function fetchUserStravaActivities(accessToken) {
     }
   }
 
-  updateSyncProgress(92, `총 ${allActs.length}개 활동 분석 및 연도별 심폐효율(EF) 산출 중...`);
+  const analyzingMsg = isKo
+    ? `총 ${allActs.length}개 활동 분석 및 연도별 심폐효율(EF) 산출 중...`
+    : `Analyzing ${allActs.length} activities & calibrating yearly Aerobic EF...`;
+  updateSyncProgress(92, analyzingMsg);
   return parseStravaActivities(allActs);
 }
 
@@ -886,7 +905,8 @@ function setupStravaAuthButton(isCustomUser, athlete) {
   const drawerDisconnect = document.getElementById('btn-drawer-strava-disconnect');
 
   if (isCustomUser && athlete) {
-    const rawName = athlete.firstname || athlete.username || '러너';
+    const isKoCur = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
+    const rawName = athlete.firstname || athlete.username || (isKoCur ? '러너' : 'Runner');
     const athleteName = escapeHtml(rawName);
     
     // Hide connect button, show connected pill
@@ -922,12 +942,14 @@ function setupStravaAuthButton(isCustomUser, athlete) {
         disconnectStravaUser();
       };
     }
+    const isKoUser = ((window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'ko');
     if (modalStatus) {
-      modalStatus.innerHTML = `<span style="color:var(--accent-lime);"><i class="bi bi-check-circle-fill"></i> 현재 [<strong>${athleteName}</strong>]님의 Strava 계정이 연동되어 있습니다.</span>`;
+      modalStatus.innerHTML = isKoUser
+        ? `<span style="color:var(--accent-lime);"><i class="bi bi-check-circle-fill"></i> 현재 [<strong>${athleteName}</strong>]님의 Strava 계정이 연동되어 있습니다.</span>`
+        : `<span style="color:var(--accent-lime);"><i class="bi bi-check-circle-fill"></i> Currently connected to [<strong>${athleteName}</strong>]'s Strava account.</span>`;
     }
 
     // Drawer state (Connected)
-    const isKoUser = ((window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'ko');
     if (drawerDesc) drawerDesc.textContent = isKoUser ? `${athleteName}님 계정 실시간 연동 중` : `${athleteName} Account Live Synced`;
     if (drawerAuthBtn) drawerAuthBtn.style.display = 'none';
     if (drawerConnectedBox) drawerConnectedBox.style.display = 'flex';
@@ -953,12 +975,13 @@ function setupStravaAuthButton(isCustomUser, athlete) {
       window.location.href = authUrl;
     };
 
+    const isKoUserDis = ((window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'ko');
     if (btnAuth) {
       btnAuth.style.display = 'inline-flex';
       btnAuth.classList.remove('connected');
-      btnAuth.title = '내 Strava 계정 실시간 연동 (원클릭)';
+      btnAuth.title = isKoUserDis ? '내 Strava 계정 실시간 연동 (원클릭)' : 'Connect Your Strava Account (1-Click)';
       const btnText = document.getElementById('strava-auth-btn-text');
-      if (btnText) btnText.innerHTML = `Strava 연동`;
+      if (btnText) btnText.innerHTML = isKoUserDis ? 'Strava 연동' : 'Connect Strava';
       btnAuth.onclick = handleAuthClick;
     }
     if (connectedPill) {
@@ -968,11 +991,12 @@ function setupStravaAuthButton(isCustomUser, athlete) {
       modalDisconnect.style.display = 'none';
     }
     if (modalStatus) {
-      modalStatus.innerHTML = `<span style="color:var(--text-muted);"><i class="bi bi-info-circle"></i> Strava 계정이 아직 연동되지 않았습니다. (기본 데모 아카이브 표시 중)</span>`;
+      modalStatus.innerHTML = isKoUserDis
+        ? `<span style="color:var(--text-muted);"><i class="bi bi-info-circle"></i> Strava 계정이 아직 연동되지 않았습니다. (기본 데모 아카이브 표시 중)</span>`
+        : `<span style="color:var(--text-muted);"><i class="bi bi-info-circle"></i> Strava account not connected yet. (Viewing demo athlete archive)</span>`;
     }
 
     // Drawer state (Disconnected)
-    const isKoUserDis = ((window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'ko');
     if (drawerDesc) drawerDesc.textContent = isKoUserDis ? '계정 실시간 동기화 상태' : 'Real-time Sync Status';
     if (drawerAuthBtn) {
       drawerAuthBtn.style.display = 'inline-flex';
@@ -994,8 +1018,14 @@ async function startRunAnalyz() {
   const authCode = urlParams.get('code');
 
   if (authCode) {
+    const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
     window.history.replaceState({}, document.title, window.location.pathname);
-    showSyncOverlay('Strava 계정 인증 중...', 'Cloudflare Workers를 통해 안전하게 인증 토큰을 교환하고 있습니다.', 25, '인증 토큰 확인 중 (1/3)');
+    showSyncOverlay(
+      isKo ? 'Strava 계정 인증 중...' : 'Authenticating Strava Account...',
+      isKo ? 'Cloudflare Workers를 통해 안전하게 인증 토큰을 교환하고 있습니다.' : 'Securely exchanging authorization tokens via Cloudflare Workers...',
+      25,
+      isKo ? '인증 토큰 확인 중 (1/3)' : 'Validating token (1/3)'
+    );
 
     try {
       const tokenResp = await fetch(`${STRAVA_WORKER_URL}/?code=${authCode}`);
@@ -1005,17 +1035,24 @@ async function startRunAnalyz() {
       if (tokenData.access_token) {
         // Save access_token, refresh_token, expires_at, and athlete
         saveStravaAuthData(tokenData);
+        const rawAthleteName = tokenData.athlete?.firstname || tokenData.athlete?.username || (isKo ? '러너' : 'Runner');
+        const athleteName = escapeHtml(rawAthleteName);
 
-        updateSyncProgress(50, '인증 성공! 활동 기록 요청 준비 중 (2/3)');
-        showSyncOverlay('러닝 활동 기록 동기화 중...', `${tokenData.athlete?.firstname || '러너'}님의 Strava 활동 데이터를 수집하고 있습니다.`, 50, '활동 데이터 수집 중 (2/3)');
+        updateSyncProgress(50, isKo ? '인증 성공! 활동 기록 요청 준비 중 (2/3)' : 'Authentication successful! Preparing to fetch runs (2/3)');
+        showSyncOverlay(
+          isKo ? '러닝 활동 기록 동기화 중...' : 'Syncing Running Activities...',
+          isKo ? `${athleteName}님의 Strava 활동 데이터를 수집하고 있습니다.` : `Fetching Strava running sessions for ${athleteName}...`,
+          50,
+          isKo ? '활동 데이터 수집 중 (2/3)' : 'Collecting activity data (2/3)'
+        );
         
         const customArchive = await fetchUserStravaActivities(tokenData.access_token);
         if (customArchive && customArchive.activities.length > 0) {
           localStorage.setItem(STRAVA_STORAGE_KEYS.ARCHIVE, JSON.stringify(customArchive));
-          updateSyncProgress(100, '동기화 완료 (3/3)');
+          updateSyncProgress(100, isKo ? '동기화 완료 (3/3)' : 'Sync Complete (3/3)');
           setTimeout(() => {
             hideSyncOverlay();
-            showToast(`🎉 ${tokenData.athlete?.firstname || '러너'}님의 Strava 러닝 데이터가 연동되었습니다!`);
+            showToast(isKo ? `🎉 ${athleteName}님의 Strava 러닝 데이터가 연동되었습니다!` : `🎉 ${athleteName}'s Strava running data connected successfully!`);
           }, 600);
         } else {
           hideSyncOverlay();
@@ -1025,7 +1062,13 @@ async function startRunAnalyz() {
       }
     } catch (authErr) {
       console.error('Strava OAuth Error:', authErr);
-      showSyncOverlay('연동 실패', 'Strava 인증 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 100, '오류 발생');
+      const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
+      showSyncOverlay(
+        isKo ? '연동 실패' : 'Connection Failed',
+        isKo ? 'Strava 인증 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.' : 'An error occurred during Strava authorization. Please try again shortly.',
+        100,
+        isKo ? '오류 발생' : 'Error Occurred'
+      );
       if (cancelBtn) cancelBtn.style.display = 'inline-block';
     }
   } else {
@@ -1097,8 +1140,10 @@ async function startRunAnalyz() {
   if (btnTheme) {
     btnTheme.addEventListener('click', () => {
       const isLight = document.body.classList.toggle('light-theme');
-      localStorage.setItem('runanalyz_theme', isLight ? 'light' : 'dark');
-      showToast(isLight ? '☀️ 화이트 테마가 적용되었습니다.' : '🌙 다크 테크 테마가 적용되었습니다.');
+      const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
+      showToast(isLight
+        ? (isKo ? '☀️ 화이트 테마가 적용되었습니다.' : '☀️ Light Theme Applied')
+        : (isKo ? '🌙 다크 테크 테마가 적용되었습니다.' : '🌙 Dark Tech Theme Applied'));
       safeResizeChart(window.singleChartInstance);
       safeResizeChart(window.weeklyChartInstance);
       safeResizeChart(window.yearlyChartInstance);
@@ -5377,7 +5422,8 @@ function initTrainingPlanModule() {
       }
 
       if (typeof showToast === 'function') {
-        showToast('내 Strava 실측 기록(PB 및 생체 프로필)이 1초 만에 자동 채워졌습니다!');
+        const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
+        showToast(isKo ? '내 Strava 실측 기록(PB 및 생체 프로필)이 1초 만에 자동 채워졌습니다!' : 'Your verified Strava PB & biometrics auto-filled in 1 second!');
       }
     });
   }
