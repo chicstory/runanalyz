@@ -2328,6 +2328,11 @@ body.light-theme .form-select-sm {
 
 .insta-card.format-square .ic-bar-wrap {
   height: 18px;
+  min-height: 18px;
+}
+
+.insta-card.format-square .ic-bar {
+  min-height: 4px;
 }
 
 .insta-card.format-square .ic-week-lbl {
@@ -2405,6 +2410,11 @@ body.light-theme .form-select-sm {
 
 .insta-card.format-portrait .ic-bar-wrap {
   height: 24px;
+  min-height: 24px;
+}
+
+.insta-card.format-portrait .ic-bar {
+  min-height: 4px;
 }
 
 .insta-card.format-portrait .ic-footer {
@@ -3092,6 +3102,8 @@ body.light-theme .form-select-sm {
 
 .ic-bar {
   width: 100%;
+  min-width: 4px;
+  min-height: 4px !important;
   background: linear-gradient(180deg, var(--accent-orange), #ff8a65);
   border-radius: 4px 4px 0 0;
   transition: height 0.5s ease;
@@ -3153,12 +3165,14 @@ body.light-theme .form-select-sm {
 
 .ic-pol-bar-low {
   height: 100%;
+  min-height: 4px;
   background: linear-gradient(90deg, #00e676, #00b0ff);
   transition: width 0.4s ease;
 }
 
 .ic-pol-bar-high {
   height: 100%;
+  min-height: 4px;
   background: linear-gradient(90deg, #ff7043, #ff1744);
   transition: width 0.4s ease;
 }

@@ -3820,8 +3820,14 @@ function renderWeeklyInstaCard(w) {
   const low = (typeof w.lowRatio === 'number') ? w.lowRatio : 80;
   const high = (typeof w.highRatio === 'number') ? w.highRatio : 20;
 
-  if (lowBar) lowBar.style.width = `${low}%`;
-  if (highBar) highBar.style.width = `${high}%`;
+  if (lowBar) {
+    lowBar.style.width = `${low}%`;
+    lowBar.style.display = low > 0 ? 'block' : 'none';
+  }
+  if (highBar) {
+    highBar.style.width = `${high}%`;
+    highBar.style.display = high > 0 ? 'block' : 'none';
+  }
   if (polVal) {
     const lowTxt = _t('card_low_short', 'Low');
     const highTxt = _t('card_high_short', 'High');
@@ -4075,10 +4081,16 @@ function initMonthlyRecap(activities, year, month) {
   if (elPolTag) elPolTag.textContent = _t('card_pol_tag', '80/20 POLARIZED');
 
   const elPolBarLow = document.getElementById('card-pol-bar-low');
-  if (elPolBarLow) elPolBarLow.style.width = `${monthLowRatio}%`;
+  if (elPolBarLow) {
+    elPolBarLow.style.width = `${monthLowRatio}%`;
+    elPolBarLow.style.display = monthLowRatio > 0 ? 'block' : 'none';
+  }
 
   const elPolBarHigh = document.getElementById('card-pol-bar-high');
-  if (elPolBarHigh) elPolBarHigh.style.width = `${monthHighRatio}%`;
+  if (elPolBarHigh) {
+    elPolBarHigh.style.width = `${monthHighRatio}%`;
+    elPolBarHigh.style.display = monthHighRatio > 0 ? 'block' : 'none';
+  }
 
   const elPolVal = document.getElementById('card-pol-val');
   if (elPolVal) {
@@ -4111,8 +4123,16 @@ function initMonthlyRecap(activities, year, month) {
       valEl.textContent = intDist > 0 ? `${intDist}${unitSuffix}` : '-';
     }
     if (bar) {
-      const pct = d > 0 ? Math.max(14, Math.round((d / maxWeekly) * 100)) : 6;
-      bar.style.height = `${pct}%`;
+      if (d > 0) {
+        const pct = Math.max(16, Math.round((d / maxWeekly) * 100));
+        bar.style.height = `${pct}%`;
+        bar.style.minHeight = '6px';
+        bar.style.background = 'linear-gradient(180deg, var(--accent-orange), #ff8a65)';
+      } else {
+        bar.style.height = '4px';
+        bar.style.minHeight = '4px';
+        bar.style.background = 'rgba(255, 255, 255, 0.12)';
+      }
     }
   });
 
@@ -4231,19 +4251,49 @@ function initCardStudioController({
     if (typeof html2canvas !== 'function') {
       throw new Error('html2canvas library is not loaded');
     }
-    return await html2canvas(card, {
-      scale: 3,
-      useCORS: true,
-      backgroundColor: null
-    });
+    const origTransition = card.style.transition;
+    card.style.transition = 'none';
+
+    try {
+      return await html2canvas(card, {
+        scale: 3,
+        useCORS: true,
+        allowTaint: false,
+        backgroundColor: null,
+        logging: false
+      });
+    } finally {
+      card.style.transition = origTransition;
+    }
   }
 
   function triggerDownload(canvas) {
-    const link = document.createElement('a');
     const formatSuffix = currentFormat === 'square' ? '1x1' : (currentFormat === 'portrait' ? '4x5' : '9x16');
-    link.download = getDownloadFilename ? getDownloadFilename(formatSuffix) : `RunAnalyz_${formatSuffix}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+    const filename = getDownloadFilename ? getDownloadFilename(formatSuffix) : `RunAnalyz_${formatSuffix}.png`;
+
+    if (canvas.toBlob) {
+      canvas.toBlob(blob => {
+        if (!blob) {
+          fallbackDataUrl();
+          return;
+        }
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = url;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(url), 2000);
+      }, 'image/png');
+    } else {
+      fallbackDataUrl();
+    }
+
+    function fallbackDataUrl() {
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
   }
 
   if (btnShare) {
@@ -5387,12 +5437,33 @@ function initTrainingPlanModule() {
         html2canvas(instaCardPlan, {
           scale: 3,
           useCORS: true,
-          backgroundColor: '#090d16'
+          allowTaint: false,
+          backgroundColor: '#090d16',
+          logging: false
         }).then(canvas => {
-          const link = document.createElement('a');
-          link.download = `RunAnalyz_7Day_Plan_${new Date().toISOString().slice(0, 10)}.png`;
-          link.href = canvas.toDataURL('image/png');
-          link.click();
+          const filename = `RunAnalyz_7Day_Plan_${new Date().toISOString().slice(0, 10)}.png`;
+          if (canvas.toBlob) {
+            canvas.toBlob(blob => {
+              if (blob) {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = url;
+                link.click();
+                setTimeout(() => URL.revokeObjectURL(url), 2000);
+              } else {
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+              }
+            }, 'image/png');
+          } else {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+          }
           btnDownloadPlanCard.disabled = false;
           btnDownloadPlanCard.innerHTML = '<i class="bi bi-download"></i> ' + _t('export_plan_card', 'Export High-Res (3x) Instagram Card');
           if (typeof showToast === 'function') {
