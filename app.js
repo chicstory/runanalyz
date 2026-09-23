@@ -3431,35 +3431,37 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
     w.diffPct = diffPct;
 
     // Realistic Sports Science ACWR Safety Rule
+    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
+    const isKoWeek = (curLang === 'ko');
     if (w.totalKm < 15.0) {
       w.ruleKey = 'safe';
       w.ruleClass = 'rule-safe';
-      w.ruleText = '안전 (기초 빌드업)';
-      w.ruleShort = '안전';
+      w.ruleText = isKoWeek ? '안전 (기초 빌드업)' : 'Safe (Base Build)';
+      w.ruleShort = isKoWeek ? '안전' : 'Safe';
       w.ruleIcon = 'bi-shield-check';
     } else if (acwr <= 1.15) {
       w.ruleKey = 'safe';
       w.ruleClass = 'rule-safe';
-      w.ruleText = `안전 증량 (${diffPct >= 0 ? '+' : ''}${diffPct}%)`;
-      w.ruleShort = '안전';
+      w.ruleText = isKoWeek ? `안전 증량 (${diffPct >= 0 ? '+' : ''}${diffPct}%)` : `Safe Progression (${diffPct >= 0 ? '+' : ''}${diffPct}%)`;
+      w.ruleShort = isKoWeek ? '안전' : 'Safe';
       w.ruleIcon = 'bi-shield-check';
     } else if (acwr <= 1.35) {
       w.ruleKey = 'warning';
       w.ruleClass = 'rule-warning';
-      w.ruleText = `주의 (ACWR ${acwr.toFixed(2)}x)`;
-      w.ruleShort = '주의';
+      w.ruleText = isKoWeek ? `주의 (ACWR ${acwr.toFixed(2)}x)` : `Caution (ACWR ${acwr.toFixed(2)}x)`;
+      w.ruleShort = isKoWeek ? '주의' : 'Caution';
       w.ruleIcon = 'bi-exclamation-triangle';
     } else if (acwr > 1.35) {
       w.ruleKey = 'danger';
       w.ruleClass = 'rule-danger';
-      w.ruleText = `위험 급증 (ACWR ${acwr.toFixed(2)}x)`;
-      w.ruleShort = '위험';
+      w.ruleText = isKoWeek ? `위험 급증 (ACWR ${acwr.toFixed(2)}x)` : `Surge Risk (ACWR ${acwr.toFixed(2)}x)`;
+      w.ruleShort = isKoWeek ? '위험' : 'Surge';
       w.ruleIcon = 'bi-fire';
     } else {
       w.ruleKey = 'detraining';
       w.ruleClass = 'rule-detraining';
-      w.ruleText = '부하 감소';
-      w.ruleShort = '감소';
+      w.ruleText = isKoWeek ? '부하 감소' : 'Deload';
+      w.ruleShort = isKoWeek ? '감소' : 'Deload';
       w.ruleIcon = 'bi-arrow-down';
     }
 
@@ -3664,15 +3666,22 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
   } else {
     container.innerHTML = weeks.map(w => {
       let badgeLabel = w.ruleText;
-      if (w.ruleClass === 'rule-safe') badgeLabel = _t('rule_safe', 'Safe');
-      else if (w.ruleClass === 'rule-warning') badgeLabel = _t('rule_warning', 'Caution');
-      else if (w.ruleClass === 'rule-danger') badgeLabel = _t('rule_danger', 'Danger');
-      else if (w.ruleClass === 'rule-detraining') badgeLabel = _t('rule_detraining', 'Detraining');
+      if (w.ruleClass === 'rule-safe' && !w.ruleText) badgeLabel = isKo ? '안전' : 'Safe';
+      else if (w.ruleClass === 'rule-warning' && !w.ruleText) badgeLabel = isKo ? '주의' : 'Caution';
+      else if (w.ruleClass === 'rule-danger' && !w.ruleText) badgeLabel = isKo ? '위험' : 'Danger';
+      else if (w.ruleClass === 'rule-detraining' && !w.ruleText) badgeLabel = isKo ? '부하 감소' : 'Deload';
 
-      const runsTxt = _t('card_runs_summary', '{count} Runs').replace('{count}', w.runs.length);
-      const lowTxt = _t('card_low_short', 'Low');
-      const highTxt = _t('card_high_short', 'High');
+      const runsTxt = _t('card_runs_summary', isKo ? '{count}회 러닝' : '{count} Runs').replace('{count}', w.runs.length);
+      const lowTxt = _t('card_low_short', isKo ? '저강도' : 'Low');
+      const highTxt = _t('card_high_short', isKo ? '고강도' : 'High');
       const countSuffix = isKo ? '회' : '';
+
+      const chronicDist = window.RunAnalyzUnits.formatDistance(w.chronicAvg || 0, 1);
+      const chronicStr = w.chronicAvg > 0 ? `${chronicDist.valFormatted} ${chronicDist.unit}/${isKo ? '주' : 'wk'}` : '-';
+      const lsdDist = window.RunAnalyzUnits.formatDistance(w.maxLsd || 0, 1);
+      const lowDist = window.RunAnalyzUnits.formatDistance(w.typeKm.low || 0, 1);
+      const highDist = window.RunAnalyzUnits.formatDistance(w.typeKm.high || 0, 1);
+      const lsdTypeDist = window.RunAnalyzUnits.formatDistance(w.typeKm.lsd || 0, 1);
 
       return `
       <div class="weekly-card">
@@ -3682,7 +3691,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
         </div>
         <div class="wc-distance">${window.RunAnalyzUnits.formatDistance(w.totalKm, 1).valFormatted} <small>${window.RunAnalyzUnits.formatDistance(w.totalKm, 1).unit}</small></div>
         <div class="rule-badge ${w.ruleClass}">
-          <i class="bi bi-shield-check"></i> ${badgeLabel}
+          <i class="bi ${w.ruleIcon || 'bi-shield-check'}"></i> ${badgeLabel}
         </div>
         <div class="wc-stats-list">
           <div class="wc-stat-row">
@@ -3691,11 +3700,11 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
           </div>
           <div class="wc-stat-row">
             <span>${isKo ? '최근 4주 평균 (베이스)' : '4-Week Base'}</span>
-            <span style="color:var(--text-muted);">${w.chronicAvg > 0 ? w.chronicAvg.toFixed(1) + (isKo ? ' km/주' : ' km/wk') : '-'} (${w.acwr.toFixed(2)}x)</span>
+            <span style="color:var(--text-muted);">${chronicStr} (${w.acwr.toFixed(2)}x)</span>
           </div>
           <div class="wc-stat-row">
             <span>${isKo ? '최장 거리 (LSD)' : 'Longest LSD'}</span>
-            <span>${w.maxLsd.toFixed(1)}km (${w.lsdRatio}%)</span>
+            <span>${lsdDist.full} (${w.lsdRatio}%)</span>
           </div>
           <div class="wc-stat-row">
             <span>${isKo ? '평균 심박수' : 'Avg Heart Rate'}</span>
@@ -3713,9 +3722,9 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
           </div>
         </div>
         <div class="wc-type-chips">
-          ${w.typeCounts.low > 0 ? `<span class="wc-chip wc-chip-low">🟢 ${lowTxt} ${w.typeCounts.low}${countSuffix} (${w.typeKm.low.toFixed(1)}k)</span>` : ''}
-          ${w.typeCounts.high > 0 ? `<span class="wc-chip wc-chip-high">🔴 ${highTxt} ${w.typeCounts.high}${countSuffix} (${w.typeKm.high.toFixed(1)}k)</span>` : ''}
-          ${w.typeCounts.lsd > 0 ? `<span class="wc-chip wc-chip-lsd">🔵 LSD ${w.typeCounts.lsd}${countSuffix} (${w.typeKm.lsd.toFixed(1)}k)</span>` : ''}
+          ${w.typeCounts.low > 0 ? `<span class="wc-chip wc-chip-low">🟢 ${lowTxt} ${w.typeCounts.low}${countSuffix} (${lowDist.full})</span>` : ''}
+          ${w.typeCounts.high > 0 ? `<span class="wc-chip wc-chip-high">🔴 ${highTxt} ${w.typeCounts.high}${countSuffix} (${highDist.full})</span>` : ''}
+          ${w.typeCounts.lsd > 0 ? `<span class="wc-chip wc-chip-lsd">🔵 LSD ${w.typeCounts.lsd}${countSuffix} (${lsdTypeDist.full})</span>` : ''}
         </div>
       </div>
     `;
