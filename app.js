@@ -328,6 +328,18 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
+// Safe Chart Resizer (avoids Chart.js crash when canvas is in a hidden tab)
+function safeResizeChart(chart) {
+  if (!chart || !chart.canvas) return;
+  if (chart.canvas.offsetParent !== null) {
+    try {
+      chart.resize();
+    } catch (e) {
+      console.warn('[RunAnalyz] Chart resize ignored on hidden canvas:', e);
+    }
+  }
+}
+
 // Performance: Lazy-load 2.2MB demo archive only when needed
 let _demoDataLoadingPromise = null;
 function ensureDemoDataLoaded() {
@@ -469,11 +481,21 @@ window.RunAnalyzUnits = (function() {
     }
   }
 
+  function getDistanceUnit() {
+    return currentUnit === 'imperial' ? 'mi' : 'km';
+  }
+
+  function getPaceUnit() {
+    return currentUnit === 'imperial' ? '/mi' : '/km';
+  }
+
   return {
     getUnit,
     setUnit,
     toggleUnit,
     isImperial,
+    getDistanceUnit,
+    getPaceUnit,
     formatDistance,
     formatPace,
     formatAscent
@@ -1075,9 +1097,9 @@ async function startRunAnalyz() {
       const isLight = document.body.classList.toggle('light-theme');
       localStorage.setItem('runanalyz_theme', isLight ? 'light' : 'dark');
       showToast(isLight ? '☀️ 화이트 테마가 적용되었습니다.' : '🌙 다크 테크 테마가 적용되었습니다.');
-      if (window.singleChartInstance) window.singleChartInstance.resize();
-      if (window.weeklyChartInstance) window.weeklyChartInstance.resize();
-      if (window.yearlyChartInstance) window.yearlyChartInstance.resize();
+      safeResizeChart(window.singleChartInstance);
+      safeResizeChart(window.weeklyChartInstance);
+      safeResizeChart(window.yearlyChartInstance);
     });
   }
 
@@ -3111,6 +3133,8 @@ function renderSingleChart(act) {
   const canvas = document.getElementById('singleSessionChart');
   if (!canvas) return;
 
+  const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
+
   if (window.singleChartInstance) {
     try {
       window.singleChartInstance.destroy();
@@ -3147,7 +3171,7 @@ function renderSingleChart(act) {
     }
   }
 
-  window.singleChartInstance = new Chart(ctx, {
+  window.singleChartInstance = new Chart(canvas, {
     type: 'line',
     data: {
       labels: labels,
@@ -3772,17 +3796,19 @@ function renderWeeklyChart(weeks) {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
+  const isImp = window.RunAnalyzUnits ? window.RunAnalyzUnits.isImperial() : false;
+  const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
   const labels = weeks.map(w => w.name);
-  const mileageData = weeks.map(w => w.totalKm);
+  const mileageData = weeks.map(w => isImp ? parseFloat(((w.totalKm || 0) * 0.621371).toFixed(1)) : (w.totalKm || 0));
   const efData = weeks.map(w => w.avgEf);
 
-  window.weeklyChartInstance = new Chart(ctx, {
+  window.weeklyChartInstance = new Chart(canvas, {
     data: {
       labels: labels,
       datasets: [
         {
           type: 'bar',
-          label: '주간 마일리지 (km)',
+          label: isImp ? (isEn ? 'Weekly Mileage (mi)' : '주간 마일리지 (mi)') : (isEn ? 'Weekly Mileage (km)' : '주간 마일리지 (km)'),
           data: mileageData,
           backgroundColor: 'rgba(255, 87, 34, 0.65)',
           borderColor: '#ff5722',
@@ -3792,7 +3818,7 @@ function renderWeeklyChart(weeks) {
         },
         {
           type: 'line',
-          label: '평균 심폐효율 (EF)',
+          label: isEn ? 'Average Aerobic EF' : '평균 심폐효율 (EF)',
           data: efData,
           borderColor: '#00ff87',
           backgroundColor: '#00ff87',
@@ -4443,17 +4469,19 @@ function renderYearlyChart(years, summary) {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  const labels = years.map(y => `${y}년`);
-  const mileages = years.map(y => summary[y].total_running_km);
+  const isImp = window.RunAnalyzUnits ? window.RunAnalyzUnits.isImperial() : false;
+  const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
+  const labels = years.map(y => isEn ? `${y}` : `${y}년`);
+  const mileages = years.map(y => isImp ? parseFloat(((summary[y].total_running_km || 0) * 0.621371).toFixed(1)) : (summary[y].total_running_km || 0));
   const efs = years.map(y => summary[y].avg_ef);
 
-  window.yearlyChartInstance = new Chart(ctx, {
+  window.yearlyChartInstance = new Chart(canvas, {
     data: {
       labels: labels,
       datasets: [
         {
           type: 'bar',
-          label: '연간 총 마일리지 (km)',
+          label: isImp ? (isEn ? 'Annual Mileage (mi)' : '연간 총 마일리지 (mi)') : (isEn ? 'Annual Mileage (km)' : '연간 총 마일리지 (km)'),
           data: mileages,
           backgroundColor: 'rgba(255, 87, 34, 0.7)',
           borderColor: '#ff5722',
@@ -4463,7 +4491,7 @@ function renderYearlyChart(years, summary) {
         },
         {
           type: 'line',
-          label: '평균 심폐효율 (EF)',
+          label: isEn ? 'Average Aerobic EF' : '평균 심폐효율 (EF)',
           data: efs,
           borderColor: '#00f2fe',
           backgroundColor: '#00f2fe',
@@ -4910,9 +4938,6 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
       easyDays.push('fri'); // Tue(Easy), Wed(Easy), Thu(Tempo), Fri(Shakeout), Sat(LSD)
     }
   }
-
-  const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
-  const isKo = (curLang === 'ko');
 
   daysMeta.forEach(dm => {
     const isWeekendLong = (longDay === 'sun' && dm.key === 'sun') || (longDay === 'sat' && dm.key === 'sat');
@@ -5600,25 +5625,36 @@ if (document.readyState === 'loading') {
 }
 
 // Global Responsive Chart Resize Safeguard for Mobile & Orientation Change
+function safeResizeChart(chart) {
+  if (!chart || !chart.canvas) return;
+  if (chart.canvas.offsetParent !== null) {
+    try {
+      chart.resize();
+    } catch (e) {
+      console.warn('[RunAnalyz] Chart resize ignored on hidden canvas:', e);
+    }
+  }
+}
+
 window.addEventListener('resize', () => {
-  if (window.singleChartInstance) window.singleChartInstance.resize();
-  if (window.weeklyChartInstance) window.weeklyChartInstance.resize();
-  if (window.yearlyChartInstance) window.yearlyChartInstance.resize();
+  safeResizeChart(window.singleChartInstance);
+  safeResizeChart(window.weeklyChartInstance);
+  safeResizeChart(window.yearlyChartInstance);
 });
 
 window.addEventListener('orientationchange', () => {
   setTimeout(() => {
-    if (window.singleChartInstance) window.singleChartInstance.resize();
-    if (window.weeklyChartInstance) window.weeklyChartInstance.resize();
-    if (window.yearlyChartInstance) window.yearlyChartInstance.resize();
+    safeResizeChart(window.singleChartInstance);
+    safeResizeChart(window.weeklyChartInstance);
+    safeResizeChart(window.yearlyChartInstance);
   }, 200);
 });
 
 window.addEventListener('load', () => {
   setTimeout(() => {
-    if (window.singleChartInstance) window.singleChartInstance.resize();
-    if (window.weeklyChartInstance) window.weeklyChartInstance.resize();
-    if (window.yearlyChartInstance) window.yearlyChartInstance.resize();
+    safeResizeChart(window.singleChartInstance);
+    safeResizeChart(window.weeklyChartInstance);
+    safeResizeChart(window.yearlyChartInstance);
   }, 300);
 });
 
