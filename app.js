@@ -284,7 +284,7 @@ window.saveAndApplyProfile = function() {
   window.closeProfileModal();
 
   if (typeof showToast === 'function') {
-    showToast('✅ 러너 프로필이 저장되었습니다. EF 계산기 및 7-Day 플랜에 자동 반영됩니다.');
+    showToast(_t('plan_generated', '7-Day Training Blueprint Generated!'));
   }
 
   // 4. Trigger recalculation across views
@@ -776,7 +776,11 @@ async function fetchUserStravaActivities(accessToken) {
 }
 
 function disconnectStravaUser() {
-  if (confirm('정말로 Strava 계정 연동을 해제하시겠습니까?\n\n- 브라우저에 임시 보관된 Strava 토큰과 캐시 데이터가 100% 영구 삭제됩니다.\n- 기본 데모 아카이브로 즉시 복구됩니다.')) {
+  const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
+  const msg = isKo 
+    ? '정말로 Strava 계정 연동을 해제하시겠습니까?\n\n- 브라우저에 임시 보관된 Strava 토큰과 캐시 데이터가 100% 영구 삭제됩니다.\n- 기본 데모 아카이브로 즉시 복구됩니다.'
+    : 'Are you sure you want to disconnect your Strava account?\n\n- Your local Strava tokens and cached activities will be completely deleted.\n- Restores the default demo athlete archive.';
+  if (confirm(msg)) {
     localStorage.removeItem(STRAVA_STORAGE_KEYS.ARCHIVE);
     localStorage.removeItem(STRAVA_STORAGE_KEYS.ATHLETE);
     localStorage.removeItem(STRAVA_STORAGE_KEYS.TOKEN);
@@ -786,18 +790,24 @@ function disconnectStravaUser() {
 }
 
 async function resyncStravaUser(athleteName) {
-  showSyncOverlay('전체 러닝 기록 최신 동기화 중...', `${athleteName}님의 Strava 활동 데이터를 수집하고 있습니다.`, 20, '인증 상태 확인 중...');
+  const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
+  showSyncOverlay(
+    isKo ? '전체 러닝 기록 최신 동기화 중...' : 'Syncing All Running Activities...',
+    isKo ? `${athleteName}님의 Strava 활동 데이터를 수집하고 있습니다.` : `Fetching latest Strava running sessions for ${athleteName}...`,
+    20,
+    isKo ? '인증 상태 확인 중...' : 'Checking authentication...'
+  );
   
   // 1. Get valid access token (auto-refreshed via Worker if expired)
   const token = await getValidStravaToken();
   if (!token) {
     hideSyncOverlay();
-    alert('Strava 인증 정보가 만료되었거나 유효하지 않습니다. 연동 버튼을 눌러 다시 로그인해주세요.');
+    alert(isKo ? 'Strava 인증 정보가 만료되었거나 유효하지 않습니다. 연동 버튼을 눌러 다시 로그인해주세요.' : 'Strava credentials expired or invalid. Please click Connect to re-authenticate.');
     return;
   }
 
   try {
-    updateSyncProgress(30, '최신 활동 데이터 수집 중...');
+    updateSyncProgress(30, isKo ? '최신 활동 데이터 수집 중...' : 'Collecting latest activities...');
     let customArchive = await fetchUserStravaActivities(token);
 
     // Fail-safe retry: If 0 activities returned (possibly unexpected 401), force-refresh token once
@@ -823,16 +833,16 @@ async function resyncStravaUser(athleteName) {
 
     if (customArchive && customArchive.activities.length > 0) {
       localStorage.setItem(STRAVA_STORAGE_KEYS.ARCHIVE, JSON.stringify(customArchive));
-      updateSyncProgress(100, '동기화 완료!');
+      updateSyncProgress(100, isKo ? '동기화 완료!' : 'Sync Complete!');
       setTimeout(() => window.location.reload(), 600);
     } else {
       hideSyncOverlay();
-      alert('동기화할 러닝 데이터를 찾지 못했습니다. Strava에 새 활동이 있는지 확인해주세요.');
+      alert(isKo ? '동기화할 러닝 데이터를 찾지 못했습니다. Strava에 새 활동이 있는지 확인해주세요.' : 'No running activities found. Please check if you have recent runs on Strava.');
     }
   } catch (err) {
     console.error(err);
     hideSyncOverlay();
-    alert('Strava 동기화 중 오류가 발생했습니다. 네트워크 상태를 확인해주세요.');
+    alert(isKo ? 'Strava 동기화 중 오류가 발생했습니다. 네트워크 상태를 확인해주세요.' : 'Error during Strava synchronization. Please check your network connection.');
   }
 }
 
@@ -863,7 +873,7 @@ function setupStravaAuthButton(isCustomUser, athlete) {
       connectedPill.style.display = 'inline-flex';
     }
     if (userTag) {
-      const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+      const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
       const statusText = curLang === 'ko' ? '연동 중' : 'Connected';
       userTag.innerHTML = `<i class="bi bi-strava" style="color:#fc4c02;"></i> <span data-i18n="strava_connected_status">${statusText}</span>`;
       userTag.title = `${athleteName} 계정 연동 중`;
@@ -1174,7 +1184,7 @@ async function startRunAnalyz() {
         const monParts = monStr.split('-');
         const sunParts = sunStr.split('-');
         const dateRangeStr = `${parseInt(monParts[1], 10)}/${parseInt(monParts[2], 10)}~${parseInt(sunParts[1], 10)}/${parseInt(sunParts[2], 10)}`;
-        const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+        const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
         const isKo = (curLang === 'ko');
         const wName = isKo 
           ? `${iso.yearShort}년 ${iso.weekNo}주차 (${dateRangeStr})`
@@ -1327,8 +1337,13 @@ async function startRunAnalyz() {
       const w = weeks[idx];
       const isLatest = (idx === 0);
 
-      mainLabel.textContent = `${w.name}${isLatest ? ' (최근 주차)' : ''}`;
-      subLabel.textContent = `총 ${w.totalKm.toFixed(1)} km · ${w.runs.length}회 러닝 (LSD ${w.maxLsd.toFixed(1)}km)`;
+      const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
+      const wDist = window.RunAnalyzUnits.formatDistance(w.totalKm || 0, 1);
+      const wLsd = window.RunAnalyzUnits.formatDistance(w.maxLsd || 0, 1);
+      mainLabel.textContent = `${w.name}${isLatest ? (isEn ? ' (Current Week)' : ' (최근 주차)') : ''}`;
+      subLabel.textContent = isEn
+        ? `Total ${wDist.full} · ${w.runs.length} Runs (LSD ${wLsd.full})`
+        : `총 ${w.totalKm.toFixed(1)} km · ${w.runs.length}회 러닝 (LSD ${w.maxLsd.toFixed(1)}km)`;
 
       prevBtn.disabled = (idx >= weeks.length - 1);
       nextBtn.disabled = (idx <= 0);
@@ -1352,8 +1367,13 @@ async function startRunAnalyz() {
       const m = months[idx];
       const isLatest = (idx === 0);
 
-      mainLabel.textContent = `${m.year}년 ${m.month}월${isLatest ? ' (최신 월)' : ''}`;
-      subLabel.textContent = `총 ${m.totalKm.toFixed(1)} km · ${m.runs.length}회 러닝 (평균 EF: ${m.avgEf.toFixed(3)})`;
+      const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
+      const mDist = window.RunAnalyzUnits.formatDistance(m.totalKm || 0, 1);
+      const monthNames = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      mainLabel.textContent = isEn ? `${monthNames[parseInt(m.month,10)] || m.month} ${m.year}${isLatest ? ' (Latest)' : ''}` : `${m.year}년 ${m.month}월${isLatest ? ' (최신 월)' : ''}`;
+      subLabel.textContent = isEn 
+        ? `Total ${mDist.full} · ${m.runs.length} Runs (Avg EF: ${m.avgEf.toFixed(3)})` 
+        : `총 ${m.totalKm.toFixed(1)} km · ${m.runs.length}회 러닝 (평균 EF: ${m.avgEf.toFixed(3)})`;
 
       prevBtn.disabled = (idx >= months.length - 1);
       nextBtn.disabled = (idx <= 0);
@@ -2016,27 +2036,29 @@ function initSingleSession(activities) {
 }
 
 function clearSingleSessionDisplay() {
+  const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
+  const isImp = window.RunAnalyzUnits && window.RunAnalyzUnits.isImperial();
   const distEl = document.getElementById('single-dist') || document.getElementById('single-distance');
-  if (distEl) distEl.innerHTML = `0.0 <span class="unit">km</span>`;
+  if (distEl) distEl.innerHTML = `0.0 <span class="unit">${isImp ? 'mi' : 'km'}</span>`;
   const durEl = document.getElementById('single-duration');
   if (durEl) durEl.innerHTML = `<i class="bi bi-clock"></i> 00:00`;
   const paceEl = document.getElementById('single-pace');
-  if (paceEl) paceEl.innerHTML = `- <span class="unit">/km</span>`;
+  if (paceEl) paceEl.innerHTML = `- <span class="unit">${isImp ? '/mi' : '/km'}</span>`;
   const speedEl = document.getElementById('single-speed');
   if (speedEl) speedEl.innerHTML = `<i class="bi bi-wind"></i> 0 m/min`;
   const hrEl = document.getElementById('single-hr');
   if (hrEl) hrEl.innerHTML = `0 <span class="unit">bpm</span>`;
   const maxHrEl = document.getElementById('single-max-hr');
-  if (maxHrEl) maxHrEl.innerHTML = `<i class="bi bi-graph-up-arrow"></i> 최고 0 bpm`;
+  if (maxHrEl) maxHrEl.innerHTML = `<i class="bi bi-graph-up-arrow"></i> ${isEn ? 'Peak' : '최고'} 0 bpm`;
   const efEl = document.getElementById('single-ef');
   if (efEl) efEl.innerHTML = `0.000 <span class="unit">m/min/bpm</span>`;
   const threshBadge = document.getElementById('threshold-status-badge');
   if (threshBadge) {
     threshBadge.className = 'threshold-status-badge neutral';
-    threshBadge.textContent = '세션 선택 대기';
+    threshBadge.textContent = isEn ? 'Select Session' : '세션 선택 대기';
   }
   const threshBody = document.getElementById('threshold-card-body');
-  if (threshBody) threshBody.innerHTML = '<div style="color:var(--text-muted); font-size:0.85rem;">세션을 선택하면 유산소 및 젖산 역치 분석 결과가 표시됩니다.</div>';
+  if (threshBody) threshBody.innerHTML = `<div style="color:var(--text-muted); font-size:0.85rem;">${isEn ? 'Select a running session to analyze aerobic & lactate thresholds.' : '세션을 선택하면 유산소 및 젖산 역치 분석 결과가 표시됩니다.'}</div>`;
   const vdotEl = document.getElementById('single-vdot');
   if (vdotEl) vdotEl.textContent = '0.0';
   ['e', 'm', 't', 'i', 'r'].forEach(p => {
@@ -2069,11 +2091,12 @@ function getCalculatedThresholds() {
 }
 
 function classifyWorkout(act, userThresholds = null, weekMaxDist = 0) {
+  const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
   if (!act || !act.is_pure_running) {
     return {
       type: 'other',
       code: 'OTHER',
-      label: _t('wo_other', act.sport_label || '기타 활동'),
+      label: _t('wo_other', isEn ? (act.sport_label || 'Other Activity') : (act.sport_label || '기타 활동')),
       icon: 'bi-activity',
       color: '#94a3b8',
       badgeClass: 'badge-wo-other',
@@ -2098,7 +2121,7 @@ function classifyWorkout(act, userThresholds = null, weekMaxDist = 0) {
     return {
       type: 'lsd',
       code: 'LSD',
-      label: _t('wo_lsd', '장거리 LSD (저강도)'),
+      label: _t('wo_lsd', isEn ? 'Long Run LSD (Low)' : '장거리 LSD (저강도)'),
       icon: 'bi-geo-alt-fill',
       color: '#00e5ff',
       badgeClass: 'badge-wo-lsd',
@@ -2108,7 +2131,7 @@ function classifyWorkout(act, userThresholds = null, weekMaxDist = 0) {
     return {
       type: 'high',
       code: 'HIGH',
-      label: _t('wo_high', '고강도 포인트 (Zone 3+)'),
+      label: _t('wo_high', isEn ? 'High-Intensity (Zone 3+)' : '고강도 포인트 (Zone 3+)'),
       icon: 'bi-fire',
       color: '#ff7043',
       badgeClass: 'badge-wo-high',
@@ -2118,7 +2141,7 @@ function classifyWorkout(act, userThresholds = null, weekMaxDist = 0) {
     return {
       type: 'low',
       code: 'LOW',
-      label: _t('wo_low', '저강도 유산소 (Zone 1~2)'),
+      label: _t('wo_low', isEn ? 'Easy / Recovery (Zone 1-2)' : '저강도 유산소 (Zone 1~2)'),
       icon: 'bi-shield-check',
       color: '#00e676',
       badgeClass: 'badge-wo-low',
@@ -2214,15 +2237,18 @@ function renderSingleSession(act) {
     sportBadge.innerHTML = `<i class="bi bi-tag-fill"></i> ${act.sport_label || '러닝'}`;
   }
 
-  // Hero Metrics
+  // Hero Metrics (Fully Integrated with RunAnalyzUnits & Global i18n)
+  const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
+  const dObj = window.RunAnalyzUnits.formatDistance(act.distance_km || 0);
   const distEl = document.getElementById('single-dist') || document.getElementById('single-distance');
-  if (distEl) distEl.innerHTML = `${(act.distance_km || 0).toFixed(2)} <span class="unit">km</span>`;
+  if (distEl) distEl.innerHTML = `${dObj.valFormatted} <span class="unit">${dObj.unit}</span>`;
 
   const durEl = document.getElementById('single-duration');
   if (durEl) durEl.innerHTML = `<i class="bi bi-clock"></i> ${act.duration_formatted || '00:00'}`;
 
+  const pObj = window.RunAnalyzUnits.formatPace(act.pace_seconds);
   const paceEl = document.getElementById('single-pace');
-  if (paceEl) paceEl.innerHTML = `${act.pace_formatted || "-'--\""} <span class="unit">/km</span>`;
+  if (paceEl) paceEl.innerHTML = `${pObj.text} <span class="unit">${pObj.unit}</span>`;
 
   const speedEl = document.getElementById('single-speed');
   if (speedEl) speedEl.innerHTML = `<i class="bi bi-wind"></i> ${(act.speed_m_per_min || 0).toFixed(1)} m/min`;
@@ -2231,12 +2257,25 @@ function renderSingleSession(act) {
   if (hrEl) hrEl.innerHTML = `${act.avg_hr || 0} <span class="unit">bpm</span>`;
 
   const maxHrEl = document.getElementById('single-max-hr');
-  if (maxHrEl) maxHrEl.innerHTML = `<i class="bi bi-graph-up-arrow"></i> 최고 ${act.max_hr || 0} bpm`;
+  if (maxHrEl) maxHrEl.innerHTML = `<i class="bi bi-graph-up-arrow"></i> ${isEn ? 'Peak' : '최고'} ${act.max_hr || 0} bpm`;
 
   // EF (Efficiency Factor)
   const efVal = typeof act.ef === 'number' ? act.ef : (parseFloat(act.ef) || 0);
   const efEl = document.getElementById('single-ef');
   if (efEl) efEl.innerHTML = `${efVal.toFixed(3)} <span class="unit">m/min/bpm</span>`;
+
+  const efStatusEl = document.getElementById('single-ef-status');
+  if (efStatusEl) {
+    if (efVal >= 1.35) {
+      efStatusEl.innerHTML = `<i class="bi bi-shield-check text-lime"></i> ${isEn ? 'Elite Aerobic Engine' : '최상급 심폐 유산소 엔진'}`;
+    } else if (efVal >= 1.25) {
+      efStatusEl.innerHTML = `<i class="bi bi-shield-check text-cyan"></i> ${isEn ? 'Strong Aerobic Base' : '우수한 유산소 효율'}`;
+    } else if (efVal >= 1.10) {
+      efStatusEl.innerHTML = `<i class="bi bi-shield-check text-orange"></i> ${isEn ? 'Moderate Base' : '표준 유산소 베이스'}`;
+    } else {
+      efStatusEl.innerHTML = `<i class="bi bi-shield-check"></i> ${isEn ? 'Recovery / Aerobic Build' : '기초 유산소 적응'}`;
+    }
+  }
   
   // Update NRC Hero Card (Layer 1: Big 3 Numbers + EF Insight)
   const heroSport = document.getElementById('nrc-hero-sport');
@@ -2280,13 +2319,21 @@ function renderSingleSession(act) {
   }
   if (heroInsight) {
     if (efVal >= 1.35) {
-      heroInsight.innerHTML = `<i class="bi bi-fire text-lime"></i> <strong>최상급 유산소 엔진 (Elite Base)</strong> — 심박 대비 스피드가 탁월합니다.`;
+      heroInsight.innerHTML = isEn 
+        ? `<i class="bi bi-fire text-lime"></i> <strong>Elite Aerobic Engine (Sub-3:30 Caliber)</strong> — Exceptional speed-to-heart-rate ratio.`
+        : `<i class="bi bi-fire text-lime"></i> <strong>최상급 유산소 엔진 (Elite Base)</strong> — 심박 대비 스피드가 탁월합니다.`;
     } else if (efVal >= 1.25) {
-      heroInsight.innerHTML = `<i class="bi bi-shield-check text-cyan"></i> <strong>우수한 유산소 효율 (Good Conditioning)</strong> — 탄탄한 심폐 베이스를 갖추었습니다.`;
+      heroInsight.innerHTML = isEn
+        ? `<i class="bi bi-shield-check text-cyan"></i> <strong>Strong Aerobic Base</strong> — Highly durable cardiorespiratory foundation.`
+        : `<i class="bi bi-shield-check text-cyan"></i> <strong>우수한 유산소 효율 (Good Conditioning)</strong> — 탄탄한 심폐 베이스를 갖추었습니다.`;
     } else if (efVal >= 1.10) {
-      heroInsight.innerHTML = `<i class="bi bi-speedometer text-orange"></i> <strong>표준 유산소 베이스 (Moderate Base)</strong> — 꾸준한 Zone 2 러닝으로 성장 중입니다.`;
+      heroInsight.innerHTML = isEn
+        ? `<i class="bi bi-speedometer text-orange"></i> <strong>Moderate Base</strong> — Solid progress through conversational Zone 2 runs.`
+        : `<i class="bi bi-speedometer text-orange"></i> <strong>표준 유산소 베이스 (Moderate Base)</strong> — 꾸준한 Zone 2 러닝으로 성장 중입니다.`;
     } else {
-      heroInsight.innerHTML = `<i class="bi bi-sun text-yellow"></i> <strong>기초 유산소 적응 (Aerobic Build)</strong> — 편안한 이지 페이스로 볼륨을 다질 단계입니다.`;
+      heroInsight.innerHTML = isEn
+        ? `<i class="bi bi-sun text-yellow"></i> <strong>Aerobic Adaptation</strong> — Build foundational capillary beds at easy conversational paces.`
+        : `<i class="bi bi-sun text-yellow"></i> <strong>기초 유산소 적응 (Aerobic Build)</strong> — 편안한 이지 페이스로 볼륨을 다질 단계입니다.`;
     }
   }
 
@@ -2299,9 +2346,13 @@ function renderSingleSession(act) {
       const sign = comp.diff >= 0 ? '+' : '';
       const colorCls = comp.diff > 0.005 ? 'ef-up' : (comp.diff < -0.005 ? 'ef-down' : 'ef-flat');
       const icon = comp.diff > 0.005 ? 'bi-arrow-up-right-circle-fill' : (comp.diff < -0.005 ? 'bi-arrow-down-right-circle-fill' : 'bi-dash-circle-fill');
-      likeEl.innerHTML = `<i class="bi ${icon} ${colorCls}"></i> <span>동급(<strong>${wo.label}</strong>) 직전 ${comp.sampleCount}회 평균(${comp.refEf.toFixed(3)}) 대비 <strong class="${colorCls}">EF ${sign}${comp.diff.toFixed(3)} (${sign}${comp.pct.toFixed(1)}%)</strong> — ${comp.insight}</span>`;
+      likeEl.innerHTML = isEn 
+        ? `<i class="bi ${icon} ${colorCls}"></i> <span>vs trailing ${comp.sampleCount} like-runs (${comp.refEf.toFixed(3)}) <strong class="${colorCls}">EF ${sign}${comp.diff.toFixed(3)} (${sign}${comp.pct.toFixed(1)}%)</strong></span>`
+        : `<i class="bi ${icon} ${colorCls}"></i> <span>동급(<strong>${wo.label}</strong>) 직전 ${comp.sampleCount}회 평균(${comp.refEf.toFixed(3)}) 대비 <strong class="${colorCls}">EF ${sign}${comp.diff.toFixed(3)} (${sign}${comp.pct.toFixed(1)}%)</strong> — ${comp.insight}</span>`;
     } else if (comp) {
-      likeEl.innerHTML = `<i class="bi bi-info-circle text-cyan"></i> <span>동급(<strong>${wo.label}</strong>) 기준 세션 수립 완료 (다음 동일 세션과 비교)</span>`;
+      likeEl.innerHTML = isEn
+        ? `<i class="bi bi-info-circle text-cyan"></i> <span>Baseline established for <strong>${wo.label}</strong></span>`
+        : `<i class="bi bi-info-circle text-cyan"></i> <span>동급(<strong>${wo.label}</strong>) 기준 세션 수립 완료 (다음 동일 세션과 비교)</span>`;
     } else {
       likeEl.innerHTML = '';
     }
@@ -2497,7 +2548,7 @@ function renderSingleInstaCard(act) {
     const profile = getUserProfile();
     const actPace = act.pace_seconds || (act.distance_km > 0 ? (act.duration_seconds || 0) / act.distance_km : 360);
     const bm = calcStateOfRunningBenchmark(act.distance_km || 5.0, actPace, profile.age, profile.gender);
-    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
     if (curLang === 'ko') {
       benchText.textContent = `${bm.groupLabel} 상위 ${bm.percentileText}`;
       benchEl.title = `The State of Running 2019 (전 세계 1억 7백만 건 실측 완주 데이터): ${bm.detail}`;
@@ -2876,10 +2927,23 @@ function renderThresholdDiagnostics(act, vdotEst) {
     lt2Hr = profile.rhr + Math.round(hrr * 0.87); // 55 + 123 = 178 bpm (Lactate Threshold)
   }
 
-  const modeBadgeHtml = `<span class="accuracy-badge gold"><i class="bi bi-patch-check-fill"></i> 야외 1년 실측 닻 (VDOT ${anchorVdot.toFixed(1)}) 연동</span>`;
-  const envBadgeHtml = isTreadmill ? `<span class="badge-subtle" style="margin-left:0.4rem; color:var(--accent-orange); background:rgba(255,87,34,0.15);"><i class="bi bi-speedometer"></i> 실내 트레드밀 세션</span>` : `<span class="badge-subtle" style="margin-left:0.4rem; color:var(--accent-lime); background:rgba(16,185,129,0.15);"><i class="bi bi-tree"></i> 야외 필드 러닝 세션</span>`;
+  const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
+  const modeBadgeHtml = isEn
+    ? `<span class="accuracy-badge gold"><i class="bi bi-patch-check-fill"></i> Outdoor 1-Yr PB Anchor (VDOT ${anchorVdot.toFixed(1)})</span>`
+    : `<span class="accuracy-badge gold"><i class="bi bi-patch-check-fill"></i> 야외 1년 실측 닻 (VDOT ${anchorVdot.toFixed(1)}) 연동</span>`;
 
-  const modeDescHtml = `
+  const envBadgeHtml = isTreadmill 
+    ? `<span class="badge-subtle" style="margin-left:0.4rem; color:var(--accent-orange); background:rgba(255,87,34,0.15);"><i class="bi bi-speedometer"></i> ${isEn ? 'Treadmill Session' : '실내 트레드밀 세션'}</span>` 
+    : `<span class="badge-subtle" style="margin-left:0.4rem; color:var(--accent-lime); background:rgba(16,185,129,0.15);"><i class="bi bi-tree"></i> ${isEn ? 'Outdoor Field Session' : '야외 필드 러닝 세션'}</span>`;
+
+  const modeDescHtml = isEn ? `
+    <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0.85rem; line-height: 1.55;">
+      <i class="bi bi-shield-check" style="color:var(--accent-lime);"></i> 
+      Without artificial conversion multipliers, the athlete's official aerobic capacity is anchored to verified <strong>1-Year Outdoor PB (10.42km 6'10" with HR 154, VDOT ${anchorVdot.toFixed(1)})</strong>, 
+      matching Garmin Connect and Karvonen biological formulas (MHR: <strong>${profile.mhr}</strong> / RHR: <strong>${profile.rhr}</strong>) 1:1 for <strong>clinical-grade threshold precision</strong>.
+      ${envBadgeHtml}
+    </div>
+  ` : `
     <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0.85rem; line-height: 1.55;">
       <i class="bi bi-shield-check" style="color:var(--accent-lime);"></i> 
       인위적인 실내외 환산 보정 없이, 선수의 공식 유산소 역량을 <strong>최근 1년 내 실측 야외 러닝 PB(10.42km 6'10" with HR 154)</strong>를 닻(Anchor, VDOT ${anchorVdot.toFixed(1)})으로 삼아 
@@ -2890,7 +2954,7 @@ function renderThresholdDiagnostics(act, vdotEst) {
 
   if (badgeEl) {
     badgeEl.className = 'threshold-status-badge success';
-    badgeEl.innerHTML = `<i class="bi bi-check-circle-fill"></i> 야외 닻 VDOT ${anchorVdot.toFixed(1)} 확정`;
+    badgeEl.innerHTML = `<i class="bi bi-check-circle-fill"></i> ${isEn ? 'Outdoor Anchor VDOT ' + anchorVdot.toFixed(1) + ' Calibrated' : '야외 닻 VDOT ' + anchorVdot.toFixed(1) + ' 확정'}`;
   }
 
   // Render Box UI
@@ -2898,7 +2962,7 @@ function renderThresholdDiagnostics(act, vdotEst) {
     ${modeDescHtml}
 
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
-      <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;"><i class="bi bi-bar-chart-steps"></i> 생체 에너지 대사 전환 임계점</span>
+      <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;"><i class="bi bi-bar-chart-steps"></i> ${isEn ? 'Bioenergetic Metabolic Threshold Boundaries' : '생체 에너지 대사 전환 임계점'}</span>
       ${modeBadgeHtml}
     </div>
 
@@ -2907,22 +2971,22 @@ function renderThresholdDiagnostics(act, vdotEst) {
       <div class="threshold-box lt1">
         <div class="threshold-box-header">
           <div class="threshold-box-title" style="color: var(--accent-lime);">
-            <i class="bi bi-heart-pulse-fill"></i> ${_t('thresh_lt1_title', '1차 변곡점: 유산소 역치 (LT1 / VT1)')}
+            <i class="bi bi-heart-pulse-fill"></i> ${_t('thresh_lt1_title', isEn ? '1st Inflection: Aerobic Threshold (LT1 / VT1)' : '1차 변곡점: 유산소 역치 (LT1 / VT1)')}
           </div>
           <span class="threshold-box-tag">ZONE 2 PEAK</span>
         </div>
         <div class="threshold-values-row">
           <div class="threshold-val-item">
-            <span class="threshold-val-label">${_t('thresh_hr_label', '전환 심박수')}</span>
+            <span class="threshold-val-label">${_t('thresh_hr_label', isEn ? 'TRANSITION HR' : '전환 심박수')}</span>
             <span class="threshold-val-number">${lt1Hr}<span class="unit">bpm</span></span>
           </div>
           <div class="threshold-val-item">
-            <span class="threshold-val-label">${_t('thresh_pace_label', '기준 페이스')}</span>
-            <span class="threshold-val-number" style="font-size: 1.4rem;">${formatPaceFromSec(lt1PaceSec)}<span class="unit">/km</span></span>
+            <span class="threshold-val-label">${_t('thresh_pace_label', isEn ? 'TARGET PACE' : '기준 페이스')}</span>
+            <span class="threshold-val-number" style="font-size: 1.4rem;">${window.RunAnalyzUnits.formatPace(lt1PaceSec).text}<span class="unit">${window.RunAnalyzUnits.formatPace(lt1PaceSec).unit}</span></span>
           </div>
         </div>
         <p class="threshold-box-desc">
-          ${_t('thresh_lt1_desc', '순수 지방 대사(Zone 2)에서 탄수화물 글리코겐이 본격 동원되기 시작하는 생체 전환점입니다. EF 수치가 최고점(Peak Plateau)을 기록한 뒤 완만하게 기울기를 낮추는 기준선(마라톤 M 페이스)입니다.')}
+          ${_t('thresh_lt1_desc', isEn ? 'The physiological crossover from pure fat oxidation (Zone 2) to progressive carbohydrate burning. Marks the peak plateau of your EF curve (Marathon M Pace boundary).' : '순수 지방 대사(Zone 2)에서 탄수화물 글리코겐이 본격 동원되기 시작하는 생체 전환점입니다. EF 수치가 최고점(Peak Plateau)을 기록한 뒤 완만하게 기울기를 낮추는 기준선(마라톤 M 페이스)입니다.')}
         </p>
       </div>
 
@@ -2930,22 +2994,22 @@ function renderThresholdDiagnostics(act, vdotEst) {
       <div class="threshold-box lt2">
         <div class="threshold-box-header">
           <div class="threshold-box-title" style="color: var(--accent-orange);">
-            <i class="bi bi-fire"></i> ${_t('thresh_lt2_title', '2차 변곡점: 젖산 역치 (LT2 / VT2)')}
+            <i class="bi bi-fire"></i> ${_t('thresh_lt2_title', isEn ? '2nd Inflection: Lactate Threshold (LT2 / VT2)' : '2차 변곡점: 젖산 역치 (LT2 / VT2)')}
           </div>
           <span class="threshold-box-tag">TEMPO CLIFF DROP</span>
         </div>
         <div class="threshold-values-row">
           <div class="threshold-val-item">
-            <span class="threshold-val-label">${_t('thresh_limit_hr_label', '한계 심박수')}</span>
+            <span class="threshold-val-label">${_t('thresh_limit_hr_label', isEn ? 'THRESHOLD HR' : '한계 심박수')}</span>
             <span class="threshold-val-number">${lt2Hr}<span class="unit">bpm</span></span>
           </div>
           <div class="threshold-val-item">
-            <span class="threshold-val-label">${_t('thresh_pace_label', '기준 페이스')}</span>
-            <span class="threshold-val-number" style="font-size: 1.4rem;">${formatPaceFromSec(lt2PaceSec)}<span class="unit">/km</span></span>
+            <span class="threshold-val-label">${_t('thresh_pace_label', isEn ? 'TARGET PACE' : '기준 페이스')}</span>
+            <span class="threshold-val-number" style="font-size: 1.4rem;">${window.RunAnalyzUnits.formatPace(lt2PaceSec).text}<span class="unit">${window.RunAnalyzUnits.formatPace(lt2PaceSec).unit}</span></span>
           </div>
         </div>
         <p class="threshold-box-desc">
-          ${_t('thresh_lt2_desc', '젖산 생성 속도가 제거 능력을 초과하여 체내 젖산(4.0 mmol/L)이 급증하는 무산소 역치(HRDP)입니다. 심박수는 가파르게 치솟으나 속도 효율이 한계에 부딪혀 EF 곡선이 절벽처럼 급락하는 템포(T) 페이스 한계선입니다.')}
+          ${_t('thresh_lt2_desc', isEn ? 'The anaerobic threshold (HRDP) where lactate generation exceeds clearance (4.0 mmol/L). Speed efficiency hits a ceiling and the EF curve plunges abruptly (Tempo T Pace boundary).' : '젖산 생성 속도가 제거 능력을 초과하여 체내 젖산(4.0 mmol/L)이 급증하는 무산소 역치(HRDP)입니다. 심박수는 가파르게 치솟으나 속도 효율이 한계에 부딪혀 EF 곡선이 절벽처럼 급락하는 템포(T) 페이스 한계선입니다.')}
         </p>
       </div>
     </div>
@@ -2953,16 +3017,17 @@ function renderThresholdDiagnostics(act, vdotEst) {
     <div class="threshold-coaching-box">
       <i class="bi bi-lightbulb-fill"></i>
       <div>
-        <strong>🎯 개인 맞춤 훈련 코칭:</strong> 
-        유산소 기초 체력을 다지는 Zone 2 회복/조깅 러닝은 <strong>${lt1Hr} bpm (${formatPaceFromSec(lt1PaceSec)}) 이하</strong>를 유지하고, 
-        스피드 지구력을 끌어올리는 젖산 역치 템포런은 <strong>${lt2Hr} bpm (${formatPaceFromSec(lt2PaceSec)}) 전후</strong>를 타깃으로 설정하세요.
+        <strong>${isEn ? '🎯 Personalized Coaching:' : '🎯 개인 맞춤 훈련 코칭:'}</strong> 
+        ${isEn 
+          ? `For Zone 2 aerobic base building, stay below <strong>${lt1Hr} bpm (${window.RunAnalyzUnits.formatPace(lt1PaceSec).full})</strong>. For lactate threshold tempo runs, target around <strong>${lt2Hr} bpm (${window.RunAnalyzUnits.formatPace(lt2PaceSec).full})</strong>.`
+          : `유산소 기초 체력을 다지는 Zone 2 회복/조깅 러닝은 <strong>${lt1Hr} bpm (${window.RunAnalyzUnits.formatPace(lt1PaceSec).full}) 이하</strong>를 유지하고, 스피드 지구력을 끌어올리는 젖산 역치 템포런은 <strong>${lt2Hr} bpm (${window.RunAnalyzUnits.formatPace(lt2PaceSec).full}) 전후</strong>를 타깃으로 설정하세요.`}
       </div>
     </div>
 
     <!-- Accordion: Universal Criteria & Watch Guide -->
     <div class="threshold-accordion" id="threshold-accordion-el" style="margin-top: 1rem;">
       <button type="button" class="threshold-accordion-toggle" onclick="toggleThresholdGuide()">
-        <span><i class="bi bi-question-circle-fill" style="color:var(--accent-cyan); margin-right:0.4rem;"></i> 📖 정확도 비교 및 가민·코로스·애플워치 MHR/RHR 확인 가이드</span>
+        <span><i class="bi bi-question-circle-fill" style="color:var(--accent-cyan); margin-right:0.4rem;"></i> 📖 ${isEn ? 'Precision Calibration & Watch MHR/RHR Guide' : '정확도 비교 및 가민·코로스·애플워치 MHR/RHR 확인 가이드'}</span>
         <i class="bi bi-chevron-down toggle-icon"></i>
       </button>
       <div class="threshold-accordion-content">
@@ -3026,12 +3091,19 @@ function calculateVDOTPaces(vdot) {
   const v_I = vMax * 0.975;  // Interval pace (VO2max)
   const v_R = vMax * 1.08;   // Repetition pace (Anaerobic)
 
+  const isImp = window.RunAnalyzUnits && window.RunAnalyzUnits.isImperial();
+  const conv = (mPerMin) => {
+    const secKm = (1000 / mPerMin) * 60;
+    const finalSec = isImp ? Math.round(secKm * 1.609344) : Math.round(secKm);
+    return formatPaceFromSec(finalSec);
+  };
+
   return {
-    e: formatPaceFromSec(Math.round((1000 / v_E) * 60)),
-    m: formatPaceFromSec(Math.round((1000 / v_M) * 60)),
-    t: formatPaceFromSec(Math.round((1000 / v_T) * 60)),
-    i: formatPaceFromSec(Math.round((1000 / v_I) * 60)),
-    r: formatPaceFromSec(Math.round((1000 / v_R) * 60))
+    e: conv(v_E),
+    m: conv(v_M),
+    t: conv(v_T),
+    i: conv(v_I),
+    r: conv(v_R)
   };
 }
 
@@ -3081,7 +3153,7 @@ function renderSingleChart(act) {
       labels: labels,
       datasets: [
         {
-          label: '심박수 (bpm)',
+          label: isEn ? 'Heart Rate (bpm)' : '심박수 (bpm)',
           data: hrData,
           borderColor: '#f43f5e',
           backgroundColor: 'rgba(244, 63, 94, 0.08)',
@@ -3091,7 +3163,7 @@ function renderSingleChart(act) {
           yAxisID: 'yHr'
         },
         {
-          label: '케이던스 (spm)',
+          label: isEn ? 'Cadence (spm)' : '케이던스 (spm)',
           data: cadenceData,
           borderColor: '#00f2fe',
           borderDash: [4, 4],
@@ -3171,7 +3243,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
   // Title: "주차별 마일리지 빌드업 & 부상위험 진단" (Without year/month prefixes)
   const weeklyTitleEl = document.getElementById('weekly-main-title');
   if (weeklyTitleEl) {
-    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
     weeklyTitleEl.textContent = curLang === 'ko' ? '주차별 마일리지 빌드업 & 부상위험 진단' : 'Weekly Mileage Build-up & Injury Risk Audit';
   }
 
@@ -3221,7 +3293,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
       const sunParts = sunStr.split('-');
       const dateRangeStr = `${parseInt(monParts[1], 10)}/${parseInt(monParts[2], 10)}~${parseInt(sunParts[1], 10)}/${parseInt(sunParts[2], 10)}`;
       
-      const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+      const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
       const isKo = (curLang === 'ko');
       const wName = isKo 
         ? `${iso.yearShort}년 ${iso.weekNo}주차 (${dateRangeStr})`
@@ -3400,7 +3472,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
     const low = latestWeek.lowRatio || 80;
     const high = latestWeek.highRatio || 20;
 
-    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
     const isKo = (curLang === 'ko');
 
     let badgeClass = 'green';
@@ -3436,14 +3508,14 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
       <div class="wcc-header">
         <div class="wcc-title">
           <i class="bi bi-robot text-cyan"></i>
-          <span>${escapeHtml(latestWeek.name)} AI 스포츠 사이언스 코칭 리포트</span>
+          <span>${escapeHtml(latestWeek.name)} ${isKo ? 'AI 스포츠 사이언스 코칭 리포트' : 'AI Sports Science Coaching Report'}</span>
         </div>
         <span class="wcc-badge ${badgeClass}">${badgeText}</span>
       </div>
       <div class="wcc-ratio-wrap">
         <div class="wcc-ratio-labels">
-          <span class="low-lbl"><i class="bi bi-shield-check"></i> 저강도 유산소·LSD (Zone 1~2): <strong>${low}%</strong> (${latestWeek.lowKm.toFixed(1)}km)</span>
-          <span class="high-lbl"><i class="bi bi-fire"></i> 고강도 포인트 (Zone 3+): <strong>${high}%</strong> (${latestWeek.highKm.toFixed(1)}km)</span>
+          <span class="low-lbl"><i class="bi bi-shield-check"></i> ${isKo ? '저강도 유산소·LSD (Zone 1~2)' : 'Low-Intensity Aerobic (Zone 1-2)'}: <strong>${low}%</strong> (${window.RunAnalyzUnits.formatDistance(latestWeek.lowKm, 1).full})</span>
+          <span class="high-lbl"><i class="bi bi-fire"></i> ${isKo ? '고강도 포인트 (Zone 3+)' : 'High-Intensity (Zone 3+)'}: <strong>${high}%</strong> (${window.RunAnalyzUnits.formatDistance(latestWeek.highKm, 1).full})</span>
         </div>
         <div class="wcc-bar-container">
           <div class="wcc-bar-low" style="width: ${low}%;"></div>
@@ -3457,25 +3529,25 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
       <!-- AI Coach Next Week Prescription Box -->
       <div class="wcc-prescription-card">
         <div class="wpc-header">
-          <div class="wpc-title"><i class="bi bi-calendar-check-fill text-orange"></i> AI 러닝 코치의 다음 주 처방</div>
-          <span class="wpc-badge">${prescriptionBadge}</span>
+          <div class="wpc-title"><i class="bi bi-calendar-check-fill text-orange"></i> ${isKo ? 'AI 러닝 코치의 다음 주 처방' : 'AI Running Coach Next Week Prescription'}</div>
+          <span class="wpc-badge">${isKo ? prescriptionBadge : (prescriptionBadge.includes('+') ? '📈 Safe Progression (+7%)' : '🛡️ Recovery Deload (-15%)')}</span>
         </div>
-        <div class="wpc-note">${prescriptionNote}</div>
+        <div class="wpc-note">${isKo ? prescriptionNote : `Based on stable workload across 4-week base (${window.RunAnalyzUnits.formatDistance(fourWeekAvg, 1).full}) and trailing week (${window.RunAnalyzUnits.formatDistance(latestWeek.totalKm, 1).full}), we recommend a safe +7% volume progression to <strong>${window.RunAnalyzUnits.formatDistance(nextTargetKm, 1).full}</strong> next week.`}</div>
         <div class="wpc-metric-grid">
           <div class="wpc-metric-item">
-            <span class="wpc-lbl">4주 평균 베이스</span>
+            <span class="wpc-lbl">${isKo ? '4주 평균 베이스' : '4-Wk Base Avg'}</span>
             <span class="wpc-val text-cyan">${window.RunAnalyzUnits.formatDistance(fourWeekAvg, 1).valFormatted} <small>${window.RunAnalyzUnits.formatDistance(fourWeekAvg, 1).unit.toUpperCase()}/wk</small></span>
           </div>
           <div class="wpc-metric-item">
-            <span class="wpc-lbl">다음 주 권장 목표</span>
+            <span class="wpc-lbl">${isKo ? '다음 주 권장 목표' : 'Next Wk Target'}</span>
             <span class="wpc-val text-orange">${window.RunAnalyzUnits.formatDistance(nextTargetKm, 1).valFormatted} <small>${window.RunAnalyzUnits.formatDistance(nextTargetKm, 1).unit.toUpperCase()}</small></span>
           </div>
           <div class="wpc-metric-item">
-            <span class="wpc-lbl">권장 훈련 횟수</span>
-            <span class="wpc-val">주 ${recommendedDays}회</span>
+            <span class="wpc-lbl">${isKo ? '권장 훈련 횟수' : 'Recommended Frequency'}</span>
+            <span class="wpc-val">${isKo ? `주 ${recommendedDays}회` : `${recommendedDays} Runs / Wk`}</span>
           </div>
           <div class="wpc-metric-item">
-            <span class="wpc-lbl">주말 롱런 상한선</span>
+            <span class="wpc-lbl">${isKo ? '주말 롱런 상한선' : 'Weekend LSD Cap'}</span>
             <span class="wpc-val">${window.RunAnalyzUnits.formatDistance(recommendedLsd, 1).full.toUpperCase()}</span>
           </div>
         </div>
@@ -3485,7 +3557,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
           data-lsd="${recommendedLsd}"
           data-week-name="${escapeHtml(latestWeek.name)}"
           onclick="if(window.execute7DayPlanFromWeekly) { window.execute7DayPlanFromWeekly(${nextTargetKm.toFixed(1)}, ${recommendedDays}, ${recommendedLsd}, '${escapeHtml(latestWeek.name)}'); }">
-          <i class="bi bi-lightning-charge-fill"></i> 이 4주 실측 분석 기반 다음 주 7-Day 맞춤 플랜 자동 생성
+          <i class="bi bi-lightning-charge-fill"></i> ${isKo ? '이 4주 실측 분석 기반 다음 주 7-Day 맞춤 플랜 자동 생성' : 'Generate 7-Day Plan from this 4-Wk Audit'}
         </button>
       </div>
 
@@ -3516,7 +3588,7 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
   }
 
   // Render Weekly Cards
-  const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+  const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
   const isKo = (curLang === 'ko');
 
   if (weeks.length === 0) {
@@ -3608,10 +3680,11 @@ function renderWeeklyInstaCard(w) {
     badgeEl.textContent = `${(w.name || 'WEEK').toUpperCase()} RECAP`;
   }
 
-  // Distance
+  // Distance (Integrated with RunAnalyzUnits)
   const distEl = document.getElementById('wc-card-dist');
   if (distEl) {
-    distEl.innerHTML = `${(w.totalKm || 0).toFixed(1)} <span class="unit">KM</span>`;
+    const dObj = window.RunAnalyzUnits.formatDistance(w.totalKm || 0, 1);
+    distEl.innerHTML = `${dObj.valFormatted} <span class="unit">${dObj.unit.toUpperCase()}</span>`;
   }
 
   // Runs & Rule Badge
@@ -3646,7 +3719,8 @@ function renderWeeklyInstaCard(w) {
 
   const baseEl = document.getElementById('wc-card-base');
   if (baseEl) {
-    baseEl.innerHTML = `${(w.chronicAvg || 0).toFixed(1)} <small>km (${(w.acwr || 1).toFixed(2)}x)</small>`;
+    const bObj = window.RunAnalyzUnits.formatDistance(w.chronicAvg || 0, 1);
+    baseEl.innerHTML = `${bObj.valFormatted} <small>${bObj.unit.toLowerCase()} (${(w.acwr || 1).toFixed(2)}x)</small>`;
   }
 
   // Workout Breakdown Chips
@@ -3655,7 +3729,7 @@ function renderWeeklyInstaCard(w) {
     const chipItems = [];
     const lowTxt = _t('card_low_short', 'Low');
     const highTxt = _t('card_high_short', 'High');
-    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
     const countSuffix = curLang === 'ko' ? '회' : '';
     if (w.typeCounts.low > 0) chipItems.push(`<span class="badge-count badge-wo-low">🟢 ${lowTxt} ${w.typeCounts.low}${countSuffix}</span>`);
     if (w.typeCounts.high > 0) chipItems.push(`<span class="badge-count badge-wo-high">🔴 ${highTxt} ${w.typeCounts.high}${countSuffix}</span>`);
@@ -3845,7 +3919,7 @@ function initMonthlyRecap(activities, year, month) {
     engPeriodTitle = month === 'all' ? `YEAR ${year} RUNNING RECAP` : `${getMonthName(month).toUpperCase()} ${year} RUNNING RECAP`;
   }
 
-  const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+  const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
   const isKo = (curLang === 'ko');
 
   // Update Monthly Dashboard Labels
@@ -3930,8 +4004,8 @@ function initMonthlyRecap(activities, year, month) {
 
   const elPolVal = document.getElementById('card-pol-val');
   if (elPolVal) {
-    const lowLabel = _t('card_low_short', '저강도');
-    const highLabel = _t('card_high_short', '고강도');
+    const lowLabel = _t('card_low_short', 'Low');
+    const highLabel = _t('card_high_short', 'High');
     elPolVal.innerHTML = `<span style="color:var(--accent-lime);">${lowLabel} ${monthLowRatio}%</span> <span style="color:var(--text-muted);">:</span> <span style="color:var(--accent-orange);">${highLabel} ${monthHighRatio}%</span>`;
   }
 
@@ -3948,12 +4022,15 @@ function initMonthlyRecap(activities, year, month) {
   });
 
   const maxWeekly = Math.max(...weeklyDists, 1);
+  const isImp = window.RunAnalyzUnits ? window.RunAnalyzUnits.isImperial() : false;
   weeklyDists.forEach((d, idx) => {
     const bar = document.getElementById(`c-bar-${idx + 1}`);
     const valEl = document.getElementById(`c-val-${idx + 1}`);
-    const intDist = Math.floor(d); // Truncate decimals to integer
+    const distVal = isImp ? (d * 0.621371) : d;
+    const intDist = Math.floor(distVal);
+    const unitSuffix = isImp ? 'm' : 'k';
     if (valEl) {
-      valEl.textContent = intDist > 0 ? `${intDist}k` : '-';
+      valEl.textContent = intDist > 0 ? `${intDist}${unitSuffix}` : '-';
     }
     if (bar) {
       const pct = d > 0 ? Math.max(14, Math.round((d / maxWeekly) * 100)) : 6;
@@ -4768,12 +4845,18 @@ function calcDanielsPaces(vdot) {
 }
 
 function formatPaceSec(sec) {
+  if (window.RunAnalyzUnits && typeof window.RunAnalyzUnits.formatPace === 'function') {
+    return window.RunAnalyzUnits.formatPace(sec).full;
+  }
   const m = Math.floor(sec / 60);
   const s = Math.round(sec % 60);
   return `${m}'${s < 10 ? '0' : ''}${s}"/km`;
 }
 
 function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec, tempoSec, mhr, rhr, mafHr) {
+  const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
+  const isKo = (curLang === 'ko');
+
   // Karvonen HR zones
   const hrr = Math.max(40, mhr - rhr);
   const hrEasyMin = Math.round(rhr + (hrr * 0.58));
@@ -4783,7 +4866,7 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
 
   const easyPaceStr = `${formatPaceSec(easySec)} ~ ${formatPaceSec(easySec + 25)}`;
   const tempoPaceStr = formatPaceSec(tempoSec);
-  const easyHrStr = `${hrEasyMin}~${hrEasyMax} bpm (≤ ${mafHr})`;
+  const easyHrStr = `${hrEasyMin}~${hrEasyMax} bpm (MAF ${mafHr})`;
   const tempoHrStr = `${hrTempoMin}~${hrTempoMax} bpm`;
 
   // Distribute distances
@@ -4795,13 +4878,13 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
   const remLowKm = Math.max(0, lowKm - lsdKm);
 
   const daysMeta = [
-    { dayEng: 'MON', dayKor: '월', key: 'mon' },
-    { dayEng: 'TUE', dayKor: '화', key: 'tue' },
-    { dayEng: 'WED', dayKor: '수', key: 'wed' },
-    { dayEng: 'THU', dayKor: '목', key: 'thu' },
-    { dayEng: 'FRI', dayKor: '금', key: 'fri' },
-    { dayEng: 'SAT', dayKor: '토', key: 'sat' },
-    { dayEng: 'SUN', dayKor: '일', key: 'sun' }
+    { dayEng: 'MON', dayKor: isKo ? '월' : 'Mon', key: 'mon' },
+    { dayEng: 'TUE', dayKor: isKo ? '화' : 'Tue', key: 'tue' },
+    { dayEng: 'WED', dayKor: isKo ? '수' : 'Wed', key: 'wed' },
+    { dayEng: 'THU', dayKor: isKo ? '목' : 'Thu', key: 'thu' },
+    { dayEng: 'FRI', dayKor: isKo ? '금' : 'Fri', key: 'fri' },
+    { dayEng: 'SAT', dayKor: isKo ? '토' : 'Sat', key: 'sat' },
+    { dayEng: 'SUN', dayKor: isKo ? '일' : 'Sun', key: 'sun' }
   ];
 
   // Configure templates based on running days
@@ -4828,7 +4911,7 @@ function build7DaySchedule(totalKm, lowKm, highKm, daysPerWeek, longDay, easySec
     }
   }
 
-  const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'ko';
+  const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
   const isKo = (curLang === 'ko');
 
   daysMeta.forEach(dm => {
@@ -4964,9 +5047,14 @@ function syncPlanTargetWithChronic() {
   const inputKm = document.getElementById('plan-target-km');
   if (inputKm && !inputKm.dataset.userEdited) {
     if (window.LATEST_WEEK_CHRONIC_AVG && window.LATEST_WEEK_CHRONIC_AVG > 0) {
-      const safeTarget = (window.LATEST_WEEK_CHRONIC_AVG * 1.05).toFixed(1);
-      inputKm.value = safeTarget;
-      inputKm.placeholder = `최근 4주 기반 권장: ${safeTarget}km`;
+      const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
+      const isKo = (curLang === 'ko');
+      const isImp = window.RunAnalyzUnits ? window.RunAnalyzUnits.isImperial() : false;
+      const baseKm = window.LATEST_WEEK_CHRONIC_AVG * 1.05;
+      const safeVal = isImp ? (baseKm * 0.621371).toFixed(1) : baseKm.toFixed(1);
+      const unit = isImp ? 'mi' : 'km';
+      inputKm.value = safeVal;
+      inputKm.placeholder = isKo ? `최근 4주 안전 권장: ${safeVal} ${unit}` : `4-Wk Safe Target: ${safeVal} ${unit}`;
     }
   }
 }
@@ -5197,7 +5285,7 @@ function initTrainingPlanModule() {
     btnDownloadPlanCard.addEventListener('click', () => {
       if (!instaCardPlan) return;
       btnDownloadPlanCard.disabled = true;
-      btnDownloadPlanCard.innerHTML = '<i class="bi bi-hourglass-split"></i> 고해상도 카드 렌더링 중...';
+      btnDownloadPlanCard.innerHTML = '<i class="bi bi-hourglass-split"></i> ' + _t('exporting_card', 'Rendering High-Res Card...');
 
       if (typeof html2canvas === 'function') {
         html2canvas(instaCardPlan, {
@@ -5210,19 +5298,19 @@ function initTrainingPlanModule() {
           link.href = canvas.toDataURL('image/png');
           link.click();
           btnDownloadPlanCard.disabled = false;
-          btnDownloadPlanCard.innerHTML = '<i class="bi bi-download"></i> 인스타그램 훈련 카드 고해상도(3x) 저장';
+          btnDownloadPlanCard.innerHTML = '<i class="bi bi-download"></i> ' + _t('export_plan_card', 'Export High-Res (3x) Instagram Card');
           if (typeof showToast === 'function') {
-            showToast('7-Day 플랜 인스타그램 카드가 저장되었습니다!');
+            showToast(_t('plan_card_saved', '7-Day Plan Instagram Card saved!'));
           }
         }).catch(err => {
           console.error(err);
           btnDownloadPlanCard.disabled = false;
-          btnDownloadPlanCard.innerHTML = '<i class="bi bi-download"></i> 인스타그램 훈련 카드 고해상도(3x) 저장';
+          btnDownloadPlanCard.innerHTML = '<i class="bi bi-download"></i> ' + _t('export_plan_card', 'Export High-Res (3x) Instagram Card');
           alert('카드 이미지 렌더링 중 오류가 발생했습니다.');
         });
       } else {
         btnDownloadPlanCard.disabled = false;
-        btnDownloadPlanCard.innerHTML = '<i class="bi bi-download"></i> 인스타그램 훈련 카드 고해상도(3x) 저장';
+        btnDownloadPlanCard.innerHTML = '<i class="bi bi-download"></i> ' + _t('export_plan_card', 'Export High-Res (3x) Instagram Card');
       }
     });
   }
@@ -5266,22 +5354,23 @@ function initTrainingPlanModule() {
       tempoPaceSec = Math.max(210, easyPaceSec - 35);
       vdotDisplay = 'MAF 180';
     }
-
     // Runner Level
+    const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
+    const isKo = (curLang === 'ko');
     let levelNum = 2;
-    let levelTitle = '10K 챌린저';
+    let levelTitle = isKo ? '10K 챌린저' : '10K Challenger';
     let levelTag = 'LEVEL 2 · 10K CHALLENGER';
     if (selectedLsdKm < 5) {
       levelNum = 1;
-      levelTitle = '비기너 러너';
+      levelTitle = isKo ? '비기너 러너' : 'Beginner Runner';
       levelTag = 'LEVEL 1 · BEGINNER';
     } else if (selectedLsdKm >= 10 && selectedLsdKm < 20) {
       levelNum = 3;
-      levelTitle = '하프 도전자';
+      levelTitle = isKo ? '하프 도전자' : 'Half Marathoner';
       levelTag = 'LEVEL 3 · HALF RUNNER';
     } else if (selectedLsdKm >= 20) {
       levelNum = 4;
-      levelTitle = '풀코스/마스터즈';
+      levelTitle = isKo ? '풀코스/마스터즈' : 'Full Marathoner / Masters';
       levelTag = 'LEVEL 4 · MARATHONER';
     }
 
@@ -5299,22 +5388,26 @@ function initTrainingPlanModule() {
     const resDaysSub = document.getElementById('res-plan-days-sub');
     const resBalance = document.getElementById('res-plan-balance');
 
+    const dTotalObj = window.RunAnalyzUnits.formatDistance(targetKm, 1);
+    const dLowObj = window.RunAnalyzUnits.formatDistance(lowKm, 1);
+    const dHighObj = window.RunAnalyzUnits.formatDistance(highKm, 1);
+
     if (resLevel) resLevel.textContent = `LEVEL ${levelNum}`;
     if (resLevelTitle) resLevelTitle.textContent = levelTitle;
-    if (resStat1Lbl) resStat1Lbl.textContent = currentPlanMode === 'pb' ? '기준 VDOT' : 'MAF 저심박 타깃';
-    if (resStat1Val) resStat1Val.innerHTML = currentPlanMode === 'pb' ? `${vdotDisplay} <small>점</small>` : `${mafHr} <small>bpm</small>`;
-    if (resStat1Sub) resStat1Sub.textContent = currentPlanMode === 'pb' ? '최근 1년 PB 기준' : `180 - 나이(${age}세)`;
-    if (resTotalKm) resTotalKm.innerHTML = `${targetKm.toFixed(1)} <small>km</small>`;
-    if (resDaysSub) resDaysSub.textContent = `주 ${selectedDaysPerWeek}회 트레이닝`;
-    if (resBalance) resBalance.textContent = `${lowKm.toFixed(1)}k : ${highKm.toFixed(1)}k`;
+    if (resStat1Lbl) resStat1Lbl.textContent = currentPlanMode === 'pb' ? (isKo ? '기준 VDOT' : 'Anchor VDOT') : (isKo ? 'MAF 저심박 타깃' : 'MAF Target HR');
+    if (resStat1Val) resStat1Val.innerHTML = currentPlanMode === 'pb' ? `${vdotDisplay} <small>${isKo ? '점' : 'pts'}</small>` : `${mafHr} <small>bpm</small>`;
+    if (resStat1Sub) resStat1Sub.textContent = currentPlanMode === 'pb' ? (isKo ? '최근 1년 PB 기준' : 'Past 1-Yr PB Anchor') : (isKo ? `180 - 나이(${age}세)` : `180 - Age (${age})`);
+    if (resTotalKm) resTotalKm.innerHTML = `${dTotalObj.valFormatted} <small>${dTotalObj.unit.toLowerCase()}</small>`;
+    if (resDaysSub) resDaysSub.textContent = isKo ? `주 ${selectedDaysPerWeek}회 트레이닝` : `${selectedDaysPerWeek} Days / Week`;
+    if (resBalance) resBalance.textContent = `${dLowObj.valFormatted}${dLowObj.unit.toLowerCase().slice(0, 1)} : ${dHighObj.valFormatted}${dHighObj.unit.toLowerCase().slice(0, 1)}`;
 
     // Ratio Bar
     const elBarLowKm = document.getElementById('res-bar-low-km');
     const elBarHighKm = document.getElementById('res-bar-high-km');
     const elBarFillLow = document.getElementById('res-bar-fill-low');
     const elBarFillHigh = document.getElementById('res-bar-fill-high');
-    if (elBarLowKm) elBarLowKm.textContent = `${lowKm.toFixed(1)} km (80%)`;
-    if (elBarHighKm) elBarHighKm.textContent = `${highKm.toFixed(1)} km (20%)`;
+    if (elBarLowKm) elBarLowKm.textContent = `${dLowObj.full} (80%)`;
+    if (elBarHighKm) elBarHighKm.textContent = `${dHighObj.full} (20%)`;
     if (elBarFillLow) elBarFillLow.style.width = '80%';
     if (elBarFillHigh) elBarFillHigh.style.width = '20%';
 
@@ -5344,7 +5437,7 @@ function initTrainingPlanModule() {
             </div>
           </div>
           <div class="pday-right">
-            <div class="pday-dist">${item.distKm > 0 ? `${item.distKm.toFixed(1)}<small>km</small>` : '휴식'}</div>
+            <div class="pday-dist">${item.distKm > 0 ? `${window.RunAnalyzUnits.formatDistance(item.distKm, 1).valFormatted}<small>${window.RunAnalyzUnits.getDistanceUnit()}</small>` : (isKo ? '휴식' : 'REST')}</div>
             <div class="pday-sub">${item.intensityTag}</div>
           </div>
         `;
@@ -5359,7 +5452,7 @@ function initTrainingPlanModule() {
     const cardSchedule = document.getElementById('card-plan-schedule');
 
     if (cardLevel) cardLevel.textContent = levelTag;
-    if (cardDist) cardDist.innerHTML = `${targetKm.toFixed(1)}<small>KM</small>`;
+    if (cardDist) { const pTotObj = window.RunAnalyzUnits.formatDistance(targetKm, 1); cardDist.innerHTML = `${pTotObj.valFormatted}<small>${pTotObj.unit.toUpperCase()}</small>`; }
     if (cardVdot) {
       cardVdot.textContent = currentPlanMode === 'pb' 
         ? `VDOT ${vdotDisplay} · MAF ${mafHr} BPM · 80/20 POLARIZED`
@@ -5374,7 +5467,7 @@ function initTrainingPlanModule() {
         
         // Compact 1-line layout: [요일] - [훈련타입] - [거리] - [페이스]
         const paceDisplay = item.distKm > 0 ? (item.type === 'TEMPO' ? formatPaceSec(tempoPaceSec) : formatPaceSec(easyPaceSec)) : '-';
-        const distDisplay = item.distKm > 0 ? `${item.distKm.toFixed(1)} km` : 'REST';
+        const distDisplay = item.distKm > 0 ? window.RunAnalyzUnits.formatDistance(item.distKm, 1).full : 'REST';
         
         sRow.innerHTML = `
           <div class="pic-day-left">
@@ -5398,7 +5491,7 @@ function initTrainingPlanModule() {
     }
 
     if (typeof showToast === 'function') {
-      showToast('이번 주 7-Day 맞춤 훈련 플랜이 성공적으로 생성되었습니다!');
+      showToast(_t('plan_generated', '7-Day Training Blueprint Generated!'));
     }
   }
 
@@ -5471,7 +5564,7 @@ function initWelcomeGateway() {
         }, 150);
       }
       if (typeof showToast === 'function') {
-        showToast('로그인 없이 7-Day 훈련플랜을 맞춤 설정하세요!');
+        showToast(_t('plan_generated', '7-Day Training Blueprint Generated!'));
       }
     });
   }

@@ -13,11 +13,11 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>RunAnalyz (런애널라이즈) — 러닝화 마일리지 &amp; 80/20 훈련플랜 대시보드</title>
+  <title>RunAnalyz — Running Mileage &amp; 80/20 Training Plan Dashboard</title>
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="러닝화 수명·마일리지 추적, 스트라바 실시간 심박·페이스 분석, 80/20 극성 훈련 7-Day 맞춤 플랜 및 인스타그램 결산 카드 스튜디오.">
-  <meta name="keywords" content="러닝, 러닝화, 마일리지, 스트라바, VDOT, 8020러닝, 템포런, LSD, 마라톤, 인스타그램 러닝카드, RunAnalyz, 런애널라이즈">
+  <meta name="description" content="Track running shoe lifespan, Strava real-time heart rate &amp; pace analytics, 80/20 polarized 7-Day custom training plans, and Instagram recap card studio.">
+  <meta name="keywords" content="running, running shoes, mileage, Strava, VDOT, 8020 running, tempo run, LSD, marathon, Instagram running card, RunAnalyz">
   <meta name="author" content="RunAnalyz">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#090d16">
@@ -35,16 +35,16 @@
 
   <!-- Open Graph (KakaoTalk, Instagram, Facebook) -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="RunAnalyz (런애널라이즈)">
-  <meta property="og:title" content="RunAnalyz — 러닝화 마일리지 &amp; 80/20 훈련플랜 대시보드">
-  <meta property="og:description" content="로그인 없이 생성하는 7-Day 맞춤 러닝 플랜 &amp; 인스타 카드. 스트라바 계정 연동 시 실시간 심박 구간 및 신발 수명 추적.">
+  <meta property="og:site_name" content="RunAnalyz">
+  <meta property="og:title" content="RunAnalyz — Running Mileage &amp; 80/20 Training Plan Dashboard">
+  <meta property="og:description" content="Zero-login 7-Day custom running plans &amp; Instagram cards. Connect Strava for real-time heart rate zones and shoe mileage tracking.">
   <meta property="og:image" content="https://runanalyz.com/runanalyz_app_icon.jpg">
   <meta property="og:url" content="https://runanalyz.com/">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RunAnalyz — 러닝화 마일리지 &amp; 80/20 훈련플랜 대시보드">
-  <meta name="twitter:description" content="러너를 위한 올인원 대시보드. 7-Day 훈련플랜, VDOT 계산, 인스타 카드 스튜디오.">
+  <meta name="twitter:title" content="RunAnalyz — Running Mileage &amp; 80/20 Training Plan Dashboard">
+  <meta name="twitter:description" content="All-in-one runner dashboard. 7-Day training plans, VDOT calculator, and Instagram card studio.">
   <meta name="twitter:image" content="https://runanalyz.com/runanalyz_app_icon.jpg">
   
   <!-- Google Fonts: Inter, Outfit -->
@@ -83,7 +83,7 @@
 
         <div class="header-actions-right">
           <!-- Unit System Toggle Button (Imperial: mi/ft ↔ Metric: km/m) -->
-          <button class="btn-unit-toggle" id="btn-unit-toggle" title="Toggle Units (mi/ft ↔ km/m)" aria-label="단위 전환">
+          <button class="btn-unit-toggle" id="btn-unit-toggle" title="Toggle Units (mi/ft ↔ km/m)" aria-label="Toggle Units">
             <i class="bi bi-rulers"></i> <span id="unit-current-label">mi</span>
           </button>
 
@@ -93,13 +93,13 @@
           </button>
 
           <!-- Light/Dark Theme Switcher (해/달) -->
-          <button class="btn-theme-toggle" id="btn-theme-toggle" title="화이트/다크 테마 전환" aria-label="테마 전환">
+          <button class="btn-theme-toggle" id="btn-theme-toggle" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
             <i class="bi bi-sun-fill theme-icon-light"></i>
             <i class="bi bi-moon-stars-fill theme-icon-dark"></i>
           </button>
 
           <!-- Hamburger Menu Toggle Button (☰) -->
-          <button class="btn-hamburger-toggle" id="btn-hamburger-toggle" title="메뉴 열기" aria-label="메뉴 열기" onclick="if(window.openRunAnalyzDrawer) window.openRunAnalyzDrawer();">
+          <button class="btn-hamburger-toggle" id="btn-hamburger-toggle" title="Open Menu" aria-label="Open Menu" onclick="if(window.openRunAnalyzDrawer) window.openRunAnalyzDrawer();">
             <i class="bi bi-list"></i>
           </button>
         </div>
@@ -109,50 +109,50 @@
     <!-- Main Navigation (4 Core Analysis Tabs) -->
     <nav class="main-tabs-clean" role="tablist">
       <button class="tab-clean-btn active" data-tab="single" role="tab" id="tab-btn-single">
-        <span class="tab-txt-full" data-i18n="tab_single">단일 세션</span>
-        <span class="tab-txt-short">단일</span>
+        <span class="tab-txt-full" data-i18n="tab_single">Single Session</span>
+        <span class="tab-txt-short">Single</span>
       </button>
       <button class="tab-clean-btn" data-tab="weekly" role="tab" id="tab-btn-weekly">
-        <span class="tab-txt-full" data-i18n="tab_weekly">주간 결산</span>
-        <span class="tab-txt-short">주간</span>
+        <span class="tab-txt-full" data-i18n="tab_weekly">Weekly Volume</span>
+        <span class="tab-txt-short">Weekly</span>
       </button>
       <button class="tab-clean-btn" data-tab="monthly" role="tab" id="tab-btn-monthly">
-        <span class="tab-txt-full" data-i18n="tab_monthly">월말 결산</span>
-        <span class="tab-txt-short">월간</span>
+        <span class="tab-txt-full" data-i18n="tab_monthly">Monthly Recap</span>
+        <span class="tab-txt-short">Monthly</span>
       </button>
       <button class="tab-clean-btn" data-tab="yearly" role="tab" id="tab-btn-yearly">
-        <span class="tab-txt-full" data-i18n="tab_yearly">연간 결산</span>
-        <span class="tab-txt-short">연간</span>
+        <span class="tab-txt-full" data-i18n="tab_yearly">Annual Archive</span>
+        <span class="tab-txt-short">Annual</span>
       </button>
     </nav>
 
     <!-- 4 Sport Environment Filter Chips ([전체] [야외] [트레드밀] [트레일]) -->
     <div class="sport-chips-bar" id="sport-chips-bar">
       <button class="env-chip-btn active" data-env="all" id="chip-env-all">
-        <span data-i18n="filter_all">전체</span> <span class="badge-num" id="filter-count-all">(0)</span>
+        <span data-i18n="filter_all">All</span> <span class="badge-num" id="filter-count-all">(0)</span>
       </button>
       <button class="env-chip-btn" data-env="outdoor" id="chip-env-outdoor">
-        <span data-i18n="filter_outdoor">야외</span> <span class="badge-num" id="filter-count-od">(0)</span>
+        <span data-i18n="filter_outdoor">Outdoor</span> <span class="badge-num" id="filter-count-od">(0)</span>
       </button>
       <button class="env-chip-btn" data-env="treadmill" id="chip-env-treadmill">
-        <span data-i18n="filter_treadmill">트레드밀</span> <span class="badge-num" id="filter-count-tm">(0)</span>
+        <span data-i18n="filter_treadmill">Treadmill</span> <span class="badge-num" id="filter-count-tm">(0)</span>
       </button>
       <button class="env-chip-btn" data-env="trail" id="chip-env-trail">
-        <span data-i18n="filter_trail">트레일</span> <span class="badge-num" id="filter-count-tr">(0)</span>
+        <span data-i18n="filter_trail">Trail</span> <span class="badge-num" id="filter-count-tr">(0)</span>
       </button>
     </div>
 
     <!-- NRC-Style Timeline Slider Bar ([◀ 이전] [현재 러닝 라벨] [다음 ▶]) -->
     <div class="timeline-slider-bar" id="timeline-slider-bar">
-      <button type="button" class="btn-slide-nav" id="btn-slide-prev" title="이전 기록 보기">
-        <i class="bi bi-chevron-left"></i> <span class="slide-nav-text" id="slide-prev-text">이전</span>
+      <button type="button" class="btn-slide-nav" id="btn-slide-prev" title="View Previous Record">
+        <i class="bi bi-chevron-left"></i> <span class="slide-nav-text" id="slide-prev-text">Prev</span>
       </button>
       <div class="slide-center-box" id="slide-center-box">
-        <div class="slide-main-label" id="slide-main-label">2026.08.31 (최신)</div>
-        <div class="slide-sub-label" id="slide-sub-label">야외 러닝 · 5.20 km</div>
+        <div class="slide-main-label" id="slide-main-label">2026.08.31 (Latest)</div>
+        <div class="slide-sub-label" id="slide-sub-label">Outdoor Run · 3.23 mi</div>
       </div>
-      <button type="button" class="btn-slide-nav" id="btn-slide-next" title="다음 기록 보기" disabled>
-        <span class="slide-nav-text" id="slide-next-text">다음</span> <i class="bi bi-chevron-right"></i>
+      <button type="button" class="btn-slide-nav" id="btn-slide-next" title="View Next Record" disabled>
+        <span class="slide-nav-text" id="slide-next-text">Next</span> <i class="bi bi-chevron-right"></i>
       </button>
     </div>
 
@@ -168,11 +168,11 @@
       <div class="nrc-hero-card" id="single-nrc-hero">
         <div class="nrc-hero-header">
           <div class="nrc-hero-tags">
-            <span class="nrc-tag-sport" id="nrc-hero-sport"><i class="bi bi-tree"></i> 야외 러닝</span>
-            <span class="nrc-tag-date" id="nrc-hero-date">2026.08.31 (월) 20:14</span>
+            <span class="nrc-tag-sport" id="nrc-hero-sport"><i class="bi bi-tree"></i> Outdoor Run</span>
+            <span class="nrc-tag-date" id="nrc-hero-date">2026.08.31 (Mon) 20:14</span>
           </div>
-          <button type="button" class="btn-nrc-share" id="btn-open-single-insta" title="인스타그램 맞춤 카드 제작 및 공유">
-            <i class="bi bi-instagram"></i> <span>인스타 공유</span>
+          <button type="button" class="btn-nrc-share" id="btn-open-single-insta" title="Create &amp; Share Instagram Card">
+            <i class="bi bi-instagram"></i> <span>Share Card</span>
           </button>
         </div>
 
@@ -180,34 +180,34 @@
         <div class="nrc-big-metrics-grid">
           <div class="nrc-big-metric">
             <span class="nrc-big-val" id="nrc-hero-dist">0.00</span>
-            <span class="nrc-big-label" data-i18n="metric_dist">달린 거리 (km)</span>
+            <span class="nrc-big-label" data-i18n="metric_dist">Distance</span>
           </div>
           <div class="nrc-big-metric">
             <span class="nrc-big-val" id="nrc-hero-pace">0'00"</span>
-            <span class="nrc-big-label" data-i18n="metric_pace">평균 페이스</span>
+            <span class="nrc-big-label" data-i18n="metric_pace">Avg Pace</span>
           </div>
           <div class="nrc-big-metric">
             <span class="nrc-big-val" id="nrc-hero-time">00:00</span>
-            <span class="nrc-big-label">러닝 시간</span>
+            <span class="nrc-big-label">Duration</span>
           </div>
         </div>
 
         <!-- EF Insight Callout Banner -->
         <div class="nrc-ef-callout">
           <div class="nrc-ef-stat">
-            <span class="nrc-ef-badge"><i class="bi bi-lightning-charge-fill"></i> 심장 연비(EF)</span>
+            <span class="nrc-ef-badge"><i class="bi bi-lightning-charge-fill"></i> Aerobic EF</span>
             <span class="nrc-ef-number" id="nrc-hero-ef">0.000</span>
             <span class="nrc-ef-unit">m/min/bpm</span>
           </div>
           <div class="nrc-ef-insight-msg" id="nrc-hero-insight">
-            엔진 효율 분석 데이터를 불러오는 중입니다...
+            Analyzing cardiorespiratory efficiency...
           </div>
         </div>
 
         <!-- Toggle Detail Accordion Button -->
         <div class="nrc-hero-toggle-bar">
           <button type="button" class="btn-toggle-detail" id="btn-toggle-single-detail">
-            <span id="text-toggle-single-detail">상세 데이터 분석 보기 (랩타임, 심박 그래프, 지도)</span>
+            <span id="text-toggle-single-detail">View Detailed Diagnostics (Splits, HR Graph, Map)</span>
             <i class="bi bi-chevron-down toggle-icon" id="icon-toggle-single-detail"></i>
           </button>
         </div>
@@ -221,7 +221,7 @@
         <!-- Metric: Distance -->
         <div class="metric-card highlight-cyan">
           <div class="metric-header">
-            <span class="metric-label" data-i18n="metric_dist">달린 거리</span>
+            <span class="metric-label" data-i18n="metric_dist">Distance</span>
             <i class="bi bi-geo-alt-fill"></i>
           </div>
           <div class="metric-val" id="single-dist">0.00 <span class="unit">km</span></div>
@@ -231,7 +231,7 @@
         <!-- Metric: Pace -->
         <div class="metric-card highlight-orange">
           <div class="metric-header">
-            <span class="metric-label" data-i18n="metric_pace">평균 페이스</span>
+            <span class="metric-label" data-i18n="metric_pace">Avg Pace</span>
             <i class="bi bi-speedometer2"></i>
           </div>
           <div class="metric-val" id="single-pace">0'00" <span class="unit">/km</span></div>
@@ -241,21 +241,21 @@
         <!-- Metric: Heart Rate -->
         <div class="metric-card highlight-pink">
           <div class="metric-header">
-            <span class="metric-label" data-i18n="metric_hr">평균 심박수</span>
+            <span class="metric-label" data-i18n="metric_hr">Avg Heart Rate</span>
             <i class="bi bi-heart-pulse-fill"></i>
           </div>
           <div class="metric-val" id="single-hr">0 <span class="unit">bpm</span></div>
-          <div class="metric-sub" id="single-max-hr"><i class="bi bi-graph-up-arrow"></i> 최고 0 bpm</div>
+          <div class="metric-sub" id="single-max-hr"><i class="bi bi-graph-up-arrow"></i> Peak 0 bpm</div>
         </div>
 
         <!-- Metric: Efficiency Factor (EF) - Core Highlight -->
         <div class="metric-card highlight-lime hero-metric">
           <div class="metric-header">
-            <span class="metric-label" data-i18n="metric_ef">유산소 효율 (EF)</span>
+            <span class="metric-label" data-i18n="metric_ef">Efficiency Factor (EF)</span>
             <span class="badge-core" data-i18n="core_engine">CORE ENGINE</span>
           </div>
           <div class="metric-val" id="single-ef">0.000 <span class="unit">m/min/bpm</span></div>
-          <div class="metric-sub" id="single-ef-status"><i class="bi bi-shield-check"></i> 심폐 효율 평가 중...</div>
+          <div class="metric-sub" id="single-ef-status"><i class="bi bi-shield-check"></i> Evaluating efficiency...</div>
           <div class="metric-sub-like" id="single-ef-like-comparison" style="margin-top:0.45rem; font-size:0.78rem; border-top:1px solid rgba(255,255,255,0.08); padding-top:0.35rem; color:var(--text-secondary);"></div>
         </div>
       </div>
@@ -265,14 +265,14 @@
         <!-- Aerobic Decoupling Card -->
         <div class="card detail-card">
           <div class="card-header">
-            <div class="card-title"><i class="bi bi-activity"></i> <span data-i18n="decoupling_title">유산소 디커플링 (심박 드리프트)</span></div>
-            <span class="info-tag" data-i18n="decoupling_crit" title="전반부 대비 후반부 심박/속도 분리율. 5% 미만이면 유산소 베이스 탄탄!">기준: 5% 미만 권장</span>
+            <div class="card-title"><i class="bi bi-activity"></i> <span data-i18n="decoupling_title">Aerobic Decoupling (Cardiac Drift)</span></div>
+            <span class="info-tag" data-i18n="decoupling_crit" title="Drift ratio between halves. Under 5% indicates robust aerobic base!">Standard: &lt;5% recommended</span>
           </div>
           <div class="decoupling-box">
             <div class="decoupling-score" id="single-decoupling">0.0%</div>
             <div class="decoupling-text">
-              <h4 id="decoupling-title">유산소 지구력 안정</h4>
-              <p id="decoupling-desc">전반부와 후반부의 페이스 대비 심박수 비율이 일정하게 유지되어 심폐 피로도가 매우 낮습니다.</p>
+              <h4 id="decoupling-title">Optimal Aerobic Endurance</h4>
+              <p id="decoupling-desc">Consistent pace-to-heart-rate ratio maintained across both halves with minimal cardiac drift.</p>
             </div>
           </div>
         </div>
@@ -280,8 +280,8 @@
         <!-- VDOT & 5 Training Paces Card -->
         <div class="card detail-card vdot-paces-card">
           <div class="card-header">
-            <div class="card-title"><i class="bi bi-speedometer2"></i> <span data-i18n="vdot_title">VDOT &amp; 5대 훈련 페이스</span></div>
-            <div class="vdot-cadence-badge" title="분당 평균 발걸음 수">
+            <div class="card-title"><i class="bi bi-speedometer2"></i> <span data-i18n="vdot_title">VDOT &amp; 5 Training Pacing Zones</span></div>
+            <div class="vdot-cadence-badge" title="Average steps per minute (SPM)">
               <i class="bi bi-arrow-repeat text-cyan"></i> <span id="single-cadence">0 spm</span>
             </div>
           </div>
@@ -291,49 +291,49 @@
               <span class="vdot-score-val" id="single-vdot">0.0</span>
             </div>
             <div class="vdot-score-desc" data-i18n="vdot_banner_desc" data-i18n-html="true">
-              이 세션 기록(거리·시간) 기반의 최대산소섭취능력(VDOT)과 <strong>5대 권장 훈련 페이스</strong>입니다.
+              Estimated cardiorespiratory fitness (VDOT) and <strong>5 recommended pacing zones</strong> from this run.
             </div>
           </div>
           <div class="training-paces-grid">
             <div class="pace-zone-item pace-e">
               <div class="pz-header">
-                <span class="pz-code" data-i18n="pace_e_code">E 페이스</span>
-                <span class="pz-name" data-i18n="pace_e_name">이지·회복</span>
+                <span class="pz-code" data-i18n="pace_e_code">E Pace</span>
+                <span class="pz-name" data-i18n="pace_e_name">Easy / Recovery</span>
               </div>
               <div class="pz-val" id="vdot-pace-e">-</div>
-              <div class="pz-desc" data-i18n="pace_e_desc">Zone 2 기초 유산소</div>
+              <div class="pz-desc" data-i18n="pace_e_desc">Zone 2 Aerobic Base</div>
             </div>
             <div class="pace-zone-item pace-m">
               <div class="pz-header">
-                <span class="pz-code" data-i18n="pace_m_code">M 페이스</span>
-                <span class="pz-name" data-i18n="pace_m_name">마라톤</span>
+                <span class="pz-code" data-i18n="pace_m_code">M Pace</span>
+                <span class="pz-name" data-i18n="pace_m_name">Marathon</span>
               </div>
               <div class="pz-val" id="vdot-pace-m">-</div>
-              <div class="pz-desc" data-i18n="pace_m_desc">풀코스 목표 (LT1)</div>
+              <div class="pz-desc" data-i18n="pace_m_desc">Target Race Pace (LT1)</div>
             </div>
             <div class="pace-zone-item pace-t">
               <div class="pz-header">
-                <span class="pz-code" data-i18n="pace_t_code">T 페이스</span>
-                <span class="pz-name" data-i18n="pace_t_name">역치·템포</span>
+                <span class="pz-code" data-i18n="pace_t_code">T Pace</span>
+                <span class="pz-name" data-i18n="pace_t_name">Threshold / Tempo</span>
               </div>
               <div class="pz-val" id="vdot-pace-t">-</div>
-              <div class="pz-desc" data-i18n="pace_t_desc">젖산 역치 (LT2)</div>
+              <div class="pz-desc" data-i18n="pace_t_desc">Lactate Threshold (LT2)</div>
             </div>
             <div class="pace-zone-item pace-i">
               <div class="pz-header">
-                <span class="pz-code" data-i18n="pace_i_code">I 페이스</span>
-                <span class="pz-name" data-i18n="pace_i_name">인터벌</span>
+                <span class="pz-code" data-i18n="pace_i_code">I Pace</span>
+                <span class="pz-name" data-i18n="pace_i_name">Interval</span>
               </div>
               <div class="pz-val" id="vdot-pace-i">-</div>
-              <div class="pz-desc" data-i18n="pace_i_desc">VO2max 산소 확장</div>
+              <div class="pz-desc" data-i18n="pace_i_desc">VO2max Oxygen Capacity</div>
             </div>
             <div class="pace-zone-item pace-r">
               <div class="pz-header">
-                <span class="pz-code" data-i18n="pace_r_code">R 페이스</span>
-                <span class="pz-name" data-i18n="pace_r_name">레피티션</span>
+                <span class="pz-code" data-i18n="pace_r_code">R Pace</span>
+                <span class="pz-name" data-i18n="pace_r_name">Repetition</span>
               </div>
               <div class="pz-val" id="vdot-pace-r">-</div>
-              <div class="pz-desc" data-i18n="pace_r_desc">무산소 스피드 &amp; 자세</div>
+              <div class="pz-desc" data-i18n="pace_r_desc">Anaerobic Speed &amp; Economy</div>
             </div>
           </div>
         </div>
@@ -343,43 +343,43 @@
       <div class="card detail-card threshold-card" id="threshold-diagnostics-card">
         <div class="card-header threshold-header">
           <div class="card-title">
-            <i class="bi bi-cpu-fill" style="color:var(--accent-cyan);"></i> <span data-i18n="thresh_card_title">유산소 역치(LT1) &amp; 젖산 역치(LT2) 생체 진단</span>
+            <i class="bi bi-cpu-fill" style="color:var(--accent-cyan);"></i> <span data-i18n="thresh_card_title">Aerobic (LT1) &amp; Lactate (LT2) Threshold Diagnostics</span>
           </div>
           <div class="threshold-header-actions">
-            <button class="btn-hr-settings" id="btn-hr-settings" title="MHR(최대심박) &amp; RHR(안정시심박) 설정 (정확도 99% 활성화)">
+            <button class="btn-hr-settings" id="btn-hr-settings" title="Configure MHR &amp; RHR (99% Precision Mode)">
               <i class="bi bi-heart-pulse-fill text-pink"></i> <span id="hr-settings-summary">MHR: 196 | RHR: 55</span> <i class="bi bi-gear-fill"></i>
             </button>
-            <span class="threshold-status-badge" id="threshold-status-badge" data-i18n="thresh_analyzing">분석 중...</span>
+            <span class="threshold-status-badge" id="threshold-status-badge" data-i18n="thresh_analyzing">Analyzing...</span>
           </div>
         </div>
 
         <!-- HR Profile Settings Drawer (Instant MHR/RHR Calibration) -->
         <div class="hr-settings-drawer" id="hr-settings-drawer" style="display: none;">
           <div class="hr-drawer-header">
-            <h4><i class="bi bi-sliders"></i> 개인 심박수 프로필 설정 (가민·코로스·애플워치 실측값)</h4>
-            <button class="btn-close-drawer" id="btn-close-hr-drawer" title="닫기">&times;</button>
+            <h4><i class="bi bi-sliders"></i> Personal Heart Rate Profile (Garmin · COROS · Apple Watch)</h4>
+            <button class="btn-close-drawer" id="btn-close-hr-drawer" title="Close">&times;</button>
           </div>
           <p class="hr-drawer-hint">
-            워치 앱(가민 커넥트, 코로스, 애플 건강)의 <strong>[프로필 &gt; 심박수 영역]</strong>에 표시된 실제 MHR(최대 심박수)과 RHR(안정 시 심박수)을 입력하면, <strong>카르보넨(Karvonen HRR) 공식으로 99% 정확도의 골드 스탠다드 역치</strong>를 실시간 도출합니다. <a href="guide.html#watch-hr-guide" target="_blank" style="color:var(--accent-cyan); text-decoration:underline; margin-left:4px;"><i class="bi bi-question-circle"></i> 워치 확인법 가이드</a>
+            Enter your measured MHR (Max HR) and RHR (Resting HR) from your watch app (Garmin Connect, COROS, Apple Health) under <strong>[Profile &gt; Heart Rate Zones]</strong> to calculate <strong>gold-standard Karvonen HRR thresholds with 99% accuracy</strong> in real time. <a href="guide.html#watch-hr-guide" target="_blank" style="color:var(--accent-cyan); text-decoration:underline; margin-left:4px;"><i class="bi bi-question-circle"></i> Watch Setup Guide</a>
           </p>
           <div class="hr-input-row">
             <div class="hr-input-group">
-              <label for="input-mhr">최대 심박수 (MHR)</label>
+              <label for="input-mhr">Max Heart Rate (MHR)</label>
               <div class="input-with-unit">
-                <input type="number" id="input-mhr" value="196" placeholder="예: 190" min="140" max="230">
+                <input type="number" id="input-mhr" value="196" placeholder="e.g. 190" min="140" max="230">
                 <span class="unit">bpm</span>
               </div>
             </div>
             <div class="hr-input-group">
-              <label for="input-rhr">안정 시 심박수 (RHR)</label>
+              <label for="input-rhr">Resting Heart Rate (RHR)</label>
               <div class="input-with-unit">
-                <input type="number" id="input-rhr" value="55" placeholder="예: 60" min="35" max="100">
+                <input type="number" id="input-rhr" value="55" placeholder="e.g. 60" min="35" max="100">
                 <span class="unit">bpm</span>
               </div>
             </div>
             <div class="hr-input-actions">
-              <button class="btn-save-hr" id="btn-save-hr"><i class="bi bi-check2-circle"></i> 정밀 적용</button>
-              <button class="btn-reset-hr" id="btn-reset-hr" title="기본값으로 리셋">기본값</button>
+              <button class="btn-save-hr" id="btn-save-hr"><i class="bi bi-check2-circle"></i> Apply Profile</button>
+              <button class="btn-reset-hr" id="btn-reset-hr" title="Reset to default">Reset</button>
             </div>
           </div>
         </div>
@@ -392,8 +392,8 @@
       <!-- Time Series Chart Card -->
       <div class="card chart-card">
         <div class="card-header">
-          <div class="card-title"><i class="bi bi-graph-up"></i> <span data-i18n="chart_stream_title">주행 중 심박수 &amp; 케이던스 스트림</span></div>
-          <span class="badge-subtle" data-i18n="chart_badge_sub">1초 단위 타임시리즈</span>
+          <div class="card-title"><i class="bi bi-graph-up"></i> <span data-i18n="chart_stream_title">Heart Rate &amp; Cadence Time Series</span></div>
+          <span class="badge-subtle" data-i18n="chart_badge_sub">1-Second Resolution Stream</span>
         </div>
         <div class="chart-wrapper">
           <canvas id="singleSessionChart"></canvas>
@@ -406,44 +406,44 @@
     <div class="insta-modal-overlay" id="modal-single-insta-overlay" style="display:none;">
         <div class="insta-modal-dialog">
           <div class="insta-modal-header">
-            <div class="imh-title"><i class="bi bi-instagram text-orange"></i> 데일리 인스타 카드 스튜디오</div>
+            <div class="imh-title"><i class="bi bi-instagram text-orange"></i> Daily Run Card Studio</div>
             <button type="button" class="btn-modal-close" id="btn-close-single-insta-modal">&times;</button>
           </div>
           <div class="card-studio-section" id="single-card-studio-section">
             <div class="studio-header">
           <div>
-            <h3><i class="bi bi-instagram text-orange"></i> 데일리 러닝 인스타 카드 스튜디오</h3>
-            <p>오늘 달린 기록을 스토리(9:16) 및 피드(1:1 / 4:5) 맞춤형 카드로 원클릭 생성하고 공유하세요.</p>
+            <h3><i class="bi bi-instagram text-orange"></i> Daily Run Card Studio</h3>
+            <p>Generate 1-click custom Instagram cards optimized for Stories (9:16) and Feeds (1:1 / 4:5).</p>
           </div>
           <div class="studio-actions">
             <!-- Format Picker -->
             <div class="format-picker-group">
-              <button class="btn-format-chip active" data-studio="single" data-format="story" title="인스타 스토리 규격 (9:16)">
-                <i class="bi bi-phone"></i> 스토리 (9:16)
+              <button class="btn-format-chip active" data-studio="single" data-format="story" title="Instagram Story (9:16)">
+                <i class="bi bi-phone"></i> Story (9:16)
               </button>
-              <button class="btn-format-chip" data-studio="single" data-format="square" title="인스타 피드 정방형 (1:1)">
-                <i class="bi bi-square"></i> 피드 정방형 (1:1)
+              <button class="btn-format-chip" data-studio="single" data-format="square" title="Instagram Feed Square (1:1)">
+                <i class="bi bi-square"></i> Square Feed (1:1)
               </button>
-              <button class="btn-format-chip" data-studio="single" data-format="portrait" title="인스타 피드 세로형 (4:5)">
-                <i class="bi bi-aspect-ratio"></i> 피드 세로형 (4:5)
+              <button class="btn-format-chip" data-studio="single" data-format="portrait" title="Instagram Feed Portrait (4:5)">
+                <i class="bi bi-aspect-ratio"></i> Portrait Feed (4:5)
               </button>
             </div>
 
             <!-- Theme Picker -->
             <div class="theme-picker-group">
-              <button class="btn-theme-chip active" data-studio="single" data-theme="dark" title="Dark Tech 테마">
+              <button class="btn-theme-chip active" data-studio="single" data-theme="dark" title="Dark Tech Theme">
                 <span class="chip-dot dot-dark"></span> Dark
               </button>
-              <button class="btn-theme-chip" data-studio="single" data-theme="green" title="Forest Green 테마 (새 아이콘 컬러 매칭)">
+              <button class="btn-theme-chip" data-studio="single" data-theme="green" title="Forest Green Theme">
                 <span class="chip-dot dot-green"></span> Green
               </button>
-              <button class="btn-theme-chip" data-studio="single" data-theme="neon" title="Neon Cyber 테마">
+              <button class="btn-theme-chip" data-studio="single" data-theme="neon" title="Neon Cyber Theme">
                 <span class="chip-dot dot-neon"></span> Cyber
               </button>
-              <button class="btn-theme-chip" data-studio="single" data-theme="minimal" title="Minimal White 테마">
+              <button class="btn-theme-chip" data-studio="single" data-theme="minimal" title="Minimal White Theme">
                 <span class="chip-dot dot-minimal"></span> White
               </button>
-              <button class="btn-theme-chip" data-studio="single" data-theme="hud" title="영상/사진 오버레이 HUD 테마">
+              <button class="btn-theme-chip" data-studio="single" data-theme="hud" title="HUD Overlay Theme">
                 <span class="chip-dot dot-hud"></span> HUD
               </button>
             </div>
@@ -451,19 +451,19 @@
             <!-- Photo Upload for HUD Background -->
             <div class="photo-upload-group">
               <input type="file" id="photo-input-single" class="card-bg-input" data-studio="single" accept="image/*" style="display:none;">
-              <button type="button" class="btn-photo-upload" data-target="photo-input-single" title="내 러닝 사진/영상 캡처 업로드">
-                <i class="bi bi-camera-fill text-lime"></i> 사진 배경
+              <button type="button" class="btn-photo-upload" data-target="photo-input-single" title="Upload Running Photo/Video BG">
+                <i class="bi bi-camera-fill text-lime"></i> Photo BG
               </button>
-              <button type="button" class="btn-photo-clear" data-studio="single" style="display:none;" title="사진 배경 제거">
+              <button type="button" class="btn-photo-clear" data-studio="single" style="display:none;" title="Remove Photo Background">
                 <i class="bi bi-x-circle"></i>
               </button>
             </div>
             <div class="studio-btn-group">
-              <button class="btn-primary" id="btn-share-single-card" title="인스타그램 공유 또는 저장">
-                <i class="bi bi-instagram"></i> 스토리 공유
+              <button class="btn-primary" id="btn-share-single-card" title="Share or Save Instagram Card">
+                <i class="bi bi-instagram"></i> Share Story
               </button>
-              <button class="btn-secondary" id="btn-download-single-card" title="PNG 이미지 파일로 직접 다운로드">
-                <i class="bi bi-download"></i> 카드 저장
+              <button class="btn-secondary" id="btn-download-single-card" title="Download PNG Image File">
+                <i class="bi bi-download"></i> Save Card
               </button>
             </div>
           </div>
@@ -556,9 +556,9 @@
       <div class="weekly-hero-card">
         <div class="wh-content">
           <span class="sub-title">ACWR TRAINING LOAD &amp; 4-WEEK BASELINE AUDIT</span>
-          <h2 class="main-title" id="weekly-main-title" data-i18n="weekly_hero_title">주차별 마일리지 빌드업 &amp; 부상위험 진단</h2>
+          <h2 class="main-title" id="weekly-main-title" data-i18n="weekly_hero_title">Weekly Mileage Build-up &amp; Injury Risk Audit</h2>
           <p class="description">
-            스포츠 생리학의 부상 방지 글로벌 표준인 <strong>ACWR(최근 4주 만성 베이스 대비 이번 주 부하 비율)</strong>과 <strong>80/20 양극화(Polarized) 훈련 비율</strong>을 실시간 진단합니다.
+            Real-time audit of ACWR (Acute:Chronic Workload Ratio) and 80/20 polarized training distribution based on sports science injury-prevention standards.
           </p>
         </div>
       </div>
@@ -576,7 +576,7 @@
       <!-- Weekly Chart Card -->
       <div class="card chart-card">
         <div class="card-header">
-          <div class="card-title"><i class="bi bi-bar-chart-fill"></i> 주차별 마일리지 변동 및 평균 EF 추세</div>
+          <div class="card-title"><i class="bi bi-bar-chart-fill"></i> Weekly Mileage Progression &amp; Aerobic EF Trend</div>
         </div>
         <div class="chart-wrapper">
           <canvas id="weeklyChart"></canvas>
@@ -587,38 +587,38 @@
       <div class="card-studio-section" id="weekly-card-studio-section">
         <div class="studio-header">
           <div>
-            <h3><i class="bi bi-instagram text-orange"></i> 주간 러닝 결산 인스타 카드 스튜디오</h3>
-            <p>한 주간의 마일리지 빌드업과 80/20 양극화 비율, ACWR 부하를 인스타 맞춤 카드로 제작하세요.</p>
+            <h3><i class="bi bi-instagram text-orange"></i> Weekly Running Recap Card Studio</h3>
+            <p>Generate custom Instagram cards showcasing weekly mileage build-up, 80/20 polarized distribution, and ACWR load.</p>
           </div>
           <div class="studio-actions">
             <!-- Format Picker -->
             <div class="format-picker-group">
-              <button class="btn-format-chip active" data-studio="weekly" data-format="story" title="인스타 스토리 규격 (9:16)">
-                <i class="bi bi-phone"></i> 스토리 (9:16)
+              <button class="btn-format-chip active" data-studio="weekly" data-format="story" title="Instagram Story (9:16)">
+                <i class="bi bi-phone"></i> Story (9:16)
               </button>
-              <button class="btn-format-chip" data-studio="weekly" data-format="square" title="인스타 피드 정방형 (1:1)">
-                <i class="bi bi-square"></i> 피드 정방형 (1:1)
+              <button class="btn-format-chip" data-studio="weekly" data-format="square" title="Instagram Feed Square (1:1)">
+                <i class="bi bi-square"></i> Square Feed (1:1)
               </button>
-              <button class="btn-format-chip" data-studio="weekly" data-format="portrait" title="인스타 피드 세로형 (4:5)">
-                <i class="bi bi-aspect-ratio"></i> 피드 세로형 (4:5)
+              <button class="btn-format-chip" data-studio="weekly" data-format="portrait" title="Instagram Feed Portrait (4:5)">
+                <i class="bi bi-aspect-ratio"></i> Portrait Feed (4:5)
               </button>
             </div>
 
             <!-- Theme Picker -->
             <div class="theme-picker-group">
-              <button class="btn-theme-chip active" data-studio="weekly" data-theme="dark" title="Dark Tech 테마">
+              <button class="btn-theme-chip active" data-studio="weekly" data-theme="dark" title="Dark Tech Theme">
                 <span class="chip-dot dot-dark"></span> Dark
               </button>
-              <button class="btn-theme-chip" data-studio="weekly" data-theme="green" title="Forest Green 테마 (새 아이콘 컬러 매칭)">
+              <button class="btn-theme-chip" data-studio="weekly" data-theme="green" title="Forest Green Theme">
                 <span class="chip-dot dot-green"></span> Green
               </button>
-              <button class="btn-theme-chip" data-studio="weekly" data-theme="neon" title="Neon Cyber 테마">
+              <button class="btn-theme-chip" data-studio="weekly" data-theme="neon" title="Neon Cyber Theme">
                 <span class="chip-dot dot-neon"></span> Cyber
               </button>
-              <button class="btn-theme-chip" data-studio="weekly" data-theme="minimal" title="Minimal White 테마">
+              <button class="btn-theme-chip" data-studio="weekly" data-theme="minimal" title="Minimal White Theme">
                 <span class="chip-dot dot-minimal"></span> White
               </button>
-              <button class="btn-theme-chip" data-studio="weekly" data-theme="hud" title="영상/사진 오버레이 HUD 테마">
+              <button class="btn-theme-chip" data-studio="weekly" data-theme="hud" title="HUD Overlay Theme">
                 <span class="chip-dot dot-hud"></span> HUD
               </button>
             </div>
@@ -626,19 +626,19 @@
             <!-- Photo Upload for HUD Background -->
             <div class="photo-upload-group">
               <input type="file" id="photo-input-weekly" class="card-bg-input" data-studio="weekly" accept="image/*" style="display:none;">
-              <button type="button" class="btn-photo-upload" data-target="photo-input-weekly" title="내 러닝 사진/영상 캡처 업로드">
-                <i class="bi bi-camera-fill text-lime"></i> 사진 배경
+              <button type="button" class="btn-photo-upload" data-target="photo-input-weekly" title="Upload Running Photo/Video BG">
+                <i class="bi bi-camera-fill text-lime"></i> Photo BG
               </button>
-              <button type="button" class="btn-photo-clear" data-studio="weekly" style="display:none;" title="사진 배경 제거">
+              <button type="button" class="btn-photo-clear" data-studio="weekly" style="display:none;" title="Remove Photo Background">
                 <i class="bi bi-x-circle"></i>
               </button>
             </div>
             <div class="studio-btn-group">
-              <button class="btn-primary" id="btn-share-weekly-card" title="인스타그램 공유 또는 저장">
-                <i class="bi bi-instagram"></i> 스토리 공유
+              <button class="btn-primary" id="btn-share-weekly-card" title="Share or Save Instagram Card">
+                <i class="bi bi-instagram"></i> Share Story
               </button>
-              <button class="btn-secondary" id="btn-download-weekly-card" title="PNG 이미지 파일로 직접 다운로드">
-                <i class="bi bi-download"></i> 카드 저장
+              <button class="btn-secondary" id="btn-download-weekly-card" title="Download PNG Image File">
+                <i class="bi bi-download"></i> Save Card
               </button>
             </div>
           </div>
@@ -717,9 +717,9 @@
         <div class="plan-hero-badge">
           <i class="bi bi-calendar2-week-fill"></i> 80/20 POLARIZED &amp; VDOT TRAINING PLAN
         </div>
-        <h2 class="plan-hero-title">7-Day 맞춤 훈련 플랜 &amp; 인스타그램 카드</h2>
+        <h2 class="plan-hero-title">7-Day Custom Training Plan &amp; Instagram Cards</h2>
         <p class="plan-hero-desc">
-          잭 다니엘스 VDOT 공식과 80/20 극성 훈련법을 바탕으로, 러너의 체력 수준에 꼭 맞는 이번 주 7일 훈련 스케줄과 공유용 인스타그램 카드를 생성합니다.
+          Generate personalized 7-day training schedules and high-resolution Instagram cards powered by Jack Daniels VDOT and 80/20 polarized training principles.
         </p>
       </div>
 
@@ -727,147 +727,147 @@
       <div class="plan-autofill-banner" id="plan-autofill-banner" style="display:none;">
         <div class="pab-info">
           <i class="bi bi-strava text-orange"></i>
-          <span>Strava 계정이 연동되어 있습니다. <strong>최근 1년 야외 PB 및 마일리지</strong>를 1초 만에 불러오시겠습니까?</span>
+          <span>Strava account connected. Auto-fill with your verified <strong>recent 1-year outdoor PB &amp; mileage</strong>?</span>
         </div>
         <button type="button" class="btn-pab" id="btn-plan-strava-autofill">
-          <i class="bi bi-lightning-charge-fill"></i> 내 Strava 기록으로 자동 완성
+          <i class="bi bi-lightning-charge-fill"></i> Auto-fill with Strava Data
         </button>
       </div>
 
       <!-- Plan Setup Form Card (Mobile-First 1-Column) -->
       <div class="plan-form-card" id="plan-form-card">
         <div class="pfc-header">
-          <div class="pfc-title"><i class="bi bi-sliders2-vertical"></i> 7-Day 맞춤 플랜 설정</div>
-          <div class="pfc-sub">이름 등 불필요한 개인정보는 일체 수집하지 않으며, 전적으로 브라우저 로컬에서 연산됩니다.</div>
+          <div class="pfc-title"><i class="bi bi-sliders2-vertical"></i> 7-Day Custom Plan Settings</div>
+          <div class="pfc-sub">Zero personal tracking. All computations run 100% locally in your browser.</div>
         </div>
 
         <!-- Section 1: Physical Profile -->
         <div class="plan-form-group">
-          <div class="pfg-label"><i class="bi bi-person-fill"></i> 1. 러너 기초 신체 정보</div>
+          <div class="pfg-label"><i class="bi bi-person-fill"></i> 1. Runner Biometrics</div>
           <div class="pfg-row-mobile">
             <div class="pfg-field" style="flex:1;">
-              <label for="plan-age">만 나이 (필수)</label>
+              <label for="plan-age">Age (Required)</label>
               <input type="number" id="plan-age" value="42" min="15" max="85">
             </div>
             <div class="pfg-field" style="flex:1;">
-              <label>생물학적 성별</label>
+              <label>Biological Gender</label>
               <div class="plan-segmented-control" id="plan-gender-group">
-                <button type="button" class="plan-seg-btn active" data-gender="M">남성</button>
-                <button type="button" class="plan-seg-btn" data-gender="F">여성</button>
+                <button type="button" class="plan-seg-btn active" data-gender="M">Male</button>
+                <button type="button" class="plan-seg-btn" data-gender="F">Female</button>
               </div>
             </div>
           </div>
 
           <div class="pfg-row-mobile" style="margin-top:0.75rem;">
             <div class="pfg-field" style="flex:1;">
-              <label for="plan-mhr">실측 최대 심박수 (MHR, 선택)</label>
-              <input type="number" id="plan-mhr" placeholder="예: 196 (미입력 시 220-나이 추정)">
+              <label for="plan-mhr">Max Heart Rate (MHR, Optional)</label>
+              <input type="number" id="plan-mhr" placeholder="e.g. 196 (default: 220-age)">
             </div>
             <div class="pfg-field" style="flex:1;">
-              <label for="plan-rhr">실측 안정시 심박수 (RHR, 선택)</label>
-              <input type="number" id="plan-rhr" placeholder="예: 55 (미입력 시 60 추정)">
+              <label for="plan-rhr">Resting Heart Rate (RHR, Optional)</label>
+              <input type="number" id="plan-rhr" placeholder="e.g. 55 (default: 60)">
             </div>
           </div>
 
           <div class="plan-warning-box">
             <i class="bi bi-exclamation-triangle-fill"></i>
-            <span>MHR/RHR 미입력 시 나이 공식이 적용되어 심박 영역에 ±10~15bpm 오차가 발생할 수 있습니다. (가민/애플워치 실측치 입력 권장)</span>
+            <span>When MHR/RHR are omitted, age formulas apply with ±10-15 bpm margin. Enter watch-verified numbers for gold standard precision.</span>
           </div>
         </div>
 
         <!-- Section 2: Baseline Performance Mode -->
         <div class="plan-form-group">
-          <div class="pfg-label"><i class="bi bi-speedometer2"></i> 2. 기준 기량 (VDOT vs MAF 모드 선택)</div>
+          <div class="pfg-label"><i class="bi bi-speedometer2"></i> 2. Baseline Fitness (VDOT vs MAF Mode)</div>
           
           <div class="plan-mode-switcher">
             <button type="button" class="plan-mode-tab active" id="btn-mode-pb" data-mode="pb">
-              <i class="bi bi-award-fill"></i> 최근 1년 전력 질주 PB (대회/TT)
+              <i class="bi bi-award-fill"></i> 1-Year All-Out PB (Race/TT)
             </button>
             <button type="button" class="plan-mode-tab" id="btn-mode-maf" data-mode="maf">
-              <i class="bi bi-heart-pulse-fill"></i> 전력 기록 없음 (입문자 MAF 180)
+              <i class="bi bi-heart-pulse-fill"></i> No Race PB (Beginner MAF 180)
             </button>
           </div>
 
           <!-- Mode PB -->
           <div class="plan-mode-content" id="plan-mode-pb-box">
-            <label style="display:block; margin-bottom:0.4rem; font-size:0.85rem; color:var(--text-muted);">대회 또는 타임트라이얼 완주 거리</label>
+            <label style="display:block; margin-bottom:0.4rem; font-size:0.85rem; color:var(--text-muted);">Race / Time Trial Distance</label>
             <div class="plan-chips-row" id="plan-race-dist-group">
               <button type="button" class="plan-chip active" data-dist="10000">10 km (10,000m)</button>
               <button type="button" class="plan-chip" data-dist="5000">5 km (5,000m)</button>
-              <button type="button" class="plan-chip" data-dist="21097">하프 마라톤 (21.097km)</button>
-              <button type="button" class="plan-chip" data-dist="42195">풀 마라톤 (42.195km)</button>
+              <button type="button" class="plan-chip" data-dist="21097">Half Marathon (13.1 mi / 21.1 km)</button>
+              <button type="button" class="plan-chip" data-dist="42195">Full Marathon (26.2 mi / 42.2 km)</button>
             </div>
             
             <div class="pfg-field" style="margin-top:0.75rem;">
-              <label>100% 전력 완주 시간 (시 : 분 : 초)</label>
+              <label>All-Out Finish Time (Hours : Minutes : Seconds)</label>
               <div class="pfg-time-inputs">
-                <input type="number" id="plan-race-hour" value="1" min="0" max="12" placeholder="시" style="max-width: 65px;">
+                <input type="number" id="plan-race-hour" value="1" min="0" max="12" placeholder="hr" style="max-width: 65px;">
                 <span class="pfg-time-colon">:</span>
-                <input type="number" id="plan-race-min" value="01" min="0" max="59" placeholder="분" style="max-width: 65px;">
+                <input type="number" id="plan-race-min" value="01" min="0" max="59" placeholder="min" style="max-width: 65px;">
                 <span class="pfg-time-colon">:</span>
-                <input type="number" id="plan-race-sec" value="40" min="0" max="59" placeholder="초" style="max-width: 65px;">
+                <input type="number" id="plan-race-sec" value="40" min="0" max="59" placeholder="sec" style="max-width: 65px;">
               </div>
             </div>
             <div class="plan-help-text">
-              * 100% 전력으로 완주한 최고 기록을 입력하세요. 조깅이나 연습 기록을 넣으면 VDOT이 왜곡됩니다.
+              * Enter your 100% all-out personal best. Casual jogs distort VDOT estimation.
             </div>
           </div>
 
           <!-- Mode MAF (Hidden by default) -->
           <div class="plan-mode-content" id="plan-mode-maf-box" style="display:none;">
             <div class="pfg-field">
-              <label>평소 대화하며 편안하게 달리는 조깅 페이스 (분 : 초 /km)</label>
+              <label>Conversational Easy Jogging Pace (Min : Sec /km or /mi)</label>
               <div class="pfg-time-inputs">
-                <input type="number" id="plan-maf-min" value="6" min="3" max="15" placeholder="분">
+                <input type="number" id="plan-maf-min" value="6" min="3" max="15" placeholder="min">
                 <span class="pfg-time-colon">:</span>
-                <input type="number" id="plan-maf-sec" value="30" min="0" max="59" placeholder="초">
+                <input type="number" id="plan-maf-sec" value="30" min="0" max="59" placeholder="sec">
               </div>
             </div>
             <div class="plan-help-text">
-              * 전력 측정이 어려운 입문 러너를 위해 MAF 180 저심박(180-나이) 기반 안전 유산소 스케줄을 편성합니다.
+              * For beginners without race PRs, schedules are generated using MAF 180 low-heart-rate (180-age) safe aerobic guidelines.
             </div>
           </div>
         </div>
 
         <!-- Section 3: Level & Weekly Target -->
         <div class="plan-form-group">
-          <div class="pfg-label"><i class="bi bi-graph-up-arrow"></i> 3. 러너 수준 &amp; 이번 주 목표</div>
+          <div class="pfg-label"><i class="bi bi-graph-up-arrow"></i> 3. Experience &amp; Target Volume</div>
 
-          <label style="display:block; margin-bottom:0.4rem; font-size:0.85rem; color:var(--text-muted);">지금까지 쉬지 않고 달려본 최장 거리 (LSD Experience)</label>
+          <label style="display:block; margin-bottom:0.4rem; font-size:0.85rem; color:var(--text-muted);">Longest Continuous Run Experience (LSD)</label>
           <div class="plan-chips-row" id="plan-lsd-group">
-            <button type="button" class="plan-chip" data-lsd="5">5km 미만 (비기너)</button>
-            <button type="button" class="plan-chip active" data-lsd="10">5~10km (10K 챌린저)</button>
-            <button type="button" class="plan-chip" data-lsd="18">10~18km (하프 도전자)</button>
-            <button type="button" class="plan-chip" data-lsd="25">20km 이상 (풀코스/마스터즈)</button>
+            <button type="button" class="plan-chip" data-lsd="5">&lt;3 mi / 5 km (Beginner)</button>
+            <button type="button" class="plan-chip active" data-lsd="10">3-6 mi / 5-10 km (10K Challenger)</button>
+            <button type="button" class="plan-chip" data-lsd="18">6-11 mi / 10-18 km (Half Contender)</button>
+            <button type="button" class="plan-chip" data-lsd="25">12+ mi / 20+ km (Marathoner)</button>
           </div>
 
           <div class="pfg-row-mobile" style="margin-top:1rem;">
             <div class="pfg-field" style="flex:1;">
-              <label for="plan-target-km">이번 주 목표 총 마일리지 (km)</label>
+              <label for="plan-target-km">Target Weekly Mileage (mi / km)</label>
               <input type="number" id="plan-target-km" value="25" min="10" max="100" step="1">
             </div>
             <div class="pfg-field" style="flex:1;">
-              <label>주당 러닝 가능 횟수</label>
+              <label>Weekly Running Days</label>
               <div class="plan-segmented-control" id="plan-days-group">
-                <button type="button" class="plan-seg-btn" data-days="3">주 3회</button>
-                <button type="button" class="plan-seg-btn active" data-days="4">주 4회 (권장)</button>
-                <button type="button" class="plan-seg-btn" data-days="5">주 5회</button>
+                <button type="button" class="plan-seg-btn" data-days="3">3 Days / Wk</button>
+                <button type="button" class="plan-seg-btn active" data-days="4">4 Days (Recommended)</button>
+                <button type="button" class="plan-seg-btn" data-days="5">5 Days / Wk</button>
               </div>
             </div>
           </div>
 
           <div class="pfg-field" style="margin-top:0.75rem;">
-            <label>주말 롱런(LSD) 요일 선택</label>
+            <label>Weekend Long Run Day</label>
             <div class="plan-segmented-control" id="plan-longday-group" style="max-width:320px;">
-              <button type="button" class="plan-seg-btn active" data-longday="sun">일요일 롱런</button>
-              <button type="button" class="plan-seg-btn" data-longday="sat">토요일 롱런</button>
+              <button type="button" class="plan-seg-btn active" data-longday="sun">Sunday Long Run</button>
+              <button type="button" class="plan-seg-btn" data-longday="sat">Saturday Long Run</button>
             </div>
           </div>
         </div>
 
         <!-- Action Button -->
         <button type="button" class="btn-plan-generate" id="btn-generate-plan">
-          <i class="bi bi-calendar-check-fill"></i> 이번 주 7-Day 맞춤 훈련 플랜 생성
+          <i class="bi bi-calendar-check-fill"></i> Generate 7-Day Custom Training Plan
         </button>
       </div>
 
@@ -876,45 +876,45 @@
         <!-- Top Metrics Grid -->
         <div class="plan-metrics-grid">
           <div class="pm-box">
-            <span class="pm-label">러너 수준 (Level)</span>
+            <span class="pm-label">Athletic Level</span>
             <span class="pm-val text-cyan" id="res-plan-level">LEVEL 2</span>
-            <span class="pm-sub" id="res-plan-level-title">10K 챌린저</span>
+            <span class="pm-sub" id="res-plan-level-title">10K Challenger</span>
           </div>
           <div class="pm-box">
-            <span class="pm-label" id="res-plan-stat1-lbl">기준 VDOT</span>
-            <span class="pm-val text-lime" id="res-plan-stat1-val">33.0 <small>점</small></span>
-            <span class="pm-sub" id="res-plan-stat1-sub">최근 1년 PB 기준</span>
+            <span class="pm-label" id="res-plan-stat1-lbl">Baseline VDOT</span>
+            <span class="pm-val text-lime" id="res-plan-stat1-val">33.0 <small>pts</small></span>
+            <span class="pm-sub" id="res-plan-stat1-sub">1-Year PB Anchor</span>
           </div>
           <div class="pm-box">
-            <span class="pm-label">이번 주 목표 마일리지</span>
+            <span class="pm-label">Target Weekly Volume</span>
             <span class="pm-val text-orange" id="res-plan-total-km">25.0 <small>km</small></span>
-            <span class="pm-sub" id="res-plan-days-sub">주 4회 트레이닝</span>
+            <span class="pm-sub" id="res-plan-days-sub">4 Sessions / Wk</span>
           </div>
           <div class="pm-box">
-            <span class="pm-label">80/20 극성 밸런스</span>
+            <span class="pm-label">80/20 Polarized Balance</span>
             <span class="pm-val text-purple" id="res-plan-balance">20.0k : 5.0k</span>
-            <span class="pm-sub">저강도 80% : 역치 20%</span>
+            <span class="pm-sub">80% Low : 20% Quality</span>
           </div>
         </div>
 
         <!-- 80/20 Ratio Visual Bar -->
         <div class="plan-ratio-bar-box">
           <div class="prb-labels">
-            <span class="prb-lbl-low"><i class="bi bi-shield-check"></i> 저강도(Zone 1~2 / LSD): <strong id="res-bar-low-km">20.0 km (80%)</strong></span>
-            <span class="prb-lbl-high"><i class="bi bi-lightning-charge-fill"></i> 고강도 역치(T 페이스): <strong id="res-bar-high-km">5.0 km (20%)</strong></span>
+            <span class="prb-lbl-low"><i class="bi bi-shield-check"></i> Low-Intensity (Zone 1-2 / LSD): <strong id="res-bar-low-km">20.0 km (80%)</strong></span>
+            <span class="prb-lbl-high"><i class="bi bi-lightning-charge-fill"></i> High-Intensity Threshold (T Pace): <strong id="res-bar-high-km">5.0 km (20%)</strong></span>
           </div>
           <div class="prb-track">
             <div class="prb-fill-low" id="res-bar-fill-low" style="width:80%;"></div>
             <div class="prb-fill-high" id="res-bar-fill-high" style="width:20%;"></div>
           </div>
           <div class="prb-note">
-            <i class="bi bi-info-circle-fill text-cyan"></i> 80/20 극성 훈련법은 피로 누적과 부상의 주원인인 <strong>'Zone 3(블랙홀)'을 배제</strong>하고 확실한 저강도 회복과 확실한 역치 자극을 제공합니다.
+            <i class="bi bi-info-circle-fill text-cyan"></i> 80/20 polarized training avoids the chronic fatigue <strong>"Zone 3 black hole"</strong>, pairing true low-intensity recovery with sharp threshold stimuli.
           </div>
         </div>
 
         <!-- 7-Day Vertical Mobile-First Stack List -->
         <div class="plan-days-container">
-          <h3 class="plan-section-title"><i class="bi bi-calendar3"></i> 요일별 7-Day 트레이닝 스케줄</h3>
+          <h3 class="plan-section-title"><i class="bi bi-calendar3"></i> Daily 7-Day Training Schedule</h3>
           <div class="plan-days-stack" id="plan-days-stack">
             <!-- Dynamically populated via JS -->
           </div>
@@ -923,28 +923,28 @@
         <!-- Instagram Plan Card Studio Section -->
         <div class="plan-insta-studio" id="plan-insta-studio">
           <div class="pis-header">
-            <div class="pis-title"><i class="bi bi-instagram text-orange"></i> 7-Day 플랜 인스타그램 카드 스튜디오</div>
-            <div class="pis-sub">이번 주 훈련 플랜을 고해상도 인스타그램 포스터 카드로 다운로드하여 스마트폰 배경화면이나 인스타에 공유하세요.</div>
+            <div class="pis-title"><i class="bi bi-instagram text-orange"></i> 7-Day Plan Instagram Card Studio</div>
+            <div class="pis-sub">Export your weekly plan as high-resolution poster cards for Instagram Stories and lock screens.</div>
           </div>
 
           <!-- Format Selector Chips & Theme Selector -->
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:1.5rem;">
             <div class="pis-formats" style="margin-bottom:0;">
               <button type="button" class="pis-fmt-btn active" data-fmt="story">
-                <i class="bi bi-phone"></i> 스토리 (9:16)
+                <i class="bi bi-phone"></i> Story (9:16)
               </button>
               <button type="button" class="pis-fmt-btn" data-fmt="square">
-                <i class="bi bi-square"></i> 피드 정방형 (1:1)
+                <i class="bi bi-square"></i> Square Feed (1:1)
               </button>
               <button type="button" class="pis-fmt-btn" data-fmt="portrait">
-                <i class="bi bi-aspect-ratio"></i> 피드 세로형 (4:5)
+                <i class="bi bi-aspect-ratio"></i> Portrait Feed (4:5)
               </button>
             </div>
             <div class="theme-picker-group">
-              <button type="button" class="btn-theme-chip active" id="btn-plan-theme-dark" data-theme="dark" title="Dark Tech 테마">
+              <button type="button" class="btn-theme-chip active" id="btn-plan-theme-dark" data-theme="dark" title="Dark Tech Theme">
                 <span class="chip-dot dot-dark"></span> Dark
               </button>
-              <button type="button" class="btn-theme-chip" id="btn-plan-theme-green" data-theme="green" title="Forest Green 테마 (새 아이콘 컬러 매칭)">
+              <button type="button" class="btn-theme-chip" id="btn-plan-theme-green" data-theme="green" title="Forest Green Theme">
                 <span class="chip-dot dot-green"></span> Green
               </button>
             </div>
@@ -992,7 +992,7 @@
           <!-- Download Action Button -->
           <div class="pis-actions">
             <button type="button" class="btn-primary-gradient" id="btn-download-plan-card">
-              <i class="bi bi-download"></i> 인스타그램 훈련 카드 고해상도(3x) 저장
+              <i class="bi bi-download"></i> Export High-Res (3x) Instagram Card
             </button>
           </div>
         </div>
@@ -1004,24 +1004,24 @@
       <!-- Monthly Recap Top Metrics -->
       <div class="month-hero-grid">
         <div class="month-stat-box">
-          <span class="m-label" id="month-label-dist">8월 총 마일리지</span>
+          <span class="m-label" id="month-label-dist">Monthly Total Distance</span>
           <span class="m-val text-orange" id="month-total-dist">0.0 <small>km</small></span>
-          <span class="m-sub" id="month-run-count">총 0회 러닝 완료</span>
+          <span class="m-sub" id="month-run-count">0 Total Runs Completed</span>
         </div>
         <div class="month-stat-box">
-          <span class="m-label" id="month-label-time">8월 총 러닝 시간</span>
+          <span class="m-label" id="month-label-time">Monthly Running Time</span>
           <span class="m-val text-cyan" id="month-total-time">00<small>h</small> 00<small>m</small></span>
-          <span class="m-sub" id="month-total-cal">0 kcal 소모</span>
+          <span class="m-sub" id="month-total-cal">0 kcal burned</span>
         </div>
         <div class="month-stat-box">
-          <span class="m-label" id="month-label-pace">8월 평균 페이스</span>
+          <span class="m-label" id="month-label-pace">Monthly Avg Pace</span>
           <span class="m-val text-lime" id="month-avg-pace">0'00" <small>/km</small></span>
-          <span class="m-sub" id="month-avg-hr">평균 심박수 0 bpm</span>
+          <span class="m-sub" id="month-avg-hr">Avg Heart Rate 0 bpm</span>
         </div>
         <div class="month-stat-box">
-          <span class="m-label">심폐 엔진(EF) 성장도</span>
+          <span class="m-label">Aerobic EF Progression</span>
           <span class="m-val text-purple" id="month-ef-growth">+0.0%</span>
-          <span class="m-sub">월초 대비 월말 심폐효율</span>
+          <span class="m-sub">Start vs End of Month</span>
         </div>
       </div>
 
@@ -1029,38 +1029,38 @@
       <div class="card-studio-section" id="monthly-card-studio-section">
         <div class="studio-header">
           <div>
-            <h3><i class="bi bi-instagram"></i> 인스타그램 러닝 결산 카드 스튜디오</h3>
-            <p>스토리(9:16) 및 피드 게시물(1:1 / 4:5) 맞춤형 러닝 결산 카드를 원클릭으로 생성하고 다운로드하세요.</p>
+            <h3><i class="bi bi-instagram"></i> Monthly Recap Instagram Card Studio</h3>
+            <p>Generate and export monthly endurance recap cards tailored for Stories (9:16) and Feeds (1:1 / 4:5).</p>
           </div>
           <div class="studio-actions">
             <!-- Format Selector: Story (9:16) vs Feed Square (1:1) vs Feed Portrait (4:5) -->
             <div class="format-picker-group">
-              <button class="btn-format-chip active" data-studio="monthly" data-format="story" title="인스타 스토리 규격 (9:16)">
-                <i class="bi bi-phone"></i> 스토리 (9:16)
+              <button class="btn-format-chip active" data-studio="monthly" data-format="story" title="Instagram Story (9:16)">
+                <i class="bi bi-phone"></i> Story (9:16)
               </button>
-              <button class="btn-format-chip" data-studio="monthly" data-format="square" title="인스타 피드 정방형 (1:1)">
-                <i class="bi bi-square"></i> 피드 정방형 (1:1)
+              <button class="btn-format-chip" data-studio="monthly" data-format="square" title="Instagram Feed Square (1:1)">
+                <i class="bi bi-square"></i> Square Feed (1:1)
               </button>
-              <button class="btn-format-chip" data-studio="monthly" data-format="portrait" title="인스타 피드 세로형 (4:5)">
-                <i class="bi bi-aspect-ratio"></i> 피드 세로형 (4:5)
+              <button class="btn-format-chip" data-studio="monthly" data-format="portrait" title="Instagram Feed Portrait (4:5)">
+                <i class="bi bi-aspect-ratio"></i> Portrait Feed (4:5)
               </button>
             </div>
 
             <!-- Theme Picker -->
             <div class="theme-picker-group">
-              <button class="btn-theme-chip active" data-studio="monthly" data-theme="dark" title="Dark Tech 테마">
+              <button class="btn-theme-chip active" data-studio="monthly" data-theme="dark" title="Dark Tech Theme">
                 <span class="chip-dot dot-dark"></span> Dark
               </button>
-              <button class="btn-theme-chip" data-studio="monthly" data-theme="green" title="Forest Green 테마 (새 아이콘 컬러 매칭)">
+              <button class="btn-theme-chip" data-studio="monthly" data-theme="green" title="Forest Green Theme">
                 <span class="chip-dot dot-green"></span> Green
               </button>
-              <button class="btn-theme-chip" data-studio="monthly" data-theme="neon" title="Neon Cyber 테마">
+              <button class="btn-theme-chip" data-studio="monthly" data-theme="neon" title="Neon Cyber Theme">
                 <span class="chip-dot dot-neon"></span> Cyber
               </button>
-              <button class="btn-theme-chip" data-studio="monthly" data-theme="minimal" title="Minimal White 테마">
+              <button class="btn-theme-chip" data-studio="monthly" data-theme="minimal" title="Minimal White Theme">
                 <span class="chip-dot dot-minimal"></span> White
               </button>
-              <button class="btn-theme-chip" data-studio="monthly" data-theme="hud" title="영상/사진 오버레이 HUD 테마">
+              <button class="btn-theme-chip" data-studio="monthly" data-theme="hud" title="HUD Overlay Theme">
                 <span class="chip-dot dot-hud"></span> HUD
               </button>
             </div>
@@ -1068,19 +1068,19 @@
             <!-- Photo Upload for HUD Background -->
             <div class="photo-upload-group">
               <input type="file" id="photo-input-monthly" class="card-bg-input" data-studio="monthly" accept="image/*" style="display:none;">
-              <button type="button" class="btn-photo-upload" data-target="photo-input-monthly" title="내 러닝 사진/영상 캡처 업로드">
-                <i class="bi bi-camera-fill text-lime"></i> 사진 배경
+              <button type="button" class="btn-photo-upload" data-target="photo-input-monthly" title="Upload Running Photo/Video BG">
+                <i class="bi bi-camera-fill text-lime"></i> Photo BG
               </button>
-              <button type="button" class="btn-photo-clear" data-studio="monthly" style="display:none;" title="사진 배경 제거">
+              <button type="button" class="btn-photo-clear" data-studio="monthly" style="display:none;" title="Remove Photo Background">
                 <i class="bi bi-x-circle"></i>
               </button>
             </div>
             <div class="studio-btn-group">
-              <button class="btn-primary" id="btn-share-card" title="인스타그램 공유 또는 저장">
-                <i class="bi bi-instagram"></i> 스토리 공유
+              <button class="btn-primary" id="btn-share-card" title="Share or Save Instagram Card">
+                <i class="bi bi-instagram"></i> Share Story
               </button>
-              <button class="btn-secondary" id="btn-download-card" title="PNG 이미지 파일로 직접 다운로드">
-                <i class="bi bi-download"></i> 카드 저장
+              <button class="btn-secondary" id="btn-download-card" title="Download PNG Image File">
+                <i class="bi bi-download"></i> Save Card
               </button>
             </div>
           </div>
@@ -1108,7 +1108,7 @@
             <div class="ic-stats-grid">
               <div class="ic-stat-item">
                 <span class="ic-stat-label">RUN SESSIONS</span>
-                <span class="ic-stat-val" id="card-runs">21 <small>회</small></span>
+                <span class="ic-stat-val" id="card-runs">21 <small>runs</small></span>
               </div>
               <div class="ic-stat-item">
                 <span class="ic-stat-label">AVG PACE</span>
@@ -1191,9 +1191,9 @@
       <div class="yearly-hero-card">
         <div class="yh-content">
           <span class="sub-title">YEARLY RUNNING MILEAGE &amp; AEROBIC ENGINE</span>
-          <h2 class="main-title">연간 러닝 마일리지 &amp; 유산소 엔진(EF)</h2>
+          <h2 class="main-title">Annual Mileage &amp; Aerobic Engine (EF)</h2>
           <p class="description">
-            기록된 러닝 데이터를 기반으로 연도별 마일리지 빌드업 추이, 심폐 효율(EF)의 장기 변화, 연간 최장 LSD 기록을 한눈에 진단합니다.
+            Visualize multi-year mileage progressions, long-term Aerobic Efficiency (EF) trajectories, and annual LSD benchmarks at a glance.
           </p>
         </div>
       </div>
@@ -1206,8 +1206,8 @@
       <!-- Yearly Chart Card: Mileage Bar & EF Trend Line -->
       <div class="card chart-card">
         <div class="card-header">
-          <div class="card-title"><i class="bi bi-bar-chart-fill"></i> 연도별 총 마일리지 &amp; 평균 유산소 효율(EF) 추이</div>
-          <span class="badge-subtle">연도별 전수 기록</span>
+          <div class="card-title"><i class="bi bi-bar-chart-fill"></i> Annual Mileage &amp; Aerobic Efficiency (EF) Progression</div>
+          <span class="badge-subtle">All-Time Archive</span>
         </div>
         <div class="chart-wrapper">
           <canvas id="yearlyChart"></canvas>
@@ -1221,59 +1221,59 @@
       <div class="heatmap-hero-card">
         <div class="hh-content">
           <span class="sub-title">DYNAMIC GPS ROUTE HEATMAP</span>
-          <h2 class="main-title">러닝 및 야외활동 GPS Review</h2>
+          <h2 class="main-title">GPS Activity Review &amp; Heatmap</h2>
           <p class="description">
-            실제 GPS 좌표를 기반으로 야외 러닝 및 활동 궤적을 네온 라인으로 시각화하여 코스 흐름을 리뷰합니다.
+            Visualize outdoor routes recorded on GPS watches rendered on high-contrast neon cartography.
           </p>
         </div>
         <div class="hh-quick-stats">
           <div class="hh-stat-item">
-            <span class="lbl">선택 기간 코스</span>
-            <span class="val text-orange" id="hm-track-count">5개 코스</span>
+            <span class="lbl">Selected Routes</span>
+            <span class="val text-orange" id="hm-track-count">5 Routes</span>
           </div>
           <div class="hh-stat-item">
-            <span class="lbl">야외 총 거리</span>
+            <span class="lbl">Outdoor Distance</span>
             <span class="val text-cyan" id="hm-total-dist">24.5 km</span>
           </div>
           <div class="hh-stat-item">
-            <span class="lbl">GPS 포인트</span>
+            <span class="lbl">GPS Points</span>
             <span class="val text-lime">1,750+ pts</span>
           </div>
         </div>
       <!-- Heatmap Year-Month Period Selector (연도-월 수준 기간 선택) -->
       <div class="heatmap-period-control-bar" id="heatmap-period-control-bar">
         <div class="hm-period-row">
-          <span class="hm-period-lbl"><i class="bi bi-calendar3"></i> 연도:</span>
+          <span class="hm-period-lbl"><i class="bi bi-calendar3"></i> Year:</span>
           <div class="hm-chips-scroll" id="hm-year-chips">
-            <button type="button" class="hm-chip-btn active" data-year="2026">2026년</button>
-            <button type="button" class="hm-chip-btn" data-year="2025">2025년</button>
-            <button type="button" class="hm-chip-btn" data-year="2024">2024년</button>
-            <button type="button" class="hm-chip-btn" data-year="2023">2023년</button>
-            <button type="button" class="hm-chip-btn" data-year="2022">2022년</button>
-            <button type="button" class="hm-chip-btn" data-year="2021">2021년</button>
-            <button type="button" class="hm-chip-btn" data-year="2020">2020년</button>
-            <button type="button" class="hm-chip-btn" data-year="2019">2019년</button>
-            <button type="button" class="hm-chip-btn" data-year="2018">2018년</button>
-            <button type="button" class="hm-chip-btn" data-year="2017">2017년</button>
-            <button type="button" class="hm-chip-btn chip-all-years" data-year="all">🔥 10개년 전체</button>
+            <button type="button" class="hm-chip-btn active" data-year="2026">2026</button>
+            <button type="button" class="hm-chip-btn" data-year="2025">2025</button>
+            <button type="button" class="hm-chip-btn" data-year="2024">2024</button>
+            <button type="button" class="hm-chip-btn" data-year="2023">2023</button>
+            <button type="button" class="hm-chip-btn" data-year="2022">2022</button>
+            <button type="button" class="hm-chip-btn" data-year="2021">2021</button>
+            <button type="button" class="hm-chip-btn" data-year="2020">2020</button>
+            <button type="button" class="hm-chip-btn" data-year="2019">2019</button>
+            <button type="button" class="hm-chip-btn" data-year="2018">2018</button>
+            <button type="button" class="hm-chip-btn" data-year="2017">2017</button>
+            <button type="button" class="hm-chip-btn chip-all-years" data-year="all">🔥 All 10 Years</button>
           </div>
         </div>
         <div class="hm-period-row" id="hm-month-row">
-          <span class="hm-period-lbl"><i class="bi bi-clock-history"></i> 월:</span>
+          <span class="hm-period-lbl"><i class="bi bi-clock-history"></i> Month:</span>
           <div class="hm-chips-scroll" id="hm-month-chips">
-            <button type="button" class="hm-chip-btn active" data-month="8">8월</button>
-            <button type="button" class="hm-chip-btn" data-month="7">7월</button>
-            <button type="button" class="hm-chip-btn" data-month="6">6월</button>
-            <button type="button" class="hm-chip-btn" data-month="5">5월</button>
-            <button type="button" class="hm-chip-btn" data-month="4">4월</button>
-            <button type="button" class="hm-chip-btn" data-month="3">3월</button>
-            <button type="button" class="hm-chip-btn" data-month="2">2월</button>
-            <button type="button" class="hm-chip-btn" data-month="1">1월</button>
-            <button type="button" class="hm-chip-btn" data-month="12">12월</button>
-            <button type="button" class="hm-chip-btn" data-month="11">11월</button>
-            <button type="button" class="hm-chip-btn" data-month="10">10월</button>
-            <button type="button" class="hm-chip-btn" data-month="9">9월</button>
-            <button type="button" class="hm-chip-btn chip-all-months" data-month="all">연간 전체</button>
+            <button type="button" class="hm-chip-btn active" data-month="8">Aug</button>
+            <button type="button" class="hm-chip-btn" data-month="7">Jul</button>
+            <button type="button" class="hm-chip-btn" data-month="6">Jun</button>
+            <button type="button" class="hm-chip-btn" data-month="5">May</button>
+            <button type="button" class="hm-chip-btn" data-month="4">Apr</button>
+            <button type="button" class="hm-chip-btn" data-month="3">Mar</button>
+            <button type="button" class="hm-chip-btn" data-month="2">Feb</button>
+            <button type="button" class="hm-chip-btn" data-month="1">Jan</button>
+            <button type="button" class="hm-chip-btn" data-month="12">Dec</button>
+            <button type="button" class="hm-chip-btn" data-month="11">Nov</button>
+            <button type="button" class="hm-chip-btn" data-month="10">Oct</button>
+            <button type="button" class="hm-chip-btn" data-month="9">Sep</button>
+            <button type="button" class="hm-chip-btn chip-all-months" data-month="all">All Months</button>
           </div>
         </div>
       </div>
@@ -1282,31 +1282,31 @@
       <div class="card map-card">
         <div class="card-header">
           <div class="card-title">
-            <i class="bi bi-compass-fill"></i> 글로벌 다크 러닝 맵 (국내외 자유 탐색)
+            <i class="bi bi-compass-fill"></i> Global Dark GPS Running Map
           </div>
           <div class="map-actions">
             <!-- Outdoor Activity Filter: Running vs All Activities -->
             <div class="heatmap-sport-filter">
-              <button class="hm-filter-btn active" data-hm-filter="running" id="hm-filter-running" title="순수 야외 러닝 코스만 표시">
-                <i class="bi bi-lightning-charge-fill text-orange"></i> <span data-i18n="heatmap_filter_run">러닝</span>
+              <button class="hm-filter-btn active" data-hm-filter="running" id="hm-filter-running" title="Outdoor Running Routes Only">
+                <i class="bi bi-lightning-charge-fill text-orange"></i> <span data-i18n="heatmap_filter_run">Running</span>
               </button>
-              <button class="hm-filter-btn" data-hm-filter="all" id="hm-filter-all" title="야외 전체 활동(등산·산책 포함) 코스 표시">
-                <i class="bi bi-globe2 text-cyan"></i> <span data-i18n="heatmap_filter_all">전체 활동</span>
+              <button class="hm-filter-btn" data-hm-filter="all" id="hm-filter-all" title="All Outdoor Activities (Hikes, Walks)">
+                <i class="bi bi-globe2 text-cyan"></i> <span data-i18n="heatmap_filter_all">All Activities</span>
               </button>
             </div>
 
             <!-- Theme Color Selector for Tracks -->
             <div class="track-color-picker">
-              <span class="tcp-label">네온:</span>
-              <button class="tcp-btn active" data-color="#ff5722" style="background:#ff5722;" title="오렌지"></button>
-              <button class="tcp-btn" data-color="#00f2fe" style="background:#00f2fe;" title="시안"></button>
-              <button class="tcp-btn" data-color="#00ff87" style="background:#00ff87;" title="라임"></button>
-              <button class="tcp-btn" data-color="#f43f5e" style="background:#f43f5e;" title="핑크"></button>
+              <span class="tcp-label">Track:</span>
+              <button class="tcp-btn active" data-color="#ff5722" style="background:#ff5722;" title="Orange"></button>
+              <button class="tcp-btn" data-color="#00f2fe" style="background:#00f2fe;" title="Cyan"></button>
+              <button class="tcp-btn" data-color="#00ff87" style="background:#00ff87;" title="Lime"></button>
+              <button class="tcp-btn" data-color="#f43f5e" style="background:#f43f5e;" title="Pink"></button>
             </div>
 
             <div class="map-quick-buttons">
-              <button class="btn-ghost active-ghost" id="btn-reset-map-zoom" title="현재 코스 전체 한눈에 보기">
-                <i class="bi bi-arrows-fullscreen"></i> <span data-i18n="heatmap_btn_reset">코스 전체 보기</span>
+              <button class="btn-ghost active-ghost" id="btn-reset-map-zoom" title="Zoom to Fit All Routes">
+                <i class="bi bi-arrows-fullscreen"></i> <span data-i18n="heatmap_btn_reset">Fit Bounds</span>
               </button>
             </div>
           </div>
@@ -1315,13 +1315,13 @@
         <!-- The Leaflet Map Canvas -->
         <div id="runningHeatmap" class="running-map-view"></div>
         <div class="map-footer-hint">
-          <span><i class="bi bi-info-circle"></i> 지도를 드래그하여 이동하거나 휠로 확대/축소할 수 있습니다. 특정 코스를 클릭하면 해당 러닝의 상세 정보 팝업이 뜹니다.</span>
+          <span><i class="bi bi-info-circle"></i> Drag to pan or use mouse wheel / pinch to zoom. Click any route to view session details.</span>
         </div>
       </div>
 
       <!-- Outdoor Routes List Cards -->
       <div class="outdoor-routes-section">
-        <div class="section-title"><i class="bi bi-signpost-2-fill"></i> <span id="routes-section-title">야외 GPS 코스 목록</span></div>
+        <div class="section-title"><i class="bi bi-signpost-2-fill"></i> <span id="routes-section-title">Outdoor GPS Routes</span></div>
         <div class="routes-grid" id="routes-grid-container">
           <!-- Populated by JS -->
         </div>
@@ -1329,13 +1329,13 @@
     </section>
     <footer class="app-footer">
       <div class="footer-links">
-        <a href="https://shoef.runanalyz.com" target="_blank" class="text-orange" title="10대 글로벌 브랜드 94종 러닝화 백과 &amp; 실측 스펙 비교"><i class="bi bi-tag-fill"></i> <span>러닝화 백과 (RunAnalyz)</span></a>
+        <a href="https://shoef.runanalyz.com" target="_blank" class="text-orange" title="ShoeF Running Shoes Wiki &amp; Spec Comparison"><i class="bi bi-tag-fill"></i> <span data-i18n="footer_shoef_wiki">ShoeF Shoes Wiki</span></a>
         <span class="sep">&middot;</span>
-        <a href="about.html"><i class="bi bi-info-circle-fill text-orange"></i> <span data-i18n="nav_about">소개 및 문의</span></a>
+        <a href="about.html"><i class="bi bi-info-circle-fill text-orange"></i> <span data-i18n="nav_about">About &amp; Contact</span></a>
         <span class="sep">&middot;</span>
-        <a href="guide.html"><i class="bi bi-book-half text-cyan"></i> <span data-i18n="nav_guide">메뉴 이용 가이드</span></a>
+        <a href="guide.html"><i class="bi bi-book-half text-cyan"></i> <span data-i18n="nav_guide">User Guide</span></a>
         <span class="sep">&middot;</span>
-        <a href="privacy.html"><i class="bi bi-shield-check"></i> <span data-i18n="footer_privacy">개인정보처리방침</span></a>
+        <a href="privacy.html"><i class="bi bi-shield-check"></i> <span data-i18n="footer_privacy">Privacy Policy</span></a>
         <span class="sep">&middot;</span>
         <a href="about.html#contact-section"><i class="bi bi-envelope-at-fill"></i> <span>Contact</span></a>
       </div>
@@ -1349,48 +1349,48 @@
     <div class="modal-card runner-profile-card">
       <div class="modal-header">
         <div class="modal-title">
-          <i class="bi bi-person-bounding-box text-orange"></i> 러너 생체 프로필 &amp; 기준 설정
+          <i class="bi bi-person-bounding-box text-orange"></i> Runner Biometric Profile &amp; Settings
         </div>
-        <button class="btn-modal-close" id="btn-close-profile-modal" title="닫기">&times;</button>
+        <button class="btn-modal-close" id="btn-close-profile-modal" title="Close">&times;</button>
       </div>
       <div class="modal-body">
         <p class="modal-desc">
-          입력하신 나이와 심박 정보는 <strong>외부 서버로 전송되지 않으며, 사용자 브라우저에만 안전하게 보관</strong>됩니다.<br>
-          글로벌 벤치마크(The State of Running 2019) 및 Karvonen 99% 정밀 역치 산출에 사용됩니다.
+          All entered biometrics are <strong>strictly stored in your local browser and never sent to remote servers</strong>.<br>
+          Used for World Athletics global benchmark calibration and Karvonen 99% precision thresholds.
         </p>
 
         <!-- Profile Inputs Grid -->
         <div class="profile-inputs-grid">
           <div class="profile-field">
-            <label for="input-user-age"><i class="bi bi-calendar-event"></i> 만 나이 (Age)</label>
+            <label for="input-user-age"><i class="bi bi-calendar-event"></i> Age (Years)</label>
             <div class="input-unit-wrap">
               <input type="number" id="input-user-age" value="42" min="15" max="99">
-              <span class="unit-text">세</span>
+              <span class="unit-text">yo</span>
             </div>
           </div>
           <div class="profile-field">
-            <label><i class="bi bi-gender-ambiguous"></i> 성별 (Gender)</label>
+            <label><i class="bi bi-gender-ambiguous"></i> Gender</label>
             <div class="gender-toggle-group">
-              <button type="button" class="btn-gender active" data-gender="M" id="btn-gender-m">남성 (M)</button>
-              <button type="button" class="btn-gender" data-gender="F" id="btn-gender-f">여성 (F)</button>
+              <button type="button" class="btn-gender active" data-gender="M" id="btn-gender-m">Male (M)</button>
+              <button type="button" class="btn-gender" data-gender="F" id="btn-gender-f">Female (F)</button>
             </div>
           </div>
           <div class="profile-field">
-            <label for="input-modal-mhr"><i class="bi bi-heart-pulse-fill text-pink"></i> 최대 심박수 (MHR)</label>
+            <label for="input-modal-mhr"><i class="bi bi-heart-pulse-fill text-pink"></i> Max Heart Rate (MHR)</label>
             <div class="input-unit-wrap">
               <input type="number" id="input-modal-mhr" value="196" min="140" max="230">
               <span class="unit-text">bpm</span>
             </div>
           </div>
           <div class="profile-field">
-            <label for="input-modal-rhr"><i class="bi bi-heart text-cyan"></i> 안정 시 심박수 (RHR)</label>
+            <label for="input-modal-rhr"><i class="bi bi-heart text-cyan"></i> Resting Heart Rate (RHR)</label>
             <div class="input-unit-wrap">
               <input type="number" id="input-modal-rhr" value="55" min="35" max="100">
               <span class="unit-text">bpm</span>
             </div>
           </div>
           <div class="profile-field">
-            <label for="input-modal-weight"><i class="bi bi-person-lines-fill"></i> 체중 (Weight)</label>
+            <label for="input-modal-weight"><i class="bi bi-person-lines-fill"></i> Body Weight</label>
             <div class="input-unit-wrap">
               <input type="number" id="input-modal-weight" value="68" min="30" max="200">
               <span class="unit-text">kg</span>
@@ -1401,18 +1401,18 @@
         <!-- Live HRR & Karvonen Preview inside Profile Modal -->
         <div class="profile-calc-preview" id="profile-calc-preview" style="background:rgba(255,87,34,0.06); border:1px solid rgba(255,87,34,0.25); border-radius:10px; padding:12px 14px; margin-top:14px; font-size:12px;">
           <div style="font-weight:700; color:var(--text-main); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
-            <i class="bi bi-heart-pulse-fill text-orange"></i> 실시간 생체 역치 산출 미리보기 (Karvonen 99%)
+            <i class="bi bi-heart-pulse-fill text-orange"></i> Real-Time Biometric Thresholds (Karvonen 99%)
           </div>
           <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-            <span style="color:var(--text-muted);">심박 예비량 (HRR = MHR - RHR):</span>
+            <span style="color:var(--text-muted);">Heart Rate Reserve (HRR = MHR - RHR):</span>
             <strong id="modal-calc-hrr" style="color:var(--accent-orange); font-family:var(--font-mono);">141 bpm</strong>
           </div>
           <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-            <span style="color:var(--text-muted);">유산소 역치 (LT1 / Zone 2 상단 69%):</span>
+            <span style="color:var(--text-muted);">Aerobic Threshold (LT1 / Zone 2 Top 69%):</span>
             <strong id="modal-calc-lt1" style="color:var(--accent-lime); font-family:var(--font-mono);">152 bpm</strong>
           </div>
           <div style="display:flex; justify-content:space-between;">
-            <span style="color:var(--text-muted);">젖산 역치 (LT2 / 템포 런 기준 87%):</span>
+            <span style="color:var(--text-muted);">Lactate Threshold (LT2 / Tempo Run 87%):</span>
             <strong id="modal-calc-lt2" style="color:var(--accent-pink); font-family:var(--font-mono);">178 bpm</strong>
           </div>
         </div>
@@ -1420,32 +1420,32 @@
         <!-- 1-Year Outdoor Anchor Summary Card -->
         <div class="outdoor-anchor-card">
           <div class="oac-header">
-            <i class="bi bi-tree-fill text-lime"></i> <strong>공인 야외 기준 닻 (Outdoor Anchor Baseline)</strong>
+            <i class="bi bi-tree-fill text-lime"></i> <strong>Outdoor Anchor Baseline (VDOT Anchor)</strong>
           </div>
           <div class="oac-body">
-            <div>최근 1년 야외 실측 PB: <strong>10.42km (6'10"/km, HR 154)</strong> &middot; 5.01km (6'05"/km)</div>
-            <div>닻 기준 VDOT: <strong id="modal-anchor-vdot" style="color:var(--accent-lime);">33.0</strong> (야외 유산소 역치 LT1: <strong>6'08" ~ 6'15"/km</strong>, 152 bpm)</div>
+            <div>Past 1-Yr Outdoor PB: <strong>6.47 mi / 10.42 km (6'10"/km, HR 154)</strong> &middot; 3.11 mi / 5.01 km</div>
+            <div>Anchor VDOT: <strong id="modal-anchor-vdot" style="color:var(--accent-lime);">33.0</strong> (Outdoor Aerobic Threshold LT1: <strong>6'08" ~ 6'15"/km</strong>, 152 bpm)</div>
           </div>
         </div>
 
         <!-- Strava Account Management in Modal -->
         <div class="modal-strava-section" id="modal-strava-section">
           <div class="mss-header">
-            <i class="bi bi-strava text-orange"></i> <strong>Strava 연동 계정 관리</strong>
+            <i class="bi bi-strava text-orange"></i> <strong>Strava Account Management</strong>
           </div>
           <div class="mss-content" id="modal-strava-status-text">
-            현재 Strava 계정 연결 상태를 관리합니다.
+            Manage current Strava connection status.
           </div>
           <div class="mss-actions" style="margin-top:0.6rem;">
             <button type="button" class="btn-danger-outline" id="btn-modal-strava-disconnect" style="display:none;">
-              <i class="bi bi-power"></i> Strava 계정 연동 해제 (로컬 캐시 100% 영구 삭제)
+              <i class="bi bi-power"></i> Disconnect Strava Account (Purge Local Data 100%)
             </button>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn-ghost" id="btn-reset-profile">기본값 복원</button>
-        <button type="button" class="btn-primary-gradient" id="btn-save-profile">프로필 저장 및 적용</button>
+        <button type="button" class="btn-ghost" id="btn-reset-profile">Reset to Default</button>
+        <button type="button" class="btn-primary-gradient" id="btn-save-profile">Save &amp; Apply Profile</button>
       </div>
     </div>
   </div>
@@ -1457,9 +1457,9 @@
         <div class="gateway-badge">
           <i class="bi bi-compass"></i> RUNNER ONBOARDING GATEWAY
         </div>
-        <h2 class="gateway-title">RunAnalyz 시작하기</h2>
+        <h2 class="gateway-title">Get Started with RunAnalyz</h2>
         <p class="gateway-sub">
-          실시간 러닝 기록과 생체역치 분석을 원하시면 <strong>[Track A]</strong>, 로그인 없이 이번 주 훈련 플랜과 인스타 카드를 즉시 발급받으시려면 <strong>[Track B]</strong>를 선택하세요.
+          Select <strong>[Track A]</strong> for real-time Strava sync and physiological diagnostics, or <strong>[Track B]</strong> to generate instant 7-Day plans and Instagram cards with zero login.
         </p>
       </div>
 
@@ -1467,45 +1467,45 @@
         <!-- Track A: Strava Connected Runner -->
         <div class="gateway-track-card track-a">
           <div class="gtc-top">
-            <span class="gtc-tag gtc-tag-orange"><i class="bi bi-strava"></i> Track A · 정밀 기록 분석</span>
-            <h3 class="gtc-title">내 Strava 계정으로 시작하기</h3>
-            <p class="gtc-desc">내 모든 야외·실내 러닝을 실시간으로 가져와 생체역치와 심폐 연비를 진단합니다.</p>
+            <span class="gtc-tag gtc-tag-orange"><i class="bi bi-strava"></i> Track A &middot; Biometric Analytics</span>
+            <h3 class="gtc-title">Connect Strava Account</h3>
+            <p class="gtc-desc">Sync outdoor and indoor runs seamlessly to analyze physiological thresholds and cardiorespiratory economy.</p>
           </div>
           <ul class="gtc-features">
-            <li><i class="bi bi-check2-circle text-orange"></i> 최근 1년 야외 실측 PB 자동 추출 &amp; VDOT 닻(Anchor) 연동</li>
-            <li><i class="bi bi-check2-circle text-orange"></i> 데일리 유산소 효율(EF) &amp; 심폐 연비 정밀 진단</li>
-            <li><i class="bi bi-check2-circle text-orange"></i> 주간 10% 안전 증량 룰 &amp; 4주 ACWR 부상 위험 지수 분석</li>
-            <li><i class="bi bi-check2-circle text-orange"></i> 월간/연간 결산 인스타그램 스토리(9:16)·피드 카드 원클릭 발급</li>
-            <li><i class="bi bi-check2-circle text-orange"></i> 역대 야외 전수 GPS 코스 인터랙티브 네온 히트맵</li>
+            <li><i class="bi bi-check2-circle text-orange"></i> Automatic 1-Year Outdoor PB Extraction &amp; VDOT Anchor Calibration</li>
+            <li><i class="bi bi-check2-circle text-orange"></i> Daily Aerobic Efficiency (EF) &amp; Cardiorespiratory Fuel Economy</li>
+            <li><i class="bi bi-check2-circle text-orange"></i> Weekly 10% Progressive Overload &amp; 4-Week ACWR Injury Risk Diagnostics</li>
+            <li><i class="bi bi-check2-circle text-orange"></i> 1-Click Instagram Story (9:16) &amp; Feed Recap Poster Generation</li>
+            <li><i class="bi bi-check2-circle text-orange"></i> Interactive All-Time Multi-Year GPS Route Heatmaps</li>
           </ul>
           <button type="button" class="btn-gateway-action btn-track-a" id="btn-gateway-track-a">
-            <i class="bi bi-strava"></i> Strava 계정으로 시작하기
+            <i class="bi bi-strava"></i> Connect with Strava
           </button>
         </div>
 
         <!-- Track B: 7-Day Plan Non-Login Runner -->
         <div class="gateway-track-card track-b">
           <div class="gtc-top">
-            <span class="gtc-tag gtc-tag-cyan"><i class="bi bi-calendar-check"></i> Track B · 즉시 플랜 생성</span>
-            <h3 class="gtc-title">로그인 없이 7-Day 플랜 만들기</h3>
-            <p class="gtc-desc">회원가입 없이 0초 만에 잭 다니엘스 VDOT 공식 기반 이번 주 맞춤 훈련표를 만듭니다.</p>
+            <span class="gtc-tag gtc-tag-cyan"><i class="bi bi-calendar-check"></i> Track B &middot; Instant Plan Generator</span>
+            <h3 class="gtc-title">Create 7-Day Plan (No Login)</h3>
+            <p class="gtc-desc">Generate personalized weekly training schedules backed by Jack Daniels VDOT formula in seconds without signup.</p>
           </div>
           <ul class="gtc-features">
-            <li><i class="bi bi-check2-circle text-cyan"></i> 회원가입·로그인 0초, 개인정보 일체 미저장 (Zero-Server)</li>
-            <li><i class="bi bi-check2-circle text-cyan"></i> 나이·PB(또는 MAF 180 조깅) 기반 80/20 극성 훈련표 발급</li>
-            <li><i class="bi bi-check2-circle text-cyan"></i> 잭 다니엘스 공식 5대 맞춤 훈련 페이스 (Easy, Tempo 등)</li>
-            <li><i class="bi bi-check2-circle text-cyan"></i> 월~일 7일 훈련 체크박스 스케줄러 즉시 생성</li>
-            <li><i class="bi bi-check2-circle text-cyan"></i> 스마트폰 배경화면 &amp; 인스타 스토리(9:16)·피드 카드 발급</li>
+            <li><i class="bi bi-check2-circle text-cyan"></i> Zero Signup &middot; 100% Client-Side Private (Zero-Server Architecture)</li>
+            <li><i class="bi bi-check2-circle text-cyan"></i> 80/20 Polarized Schedules based on Age &amp; PB (or MAF 180 Jogging)</li>
+            <li><i class="bi bi-check2-circle text-cyan"></i> Jack Daniels Official 5 Personalized Paces (Easy, Tempo, Interval, etc.)</li>
+            <li><i class="bi bi-check2-circle text-cyan"></i> Interactive Monday-to-Sunday 7-Day Checkbox Training Scheduler</li>
+            <li><i class="bi bi-check2-circle text-cyan"></i> Export High-Res Wallpaper &amp; Instagram Story/Feed Cards</li>
           </ul>
           <button type="button" class="btn-gateway-action btn-track-b" id="btn-gateway-track-b">
-            <i class="bi bi-lightning-charge-fill"></i> 로그인 없이 7-Day 플랜 만들기
+            <i class="bi bi-lightning-charge-fill"></i> Create Plan Without Login
           </button>
         </div>
       </div>
 
       <div class="gateway-footer">
         <button type="button" class="btn-gateway-demo" id="btn-gateway-demo">
-          <i class="bi bi-eye"></i> 샘플 데모 데이터로 전체 대시보드 먼저 둘러보기
+          <i class="bi bi-eye"></i> Explore Dashboard with Demo Data First
         </button>
       </div>
     </div>
@@ -1518,13 +1518,13 @@
         <i class="bi bi-strava sync-strava-icon"></i>
         <div class="sync-spinner"></div>
       </div>
-      <h3 id="sync-modal-title" class="sync-modal-title">Strava 계정 연동 중</h3>
-      <p id="sync-modal-desc" class="sync-modal-desc">Strava 보안 인증 코드를 교환하고 있습니다...</p>
+      <h3 id="sync-modal-title" class="sync-modal-title">Connecting Strava Account</h3>
+      <p id="sync-modal-desc" class="sync-modal-desc">Exchanging OAuth authorization code securely...</p>
       <div class="sync-progress-bar">
         <div id="sync-progress-fill" class="sync-progress-fill" style="width: 25%;"></div>
       </div>
-      <div id="sync-modal-status" class="sync-modal-status">인증 토큰 확인 중 (1/3)</div>
-      <button id="btn-cancel-sync" class="btn-cancel-sync" style="display: none;">닫기</button>
+      <div id="sync-modal-status" class="sync-modal-status">Validating token (1/3)</div>
+      <button id="btn-cancel-sync" class="btn-cancel-sync" style="display: none;">Close</button>
     </div>
   </div>
 
@@ -1536,7 +1536,7 @@
         <img src="favicon.png" alt="RunAnalyz" class="drawer-brand-img">
         <span class="drawer-brand-name">RUN<strong style="color:var(--accent-orange);">ANALYZ</strong></span>
       </div>
-      <button type="button" class="btn-drawer-close" id="btn-close-drawer" aria-label="메뉴 닫기" onclick="if(window.closeRunAnalyzDrawer) window.closeRunAnalyzDrawer();">&times;</button>
+      <button type="button" class="btn-drawer-close" id="btn-close-drawer" aria-label="Close menu" onclick="if(window.closeRunAnalyzDrawer) window.closeRunAnalyzDrawer();">&times;</button>
     </div>
     <div class="drawer-body">
       <ul class="drawer-menu-list">
@@ -1545,8 +1545,8 @@
           <button type="button" class="drawer-menu-item" id="btn-drawer-profile">
             <div class="dmi-icon-wrap"><i class="bi bi-person-gear"></i></div>
             <div class="dmi-content">
-              <span class="dmi-title">러너 프로필 설정</span>
-              <span class="dmi-desc">최대심박(MHR) · 안정시심박(RHR) · 체중 보정</span>
+              <span class="dmi-title">Runner Profile Settings</span>
+              <span class="dmi-desc">MHR &middot; RHR &middot; Weight Calibration</span>
             </div>
             <i class="bi bi-chevron-right dmi-arrow"></i>
           </button>
@@ -1557,10 +1557,10 @@
           <button type="button" class="drawer-menu-item" id="btn-drawer-calc">
             <div class="dmi-icon-wrap text-orange"><i class="bi bi-lightning-charge-fill"></i></div>
             <div class="dmi-content">
-              <span class="dmi-title">1초 EF 계산기</span>
-              <span class="dmi-desc">비로그인으로 내 심폐 연비 &amp; VDOT 페이스 진단</span>
+              <span class="dmi-title">1-Second EF Calculator</span>
+              <span class="dmi-desc">Check Aerobic EF &amp; VDOT Paces Instantly</span>
             </div>
-            <span class="dmi-badge badge-hot">1초</span>
+            <span class="dmi-badge badge-hot">1-Sec</span>
           </button>
         </li>
 
@@ -1570,18 +1570,18 @@
             <div class="dsc-top">
               <div class="dmi-icon-wrap" style="color:#fc4c02;"><i class="bi bi-strava"></i></div>
               <div class="dmi-content">
-                <span class="dmi-title">Strava 연동 분석</span>
-                <span class="dmi-desc" id="drawer-strava-status-desc">계정 실시간 동기화 상태</span>
+                <span class="dmi-title">Strava Integration</span>
+                <span class="dmi-desc" id="drawer-strava-status-desc">Real-time Account Sync Status</span>
               </div>
             </div>
             <div class="dsc-actions" id="drawer-strava-actions">
               <button type="button" class="btn-drawer-strava-connect" id="btn-drawer-strava-auth">
-                <i class="bi bi-strava"></i> Strava 연결하기
+                <i class="bi bi-strava"></i> Connect Strava
               </button>
               <div class="drawer-strava-connected" id="drawer-strava-connected" style="display:none;">
-                <span class="dsc-user-tag" id="drawer-strava-user">연동 중</span>
-                <button type="button" class="btn-dsc-sync" id="btn-drawer-strava-resync" title="다시 동기화"><i class="bi bi-arrow-repeat"></i></button>
-                <button type="button" class="btn-dsc-disconnect" id="btn-drawer-strava-disconnect"><i class="bi bi-power"></i> 해제</button>
+                <span class="dsc-user-tag" id="drawer-strava-user">Connecting</span>
+                <button type="button" class="btn-dsc-sync" id="btn-drawer-strava-resync" title="Resync"><i class="bi bi-arrow-repeat"></i></button>
+                <button type="button" class="btn-dsc-disconnect" id="btn-drawer-strava-disconnect"><i class="bi bi-power"></i> Disconnect</button>
               </div>
             </div>
           </div>
@@ -1592,8 +1592,8 @@
           <button type="button" class="drawer-menu-item" id="btn-drawer-plan">
             <div class="dmi-icon-wrap text-cyan"><i class="bi bi-calendar-check-fill"></i></div>
             <div class="dmi-content">
-              <span class="dmi-title">7-Day 러닝 플랜</span>
-              <span class="dmi-desc">부상 방지 ACWR &amp; 80/20 극성 훈련 스케줄</span>
+              <span class="dmi-title">7-Day Running Plan</span>
+              <span class="dmi-desc">ACWR Safety &amp; 80/20 Polarized Schedule</span>
             </div>
             <i class="bi bi-chevron-right dmi-arrow"></i>
           </button>
@@ -1604,8 +1604,8 @@
           <button type="button" class="drawer-menu-item" id="btn-drawer-heatmap">
             <div class="dmi-icon-wrap text-lime"><i class="bi bi-map-fill"></i></div>
             <div class="dmi-content">
-              <span class="dmi-title">러닝 히트맵</span>
-              <span class="dmi-desc">내가 달린 전수 야외 GPS 코스 인터랙티브 맵</span>
+              <span class="dmi-title">Running Heatmap</span>
+              <span class="dmi-desc">Interactive Map of All Outdoor GPS Routes</span>
             </div>
             <i class="bi bi-chevron-right dmi-arrow"></i>
           </button>
@@ -1616,34 +1616,34 @@
           <div class="drawer-shoef-header">
             <div class="dmi-icon-wrap text-yellow"><i class="bi bi-tag-fill"></i></div>
             <div class="dmi-content">
-              <span class="dmi-title">ShoeF 러닝화 백과 <a href="https://shoef.runanalyz.com" target="_blank" rel="noopener" class="shoef-all-link">전체 94종 &rarr;</a></span>
-              <span class="dmi-desc">결제 전 1분 팩트체크! 10대 브랜드 스펙 위키</span>
+              <span class="dmi-title">ShoeF Running Shoes Wiki <a href="https://shoef.runanalyz.com" target="_blank" rel="noopener" class="shoef-all-link">All 94 Shoes &rarr;</a></span>
+              <span class="dmi-desc">Lab Specs &amp; Spec Comparison of 94 Running Shoes</span>
             </div>
           </div>
           <div class="drawer-shoef-grid">
             <a href="https://shoef.runanalyz.com" target="_blank" class="btn-d-shoef-cat" data-cat="all">
-              <span class="cat-name">전체 94종</span>
-              <span class="cat-tag">전 브랜드</span>
+              <span class="cat-name">All 94 Shoes</span>
+              <span class="cat-tag">All Brands</span>
             </a>
             <a href="https://shoef.runanalyz.com/?cat=daily" target="_blank" class="btn-d-shoef-cat" data-cat="daily">
-              <span class="cat-name">데일리·쿠션</span>
-              <span class="cat-tag">부상 방지</span>
+              <span class="cat-name">Daily Cushion</span>
+              <span class="cat-tag">Injury Safety</span>
             </a>
             <a href="https://shoef.runanalyz.com/?cat=super_trainer" target="_blank" class="btn-d-shoef-cat" data-cat="super_trainer">
-              <span class="cat-name">슈퍼트레이너</span>
-              <span class="cat-tag">템포·카본</span>
+              <span class="cat-name">Super Trainer</span>
+              <span class="cat-tag">Tempo / Nylon</span>
             </a>
             <a href="https://shoef.runanalyz.com/?cat=racing" target="_blank" class="btn-d-shoef-cat" data-cat="racing">
-              <span class="cat-name">카본 레이싱</span>
-              <span class="cat-tag">대회용 PB</span>
+              <span class="cat-name">Carbon Racer</span>
+              <span class="cat-tag">Race PR</span>
             </a>
             <a href="https://shoef.runanalyz.com/?cat=stability" target="_blank" class="btn-d-shoef-cat" data-cat="stability">
-              <span class="cat-name">안정화</span>
-              <span class="cat-tag">과내번 지지</span>
+              <span class="cat-name">Stability</span>
+              <span class="cat-tag">Pronation Control</span>
             </a>
             <a href="https://shoef.runanalyz.com/?cat=budget" target="_blank" class="btn-d-shoef-cat" data-cat="budget">
-              <span class="cat-name">가성비 입문</span>
-              <span class="cat-tag">10만원 이하</span>
+              <span class="cat-name">Value Daily</span>
+              <span class="cat-tag">&le;$100 Value</span>
             </a>
           </div>
         </li>
@@ -1660,48 +1660,48 @@
     <div class="modal-dialog-large" onclick="event.stopPropagation();">
       <div class="modal-header">
         <div class="modal-title">
-          <i class="bi bi-person-gear text-orange"></i> 러너 생체 프로필 설정
+          <i class="bi bi-person-gear text-orange"></i> Runner Biometric Profile
         </div>
-        <button type="button" class="btn-modal-close" onclick="window.closeProfileModal()" aria-label="닫기">&times;</button>
+        <button type="button" class="btn-modal-close" onclick="window.closeProfileModal()" aria-label="Close">&times;</button>
       </div>
       <div class="modal-body profile-modal-body">
         <p class="profile-hint">
-          워치(가민·코로스·애플) 실측값을 1회 설정하면 <strong>1초 EF 계산기</strong>, <strong>7-Day 플랜</strong>, <strong>단일 세션 심폐 역치(LT1/LT2)</strong>에 100% 자동 연동됩니다.
+          Once configured, your watch metrics automatically calibrate the <strong>1-Second EF Calculator</strong>, <strong>7-Day Plan</strong>, and <strong>Single Session Thresholds (LT1/LT2)</strong>.
         </p>
 
         <div class="profile-input-grid">
           <div class="rc-input-group">
-            <label for="prof-gender">성별</label>
+            <label for="prof-gender">Gender</label>
             <div class="rc-input-wrapper">
               <select id="prof-gender">
-                <option value="male" selected>남성 (Male)</option>
-                <option value="female">여성 (Female)</option>
+                <option value="male" selected>Male</option>
+                <option value="female">Female</option>
               </select>
             </div>
           </div>
           <div class="rc-input-group">
-            <label for="prof-birth-year">출생연도</label>
+            <label for="prof-birth-year">Birth Year</label>
             <div class="rc-input-wrapper">
               <input type="number" id="prof-birth-year" value="1988" min="1930" max="2015" inputmode="numeric" />
-              <span class="rc-unit">년생</span>
+              <span class="rc-unit">Year</span>
             </div>
           </div>
           <div class="rc-input-group">
-            <label for="prof-weight">체중 (Weight)</label>
+            <label for="prof-weight">Weight (kg / lbs)</label>
             <div class="rc-input-wrapper">
               <input type="number" id="prof-weight" step="0.5" value="68" min="30" max="150" inputmode="decimal" />
               <span class="rc-unit">kg</span>
             </div>
           </div>
           <div class="rc-input-group">
-            <label for="prof-mhr">최대 심박수 (MHR)</label>
+            <label for="prof-mhr">Max Heart Rate (MHR)</label>
             <div class="rc-input-wrapper">
               <input type="number" id="prof-mhr" value="196" min="130" max="230" inputmode="numeric" />
               <span class="rc-unit">bpm</span>
             </div>
           </div>
           <div class="rc-input-group">
-            <label for="prof-rhr">안정 시 심박수 (RHR)</label>
+            <label for="prof-rhr">Resting Heart Rate (RHR)</label>
             <div class="rc-input-wrapper">
               <input type="number" id="prof-rhr" value="55" min="35" max="100" inputmode="numeric" />
               <span class="rc-unit">bpm</span>
@@ -1711,25 +1711,25 @@
 
         <div class="profile-calc-preview" id="prof-preview-box">
           <div class="preview-item">
-            <span class="pv-lbl">심박 예비량 (HRR):</span>
+            <span class="pv-lbl">Heart Rate Reserve (HRR):</span>
             <span class="pv-val text-cyan" id="prof-hrr-val">141 bpm</span>
           </div>
           <div class="preview-item">
-            <span class="pv-lbl">유산소 역치(LT1):</span>
+            <span class="pv-lbl">Aerobic Threshold (LT1):</span>
             <span class="pv-val text-lime" id="prof-lt1-val">152 bpm</span>
           </div>
           <div class="preview-item">
-            <span class="pv-lbl">젖산 역치(LT2):</span>
+            <span class="pv-lbl">Lactate Threshold (LT2):</span>
             <span class="pv-val text-orange" id="prof-lt2-val">174 bpm</span>
           </div>
         </div>
 
         <div class="profile-actions-row">
           <button type="button" class="btn-profile-save" id="btn-save-profile" onclick="window.saveAndApplyProfile()">
-            <i class="bi bi-check-circle-fill"></i> 프로필 저장 &amp; 전 시스템 자동 적용
+            <i class="bi bi-check-circle-fill"></i> Save Profile &amp; Apply Across System
           </button>
           <button type="button" class="btn-profile-reset" onclick="window.resetProfileDefaults()">
-            기본값 복원
+            Reset Defaults
           </button>
         </div>
       </div>
@@ -1740,32 +1740,32 @@
   <div class="modal-overlay" id="modal-ef-calc-overlay" style="display:none;">
     <div class="modal-dialog-large">
       <div class="modal-header">
-        <div class="modal-title"><i class="bi bi-lightning-charge-fill text-orange"></i> 1초 EF &amp; VDOT 러닝 연비 계산기</div>
+        <div class="modal-title"><i class="bi bi-lightning-charge-fill text-orange"></i> 1-Second EF &amp; VDOT Aerobic Economy Calculator</div>
         <button type="button" class="btn-modal-close" id="btn-close-ef-calc">&times;</button>
       </div>
       <div class="modal-body ef-calc-modal-body">
         <form id="rc-modal-form" onsubmit="return false;">
           <!-- 1. 기본 신체 & 심박 -->
-          <div class="rc-section-title"><i class="bi bi-person-lines-fill"></i> 1. 기본 신체 &amp; 심박 정보</div>
+          <div class="rc-section-title"><i class="bi bi-person-lines-fill"></i> 1. Biometrics &amp; Heart Rate</div>
           <div class="rc-grid rc-grid-responsive-3">
             <div class="rc-input-group">
-              <label for="rc-birth-year">출생연도</label>
+              <label for="rc-birth-year">Birth Year</label>
               <div class="rc-input-wrapper">
                 <input type="number" id="rc-birth-year" placeholder="1995" min="1930" max="2020" value="1995" inputmode="numeric" />
-                <span class="rc-unit">년생</span>
+                <span class="rc-unit">Year</span>
               </div>
             </div>
             <div class="rc-input-group">
-              <label for="rc-gender">성별</label>
+              <label for="rc-gender">Gender</label>
               <div class="rc-input-wrapper">
                 <select id="rc-gender">
-                  <option value="male">남성</option>
-                  <option value="female">여성</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
                 </select>
               </div>
             </div>
             <div class="rc-input-group">
-              <label for="rc-rhr">안정시 심박수 (RHR)</label>
+              <label for="rc-rhr">Resting Heart Rate (RHR)</label>
               <div class="rc-input-wrapper">
                 <input type="number" id="rc-rhr" placeholder="60" min="35" max="110" value="60" inputmode="numeric" />
                 <span class="rc-unit">bpm</span>
@@ -1774,42 +1774,42 @@
           </div>
 
           <!-- 2. 달리기 기록 -->
-          <div class="rc-section-title" style="margin-top: 1.25rem;"><i class="bi bi-stopwatch-fill"></i> 2. 달리기 기록 (세션 기준)</div>
+          <div class="rc-section-title" style="margin-top: 1.25rem;"><i class="bi bi-stopwatch-fill"></i> 2. Running Session Data</div>
           <div class="rc-quick-buttons">
             <button type="button" class="rc-preset-btn" onclick="window.setModalDistance(3)">3 km</button>
             <button type="button" class="rc-preset-btn active" onclick="window.setModalDistance(5)">5 km</button>
             <button type="button" class="rc-preset-btn" onclick="window.setModalDistance(10)">10 km</button>
-            <button type="button" class="rc-preset-btn" onclick="window.setModalDistance(21.0975)">하프(21.1k)</button>
-            <button type="button" class="rc-preset-btn" onclick="window.setModalDistance(42.195)">풀(42.2k)</button>
+            <button type="button" class="rc-preset-btn" onclick="window.setModalDistance(21.0975)">Half (13.1m)</button>
+            <button type="button" class="rc-preset-btn" onclick="window.setModalDistance(42.195)">Full (26.2m)</button>
           </div>
 
           <div class="rc-grid rc-grid-responsive-3">
             <div class="rc-input-group">
-              <label for="rc-distance">달린 거리</label>
+              <label for="rc-distance">Distance</label>
               <div class="rc-input-wrapper">
                 <input type="number" id="rc-distance" step="0.01" value="5.0" min="0.5" max="100" inputmode="decimal" />
                 <span class="rc-unit">km</span>
               </div>
             </div>
             <div class="rc-input-group">
-              <label>걸린 시간</label>
+              <label>Duration</label>
               <div class="rc-time-wrapper rc-time-3col">
                 <div class="rc-input-wrapper">
                   <input type="number" id="rc-time-hour" placeholder="0" min="0" max="24" value="0" inputmode="numeric" />
-                  <span class="rc-unit">시</span>
+                  <span class="rc-unit">hr</span>
                 </div>
                 <div class="rc-input-wrapper">
                   <input type="number" id="rc-time-min" placeholder="25" min="0" max="59" value="25" inputmode="numeric" />
-                  <span class="rc-unit">분</span>
+                  <span class="rc-unit">min</span>
                 </div>
                 <div class="rc-input-wrapper">
                   <input type="number" id="rc-time-sec" placeholder="0" min="0" max="59" value="0" inputmode="numeric" />
-                  <span class="rc-unit">초</span>
+                  <span class="rc-unit">sec</span>
                 </div>
               </div>
             </div>
             <div class="rc-input-group">
-              <label for="rc-avg-hr">평균 심박수 (Avg HR)</label>
+              <label for="rc-avg-hr">Average Heart Rate (bpm)</label>
               <div class="rc-input-wrapper">
                 <input type="number" id="rc-avg-hr" placeholder="155" min="60" max="230" value="155" inputmode="numeric" />
                 <span class="rc-unit">bpm</span>
@@ -1818,7 +1818,7 @@
           </div>
 
           <button type="button" id="rc-calc-btn" class="rc-submit-btn" onclick="window.calculateModalEF()">
-            <i class="bi bi-lightning-charge-fill"></i> 내 심폐 연비(EF) 분석 &amp; 훈련 페이스 진단
+            <i class="bi bi-lightning-charge-fill"></i> Analyze Aerobic EF &amp; Training Paces
           </button>
         </form>
 
@@ -1826,7 +1826,7 @@
         <div id="rc-result-box" class="rc-result-card" style="display:none; margin-top:1.5rem;">
           <div class="rc-result-header">
             <div class="rc-ef-main">
-              <div class="rc-ef-label">러닝 효율성 지수 (Efficiency Factor)</div>
+              <div class="rc-ef-label">Aerobic Efficiency Factor (EF)</div>
               <div class="rc-ef-value-wrap">
                 <span id="res-ef-val" class="rc-ef-number">1.29</span>
                 <span class="rc-ef-unit">m/min/bpm</span>
@@ -1834,54 +1834,54 @@
             </div>
             <div class="rc-tier-badge" id="res-tier-badge">
               <span id="res-tier-icon">⚡</span>
-              <span id="res-tier-text">우수 (Good Engine)</span>
+              <span id="res-tier-text">Good Engine</span>
             </div>
           </div>
 
           <!-- Gauge Bar -->
           <div class="rc-gauge-wrapper">
             <div class="rc-gauge-labels">
-              <span>입문</span>
-              <span>보통</span>
-              <span>우수</span>
-              <span>엘리트</span>
+              <span>Base</span>
+              <span>Fair</span>
+              <span>Good</span>
+              <span>Elite</span>
             </div>
             <div class="rc-gauge-bar">
               <div class="rc-gauge-fill" id="res-gauge-fill" style="width: 65%;"></div>
             </div>
             <div class="rc-gauge-footer" id="res-gauge-footer">
-              동일 연령대 러너 중 상위 유산소 효율입니다.
+              Above-average aerobic economy among worldwide peers of same age.
             </div>
           </div>
 
           <!-- 4 Stats -->
           <div class="rc-stats-grid">
             <div class="rc-stat-item">
-              <div class="rc-stat-label">평균 페이스</div>
+              <div class="rc-stat-label">Avg Pace</div>
               <div class="rc-stat-val" id="res-pace">5'00" /km</div>
             </div>
             <div class="rc-stat-item">
-              <div class="rc-stat-label">VDOT 점수</div>
+              <div class="rc-stat-label">VDOT Score</div>
               <div class="rc-stat-val" id="res-vdot" style="color:var(--accent-orange);">39.8</div>
             </div>
             <div class="rc-stat-item">
-              <div class="rc-stat-label">심박 강도</div>
+              <div class="rc-stat-label">HR Intensity</div>
               <div class="rc-stat-val" id="res-hr-intensity">76.6%</div>
             </div>
             <div class="rc-stat-item">
-              <div class="rc-stat-label">추천 훈련</div>
-              <div class="rc-stat-val" id="res-train-zone" style="color:var(--accent-lime);">Zone 2 기초 유산소</div>
+              <div class="rc-stat-label">Recommended Workout</div>
+              <div class="rc-stat-val" id="res-train-zone" style="color:var(--accent-lime);">Zone 2 Aerobic Base</div>
             </div>
           </div>
 
           <!-- Recommended Shoes Callout -->
           <div class="rc-shoes-callout" style="margin-top:1.25rem; padding:1rem; border-radius:12px; background:rgba(255,87,34,0.08); border:1px solid rgba(255,87,34,0.25);">
             <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
-              <span style="font-weight:700; color:#fff;"><i class="bi bi-tag-fill text-orange"></i> 내 엔진에 추천하는 러닝화 스펙:</span>
+              <span style="font-weight:700; color:#fff;"><i class="bi bi-tag-fill text-orange"></i> Recommended Shoe Category for Your Engine:</span>
               <a href="https://shoef.runanalyz.com" target="_blank" style="color:var(--accent-cyan); font-size:0.85rem; font-weight:700; text-decoration:underline;">ShoeF 94종 스펙 위키 바로가기 &rarr;</a>
             </div>
             <div id="res-shoe-recommend-text" style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.45rem;">
-              현재 페이스와 심박 예비량에 따르면, 쿠셔닝 데일리 트레이너(스택하이트 30mm 이상, 논카본)가 부상 방지에 가장 안전합니다.
+              Based on your pace and heart rate reserve, cushioned daily trainers (&ge;30mm stack, non-carbon) offer optimal joint safety.
             </div>
           </div>
         </div>
