@@ -1229,12 +1229,16 @@
         </div>
         <div class="hh-quick-stats">
           <div class="hh-stat-item">
+            <span class="lbl" data-i18n="hm_stat_latest">Latest Activity</span>
+            <span class="val text-orange" id="hm-latest-run-date">--</span>
+          </div>
+          <div class="hh-stat-item">
             <span class="lbl">Selected Routes</span>
-            <span class="val text-orange" id="hm-track-count">5 Routes</span>
+            <span class="val text-lime" id="hm-track-count">-- Routes</span>
           </div>
           <div class="hh-stat-item">
             <span class="lbl">Outdoor Distance</span>
-            <span class="val text-cyan" id="hm-total-dist">24.5 km</span>
+            <span class="val text-cyan" id="hm-total-dist">-- km</span>
           </div>
           <div class="hh-stat-item">
             <span class="lbl">GPS Points</span>
@@ -1263,7 +1267,12 @@
         <div class="hm-period-row" id="hm-month-row">
           <span class="hm-period-lbl"><i class="bi bi-clock-history"></i> Month:</span>
           <div class="hm-chips-scroll" id="hm-month-chips">
-            <button type="button" class="hm-chip-btn active" data-month="8">Aug</button>
+            <button type="button" class="hm-chip-btn chip-latest" data-month="latest" title="Show Most Recent Session"><i class="bi bi-lightning-charge-fill"></i> <span data-i18n="hm_chip_latest">Latest</span></button>
+            <button type="button" class="hm-chip-btn" data-month="12">Dec</button>
+            <button type="button" class="hm-chip-btn" data-month="11">Nov</button>
+            <button type="button" class="hm-chip-btn" data-month="10">Oct</button>
+            <button type="button" class="hm-chip-btn" data-month="9">Sep</button>
+            <button type="button" class="hm-chip-btn" data-month="8">Aug</button>
             <button type="button" class="hm-chip-btn" data-month="7">Jul</button>
             <button type="button" class="hm-chip-btn" data-month="6">Jun</button>
             <button type="button" class="hm-chip-btn" data-month="5">May</button>
@@ -1271,11 +1280,13 @@
             <button type="button" class="hm-chip-btn" data-month="3">Mar</button>
             <button type="button" class="hm-chip-btn" data-month="2">Feb</button>
             <button type="button" class="hm-chip-btn" data-month="1">Jan</button>
-            <button type="button" class="hm-chip-btn" data-month="12">Dec</button>
-            <button type="button" class="hm-chip-btn" data-month="11">Nov</button>
-            <button type="button" class="hm-chip-btn" data-month="10">Oct</button>
-            <button type="button" class="hm-chip-btn" data-month="9">Sep</button>
-            <button type="button" class="hm-chip-btn chip-all-months" data-month="all">All Months</button>
+            <button type="button" class="hm-chip-btn chip-all-months" data-month="all" data-i18n="hm_chip_all_months">All Months</button>
+          </div>
+          <!-- 1-Click Strava Quick Sync Button -->
+          <div class="hm-sync-action-box">
+            <button type="button" class="hm-sync-quick-btn" id="btn-hm-quick-sync" title="Sync Latest Runs from Strava">
+              <i class="bi bi-arrow-repeat"></i> <span data-i18n="btn_sync_latest">Sync Latest</span>
+            </button>
           </div>
         </div>
       </div>

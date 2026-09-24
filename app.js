@@ -338,10 +338,10 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
-// Safe Chart Resizer (avoids Chart.js crash when canvas is in a hidden tab)
+// Safe Chart Resizer (avoids Chart.js crash when canvas is in a hidden tab or disconnected)
 function safeResizeChart(chart) {
-  if (!chart || !chart.canvas) return;
-  if (chart.canvas.offsetParent !== null) {
+  if (!chart || !chart.canvas || !chart.ctx) return;
+  if (chart.canvas.isConnected && chart.canvas.offsetParent !== null) {
     try {
       chart.resize();
     } catch (e) {
@@ -887,6 +887,121 @@ async function resyncStravaUser(athleteName) {
   }
 }
 
+// --------------------------------------------------------------------------
+// Quick & Background Sync Engine for Latest Runs (1-Click & Auto-Check)
+// --------------------------------------------------------------------------
+let _isSyncingLatest = false;
+async function syncLatestStravaActivities(isManual = false) {
+  if (_isSyncingLatest) return false;
+  const rawAuth = localStorage.getItem(STRAVA_STORAGE_KEYS.AUTH);
+  if (!rawAuth) {
+    if (isManual) {
+      const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
+      alert(isKo ? 'Strava 계정이 연동되어 있지 않습니다. 우측 상단 메뉴(☰)에서 먼저 Strava를 연동해주세요.' : 'Strava account is not connected. Please connect your Strava account in the menu first.');
+    }
+    return false;
+  }
+
+  const btnSync = document.getElementById('btn-hm-quick-sync');
+  if (btnSync) btnSync.classList.add('syncing');
+  _isSyncingLatest = true;
+
+  try {
+    const isKo = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
+    if (isManual) {
+      if (typeof showToast === 'function') {
+        showToast(isKo ? '⚡ Strava에서 최신 러닝 기록을 확인하는 중...' : '⚡ Checking latest runs from Strava...');
+      }
+    }
+
+    const token = await getValidStravaToken();
+    if (!token) {
+      if (btnSync) btnSync.classList.remove('syncing');
+      _isSyncingLatest = false;
+      if (isManual) {
+        alert(isKo ? 'Strava 인증이 만료되었습니다. 다시 연동해주세요.' : 'Strava authorization expired. Please reconnect.');
+      }
+      return false;
+    }
+
+    // Fetch page 1 (up to 30 most recent activities)
+    const resp = await fetch('https://www.strava.com/api/v3/athlete/activities?per_page=30&page=1', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!resp.ok) {
+      console.warn('[RunAnalyz] Quick sync HTTP status:', resp.status);
+      if (btnSync) btnSync.classList.remove('syncing');
+      _isSyncingLatest = false;
+      return false;
+    }
+
+    const freshActs = await resp.json();
+    if (!Array.isArray(freshActs) || freshActs.length === 0) {
+      if (btnSync) btnSync.classList.remove('syncing');
+      _isSyncingLatest = false;
+      if (isManual && typeof showToast === 'function') {
+        showToast(isKo ? '✅ 모든 최신 운동이 이미 동기화되어 있습니다.' : '✅ All latest runs are already up to date.');
+      }
+      return false;
+    }
+
+    const parsedFresh = parseStravaActivities(freshActs);
+    const savedArchiveJson = localStorage.getItem(STRAVA_STORAGE_KEYS.ARCHIVE);
+    let currentArchive = null;
+    try {
+      if (savedArchiveJson) currentArchive = JSON.parse(savedArchiveJson);
+    } catch (e) {}
+
+    if (!currentArchive || !Array.isArray(currentArchive.activities)) {
+      currentArchive = {
+        metadata: { source: 'strava_live_sync', updated_at: new Date().toISOString() },
+        activities: []
+      };
+    }
+
+    const existingIdSet = new Set(currentArchive.activities.map(a => String(a.id)));
+    const newSessions = parsedFresh.activities.filter(a => !existingIdSet.has(String(a.id)));
+
+    localStorage.setItem('runanalyz_last_sync_time', new Date().toISOString());
+
+    if (newSessions.length > 0) {
+      console.log(`[RunAnalyz] Detected ${newSessions.length} new activities! Merging to local archive...`);
+      // Prepend newly found sessions
+      currentArchive.activities = [...newSessions, ...currentArchive.activities];
+      currentArchive.metadata = currentArchive.metadata || {};
+      currentArchive.metadata.updated_at = new Date().toISOString();
+      localStorage.setItem(STRAVA_STORAGE_KEYS.ARCHIVE, JSON.stringify(currentArchive));
+
+      if (btnSync) btnSync.classList.remove('syncing');
+      _isSyncingLatest = false;
+
+      if (typeof showToast === 'function') {
+        showToast(isKo
+          ? `🎉 오늘/최신 운동 ${newSessions.length}건이 성공적으로 동기화되었습니다!`
+          : `🎉 ${newSessions.length} new run(s) synced from Strava!`);
+      }
+
+      // Refresh page smoothly to recalibrate metrics, charts, and heatmap
+      setTimeout(() => {
+        window.location.reload();
+      }, 700);
+      return true;
+    } else {
+      if (btnSync) btnSync.classList.remove('syncing');
+      _isSyncingLatest = false;
+      if (isManual && typeof showToast === 'function') {
+        showToast(isKo ? '✅ 모든 최신 운동이 이미 최신 상태입니다.' : '✅ All latest activities are up to date.');
+      }
+      return false;
+    }
+  } catch (err) {
+    console.warn('[RunAnalyz] Quick sync error:', err);
+    if (btnSync) btnSync.classList.remove('syncing');
+    _isSyncingLatest = false;
+    return false;
+  }
+}
+
 function setupStravaAuthButton(isCustomUser, athlete) {
   const btnAuth = document.getElementById('btn-strava-auth');
   const connectedPill = document.getElementById('strava-connected-pill');
@@ -1099,6 +1214,13 @@ async function startRunAnalyz() {
 
   const isCustomUser = !!(archive && archive.activities && archive.activities.length > 0);
   setupStravaAuthButton(isCustomUser, currentAthlete);
+
+  // If custom user is logged in, perform lightweight background auto-sync for newly completed runs (e.g. today's run)
+  if (isCustomUser) {
+    setTimeout(() => {
+      syncLatestStravaActivities(false);
+    }, 1200);
+  }
 
   // Fallback to embedded static archive if custom archive not loaded
   if (!archive || !archive.activities || archive.activities.length === 0) {
@@ -1483,13 +1605,20 @@ async function startRunAnalyz() {
     } else if (activeCleanTab === 'heatmap') {
       const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
       const y = window.HEATMAP_FILTER_YEAR || '2026';
-      const m = window.HEATMAP_FILTER_MONTH || '8';
+      const m = window.HEATMAP_FILTER_MONTH || '9';
       const monthNames = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-      const pLabel = (y === 'all')
-        ? (isEn ? 'All 10 Years' : '10개년 전체 누적')
-        : (m === 'all'
-            ? (isEn ? `${y} All Year` : `${y}년 전체`)
-            : (isEn ? `${monthNames[parseInt(m, 10)] || m} ${y}` : `${y}년 ${m}월`));
+      let pLabel = '';
+      if (m === 'latest') {
+        pLabel = isEn ? 'Latest Run' : '최근 러닝';
+      } else if (y === 'all') {
+        pLabel = (m === 'all')
+          ? (isEn ? 'All 10 Years' : '10개년 전체 누적')
+          : (isEn ? `All-Time ${monthNames[parseInt(m, 10)] || m}` : `역대 ${m}월`);
+      } else {
+        pLabel = (m === 'all')
+          ? (isEn ? `${y} All Year` : `${y}년 전체`)
+          : (isEn ? `${monthNames[parseInt(m, 10)] || m} ${y}` : `${y}년 ${m}월`);
+      }
       mainLabel.textContent = isEn ? `GPS Heatmap: ${pLabel}` : `GPS 히트맵: ${pLabel}`;
       subLabel.textContent = isEn
         ? `Explore Neon GPS Tracks · Switch Year/Month via top chips`
@@ -3254,7 +3383,7 @@ function renderSingleChart(act) {
     }
   }
 
-  window.singleChartInstance = new Chart(canvas, {
+  window.singleChartInstance = new Chart(ctx, {
     type: 'line',
     data: {
       labels: labels,
@@ -3905,7 +4034,7 @@ function renderWeeklyChart(weeks) {
   const mileageData = weeks.map(w => isImp ? parseFloat(((w.totalKm || 0) * 0.621371).toFixed(1)) : (w.totalKm || 0));
   const efData = weeks.map(w => w.avgEf);
 
-  window.weeklyChartInstance = new Chart(canvas, {
+  window.weeklyChartInstance = new Chart(ctx, {
     data: {
       labels: labels,
       datasets: [
@@ -4626,7 +4755,7 @@ function renderYearlyChart(years, summary) {
   const mileages = years.map(y => isImp ? parseFloat(((summary[y].total_running_km || 0) * 0.621371).toFixed(1)) : (summary[y].total_running_km || 0));
   const efs = years.map(y => summary[y].avg_ef);
 
-  window.yearlyChartInstance = new Chart(canvas, {
+  window.yearlyChartInstance = new Chart(ctx, {
     data: {
       labels: labels,
       datasets: [
@@ -4749,23 +4878,78 @@ function initRunningHeatmap(activities) {
   let polylineLayers = [];
   let allBounds = null;
 
-  window.HEATMAP_FILTER_YEAR = window.HEATMAP_FILTER_YEAR || '2026';
-  window.HEATMAP_FILTER_MONTH = window.HEATMAP_FILTER_MONTH || '8';
+  // 1. Smart default detection from actual GPS activity dates
+  let detectedYear = '2026';
+  let detectedMonth = '9';
+  let latestRunDateStr = '--';
+
+  const allGpsRuns = activities.filter(a => {
+    if (!a.has_gps) return false;
+    if ((!a.gps_points || a.gps_points.length === 0) && a.summary_polyline) {
+      a.gps_points = decodePolyline(a.summary_polyline);
+    }
+    return a.gps_points && a.gps_points.length >= 2;
+  });
+
+  allGpsRuns.sort((a, b) => {
+    const dtA = (a.date || '') + ' ' + (a.time || '');
+    const dtB = (b.date || '') + ' ' + (b.time || '');
+    return dtB.localeCompare(dtA);
+  });
+
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const isEnCur = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'en';
+
+  if (allGpsRuns.length > 0) {
+    const topDate = (allGpsRuns[0].date || '').slice(0, 10);
+    latestRunDateStr = topDate;
+    if (topDate === todayStr) {
+      latestRunDateStr = isEnCur ? `${topDate} (Today)` : `${topDate} (오늘)`;
+    }
+    if (topDate.length >= 7) {
+      detectedYear = topDate.slice(0, 4);
+      detectedMonth = String(parseInt(topDate.slice(5, 7), 10));
+    }
+  }
+
+  const latestStatEl = document.getElementById('hm-latest-run-date');
+  if (latestStatEl) {
+    latestStatEl.textContent = latestRunDateStr;
+  }
+
+  // Use previously saved session filter or detected latest activity period
+  const savedHmYear = sessionStorage.getItem('shoef_heatmap_year');
+  const savedHmMonth = sessionStorage.getItem('shoef_heatmap_month');
+
+  window.HEATMAP_FILTER_YEAR = savedHmYear || window.HEATMAP_FILTER_YEAR || detectedYear;
+  window.HEATMAP_FILTER_MONTH = savedHmMonth || window.HEATMAP_FILTER_MONTH || detectedMonth;
+
+  // Sync DOM active classes with active filter values
+  const yearChips = document.querySelectorAll('#hm-year-chips .hm-chip-btn');
+  yearChips.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.year === window.HEATMAP_FILTER_YEAR);
+  });
+
+  const monthChips = document.querySelectorAll('#hm-month-chips .hm-chip-btn');
+  monthChips.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.month === window.HEATMAP_FILTER_MONTH);
+  });
 
   function getHeatmapActivities() {
     let list = activities;
     const fYear = window.HEATMAP_FILTER_YEAR;
     const fMonth = window.HEATMAP_FILTER_MONTH;
 
-    // Filter by year
-    if (fYear && fYear !== 'all') {
+    // Filter by year when not 'latest' or 'all'
+    if (fMonth !== 'latest' && fYear && fYear !== 'all') {
       list = list.filter(a => {
         const d = (a.date || a.datetime || '').slice(0, 10);
         return d.slice(0, 4) === String(fYear);
       });
     }
+
     // Filter by month
-    if (fMonth && fMonth !== 'all') {
+    if (fMonth && fMonth !== 'all' && fMonth !== 'latest') {
       list = list.filter(a => {
         const d = (a.date || a.datetime || '').slice(0, 10);
         const m = String(parseInt(d.slice(5, 7), 10) || '');
@@ -4773,7 +4957,7 @@ function initRunningHeatmap(activities) {
       });
     }
 
-    return list.filter(a => {
+    const gpsList = list.filter(a => {
       if (!a.has_gps) return false;
       if (currentHmSportFilter === 'running' && !a.is_pure_running) return false;
       if ((!a.gps_points || a.gps_points.length === 0) && a.summary_polyline) {
@@ -4781,6 +4965,25 @@ function initRunningHeatmap(activities) {
       }
       return a.gps_points && a.gps_points.length >= 2;
     });
+
+    // Always sort descending by datetime
+    gpsList.sort((a, b) => {
+      const dtA = (a.date || '') + ' ' + (a.time || '');
+      const dtB = (b.date || '') + ' ' + (b.time || '');
+      return dtB.localeCompare(dtA);
+    });
+
+    // If 'latest' is selected, isolate the newest session (or runs from the newest recorded day)
+    if (fMonth === 'latest') {
+      if (gpsList.length > 0) {
+        const newestDate = (gpsList[0].date || '').slice(0, 10);
+        const newestDayRuns = gpsList.filter(a => (a.date || '').slice(0, 10) === newestDate);
+        return newestDayRuns.length > 0 ? newestDayRuns : [gpsList[0]];
+      }
+      return [];
+    }
+
+    return gpsList;
   }
 
   // Initialize Leaflet Map once
@@ -4826,13 +5029,17 @@ function initRunningHeatmap(activities) {
         lineJoin: 'round'
       }).addTo(window.leafletMap);
 
+      const isKoP = ((window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en') === 'ko';
+      const pFmt = window.RunAnalyzUnits ? window.RunAnalyzUnits.formatPace(act.pace_seconds).full : act.pace_formatted;
+      const dFmt = window.RunAnalyzUnits ? window.RunAnalyzUnits.formatDistance(act.distance_km || 0).full : `${act.distance_km} km`;
+
       const popupHtml = `
         <div class="map-popup-card">
           <h4>${act.date} (${act.time})</h4>
-          <p><strong>${act.sport_label}</strong> &bull; ${act.distance_km} km</p>
+          <p><strong>${act.sport_label || 'Outdoor Run'}</strong> &bull; ${dFmt}</p>
           <div class="stats-row">
-            <span>페이스: <strong>${act.pace_formatted}</strong></span>
-            <span>심박: <strong>${act.avg_hr} bpm</strong></span>
+            <span>${isKoP ? '페이스' : 'Pace'}: <strong>${pFmt}</strong></span>
+            <span>${isKoP ? '심박' : 'HR'}: <strong>${act.avg_hr} bpm</strong></span>
             ${act.is_pure_running ? `<span>EF: <strong>${act.ef}</strong></span>` : ''}
           </div>
         </div>
@@ -4879,11 +5086,15 @@ function initRunningHeatmap(activities) {
 
     const secTitle = document.getElementById('routes-section-title');
     if (secTitle) {
-      const fYear = (window.RUNANALYZ_FILTERS && window.RUNANALYZ_FILTERS.year) || currentYear;
-      const fMonth = (window.RUNANALYZ_FILTERS && window.RUNANALYZ_FILTERS.month) || currentMonth;
+      const fYear = window.HEATMAP_FILTER_YEAR || detectedYear;
+      const fMonth = window.HEATMAP_FILTER_MONTH || detectedMonth;
       const monthNames = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       let pLabel = '';
-      if (isEn) {
+      if (fMonth === 'latest') {
+        secTitle.textContent = isEn
+          ? `Latest Outdoor GPS Route (${gpsActs.length})`
+          : `최신 야외 GPS 코스 (${gpsActs.length}개)`;
+      } else if (isEn) {
         if (fYear === 'all') {
           pLabel = fMonth === 'all' ? 'All 10 Years' : `All-Time ${monthNames[parseInt(fMonth, 10)] || fMonth}`;
         } else {
@@ -4905,14 +5116,25 @@ function initRunningHeatmap(activities) {
       if (gpsActs.length === 0) {
         routesContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);"><i class="bi bi-geo-alt-fill" style="font-size: 2.2rem; color: var(--accent-orange); display: block; margin-bottom: 0.6rem;"></i>${isEn ? 'No outdoor GPS routes recorded in selected timeframe.' : '선택한 기간에 등록된 야외 GPS 경로가 없습니다.'}</div>`;
       } else {
-        routesContainer.innerHTML = gpsActs.map((a) => {
+        const todayISODate = new Date().toISOString().slice(0, 10);
+        routesContainer.innerHTML = gpsActs.map((a, idx) => {
           const spName = getSportDisplayName(a, isEn);
           const dFmt = window.RunAnalyzUnits.formatDistance(a.distance_km || 0).full;
           const pFmt = window.RunAnalyzUnits.formatPace(a.pace_seconds).full;
+          const isTodayRun = (a.date || '').slice(0, 10) === todayISODate;
+          const isTopLatest = (idx === 0);
+
+          let badgeHtml = '';
+          if (isTodayRun) {
+            badgeHtml = `<span class="rc-badge-today"><i class="bi bi-clock-history"></i> ${isEn ? 'TODAY' : '오늘'}</span>`;
+          } else if (isTopLatest && window.HEATMAP_FILTER_MONTH === 'latest') {
+            badgeHtml = `<span class="rc-badge-latest"><i class="bi bi-lightning-charge-fill"></i> ${isEn ? 'LATEST' : '최신'}</span>`;
+          }
+
           return `
           <div class="route-card" data-act-id="${a.id}">
             <div class="rc-top">
-              <span class="rc-name">${a.date} ${spName}</span>
+              <span class="rc-name">${a.date} ${spName} ${badgeHtml}</span>
               <span class="rc-tag" style="${a.is_pure_running ? 'color:var(--accent-orange);background:rgba(255,87,34,0.15);' : ''}">${spName}</span>
             </div>
             <div class="rc-details">
@@ -4979,13 +5201,22 @@ function initRunningHeatmap(activities) {
     };
   }
 
+  // Heatmap Quick Sync Button Binding
+  const btnQuickSync = document.getElementById('btn-hm-quick-sync');
+  if (btnQuickSync) {
+    btnQuickSync.onclick = () => {
+      syncLatestStravaActivities(true);
+    };
+  }
+
   // Heatmap Year Chips Binding
-  const yearChips = document.querySelectorAll('#hm-year-chips .hm-chip-btn');
-  yearChips.forEach(btn => {
+  const yearChipsBtns = document.querySelectorAll('#hm-year-chips .hm-chip-btn');
+  yearChipsBtns.forEach(btn => {
     btn.onclick = () => {
-      yearChips.forEach(b => b.classList.remove('active'));
+      yearChipsBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       window.HEATMAP_FILTER_YEAR = btn.dataset.year;
+      try { sessionStorage.setItem('shoef_heatmap_year', btn.dataset.year); } catch (e) {}
       const monthRow = document.getElementById('hm-month-row');
       if (monthRow) {
         monthRow.style.display = (btn.dataset.year === 'all') ? 'none' : 'flex';
@@ -4996,12 +5227,13 @@ function initRunningHeatmap(activities) {
   });
 
   // Heatmap Month Chips Binding
-  const monthChips = document.querySelectorAll('#hm-month-chips .hm-chip-btn');
-  monthChips.forEach(btn => {
+  const monthChipsBtns = document.querySelectorAll('#hm-month-chips .hm-chip-btn');
+  monthChipsBtns.forEach(btn => {
     btn.onclick = () => {
-      monthChips.forEach(b => b.classList.remove('active'));
+      monthChipsBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       window.HEATMAP_FILTER_MONTH = btn.dataset.month;
+      try { sessionStorage.setItem('shoef_heatmap_month', btn.dataset.month); } catch (e) {}
       updateHeatmapDisplay();
       if (typeof updateTimelineSlider === 'function') updateTimelineSlider();
     };
@@ -5814,8 +6046,8 @@ if (document.readyState === 'loading') {
 
 // Global Responsive Chart Resize Safeguard for Mobile & Orientation Change
 function safeResizeChart(chart) {
-  if (!chart || !chart.canvas) return;
-  if (chart.canvas.offsetParent !== null) {
+  if (!chart || !chart.canvas || !chart.ctx) return;
+  if (chart.canvas.isConnected && chart.canvas.offsetParent !== null) {
     try {
       chart.resize();
     } catch (e) {

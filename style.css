@@ -8875,6 +8875,83 @@ body.light-theme .btn-profile-reset {
   color: var(--accent-orange);
   box-shadow: 0 0 10px rgba(255, 87, 34, 0.3);
 }
+.hm-chip-btn.chip-latest {
+  background: rgba(0, 255, 135, 0.1);
+  border-color: rgba(0, 255, 135, 0.35);
+  color: var(--accent-lime);
+}
+.hm-chip-btn.chip-latest:hover {
+  background: rgba(0, 255, 135, 0.18);
+  border-color: var(--accent-lime);
+  color: #fff;
+}
+.hm-chip-btn.chip-latest.active {
+  background: rgba(0, 255, 135, 0.22);
+  border-color: var(--accent-lime);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(0, 255, 135, 0.4);
+}
+.hm-sync-action-box {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.hm-sync-quick-btn {
+  background: rgba(252, 76, 2, 0.12);
+  border: 1px solid rgba(252, 76, 2, 0.4);
+  color: #fc4c02;
+  padding: 0.28rem 0.65rem;
+  border-radius: 9999px;
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: all 0.2s ease;
+}
+.hm-sync-quick-btn:hover {
+  background: rgba(252, 76, 2, 0.25);
+  border-color: #fc4c02;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(252, 76, 2, 0.35);
+}
+.hm-sync-quick-btn.syncing i {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+.rc-badge-today {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  background: rgba(0, 255, 135, 0.16);
+  border: 1px solid var(--accent-lime);
+  color: var(--accent-lime);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+  margin-left: 0.35rem;
+}
+.rc-badge-latest {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  background: rgba(255, 87, 34, 0.16);
+  border: 1px solid var(--accent-orange);
+  color: var(--accent-orange);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+  margin-left: 0.35rem;
+}
 
 body.light-theme .heatmap-period-control-bar {
   background: #ffffff;

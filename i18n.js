@@ -183,6 +183,12 @@
       heatmap_stat_routes: "기록된 코스 수",
       heatmap_stat_top_loc: "최다 주행 지역",
       heatmap_stat_longest: "인생 최장거리 코스",
+      hm_chip_latest: "최신",
+      btn_sync_latest: "최신 동기화",
+      hm_stat_latest: "최근 운동",
+      hm_chip_all_months: "전체 월",
+      badge_today: "오늘",
+      badge_latest: "최신",
 
       // Footer
       footer_privacy: "개인정보처리방침",
@@ -365,6 +371,12 @@
       heatmap_stat_routes: "Recorded Routes",
       heatmap_stat_top_loc: "Top Running Region",
       heatmap_stat_longest: "Longest Course",
+      hm_chip_latest: "Latest",
+      btn_sync_latest: "Sync Latest",
+      hm_stat_latest: "Latest Activity",
+      hm_chip_all_months: "All Months",
+      badge_today: "TODAY",
+      badge_latest: "LATEST",
 
       // Footer
       footer_privacy: "Privacy Policy",
@@ -532,6 +544,12 @@
       heatmap_stat_routes: "記録コース数",
       heatmap_stat_top_loc: "最多走行地域",
       heatmap_stat_longest: "自己最長コース",
+      hm_chip_latest: "最新",
+      btn_sync_latest: "最新同期",
+      hm_stat_latest: "最新アクティビティ",
+      hm_chip_all_months: "全月",
+      badge_today: "今日",
+      badge_latest: "最新",
 
       // Footer
       footer_privacy: "プライバシーポリシー",
@@ -699,6 +717,12 @@
       heatmap_stat_routes: "Rutas Registradas",
       heatmap_stat_top_loc: "Zona Más Frecuente",
       heatmap_stat_longest: "Ruta Más Larga",
+      hm_chip_latest: "Más reciente",
+      btn_sync_latest: "Sincronizar",
+      hm_stat_latest: "Última actividad",
+      hm_chip_all_months: "Todos los meses",
+      badge_today: "HOY",
+      badge_latest: "ÚLTIMO",
 
       // Footer
       footer_privacy: "Política de Privacidad",
