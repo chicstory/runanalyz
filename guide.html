@@ -44,6 +44,87 @@
   <meta name="twitter:description" content="러너를 위한 올인원 대시보드 완벽 이용 가이드.">
   <meta name="twitter:image" content="https://runanalyz.com/runanalyz_app_icon.jpg">
 
+  <!-- JSON-LD Semantic Schemas for GEO / AEO (AI Answer Engine Optimization) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "RunAnalyz",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web Browser",
+        "url": "https://runanalyz.com",
+        "description": "Garmin and Strava running telemetry analytics platform featuring Aerobic Efficiency Factor (EF), Karvonen LT1/LT2 physiological thresholds, and 10% ACWR injury prevention progression.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "러닝에서 유산소 효율(Aerobic Efficiency Factor, EF)이란 무엇인가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "유산소 효율(EF)은 달리기 속도(m/min)를 평균 심박수(bpm)로 나눈 값입니다. 자동차의 '연비'처럼 심장 박동 1회당 몸을 얼마나 멀리 이동시켰는지를 정량화합니다. 단순 페이스는 기온, 역풍, 피로도에 따라 왜곡되지만, EF는 심혈관 생체 부하 대비 물리적 출력을 측정하므로 러너의 심폐 엔진 상태를 객관적으로 보여줍니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "카보넨 공식(Karvonen HRR)으로 젖산역치(LT1/LT2)와 심박존을 계산하는 방법은?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "카보넨 공식은 여유심박수(HRR = 최대심박수 - 안정시심박수)를 기반으로 계산합니다. 1차 유산소 역치(LT1, Zone 2 상한선)는 안정시심박수 + round(HRR * 0.69)이며, 2차 젖산 역치(LT2, 역치 템포 페이스)는 안정시심박수 + round(HRR * 0.87)입니다. 단순 220-나이 공식에 비해 개인의 안정시 심박수를 반영하여 99% 수준의 높은 임상 정밀도를 제공합니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "마라톤 훈련에서 주간 마일리지 10% 안전 규칙(ACWR)이란?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "주간 달리기 거리를 직전 주 대비 10% 이상 급격히 늘리지 않는 원칙입니다. 급성-만성 훈련 부하 비율(ACWR) 이론에 따르면, 주간 마일리지 급증(ACWR > 1.5) 시 건과 인대 파열 등 과사용 부상 위험이 4배 이상 치솟습니다. RunAnalyz는 주간 누적 거리를 분석하여 10% 안전 범위 내인지 자동 판정합니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "VDOT 5대 훈련 페이스와 80/20 극화 훈련(Polarized Training)이란?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Jack Daniels 박사의 VDOT 시스템을 기반으로 산출되는 5대 페이스(Easy, Marathon, Threshold, Interval, Repetition)입니다. 엘리트 러너들의 표준인 80/20 극화 훈련은 전체 훈련량의 80%를 편안한 Zone 2(이지 페이스)에서 소화하고, 단 20%만 고강도 역치 및 인터벌에 집중하여 부상 없이 모세혈관과 미토콘드리아 밀도를 극대화하는 방식입니다."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "가민 커넥트(Garmin Connect)에서 심박수 예비량(HRR) 존 설정 3단계",
+        "description": "카보넨 공식을 적용하여 가민 스마트워치에 정확한 Zone 2 및 LT1/LT2 역치 심박수를 동기화하는 절차",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "설정 메뉴 진입",
+            "text": "Garmin Connect 앱 실행 후 [설정] > [사용자 설정] > [심박수 및 파워 존] > [심박수]로 이동합니다."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "기준을 HRR(%여유 심박수)로 변경",
+            "text": "[기준(Bases on)] 설정을 기본값인 '%최대 심박수(%Max)'에서 '%여유 심박수(%HRR)'로 변경합니다."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "안정시 심박수 및 최대 심박수 입력",
+            "text": "실측된 최대 심박수(MHR)와 최근 7일 평균 안정시 심박수(RHR)를 입력한 후 시계와 동기화합니다."
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <!-- Google Fonts: Inter, Outfit, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
