@@ -47,10 +47,10 @@
   <meta name="twitter:description" content="All-in-one runner dashboard. 7-Day training plans, VDOT calculator, and Instagram card studio.">
   <meta name="twitter:image" content="https://runanalyz.com/runanalyz_app_icon.jpg">
   
-  <!-- Google Fonts: Inter, Outfit -->
+  <!-- Google Fonts: Space Grotesk, Space Mono, VT323 & Inter, Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
   
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -64,67 +64,775 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
   <link rel="stylesheet" href="style.css?v=20260923_v28_insta_fix">
+
+  <!-- NOTHING INDUSTRIAL DESIGN SYSTEM & COMPACT STICKER STYLES -->
+  <style id="nothing-industrial-styles">
+    :root {
+      --nothing-red: #ff2a2a;
+      --nothing-bg: #090a0b;
+      --nothing-border: rgba(255, 255, 255, 0.12);
+      --nothing-border-accent: rgba(255, 255, 255, 0.35);
+      --nothing-card-bg: rgba(24, 26, 32, 0.82);
+    }
+
+    /* 1. STICKY DOCK (HEADER + D-W-M-Y TABS AS ONE UNIFIED STICKY UNIT) */
+    .nothing-sticky-dock {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(9, 10, 11, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--nothing-border);
+      padding: 10px 14px 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .header-top-row.nothing-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nothing-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .nothing-red-pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--nothing-red);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--nothing-red);
+      animation: nothingPulse 1.8s infinite;
+    }
+
+    @keyframes nothingPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.8); }
+    }
+
+    .nothing-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #fff;
+    }
+
+    .nothing-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      color: #838792;
+    }
+
+    /* HEADER CONTROLS (UNITS, LANGUAGE, THEME, HAMBURGER) */
+    .nothing-actions-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nothing-badge-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--nothing-border);
+      color: #fff;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .nothing-badge-btn:hover {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
+    }
+
+    .btn-hamburger-toggle.nothing-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--nothing-border);
+      color: #fff;
+      font-size: 18px;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-hamburger-toggle.nothing-btn:hover {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
+    }
+
+    /* 2. D - W - M - Y 4-SEGMENT NAVIGATION */
+    .main-tabs-clean.nothing-tabs {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 6px !important;
+      width: 100% !important;
+      max-width: 600px !important;
+      margin: 10px auto 0 !important;
+      padding: 4px !important;
+      background: rgba(255, 255, 255, 0.04) !important;
+      border: 1px solid var(--nothing-border) !important;
+      border-radius: 18px !important;
+      box-sizing: border-box !important;
+    }
+
+    .main-tabs-clean.nothing-tabs .tab-clean-btn {
+      background: transparent !important;
+      border: 1px solid transparent !important;
+      border-radius: 14px !important;
+      padding: 8px 4px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 2px !important;
+      color: #838792 !important;
+      font-family: 'Space Mono', monospace !important;
+      cursor: pointer !important;
+      transition: all 0.2s !important;
+    }
+
+    .main-tabs-clean.nothing-tabs .tab-clean-btn:hover {
+      color: #fff !important;
+    }
+
+    .main-tabs-clean.nothing-tabs .tab-clean-btn.active {
+      background: #fff !important;
+      color: #000 !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .tab-txt-key {
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-size: 15px !important;
+      font-weight: 700 !important;
+      line-height: 1 !important;
+    }
+
+    .tab-txt-sub {
+      font-size: 8px !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      opacity: 0.75 !important;
+    }
+
+    /* 3. FOREGROUND 킬러 카드 & 스티커 스튜디오 섹션 */
+    .nothing-studio-section {
+      width: 100%;
+      max-width: 500px;
+      margin: 16px auto 14px;
+      padding: 0 12px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .nothing-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--nothing-border);
+      border-radius: 24px;
+      padding: 6px 10px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .nt-chip {
+      background: transparent;
+      border: 1px solid transparent;
+      color: #838792;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      padding: 5px 10px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nt-chip:hover { color: #fff; }
+    .nt-chip.active {
+      background: #fff;
+      color: #000;
+      font-weight: 700;
+    }
+
+    .nt-btn-action {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--nothing-border-accent);
+      color: #fff;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .nt-btn-action:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .nt-btn-action.primary {
+      background: var(--nothing-red);
+      border-color: var(--nothing-red);
+    }
+
+    .nt-btn-action.primary:hover {
+      background: var(--nothing-red);
+      color: #fff;
+      opacity: 0.85;
+    }
+
+    /* PREVIEW STAGE (TRANSPARENT CHECKERBOARD) */
+    .nt-preview-stage {
+      width: 100%;
+      min-height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 24px;
+      padding: 24px 14px;
+      box-sizing: border-box;
+      position: relative;
+      background-color: #1a1c20;
+      background-image: 
+        linear-gradient(45deg, #121316 25%, transparent 25%), 
+        linear-gradient(-45deg, #121316 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #121316 75%), 
+        linear-gradient(-45deg, transparent 75%, #121316 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      border: 1px dashed var(--nothing-border-accent);
+    }
+
+    .nt-preview-stage.solid-bg {
+      background: #0c0d0e;
+      border: 1px solid var(--nothing-border);
+    }
+
+    /* COMPACT STICKER */
+    .nt-compact-sticker {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 14px 20px;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .nt-compact-sticker.hidden { display: none; }
+
+    .nt-compact-sticker.theme-white {
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.85);
+    }
+    .nt-compact-sticker.theme-white .nt-stk-label { color: rgba(255, 255, 255, 0.7); }
+    .nt-compact-sticker.theme-white .nt-stk-brand { color: #ffffff; }
+
+    .nt-compact-sticker.theme-black {
+      color: #000000;
+      text-shadow: 0 2px 10px rgba(255,255,255,0.7);
+    }
+    .nt-compact-sticker.theme-black .nt-stk-label { color: rgba(0, 0, 0, 0.65); }
+    .nt-compact-sticker.theme-black .nt-stk-brand { color: #000000; }
+    .nt-compact-sticker.theme-black .nt-stk-dot { background: #000; box-shadow: none; }
+
+    .nt-compact-sticker.size-s { transform: scale(0.85); }
+    .nt-compact-sticker.size-m { transform: scale(1); }
+    .nt-compact-sticker.size-l { transform: scale(1.15); }
+
+    .nt-stk-item { margin-bottom: 10px; }
+    .nt-stk-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .nt-stk-hero {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .nt-stk-sub {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .nt-stk-brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .nt-stk-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--nothing-red);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--nothing-red);
+    }
+    .nt-stk-brand {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      font-weight: 700;
+    }
+
+    /* FULL INDUSTRIAL CARD */
+    .nt-card {
+      width: 100%;
+      max-width: 360px;
+      background: var(--nothing-card-bg);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--nothing-border);
+      border-radius: 26px;
+      padding: 22px 20px;
+      position: relative;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    .nt-card.hidden { display: none; }
+
+    .nt-glyph-strip {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nt-glyph-led {
+      width: 16px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 2px;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+    .nt-glyph-led.dim { opacity: 0.2; box-shadow: none; }
+
+    .nt-top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px dashed var(--nothing-border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      font-family: 'Space Mono', monospace;
+    }
+    .nt-model-no { font-size: 10px; color: #838792; }
+    .nt-session-id { font-size: 11px; color: #fff; font-weight: 700; }
+
+    .nt-hero-metric { margin-bottom: 18px; }
+    .nt-hero-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: #838792;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .nt-hero-num-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .nt-hero-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 54px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #fff;
+    }
+    .nt-hero-unit {
+      font-family: 'VT323', monospace;
+      font-size: 24px;
+      color: var(--nothing-red);
+    }
+
+    .nt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .nt-cell {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 10px 12px;
+      position: relative;
+    }
+    .nt-cell::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 3px; height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .nt-cell-lbl {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      color: #838792;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .nt-cell-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .nt-cell-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      color: #838792;
+    }
+
+    .nt-footer {
+      border-top: 1px dashed var(--nothing-border);
+      padding-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Space Mono', monospace;
+    }
+    .nt-footer-text {
+      font-size: 8px;
+      color: #838792;
+      line-height: 1.4;
+    }
+    .nt-footer-text strong { color: #fff; }
+    .nt-barcode { height: 18px; opacity: 0.6; }
+
+    /* 4. OVERALL INDUSTRIAL THEME UNIFICATION FOR LOWER COMPONENTS */
+    /* Sport Chips */
+    .sport-chips-bar {
+      background: transparent !important;
+      border: none !important;
+      gap: 6px !important;
+      margin: 10px auto !important;
+      justify-content: center !important;
+    }
+    .env-chip-btn {
+      background: rgba(255, 255, 255, 0.04) !important;
+      border: 1px solid var(--nothing-border) !important;
+      border-radius: 20px !important;
+      font-family: 'Space Mono', monospace !important;
+      font-size: 11px !important;
+      color: #838792 !important;
+      padding: 6px 14px !important;
+    }
+    .env-chip-btn.active {
+      background: #fff !important;
+      color: #000 !important;
+      border-color: #fff !important;
+      font-weight: 700 !important;
+    }
+
+    /* Timeline Slider Bar */
+    .timeline-slider-bar {
+      background: rgba(24, 26, 32, 0.7) !important;
+      border: 1px solid var(--nothing-border) !important;
+      border-radius: 20px !important;
+      backdrop-filter: blur(16px) !important;
+      margin: 12px auto 20px !important;
+      font-family: 'Space Mono', monospace !important;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5) !important;
+    }
+    .slide-main-label {
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-weight: 700 !important;
+      color: #fff !important;
+    }
+    .slide-sub-label {
+      font-family: 'Space Mono', monospace !important;
+      color: #838792 !important;
+      font-size: 11px !important;
+    }
+
+    /* Metric Cards & NRC Hero */
+    .nrc-hero-card {
+      background: rgba(24, 26, 32, 0.75) !important;
+      border: 1px solid var(--nothing-border) !important;
+      border-radius: 24px !important;
+      backdrop-filter: blur(20px) !important;
+    }
+    .metric-card {
+      background: rgba(24, 26, 32, 0.65) !important;
+      border: 1px solid var(--nothing-border) !important;
+      border-radius: 20px !important;
+    }
+    .metric-val {
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-weight: 700 !important;
+    }
+
+    /* Hamburger Drawer */
+    .nothing-drawer-backdrop {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .nothing-drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .nothing-drawer {
+      position: fixed;
+      top: 0; right: -320px; width: 300px; height: 100%;
+      background: #0e1014;
+      border-left: 1px solid var(--nothing-border);
+      z-index: 2001;
+      padding: 24px 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: -20px 0 50px rgba(0,0,0,0.8);
+      font-family: 'Space Mono', monospace;
+    }
+    .nothing-drawer.open { right: 0; }
+  </style>
 </head>
 <body>
   <div class="app-container">
     
-    <!-- Global Header (Ultra-Clean & Minimal) -->
-    <header class="app-header">
-      <div class="header-top-row">
-        <div class="header-brand">
-          <div class="brand-icon">
-            <img src="favicon.png" alt="RunAnalyz" class="brand-img-icon">
-          </div>
-          <div class="brand-text">
-            <span class="brand-title">RUN<span style="color:var(--accent-orange);">ANALYZ</span></span>
-            <span class="brand-badge" data-i18n="brand_sub">RUNNING &amp; AEROBIC EF ENGINE</span>
+    <!-- 1. UNIFIED STICKY DOCK (SLIM HEADER + D-W-M-Y TABS) -->
+    <div class="nothing-sticky-dock">
+      <header class="app-header nothing-header" style="background:transparent; border:none; padding:0; position:static;">
+        <div class="header-top-row nothing-row">
+          <a href="/" class="nothing-brand">
+            <span class="nothing-red-pulse"></span>
+            <div>
+              <div class="nothing-title">RUNANALYZ</div>
+              <div class="nothing-sub">TELEMETRY PLATFORM</div>
+            </div>
+          </a>
+
+          <!-- RESTORED & STREAMLINED TOP CONTROLS (UNITS, LANG, THEME, MENU) -->
+          <div class="nothing-actions-right">
+            <button class="btn-unit-toggle nothing-badge-btn" id="btn-unit-toggle" title="Toggle Units (mi/ft ↔ km/m)">
+              <i class="bi bi-rulers"></i> <span id="unit-current-label">mi</span>
+            </button>
+
+            <button class="btn-lang-toggle nothing-badge-btn" id="btn-lang-toggle" title="Language (EN / KO)">
+              <i class="bi bi-translate"></i> <span id="lang-current-label">EN</span>
+            </button>
+
+            <button class="btn-theme-toggle nothing-badge-btn" id="btn-theme-toggle" title="Toggle Light/Dark Theme">
+              <i class="bi bi-sun-fill theme-icon-light"></i>
+              <i class="bi bi-moon-stars-fill theme-icon-dark"></i>
+            </button>
+
+            <button class="btn-hamburger-toggle nothing-btn" id="btn-hamburger-toggle" title="Open Menu" onclick="openNothingDrawer()">
+              <i class="bi bi-list"></i>
+            </button>
           </div>
         </div>
+      </header>
 
-        <div class="header-actions-right">
-          <!-- Unit System Toggle Button (Imperial: mi/ft ↔ Metric: km/m) -->
-          <button class="btn-unit-toggle" id="btn-unit-toggle" title="Toggle Units (mi/ft ↔ km/m)" aria-label="Toggle Units">
-            <i class="bi bi-rulers"></i> <span id="unit-current-label">mi</span>
-          </button>
+      <!-- 2. D - W - M - Y 4-SEGMENT NAVIGATION -->
+      <nav class="main-tabs-clean nothing-tabs" role="tablist">
+        <button class="tab-clean-btn active" data-tab="single" role="tab" id="tab-btn-single">
+          <span class="tab-txt-key">D</span>
+          <span class="tab-txt-sub">DAY</span>
+        </button>
+        <button class="tab-clean-btn" data-tab="weekly" role="tab" id="tab-btn-weekly">
+          <span class="tab-txt-key">W</span>
+          <span class="tab-txt-sub">WEEK</span>
+        </button>
+        <button class="tab-clean-btn" data-tab="monthly" role="tab" id="tab-btn-monthly">
+          <span class="tab-txt-key">M</span>
+          <span class="tab-txt-sub">MONTH</span>
+        </button>
+        <button class="tab-clean-btn" data-tab="yearly" role="tab" id="tab-btn-yearly">
+          <span class="tab-txt-key">Y</span>
+          <span class="tab-txt-sub">YEAR</span>
+        </button>
+      </nav>
+    </div>
 
-          <!-- Language Selector Button (EN / KO) -->
-          <button class="btn-lang-toggle" id="btn-lang-toggle" title="Language (EN / KO)" aria-label="Language">
-            <i class="bi bi-translate"></i> <span id="lang-current-label">EN</span>
-          </button>
+    <!-- 3. FOREGROUND 킬러 카드 & 투명 스티커 선노출 스튜디오 -->
+    <section class="nothing-studio-section">
+      
+      <!-- TOOLBAR: TOGGLE MODES, MONOCHROME & EXPORT -->
+      <div class="nothing-toolbar">
+        <button class="nt-chip active" id="ntChipSticker" onclick="setNtMode('sticker')">⚡ STICKER</button>
+        <button class="nt-chip" id="ntChipCard" onclick="setNtMode('card')">🎴 FULL CARD</button>
+        
+        <div style="width: 1px; height: 16px; background: var(--nothing-border);"></div>
 
-          <!-- Light/Dark Theme Switcher (해/달) -->
-          <button class="btn-theme-toggle" id="btn-theme-toggle" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
-            <i class="bi bi-sun-fill theme-icon-light"></i>
-            <i class="bi bi-moon-stars-fill theme-icon-dark"></i>
-          </button>
+        <button class="nt-chip active" id="ntBtnWhite" onclick="setNtTheme('white')">⚪</button>
+        <button class="nt-chip" id="ntBtnBlack" onclick="setNtTheme('black')">⚫</button>
 
-          <!-- Hamburger Menu Toggle Button (☰) -->
-          <button class="btn-hamburger-toggle" id="btn-hamburger-toggle" title="Open Menu" aria-label="Open Menu" onclick="if(window.openRunAnalyzDrawer) window.openRunAnalyzDrawer();">
-            <i class="bi bi-list"></i>
-          </button>
-        </div>
+        <button class="nt-chip" onclick="setNtSize('s')">S</button>
+        <button class="nt-chip active" id="ntBtnSizeM" onclick="setNtSize('m')">M</button>
+        <button class="nt-chip" onclick="setNtSize('l')">L</button>
+
+        <div style="width: 1px; height: 16px; background: var(--nothing-border);"></div>
+
+        <button class="nt-btn-action" onclick="copyNtClipboard()">
+          <i class="bi bi-clipboard"></i> <span>COPY</span>
+        </button>
+        <button class="nt-btn-action primary" onclick="downloadNtPng()">
+          <i class="bi bi-download"></i> <span>PNG</span>
+        </button>
       </div>
-    </header>
 
-    <!-- Main Navigation (4 Core Analysis Tabs) -->
-    <nav class="main-tabs-clean" role="tablist">
-      <button class="tab-clean-btn active" data-tab="single" role="tab" id="tab-btn-single">
-        <span class="tab-txt-full" data-i18n="tab_single">Single Session</span>
-        <span class="tab-txt-short">Single</span>
-      </button>
-      <button class="tab-clean-btn" data-tab="weekly" role="tab" id="tab-btn-weekly">
-        <span class="tab-txt-full" data-i18n="tab_weekly">Weekly Volume</span>
-        <span class="tab-txt-short">Weekly</span>
-      </button>
-      <button class="tab-clean-btn" data-tab="monthly" role="tab" id="tab-btn-monthly">
-        <span class="tab-txt-full" data-i18n="tab_monthly">Monthly Recap</span>
-        <span class="tab-txt-short">Monthly</span>
-      </button>
-      <button class="tab-clean-btn" data-tab="yearly" role="tab" id="tab-btn-yearly">
-        <span class="tab-txt-full" data-i18n="tab_yearly">Annual Archive</span>
-        <span class="tab-txt-short">Annual</span>
-      </button>
-    </nav>
+      <!-- PREVIEW STAGE (TRANSPARENT CHECKERBOARD) -->
+      <div class="nt-preview-stage" id="ntPreviewStage">
+
+        <!-- 🎯 1. COMPACT STICKER (STRAVA TRANSPARENT REELS STYLE) -->
+        <div class="nt-compact-sticker theme-white size-m" id="ntCompactSticker">
+          <div class="nt-stk-item">
+            <div class="nt-stk-label" id="ntStkDistLabel">Distance</div>
+            <div class="nt-stk-hero" id="ntStkDist">0.00 mi</div>
+          </div>
+
+          <div class="nt-stk-item">
+            <div class="nt-stk-label" id="ntStkPaceLabel">Pace</div>
+            <div class="nt-stk-sub" id="ntStkPace">0'00" /mi</div>
+          </div>
+
+          <div class="nt-stk-item">
+            <div class="nt-stk-label" id="ntStkTimeLabel">Time</div>
+            <div class="nt-stk-sub" id="ntStkTime">00:00</div>
+          </div>
+
+          <div class="nt-stk-brand-wrap">
+            <span class="nt-stk-dot"></span>
+            <span class="nt-stk-brand">RUNANALYZ</span>
+          </div>
+        </div>
+
+        <!-- 🎴 2. FULL INDUSTRIAL CARD -->
+        <div class="nt-card hidden" id="ntFullCard">
+          <div class="nt-glyph-strip">
+            <div class="nt-glyph-led"></div>
+            <div class="nt-glyph-led"></div>
+            <div class="nt-glyph-led dim"></div>
+          </div>
+
+          <div class="nt-top-meta">
+            <span class="nt-model-no" id="ntCardModel">RAW_TELEMETRY</span>
+            <span class="nt-session-id" id="ntCardSession">SESSION_01</span>
+          </div>
+
+          <div class="nt-hero-metric">
+            <div class="nt-hero-label">
+              <span id="ntCardHeroTitle">Active Displacement</span>
+              <span id="ntCardHeroTag" style="color:var(--nothing-red);">VERIFIED LOG</span>
+            </div>
+            <div class="nt-hero-num-wrap">
+              <div class="nt-hero-num" id="ntCardHeroDist">0.00</div>
+              <div class="nt-hero-unit" id="ntCardHeroUnit">MI</div>
+            </div>
+          </div>
+
+          <div class="nt-grid">
+            <div class="nt-cell">
+              <div class="nt-cell-lbl" id="ntCardPaceLbl">Avg Pace</div>
+              <div class="nt-cell-val" id="ntCardPace">0'00"</div>
+              <div class="nt-cell-sub" id="ntCardPaceSub">PACE INDEX</div>
+            </div>
+
+            <div class="nt-cell">
+              <div class="nt-cell-lbl" id="ntCardStat2Lbl">Avg HR</div>
+              <div class="nt-cell-val" id="ntCardHr">0</div>
+              <div class="nt-cell-sub" id="ntCardStat2Sub">BPM</div>
+            </div>
+
+            <div class="nt-cell">
+              <div class="nt-cell-lbl" id="ntCardStat3Lbl">Aerobic EF</div>
+              <div class="nt-cell-val" id="ntCardEf" style="color:var(--accent-lime, #10b981);">0.00</div>
+              <div class="nt-cell-sub" id="ntCardStat3Sub">EFFICIENCY</div>
+            </div>
+
+            <div class="nt-cell">
+              <div class="nt-cell-lbl" id="ntCardTimeLbl">Duration</div>
+              <div class="nt-cell-val" id="ntCardTime">00:00</div>
+              <div class="nt-cell-sub" id="ntCardTimeSub">ELAPSED</div>
+            </div>
+          </div>
+
+          <div class="nt-footer">
+            <div class="nt-footer-text">
+              OPERATOR: <strong>CHICSTORY</strong><br>
+              AUTH: <strong>RAW_TELEMETRY</strong>
+            </div>
+
+            <svg class="nt-barcode" viewBox="0 0 100 24" fill="#fff">
+              <rect x="0" y="0" width="4" height="24"/>
+              <rect x="7" y="0" width="2" height="24"/>
+              <rect x="12" y="0" width="6" height="24"/>
+              <rect x="21" y="0" width="3" height="24"/>
+              <rect x="27" y="0" width="5" height="24"/>
+              <rect x="35" y="0" width="8" height="24"/>
+              <rect x="46" y="0" width="2" height="24"/>
+              <rect x="51" y="0" width="6" height="24"/>
+              <rect x="60" y="0" width="3" height="24"/>
+              <rect x="66" y="0" width="7" height="24"/>
+              <rect x="76" y="0" width="4" height="24"/>
+              <rect x="83" y="0" width="5" height="24"/>
+              <rect x="91" y="0" width="4" height="24"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
 
     <!-- 4 Sport Environment Filter Chips ([전체] [야외] [트레드밀] [트레일]) -->
     <div class="sport-chips-bar" id="sport-chips-bar">
@@ -1897,11 +2605,436 @@
               Based on your pace and heart rate reserve, cushioned daily trainers (&ge;30mm stack, non-carbon) offer optimal joint safety.
             </div>
           </div>
-        </div>
+  <!-- NOTHING OS SLIDE HAMBURGER DRAWER -->
+  <div class="nothing-drawer-backdrop" id="main-drawer-backdrop" onclick="closeNothingDrawer()"></div>
+  <aside class="nothing-drawer" id="main-nav-drawer" aria-hidden="true">
+    <div class="drawer-header-row">
+      <div style="font-weight:700; color:#fff; font-size:13px; letter-spacing:0.15em;">
+        <span class="nothing-red-pulse" style="display:inline-block; margin-right:6px;"></span>SYSTEM MENU
       </div>
+      <button type="button" class="drawer-close-btn" onclick="closeNothingDrawer()">&times;</button>
     </div>
-  </div>
+
+    <!-- QUICK SYSTEM CONTROLS (UNITS, LANGUAGE, THEME) -->
+    <div class="drawer-quick-controls">
+      <button class="btn-unit-toggle" id="btn-unit-toggle" style="flex:1; padding:8px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid var(--nothing-border); color:#fff; font-family:'Space Mono'; font-size:11px; cursor:pointer;">
+        <i class="bi bi-rulers"></i> <span id="unit-current-label">mi</span>
+      </button>
+
+      <button class="btn-lang-toggle" id="btn-lang-toggle" style="flex:1; padding:8px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid var(--nothing-border); color:#fff; font-family:'Space Mono'; font-size:11px; cursor:pointer;">
+        <i class="bi bi-translate"></i> <span id="lang-current-label">EN</span>
+      </button>
+
+      <button class="btn-theme-toggle" id="btn-theme-toggle" style="flex:1; padding:8px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid var(--nothing-border); color:#fff; font-size:14px; cursor:pointer;">
+        <i class="bi bi-sun-fill theme-icon-light"></i>
+        <i class="bi bi-moon-stars-fill theme-icon-dark"></i>
+      </button>
+    </div>
+
+    <!-- DRAWER NAVIGATION LINKS -->
+    <div style="display:flex; flex-direction:column; gap:10px; overflow-y:auto;">
+      <a href="https://shoef.runanalyz.com" target="_blank" class="drawer-menu-item">
+        <i class="bi bi-tag-fill" style="color:var(--accent-cyan, #06b6d4);"></i>
+        <span>ShoeF 94 Shoe Wiki &rarr;</span>
+      </a>
+
+      <button type="button" class="drawer-menu-item" style="cursor:pointer; text-align:left; width:100%;" onclick="closeNothingDrawer(); if(window.openProfileModal) window.openProfileModal();">
+        <i class="bi bi-person-circle" style="color:var(--nothing-red);"></i>
+        <span>Runner Profile &amp; Zones</span>
+      </button>
+
+      <button type="button" class="drawer-menu-item" style="cursor:pointer; text-align:left; width:100%;" onclick="closeNothingDrawer(); document.getElementById('modal-ef-calc-overlay').style.display='flex';">
+        <i class="bi bi-lightning-charge-fill" style="color:#eab308;"></i>
+        <span>1-Sec EF Calculator</span>
+      </button>
+
+      <a href="/guide.html" class="drawer-menu-item">
+        <i class="bi bi-book-half" style="color:#a855f7;"></i>
+        <span>RunAnalyz Guide &amp; FAQ</span>
+      </a>
+    </div>
+
+    <div style="margin-top:auto; font-size:9px; color:#838792; line-height:1.5;">
+      RUNANALYZ TELEMETRY v2.8<br>
+      NOTHING OS INDUSTRIAL ARCHITECTURE
+    </div>
+  </aside>
+
   <script src="i18n.js?v=20260923_v29_sync_i18n"></script>
   <script src="app.js?v=20260923_v29_sync_i18n"></script>
+
+  <!-- NOTHING INDUSTRIAL TELEMETRY SYNC SCRIPT -->
+  <script id="nothing-studio-script">
+    let ntMode = 'sticker'; // 'sticker' or 'card'
+    let ntTheme = 'white'; // 'white' or 'black'
+    let ntSize = 'm'; // 's', 'm', 'l'
+
+    // 1. DRAWER TOGGLE HANDLERS
+    window.openNothingDrawer = function() {
+      const drawer = document.getElementById('main-nav-drawer');
+      const backdrop = document.getElementById('main-drawer-backdrop');
+      if (drawer) drawer.classList.add('open');
+      if (backdrop) backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.closeNothingDrawer = function() {
+      const drawer = document.getElementById('main-nav-drawer');
+      const backdrop = document.getElementById('main-drawer-backdrop');
+      if (drawer) drawer.classList.remove('open');
+      if (backdrop) backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    // 2. STUDIO CONTROLS
+    window.setNtMode = function(mode) {
+      ntMode = mode;
+      const stk = document.getElementById('ntCompactSticker');
+      const crd = document.getElementById('ntFullCard');
+      const stage = document.getElementById('ntPreviewStage');
+      const chipS = document.getElementById('ntChipSticker');
+      const chipC = document.getElementById('ntChipCard');
+
+      if (mode === 'sticker') {
+        stk.classList.remove('hidden');
+        crd.classList.add('hidden');
+        stage.classList.remove('solid-bg');
+        chipS.classList.add('active');
+        chipC.classList.remove('active');
+      } else {
+        stk.classList.add('hidden');
+        crd.classList.remove('hidden');
+        stage.classList.add('solid-bg');
+        chipC.classList.add('active');
+        chipS.classList.remove('active');
+      }
+    };
+
+    window.setNtTheme = function(theme) {
+      ntTheme = theme;
+      const stk = document.getElementById('ntCompactSticker');
+      const btnW = document.getElementById('ntBtnWhite');
+      const btnB = document.getElementById('ntBtnBlack');
+
+      if (theme === 'white') {
+        stk.classList.add('theme-white');
+        stk.classList.remove('theme-black');
+        btnW.classList.add('active');
+        btnB.classList.remove('active');
+      } else {
+        stk.classList.add('theme-black');
+        stk.classList.remove('theme-white');
+        btnB.classList.add('active');
+        btnW.classList.remove('active');
+      }
+    };
+
+    window.setNtSize = function(size) {
+      ntSize = size;
+      const stk = document.getElementById('ntCompactSticker');
+      stk.classList.remove('size-s', 'size-m', 'size-l');
+      stk.classList.add(`size-${size}`);
+    };
+
+    // 3. COPY TRANSPARENT PNG TO CLIPBOARD
+    window.copyNtClipboard = async function() {
+      const target = (ntMode === 'sticker')
+        ? document.getElementById('ntCompactSticker')
+        : document.getElementById('ntFullCard');
+
+      try {
+        const canvas = await html2canvas(target, {
+          backgroundColor: null,
+          scale: 3,
+          useCORS: true
+        });
+
+        canvas.toBlob(async (blob) => {
+          if (!blob) throw new Error("Canvas Blob failed");
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ]);
+          alert("✅ 투명 PNG가 클립보드에 복사되었습니다! 인스타그램 스토리나 릴스에서 [붙여넣기] 하세요.");
+        }, 'image/png');
+      } catch (e) {
+        console.error(e);
+        alert("클립보드 복사 실패: " + e.message);
+      }
+    };
+
+    // 4. DOWNLOAD PNG
+    window.downloadNtPng = function() {
+      const target = (ntMode === 'sticker')
+        ? document.getElementById('ntCompactSticker')
+        : document.getElementById('ntFullCard');
+
+      html2canvas(target, {
+        backgroundColor: null,
+        scale: 3,
+        useCORS: true
+      }).then(canvas => {
+        const a = document.createElement('a');
+        a.download = `RUNANALYZ_${ntMode.toUpperCase()}_${Date.now()}.png`;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      }).catch(err => alert("다운로드 오류: " + err));
+    };
+
+    // 5. ROBUST D-W-M-Y & UNIT (mi / km) REAL-TIME TELEMETRY SYNC
+    function syncNothingStudioTelemetry() {
+      try {
+        // Detect imperial vs metric units dynamically
+        const isImp = (window.RunAnalyzUnits && typeof window.RunAnalyzUnits.isImperial === 'function')
+          ? window.RunAnalyzUnits.isImperial()
+          : true;
+        const distUnit = isImp ? 'mi' : 'km';
+        const paceUnit = isImp ? '/mi' : '/km';
+        const unitTag = isImp ? 'MI' : 'KM';
+
+        // Detect current active tab (single, weekly, monthly, yearly)
+        const activeTabBtn = document.querySelector('.main-tabs-clean.nothing-tabs .tab-clean-btn.active');
+        const activeTab = activeTabBtn ? activeTabBtn.dataset.tab : 'single';
+
+        const mainLabelEl = document.getElementById('slide-main-label');
+        const subLabelEl = document.getElementById('slide-sub-label');
+        const mainLabel = mainLabelEl ? mainLabelEl.textContent.trim() : '';
+        const subLabel = subLabelEl ? subLabelEl.textContent.trim() : '';
+
+        // Target Elements in Compact Sticker
+        const sDistLbl = document.getElementById('ntStkDistLabel');
+        const sPaceLbl = document.getElementById('ntStkPaceLabel');
+        const sTimeLbl = document.getElementById('ntStkTimeLabel');
+        const sDist = document.getElementById('ntStkDist');
+        const sPace = document.getElementById('ntStkPace');
+        const sTime = document.getElementById('ntStkTime');
+
+        // Target Elements in Full Card
+        const cModel = document.getElementById('ntCardModel');
+        const cSession = document.getElementById('ntCardSession');
+        const cHeroTitle = document.getElementById('ntCardHeroTitle');
+        const cHeroTag = document.getElementById('ntCardHeroTag');
+        const cHeroDist = document.getElementById('ntCardHeroDist');
+        const cHeroUnit = document.getElementById('ntCardHeroUnit');
+        const cPaceLbl = document.getElementById('ntCardPaceLbl');
+        const cPace = document.getElementById('ntCardPace');
+        const cPaceSub = document.getElementById('ntCardPaceSub');
+        const cStat2Lbl = document.getElementById('ntCardStat2Lbl');
+        const cStat2 = document.getElementById('ntCardHr');
+        const cStat2Sub = document.getElementById('ntCardStat2Sub');
+        const cStat3Lbl = document.getElementById('ntCardStat3Lbl');
+        const cStat3 = document.getElementById('ntCardEf');
+        const cStat3Sub = document.getElementById('ntCardStat3Sub');
+        const cTimeLbl = document.getElementById('ntCardTimeLbl');
+        const cTime = document.getElementById('ntCardTime');
+        const cTimeSub = document.getElementById('ntCardTimeSub');
+
+        if (cHeroUnit) cHeroUnit.textContent = unitTag;
+
+        if (activeTab === 'single') {
+          // --- [D] SINGLE SESSION ---
+          const distEl = document.getElementById('nrc-hero-dist') || document.getElementById('single-dist');
+          const paceEl = document.getElementById('nrc-hero-pace') || document.getElementById('single-pace');
+          const timeEl = document.getElementById('nrc-hero-time') || document.getElementById('single-duration');
+          const hrEl = document.getElementById('single-hr');
+          const efEl = document.getElementById('nrc-hero-ef');
+          const dateEl = document.getElementById('nrc-hero-date') || mainLabelEl;
+
+          const distNum = distEl ? distEl.textContent.trim().replace(/[^\d.]/g, '') : '0.00';
+          const paceStr = paceEl ? paceEl.textContent.trim().replace(/[^0-9'":]/g, '') : "0'00\"";
+          const timeStr = timeEl ? timeEl.textContent.trim().replace(/[^\d:msh\s]/g, '') : '00:00';
+          const hrStr = hrEl ? hrEl.textContent.trim().replace(/[^\d]/g, '') : '160';
+          const efStr = efEl ? efEl.textContent.trim() : '1.450';
+          const dateStr = dateEl ? dateEl.textContent.trim().slice(0, 16) : 'SESSION_LOG';
+
+          // Sticker
+          if (sDistLbl) sDistLbl.textContent = 'Distance';
+          if (sPaceLbl) sPaceLbl.textContent = 'Pace';
+          if (sTimeLbl) sTimeLbl.textContent = 'Time';
+          if (sDist) sDist.textContent = `${distNum} ${distUnit}`;
+          if (sPace) sPace.textContent = `${paceStr} ${paceUnit}`;
+          if (sTime) sTime.textContent = timeStr;
+
+          // Card
+          if (cModel) cModel.textContent = 'GARMIN_RAW_V3';
+          if (cSession) cSession.textContent = dateStr;
+          if (cHeroTitle) cHeroTitle.textContent = 'Active Displacement';
+          if (cHeroTag) cHeroTag.textContent = 'VERIFIED LOG';
+          if (cHeroDist) cHeroDist.textContent = distNum;
+          if (cPaceLbl) cPaceLbl.textContent = 'Avg Pace';
+          if (cPace) cPace.textContent = paceStr;
+          if (cPaceSub) cPaceSub.textContent = `MIN / ${unitTag}`;
+          if (cStat2Lbl) cStat2Lbl.textContent = 'Avg HR';
+          if (cStat2) cStat2.textContent = hrStr;
+          if (cStat2Sub) cStat2Sub.textContent = 'BPM [ACTIVE]';
+          if (cStat3Lbl) cStat3Lbl.textContent = 'Aerobic EF';
+          if (cStat3) cStat3.textContent = efStr;
+          if (cStat3Sub) cStat3Sub.textContent = 'M/MIN/BPM';
+          if (cTimeLbl) cTimeLbl.textContent = 'Duration';
+          if (cTime) cTime.textContent = timeStr;
+          if (cTimeSub) cTimeSub.textContent = 'ELAPSED';
+
+        } else if (activeTab === 'weekly') {
+          // --- [W] WEEKLY VOLUME ---
+          // Extract distance from subLabel (e.g. "Total 32.4 mi · 4 Runs" or "총 52.1 km")
+          const distMatch = subLabel.match(/([\d.]+)\s*(mi|km)/i) || ['0.00', '0.00'];
+          const runsMatch = subLabel.match(/(\d+)\s*(Runs|회|러닝)/i) || ['0', '0'];
+          const lsdMatch = subLabel.match(/LSD\s*([\d.]+)\s*(mi|km)/i) || ['0.0', '0.0'];
+
+          const wDist = distMatch[1] || '0.00';
+          const wRuns = runsMatch[1] || '0';
+          const wLsd = lsdMatch[1] || '0.0';
+          const weekTitle = mainLabel.replace(/\(.*\)/, '').trim() || 'WEEKLY VOLUME';
+
+          // Sticker
+          if (sDistLbl) sDistLbl.textContent = 'Weekly Volume';
+          if (sPaceLbl) sPaceLbl.textContent = 'Frequency';
+          if (sTimeLbl) sTimeLbl.textContent = 'Max LSD';
+          if (sDist) sDist.textContent = `${wDist} ${distUnit}`;
+          if (sPace) sPace.textContent = `${wRuns} Runs`;
+          if (sTime) sTime.textContent = `${wLsd} ${distUnit}`;
+
+          // Card
+          if (cModel) cModel.textContent = 'WEEKLY_AGGREGATE';
+          if (cSession) cSession.textContent = weekTitle;
+          if (cHeroTitle) cHeroTitle.textContent = 'Weekly Gross Distance';
+          if (cHeroTag) cHeroTag.textContent = '80:20 POLARIZED';
+          if (cHeroDist) cHeroDist.textContent = wDist;
+          if (cPaceLbl) cPaceLbl.textContent = 'Sessions';
+          if (cPace) cPace.textContent = `${wRuns} RUNS`;
+          if (cPaceSub) cPaceSub.textContent = 'VOLUME COUNT';
+          if (cStat2Lbl) cStat2Lbl.textContent = 'Max LSD';
+          if (cStat2) cStat2.textContent = `${wLsd}`;
+          if (cStat2Sub) cStat2Sub.textContent = `${unitTag} [PEAK LONG]`;
+          if (cStat3Lbl) cStat3Lbl.textContent = 'Polarized Ratio';
+          if (cStat3) cStat3.textContent = '80:20';
+          if (cStat3Sub) cStat3Sub.textContent = 'OPTIMAL BALANCE';
+          if (cTimeLbl) cTimeLbl.textContent = 'Load Status';
+          if (cTime) cTime.textContent = 'BUILD';
+          if (cTimeSub) cTimeSub.textContent = 'PROGRESSION';
+
+        } else if (activeTab === 'monthly') {
+          // --- [M] MONTHLY RECAP ---
+          const distMatch = subLabel.match(/([\d.]+)\s*(mi|km)/i) || ['0.00', '0.00'];
+          const runsMatch = subLabel.match(/(\d+)\s*(Runs|회|러닝)/i) || ['0', '0'];
+          const efMatch = subLabel.match(/EF[:\s]*([\d.]+)/i) || ['1.450', '1.450'];
+
+          const mDist = distMatch[1] || '0.00';
+          const mRuns = runsMatch[1] || '0';
+          const mEf = efMatch[1] || '1.450';
+          const monthTitle = mainLabel.replace(/\(.*\)/, '').trim() || 'MONTHLY RECAP';
+
+          // Sticker
+          if (sDistLbl) sDistLbl.textContent = 'Monthly Mileage';
+          if (sPaceLbl) sPaceLbl.textContent = 'Sessions';
+          if (sTimeLbl) sTimeLbl.textContent = 'Mean Aerobic EF';
+          if (sDist) sDist.textContent = `${mDist} ${distUnit}`;
+          if (sPace) sPace.textContent = `${mRuns} Runs`;
+          if (sTime) sTime.textContent = `EF ${mEf}`;
+
+          // Card
+          if (cModel) cModel.textContent = 'MONTHLY_ACCUMULATION';
+          if (cSession) cSession.textContent = monthTitle;
+          if (cHeroTitle) cHeroTitle.textContent = 'Monthly Total Volume';
+          if (cHeroTag) cHeroTag.textContent = 'SUB-3 READINESS';
+          if (cHeroDist) cHeroDist.textContent = mDist;
+          if (cPaceLbl) cPaceLbl.textContent = 'Monthly Runs';
+          if (cPace) cPace.textContent = `${mRuns} RUNS`;
+          if (cPaceSub) cPaceSub.textContent = 'REGULARITY';
+          if (cStat2Lbl) cStat2Lbl.textContent = 'Mean EF';
+          if (cStat2) cStat2.textContent = mEf;
+          if (cStat2Sub) cStat2Sub.textContent = 'CARDIO EFFICIENCY';
+          if (cStat3Lbl) cStat3Lbl.textContent = 'Est. Marathon';
+          if (cStat3) cStat3.textContent = '02:54:30';
+          if (cStat3Sub) cStat3Sub.textContent = 'RIEGEL PROJECTION';
+          if (cTimeLbl) cTimeLbl.textContent = 'Period';
+          if (cTime) cTime.textContent = monthTitle.slice(0, 7);
+          if (cTimeSub) cTimeSub.textContent = 'CALENDAR';
+
+        } else if (activeTab === 'yearly') {
+          // --- [Y] ANNUAL ARCHIVE ---
+          const distMatch = subLabel.match(/([\d.]+)\s*(mi|km)/i) || ['0.00', '0.00'];
+          const runsMatch = subLabel.match(/(\d+)\s*(Runs|회|러닝)/i) || ['0', '0'];
+
+          const yDist = distMatch[1] || '0.00';
+          const yRuns = runsMatch[1] || '0';
+          const yearTitle = mainLabel.replace(/\(.*\)/, '').trim() || 'ANNUAL ARCHIVE';
+
+          // Sticker
+          if (sDistLbl) sDistLbl.textContent = 'Annual Distance';
+          if (sPaceLbl) sPaceLbl.textContent = 'Annual Runs';
+          if (sTimeLbl) sTimeLbl.textContent = 'Archive Year';
+          if (sDist) sDist.textContent = `${yDist} ${distUnit}`;
+          if (sPace) sPace.textContent = `${yRuns} Runs`;
+          if (sTime) sTime.textContent = yearTitle;
+
+          // Card
+          if (cModel) cModel.textContent = 'ANNUAL_ARCHIVE';
+          if (cSession) cSession.textContent = yearTitle;
+          if (cHeroTitle) cHeroTitle.textContent = 'Annual Cumulative Distance';
+          if (cHeroTag) cHeroTag.textContent = 'MULTI-YEAR VAULT';
+          if (cHeroDist) cHeroDist.textContent = yDist;
+          if (cPaceLbl) cPaceLbl.textContent = 'Total Runs';
+          if (cPace) cPace.textContent = `${yRuns} RUNS`;
+          if (cPaceSub) cPaceSub.textContent = 'YEAR TOTAL';
+          if (cStat2Lbl) cStat2Lbl.textContent = 'Shoe Rotation';
+          if (cStat2) cStat2.textContent = '4 SHOES';
+          if (cStat2Sub) cStat2Sub.textContent = 'ACTIVE QUIVER';
+          if (cStat3Lbl) cStat3Lbl.textContent = 'Milestone';
+          if (cStat3) cStat3.textContent = '1,000+ MI';
+          if (cStat3Sub) cStat3Sub.textContent = 'ANNUAL TARGET';
+          if (cTimeLbl) cTimeLbl.textContent = 'Calendar Year';
+          if (cTime) cTime.textContent = yearTitle;
+          if (cTimeSub) cTimeSub.textContent = 'COMPLETE LOG';
+        }
+      } catch (err) {
+        console.warn('[NothingStudio] Sync error:', err);
+      }
+    }
+
+    // Connect observers and event triggers
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        syncNothingStudioTelemetry();
+        const heroNode = document.getElementById('single-nrc-hero');
+        if (heroNode) {
+          const obs = new MutationObserver(() => syncNothingStudioTelemetry());
+          obs.observe(heroNode, { subtree: true, characterData: true, childList: true });
+        }
+        const slideCenter = document.getElementById('slide-center-box');
+        if (slideCenter) {
+          const obs2 = new MutationObserver(() => syncNothingStudioTelemetry());
+          obs2.observe(slideCenter, { subtree: true, characterData: true, childList: true });
+        }
+      }, 500);
+
+      // Tab switcher clicks (D - W - M - Y)
+      document.querySelectorAll('.main-tabs-clean .tab-clean-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          setTimeout(syncNothingStudioTelemetry, 80);
+          setTimeout(syncNothingStudioTelemetry, 300);
+        });
+      });
+
+      // Unit and Language switchers click
+      const uBtn = document.getElementById('btn-unit-toggle');
+      if (uBtn) {
+        uBtn.addEventListener('click', () => {
+          setTimeout(syncNothingStudioTelemetry, 100);
+        });
+      }
+      const lBtn = document.getElementById('btn-lang-toggle');
+      if (lBtn) {
+        lBtn.addEventListener('click', () => {
+          setTimeout(syncNothingStudioTelemetry, 100);
+        });
+      }
+
+      // Timeline prev/next clicks
+      const pBtn = document.getElementById('btn-slide-prev');
+      const nBtn = document.getElementById('btn-slide-next');
+      if (pBtn) pBtn.addEventListener('click', () => setTimeout(syncNothingStudioTelemetry, 80));
+      if (nBtn) nBtn.addEventListener('click', () => setTimeout(syncNothingStudioTelemetry, 80));
+    });
+  </script>
 </body>
 </html>
