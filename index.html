@@ -2304,112 +2304,127 @@
     </div>
     <div class="drawer-body">
       <ul class="drawer-menu-list">
-        <!-- 1. 러너 프로필 설정 -->
-        <li>
-          <button type="button" class="drawer-menu-item" id="btn-drawer-profile">
-            <div class="dmi-icon-wrap"><i class="bi bi-person-gear"></i></div>
-            <div class="dmi-content">
-              <span class="dmi-title">Runner Profile Settings</span>
-              <span class="dmi-desc">MHR &middot; RHR &middot; Weight Calibration</span>
-            </div>
-            <i class="bi bi-chevron-right dmi-arrow"></i>
-          </button>
-        </li>
 
-        <!-- 2. EF 계산기 (비로그인 1초 진단) -->
-        <li>
-          <button type="button" class="drawer-menu-item" id="btn-drawer-calc">
-            <div class="dmi-icon-wrap text-orange"><i class="bi bi-lightning-charge-fill"></i></div>
-            <div class="dmi-content">
-              <span class="dmi-title">1-Second EF Calculator</span>
-              <span class="dmi-desc">Check Aerobic EF &amp; VDOT Paces Instantly</span>
-            </div>
-            <span class="dmi-badge badge-hot">1-Sec</span>
-          </button>
-        </li>
-
-        <!-- 3. 스트라바 연동 분석 -->
+        <!-- 1. 최상단: STRAVA ACCOUNT & SYNC STATUS (CARD) -->
         <li>
           <div class="drawer-strava-card" id="drawer-strava-card">
             <div class="dsc-top">
               <div class="dmi-icon-wrap" style="color:#fc4c02;"><i class="bi bi-strava"></i></div>
               <div class="dmi-content">
                 <span class="dmi-title">Strava Integration</span>
-                <span class="dmi-desc" id="drawer-strava-status-desc">Real-time Account Sync Status</span>
+                <span class="dmi-desc" id="drawer-strava-status-desc">Unlock 80/20 &amp; Aerobic EF</span>
               </div>
             </div>
             <div class="dsc-actions" id="drawer-strava-actions">
               <button type="button" class="btn-drawer-strava-connect" id="btn-drawer-strava-auth">
-                <i class="bi bi-strava"></i> Connect Strava
+                <i class="bi bi-strava"></i> Connect Strava (1-Click)
               </button>
               <div class="drawer-strava-connected" id="drawer-strava-connected" style="display:none;">
-                <span class="dsc-user-tag" id="drawer-strava-user">Connecting</span>
+                <span class="dsc-user-tag" id="drawer-strava-user">Connected</span>
                 <button type="button" class="btn-dsc-sync" id="btn-drawer-strava-resync" title="Resync"><i class="bi bi-arrow-repeat"></i></button>
-                <button type="button" class="btn-dsc-disconnect" id="btn-drawer-strava-disconnect"><i class="bi bi-power"></i> Disconnect</button>
+                <button type="button" class="btn-dsc-disconnect" id="btn-drawer-strava-disconnect"><i class="bi bi-power"></i></button>
               </div>
             </div>
           </div>
         </li>
 
-        <!-- 4. 7-Day 러닝 플랜 -->
+        <!-- 2. CORE TELEMETRY & PLANNING -->
+        <li class="drawer-section-label" style="font-size:10px; color:#64748B; font-family:'Space Mono', monospace; margin:14px 4px 6px; letter-spacing:0.08em; text-transform:uppercase;">
+          Core Telemetry &amp; Planning
+        </li>
+
+        <!-- 80/20 Polarized Audit -->
+        <li>
+          <button type="button" class="drawer-menu-item" id="btn-drawer-weekly">
+            <div class="dmi-icon-wrap text-orange"><i class="bi bi-pie-chart-fill"></i></div>
+            <div class="dmi-content">
+              <span class="dmi-title">80/20 Polarized Audit</span>
+              <span class="dmi-desc">Weekly Heart Rate Zones &amp; Junk Miles</span>
+            </div>
+            <i class="bi bi-chevron-right dmi-arrow"></i>
+          </button>
+        </li>
+
+        <!-- 1-Second EF Calculator -->
+        <li>
+          <button type="button" class="drawer-menu-item" id="btn-drawer-calc">
+            <div class="dmi-icon-wrap text-yellow"><i class="bi bi-lightning-charge-fill"></i></div>
+            <div class="dmi-content">
+              <span class="dmi-title">1-Second EF Calculator</span>
+              <span class="dmi-desc">Check Aerobic EF &amp; VDOT Paces</span>
+            </div>
+            <span class="dmi-badge badge-hot">1-Sec</span>
+          </button>
+        </li>
+
+        <!-- 7-Day Running Plan -->
         <li>
           <button type="button" class="drawer-menu-item" id="btn-drawer-plan">
             <div class="dmi-icon-wrap text-cyan"><i class="bi bi-calendar-check-fill"></i></div>
             <div class="dmi-content">
               <span class="dmi-title">7-Day Running Plan</span>
-              <span class="dmi-desc">ACWR Safety &amp; 80/20 Polarized Schedule</span>
+              <span class="dmi-desc">Custom Polarized Weekly Schedule</span>
             </div>
-            <i class="bi bi-chevron-right dmi-arrow"></i>
+            <span class="dmi-badge" style="background:rgba(6,182,212,0.15); color:#06b6d4; font-size:10px;">Free</span>
           </button>
         </li>
 
-        <!-- 5. 러닝 히트맵 -->
+        <!-- Running Heatmap -->
         <li>
           <button type="button" class="drawer-menu-item" id="btn-drawer-heatmap">
             <div class="dmi-icon-wrap text-lime"><i class="bi bi-map-fill"></i></div>
             <div class="dmi-content">
               <span class="dmi-title">Running Heatmap</span>
-              <span class="dmi-desc">Interactive Map of All Outdoor GPS Routes</span>
+              <span class="dmi-desc">Neon GPS Map of All Outdoor Routes</span>
             </div>
             <i class="bi bi-chevron-right dmi-arrow"></i>
           </button>
         </li>
 
-        <!-- 6. ShoeF 러닝화 백과 (2*3 작은 버튼식 모바일 최적화) -->
-        <li class="drawer-shoef-box">
-          <div class="drawer-shoef-header">
-            <div class="dmi-icon-wrap text-yellow"><i class="bi bi-tag-fill"></i></div>
+        <!-- 3. CALIBRATION -->
+        <li class="drawer-section-label" style="font-size:10px; color:#64748B; font-family:'Space Mono', monospace; margin:14px 4px 6px; letter-spacing:0.08em; text-transform:uppercase;">
+          Personal Calibration
+        </li>
+
+        <!-- Runner Profile Settings -->
+        <li>
+          <button type="button" class="drawer-menu-item" id="btn-drawer-profile">
+            <div class="dmi-icon-wrap"><i class="bi bi-person-gear"></i></div>
             <div class="dmi-content">
-              <span class="dmi-title">ShoeF Running Shoes Wiki <a href="https://shoef.runanalyz.com" target="_blank" rel="noopener" class="shoef-all-link">All 94 Shoes &rarr;</a></span>
-              <span class="dmi-desc">Lab Specs &amp; Spec Comparison of 94 Running Shoes</span>
+              <span class="dmi-title">Runner Profile Settings</span>
+              <span class="dmi-desc">MHR &middot; RHR &middot; Karvonen Zones</span>
             </div>
-          </div>
-          <div class="drawer-shoef-grid">
-            <a href="https://shoef.runanalyz.com" target="_blank" class="btn-d-shoef-cat" data-cat="all">
-              <span class="cat-name">All 94 Shoes</span>
-              <span class="cat-tag">All Brands</span>
-            </a>
-            <a href="https://shoef.runanalyz.com/?cat=daily" target="_blank" class="btn-d-shoef-cat" data-cat="daily">
-              <span class="cat-name">Daily Cushion</span>
-              <span class="cat-tag">Injury Safety</span>
-            </a>
-            <a href="https://shoef.runanalyz.com/?cat=super_trainer" target="_blank" class="btn-d-shoef-cat" data-cat="super_trainer">
-              <span class="cat-name">Super Trainer</span>
-              <span class="cat-tag">Tempo / Nylon</span>
-            </a>
-            <a href="https://shoef.runanalyz.com/?cat=racing" target="_blank" class="btn-d-shoef-cat" data-cat="racing">
-              <span class="cat-name">Carbon Racer</span>
-              <span class="cat-tag">Race PR</span>
-            </a>
-            <a href="https://shoef.runanalyz.com/?cat=stability" target="_blank" class="btn-d-shoef-cat" data-cat="stability">
-              <span class="cat-name">Stability</span>
-              <span class="cat-tag">Pronation Control</span>
-            </a>
-            <a href="https://shoef.runanalyz.com/?cat=budget" target="_blank" class="btn-d-shoef-cat" data-cat="budget">
-              <span class="cat-name">Value Daily</span>
-              <span class="cat-tag">&le;$100 Value</span>
-            </a>
-          </div>
+            <i class="bi bi-chevron-right dmi-arrow"></i>
+          </button>
+        </li>
+
+        <!-- 4. ECOSYSTEM & GUIDE -->
+        <li class="drawer-section-label" style="font-size:10px; color:#64748B; font-family:'Space Mono', monospace; margin:14px 4px 6px; letter-spacing:0.08em; text-transform:uppercase;">
+          Ecosystem &amp; Resources
+        </li>
+
+        <!-- ShoeF Wiki Link (Clean 1-Line) -->
+        <li>
+          <a href="https://shoef.runanalyz.com" target="_blank" rel="noopener" class="drawer-menu-item">
+            <div class="dmi-icon-wrap" style="color:var(--accent-orange);"><i class="bi bi-tag-fill"></i></div>
+            <div class="dmi-content">
+              <span class="dmi-title">ShoeF Running Shoes Wiki &rarr;</span>
+              <span class="dmi-desc">Lab Specs of 94 Carbon &amp; Daily Shoes</span>
+            </div>
+            <i class="bi bi-box-arrow-up-right dmi-arrow" style="font-size:12px;"></i>
+          </a>
+        </li>
+
+        <!-- Guide & FAQ -->
+        <li>
+          <a href="/guide.html" class="drawer-menu-item">
+            <div class="dmi-icon-wrap" style="color:#a855f7;"><i class="bi bi-book-half"></i></div>
+            <div class="dmi-content">
+              <span class="dmi-title">RunAnalyz Guide &amp; FAQ</span>
+              <span class="dmi-desc">Sports Science EF &amp; 80/20 Principles</span>
+            </div>
+            <i class="bi bi-chevron-right dmi-arrow"></i>
+          </a>
         </li>
       </ul>
     </div>

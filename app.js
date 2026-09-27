@@ -2073,6 +2073,17 @@ async function startRunAnalyz() {
     if (elShoe) elShoe.textContent = recShoe;
   };
 
+  // 80/20 Polarized Audit Jump
+  const btnDrawerWeekly = document.getElementById('btn-drawer-weekly');
+  if (btnDrawerWeekly) {
+    btnDrawerWeekly.addEventListener('click', () => {
+      closeDrawer();
+      if (typeof activateCleanTab === 'function') {
+        activateCleanTab('weekly');
+      }
+    });
+  }
+
   // 4. 7-Day Plan
   const btnDrawerPlan = document.getElementById('btn-drawer-plan');
   if (btnDrawerPlan) {
