@@ -3715,10 +3715,16 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
       }
     });
 
-    const totK = (lowKm + highKm + lsdKm) || 1;
-    w.lowRatio = Math.round(((lowKm + lsdKm) / totK) * 100);
-    w.highRatio = 100 - w.lowRatio;
-    w.lsdRatio = Math.round((lsdKm / totK) * 100);
+    const totK = lowKm + highKm + lsdKm;
+    if (totK > 0) {
+      w.lowRatio = Math.round(((lowKm + lsdKm) / totK) * 100);
+      w.highRatio = 100 - w.lowRatio;
+      w.lsdRatio = Math.round((lsdKm / totK) * 100);
+    } else {
+      w.lowRatio = 0;
+      w.highRatio = 0;
+      w.lsdRatio = 0;
+    }
     w.lowKm = lowKm + lsdKm;
     w.highKm = highKm;
     w.typeCounts = { low: lowCount, high: highCount, lsd: lsdCount };
@@ -3761,8 +3767,8 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
   // Render Coaching Card for Latest Completed Week
   const coachingCard = document.getElementById('weekly-coaching-card');
   if (coachingCard && latestWeek) {
-    const low = latestWeek.lowRatio || 80;
-    const high = latestWeek.highRatio || 20;
+    const low = (typeof latestWeek.lowRatio === 'number') ? latestWeek.lowRatio : 80;
+    const high = (typeof latestWeek.highRatio === 'number') ? latestWeek.highRatio : 20;
 
     const curLang = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
     const isKo = (curLang === 'ko');
@@ -3770,9 +3776,16 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
     let badgeClass = 'green';
     let badgeText = isKo ? '✅ 안정적인 주간 트레이닝 밸런스' : '✅ Balanced Training Load';
     const baseDist = window.RunAnalyzUnits.formatDistance(fourWeekAvg, 1);
-    let coachingMsg = isKo
-      ? `최근 완료된 4주 만성 베이스(주당 평균 ${baseDist.full}) 및 직전 완주 주차(${latestWeek.name}, ${window.RunAnalyzUnits.formatDistance(latestWeek.totalKm, 1).full}) 대비 <strong>${latestWeek.acwr.toFixed(2)}배</strong>의 적정 훈련 부하(${latestWeek.ruleShort})와 저강도 ${low}% : 고강도 ${high}%의 균형 잡힌 마일리지를 유지하고 있습니다.`
-      : `Trailing 4 completed weeks base (<strong>${baseDist.valFormatted} ${baseDist.unit}/wk</strong>) maintains an optimal ACWR ratio of <strong>${latestWeek.acwr.toFixed(2)}x</strong> (${low}% Low : ${high}% High intensity).`;
+    let coachingMsg = '';
+    if (high === 0 && low > 0) {
+      coachingMsg = isKo
+        ? `최근 완료된 4주 만성 베이스(주당 평균 ${baseDist.full}) 및 직전 완주 주차(${latestWeek.name}, ${window.RunAnalyzUnits.formatDistance(latestWeek.totalKm, 1).full}) 대비 <strong>${latestWeek.acwr.toFixed(2)}배</strong>의 적정 훈련 부하(${latestWeek.ruleShort})와 <strong>저강도 100%</strong>의 안정적인 유산소 회복 마일리지를 유지하고 있습니다.`
+        : `Trailing 4 completed weeks base (<strong>${baseDist.valFormatted} ${baseDist.unit}/wk</strong>) maintains an optimal ACWR ratio of <strong>${latestWeek.acwr.toFixed(2)}x</strong> (<strong>100% Low-intensity aerobic recovery</strong>).`;
+    } else {
+      coachingMsg = isKo
+        ? `최근 완료된 4주 만성 베이스(주당 평균 ${baseDist.full}) 및 직전 완주 주차(${latestWeek.name}, ${window.RunAnalyzUnits.formatDistance(latestWeek.totalKm, 1).full}) 대비 <strong>${latestWeek.acwr.toFixed(2)}배</strong>의 적정 훈련 부하(${latestWeek.ruleShort})와 저강도 ${low}% : 고강도 ${high}%의 균형 잡힌 마일리지를 유지하고 있습니다.`
+        : `Trailing 4 completed weeks base (<strong>${baseDist.valFormatted} ${baseDist.unit}/wk</strong>) maintains an optimal ACWR ratio of <strong>${latestWeek.acwr.toFixed(2)}x</strong> (${low}% Low : ${high}% High intensity).`;
+    }
 
     if (latestWeek.acwr > 1.4) {
       coachingMsg += isKo
@@ -3813,8 +3826,8 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
           <span class="high-lbl"><i class="bi bi-fire"></i> ${isKo ? '고강도 포인트 (Zone 3+)' : 'High-Intensity (Zone 3+)'}: <strong>${high}%</strong> (${window.RunAnalyzUnits.formatDistance(latestWeek.highKm, 1).full})</span>
         </div>
         <div class="wcc-bar-container">
-          <div class="wcc-bar-low" style="width: ${low}%;"></div>
-          <div class="wcc-bar-high" style="width: ${high}%;"></div>
+          <div class="wcc-bar-low" style="width: ${low}%; ${low === 0 ? 'display:none;' : ''}"></div>
+          <div class="wcc-bar-high" style="width: ${high}%; ${high === 0 ? 'display:none;' : ''}"></div>
         </div>
       </div>
       <div class="wcc-coaching-text">
@@ -3945,8 +3958,8 @@ function initWeeklyRecap(activities, year = '2026', month = '8', allActivities =
             <span>${lowTxt} ${w.lowRatio}% : ${highTxt} ${w.highRatio}%</span>
           </div>
           <div class="wc-mini-bar">
-            <div class="wc-mini-bar-low" style="width: ${w.lowRatio}%;"></div>
-            <div class="wc-mini-bar-high" style="width: ${w.highRatio}%;"></div>
+            <div class="wc-mini-bar-low" style="width: ${w.lowRatio}%; ${w.lowRatio === 0 ? 'display:none;' : ''}"></div>
+            <div class="wc-mini-bar-high" style="width: ${w.highRatio}%; ${w.highRatio === 0 ? 'display:none;' : ''}"></div>
           </div>
         </div>
         <div class="wc-type-chips">
