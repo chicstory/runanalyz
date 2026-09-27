@@ -199,11 +199,11 @@
       border-color: #fff;
     }
 
-    /* 2. D - W - M - Y 4-SEGMENT NAVIGATION */
+    /* 2. D - 80/20 - EF - PLAN - MAP 5-SEGMENT NAVIGATION */
     .main-tabs-clean.nothing-tabs {
       display: grid !important;
-      grid-template-columns: repeat(4, 1fr) !important;
-      gap: 6px !important;
+      grid-template-columns: repeat(5, 1fr) !important;
+      gap: 5px !important;
       width: 100% !important;
       max-width: 600px !important;
       margin: 10px auto 0 !important;
@@ -778,6 +778,10 @@
         <button class="tab-clean-btn" data-tab="plan" role="tab" id="tab-btn-plan">
           <span class="tab-txt-key">PLAN</span>
           <span class="tab-txt-sub">7-DAY</span>
+        </button>
+        <button class="tab-clean-btn" data-tab="heatmap" role="tab" id="tab-btn-heatmap">
+          <span class="tab-txt-key">MAP</span>
+          <span class="tab-txt-sub">GPS</span>
         </button>
       </nav>
     </div>
@@ -2644,8 +2648,12 @@
         <i class="bi bi-calendar3" style="color:var(--accent-cyan, #00d2ff);"></i> <span>Monthly EF Recap</span>
       </button>
 
-      <button type="button" id="btn-drawer-plan" onclick="if(window.switchCleanTab) window.switchCleanTab('plan'); closeNothingDrawer();" style="text-align:left; background:rgba(255,255,255,0.03); border:1px solid var(--nothing-border); border-radius:12px; padding:12px 14px; color:#fff; font-family:'Space Mono', monospace; font-size:12px; cursor:pointer; display:flex; align-items:center; gap:10px;">
+      <button type="button" id="btn-drawer-plan" onclick="if(window.switchCleanTab) window.switchCleanTab('plan'); if(typeof closeNothingDrawer==='function') closeNothingDrawer();" style="text-align:left; background:rgba(255,255,255,0.03); border:1px solid var(--nothing-border); border-radius:12px; padding:12px 14px; color:#fff; font-family:'Space Mono', monospace; font-size:12px; cursor:pointer; display:flex; align-items:center; gap:10px;">
         <i class="bi bi-calendar-check" style="color:#ff2a2a;"></i> <span>7-Day Custom Plan</span>
+      </button>
+
+      <button type="button" id="btn-drawer-heatmap" onclick="if(window.switchCleanTab) window.switchCleanTab('heatmap'); if(typeof closeNothingDrawer==='function') closeNothingDrawer();" style="text-align:left; background:rgba(255,255,255,0.03); border:1px solid var(--nothing-border); border-radius:12px; padding:12px 14px; color:#fff; font-family:'Space Mono', monospace; font-size:12px; cursor:pointer; display:flex; align-items:center; gap:10px;">
+        <i class="bi bi-map-fill" style="color:#00e5ff;"></i> <span>GPS Route Heatmap</span>
       </button>
     </nav>
 
