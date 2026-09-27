@@ -8637,8 +8637,15 @@ body.light-theme .modal-title {
   }
 
   /* 360px Viewport Zero-Overflow Tweaks */
+  .sport-chips-bar {
+    margin-top: 0.2rem !important;
+    margin-bottom: 0.4rem !important;
+    gap: 0.3rem !important;
+    justify-content: center !important;
+  }
   .timeline-slider-bar {
     padding: 0.4rem 0.5rem !important;
+    margin-bottom: 0.75rem !important;
   }
   .btn-slide-nav {
     padding: 0.35rem 0.55rem !important;

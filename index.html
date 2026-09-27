@@ -239,12 +239,12 @@
       opacity: 0.75 !important;
     }
 
-    /* 3. FOREGROUND 킬러 카드 & 스티커 스튜디오 섹션 */
+    /* 3. FOREGROUND 킬러 카드 & 스티커 스튜디오 섹션 (MOBILE COMPACT OPTIMIZED) */
     .nothing-studio-section {
       width: 100%;
       max-width: 500px;
-      margin: 16px auto 14px;
-      padding: 0 12px;
+      margin: 8px auto 6px;
+      padding: 0 8px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
@@ -254,12 +254,12 @@
     .nothing-toolbar {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 12px;
+      gap: 4px;
+      margin-bottom: 6px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--nothing-border);
-      border-radius: 24px;
-      padding: 6px 10px;
+      border-radius: 20px;
+      padding: 4px 8px;
       align-items: center;
       justify-content: center;
       width: 100%;
@@ -271,9 +271,9 @@
       border: 1px solid transparent;
       color: #838792;
       font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      padding: 5px 10px;
-      border-radius: 16px;
+      font-size: 9.5px;
+      padding: 4px 8px;
+      border-radius: 14px;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -290,14 +290,14 @@
       border: 1px solid var(--nothing-border-accent);
       color: #fff;
       font-family: 'Space Mono', monospace;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
-      padding: 5px 12px;
-      border-radius: 16px;
+      padding: 4px 10px;
+      border-radius: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       transition: all 0.2s;
     }
 
@@ -317,15 +317,15 @@
       opacity: 0.85;
     }
 
-    /* PREVIEW STAGE (TRANSPARENT CHECKERBOARD) */
+    /* PREVIEW STAGE (TRANSPARENT CHECKERBOARD - COMPACT FIT) */
     .nt-preview-stage {
       width: 100%;
-      min-height: 380px;
+      min-height: 110px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 24px;
-      padding: 24px 14px;
+      border-radius: 18px;
+      padding: 10px 8px;
       box-sizing: border-box;
       position: relative;
       background-color: #1a1c20;
@@ -334,9 +334,15 @@
         linear-gradient(-45deg, #121316 25%, transparent 25%), 
         linear-gradient(45deg, transparent 75%, #121316 75%), 
         linear-gradient(-45deg, transparent 75%, #121316 75%);
-      background-size: 20px 20px;
-      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
       border: 1px dashed var(--nothing-border-accent);
+      transition: all 0.25s ease;
+    }
+
+    .nt-preview-stage.mode-card {
+      min-height: 360px;
+      padding: 18px 12px;
     }
 
     .nt-preview-stage.solid-bg {
@@ -2757,12 +2763,14 @@
         stk.classList.remove('hidden');
         crd.classList.add('hidden');
         stage.classList.remove('solid-bg');
+        stage.classList.remove('mode-card');
         chipS.classList.add('active');
         chipC.classList.remove('active');
       } else {
         stk.classList.add('hidden');
         crd.classList.remove('hidden');
         stage.classList.add('solid-bg');
+        stage.classList.add('mode-card');
         chipC.classList.add('active');
         chipS.classList.remove('active');
       }
