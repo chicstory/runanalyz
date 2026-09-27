@@ -16,8 +16,8 @@
   <title>RunAnalyz — Running Mileage &amp; 80/20 Training Plan Dashboard</title>
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Track running shoe lifespan, Strava real-time heart rate &amp; pace analytics, 80/20 polarized 7-Day custom training plans, and Instagram recap card studio.">
-  <meta name="keywords" content="running, running shoes, mileage, Strava, VDOT, 8020 running, tempo run, LSD, marathon, Instagram running card, RunAnalyz">
+  <meta name="description" content="Diagnose 80/20 polarized training heart rate zones, Aerobic Efficiency Factor (EF), 7-Day custom training plans, and Strava real-time running analytics.">
+  <meta name="keywords" content="running, Strava, 80/20 running, polarized training, Aerobic EF, VDOT, marathon, tempo run, LSD, training plan, RunAnalyz">
   <meta name="author" content="RunAnalyz">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#090d16">
@@ -36,8 +36,8 @@
   <!-- Open Graph (KakaoTalk, Instagram, Facebook) -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="RunAnalyz">
-  <meta property="og:title" content="RunAnalyz — Running Mileage &amp; 80/20 Training Plan Dashboard">
-  <meta property="og:description" content="Zero-login 7-Day custom running plans &amp; Instagram cards. Connect Strava for real-time heart rate zones and shoe mileage tracking.">
+  <meta property="og:title" content="RunAnalyz — 80/20 Polarized &amp; Aerobic EF Running Telemetry">
+  <meta property="og:description" content="Zero-login 7-Day custom running plans &amp; Instagram cards. Connect Strava for real-time 80/20 heart rate zones and Aerobic EF efficiency diagnostics.">
   <meta property="og:image" content="https://runanalyz.com/runanalyz_app_icon.jpg">
   <meta property="og:url" content="https://runanalyz.com/">
 
@@ -2099,8 +2099,6 @@
     </section>
     <footer class="app-footer">
       <div class="footer-links">
-        <a href="https://shoef.runanalyz.com" target="_blank" class="text-orange" title="ShoeF Running Shoes Wiki &amp; Spec Comparison"><i class="bi bi-tag-fill"></i> <span data-i18n="footer_shoef_wiki">ShoeF Shoes Wiki</span></a>
-        <span class="sep">&middot;</span>
         <a href="about.html"><i class="bi bi-info-circle-fill text-orange"></i> <span data-i18n="nav_about">About &amp; Contact</span></a>
         <span class="sep">&middot;</span>
         <a href="guide.html"><i class="bi bi-book-half text-cyan"></i> <span data-i18n="nav_guide">User Guide</span></a>
@@ -2404,21 +2402,9 @@
           </button>
         </li>
 
-        <!-- 4. ECOSYSTEM & GUIDE -->
+        <!-- 4. GUIDE & RESOURCES -->
         <li class="drawer-section-label" style="font-size:10px; color:#64748B; font-family:'Space Mono', monospace; margin:14px 4px 6px; letter-spacing:0.08em; text-transform:uppercase;">
-          Ecosystem &amp; Resources
-        </li>
-
-        <!-- ShoeF Wiki Link (Clean 1-Line) -->
-        <li>
-          <a href="https://shoef.runanalyz.com" target="_blank" rel="noopener" class="drawer-menu-item">
-            <div class="dmi-icon-wrap" style="color:var(--accent-orange);"><i class="bi bi-tag-fill"></i></div>
-            <div class="dmi-content">
-              <span class="dmi-title">ShoeF Running Shoes Wiki &rarr;</span>
-              <span class="dmi-desc">Lab Specs of 94 Carbon &amp; Daily Shoes</span>
-            </div>
-            <i class="bi bi-box-arrow-up-right dmi-arrow" style="font-size:12px;"></i>
-          </a>
+          Guide &amp; Documentation
         </li>
 
         <!-- Guide & FAQ -->
@@ -2659,70 +2645,10 @@
             </div>
           </div>
 
-          <!-- Recommended Shoes Callout -->
-          <div class="rc-shoes-callout" style="margin-top:1.25rem; padding:1rem; border-radius:12px; background:rgba(255,87,34,0.08); border:1px solid rgba(255,87,34,0.25);">
-            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
-              <span style="font-weight:700; color:#fff;"><i class="bi bi-tag-fill text-orange"></i> Recommended Shoe Category for Your Engine:</span>
-              <a href="https://shoef.runanalyz.com" target="_blank" style="color:var(--accent-cyan); font-size:0.85rem; font-weight:700; text-decoration:underline;">ShoeF 94 Shoe Wiki &rarr;</a>
-            </div>
-            <div id="res-shoe-recommend-text" style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.45rem;">
-              Based on your pace and heart rate reserve, cushioned daily trainers (&ge;30mm stack, non-carbon) offer optimal joint safety.
-            </div>
-          </div>
-  <!-- NOTHING OS SLIDE HAMBURGER DRAWER -->
-  <div class="nothing-drawer-backdrop" id="main-drawer-backdrop" onclick="closeNothingDrawer()"></div>
-  <aside class="nothing-drawer" id="main-nav-drawer" aria-hidden="true">
-    <div class="drawer-header-row">
-      <div style="font-weight:700; color:#fff; font-size:13px; letter-spacing:0.15em;">
-        <span class="nothing-red-pulse" style="display:inline-block; margin-right:6px;"></span>SYSTEM MENU
+        </div>
       </div>
-      <button type="button" class="drawer-close-btn" onclick="closeNothingDrawer()">&times;</button>
     </div>
-
-    <!-- QUICK SYSTEM CONTROLS (UNITS, LANGUAGE, THEME) -->
-    <div class="drawer-quick-controls">
-      <button class="btn-unit-toggle" id="btn-unit-toggle" style="flex:1; padding:8px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid var(--nothing-border); color:#fff; font-family:'Space Mono'; font-size:11px; cursor:pointer;">
-        <i class="bi bi-rulers"></i> <span id="unit-current-label">mi</span>
-      </button>
-
-      <button class="btn-lang-toggle" id="btn-lang-toggle" style="flex:1; padding:8px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid var(--nothing-border); color:#fff; font-family:'Space Mono'; font-size:11px; cursor:pointer;">
-        <i class="bi bi-translate"></i> <span id="lang-current-label">EN</span>
-      </button>
-
-      <button class="btn-theme-toggle" id="btn-theme-toggle" style="flex:1; padding:8px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid var(--nothing-border); color:#fff; font-size:14px; cursor:pointer;">
-        <i class="bi bi-sun-fill theme-icon-light"></i>
-        <i class="bi bi-moon-stars-fill theme-icon-dark"></i>
-      </button>
-    </div>
-
-    <!-- DRAWER NAVIGATION LINKS -->
-    <div style="display:flex; flex-direction:column; gap:10px; overflow-y:auto;">
-      <a href="https://shoef.runanalyz.com" target="_blank" class="drawer-menu-item">
-        <i class="bi bi-tag-fill" style="color:var(--accent-cyan, #06b6d4);"></i>
-        <span>ShoeF 94 Shoe Wiki &rarr;</span>
-      </a>
-
-      <button type="button" class="drawer-menu-item" style="cursor:pointer; text-align:left; width:100%;" onclick="closeNothingDrawer(); if(window.openProfileModal) window.openProfileModal();">
-        <i class="bi bi-person-circle" style="color:var(--nothing-red);"></i>
-        <span>Runner Profile &amp; Zones</span>
-      </button>
-
-      <button type="button" class="drawer-menu-item" style="cursor:pointer; text-align:left; width:100%;" onclick="closeNothingDrawer(); document.getElementById('modal-ef-calc-overlay').style.display='flex';">
-        <i class="bi bi-lightning-charge-fill" style="color:#eab308;"></i>
-        <span>1-Sec EF Calculator</span>
-      </button>
-
-      <a href="/guide.html" class="drawer-menu-item">
-        <i class="bi bi-book-half" style="color:#a855f7;"></i>
-        <span>RunAnalyz Guide &amp; FAQ</span>
-      </a>
-    </div>
-
-    <div style="margin-top:auto; font-size:9px; color:#838792; line-height:1.5;">
-      RUNANALYZ TELEMETRY v2.8<br>
-      NOTHING OS INDUSTRIAL ARCHITECTURE
-    </div>
-  </aside>
+  </div>
 
   <script src="i18n.js?v=20260927_lock_8020"></script>
   <script src="app.js?v=20260927_lock_8020"></script>
@@ -2736,7 +2662,7 @@
     // 1. DRAWER TOGGLE HANDLERS
     window.openNothingDrawer = function() {
       const drawer = document.getElementById('main-nav-drawer');
-      const backdrop = document.getElementById('main-drawer-backdrop');
+      const backdrop = document.getElementById('drawer-backdrop') || document.getElementById('main-drawer-backdrop');
       if (drawer) drawer.classList.add('open');
       if (backdrop) backdrop.classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -2744,7 +2670,7 @@
 
     window.closeNothingDrawer = function() {
       const drawer = document.getElementById('main-nav-drawer');
-      const backdrop = document.getElementById('main-drawer-backdrop');
+      const backdrop = document.getElementById('drawer-backdrop') || document.getElementById('main-drawer-backdrop');
       if (drawer) drawer.classList.remove('open');
       if (backdrop) backdrop.classList.remove('open');
       document.body.style.overflow = '';

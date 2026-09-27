@@ -2068,9 +2068,6 @@ async function startRunAnalyz() {
 
     const elZone = document.getElementById('res-train-zone');
     if (elZone) elZone.textContent = recZone;
-
-    const elShoe = document.getElementById('res-shoe-recommend-text');
-    if (elShoe) elShoe.textContent = recShoe;
   };
 
   // 80/20 Polarized Audit Jump
@@ -2105,14 +2102,6 @@ async function startRunAnalyz() {
     btnDrawerHeatmap.addEventListener('click', () => {
       closeDrawer();
       activateCleanTab('heatmap');
-    });
-  }
-
-  // 6. RunAnalyz Wiki
-  const btnDrawerShoef = document.getElementById('btn-drawer-shoef');
-  if (btnDrawerShoef) {
-    btnDrawerShoef.addEventListener('click', () => {
-      closeDrawer();
     });
   }
 
