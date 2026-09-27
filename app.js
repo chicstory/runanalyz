@@ -1127,12 +1127,14 @@ function setupStravaAuthButton(isCustomUser, athlete) {
     if (drawerResync) {
       drawerResync.onclick = (e) => {
         e.preventDefault();
+        if (typeof closeNothingDrawer === 'function') closeNothingDrawer();
         resyncStravaUser(athleteName);
       };
     }
     if (drawerDisconnect) {
       drawerDisconnect.onclick = (e) => {
         e.preventDefault();
+        if (typeof closeNothingDrawer === 'function') closeNothingDrawer();
         disconnectStravaUser();
       };
     }
@@ -1140,6 +1142,7 @@ function setupStravaAuthButton(isCustomUser, athlete) {
     // Show connect button, hide connected pill
     const handleAuthClick = (e) => {
       e.preventDefault();
+      if (typeof closeNothingDrawer === 'function') closeNothingDrawer();
       const redirectUri = `${window.location.origin}${window.location.pathname}`;
       const authUrl = `https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&approval_prompt=auto&scope=read,activity:read_all`;
       window.location.href = authUrl;
@@ -1169,7 +1172,7 @@ function setupStravaAuthButton(isCustomUser, athlete) {
     // Drawer state (Disconnected)
     if (drawerDesc) drawerDesc.textContent = isKoUserDis ? '계정 실시간 동기화 상태' : 'Real-time Sync Status';
     if (drawerAuthBtn) {
-      drawerAuthBtn.style.display = 'inline-flex';
+      drawerAuthBtn.style.display = 'flex';
       drawerAuthBtn.onclick = handleAuthClick;
     }
     if (drawerConnectedBox) drawerConnectedBox.style.display = 'none';
