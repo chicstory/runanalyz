@@ -1533,11 +1533,12 @@ async function startRunAnalyz() {
     if (!mainLabel || !subLabel || !prevBtn || !nextBtn) return;
 
     const currentList = getFilteredActivities();
+    const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
 
     if (activeCleanTab === 'single') {
       if (currentList.length === 0) {
-        mainLabel.textContent = '러닝 세션 없음';
-        subLabel.textContent = '선택한 환경에 기록이 없습니다';
+        mainLabel.textContent = 'No Running Sessions';
+        subLabel.textContent = 'No activities found in selected filter';
         prevBtn.disabled = true;
         nextBtn.disabled = true;
         clearSingleSessionDisplay();
@@ -1549,7 +1550,6 @@ async function startRunAnalyz() {
       if (idx >= currentList.length) idx = currentList.length - 1;
       currentTimelineIndices.single = idx;
 
-      const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
       const act = currentList[idx];
       const isLatest = (idx === 0);
       const envLabel = getSportDisplayName(act, isEn);
@@ -1569,8 +1569,8 @@ async function startRunAnalyz() {
     } else if (activeCleanTab === 'weekly') {
       const weeks = getGroupedWeeks(currentList);
       if (weeks.length === 0) {
-        mainLabel.textContent = '주간 기록 없음';
-        subLabel.textContent = '선택한 환경에 주간 기록이 없습니다';
+        mainLabel.textContent = 'No Weekly Records';
+        subLabel.textContent = 'No weekly mileage found in selected filter';
         prevBtn.disabled = true;
         nextBtn.disabled = true;
         return;
@@ -1584,7 +1584,6 @@ async function startRunAnalyz() {
       const w = weeks[idx];
       const isLatest = (idx === 0);
 
-      const isEn = (window.I18N && window.I18N.getLang ? window.I18N.getLang() : 'en') === 'en';
       const wDist = window.RunAnalyzUnits.formatDistance(w.totalKm || 0, 1);
       const wLsd = window.RunAnalyzUnits.formatDistance(w.maxLsd || 0, 1);
       mainLabel.textContent = `${w.name}${isLatest ? (isEn ? ' (Current Week)' : ' (최근 주차)') : ''}`;
@@ -1599,8 +1598,8 @@ async function startRunAnalyz() {
     } else if (activeCleanTab === 'monthly') {
       const months = getGroupedMonths(currentList);
       if (months.length === 0) {
-        mainLabel.textContent = '월간 기록 없음';
-        subLabel.textContent = '선택한 환경에 월간 기록이 없습니다';
+        mainLabel.textContent = 'No Monthly Records';
+        subLabel.textContent = 'No monthly sessions found in selected filter';
         prevBtn.disabled = true;
         nextBtn.disabled = true;
         return;
@@ -1629,8 +1628,8 @@ async function startRunAnalyz() {
     } else if (activeCleanTab === 'yearly') {
       const years = getGroupedYears(currentList);
       if (years.length === 0) {
-        mainLabel.textContent = '연간 기록 없음';
-        subLabel.textContent = '선택한 환경에 연간 기록이 없습니다';
+        mainLabel.textContent = 'No Annual Records';
+        subLabel.textContent = 'No annual sessions found in selected filter';
         prevBtn.disabled = true;
         nextBtn.disabled = true;
         return;
@@ -5966,17 +5965,27 @@ function initTrainingPlanModule() {
         sRow.className = `pic-day-row ${item.type.toLowerCase()}`;
         
         // Compact 1-line layout: [요일] - [훈련타입] - [거리] - [페이스]
-        const paceDisplay = item.distKm > 0 ? (item.type === 'TEMPO' ? formatPaceSec(tempoPaceSec) : formatPaceSec(easyPaceSec)) : '-';
-        const distDisplay = item.distKm > 0 ? window.RunAnalyzUnits.formatDistance(item.distKm, 1).full : 'REST';
+        let compactTask = item.typeText;
+        if (item.type === 'TEMPO') compactTask = 'Tempo (LT2)';
+        else if (item.type === 'LSD') compactTask = 'Long (LSD)';
+        else if (item.type === 'EASY') compactTask = 'Easy Run';
+        else if (item.type === 'CROSS') compactTask = 'Cross Train';
+        else if (item.type === 'REST') compactTask = 'Full Rest';
+
+        const paceDisplay = item.distKm > 0 ? (item.type === 'TEMPO' ? formatPaceSec(tempoPaceSec) : formatPaceSec(easyPaceSec)) : '';
+        const distDisplay = item.distKm > 0 ? window.RunAnalyzUnits.formatDistance(item.distKm, 1).full : '';
         
+        const rightHtml = item.distKm > 0
+          ? `<span class="pic-day-km">${distDisplay}</span><span class="pic-day-pace">${paceDisplay}</span>`
+          : `<span class="pic-day-badge-rest">REST</span>`;
+
         sRow.innerHTML = `
           <div class="pic-day-left">
             <span class="pic-day-lbl">${item.dayEng}</span>
-            <span class="pic-day-task">${item.typeText}</span>
+            <span class="pic-day-task">${compactTask}</span>
           </div>
           <div class="pic-day-right">
-            <span class="pic-day-km">${distDisplay}</span>
-            <span class="pic-day-pace">${paceDisplay}</span>
+            ${rightHtml}
           </div>
         `;
         cardSchedule.appendChild(sRow);

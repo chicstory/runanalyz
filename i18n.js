@@ -30,12 +30,12 @@
       preset_ytd: "올해(YTD)",
       preset_all: "전체",
       
-      // Sport Filter
-      filter_label: "훈련 환경 필터",
-      filter_all: "전체 보기",
-      filter_treadmill: "실내 트레드밀",
-      filter_outdoor: "야외 러닝",
-      filter_trail: "트레일 러닝",
+      // Sport Filter (Compact for mobile grid)
+      filter_label: "환경 필터",
+      filter_all: "All",
+      filter_treadmill: "Treadmill",
+      filter_outdoor: "Outdoor",
+      filter_trail: "Trail",
 
       // Workout Classification (80/20 Polarized Engine)
       wo_low: "저강도 유산소 (Zone 1~2)",
@@ -220,10 +220,10 @@
 
       // Sport Filter
       filter_label: "Sport Environment Filter",
-      filter_all: "All Activities",
-      filter_treadmill: "Indoor Treadmill",
-      filter_outdoor: "Outdoor Running",
-      filter_trail: "Trail Running",
+      filter_all: "All",
+      filter_treadmill: "Treadmill",
+      filter_outdoor: "Outdoor",
+      filter_trail: "Trail",
 
       // Workout Classification (80/20 Polarized Engine)
       wo_low: "Low-Intensity Aerobic (Zone 1~2)",
@@ -738,7 +738,7 @@
   function detectBrowserLanguage() {
     try {
       const saved = localStorage.getItem('runanalyz_lang');
-      if (saved && TRANSLATIONS[saved]) {
+      if (saved && TRANSLATIONS[saved] && saved !== 'ko') {
         return saved;
       }
     } catch (e) {

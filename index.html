@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <!-- Google tag (gtag.js) GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QREC5DVG9M"></script>
@@ -141,6 +141,15 @@
       gap: 6px;
     }
 
+    @media (max-width: 640px) {
+      .header-desktop-only {
+        display: none !important;
+      }
+      .nothing-actions-right {
+        gap: 6px !important;
+      }
+    }
+
     .nothing-badge-btn {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--nothing-border);
@@ -176,6 +185,7 @@
       justify-content: center;
       cursor: pointer;
       transition: all 0.2s;
+      flex-shrink: 0;
     }
 
     .btn-hamburger-toggle.nothing-btn:hover {
@@ -253,17 +263,40 @@
 
     .nothing-toolbar {
       display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
+      flex-direction: column;
+      gap: 5px;
       margin-bottom: 6px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--nothing-border);
-      border-radius: 20px;
-      padding: 4px 8px;
+      border-radius: 16px;
+      padding: 6px 8px;
       align-items: center;
       justify-content: center;
       width: 100%;
       box-sizing: border-box;
+    }
+
+    .nt-toolbar-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 6px;
+    }
+
+    .nt-group {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nt-group-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      color: #838792;
+      margin-right: 2px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
     }
 
     .nt-chip {
@@ -271,11 +304,14 @@
       border: 1px solid transparent;
       color: #838792;
       font-family: 'Space Mono', monospace;
-      font-size: 9.5px;
-      padding: 4px 8px;
-      border-radius: 14px;
+      font-size: 10px;
+      padding: 5px 8px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .nt-chip:hover { color: #fff; }
@@ -283,6 +319,7 @@
       background: #fff;
       color: #000;
       font-weight: 700;
+      border-color: #fff;
     }
 
     .nt-btn-action {
@@ -290,15 +327,18 @@
       border: 1px solid var(--nothing-border-accent);
       color: #fff;
       font-family: 'Space Mono', monospace;
-      font-size: 9.5px;
+      font-size: 10px;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 14px;
+      padding: 5px 9px;
+      border-radius: 10px;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 3px;
-      transition: all 0.2s;
+      gap: 4px;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .nt-btn-action:hover {
@@ -558,28 +598,55 @@
     .nt-barcode { height: 18px; opacity: 0.6; }
 
     /* 4. OVERALL INDUSTRIAL THEME UNIFICATION FOR LOWER COMPONENTS */
-    /* Sport Chips */
+    /* Sport Chips - Clean 4-column equal grid, 0 horizontal scroll */
     .sport-chips-bar {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      width: 100% !important;
+      max-width: 480px !important;
+      margin: 8px auto !important;
+      padding: 0 6px !important;
+      gap: 4px !important;
+      box-sizing: border-box !important;
       background: transparent !important;
       border: none !important;
-      gap: 6px !important;
-      margin: 10px auto !important;
-      justify-content: center !important;
+      overflow: visible !important;
     }
     .env-chip-btn {
+      width: 100% !important;
       background: rgba(255, 255, 255, 0.04) !important;
       border: 1px solid var(--nothing-border) !important;
-      border-radius: 20px !important;
+      border-radius: 12px !important;
       font-family: 'Space Mono', monospace !important;
-      font-size: 11px !important;
+      font-size: 10px !important;
       color: #838792 !important;
-      padding: 6px 14px !important;
+      padding: 7px 2px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      box-sizing: border-box !important;
+      cursor: pointer !important;
+      touch-action: manipulation !important;
+      transition: all 0.2s ease !important;
+    }
+    .env-chip-btn .badge-num {
+      margin-left: 2px !important;
+      font-size: 9px !important;
+      opacity: 0.75 !important;
     }
     .env-chip-btn.active {
       background: #fff !important;
       color: #000 !important;
       border-color: #fff !important;
       font-weight: 700 !important;
+    }
+    .env-chip-btn.active .badge-num {
+      color: #000 !important;
+      opacity: 0.9 !important;
     }
 
     /* Timeline Slider Bar */
@@ -674,11 +741,11 @@
               <span id="strava-top-btn-label">Connect</span>
             </button>
 
-            <button class="btn-unit-toggle nothing-badge-btn" id="btn-unit-toggle" title="Toggle Units (mi/ft ↔ km/m)">
+            <button class="btn-unit-toggle nothing-badge-btn header-desktop-only" id="btn-unit-toggle" title="Toggle Units (mi/ft ↔ km/m)">
               <i class="bi bi-rulers"></i> <span id="unit-current-label">mi</span>
             </button>
 
-            <button class="btn-lang-toggle nothing-badge-btn" id="btn-lang-toggle" title="Language (EN / KO)">
+            <button class="btn-lang-toggle nothing-badge-btn header-desktop-only" id="btn-lang-toggle" title="Language (EN / KO)">
               <i class="bi bi-translate"></i> <span id="lang-current-label">EN</span>
             </button>
 
@@ -713,28 +780,43 @@
     <!-- 3. FOREGROUND 킬러 카드 & 투명 스티커 선노출 스튜디오 -->
     <section class="nothing-studio-section">
       
-      <!-- TOOLBAR: TOGGLE MODES, MONOCHROME & EXPORT -->
+      <!-- 2-TIER INDUSTRIAL TOOLBAR: INTUITIVE & TOUCH-FRIENDLY -->
       <div class="nothing-toolbar">
-        <button class="nt-chip active" id="ntChipSticker" onclick="setNtMode('sticker')">⚡ STICKER</button>
-        <button class="nt-chip" id="ntChipCard" onclick="setNtMode('card')">🎴 FULL CARD</button>
-        
-        <div style="width: 1px; height: 16px; background: var(--nothing-border);"></div>
+        <!-- ROW 1: FORMAT & COLOR THEME -->
+        <div class="nt-toolbar-row">
+          <div class="nt-group">
+            <button class="nt-chip active" id="ntChipSticker" onclick="setNtMode('sticker')">⚡ STICKER</button>
+            <button class="nt-chip" id="ntChipCard" onclick="setNtMode('card')">🎴 FULL CARD</button>
+          </div>
 
-        <button class="nt-chip active" id="ntBtnWhite" onclick="setNtTheme('white')">⚪</button>
-        <button class="nt-chip" id="ntBtnBlack" onclick="setNtTheme('black')">⚫</button>
+          <div style="width: 1px; height: 14px; background: var(--nothing-border);"></div>
 
-        <button class="nt-chip" onclick="setNtSize('s')">S</button>
-        <button class="nt-chip active" id="ntBtnSizeM" onclick="setNtSize('m')">M</button>
-        <button class="nt-chip" onclick="setNtSize('l')">L</button>
+          <div class="nt-group">
+            <button class="nt-chip active" id="ntBtnWhite" onclick="setNtTheme('white')">⚪ WHITE</button>
+            <button class="nt-chip" id="ntBtnBlack" onclick="setNtTheme('black')">⚫ BLACK</button>
+          </div>
+        </div>
 
-        <div style="width: 1px; height: 16px; background: var(--nothing-border);"></div>
+        <!-- ROW 2: SIZE SELECTOR & ACTIONS (COPY / PNG) -->
+        <div class="nt-toolbar-row" style="margin-top: 5px;">
+          <div class="nt-group nt-group-sizes">
+            <span class="nt-group-title">SIZE</span>
+            <button class="nt-chip" id="ntBtnSizeS" onclick="setNtSize('s')">S</button>
+            <button class="nt-chip active" id="ntBtnSizeM" onclick="setNtSize('m')">M</button>
+            <button class="nt-chip" id="ntBtnSizeL" onclick="setNtSize('l')">L</button>
+          </div>
 
-        <button class="nt-btn-action" onclick="copyNtClipboard()">
-          <i class="bi bi-clipboard"></i> <span>COPY</span>
-        </button>
-        <button class="nt-btn-action primary" onclick="downloadNtPng()">
-          <i class="bi bi-download"></i> <span>PNG</span>
-        </button>
+          <div style="width: 1px; height: 14px; background: var(--nothing-border);"></div>
+
+          <div class="nt-group">
+            <button class="nt-btn-action" onclick="copyNtClipboard()">
+              <i class="bi bi-clipboard"></i> <span>COPY</span>
+            </button>
+            <button class="nt-btn-action primary" onclick="downloadNtPng()">
+              <i class="bi bi-download"></i> <span>PNG</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- PREVIEW STAGE (TRANSPARENT CHECKERBOARD) -->
@@ -2296,135 +2378,7 @@
     </div>
   </div>
 
-  <!-- Hamburger Navigation Drawer & Backdrop -->
-  <div class="drawer-backdrop" id="drawer-backdrop" onclick="if(window.closeRunAnalyzDrawer) window.closeRunAnalyzDrawer();"></div>
-  <aside class="nav-drawer" id="main-nav-drawer" aria-hidden="true">
-    <div class="drawer-header">
-      <div class="drawer-brand">
-        <img src="favicon.png" alt="RunAnalyz" class="drawer-brand-img">
-        <span class="drawer-brand-name">RUN<strong style="color:var(--accent-orange);">ANALYZ</strong></span>
-      </div>
-      <button type="button" class="btn-drawer-close" id="btn-close-drawer" aria-label="Close menu" onclick="if(window.closeRunAnalyzDrawer) window.closeRunAnalyzDrawer();">&times;</button>
-    </div>
-    <div class="drawer-body">
-      <ul class="drawer-menu-list">
 
-        <!-- 1. 최상단: STRAVA ACCOUNT & SYNC STATUS (CARD) -->
-        <li>
-          <div class="drawer-strava-card" id="drawer-strava-card">
-            <div class="dsc-top">
-              <div class="dmi-icon-wrap" style="color:#fc4c02;"><i class="bi bi-strava"></i></div>
-              <div class="dmi-content">
-                <span class="dmi-title">Strava Integration</span>
-                <span class="dmi-desc" id="drawer-strava-status-desc">Unlock 80/20 &amp; Aerobic EF</span>
-              </div>
-            </div>
-            <div class="dsc-actions" id="drawer-strava-actions">
-              <button type="button" class="btn-drawer-strava-connect" id="btn-drawer-strava-auth">
-                <i class="bi bi-strava"></i> Connect Strava (1-Click)
-              </button>
-              <div class="drawer-strava-connected" id="drawer-strava-connected" style="display:none;">
-                <span class="dsc-user-tag" id="drawer-strava-user">Connected</span>
-                <button type="button" class="btn-dsc-sync" id="btn-drawer-strava-resync" title="Resync"><i class="bi bi-arrow-repeat"></i></button>
-                <button type="button" class="btn-dsc-disconnect" id="btn-drawer-strava-disconnect"><i class="bi bi-power"></i></button>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <!-- 2. CORE TELEMETRY & PLANNING -->
-        <li class="drawer-section-label" style="font-size:10px; color:#64748B; font-family:'Space Mono', monospace; margin:14px 4px 6px; letter-spacing:0.08em; text-transform:uppercase;">
-          Core Telemetry &amp; Planning
-        </li>
-
-        <!-- 80/20 Polarized Audit -->
-        <li>
-          <button type="button" class="drawer-menu-item" id="btn-drawer-weekly">
-            <div class="dmi-icon-wrap text-orange"><i class="bi bi-pie-chart-fill"></i></div>
-            <div class="dmi-content">
-              <span class="dmi-title">80/20 Polarized Audit</span>
-              <span class="dmi-desc">Weekly Heart Rate Zones &amp; Junk Miles</span>
-            </div>
-            <i class="bi bi-chevron-right dmi-arrow"></i>
-          </button>
-        </li>
-
-        <!-- 1-Second EF Calculator -->
-        <li>
-          <button type="button" class="drawer-menu-item" id="btn-drawer-calc">
-            <div class="dmi-icon-wrap text-yellow"><i class="bi bi-lightning-charge-fill"></i></div>
-            <div class="dmi-content">
-              <span class="dmi-title">1-Second EF Calculator</span>
-              <span class="dmi-desc">Check Aerobic EF &amp; VDOT Paces</span>
-            </div>
-            <span class="dmi-badge badge-hot">1-Sec</span>
-          </button>
-        </li>
-
-        <!-- 7-Day Running Plan -->
-        <li>
-          <button type="button" class="drawer-menu-item" id="btn-drawer-plan">
-            <div class="dmi-icon-wrap text-cyan"><i class="bi bi-calendar-check-fill"></i></div>
-            <div class="dmi-content">
-              <span class="dmi-title">7-Day Running Plan</span>
-              <span class="dmi-desc">Custom Polarized Weekly Schedule</span>
-            </div>
-            <span class="dmi-badge" style="background:rgba(6,182,212,0.15); color:#06b6d4; font-size:10px;">Free</span>
-          </button>
-        </li>
-
-        <!-- Running Heatmap -->
-        <li>
-          <button type="button" class="drawer-menu-item" id="btn-drawer-heatmap">
-            <div class="dmi-icon-wrap text-lime"><i class="bi bi-map-fill"></i></div>
-            <div class="dmi-content">
-              <span class="dmi-title">Running Heatmap</span>
-              <span class="dmi-desc">Neon GPS Map of All Outdoor Routes</span>
-            </div>
-            <i class="bi bi-chevron-right dmi-arrow"></i>
-          </button>
-        </li>
-
-        <!-- 3. CALIBRATION -->
-        <li class="drawer-section-label" style="font-size:10px; color:#64748B; font-family:'Space Mono', monospace; margin:14px 4px 6px; letter-spacing:0.08em; text-transform:uppercase;">
-          Personal Calibration
-        </li>
-
-        <!-- Runner Profile Settings -->
-        <li>
-          <button type="button" class="drawer-menu-item" id="btn-drawer-profile">
-            <div class="dmi-icon-wrap"><i class="bi bi-person-gear"></i></div>
-            <div class="dmi-content">
-              <span class="dmi-title">Runner Profile Settings</span>
-              <span class="dmi-desc">MHR &middot; RHR &middot; Karvonen Zones</span>
-            </div>
-            <i class="bi bi-chevron-right dmi-arrow"></i>
-          </button>
-        </li>
-
-        <!-- 4. GUIDE & RESOURCES -->
-        <li class="drawer-section-label" style="font-size:10px; color:#64748B; font-family:'Space Mono', monospace; margin:14px 4px 6px; letter-spacing:0.08em; text-transform:uppercase;">
-          Guide &amp; Documentation
-        </li>
-
-        <!-- Guide & FAQ -->
-        <li>
-          <a href="/guide.html" class="drawer-menu-item">
-            <div class="dmi-icon-wrap" style="color:#a855f7;"><i class="bi bi-book-half"></i></div>
-            <div class="dmi-content">
-              <span class="dmi-title">RunAnalyz Guide &amp; FAQ</span>
-              <span class="dmi-desc">Sports Science EF &amp; 80/20 Principles</span>
-            </div>
-            <i class="bi bi-chevron-right dmi-arrow"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="drawer-footer">
-      <div class="df-text">RUNANALYZ AEROBIC EF ENGINE</div>
-      <div class="df-sub">Zero-Server Client Analytics Platform</div>
-    </div>
-  </aside>
 
   <!-- Modal: Runner Profile Settings (MHR, RHR, Weight, Age, Gender) -->
   <div class="modal-overlay" id="modal-profile-settings-overlay" style="display:none;" onclick="if(event.target===this) window.closeProfileModal();">
@@ -2650,6 +2604,57 @@
     </div>
   </div>
 
+  <!-- NOTHING OS INDUSTRIAL HAMBURGER DRAWER -->
+  <div class="nothing-drawer-backdrop" id="main-drawer-backdrop" onclick="closeNothingDrawer()"></div>
+  <aside class="nothing-drawer" id="main-nav-drawer" aria-hidden="true">
+    <div class="drawer-header-row" style="display:flex; align-items:center; justify-content:space-between; padding-bottom:14px; border-bottom:1px solid var(--nothing-border);">
+      <div style="font-weight:700; color:#fff; font-size:13px; letter-spacing:0.15em; display:flex; align-items:center;">
+        <span class="nothing-red-pulse" style="display:inline-block; margin-right:8px;"></span>SYSTEM MENU
+      </div>
+      <button type="button" class="drawer-close-btn" onclick="closeNothingDrawer()" style="background:transparent; border:none; color:#838792; font-size:24px; cursor:pointer; padding:0 4px; line-height:1;">&times;</button>
+    </div>
+
+    <!-- QUICK SYSTEM CONTROLS (UNITS & LANGUAGE) -->
+    <div style="display:flex; gap:8px;">
+      <button type="button" class="btn-unit-toggle" id="drawer-unit-toggle" onclick="if(window.RunAnalyzUnits && window.RunAnalyzUnits.toggleUnit) window.RunAnalyzUnits.toggleUnit();" style="flex:1; padding:9px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid var(--nothing-border); color:#fff; font-family:'Space Mono', monospace; font-size:11px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+        <i class="bi bi-rulers"></i> <span id="drawer-unit-label">Units (mi)</span>
+      </button>
+
+      <button type="button" class="btn-lang-toggle" id="drawer-lang-toggle" onclick="if(window.I18N && window.I18N.toggleLang) window.I18N.toggleLang();" style="flex:1; padding:9px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid var(--nothing-border); color:#fff; font-family:'Space Mono', monospace; font-size:11px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+        <i class="bi bi-translate"></i> <span id="drawer-lang-label">Lang (EN)</span>
+      </button>
+    </div>
+
+    <!-- NAVIGATION LINKS -->
+    <nav style="display:flex; flex-direction:column; gap:10px; margin-top:8px;">
+      <button type="button" id="btn-drawer-single" onclick="if(window.switchCleanTab) window.switchCleanTab('single'); closeNothingDrawer();" style="text-align:left; background:rgba(255,255,255,0.03); border:1px solid var(--nothing-border); border-radius:12px; padding:12px 14px; color:#fff; font-family:'Space Mono', monospace; font-size:12px; cursor:pointer; display:flex; align-items:center; gap:10px;">
+        <i class="bi bi-speedometer2" style="color:var(--accent-orange, #ff5722);"></i> <span>Daily EF Telemetry</span>
+      </button>
+
+      <button type="button" id="btn-drawer-weekly" onclick="if(window.switchCleanTab) window.switchCleanTab('weekly'); closeNothingDrawer();" style="text-align:left; background:rgba(255,255,255,0.03); border:1px solid var(--nothing-border); border-radius:12px; padding:12px 14px; color:#fff; font-family:'Space Mono', monospace; font-size:12px; cursor:pointer; display:flex; align-items:center; gap:10px;">
+        <i class="bi bi-bar-chart-fill" style="color:var(--accent-lime, #10b981);"></i> <span>80/20 Polarized Zones</span>
+      </button>
+
+      <button type="button" id="btn-drawer-monthly" onclick="if(window.switchCleanTab) window.switchCleanTab('monthly'); closeNothingDrawer();" style="text-align:left; background:rgba(255,255,255,0.03); border:1px solid var(--nothing-border); border-radius:12px; padding:12px 14px; color:#fff; font-family:'Space Mono', monospace; font-size:12px; cursor:pointer; display:flex; align-items:center; gap:10px;">
+        <i class="bi bi-calendar3" style="color:var(--accent-cyan, #00d2ff);"></i> <span>Monthly EF Recap</span>
+      </button>
+
+      <button type="button" id="btn-drawer-plan" onclick="if(window.switchCleanTab) window.switchCleanTab('plan'); closeNothingDrawer();" style="text-align:left; background:rgba(255,255,255,0.03); border:1px solid var(--nothing-border); border-radius:12px; padding:12px 14px; color:#fff; font-family:'Space Mono', monospace; font-size:12px; cursor:pointer; display:flex; align-items:center; gap:10px;">
+        <i class="bi bi-calendar-check" style="color:#ff2a2a;"></i> <span>7-Day Custom Plan</span>
+      </button>
+    </nav>
+
+    <!-- STRAVA CONNECTION IN DRAWER -->
+    <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--nothing-border);">
+      <button type="button" onclick="window.triggerStravaAuthFlow(); closeNothingDrawer();" style="width:100%; padding:12px; border-radius:12px; background:#fc4c02; border:none; color:#fff; font-family:'Space Mono', monospace; font-size:12px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
+        <i class="bi bi-strava"></i> <span>Connect Strava</span>
+      </button>
+      <div style="font-size:10px; color:#838792; text-align:center; margin-top:8px;">
+        RunAnalyz Telemetry Platform &copy; 2026
+      </div>
+    </div>
+  </aside>
+
   <script src="i18n.js?v=20260927_lock_8020"></script>
   <script src="app.js?v=20260927_lock_8020"></script>
 
@@ -2724,8 +2729,19 @@
     window.setNtSize = function(size) {
       ntSize = size;
       const stk = document.getElementById('ntCompactSticker');
-      stk.classList.remove('size-s', 'size-m', 'size-l');
-      stk.classList.add(`size-${size}`);
+      const crd = document.getElementById('ntFullCard');
+      if (stk) {
+        stk.classList.remove('size-s', 'size-m', 'size-l');
+        stk.classList.add(`size-${size}`);
+      }
+      if (crd) {
+        crd.classList.remove('size-s', 'size-m', 'size-l');
+        crd.classList.add(`size-${size}`);
+      }
+      ['s', 'm', 'l'].forEach(s => {
+        const btn = document.getElementById(`ntBtnSize${s.toUpperCase()}`);
+        if (btn) btn.classList.toggle('active', s === size);
+      });
     };
 
     // 3. COPY TRANSPARENT PNG TO CLIPBOARD
