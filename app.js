@@ -1002,7 +1002,62 @@ async function syncLatestStravaActivities(isManual = false) {
   }
 }
 
+// Global 1-Click Strava Auth Flow Trigger
+window.triggerStravaAuthFlow = function() {
+  const redirectUri = `${window.location.origin}${window.location.pathname}`;
+  const authUrl = `https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&approval_prompt=auto&scope=read,activity:read_all`;
+  window.location.href = authUrl;
+};
+
+// Update 80/20 & EF Frosted Glass Lock State
+function updateStravaLockState(isCustomUser, athlete) {
+  const lockWeekly = document.getElementById('blur-overlay-weekly');
+  const contentWeekly = document.getElementById('locked-content-weekly');
+  const lockMonthly = document.getElementById('blur-overlay-monthly');
+  const contentMonthly = document.getElementById('locked-content-monthly');
+  const topBtn = document.getElementById('btn-strava-top');
+  const topBtnLabel = document.getElementById('strava-top-btn-label');
+
+  if (isCustomUser && athlete) {
+    // Unlocked State!
+    if (lockWeekly) lockWeekly.classList.add('hidden');
+    if (contentWeekly) contentWeekly.classList.add('unlocked');
+    if (lockMonthly) lockMonthly.classList.add('hidden');
+    if (contentMonthly) contentMonthly.classList.add('unlocked');
+
+    if (topBtn) {
+      topBtn.classList.add('connected');
+      const rawName = athlete.firstname || athlete.username || 'Runner';
+      if (topBtnLabel) topBtnLabel.textContent = rawName;
+      topBtn.title = `Connected to ${rawName}'s Strava Account`;
+      topBtn.onclick = (e) => {
+        e.preventDefault();
+        if (typeof openNothingDrawer === 'function') openNothingDrawer();
+      };
+    }
+  } else {
+    // Guest / Demo Locked State!
+    if (lockWeekly) lockWeekly.classList.remove('hidden');
+    if (contentWeekly) contentWeekly.classList.remove('unlocked');
+    if (lockMonthly) lockMonthly.classList.remove('hidden');
+    if (contentMonthly) contentMonthly.classList.remove('unlocked');
+
+    if (topBtn) {
+      topBtn.classList.remove('connected');
+      if (topBtnLabel) topBtnLabel.textContent = 'Connect';
+      topBtn.title = 'Connect Strava Account';
+      topBtn.onclick = (e) => {
+        e.preventDefault();
+        window.triggerStravaAuthFlow();
+      };
+    }
+  }
+}
+
 function setupStravaAuthButton(isCustomUser, athlete) {
+  // Sync 80/20 & EF Blur Lock Overlay state
+  updateStravaLockState(isCustomUser, athlete);
+
   const btnAuth = document.getElementById('btn-strava-auth');
   const connectedPill = document.getElementById('strava-connected-pill');
   const userTag = document.getElementById('strava-user-tag');

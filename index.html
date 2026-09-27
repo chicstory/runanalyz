@@ -63,7 +63,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20260923_v28_insta_fix">
+  <link rel="stylesheet" href="style.css?v=20260927_lock_8020">
 
   <!-- NOTHING INDUSTRIAL DESIGN SYSTEM & COMPACT STICKER STYLES -->
   <style id="nothing-industrial-styles">
@@ -660,19 +660,20 @@
             </div>
           </a>
 
-          <!-- RESTORED & STREAMLINED TOP CONTROLS (UNITS, LANG, THEME, MENU) -->
+          <!-- RESTORED & STREAMLINED TOP CONTROLS (STRAVA CONNECT, UNITS, LANG, MENU) -->
           <div class="nothing-actions-right">
+            <!-- Strava Connect Top CTA -->
+            <button type="button" class="btn-strava-top nothing-badge-btn" id="btn-strava-top" onclick="window.triggerStravaAuthFlow()" title="Connect Strava Account">
+              <i class="bi bi-strava" style="color:#fff;"></i>
+              <span id="strava-top-btn-label">Connect</span>
+            </button>
+
             <button class="btn-unit-toggle nothing-badge-btn" id="btn-unit-toggle" title="Toggle Units (mi/ft ↔ km/m)">
               <i class="bi bi-rulers"></i> <span id="unit-current-label">mi</span>
             </button>
 
             <button class="btn-lang-toggle nothing-badge-btn" id="btn-lang-toggle" title="Language (EN / KO)">
               <i class="bi bi-translate"></i> <span id="lang-current-label">EN</span>
-            </button>
-
-            <button class="btn-theme-toggle nothing-badge-btn" id="btn-theme-toggle" title="Toggle Light/Dark Theme">
-              <i class="bi bi-sun-fill theme-icon-light"></i>
-              <i class="bi bi-moon-stars-fill theme-icon-dark"></i>
             </button>
 
             <button class="btn-hamburger-toggle nothing-btn" id="btn-hamburger-toggle" title="Open Menu" onclick="openNothingDrawer()">
@@ -682,23 +683,23 @@
         </div>
       </header>
 
-      <!-- 2. D - W - M - Y 4-SEGMENT NAVIGATION -->
+      <!-- 2. CORE 4-SEGMENT NAVIGATION: D - 80/20 - EF - PLAN -->
       <nav class="main-tabs-clean nothing-tabs" role="tablist">
         <button class="tab-clean-btn active" data-tab="single" role="tab" id="tab-btn-single">
           <span class="tab-txt-key">D</span>
           <span class="tab-txt-sub">DAY</span>
         </button>
         <button class="tab-clean-btn" data-tab="weekly" role="tab" id="tab-btn-weekly">
-          <span class="tab-txt-key">W</span>
-          <span class="tab-txt-sub">WEEK</span>
+          <span class="tab-txt-key">80/20</span>
+          <span class="tab-txt-sub">WEEKLY</span>
         </button>
         <button class="tab-clean-btn" data-tab="monthly" role="tab" id="tab-btn-monthly">
-          <span class="tab-txt-key">M</span>
-          <span class="tab-txt-sub">MONTH</span>
+          <span class="tab-txt-key">EF</span>
+          <span class="tab-txt-sub">MONTHLY</span>
         </button>
-        <button class="tab-clean-btn" data-tab="yearly" role="tab" id="tab-btn-yearly">
-          <span class="tab-txt-key">Y</span>
-          <span class="tab-txt-sub">YEAR</span>
+        <button class="tab-clean-btn" data-tab="plan" role="tab" id="tab-btn-plan">
+          <span class="tab-txt-key">PLAN</span>
+          <span class="tab-txt-sub">7-DAY</span>
         </button>
       </nav>
     </div>
@@ -1259,10 +1260,29 @@
     </div>
     </section>
 
-    <!-- TAB 2: WEEKLY RECAP -->
+    <!-- TAB 2: WEEKLY RECAP (80/20 POLARIZED DIAGNOSTIC) -->
     <section class="tab-panel" id="panel-weekly">
-      <!-- Weekly Overview Banner -->
-      <div class="weekly-hero-card">
+      <div class="strava-lockable-container" id="lock-container-weekly">
+        
+        <!-- FROSTED GLASS LOCK OVERLAY (GUEST / DEMO STATE) -->
+        <div class="strava-blur-overlay" id="blur-overlay-weekly">
+          <div class="sbo-card">
+            <div class="sbo-icon-badge">🔒 80/20 POLARIZED AUDIT</div>
+            <h3 class="sbo-title">Unlock Your Verified 80/20 Heart Rate Distribution</h3>
+            <p class="sbo-desc">
+              Are you trapped in Zone 3 chronic fatigue? Connect Strava in 1 second to diagnose your real-time polarized ratio &amp; eliminate junk miles.
+            </p>
+            <button type="button" class="btn-sbo-connect" onclick="window.triggerStravaAuthFlow()">
+              <i class="bi bi-strava"></i> <span>Connect with Strava</span>
+            </button>
+            <div class="sbo-meta">⚡ 1-Sec Read-Only Sync &middot; 100% Local Device Storage</div>
+          </div>
+        </div>
+
+        <!-- LOCKED CONTENT (BLURRED UNTIL AUTHED) -->
+        <div class="strava-locked-content" id="locked-content-weekly">
+          <!-- Weekly Overview Banner -->
+          <div class="weekly-hero-card">
         <div class="wh-content">
           <span class="sub-title">ACWR TRAINING LOAD &amp; 4-WEEK BASELINE AUDIT</span>
           <h2 class="main-title" id="weekly-main-title" data-i18n="weekly_hero_title">Weekly Mileage Build-up &amp; Injury Risk Audit</h2>
@@ -1415,6 +1435,8 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
         </div>
       </div>
     </section>
@@ -1708,10 +1730,29 @@
       </div>
     </section>
 
-    <!-- TAB 3: MONTHLY RECAP & INSTA CARD -->
+    <!-- TAB 3: MONTHLY RECAP (AEROBIC EF PROGRESSION) -->
     <section class="tab-panel" id="panel-monthly">
-      <!-- Monthly Recap Top Metrics -->
-      <div class="month-hero-grid">
+      <div class="strava-lockable-container" id="lock-container-monthly">
+        
+        <!-- FROSTED GLASS LOCK OVERLAY (GUEST / DEMO STATE) -->
+        <div class="strava-blur-overlay" id="blur-overlay-monthly">
+          <div class="sbo-card">
+            <div class="sbo-icon-badge">🔒 AEROBIC EF PROGRESSION</div>
+            <h3 class="sbo-title">Unlock Your Verified Pace-to-Heart-Rate Efficiency</h3>
+            <p class="sbo-desc">
+              Is your aerobic engine truly developing? Connect Strava in 1 second to track your long-term EF (Efficiency Factor) trend line.
+            </p>
+            <button type="button" class="btn-sbo-connect" onclick="window.triggerStravaAuthFlow()">
+              <i class="bi bi-strava"></i> <span>Connect with Strava</span>
+            </button>
+            <div class="sbo-meta">⚡ 1-Sec Read-Only Sync &middot; 100% Local Device Storage</div>
+          </div>
+        </div>
+
+        <!-- LOCKED CONTENT (BLURRED UNTIL AUTHED) -->
+        <div class="strava-locked-content" id="locked-content-monthly">
+          <!-- Monthly Recap Top Metrics -->
+          <div class="month-hero-grid">
         <div class="month-stat-box">
           <span class="m-label" id="month-label-dist">Monthly Total Distance</span>
           <span class="m-val text-orange" id="month-total-dist">0.0 <small>km</small></span>
@@ -1890,6 +1931,8 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
         </div>
       </div>
     </section>
@@ -2660,8 +2703,8 @@
     </div>
   </aside>
 
-  <script src="i18n.js?v=20260923_v29_sync_i18n"></script>
-  <script src="app.js?v=20260923_v29_sync_i18n"></script>
+  <script src="i18n.js?v=20260927_lock_8020"></script>
+  <script src="app.js?v=20260927_lock_8020"></script>
 
   <!-- NOTHING INDUSTRIAL TELEMETRY SYNC SCRIPT -->
   <script id="nothing-studio-script">
