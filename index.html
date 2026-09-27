@@ -721,6 +721,73 @@
       font-family: 'Space Mono', monospace;
     }
     .nothing-drawer.open { right: 0; }
+
+    /* ☕ NOTHING OS IN-LINE FUEL & SUPPORT DOCK */
+    .nt-support-dock {
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed rgba(255, 255, 255, 0.16);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .nt-support-dock:hover {
+      border-color: rgba(255, 255, 255, 0.32);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .nt-support-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+    .nt-support-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--nothing-red, #ff2a2a);
+      box-shadow: 0 0 6px var(--nothing-red, #ff2a2a);
+      flex-shrink: 0;
+    }
+    .nt-support-tag {
+      font-family: 'Space Mono', 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: #94a3b8;
+      letter-spacing: 0.8px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .nt-support-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: #ffdd00;
+      color: #000;
+      font-family: 'Space Grotesk', -apple-system, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 8px;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: transform 0.15s ease, filter 0.15s ease;
+      box-shadow: 0 2px 8px rgba(255, 221, 0, 0.25);
+    }
+    .nt-support-btn:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+    .nt-support-btn:active {
+      transform: scale(0.96);
+    }
   </style>
 </head>
 <body>
@@ -928,6 +995,18 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- ☕ NOTHING OS IN-LINE FUEL & SUPPORT DOCK -->
+      <div class="nt-support-dock" id="ntSupportDock">
+        <div class="nt-support-left">
+          <span class="nt-support-pulse"></span>
+          <span class="nt-support-tag">FUEL THE RUNNER ENGINE</span>
+        </div>
+        <a href="https://buymeacoffee.com/thepathlab" target="_blank" rel="noopener noreferrer" class="nt-support-btn" id="ntSupportBtn" title="Support the solo developer with coffee or running gel">
+          <span class="nt-coffee-icon">☕</span>
+          <span class="nt-support-label">Coffee / Gel ⚡</span>
+        </a>
       </div>
 
     </section>
