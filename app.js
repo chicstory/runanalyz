@@ -374,10 +374,18 @@ function ensureDemoDataLoaded() {
   return _demoDataLoadingPromise;
 }
 
-// Global filter states accessible by all modules
+// Global filter states accessible by all modules (Dynamically auto-detect closing month)
+const _now = new Date();
+const _curYearStr = String(_now.getFullYear());
+// If early days of the month (1st~4th), runners primarily review the closing month (e.g. Sep on Oct 1st)
+const _curMonthNum = _now.getMonth() + 1;
+const _defClosingMonth = _now.getDate() <= 4 
+  ? String(_curMonthNum === 1 ? 12 : _curMonthNum - 1)
+  : String(_curMonthNum);
+
 window.RUNANALYZ_FILTERS = {
-  year: sessionStorage.getItem('shoef_year') || '2026',
-  month: sessionStorage.getItem('shoef_month') || '8',
+  year: sessionStorage.getItem('shoef_year') || _curYearStr,
+  month: sessionStorage.getItem('shoef_month') || _defClosingMonth,
   sport: sessionStorage.getItem('shoef_sport') || 'all'
 };
 let currentYear = window.RUNANALYZ_FILTERS.year;
@@ -388,13 +396,26 @@ const STRAVA_CLIENT_ID = '278575';
 const STRAVA_WORKER_URL = 'https://runanalyz-auth.chicstory.workers.dev';
 
 // ============================================================================
-// RunAnalyz Unit System (Imperial: mi/ft default ↔ Metric: km/m toggleable)
+// RunAnalyz Unit System (SI Metric: km/m default ↔ Imperial: mi/ft toggleable)
 // BPM and EF (Aerobic Efficiency Factor) remain standard physiological metrics
 // ============================================================================
 window.RunAnalyzUnits = (function() {
   const STORAGE_KEY = 'runanalyz_unit';
-  // Default to US Imperial (mi / ft)
-  let currentUnit = localStorage.getItem(STORAGE_KEY) || 'imperial';
+  
+  // Smart default: Respect user preference, default to SI Metric (km) for all athletic telemetry
+  function detectDefaultUnit() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === 'imperial' || saved === 'metric') return saved;
+    try {
+      const userLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      if (userLang === 'en-us') {
+        return 'imperial';
+      }
+    } catch (e) {}
+    return 'metric'; // Default to km (Metric) worldwide & Korea
+  }
+
+  let currentUnit = detectDefaultUnit();
 
   const KM_TO_MI = 0.621371;
   const MI_TO_KM = 1.609344;
@@ -1036,16 +1057,17 @@ function updateStravaLockState(isCustomUser, athlete) {
       };
     }
   } else {
-    // Guest / Demo Locked State!
-    if (lockWeekly) lockWeekly.classList.remove('hidden');
-    if (contentWeekly) contentWeekly.classList.remove('unlocked');
-    if (lockMonthly) lockMonthly.classList.remove('hidden');
-    if (contentMonthly) contentMonthly.classList.remove('unlocked');
+    // ProductHunt & Global Guest: Zero-Login Interactive Demo Experience!
+    // Keep 80/20 & EF Monthly fully unlocked for demo dataset so all visitors experience all telemetry!
+    if (lockWeekly) lockWeekly.classList.add('hidden');
+    if (contentWeekly) contentWeekly.classList.add('unlocked');
+    if (lockMonthly) lockMonthly.classList.add('hidden');
+    if (contentMonthly) contentMonthly.classList.add('unlocked');
 
     if (topBtn) {
       topBtn.classList.remove('connected');
       if (topBtnLabel) topBtnLabel.textContent = 'Connect';
-      topBtn.title = 'Connect Strava Account';
+      topBtn.title = 'Interactive Demo Mode — Click to connect your personal Strava account';
       topBtn.onclick = (e) => {
         e.preventDefault();
         window.triggerStravaAuthFlow();
@@ -1597,7 +1619,7 @@ async function startRunAnalyz() {
       prevBtn.disabled = (idx >= weeks.length - 1);
       nextBtn.disabled = (idx <= 0);
 
-      initWeeklyRecap(currentList, '2026', '8', pureRunningActivities);
+      initWeeklyRecap(currentList, w.year || currentYear, w.month || currentMonth, pureRunningActivities);
     } else if (activeCleanTab === 'monthly') {
       const months = getGroupedMonths(currentList);
       if (months.length === 0) {
@@ -2126,7 +2148,11 @@ async function startRunAnalyz() {
     }
 
     try {
-      initWeeklyRecap(currentList, '2026', '8', pureRunningActivities);
+      const weeks = getGroupedWeeks(currentList);
+      const w = weeks[currentTimelineIndices.weekly || 0] || weeks[0];
+      const wYear = w ? (w.year || currentYear) : currentYear;
+      const wMonth = w ? (w.month || currentMonth) : currentMonth;
+      initWeeklyRecap(currentList, wYear, wMonth, pureRunningActivities);
     } catch (err) {
       console.error('Error in initWeeklyRecap:', err);
     }
@@ -2137,7 +2163,7 @@ async function startRunAnalyz() {
       if (m) {
         initMonthlyRecap(m.runs, m.year, m.month);
       } else {
-        initMonthlyRecap(currentList, '2026', '8');
+        initMonthlyRecap(currentList, currentYear, currentMonth);
       }
     } catch (err) {
       console.error('Error in initMonthlyRecap:', err);
@@ -2187,10 +2213,36 @@ async function startRunAnalyz() {
   // Language Switcher Toggle (KO <-> EN)
   const btnLangToggle = document.getElementById('btn-lang-toggle');
   const langLabel = document.getElementById('lang-current-label');
+  const drawerLangToggle = document.getElementById('drawer-lang-toggle');
+  const drawerLangLabel = document.getElementById('drawer-lang-label');
 
   const updateLangUI = (lang) => {
+    const l = (lang || 'en').toUpperCase();
     if (langLabel) {
-      langLabel.textContent = (lang || 'en').toUpperCase();
+      langLabel.textContent = l;
+    }
+    if (drawerLangLabel) {
+      drawerLangLabel.textContent = (l === 'KO') ? '언어 (KO)' : 'Lang (EN)';
+    }
+  };
+
+  window.handleGlobalLangToggle = function() {
+    const cur = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
+    const next = (cur === 'en') ? 'ko' : 'en';
+    if (window.I18N && window.I18N.setLang) {
+      window.I18N.setLang(next);
+    }
+    updateLangUI(next);
+    refreshAllViews();
+    if (typeof generateAndRender7DayPlan === 'function') {
+      generateAndRender7DayPlan();
+    }
+    if (typeof renderNothingCardStudio === 'function') {
+      renderNothingCardStudio();
+    }
+    const toastMsg = next === 'ko' ? '🌐 한국어로 변경되었습니다.' : '🌐 Switched to English.';
+    if (typeof showToast === 'function') {
+      showToast(toastMsg);
     }
   };
 
@@ -2199,54 +2251,78 @@ async function startRunAnalyz() {
   }
 
   if (btnLangToggle) {
-    btnLangToggle.addEventListener('click', () => {
-      const cur = (window.I18N && window.I18N.getLang) ? window.I18N.getLang() : 'en';
-      const next = (cur === 'en') ? 'ko' : 'en';
-      if (window.I18N && window.I18N.setLang) {
-        window.I18N.setLang(next);
-      }
-      updateLangUI(next);
-      refreshAllViews();
-      if (typeof generateAndRender7DayPlan === 'function') {
-        generateAndRender7DayPlan();
-      }
-      const toastMsg = next === 'ko' ? '🌐 한국어로 변경되었습니다.' : '🌐 Switched to English.';
-      if (typeof showToast === 'function') {
-        showToast(toastMsg);
-      }
+    btnLangToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.handleGlobalLangToggle();
+    });
+  }
+  if (drawerLangToggle) {
+    drawerLangToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.handleGlobalLangToggle();
     });
   }
 
   // Unit System Switcher Toggle (Imperial: mi/ft ↔ Metric: km/m)
   const btnUnitToggle = document.getElementById('btn-unit-toggle');
   const unitLabel = document.getElementById('unit-current-label');
+  const drawerUnitToggle = document.getElementById('drawer-unit-toggle');
+  const drawerUnitLabel = document.getElementById('drawer-unit-label');
+  const cardHeroUnit = document.getElementById('ntCardHeroUnit');
 
   const updateUnitUI = () => {
     const isImp = window.RunAnalyzUnits.isImperial();
+    const uStr = isImp ? 'mi' : 'km';
     if (unitLabel) {
-      unitLabel.textContent = isImp ? 'mi' : 'km';
+      unitLabel.textContent = uStr;
+    }
+    if (drawerUnitLabel) {
+      drawerUnitLabel.textContent = isImp ? 'Units (mi)' : 'Units (km)';
+    }
+    if (cardHeroUnit) {
+      cardHeroUnit.textContent = isImp ? 'MI' : 'KM';
     }
     if (btnUnitToggle) {
       btnUnitToggle.title = isImp ? 'Units: Imperial (mi, ft) — Click to switch to Metric (km, m)' : 'Units: Metric (km, m) — Click to switch to Imperial (mi, ft)';
+    }
+    if (drawerUnitToggle) {
+      drawerUnitToggle.title = btnUnitToggle ? btnUnitToggle.title : '';
+    }
+  };
+
+  window.handleGlobalUnitToggle = function() {
+    const nextUnit = window.RunAnalyzUnits.toggleUnit();
+    updateUnitUI();
+    refreshAllViews();
+    if (typeof generateAndRender7DayPlan === 'function') {
+      generateAndRender7DayPlan();
+    }
+    if (typeof renderNothingCardStudio === 'function') {
+      renderNothingCardStudio();
+    }
+    if (typeof window.syncNothingStudioTelemetry === 'function') {
+      window.syncNothingStudioTelemetry();
+    }
+    const toastMsg = nextUnit === 'imperial' 
+      ? '🇺🇸 Units switched to US Imperial (mi, min/mi, ft).' 
+      : '🌐 Units switched to SI Metric (km, min/km, m).';
+    if (typeof showToast === 'function') {
+      showToast(toastMsg);
     }
   };
 
   updateUnitUI();
 
   if (btnUnitToggle) {
-    btnUnitToggle.addEventListener('click', () => {
-      const nextUnit = window.RunAnalyzUnits.toggleUnit();
-      updateUnitUI();
-      refreshAllViews();
-      if (typeof generateAndRender7DayPlan === 'function') {
-        generateAndRender7DayPlan();
-      }
-      const toastMsg = nextUnit === 'imperial' 
-        ? '🇺🇸 Units switched to US Imperial (mi, min/mi, ft).' 
-        : '🌐 Units switched to SI Metric (km, min/km, m).';
-      if (typeof showToast === 'function') {
-        showToast(toastMsg);
-      }
+    btnUnitToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.handleGlobalUnitToggle();
+    });
+  }
+  if (drawerUnitToggle) {
+    drawerUnitToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.handleGlobalUnitToggle();
     });
   }
 }
@@ -3527,7 +3603,7 @@ function renderSingleChart(act) {
 /* ==========================================================================
    MODULE 2: WEEKLY RECAP LOGIC
    ========================================================================== */
-function initWeeklyRecap(activities, year = '2026', month = '8', allActivities = null) {
+function initWeeklyRecap(activities, year = currentYear, month = currentMonth, allActivities = null) {
   const container = document.getElementById('weekly-cards-list');
   if (!container) return;
 
@@ -4685,13 +4761,13 @@ function initAllCardStudios() {
     btnShareId: 'btn-share-card',
     btnDownloadId: 'btn-download-card',
     getDownloadFilename: (fmt) => {
-      const y = window.currentMonthlyYear || '2026';
-      const m = window.currentMonthlyMonth || '8';
+      const y = window.currentMonthlyYear || currentYear;
+      const m = window.currentMonthlyMonth || currentMonth;
       return `RunAnalyz_Recap_${y}_${m}_${fmt}.png`;
     },
     getShareMeta: (fmt) => {
-      const y = window.currentMonthlyYear || '2026';
-      const m = window.currentMonthlyMonth || '8';
+      const y = window.currentMonthlyYear || currentYear;
+      const m = window.currentMonthlyMonth || currentMonth;
       const pTitle = window.currentMonthlyPeriodTitle || `${y}년 ${m}월`;
       const fmtTitle = fmt === 'square' ? '피드 정방형 (1:1)' : (fmt === 'portrait' ? '피드 세로형 (4:5)' : '스토리 (9:16)');
       return {

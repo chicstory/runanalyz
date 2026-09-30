@@ -68,7 +68,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20260927_lock_8020">
+  <link rel="stylesheet" href="style.css?v=20261001_demo">
 
   <!-- NOTHING INDUSTRIAL DESIGN SYSTEM & COMPACT STICKER STYLES -->
   <style id="nothing-industrial-styles">
@@ -813,8 +813,8 @@
               <span id="strava-top-btn-label">Connect</span>
             </button>
 
-            <button class="btn-unit-toggle nothing-badge-btn header-desktop-only" id="btn-unit-toggle" title="Toggle Units (mi/ft ↔ km/m)">
-              <i class="bi bi-rulers"></i> <span id="unit-current-label">mi</span>
+            <button class="btn-unit-toggle nothing-badge-btn header-desktop-only" id="btn-unit-toggle" title="Toggle Units (km/m ↔ mi/ft)">
+              <i class="bi bi-rulers"></i> <span id="unit-current-label">km</span>
             </button>
 
             <button class="btn-lang-toggle nothing-badge-btn header-desktop-only" id="btn-lang-toggle" title="Language (EN / KO)">
@@ -941,7 +941,7 @@
             </div>
             <div class="nt-hero-num-wrap">
               <div class="nt-hero-num" id="ntCardHeroDist">0.00</div>
-              <div class="nt-hero-unit" id="ntCardHeroUnit">MI</div>
+              <div class="nt-hero-unit" id="ntCardHeroUnit">KM</div>
             </div>
           </div>
 
@@ -2704,11 +2704,11 @@
 
     <!-- QUICK SYSTEM CONTROLS (UNITS & LANGUAGE) -->
     <div style="display:flex; gap:8px;">
-      <button type="button" class="btn-unit-toggle" id="drawer-unit-toggle" onclick="if(window.RunAnalyzUnits && window.RunAnalyzUnits.toggleUnit) window.RunAnalyzUnits.toggleUnit();" style="flex:1; padding:9px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid var(--nothing-border); color:#fff; font-family:'Space Mono', monospace; font-size:11px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
-        <i class="bi bi-rulers"></i> <span id="drawer-unit-label">Units (mi)</span>
+      <button type="button" class="btn-unit-toggle" id="drawer-unit-toggle" onclick="if(window.handleGlobalUnitToggle) window.handleGlobalUnitToggle();" style="flex:1; padding:9px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid var(--nothing-border); color:#fff; font-family:'Space Mono', monospace; font-size:11px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+        <i class="bi bi-rulers"></i> <span id="drawer-unit-label">Units (km)</span>
       </button>
 
-      <button type="button" class="btn-lang-toggle" id="drawer-lang-toggle" onclick="if(window.I18N && window.I18N.toggleLang) window.I18N.toggleLang();" style="flex:1; padding:9px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid var(--nothing-border); color:#fff; font-family:'Space Mono', monospace; font-size:11px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+      <button type="button" class="btn-lang-toggle" id="drawer-lang-toggle" onclick="if(window.handleGlobalLangToggle) window.handleGlobalLangToggle();" style="flex:1; padding:9px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid var(--nothing-border); color:#fff; font-family:'Space Mono', monospace; font-size:11px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
         <i class="bi bi-translate"></i> <span id="drawer-lang-label">Lang (EN)</span>
       </button>
     </div>
@@ -2776,8 +2776,10 @@
     </div>
   </aside>
 
-  <script src="i18n.js?v=20260927_lock_8020"></script>
-  <script src="app.js?v=20260927_lock_8020"></script>
+  <!-- Preload Demo Dataset for Instant Zero-Login Telemetry (ProductHunt Ready) -->
+  <script src="strava_all_activities.js?v=20261001_demo"></script>
+  <script src="i18n.js?v=20261001_demo"></script>
+  <script src="app.js?v=20261001_demo"></script>
 
   <!-- NOTHING INDUSTRIAL TELEMETRY SYNC SCRIPT -->
   <script id="nothing-studio-script">
@@ -2910,7 +2912,7 @@
     };
 
     // 5. ROBUST D-W-M-Y & UNIT (mi / km) REAL-TIME TELEMETRY SYNC
-    function syncNothingStudioTelemetry() {
+    function doSyncNothingStudioTelemetry() {
       try {
         // Detect imperial vs metric units dynamically
         const isImp = (window.RunAnalyzUnits && typeof window.RunAnalyzUnits.isImperial === 'function')
@@ -3119,19 +3121,20 @@
         console.warn('[NothingStudio] Sync error:', err);
       }
     }
+    window.syncNothingStudioTelemetry = doSyncNothingStudioTelemetry;
 
     // Connect observers and event triggers
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
-        syncNothingStudioTelemetry();
+        doSyncNothingStudioTelemetry();
         const heroNode = document.getElementById('single-nrc-hero');
         if (heroNode) {
-          const obs = new MutationObserver(() => syncNothingStudioTelemetry());
+          const obs = new MutationObserver(() => doSyncNothingStudioTelemetry());
           obs.observe(heroNode, { subtree: true, characterData: true, childList: true });
         }
         const slideCenter = document.getElementById('slide-center-box');
         if (slideCenter) {
-          const obs2 = new MutationObserver(() => syncNothingStudioTelemetry());
+          const obs2 = new MutationObserver(() => doSyncNothingStudioTelemetry());
           obs2.observe(slideCenter, { subtree: true, characterData: true, childList: true });
         }
       }, 500);
@@ -3139,8 +3142,8 @@
       // Tab switcher clicks (D - W - M - Y)
       document.querySelectorAll('.main-tabs-clean .tab-clean-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          setTimeout(syncNothingStudioTelemetry, 80);
-          setTimeout(syncNothingStudioTelemetry, 300);
+          setTimeout(doSyncNothingStudioTelemetry, 80);
+          setTimeout(doSyncNothingStudioTelemetry, 300);
         });
       });
 
@@ -3148,21 +3151,21 @@
       const uBtn = document.getElementById('btn-unit-toggle');
       if (uBtn) {
         uBtn.addEventListener('click', () => {
-          setTimeout(syncNothingStudioTelemetry, 100);
+          setTimeout(doSyncNothingStudioTelemetry, 100);
         });
       }
       const lBtn = document.getElementById('btn-lang-toggle');
       if (lBtn) {
         lBtn.addEventListener('click', () => {
-          setTimeout(syncNothingStudioTelemetry, 100);
+          setTimeout(doSyncNothingStudioTelemetry, 100);
         });
       }
 
       // Timeline prev/next clicks
       const pBtn = document.getElementById('btn-slide-prev');
       const nBtn = document.getElementById('btn-slide-next');
-      if (pBtn) pBtn.addEventListener('click', () => setTimeout(syncNothingStudioTelemetry, 80));
-      if (nBtn) nBtn.addEventListener('click', () => setTimeout(syncNothingStudioTelemetry, 80));
+      if (pBtn) pBtn.addEventListener('click', () => setTimeout(doSyncNothingStudioTelemetry, 80));
+      if (nBtn) nBtn.addEventListener('click', () => setTimeout(doSyncNothingStudioTelemetry, 80));
     });
   </script>
 </body>
