@@ -99,7 +99,7 @@
                 <section class="article-section">
                     <h2>5. 문의처</h2>
                     <p>
-                        약관 내용에 관한 질문은 공식 이메일(<a href="mailto:chicstory@gmail.com" style="color:var(--primary-blue); font-weight:700;">chicstory@gmail.com</a>)로 연락 주시기 바랍니다.
+                        약관 내용에 관한 질문은 공식 이메일(<span class="email-protect" data-user="chicstory" data-domain="gmail.com"><a href="#" onclick="openSecureMail(event, 'chicstory', 'gmail.com'); return false;" style="color:var(--primary-blue); font-weight:700;">이메일 문의하기 (스팸 방지)</a></span>)로 연락 주시기 바랍니다.
                     </p>
                 </section>
             </article>
@@ -118,5 +118,22 @@
         </div>
         <p>© 2026 RunAnalyz. Scientific Running Performance & Training Guide.</p>
     </footer>
+    <script>
+        function openSecureMail(e, u, d) {
+            if (e) e.preventDefault();
+            window.location.href = 'mai' + 'lto:' + u + '@' + d;
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            var els = document.querySelectorAll('.email-protect');
+            els.forEach(function(el) {
+                var u = el.getAttribute('data-user');
+                var d = el.getAttribute('data-domain');
+                if (u && d) {
+                    var addr = u + '@' + d;
+                    el.innerHTML = '<a href="mai' + 'lto:' + addr + '" style="color:var(--primary-blue); font-weight:700; text-decoration:none;">' + addr + '</a>';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

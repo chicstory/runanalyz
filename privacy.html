@@ -102,7 +102,7 @@
                     <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:12px; padding:18px; margin:20px 0;">
                         <ul style="list-style:none; padding:0; margin:0; line-height:2; font-size:0.92rem;">
                             <li><strong>개인정보 보호책임자</strong>: chicstory (ThePathLab)</li>
-                            <li><strong>공식 이메일</strong>: <a href="mailto:chicstory@gmail.com" style="color:var(--primary-blue); font-weight:700;">chicstory@gmail.com</a></li>
+                            <li><strong>공식 이메일</strong>: <span class="email-protect" data-user="chicstory" data-domain="gmail.com"><a href="#" onclick="openSecureMail(event, 'chicstory', 'gmail.com'); return false;" style="color:var(--primary-blue); font-weight:700;">이메일 문의하기 (스팸 방지)</a></span></li>
                         </ul>
                     </div>
                 </section>
@@ -122,5 +122,22 @@
         </div>
         <p>© 2026 RunAnalyz. Scientific Running Performance & Training Guide.</p>
     </footer>
+    <script>
+        function openSecureMail(e, u, d) {
+            if (e) e.preventDefault();
+            window.location.href = 'mai' + 'lto:' + u + '@' + d;
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            var els = document.querySelectorAll('.email-protect');
+            els.forEach(function(el) {
+                var u = el.getAttribute('data-user');
+                var d = el.getAttribute('data-domain');
+                if (u && d) {
+                    var addr = u + '@' + d;
+                    el.innerHTML = '<a href="mai' + 'lto:' + addr + '" style="color:var(--primary-blue); font-weight:700; text-decoration:none;">' + addr + '</a>';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
