@@ -1,483 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QREC5DVG9M"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-QREC5DVG9M');
-    gtag('config', 'G-K3PFHN6VW7');
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인정보처리방침 (Privacy Policy) | RunAnalyz</title>
+    <meta name="description" content="RunAnalyz의 개인정보처리방침입니다. 쿠키 정책, Google 애드센스 맞춤 광고 고지 및 데이터 보호 규정을 안내합니다.">
+    <link rel="canonical" href="https://runanalyz.com/privacy.html">
 
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1876940323402065"
-     crossorigin="anonymous"></script>
+    <!-- Google Tag (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QREC5DVG9M"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QREC5DVG9M');
+        gtag('config', 'G-K3PFHN6VW7');
+    </script>
 
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1876940323402065" crossorigin="anonymous"></script>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy | RunAnalyz - Zero-Server Running Analytics</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="RunAnalyz Privacy Policy: Zero-server architecture, 100% client-side local computation, and total data sovereignty for Strava and Garmin athletes.">
-  <meta name="keywords" content="Privacy Policy, data sovereignty, zero server, local analytics, Strava API privacy, RunAnalyz">
-  <meta name="author" content="RunAnalyz">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#090d16">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://runanalyz.com/privacy.html">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
 
-  <!-- Favicon & Mobile Icons -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="RunAnalyz">
-  <meta property="og:title" content="Privacy Policy | RunAnalyz">
-  <meta property="og:description" content="Zero-server architecture and 100% client-side privacy principles for runners.">
-  <meta property="og:image" content="https://runanalyz.com/runanalyz_app_icon.jpg">
-  <meta property="og:url" content="https://runanalyz.com/privacy.html">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="개인정보처리방침 | RunAnalyz">
-  <meta name="twitter:description" content="RunAnalyz 개인정보 보호 정책.">
-  <meta name="twitter:image" content="https://runanalyz.com/runanalyz_app_icon.jpg">
-
-  <!-- Google Fonts: Inter, Outfit, JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="style.css?v=20260915_v15_ai_coach">
-
-  <style>
-    /* Robust Subpage Dark Tech Embedded Styling */
-    body {
-      background-color: #090d16 !important;
-      color: #f8fafc !important;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-      min-height: 100vh;
-      background-image: 
-        radial-gradient(circle at 15% 10%, rgba(255, 87, 34, 0.1) 0%, transparent 40%),
-        radial-gradient(circle at 85% 25%, rgba(0, 242, 254, 0.08) 0%, transparent 45%),
-        radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%) !important;
-      background-attachment: fixed !important;
-    }
-
-    .subpage-wrapper {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 1.5rem 1.25rem 5rem 1.25rem;
-    }
-
-    .subpage-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.85rem 1.5rem;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 18px;
-      margin-bottom: 2.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    .subpage-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      text-decoration: none;
-    }
-
-    .subpage-brand-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #ff5722 0%, #ff8a65 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 1.1rem;
-      box-shadow: 0 0 15px rgba(255, 87, 34, 0.4);
-    }
-
-    .subpage-brand-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      color: #fff;
-    }
-
-    .subpage-menu-links {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-    }
-
-    .subpage-menu-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.42rem 0.85rem;
-      border-radius: 10px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #94a3b8;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .subpage-menu-btn:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .subpage-menu-btn.active {
-      color: #ff5722;
-      background: rgba(255, 87, 34, 0.12);
-      border-color: rgba(255, 87, 34, 0.35);
-    }
-
-    .hero-banner {
-      text-align: center;
-      padding: 2.5rem 1rem 3rem 1rem;
-      margin-bottom: 2.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .hero-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #10b981;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 0.35rem 0.9rem;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      letter-spacing: 1.5px;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 2.6rem;
-      font-weight: 900;
-      letter-spacing: -1px;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-desc {
-      font-size: 1.05rem;
-      color: #94a3b8;
-      max-width: 700px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    .tech-card {
-      background: rgba(18, 26, 44, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
-      padding: 2.25rem;
-      margin-bottom: 2rem;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      transition: all 0.25s ease;
-    }
-
-    .tech-card:hover {
-      border-color: rgba(255, 255, 255, 0.16);
-    }
-
-    .tech-card-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .tech-card-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #10b981;
-      background: rgba(16, 185, 129, 0.15);
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-    }
-
-    .tech-card-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .tech-card p {
-      color: #94a3b8;
-      line-height: 1.75;
-      font-size: 0.96rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .tech-card p:last-child {
-      margin-bottom: 0;
-    }
-
-    .tech-card ul, .tech-card ol {
-      color: #94a3b8;
-      padding-left: 1.4rem;
-      line-height: 1.8;
-      margin-bottom: 1.25rem;
-      font-size: 0.95rem;
-    }
-
-    .tech-card li {
-      margin-bottom: 0.45rem;
-    }
-
-    .tech-card strong {
-      color: #f8fafc;
-    }
-
-    .callout-box {
-      background: rgba(16, 185, 129, 0.06);
-      border-left: 4px solid #10b981;
-      padding: 1.2rem 1.5rem;
-      border-radius: 0 14px 14px 0;
-      margin: 1.5rem 0;
-    }
-
-    .callout-box p {
-      color: #e2e8f0;
-      margin: 0;
-      font-size: 0.95rem;
-      line-height: 1.65;
-    }
-
-    .email-box {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: rgba(9, 13, 22, 0.9);
-      border: 1px solid rgba(0, 242, 254, 0.3);
-      padding: 0.75rem 1.4rem;
-      border-radius: 12px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #00f2fe;
-      margin: 1rem 0;
-    }
-
-    @media (max-width: 768px) {
-      .subpage-wrapper { padding: 1rem 0.85rem 4rem 0.85rem; }
-      .subpage-nav { flex-direction: column; gap: 0.85rem; align-items: stretch; padding: 1rem; }
-      .subpage-menu-links { justify-content: space-around; }
-      .hero-title { font-size: 2rem; }
-      .tech-card { padding: 1.5rem 1.25rem; }
-    }
-  </style>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="subpage-wrapper">
-    
-    <!-- Unified Top Navigation -->
-    <nav class="subpage-nav">
-      <a href="index.html" class="subpage-brand">
-        <div class="subpage-brand-icon"><img src="favicon.png" alt="RunAnalyz" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block;"></div>
-        <span class="subpage-brand-title">RUN<span style="color:#ff5722;">ANALYZ</span></span>
-      </a>
-      <div class="subpage-menu-links">
-        <a href="index.html" class="subpage-menu-btn"><i class="bi bi-speedometer2"></i> Dashboard</a>
-        <a href="guide.html" class="subpage-menu-btn"><i class="bi bi-book-half"></i> User Guide</a>
-        <a href="about.html" class="subpage-menu-btn"><i class="bi bi-info-circle-fill"></i> About &amp; Contact</a>
-        <a href="privacy.html" class="subpage-menu-btn active"><i class="bi bi-shield-check"></i> Privacy Policy</a>
-        <a href="https://shoef.runanalyz.com" class="subpage-menu-btn text-orange" target="_blank" title="Global 10 Brands 94 Shoes Wiki &amp; Lab Spec Comparison"><i class="bi bi-tag-fill"></i> Shoes Wiki</a>
-      </div>
-    </nav>
 
-    <!-- Hero Banner -->
-    <header class="hero-banner">
-      <div class="hero-badge"><i class="bi bi-shield-lock-fill"></i> PRIVACY POLICY</div>
-      <h1 class="hero-title">Privacy Policy</h1>
-      <p class="hero-desc">
-        RunAnalyz and its companion service ShoeF treat your sensitive training and biometric data with utmost care, strictly adhering to international privacy principles (GDPR, CCPA).
-      </p>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">RunAnalyz</span>
+            </a>
+            <nav class="header-nav-links">
+                <a href="index.html" class="header-nav-link">← 메인으로 돌아가기</a>
+            </nav>
+        </div>
     </header>
 
-    <!-- Article 1 -->
-    <article class="tech-card">
-      <div class="tech-card-header">
-        <span class="tech-card-badge">Article 1</span>
-        <h2 class="tech-card-title">Core Principles &amp; Zero-Server Architecture</h2>
-      </div>
-      <p>
-        RunAnalyz and ShoeF (the "Service") is a non-commercial indie engineering project born out of pure passion for endurance science. 
-        The Service is built upon an uncompromising <strong>"Zero-Server Privacy Principle"</strong>: we collect, harvest, and store zero personal data on any remote database.
-      </p>
-      <div class="callout-box">
-        <p>
-          <strong>🔒 100% Client-Side Local Computation:</strong><br>
-          Garmin and Strava activity records, raw GPS tracks, and runner profile parameters linked to RunAnalyz are never sent to or retained on any remote server. All computations and visualizations take place exclusively inside your browser's private local memory sandbox (SessionStorage / LocalStorage / IndexedDB).<br>
-          Our companion service <strong>ShoeF (Running Shoes Lab)</strong> is fully open without requiring sign-up or accounts. 1:1 comparison lists and runner shoutbox tips are cached locally and verified anonymously.
-        </p>
-      </div>
-    </article>
+    <main class="container">
+        <div class="article-wrapper">
+            <header class="article-header">
+                <span class="article-breadcrumb"><a href="index.html">RunAnalyz</a> › 개인정보처리방침</span>
+                <h1>개인정보처리방침 (Privacy Policy)</h1>
+                <div class="article-meta">
+                    <span>최종 개정일: 2026년 10월 6일</span>
+                    <span>시행일자: 2026년 10월 6일</span>
+                </div>
+            </header>
 
-    <!-- Article 2 -->
-    <article class="tech-card">
-      <div class="tech-card-header">
-        <span class="tech-card-badge">Article 2</span>
-        <h2 class="tech-card-title">Categories of Data Processed Locally</h2>
-      </div>
-      <p>The following data categories are temporarily read or cached exclusively inside your browser environment:</p>
-      <ul>
-        <li><strong>Runner Profile Settings (Optional):</strong> Age, Gender, Max Heart Rate (MHR), and Resting Heart Rate (RHR) &mdash; <em>Retained strictly in your browser's localStorage solely to compute Karvonen Heart Rate Reserve (HRR) thresholds and age-graded benchmarks. Never transmitted off-device.</em></li>
-        <li><strong>Strava Activity Data:</strong> Workout timestamp, total distance (mi/km), moving time, calories, and unique activity ID</li>
-        <li><strong>Pace &amp; Biometric Streams:</strong> Split paces, average/max heart rate (bpm), and Aerobic Efficiency Factor (EF)</li>
-        <li><strong>Running Dynamics (if recorded by watch):</strong> Average cadence (spm), stride length, and elevation gain</li>
-        <li><strong>Geospatial Coordinates:</strong> GPS polylines for route visualization on your local running heatmap</li>
-        <li><strong>Usage Telemetry:</strong> Anonymized visit logs, browser user-agent, and screen dimensions (via Google Analytics 4 for technical optimization)</li>
-      </ul>
-    </article>
+            <article class="article-body">
+                <section class="article-section">
+                    <h2>1. 총칙 및 개인정보 수집 최소화 원칙</h2>
+                    <p>
+                        RunAnalyz('https://runanalyz.com', 이하 '서비스')는 이용자의 개인정보를 매우 소중하게 생각하며, 「개인정보 보호법」 및 관계 법령을 준수합니다. 본 서비스는 <strong>회원가입, 로그인, 주민등록번호, 연락처 등 일체의 고유식별정보를 요구하거나 서버 데이터베이스에 수집·저장하지 않는 순수 웹 기반 오픈 유틸리티</strong>입니다.
+                    </p>
+                </section>
 
-    <!-- Article 3 -->
-    <article class="tech-card">
-      <div class="tech-card-header">
-        <span class="tech-card-badge">Article 3</span>
-        <h2 class="tech-card-title">Purpose of Processing</h2>
-      </div>
-      <p>Data processed within your browser is utilized solely to deliver meaningful endurance diagnostics to you:</p>
-      <ol>
-        <li>Diagnosing aerobic decoupling (Pw:HR drift) and Karvonen LT1/LT2 thresholds for individual sessions</li>
-        <li>Benchmarking performance against global age/gender percentiles (The State of Running 2019 dataset)</li>
-        <li>Auditing weekly mileage build-up and enforcing the 10% ACWR rule to prevent overuse injuries</li>
-        <li>Generating monthly recap visuals and high-resolution Instagram Story share cards</li>
-        <li>Archiving multi-year annual mileage and aerobic progression trends</li>
-        <li>Rendering private, interactive GPS heatmaps of your outdoor routes</li>
-      </ol>
-    </article>
+                <section class="article-section">
+                    <h2>2. 브라우저 로컬 저장소(LocalStorage)의 이용</h2>
+                    <p>
+                        서비스는 사용자의 편의를 높이기 위해 이용자의 웹 브라우저 로컬 저장소(LocalStorage)만을 제한적으로 활용합니다:
+                    </p>
+                    <ul>
+                        <li><strong>수집/저장 항목</strong>: 최근 계산한 달리기 거리 및 시간 설정값, 러너 한줄 메모 내역.</li>
+                        <li><strong>보관 위치</strong>: 이용자 본인의 단말기(스마트폰/PC) 내부 브라우저 저장소.</li>
+                        <li><strong>서버 전송 여부</strong>: 일체 외부 서버로 전송되거나 중앙 DB에 누적되지 않으며, 브라우저 방문 기록 및 캐시 삭제 시 즉시 파기됩니다.</li>
+                    </ul>
+                </section>
 
-    <!-- Article 4 -->
-    <article class="tech-card">
-      <div class="tech-card-header">
-        <span class="tech-card-badge">Article 4</span>
-        <h2 class="tech-card-title">Cookies, Google Analytics &amp; Google AdSense</h2>
-      </div>
-      <p>
-        To monitor uptime, optimize rendering performance, and sustain our zero-server indie architecture, the Service utilizes <strong>Google Analytics 4</strong> and <strong>Google AdSense</strong> provided by Google LLC.
-      </p>
-      <ul>
-        <li><strong>Google Analytics (Telemetry):</strong> Collects anonymized telemetry (pages viewed, session duration, device type) via first-party cookies to help us improve site responsiveness and client-side memory safety.</li>
-        <li><strong>Google AdSense &amp; Third-Party Cookies:</strong> Third-party vendors, including Google, use cookies (such as the DoubleClick / advertising cookie) to serve non-intrusive advertisements based on a user's prior visits to this website or other websites across the Internet.</li>
-        <li><strong>Personalized Advertising:</strong> Google's use of advertising cookies enables it and its certified partners to serve ads to users based on their navigation history on RunAnalyz and other destinations online.</li>
-        <li><strong>User Opt-Out Rights:</strong> You retain complete control over cookie usage and personalized ad targeting:
-          <ol style="margin-top:0.5rem; padding-left:1.2rem;">
-            <li>Users may opt out of personalized advertising by visiting Google's official <a href="https://adssettings.google.com" target="_blank" rel="noopener" style="color:#00f2fe;">Google Ads Settings</a>.</li>
-            <li>Alternatively, users can opt out of a third-party vendor's use of cookies for personalized advertising by visiting the Network Advertising Initiative at <a href="https://www.aboutads.info" target="_blank" rel="noopener" style="color:#00f2fe;">www.aboutads.info</a> or <a href="https://optout.networkadvertising.org" target="_blank" rel="noopener" style="color:#00f2fe;">optout.networkadvertising.org</a>.</li>
-            <li>You may block or delete cookies at any time via your browser settings, or install the official <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener" style="color:#00f2fe;">Google Analytics Opt-out Browser Add-on</a>.</li>
-          </ol>
-        </li>
-      </ul>
-    </article>
+                <section class="article-section">
+                    <h2>3. Google 애드센스 및 타사 쿠키(Cookie) 정책</h2>
+                    <p>
+                        본 서비스는 지속 가능한 무료 연구·도구 제공을 위해 제3자 광고 사업자인 Google(Google AdSense)의 광고를 송출합니다:
+                    </p>
+                    <ul>
+                        <li>Google을 포함한 제3자 공급업체는 쿠키를 사용하여 이용자가 본 웹사이트 또는 다른 웹사이트를 과거에 방문한 기록을 바탕으로 맞춤형 광고를 게재합니다.</li>
+                        <li>Google의 광고 쿠키 사용으로 인해 Google 및 파트너사는 이용자의 본 사이트 및 인터넷의 다른 사이트 방문 기록을 바탕으로 관련성 높은 광고를 제공할 수 있습니다.</li>
+                        <li><strong>맞춤형 광고 수신 거부(Opt-Out)</strong>: 이용자는 <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" style="color:var(--primary-blue); font-weight:700;">Google 광고 설정</a>을 방문하여 맞춤형 광고를 비활성화할 수 있습니다. 또는 <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer" style="color:var(--primary-blue); font-weight:700;">www.aboutads.info</a>를 통해 제3자 공급업체의 맞춤 광고용 쿠키 사용을 차단할 수 있습니다.</li>
+                    </ul>
+                </section>
 
-    <!-- Article 5 -->
-    <article class="tech-card">
-      <div class="tech-card-header">
-        <span class="tech-card-badge">Article 5</span>
-        <h2 class="tech-card-title">User Rights, One-Click Disconnect &amp; Permanent Purge</h2>
-      </div>
-      <p>
-        You retain unconditional sovereignty over your fitness data:
-      </p>
-      <ul>
-        <li><strong>1-Click Strava Disconnect:</strong> Clicking <code>[Disconnect]</code> in the top navigation or runner profile immediately and permanently purges your Strava OAuth tokens and all cached activities from your browser storage. Zero server trace remains.</li>
-        <li><strong>Reset Profile:</strong> The <code>[Reset to Defaults]</code> button in your profile settings clears custom MHR, RHR, and age parameters with one tap.</li>
-        <li><strong>Browser Storage Clear:</strong> Using your browser's "Clear Site Data" utility instantly wipes all stored data and returns the app to pristine demo state.</li>
-      </ul>
-    </article>
+                <section class="article-section">
+                    <h2>4. Google Analytics 트래픽 분석 도구</h2>
+                    <p>
+                        서비스는 웹사이트의 품질 개선 및 사용자 트래픽 통계 파악을 위해 Google Analytics(GA4)를 사용합니다. 이 과정에서 개인을 식별할 수 없는 익명화된 비식별 통계 정보(방문 페이지, 기기 유형, 대략적인 국가/지역 등)가 전송될 수 있습니다.
+                    </p>
+                </section>
 
-    <!-- Article 6: Non-commercial & Minimal Ad Pledge -->
-    <article class="tech-card">
-      <div class="tech-card-header">
-        <span class="tech-card-badge">Article 6</span>
-        <h2 class="tech-card-title">Non-Commercial Commitment &amp; Minimal Ad Policy</h2>
-      </div>
-      <p>
-        RunAnalyz is built for fellow runners, not commercial monetization. We reject interstitial pop-ups, video takeovers, and paywalled physiological metrics.
-      </p>
-      <p>
-        To offset ongoing domain registration and Strava API developer subscription overhead, we reserve the right to display at most a single static, non-intrusive banner or voluntary coffee tip link.
-      </p>
-    </article>
+                <section class="article-section">
+                    <h2>5. 개인정보 보호책임자 및 문의처</h2>
+                    <p>
+                        개인정보 처리방침과 관련된 문의, 제안, 권리 행사는 아래의 공식 연락처로 언제든지 문의해 주시기 바랍니다:
+                    </p>
+                    <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:12px; padding:18px; margin:20px 0;">
+                        <ul style="list-style:none; padding:0; margin:0; line-height:2; font-size:0.92rem;">
+                            <li><strong>개인정보 보호책임자</strong>: chicstory (ThePathLab)</li>
+                            <li><strong>공식 이메일</strong>: <a href="mailto:chicstory@gmail.com" style="color:var(--primary-blue); font-weight:700;">chicstory@gmail.com</a></li>
+                        </ul>
+                    </div>
+                </section>
+            </article>
 
-    <!-- Article 7 -->
-    <article class="tech-card">
-      <div class="tech-card-header">
-        <span class="tech-card-badge">Article 7</span>
-        <h2 class="tech-card-title">Privacy Officer &amp; Contact</h2>
-      </div>
-      <p>All inquiries regarding data privacy or feature suggestions can be directed to our official channel:</p>
-      <div class="email-box">
-        <i class="bi bi-envelope-at-fill" style="color:#ff5722;"></i>
-        <span id="privacy-email-display">chicstory2nd@gmail.com</span>
-      </div>
-      <p style="font-size: 0.88rem; color: #64748b; margin-top: 0.5rem;">
-        * Email address is obfuscated against scraping bots. Clicking will open your default email client.
-      </p>
-      <div style="margin-top: 1.25rem;">
-        <a href="about.html#contact-section" style="display:inline-flex; align-items:center; gap:0.5rem; background:linear-gradient(135deg,#ff5722,#ff8a65); color:#fff; padding:0.75rem 1.5rem; border-radius:12px; font-weight:800; text-decoration:none; font-family:'Outfit',sans-serif;">
-          <i class="bi bi-chat-right-text-fill"></i> Go to Contact &amp; Feedback Page
-        </a>
-      </div>
-    </article>
+            <div style="margin-top: 36px; text-align: center;">
+                <a href="index.html" class="article-cta-btn">← 메인 화면으로 돌아가기</a>
+            </div>
+        </div>
+    </main>
 
-    <div style="text-align:center; padding:1.5rem; color:#64748b; font-size:0.85rem;">
-      Effective Date: September 10, 2026 | Last Updated: September 27, 2026
-    </div>
-
-    <!-- Footer -->
-    <footer style="text-align:center; padding:2rem 1rem 3rem 1rem; border-top:1px solid rgba(255,255,255,0.08); margin-top:2rem; color:#64748b; font-size:0.85rem;">
-      <p>RunAnalyz Engine &copy; 2026. Running &amp; Aerobic EF Analytics.</p>
+    <footer class="app-footer">
+        <div class="footer-links" style="margin-bottom: 8px;">
+            <a href="about.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 8px; font-size: 0.82rem; font-weight: 700;">서비스 소개</a> •
+            <a href="privacy.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 8px; font-size: 0.82rem; font-weight: 700;">개인정보처리방침</a> •
+            <a href="terms.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 8px; font-size: 0.82rem; font-weight: 700;">이용약관</a>
+        </div>
+        <p>© 2026 RunAnalyz. Scientific Running Performance & Training Guide.</p>
     </footer>
-
-  </div>
-
-  <script>
-    // Anti-Spam Decoded Email Display
-    const _p1 = 'Y2hpY3N0b3J5Mm5k';
-    const _p2 = 'QGdtYWlsLmNvbQ==';
-    document.addEventListener('DOMContentLoaded', () => {
-      try {
-        const el = document.getElementById('privacy-email-display');
-        if (el) el.textContent = atob(_p1) + atob(_p2);
-      } catch (e) {}
-    });
-  </script>
 </body>
 </html>

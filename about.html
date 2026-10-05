@@ -1,703 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QREC5DVG9M"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-QREC5DVG9M');
-    gtag('config', 'G-K3PFHN6VW7');
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서비스 소개 & 문의 (About) | RunAnalyz</title>
+    <meta name="description" content="RunAnalyz는 스포츠 생체역학과 운동생리학 연구 논문을 기반으로 러너의 체력, 심장연비(EF), 훈련 페이스를 과학적으로 진단하는 린 러닝 랩입니다.">
+    <link rel="canonical" href="https://runanalyz.com/about.html">
 
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1876940323402065"
-     crossorigin="anonymous"></script>
+    <!-- Google Tag (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QREC5DVG9M"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QREC5DVG9M');
+        gtag('config', 'G-K3PFHN6VW7');
+    </script>
 
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1876940323402065" crossorigin="anonymous"></script>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About &amp; Contact | RunAnalyz - Aerobic EF Running Engine</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="RunAnalyz: Next-generation sports science running analytics engine built around Aerobic Efficiency Factor (EF). Project mission, architecture vision, and official contact.">
-  <meta name="keywords" content="RunAnalyz, sports science, aerobic efficiency, EF, running analytics, Strava running coach, ThePathLab">
-  <meta name="author" content="RunAnalyz">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#090d16">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://runanalyz.com/about.html">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
 
-  <!-- Favicon & Mobile Icons -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="RunAnalyz">
-  <meta property="og:title" content="About &amp; Contact | RunAnalyz">
-  <meta property="og:description" content="Next-generation sports science running analytics engine powered by Aerobic Efficiency Factor (EF).">
-  <meta property="og:image" content="https://runanalyz.com/runanalyz_app_icon.jpg">
-  <meta property="og:url" content="https://runanalyz.com/about.html">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="About &amp; Contact | RunAnalyz">
-  <meta name="twitter:description" content="RunAnalyz engine overview, architectural vision, and official contact.">
-  <meta name="twitter:image" content="https://runanalyz.com/runanalyz_app_icon.jpg">
-
-  <!-- Google Fonts: Inter, Outfit, JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="style.css?v=20260915_v15_ai_coach">
-
-  <style>
-    /* Robust Subpage Dark Tech Embedded Styling */
-    body {
-      background-color: #090d16 !important;
-      color: #f8fafc !important;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-      min-height: 100vh;
-      background-image: 
-        radial-gradient(circle at 15% 10%, rgba(255, 87, 34, 0.1) 0%, transparent 40%),
-        radial-gradient(circle at 85% 25%, rgba(0, 242, 254, 0.08) 0%, transparent 45%),
-        radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%) !important;
-      background-attachment: fixed !important;
-    }
-
-    .subpage-wrapper {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 1.5rem 1.25rem 5rem 1.25rem;
-    }
-
-    /* Unified Header */
-    .subpage-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.85rem 1.5rem;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 18px;
-      margin-bottom: 2.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    .subpage-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      text-decoration: none;
-    }
-
-    .subpage-brand-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #ff5722 0%, #ff8a65 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 1.1rem;
-      box-shadow: 0 0 15px rgba(255, 87, 34, 0.4);
-    }
-
-    .subpage-brand-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      color: #fff;
-    }
-
-    .subpage-menu-links {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-    }
-
-    .subpage-menu-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.42rem 0.85rem;
-      border-radius: 10px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #94a3b8;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .subpage-menu-btn:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .subpage-menu-btn.active {
-      color: #ff5722;
-      background: rgba(255, 87, 34, 0.12);
-      border-color: rgba(255, 87, 34, 0.35);
-    }
-
-    /* Hero Banner */
-    .hero-banner {
-      text-align: center;
-      padding: 2.5rem 1rem 3rem 1rem;
-      margin-bottom: 2.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .hero-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #ff5722;
-      background: rgba(255, 87, 34, 0.12);
-      border: 1px solid rgba(255, 87, 34, 0.3);
-      padding: 0.35rem 0.9rem;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      letter-spacing: 1.5px;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 2.6rem;
-      font-weight: 900;
-      letter-spacing: -1px;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-desc {
-      font-size: 1.05rem;
-      color: #94a3b8;
-      max-width: 680px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    /* Content Cards */
-    .tech-card {
-      background: rgba(18, 26, 44, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
-      padding: 2.25rem;
-      margin-bottom: 2rem;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      transition: all 0.25s ease;
-    }
-
-    .tech-card:hover {
-      border-color: rgba(255, 255, 255, 0.18);
-      transform: translateY(-2px);
-    }
-
-    .tech-card-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .tech-card-icon {
-      font-size: 1.5rem;
-      color: #ff5722;
-    }
-
-    .tech-card-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .tech-card p {
-      color: #94a3b8;
-      line-height: 1.75;
-      font-size: 0.96rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .tech-card p:last-child {
-      margin-bottom: 0;
-    }
-
-    .callout-box {
-      background: rgba(0, 242, 254, 0.06);
-      border-left: 4px solid #00f2fe;
-      padding: 1.2rem 1.5rem;
-      border-radius: 0 14px 14px 0;
-      margin: 1.5rem 0;
-    }
-
-    .callout-box p {
-      color: #e2e8f0;
-      margin: 0;
-      font-size: 0.95rem;
-    }
-
-    .features-3col {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.25rem;
-      margin-top: 1.5rem;
-    }
-
-    .feature-box {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 16px;
-      padding: 1.4rem;
-    }
-
-    .feature-box-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .feature-box-desc {
-      font-size: 0.9rem;
-      color: #94a3b8;
-      line-height: 1.6;
-    }
-
-    /* Contact Special Box */
-    .contact-hero-card {
-      background: linear-gradient(135deg, rgba(255, 87, 34, 0.09) 0%, rgba(0, 242, 254, 0.06) 100%);
-      border: 1px solid rgba(255, 87, 34, 0.25);
-      border-radius: 28px;
-      padding: 2.5rem;
-      text-align: center;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .contact-email-bar {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: rgba(9, 13, 22, 0.9);
-      border: 1px solid rgba(0, 242, 254, 0.35);
-      padding: 0.85rem 1.6rem;
-      border-radius: 14px;
-      margin: 1.5rem 0;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #00f2fe;
-      box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
-    }
-
-    .contact-btn-row {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-
-    .c-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.6rem;
-      border-radius: 12px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 800;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .c-btn-primary {
-      background: linear-gradient(135deg, #ff5722 0%, #ff8a65 100%);
-      color: #fff;
-      border: none;
-      box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
-    }
-
-    .c-btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(255, 87, 34, 0.6);
-    }
-
-    .c-btn-secondary {
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .c-btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.35);
-    }
-
-    /* Form */
-    .inq-form {
-      max-width: 620px;
-      margin: 0 auto;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      background: rgba(9, 13, 22, 0.6);
-      padding: 1.75rem;
-      border-radius: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .inq-input, .inq-textarea {
-      width: 100%;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 10px;
-      padding: 0.85rem 1rem;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s ease;
-    }
-
-    .inq-input:focus, .inq-textarea:focus {
-      border-color: #00f2fe;
-      box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
-    }
-
-    .inq-textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    /* Toast */
-    .c-toast {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid #00f2fe;
-      color: #fff;
-      padding: 0.85rem 1.4rem;
-      border-radius: 12px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(20px);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 10000;
-    }
-
-    .c-toast.show {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 768px) {
-      .subpage-wrapper { padding: 1rem 0.85rem 4rem 0.85rem; }
-      .subpage-nav { flex-direction: column; gap: 0.85rem; align-items: stretch; padding: 1rem; }
-      .subpage-menu-links { justify-content: space-around; }
-      .hero-title { font-size: 2rem; }
-      .tech-card { padding: 1.25rem 0.95rem; border-radius: 16px; }
-      .features-3col { grid-template-columns: 1fr; gap: 0.85rem; }
-      .feature-box { padding: 1.15rem 0.95rem; }
-      .contact-hero-card { padding: 1.5rem 0.95rem; border-radius: 18px; }
-      .contact-email-bar {
-        font-size: 0.95rem;
-        padding: 0.65rem 0.85rem;
-        max-width: 100%;
-        box-sizing: border-box;
-        overflow-wrap: break-word;
-        word-break: break-all;
-        justify-content: center;
-      }
-      .contact-btn-row { flex-direction: column; align-items: stretch; gap: 0.65rem; }
-      .c-btn { justify-content: center; width: 100%; box-sizing: border-box; }
-      .inq-form { padding: 1.25rem 0.95rem; border-radius: 14px; }
-    }
-  </style>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="subpage-wrapper">
-    
-    <!-- Unified Top Navigation -->
-    <nav class="subpage-nav">
-      <a href="index.html" class="subpage-brand">
-        <div class="subpage-brand-icon"><img src="favicon.png" alt="RunAnalyz" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block;"></div>
-        <span class="subpage-brand-title">RUN<span style="color:#ff5722;">ANALYZ</span></span>
-      </a>
-      <div class="subpage-menu-links">
-        <a href="index.html" class="subpage-menu-btn"><i class="bi bi-speedometer2"></i> Dashboard</a>
-        <a href="guide.html" class="subpage-menu-btn"><i class="bi bi-book-half"></i> User Guide</a>
-        <a href="about.html" class="subpage-menu-btn active"><i class="bi bi-info-circle-fill"></i> About &amp; Contact</a>
-        <a href="privacy.html" class="subpage-menu-btn"><i class="bi bi-shield-check"></i> Privacy Policy</a>
-        <a href="https://shoef.runanalyz.com" class="subpage-menu-btn text-orange" target="_blank" title="Global 10 Brands 94 Shoes Wiki &amp; Lab Spec Comparison"><i class="bi bi-tag-fill"></i> Shoes Wiki</a>
-      </div>
-    </nav>
 
-    <!-- Hero Banner -->
-    <header class="hero-banner">
-      <div class="hero-badge"><i class="bi bi-fire"></i> SPORTS SCIENCE RUNNING ANALYTICS</div>
-      <h1 class="hero-title">RunAnalyz: Aerobic Efficiency (EF) Running Engine</h1>
-      <p class="hero-desc">
-        Beyond raw distance and vanity splits. A lightweight sports science platform built to diagnose your true cardiovascular adaptation through Aerobic Efficiency Factor (EF) and biomechanical dynamics.
-      </p>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">RunAnalyz</span>
+            </a>
+            <nav class="header-nav-links">
+                <a href="index.html" class="header-nav-link">← 메인으로 돌아가기</a>
+            </nav>
+        </div>
     </header>
 
-    <!-- Mission Card -->
-    <article class="tech-card">
-      <div class="tech-card-header">
-        <i class="bi bi-cpu-fill tech-card-icon"></i>
-        <h2 class="tech-card-title">Our Mission &amp; Philosophy</h2>
-      </div>
-      <p>
-        Every runner pushes their limits day after day. Yet most commercial running apps focus solely on external outputs — "how many miles did you log today?" or "how fast was that mile?"
-      </p>
-      <p>
-        <strong>RunAnalyz</strong> anchors its core diagnostic engine in the <strong>Aerobic Efficiency Factor (EF)</strong>: the speed produced per beat of cardiac work. Running an identical 7:30/mi (or 4:40/km) pace at 145 bpm instead of 165 bpm represents authentic cardiovascular expansion and metabolic durability.
-      </p>
-      <div class="callout-box">
-        <p><strong>💡 Core Credo:</strong> "Heart over miles, efficiency over ego. Data-driven running science for sustainable, injury-free lifelong progression."</p>
-      </div>
-    </article>
+    <main class="container">
+        <div class="article-wrapper">
+            <header class="article-header">
+                <span class="article-breadcrumb"><a href="index.html">RunAnalyz</a> › 서비스 소개</span>
+                <h1>RunAnalyz 서비스 철학 및 과학적 배경</h1>
+                <div class="article-meta">
+                    <span>린 러닝 사이언스 랩</span>
+                    <span>공식 문의: chicstory@gmail.com</span>
+                </div>
+            </header>
 
-    <!-- Developer Story Card: Born from Runner's Curiosity -->
-    <article class="tech-card">
-      <div class="tech-card-header">
-        <i class="bi bi-chat-quote-fill tech-card-icon" style="color:#ff5722;"></i>
-        <h2 class="tech-card-title">The Story Behind RunAnalyz: Born from Runner's Curiosity</h2>
-      </div>
-      <p>
-        "Is my daily training pace truly aligned with my physiological aerobic threshold?", "Where does my cardiac efficiency rank among fellow runners in my age category?"
-      </p>
-      <p>
-        As a dedicated distance runner, I constantly looked for clear visibility into <strong>aerobic decoupling (Pw:HR drift)</strong> and <strong>true EF progression</strong> across seasons. Existing commercial platforms either buried these vital metrics behind hefty monthly paywalls or left them unexplained.
-      </p>
-      <p>
-        Driven purely by an indie runner's obsession with data and clean UI, I set out to build RunAnalyz: an instant, open-access diagnostic engine for runners worldwide.
-      </p>
-      <div class="callout-box" style="border-left-color: #00f2fe; background: rgba(0, 242, 254, 0.06);">
-        <p>
-          <strong>🔒 100% Zero-Server Local Privacy Principle:</strong><br>
-          RunAnalyz never stores your private activity records or athlete profile in a central database. 
-          When you link your Strava account, your workout data is read directly into your browser's private local memory (IndexedDB/localStorage) to render your analytics. The moment you disconnect, 100% of your cached data is permanently erased.
-        </p>
-      </div>
-      <div class="callout-box" style="border-left-color: #ff5722; background: rgba(255, 87, 34, 0.06); margin-top: 1rem;">
-        <p>
-          <strong>☕ Minimal Ad &amp; Open Community Commitment:</strong><br>
-          RunAnalyz is a non-commercial indie engineering project. 
-          Beyond a single unobtrusive banner or voluntary coffee sponsorship to cover domain and Strava API maintenance fees, we pledge never to deploy intrusive pop-up ads or paywalled core features.
-        </p>
-      </div>
-    </article>
+            <article class="article-body">
+                <section class="article-section">
+                    <h2>1. 프로젝트 미션: "느림의 과학이 만드는 부상 없는 완주"</h2>
+                    <p>
+                        달리기는 전 세계에서 가장 진입 장벽이 낮은 스포츠이지만, 매년 전체 러너의 50% 이상이 부상으로 훈련을 중단합니다. 대부분의 부상은 러너의 의지 부족이 아니라, <strong>자신의 심폐 체력과 맞지 않는 오버페이스(Overpacing)와 불필요한 과훈련</strong>에서 비롯됩니다.
+                    </p>
+                    <p>
+                        <strong>RunAnalyz</strong>는 회원가입이나 복잡한 스마트워치 연동 없이, 1초 만에 러너 본인에게 가장 안전하고 과학적인 훈련 속도와 심장 연비(EF)를 처방하여 부상 없이 건강하게 마라톤을 완주할 수 있도록 돕는 비영리·독립 연구형 러닝 랩입니다.
+                    </p>
+                </section>
 
-    <!-- ShoeF Integration Card: Running Shoes Lab Wiki -->
-    <article class="tech-card">
-      <div class="tech-card-header">
-        <i class="bi bi-tag-fill tech-card-icon" style="color:#ff5722;"></i>
-        <h2 class="tech-card-title">ShoeF Lab Wiki &amp; 1:1 Head-to-Head Comparison</h2>
-      </div>
-      <p>
-        In endurance running, pairing the right footwear ("tires") with your physiological engine is crucial to preventing overuse injuries and optimizing running economy.
-      </p>
-      <p>
-        RunAnalyz seamlessly pairs with <strong><a href="https://shoef.runanalyz.com" target="_blank" style="color:#ff5722; font-weight:700; text-decoration:underline;">ShoeF</a></strong> — our open encyclopedia cataloging lab-measured specs across 94 iconic models from 10 global brands.
-      </p>
-      <div class="features-3col" style="margin-top: 1rem;">
-        <div class="feature-box">
-          <div class="feature-box-title"><i class="bi bi-rulers text-orange"></i> 100% Lab-Verified Specs</div>
-          <div class="feature-box-desc">Zero marketing fluff. Real cut-in-half lab measurements: stack height, heel-to-toe drop, midsole durometer, and carbon plate rigidity.</div>
+                <section class="article-section">
+                    <h2>2. 과학적 알고리즘 & 검증된 학술 출처</h2>
+                    <p>
+                        RunAnalyz의 모든 계산 도구와 훈련 플래너는 스포츠 생체역학 및 운동생리학의 대표적인 검증 논문들을 기반으로 동작합니다:
+                    </p>
+                    <ul>
+                        <li><strong>Jack Daniels 박사의 VDOT 생체역학 모델</strong>: 산소 섭취량($\text{VO}_2$)과 러닝 이코노미를 결합하여 이지런, 젖산역치(T), 인터벌(I) 훈련 속도를 도출합니다.</li>
+                        <li><strong>Karvonen 심박 예비력(HRR) 공식</strong>: 연령별 최대심박수($208 - 0.7 \times \text{Age}$)와 안정시 심박수를 결합한 개인화 심박수 존을 산출합니다.</li>
+                        <li><strong>Joe Friel의 심장 효율 지수(Aerobic Efficiency Factor, EF)</strong>: 심박수 1박당 전진 속도(Speed / HR)를 측정하여 심장의 유산소 기저 발달 상태를 추적합니다.</li>
+                        <li><strong>Jones & Doust (1996) 트레드밀 경사도 연구</strong>: 실내 러닝머신에서 공기 저항 상쇄를 위한 '경사도 1.0%의 법칙'을 공식 적용합니다.</li>
+                    </ul>
+                </section>
+
+                <section class="article-section">
+                    <h2>3. 운영 주체 및 공식 연락처</h2>
+                    <p>
+                        RunAnalyz는 러너 커뮤니티의 건강한 러닝 문화를 응원하는 1인 오픈소스 파운더십(ThePathLab) 프로젝트입니다. 데이터의 오류 제보, 논문 출처 제안, 제휴 및 버그 신고는 언제나 환영합니다.
+                    </p>
+                    <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:12px; padding:18px; margin:20px 0;">
+                        <ul style="list-style:none; padding:0; margin:0; line-height:2; font-size:0.92rem;">
+                            <li><strong>서비스명</strong>: RunAnalyz (런애널라이즈)</li>
+                            <li><strong>웹사이트</strong>: <a href="https://runanalyz.com" style="color:var(--primary-blue); font-weight:700;">https://runanalyz.com</a></li>
+                            <li><strong>책임 운영자</strong>: chicstory (ThePathLab)</li>
+                            <li><strong>공식 이메일</strong>: <a href="mailto:chicstory@gmail.com" style="color:var(--primary-blue); font-weight:700;">chicstory@gmail.com</a></li>
+                        </ul>
+                    </div>
+                </section>
+            </article>
+
+            <div style="margin-top: 36px; text-align: center;">
+                <a href="index.html" class="article-cta-btn">⚡ RunAnalyz 무료 체력 진단하러 가기</a>
+            </div>
         </div>
-        <div class="feature-box">
-          <div class="feature-box-title"><i class="bi bi-tags-fill" style="color:#f59e0b;"></i> Value &amp; Outlet Classics</div>
-          <div class="feature-box-desc">Curated roster of 2023~2025 past-season classics offering premium performance at 30~50% outlet discounts.</div>
-        </div>
-        <div class="feature-box">
-          <div class="feature-box-title"><i class="bi bi-arrows-angle-contract" style="color:#00f2fe;"></i> 1:1 Side-by-Side Matrix</div>
-          <div class="feature-box-desc">Compare two shoes instantly across weight, cushioning category, width fit (D/2E/4E), and generational changes in 1 second.</div>
-        </div>
-      </div>
-      <div style="margin-top: 1.25rem; text-align:center;">
-        <a href="https://shoef.runanalyz.com" target="_blank" class="subpage-menu-btn text-orange" style="padding: 0.65rem 1.5rem; font-size: 0.95rem; border-color:rgba(255,87,34,0.5);">
-          <i class="bi bi-tag-fill"></i> Explore ShoeF Lab Wiki (shoef.runanalyz.com) &rarr;
-        </a>
-      </div>
-    </article>
+    </main>
 
-    <!-- Core Features Card -->
-    <article class="tech-card">
-      <div class="tech-card-header">
-        <i class="bi bi-gear-wide-connected tech-card-icon"></i>
-        <h2 class="tech-card-title">3 Pillars of Core Analytics</h2>
-      </div>
-      <div class="features-3col">
-        <div class="feature-box">
-          <div class="feature-box-title"><i class="bi bi-activity text-orange"></i> Aerobic EF Engine</div>
-          <div class="feature-box-desc">Filters out idle/stop noise from GPS streams to calculate pure cardiac cost down to 0.001 EF precision across like-intensity sessions.</div>
+    <footer class="app-footer">
+        <div class="footer-links" style="margin-bottom: 8px;">
+            <a href="about.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 8px; font-size: 0.82rem; font-weight: 700;">서비스 소개</a> •
+            <a href="privacy.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 8px; font-size: 0.82rem; font-weight: 700;">개인정보처리방침</a> •
+            <a href="terms.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 8px; font-size: 0.82rem; font-weight: 700;">이용약관</a>
         </div>
-        <div class="feature-box">
-          <div class="feature-box-title"><i class="bi bi-shield-check" style="color:#00f2fe;"></i> Acute:Chronic Workload (ACWR)</div>
-          <div class="feature-box-desc">Tracks rolling 4-week mileage build-up to preemptively flag overtraining spikes and reduce injury risks like Achilles tendinitis and shin splints.</div>
-        </div>
-        <div class="feature-box">
-          <div class="feature-box-title"><i class="bi bi-lock-fill" style="color:#10b981;"></i> Zero-Server Privacy</div>
-          <div class="feature-box-desc">Your uploaded FIT files and Strava streams stay 100% inside your browser's private memory sandbox. Total sovereignty over your fitness data.</div>
-        </div>
-      </div>
-    </article>
-
-    <!-- Contact & Feedback Card -->
-    <article class="contact-hero-card" id="contact-section">
-      <div class="hero-badge" style="margin-bottom:0.75rem;"><i class="bi bi-envelope-fill"></i> OFFICIAL CONTACT</div>
-      <h2 style="font-family:'Outfit',sans-serif; font-size:1.8rem; font-weight:900; color:#fff; margin-bottom:0.75rem;">
-        Inquiries, Feedback &amp; Partnerships
-      </h2>
-      <p style="color:#94a3b8; font-size:0.95rem; max-width:600px; margin:0 auto 1.5rem auto; line-height:1.6;">
-        Feature requests, bug reports, and data integration ideas from fellow runners are always welcome.<br>
-        To defend against spam harvesting bots, please use the verified channels below.
-      </p>
-
-      <!-- Anti-Spam Decoded Email Bar -->
-      <div class="contact-email-bar">
-        <i class="bi bi-shield-lock-fill" style="color:#ff5722;"></i>
-        <span id="safe-email-display">Loading...</span>
-      </div>
-
-      <div class="contact-btn-row">
-        <button class="c-btn c-btn-primary" id="btn-copy-email">
-          <i class="bi bi-clipboard-check-fill"></i> Copy Email Address
-        </button>
-        <button class="c-btn c-btn-secondary" id="btn-open-mail">
-          <i class="bi bi-send-fill"></i> Open Mail Client
-        </button>
-      </div>
-
-      <!-- Quick Inquiry Form -->
-      <form class="inq-form" id="quick-inquiry-form" onsubmit="handleInquirySubmit(event)">
-        <div style="font-family:'Outfit',sans-serif; font-size:1.05rem; font-weight:800; color:#fff; margin-bottom:0.25rem;">
-          <i class="bi bi-chat-square-text-fill text-orange"></i> Quick Message
-        </div>
-        <input type="text" id="inq-name" class="inq-input" placeholder="Your Name or Running Handle" required>
-        <input type="text" id="inq-subject" class="inq-input" placeholder="Subject (e.g. Strava sync feedback, feature idea)" required>
-        <textarea id="inq-message" class="inq-textarea" placeholder="Write your thoughts, feedback, or suggestions here..." required></textarea>
-        <button type="submit" class="c-btn c-btn-primary" style="align-self: flex-start;">
-          <i class="bi bi-envelope-paper-heart-fill"></i> Send Message
-        </button>
-      </form>
-    </article>
-
-    <!-- Footer -->
-    <footer style="text-align:center; padding:3rem 1rem; border-top:1px solid rgba(255,255,255,0.08); margin-top:3rem; color:#64748b; font-size:0.85rem;">
-      <p>RunAnalyz Engine &copy; 2026. Running &amp; Aerobic EF Analytics.</p>
+        <p>© 2026 RunAnalyz. Scientific Running Performance & Training Guide.</p>
     </footer>
-
-  </div>
-
-  <!-- Toast Notification -->
-  <div class="c-toast" id="c-toast">
-    <i class="bi bi-check-circle-fill text-orange"></i>
-    <span id="toast-text">Email address copied to clipboard!</span>
-  </div>
-
-  <script>
-    // Anti-Spam Email Obfuscation
-    const _p1 = 'Y2hpY3N0b3J5Mm5k';
-    const _p2 = 'QGdtYWlsLmNvbQ==';
-    function getDecodedEmail() {
-      try {
-        return atob(_p1) + atob(_p2);
-      } catch (e) {
-        return 'chicstory2nd' + '@' + 'gmail.com';
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const email = getDecodedEmail();
-      const displayEl = document.getElementById('safe-email-display');
-      if (displayEl) {
-        displayEl.textContent = email;
-      }
-
-      const btnCopy = document.getElementById('btn-copy-email');
-      if (btnCopy) {
-        btnCopy.onclick = () => {
-          navigator.clipboard.writeText(email).then(() => {
-            showToast('Email address copied to clipboard!');
-          }).catch(() => {
-            showToast('Email: ' + email);
-          });
-        };
-      }
-
-      const btnOpen = document.getElementById('btn-open-mail');
-      if (btnOpen) {
-        btnOpen.onclick = () => {
-          window.location.href = `mailto:${email}?subject=${encodeURIComponent('[RunAnalyz Inquiry] Feedback & Suggestions')}`;
-        };
-      }
-    });
-
-    function showToast(msg) {
-      const toast = document.getElementById('c-toast');
-      const text = document.getElementById('toast-text');
-      if (toast && text) {
-        text.textContent = msg;
-        toast.classList.add('show');
-        setTimeout(() => {
-          toast.classList.remove('show');
-        }, 2500);
-      }
-    }
-
-    function handleInquirySubmit(e) {
-      e.preventDefault();
-      const email = getDecodedEmail();
-      const name = document.getElementById('inq-name').value.trim();
-      const subject = document.getElementById('inq-subject').value.trim();
-      const message = document.getElementById('inq-message').value.trim();
-
-      const fullSubject = encodeURIComponent(`[RunAnalyz] ${subject} (from ${name})`);
-      const fullBody = encodeURIComponent(`Sender: ${name}\n\nMessage:\n${message}\n\n---\nSent via RunAnalyz Web Portal`);
-
-      window.location.href = `mailto:${email}?subject=${fullSubject}&body=${fullBody}`;
-      showToast('Opening your default email client...');
-    }
-  </script>
 </body>
 </html>
