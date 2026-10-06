@@ -1215,27 +1215,7 @@ body {
 }
 
 .ics-download-btn:active {
-.btn-pb-preset {
-    background: #FFFFFF;
-    border: 1px solid var(--border-light);
-    color: var(--text-secondary);
-    font-size: 0.74rem;
-    font-weight: 700;
-    padding: 3px 9px;
-    border-radius: var(--radius-full);
-    cursor: pointer;
-    transition: all 0.15s ease;
-}
-
-.btn-pb-preset:hover {
-    border-color: var(--primary-blue);
-    color: var(--primary-blue);
-}
-
-.btn-pb-preset.active {
-    background: #0F172A;
-    color: #FFFFFF;
-    border-color: #0F172A;
+    transform: scale(0.98);
 }
 
 /* ==========================================================================
@@ -1822,12 +1802,13 @@ body {
 }
 
 .article-header h1 {
-    font-size: 1.6rem;
+    font-size: 1.35rem;
     font-weight: 800;
-    line-height: 1.4;
+    line-height: 1.45;
     color: #0F172A;
     margin: 12px 0;
     letter-spacing: -0.02em;
+    word-break: keep-all;
 }
 
 .article-meta {
@@ -1844,31 +1825,35 @@ body {
 }
 
 .article-section h2 {
-    font-size: 1.3rem;
+    font-size: 1.18rem;
     font-weight: 800;
     color: #0F172A;
-    margin-top: 2.2rem;
-    margin-bottom: 1.1rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
     line-height: 1.45;
     letter-spacing: -0.01em;
+    word-break: keep-all;
 }
 
 .article-section h3 {
-    font-size: 1.12rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: #1E293B;
-    margin-top: 1.6rem;
-    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.7rem;
+    word-break: keep-all;
 }
 
-/* 확실한 문단 분리 & 들여쓰기(text-indent) 도입 */
+/* 확실한 문단 분리 & 들여쓰기(text-indent) 유지 */
 .article-section p {
-    font-size: 1.02rem;
+    font-size: 0.96rem;
     line-height: 1.85;
     color: #334155;
-    margin-bottom: 1.3rem;
+    margin-bottom: 1.25rem;
     text-indent: 1em;
     letter-spacing: -0.01em;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
 }
 
 /* 특수 문단(인용문, 첫머리, 콜아웃 내부 등)은 들여쓰기 제외 */
@@ -1877,6 +1862,25 @@ body {
 div[style*="background"] p,
 table p {
     text-indent: 0 !important;
+}
+
+/* 🔗 아티클 내부 하이퍼링크 스타일 (파란 밑줄 방지 & 세련된 디자인) */
+.article-section a,
+.article-detail a:not(.header-nav-link):not(.brand-text a) {
+    color: var(--primary-blue);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1.5px solid rgba(37, 99, 235, 0.3);
+    padding-bottom: 1px;
+    transition: all 0.15s ease;
+}
+
+.article-section a:hover,
+.article-detail a:not(.header-nav-link):not(.brand-text a):hover {
+    color: #1D4ED8;
+    border-bottom-color: #1D4ED8;
+    background: #EFF6FF;
+    border-radius: 2px;
 }
 
 /* 리스트 불릿(단추) 박스 내부 안착 보장 (패딩 24px) */
@@ -2043,20 +2047,20 @@ table p {
         padding: 14px 10px;
     }
     .article-header h1 {
-        font-size: 1.35rem;
-        line-height: 1.38;
+        font-size: 1.18rem;
+        line-height: 1.42;
     }
     .article-section {
         margin-bottom: 1.8rem;
     }
     .article-section h2 {
-        font-size: 1.15rem;
-        margin-top: 1.6rem;
-        margin-bottom: 0.8rem;
+        font-size: 1.05rem;
+        margin-top: 1.4rem;
+        margin-bottom: 0.7rem;
         line-height: 1.4;
     }
     .article-section p {
-        font-size: 0.95rem;
+        font-size: 0.92rem;
         line-height: 1.8;
         margin-bottom: 1.1rem;
         text-indent: 1em;
@@ -2067,7 +2071,7 @@ table p {
         margin: 0.9rem 0 1.2rem;
     }
     .article-section li {
-        font-size: 0.92rem;
+        font-size: 0.90rem;
         line-height: 1.65;
         margin-bottom: 0.55rem;
     }
@@ -2079,32 +2083,41 @@ table p {
 }
 
 /* ==========================================================================
-   🏅 플래너 원터치 PB 프리셋 칩 스타일
+   📱 플래너 PB 입력 그리드 모바일 반응형 (360px 완벽 대응)
    ========================================================================== */
-.btn-pb-preset {
-    background: #FFFFFF;
-    border: 1px solid var(--border-light);
-    color: var(--text-secondary);
-    font-size: 0.78rem;
+.plan-pb-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 12px;
+    align-items: center;
+}
+
+@media (max-width: 580px) {
+    .plan-pb-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+.plan-time-group {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    width: 100%;
+}
+
+.plan-time-group .form-input {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    padding: 10px 4px;
+    box-sizing: border-box;
+}
+
+.plan-time-group .time-sep {
     font-weight: 700;
-    padding: 5px 10px;
-    border-radius: var(--radius-full);
-    cursor: pointer;
-    transition: all 0.15s ease;
-    white-space: nowrap;
-}
-
-.btn-pb-preset:hover {
-    background: #F1F5F9;
-    color: var(--text-primary);
-    border-color: #CBD5E1;
-}
-
-.btn-pb-preset.active {
-    background: var(--primary-blue);
-    color: #FFFFFF;
-    border-color: var(--primary-blue);
-    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+    color: var(--text-muted);
+    flex-shrink: 0;
 }
 
 

@@ -557,23 +557,25 @@ function initStandalonePlanner() {
     const btnGenerate = document.getElementById('btn-generate-plan');
     const btnIcs = document.getElementById('btn-download-ics');
 
-    // PB 프리셋 버튼 바 이벤트 바인딩
-    initPbPresetButtons();
-
-    // PB 입력값 변경 시 프리셋 active 해제 및 자동 재계산
+    // PB 입력값 실시간 변경 시 결과창 자동 재계산
     const pbInputs = ['plan-pb-dist', 'plan-pb-hour', 'plan-pb-min', 'plan-pb-sec'];
     pbInputs.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
-            el.addEventListener('input', () => {
-                document.querySelectorAll('.btn-pb-preset').forEach(b => b.classList.remove('active'));
-            });
             el.addEventListener('change', () => {
                 const resultBox = document.getElementById('planner-result-box');
                 if (resultBox && resultBox.style.display !== 'none') {
                     generateStandalonePlan();
                 }
             });
+            if (el.tagName === 'INPUT') {
+                el.addEventListener('input', () => {
+                    const resultBox = document.getElementById('planner-result-box');
+                    if (resultBox && resultBox.style.display !== 'none') {
+                        generateStandalonePlan();
+                    }
+                });
+            }
         }
     });
 
@@ -618,40 +620,6 @@ function initStandalonePlanner() {
     // 초기 옵션 로드 및 체크박스 동기화
     updatePlannerDaysOptions();
     syncPlannerDaysWithCheckboxes();
-}
-
-/**
- * PB 원터치 프리셋 버튼 핸들러
- */
-function initPbPresetButtons() {
-    const presetBtns = document.querySelectorAll('.btn-pb-preset');
-    const pbDistSelect = document.getElementById('plan-pb-dist');
-    const pbHourInput = document.getElementById('plan-pb-hour');
-    const pbMinInput = document.getElementById('plan-pb-min');
-    const pbSecInput = document.getElementById('plan-pb-sec');
-
-    presetBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            presetBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const dist = btn.dataset.dist;
-            const h = btn.dataset.h;
-            const m = btn.dataset.m;
-            const s = btn.dataset.s;
-
-            if (pbDistSelect) pbDistSelect.value = dist;
-            if (pbHourInput) pbHourInput.value = h;
-            if (pbMinInput) pbMinInput.value = m;
-            if (pbSecInput) pbSecInput.value = s;
-
-            // 결과창이 열려있으면 즉시 실시간 재반영
-            const resultBox = document.getElementById('planner-result-box');
-            if (resultBox && resultBox.style.display !== 'none') {
-                generateStandalonePlan();
-            }
-        });
-    });
 }
 
 /**

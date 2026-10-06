@@ -463,7 +463,7 @@
                         <span style="font-size:0.78rem; color:var(--text-secondary);">※ 실제 완주해본 기록을 적어주세요.</span>
                     </div>
 
-                    <div style="display:grid; grid-template-columns: 140px 1fr; gap:12px; align-items:center; margin-bottom:12px;">
+                    <div class="plan-pb-grid">
                         <div>
                             <label for="plan-pb-dist" style="font-size:0.8rem; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">기준 거리</label>
                             <select id="plan-pb-dist" class="form-input" style="font-weight:700;">
@@ -475,25 +475,14 @@
                         </div>
                         <div>
                             <label style="font-size:0.8rem; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">완주 시간 (시 : 분 : 초)</label>
-                            <div style="display:flex; gap:6px; align-items:center;">
-                                <input type="number" id="plan-pb-hour" class="form-input" placeholder="0" min="0" max="10" value="0" style="text-align:center;">
-                                <span style="font-weight:700; color:var(--text-muted);">:</span>
-                                <input type="number" id="plan-pb-min" class="form-input" placeholder="48" min="0" max="59" value="48" style="text-align:center;">
-                                <span style="font-weight:700; color:var(--text-muted);">:</span>
-                                <input type="number" id="plan-pb-sec" class="form-input" placeholder="30" min="0" max="59" value="30" style="text-align:center;">
+                            <div class="plan-time-group">
+                                <input type="number" id="plan-pb-hour" class="form-input" placeholder="0" min="0" max="10" value="0">
+                                <span class="time-sep">:</span>
+                                <input type="number" id="plan-pb-min" class="form-input" placeholder="48" min="0" max="59" value="48">
+                                <span class="time-sep">:</span>
+                                <input type="number" id="plan-pb-sec" class="form-input" placeholder="30" min="0" max="59" value="30">
                             </div>
                         </div>
-                    </div>
-
-                    <!-- 원클릭 PB 프리셋 칩 바 -->
-                    <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-                        <span style="font-size:0.75rem; font-weight:700; color:var(--text-muted); margin-right:2px;">원터치 프리셋:</span>
-                        <button type="button" class="btn-pb-preset" data-dist="5" data-h="0" data-m="27" data-s="30">5k 27분</button>
-                        <button type="button" class="btn-pb-preset active" data-dist="10" data-h="0" data-m="48" data-s="30">10k 48분</button>
-                        <button type="button" class="btn-pb-preset" data-dist="10" data-h="0" data-m="55" data-s="00">10k 55분</button>
-                        <button type="button" class="btn-pb-preset" data-dist="21.0975" data-h="1" data-m="49" data-s="00">하프 1:49</button>
-                        <button type="button" class="btn-pb-preset" data-dist="42.195" data-h="3" data-m="58" data-s="00">풀 3:58(서브4)</button>
-                        <button type="button" class="btn-pb-preset" data-dist="42.195" data-h="3" data-m="28" data-s="00">풀 3:28</button>
                     </div>
                 </div>
 
