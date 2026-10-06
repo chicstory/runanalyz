@@ -2120,5 +2120,277 @@ table p {
     flex-shrink: 0;
 }
 
+/* ==========================================================================
+   👟 러닝 기어 & 테크 랩 (RunRepeat / Garmin / Polar 스타일 전용 컴포넌트)
+   ========================================================================== */
+
+/* 1. 기어 실측 제원 카드 & 랩 테이블 */
+.gear-spec-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.gear-spec-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.gear-spec-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gear-lab-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    background: #EEF2FF;
+    color: #4F46E5;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 999px;
+    letter-spacing: -0.02em;
+}
+
+.gear-spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.gear-spec-table tr {
+    border-bottom: 1px solid var(--border-light);
+}
+
+.gear-spec-table tr:last-child {
+    border-bottom: none;
+}
+
+.gear-spec-table th {
+    text-align: left;
+    padding: 10px 8px;
+    color: var(--text-muted);
+    font-weight: 500;
+    width: 36%;
+    background: #F8FAFC;
+}
+
+.gear-spec-table td {
+    padding: 10px 12px;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+/* 2. 장점(Pros) & 단점(Cons) 2단 비교 박스 */
+.gear-pros-cons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+}
+
+@media (max-width: 640px) {
+    .gear-pros-cons-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
+.gear-box-pros {
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+}
+
+.gear-box-cons {
+    background: #FFF7ED;
+    border: 1px solid #FED7AA;
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+}
+
+.gear-box-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.gear-box-pros .gear-box-title {
+    color: #166534;
+}
+
+.gear-box-cons .gear-box-title {
+    color: #9A3412;
+}
+
+.gear-box-list {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text-main);
+}
+
+.gear-box-list li {
+    margin-bottom: 6px;
+}
+
+/* 3. 런리핏 스타일 에디터 총평 (Verdict) */
+.gear-verdict-box {
+    background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+    border: 1px solid #BFDBFE;
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin: 24px 0;
+}
+
+.gear-verdict-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1E40AF;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.gear-verdict-text {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text-main);
+    margin: 0;
+}
+
+/* 4. 🛒 제휴 마케팅 및 커머스/광고 슬롯 박스 (Affiliate Box) */
+.gear-affiliate-card {
+    background: #FFFFFF;
+    border: 2px solid #E0E7FF;
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin: 28px 0;
+    box-shadow: 0 4px 16px rgba(49, 130, 246, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.gear-affiliate-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #EEF2FF;
+    color: #4F46E5;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.gear-affiliate-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.gear-product-info {
+    flex: 1;
+    min-width: 220px;
+}
+
+.gear-product-brand {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+}
+
+.gear-product-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 6px;
+}
+
+.gear-product-desc {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin-bottom: 0;
+}
+
+.gear-affiliate-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+@media (max-width: 580px) {
+    .gear-affiliate-cta {
+        width: 100%;
+        align-items: stretch;
+    }
+}
+
+.gear-buy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #3182F6;
+    color: #FFFFFF !important;
+    font-size: 0.92rem;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(49, 130, 246, 0.25);
+}
+
+.gear-buy-btn:hover {
+    background: #1B64DA;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(49, 130, 246, 0.35);
+}
+
+.gear-buy-btn:active {
+    transform: scale(0.98);
+}
+
+.gear-disclaimer {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+    text-align: right;
+    line-height: 1.3;
+}
+
+@media (max-width: 580px) {
+    .gear-disclaimer {
+        text-align: left;
+    }
+}
+
+
 
 
