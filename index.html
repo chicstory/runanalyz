@@ -316,63 +316,18 @@
                     </div>
                 </div>
 
-                <!-- 💬 익명 한줄 러너 메모장 (shoef / engines 표준) -->
-                <div class="memo-section">
-                    <div class="memo-header">
-                        <span class="memo-title">💬 러너 실전 한줄 소감 & 팁</span>
-                        <span id="memoCountBadge" class="memo-count-badge">3개</span>
+                <!-- 🎯 내 실력 맞춤 러닝 사이언스 추천 섹션 -->
+                <div class="calc-recommend-section" id="calcRecommendSection">
+                    <div class="recommend-header">
+                        <div>
+                            <span class="recommend-badge" id="recommendTierBadge">실력 맞춤 러닝 지식</span>
+                            <h3 class="recommend-title" id="recommendSectionTitle">러너님을 위한 필독 러닝 사이언스</h3>
+                        </div>
+                        <a href="index.html?view=articles" class="recommend-all-link">전체 19개 아티클 보기 ›</a>
                     </div>
-                    <div class="memo-list-box" id="calcMemoList">
-                        <div class="memo-item">
-                            <div class="memo-item-top">
-                                <span class="memo-author">🏃 잠실러너</span>
-                                <span class="memo-time">방금 전</span>
-                            </div>
-                            <div class="memo-text">10k 48분 찍고 조깅 6분 페이스로 낮췄더니 무릎 통증 싹 사라졌습니다. 조깅은 진짜 느릴수록 보약이네요!</div>
-                        </div>
-                        <div class="memo-item">
-                            <div class="memo-item-top">
-                                <span class="memo-author">🏃 서브3도전</span>
-                                <span class="memo-time">1시간 전</span>
-                            </div>
-                            <div class="memo-text">심박수 Zone 2 지키기가 제일 힘들었는데, 2달 버티니까 같은 심박에서 페이스가 30초 당겨집니다. 강추!</div>
-                        </div>
-                        <div class="memo-item">
-                            <div class="memo-item-top">
-                                <span class="memo-author">🏃 런데이초보</span>
-                                <span class="memo-time">어제</span>
-                            </div>
-                            <div class="memo-text">폰 캘린더에 일정 다운로드 받아서 화목토 알림 오니까 귀찮아도 운동화 끈 묶게 돼요 ㅎㅎ</div>
-                        </div>
+                    <div class="recommend-card-grid" id="recommendCardGrid">
+                        <!-- JS 실시간 렌더링 -->
                     </div>
-                    <form id="calcMemoForm" class="memo-form">
-                        <input type="text" id="hp_trap" style="display:none;" tabindex="-1" autocomplete="off">
-                        
-                        <div class="memo-form-top">
-                            <div class="memo-input-wrap">
-                                <label for="memoAuthor" class="memo-form-label">작성자 닉네임</label>
-                                <input type="text" id="memoAuthor" class="memo-input" placeholder="닉네임 (최대 10자)" maxlength="10" required>
-                            </div>
-                            <div class="memo-captcha-wrap">
-                                <label for="memoAns" class="memo-form-label">보안 퀴즈</label>
-                                <div class="memo-captcha-box">
-                                    <span id="memoQuiz" class="memo-quiz-text">3 + 4 =</span>
-                                    <input type="number" id="memoAns" class="memo-ans-input" placeholder="정답 입력" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="memo-form-bottom">
-                            <div class="memo-text-wrap">
-                                <input type="text" id="memoText" class="memo-input" placeholder="오늘 조깅 페이스나 실전 팁을 한줄로 남겨주세요 (최대 100자)" maxlength="100" required>
-                            </div>
-                            <button type="submit" class="btn-memo-submit">등록</button>
-                        </div>
-
-                        <div class="memo-notice">
-                            ※ 스팸 방지를 위해 간단한 덧셈을 입력해주세요. (10초 쿨다운 적용 • 브라우저 로컬 저장)
-                        </div>
-                    </form>
                 </div>
             </section>
             </div> <!-- end calc-pane-pace -->

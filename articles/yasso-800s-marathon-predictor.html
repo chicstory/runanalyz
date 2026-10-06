@@ -142,6 +142,46 @@
                     <li><strong>Foster, C., et al. (1999).</strong> Athletic performance in relation to training volume, intensity, and frequency. <em>Journal of Strength and Conditioning Research</em>, 13(4), 386-391. [훈련 볼륨과 강도 배분이 마라톤 기록에 미치는 영향]</li>
                 </ol>
             </section>
+        
+            <!-- 💬 익명 한줄 러너 소감 & 팁 -->
+            <div class="memo-section" style="margin-top: 36px;">
+                <div class="memo-header">
+                    <span class="memo-title">💬 러너 실전 한줄 소감 & 팁</span>
+                    <span id="memoCountBadge" class="memo-count-badge">1개</span>
+                </div>
+                <div class="memo-list-box" id="articleMemoList">
+                    <!-- JS 렌더링 -->
+                </div>
+                <form id="articleMemoForm" class="memo-form">
+                    <input type="text" id="hp_trap" style="display:none;" tabindex="-1" autocomplete="off">
+                    
+                    <div class="memo-form-top">
+                        <div class="memo-input-wrap">
+                            <label for="memoAuthor" class="memo-form-label">작성자 닉네임</label>
+                            <input type="text" id="memoAuthor" class="memo-input" placeholder="닉네임 (최대 10자)" maxlength="10" required>
+                        </div>
+                        <div class="memo-captcha-wrap">
+                            <label for="memoAns" class="memo-form-label">보안 퀴즈</label>
+                            <div class="memo-captcha-box">
+                                <span id="memoQuiz" class="memo-quiz-text">3 + 4 =</span>
+                                <input type="number" id="memoAns" class="memo-ans-input" placeholder="정답 입력" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="memo-form-bottom">
+                        <div class="memo-text-wrap">
+                            <input type="text" id="memoText" class="memo-input" placeholder="이 주제에 관한 나만의 경험이나 실전 팁을 남겨주세요 (최대 100자)" maxlength="100" required>
+                        </div>
+                        <button type="submit" class="btn-memo-submit">등록</button>
+                    </div>
+
+                    <div class="memo-notice">
+                        ※ 스팸 방지를 위해 간단한 덧셈을 입력해주세요. (10초 쿨다운 • 브라우저 영구 보존)
+                    </div>
+                </form>
+            </div>
+
         </article>
     </main>
 
@@ -153,6 +193,7 @@
         </div>
         <p style="font-size:0.8rem; color:var(--text-muted); margin:0;">© 2026 RunAnalyz. Scientific Running Performance & Training Guide.</p>
     </footer>
+    <script src="memo.js"></script>
 </body>
 
 </html>
