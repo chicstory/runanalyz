@@ -249,85 +249,106 @@ function renderRecommendedArticles(vdot) {
     if (!grid) return;
 
     let tierBadge = "초급 러너 맞춤";
-    let tierTitle = "부상 없이 완주하는 3대 기초 러닝 사이언스";
+    let tierTitle = "통증 없이 오래 달리는 4대 입문 러닝 사이언스";
     let recommendations = [];
 
-    if (vdot >= 50) {
-        tierBadge = "상급 러너 맞춤 (서브3 & 엘리트)";
+    if (vdot >= 48) {
+        tierBadge = "상급 러너 맞춤 (서브 3.5 & 서브3 도약)";
         tierTitle = "기록 한계를 돌파하는 엘리트 레이스 사이언스";
         recommendations = [
             {
-                href: "articles/yasso-800s-marathon-predictor.html",
-                tag: "스피드 & 인터벌",
-                title: "800m 질주로 마라톤 기록을 예측한다? 야소 800 실전 가이드",
-                desc: "800m 랩타임(분:초)이 풀코스 완주시간(시:분)이 되는 생리학적 원리와 VO2max 자극 빌드업.",
-                action: "야소 800 공식 보기 ›"
+                href: "articles/lactate-threshold-tempo-run-science.html",
+                tag: "상급 마라톤 · 젖산역치와 템포런",
+                title: "젖산역치(LT)와 크리티컬 페이스: 왜 템포런이 마라톤 완주 시간을 바꾸는가",
+                desc: "젖산은 피로물질이 아닌 프리미엄 유산소 연료. VO2max보다 중요한 LT 지점과 20분 템포런 실전 공식.",
+                action: "템포런 공식 읽기 ›"
             },
             {
                 href: "articles/marathon-wall-carbo-loading.html",
-                tag: "풀코스 실전 & 에너지 대사",
+                tag: "상급 마라톤 · 30km 벽과 카보로딩",
                 title: "30km의 벽은 왜 올까? 마라톤 '셧다운'을 막는 호주 체육회 카보로딩",
                 desc: "25~30km 지점에서 다리가 굳는 생리학적 이유와 체중kg당 8~10g 탄수화물 사전 완충법.",
                 action: "카보로딩 공식 읽기 ›"
             },
             {
                 href: "articles/marathon-tapering-science.html",
-                tag: "대회 직전 컨디셔닝 & 피킹",
+                tag: "상급 마라톤 · 대회 직전 테이퍼링 피킹",
                 title: "대회 3주 전, 훈련량을 40% 줄여야 PB가 터지는 생리학 (테이퍼링)",
                 desc: "불안해서 더 뛰면 망합니다. 훈련량(Volume) 감소와 강도(Intensity) 유지의 골디락스 원칙.",
                 action: "테이퍼링 원칙 읽기 ›"
+            },
+            {
+                href: "articles/yasso-800s-marathon-predictor.html",
+                tag: "상급 마라톤 · 야소 800 풀코스 예측",
+                title: "800m 질주로 마라톤 기록을 예측한다? 야소 800(Yasso 800s) 실전 가이드",
+                desc: "800m 랩타임(분:초)이 풀코스 완주시간(시:분)이 되는 생리학적 원리와 VO2max 자극 빌드업.",
+                action: "야소 800 공식 보기 ›"
             }
         ];
-    } else if (vdot >= 40) {
-        tierBadge = "중급 러너 맞춤 (서브4 & 하프)";
-        tierTitle = "심장 연비와 지구력을 극대화하는 핵심 러닝 사이언스";
+    } else if (vdot >= 38) {
+        tierBadge = "중급 러너 맞춤 (10K~하프 빌드업)";
+        tierTitle = "심장 연비와 유산소 지구력을 극대화하는 핵심 러닝 사이언스";
         recommendations = [
             {
                 href: "articles/zone2-training-mitochondria.html",
-                tag: "심폐 지구력 & 유산소 기저",
+                tag: "중급 빌드업 · Zone 2와 미토콘드리아",
                 title: "심박수 Zone 2 훈련의 기적: 천천히 뛰어야 빨라지는 세포 생물학적 이유",
                 desc: "엘리트 러너들이 훈련의 80%를 숨차지 않게 달리는 이유. 세포 에너지 공장 미토콘드리아 증식의 비밀.",
                 action: "Zone 2 원리 보기 ›"
             },
             {
                 href: "articles/cardiac-drift-aerobic-decoupling.html",
-                tag: "심폐 기능 & 심박수",
+                tag: "중급 빌드업 · 심박수 표류와 디커플링",
                 title: "같은 속도인데 왜 심박수는 계속 치솟을까? '심박수 표류'의 생리학",
                 desc: "일정한 페이스에도 심박수가 오르는 1회 박출량 감소 메커니즘과 유산소 디커플링 5% 진단법.",
                 action: "심박수 표류 분석 ›"
             },
             {
+                href: "articles/runner-hydration-electrolytes-hyponatremia.html",
+                tag: "중급 빌드업 · 수분 & 전해질 보충",
+                title: "물만 마시면 쓰러진다? 마라톤 저나트륨혈증의 위험과 시간당 500ml 수분 전해질 공식",
+                desc: "땀으로 손실되는 염분과 저나트륨혈증의 기전. 1시간 이상 러닝 시 전해질 농도(0.5~0.7g/L) 보충 가이드.",
+                action: "수분 보충 가이드 ›"
+            },
+            {
                 href: "articles/post-run-nutrition-glycogen-window.html",
-                tag: "영양 & 회복 생리학",
+                tag: "중급 빌드업 · 회복 영양 골든타임",
                 title: "달린 직후 30분 '기회의 창': 탄수화물·단백질 4:1 황금 비율과 초코우유",
                 desc: "운동 직후 GLUT-4 포도당 수송체가 열리는 골든타임. 비싼 보충제보다 편의점 초코우유가 완벽한 이유.",
                 action: "영양 회복 가이드 ›"
             }
         ];
     } else {
-        tierBadge = "초보 러너 맞춤 (10K 완주 & 부상 방지)";
-        tierTitle = "통증 없이 평생 달리는 3대 입문 러닝 사이언스";
+        tierBadge = "초보 러너 맞춤 (5K~10K 완주 & 부상 방지)";
+        tierTitle = "통증 없이 평생 달리는 4대 입문 기초 러닝 사이언스";
         recommendations = [
             {
                 href: "articles/running-form-footstrike.html",
-                tag: "생체역학 & 부상 방지",
+                tag: "초보 입문 · 안전한 착지법과 주법",
                 title: "앞발 착지 억지로 따라 하다간 다칩니다: 발 착지법의 진실 (포어풋 vs 힐)",
                 desc: "실제 마라토너 94%는 뒤꿈치로 착지합니다. 하버드대 연구와 실측 데이터로 밝혀진 진짜 착지 비밀.",
                 action: "착지법 진실 보기 ›"
             },
             {
                 href: "articles/shin-splints-tibial-stress.html",
-                tag: "정강이 부상 & 생체역학",
+                tag: "초보 입문 · 정강이 통증과 부상 방지",
                 title: "정강이 안쪽이 찢어질 듯 아픈 신스프린트(MTSS): 원인과 3단계 회복법",
                 desc: "단순 근육통이 아닌 정강이 뼈막 과부하 손상. 후경골근·가자미근 강화와 오버스트라이드 교정법.",
                 action: "정강이 재활법 읽기 ›"
             },
             {
                 href: "articles/everyday-running-vs-rest-days.html",
-                tag: "훈련 빈도 & 부상 방지",
+                tag: "초보 입문 · 달리기 빈도와 관절 보호",
                 title: "매일 5km 뛰기 vs 이틀에 한 번 10km 뛰기: 관절과 심폐를 살리는 최적 빈도",
                 desc: "근육은 24시간, 건·인대는 72시간 걸리는 회복 주기의 비대칭. 부상 없이 배기량을 키우는 빈도 설계법.",
                 action: "최적 훈련 빈도 보기 ›"
+            },
+            {
+                href: "articles/itbs-runner-knee-pain.html",
+                tag: "초보 입문 · 무릎 외측 장경인대 통증",
+                title: "무릎 바깥쪽이 찌릿하게 아프다면? 장경인대 증후군(ITBS) 원인과 2주 재활 솔루션",
+                desc: "달리기 3km만 넘어가면 불타는 외측 무릎 통증. 폼롤러 대신 중둔근 강화로 잡는 과학적 재활.",
+                action: "무릎 재활 솔루션 ›"
             }
         ];
     }
@@ -1338,7 +1359,9 @@ function escapeHtml(str) {
  * 5. 러닝 사이언스 카테고리 칩 필터링
  */
 function initArticleFilters() {
-    const filterChips = document.querySelectorAll('.filter-chip');
+    const filterContainer = document.getElementById('articleFilterBar');
+    if (!filterContainer) return;
+    const filterChips = filterContainer.querySelectorAll('.filter-chip');
     const articleCards = document.querySelectorAll('.article-card');
 
     if (!filterChips.length || !articleCards.length) return;
