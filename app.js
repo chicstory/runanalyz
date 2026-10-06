@@ -249,12 +249,12 @@ function renderRecommendedArticles(vdot) {
     if (!grid) return;
 
     let tierBadge = "초급 러너 맞춤";
-    let tierTitle = "통증 없이 오래 달리는 4대 입문 러닝 사이언스";
+    let tierTitle = "통증 없이 오래 달리기 위한 입문 런로그";
     let recommendations = [];
 
     if (vdot >= 48) {
         tierBadge = "상급 러너 맞춤 (서브 3.5 & 서브3 도약)";
-        tierTitle = "기록 한계를 돌파하는 엘리트 레이스 사이언스";
+        tierTitle = "기록 한계를 돌파하는 엘리트 레이스 런로그";
         recommendations = [
             {
                 href: "articles/lactate-threshold-tempo-run-science.html",
@@ -287,7 +287,7 @@ function renderRecommendedArticles(vdot) {
         ];
     } else if (vdot >= 38) {
         tierBadge = "중급 러너 맞춤 (10K~하프 빌드업)";
-        tierTitle = "심장 연비와 유산소 지구력을 극대화하는 핵심 러닝 사이언스";
+        tierTitle = "심장 연비와 유산소 지구력을 위한 핵심 런로그";
         recommendations = [
             {
                 href: "articles/zone2-training-mitochondria.html",
@@ -320,7 +320,7 @@ function renderRecommendedArticles(vdot) {
         ];
     } else {
         tierBadge = "초보 러너 맞춤 (5K~10K 완주 & 부상 방지)";
-        tierTitle = "통증 없이 평생 달리는 4대 입문 기초 러닝 사이언스";
+        tierTitle = "통증 없이 평생 달리기 위한 입문 런로그";
         recommendations = [
             {
                 href: "articles/running-form-footstrike.html",
