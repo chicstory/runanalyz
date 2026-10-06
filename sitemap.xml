@@ -139,4 +139,24 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- 3 New Articles (2026-10-07) -->
+  <url>
+    <loc>https://runanalyz.com/articles/achilles-tendonitis-eccentric-loading.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://runanalyz.com/articles/lactate-threshold-tempo-run-science.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://runanalyz.com/articles/runner-hydration-electrolytes-hyponatremia.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
+

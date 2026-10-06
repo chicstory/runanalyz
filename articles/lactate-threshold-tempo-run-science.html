@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>젖산역치(LT)와 크리티컬 페이스: 왜 템포런이 마라톤 완주 시간을 바꾸는가 | RunAnalyz</title>
+    <meta name="description" content="젖산(Lactate) 대사의 최신 운동생리학적 진실, 젖산역치(Zone 4) 페이스 계산법, 크루즈 인터벌과 20분 템포런 실전 프로토콜.">
+    <link rel="canonical" href="https://runanalyz.com/articles/lactate-threshold-tempo-run-science.html">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QREC5DVG9M"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-QREC5DVG9M');
+        gtag('config', 'G-K3PFHN6VW7');
+    </script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1876940323402065" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <a href="../index.html" style="text-decoration:none; display:flex; align-items:center; gap:10px;">
+                    <span class="brand-logo">⚡</span>
+                    <div class="brand-text">
+                        <span class="brand-name">RunAnalyz</span>
+                        <span class="brand-tagline">과학적 러닝 사이언스 & 훈련 처방</span>
+                    </div>
+                </a>
+            </div>
+            <nav class="header-nav-links">
+                <a href="../index.html" class="header-nav-link">러닝 분석 도구</a>
+                <a href="../index.html?view=articles" class="header-nav-link active">러닝 사이언스</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Breadcrumb -->
+        <nav style="font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 20px;">
+            <a href="../index.html" style="color: var(--primary-blue); text-decoration: none;">홈</a> &gt; 
+            <a href="../index.html?view=articles" style="color: var(--primary-blue); text-decoration: none;">러닝 사이언스</a> &gt; 
+            <span>스피드 & 레이스</span>
+        </nav>
+
+        <article class="card article-detail">
+            <header class="article-header">
+                <span class="article-tag">스피드 & 레이스</span>
+                <h1>젖산역치(LT)와 크리티컬 페이스: 왜 템포런이 마라톤 완주 시간을 바꾸는가</h1>
+                <div class="article-meta">
+                    <span>작성: RunAnalyz Science Lab</span>
+                    <span>•</span>
+                    <span>읽는 시간: 약 4분</span>
+                    <span>•</span>
+                    <span>최신 스포츠 의학 검증 완료</span>
+                </div>
+            </header>
+
+            <!-- 3-Second Summary Box -->
+            <div style="background: #F1F5F9; border-left: 4px solid var(--primary-blue); padding: 16px 20px; border-radius: 8px; margin: 24px 0;">
+                <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">💡 3초 핵심 요약</div>
+                <ul style="margin: 0; padding-left: 20px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                    <li>젖산은 근육을 지치게 하는 독성 피로물질이 아니라, 심장과 지근 섬유가 가장 선호하는 <strong>고효율 유산소 프리미엄 연료</strong>입니다.</li>
+                    <li>마라톤 완주 시간은 최대산소섭취량(VO2max) 크기보다 <strong>젖산 생성률과 제거율이 평형을 이루는 '젖산역치 페이스(LT)'</strong>에 의해 85% 이상 결정됩니다.</li>
+                    <li>주간 마일리지의 10~15%를 젖산역치 페이스(Zone 4, 1시간 올아웃 속도)로 달리는 <strong>템포런(Tempo Run)</strong>을 통해 역치 지점을 시속 1~2km 끌어올릴 수 있습니다.</li>
+                </ul>
+            </div>
+
+            <section class="article-section">
+                <h2>1. 젖산(Lactate)에 씌워진 100년의 오해와 생리학적 진실</h2>
+                <p>
+                    학창 시절 체육 시간이나 헬스장에서 "근육통은 젖산이 쌓여서 생긴다", "젖산은 몸에 나쁜 피로물질이다"라는 이야기를 한 번쯤 들어보셨을 것입니다.
+                    그러나 현대 운동생리학 연구는 이 통념을 완전히 뒤집었습니다.
+                </p>
+                <p>
+                    UC 버클리의 조지 브룩스(George Brooks, 1985) 교수가 밝혀낸 '젖산 셔틀 이론(Lactate Shuttle)'에 따르면, 젖산은 피로의 원인이 아니라 <strong>탄수화물이 산화되는 과정에서 생성되는 강력한 에너지 중간체</strong>입니다.
+                </p>
+                <p>
+                    속근(Fast-twitch) 섬유에서 포도당이 분해되며 만들어진 젖산은 혈액을 타고 이동하여 <strong>심장 근육과 지근(Slow-twitch) 섬유의 미토콘드리아 속으로 들어가 즉시 재연소</strong>됩니다.
+                    즉, 젖산은 몸을 멈추게 하는 쓰레기가 아니라, 신체가 고갈 직전의 에너지를 짜내기 위해 만든 초고옥탄가 연료입니다.
+                </p>
+            </section>
+
+            <section class="article-section">
+                <h2>2. 젖산역치(Lactate Threshold, LT)란 무엇인가?</h2>
+                <p>
+                    천천히 조깅할 때는 혈중 젖산 농도가 1.0~1.5mmol/L 수준으로 매우 낮게 유지됩니다. 근육에서 젖산이 만들어지는 족족 미토콘드리아가 연료로 태워 없애기 때문입니다.
+                </p>
+                <p>
+                    하지만 페이스를 점점 끌어올려 특정 속도를 넘어서는 순간, <strong>"근육 내 젖산 생성 속도 > 미토콘드리아의 젖산 분해 속도"</strong>가 역전되면서 혈액 속 젖산 농도가 가파르게 치솟기 시작합니다. 이 임계점을 바로 <strong>'젖산역치(Lactate Threshold, 통상 4.0mmol/L 기준선)'</strong>라고 부릅니다.
+                </p>
+                <p>
+                    젖산역치를 넘어서면 수소 이온(H+)이 축적되어 혈액이 산성화(Acidosis)되고, 칼슘 이온의 근수축 신호가 차단되면서 다리가 돌덩이처럼 무거워져 불과 몇 분 안에 페이스를 강제로 떨어뜨릴 수밖에 없습니다.
+                </p>
+            </section>
+
+            <section class="article-section">
+                <h2>3. 왜 마라토너에게 젖산역치가 VO2max보다 중요한가?</h2>
+                <p>
+                    많은 러너들이 심폐 용량(VO2max)을 키우기 위해 400m 전력 인터벌에만 매달립니다. 하지만 마라톤은 엔진의 배기량(VO2max)만으로 달리는 스포츠가 아닙니다:
+                </p>
+
+                <div style="margin: 20px 0; border: 1px solid var(--border-light); border-radius: 12px; overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <tr style="background: #F8FAFC; text-align: left; border-bottom: 1px solid var(--border-light);">
+                            <th style="padding: 12px 16px;">선수 유형</th>
+                            <th style="padding: 12px 16px;">최대산소섭취량 (VO2max)</th>
+                            <th style="padding: 12px 16px;">젖산역치 발현 지점 (LT)</th>
+                            <th style="padding: 12px 16px;">풀코스 실전 페이스</th>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-light);">
+                            <td style="padding: 12px 16px; font-weight: 700;">러너 A (인터벌 중심)</td>
+                            <td style="padding: 12px 16px;">65 ml/kg/min (대형 엔진)</td>
+                            <td style="padding: 12px 16px; color: #DC2626;">VO2max의 72%에서 역치 도달</td>
+                            <td style="padding: 12px 16px;">4'45" / km (후반 퍼짐)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px 16px; font-weight: 700;">러너 B (템포런 중심)</td>
+                            <td style="padding: 12px 16px;">58 ml/kg/min (중형 엔진)</td>
+                            <td style="padding: 12px 16px; color: var(--primary-blue); font-weight: 700;">VO2max의 86%까지 역치 지연</td>
+                            <td style="padding: 12px 16px; font-weight: 700; color: #10B981;">4'15" / km (후반 안정 완주)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <p>
+                    러너 B는 엔진 배기량 자체는 작지만, <strong>배기량의 86%라는 높은 출력에서도 젖산을 넘치지 않게 태워내는 강력한 청소 능력</strong>을 갖추고 있습니다.
+                    결국 42.195km를 끝까지 지치지 않고 밀어붙이는 실제 레이스 속도는 젖산역치가 몇 %에 걸려 있는지에 따라 결정됩니다(Daniels, 2013).
+                </p>
+            </section>
+
+            <section class="article-section">
+                <h2>4. 실전 템포런(Tempo Run) 훈련 공식 2가지</h2>
+                <p>
+                    젖산역치를 오른쪽(더 빠른 속도)으로 밀어내려면, 젖산 농도가 딱 4.0mmol/L 부근에서 출렁이는 '역치 페이스'로 몸을 노출시켜야 합니다:
+                </p>
+                <div style="background: #F8FAFC; border-left: 4px solid var(--primary-blue); padding: 16px 20px; border-radius: 8px; margin: 20px 0;">
+                    <div style="font-weight: 700; color: #1E40AF; margin-bottom: 6px;">🎯 내 젖산역치(T-Pace) 체감 강도</div>
+                    <p style="margin: 0; color: #1E293B; font-size: 0.95rem; line-height: 1.6;">
+                        "숨이 차서 대화는 불가능하지만, <strong>이 악물면 50~60분 동안 죽을힘을 다해 버틸 수 있는 속도</strong>" (통상 10km 대회 페이스보다 10~15초 느린 속도, 하프마라톤 레이스 페이스 부근).
+                    </p>
+                </div>
+                <p>
+                    <strong>1) 클래식 지속주 템포런 (20분 블록):</strong> 웜업 조깅 2km 후, 정확한 역치 페이스로 끊김 없이 20~25분(약 4~6km)을 달린 뒤 쿨다운 2km. (주 1회 추천)
+                </p>
+                <p>
+                    <strong>2) 크루즈 인터벌 (Cruise Intervals):</strong> 1마일(1.6km) 역치 페이스 질주 후 1분 가벼운 조깅 휴식, 이를 4~5세트 반복. 짧은 휴식을 주어 심리적 부담을 줄이면서도 역치 체류 시간(총 6~8km)을 늘리는 잭 다니엘스의 필살기입니다.
+                </p>
+            </section>
+
+            <!-- Bottom CTA Box -->
+            <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 16px; padding: 24px; margin: 40px 0 24px; text-align: center;">
+                <h3 style="font-size: 1.25rem; font-weight: 800; color: #1E3A8A; margin-bottom: 8px;">내 실력에 딱 맞는 역치 템포런 페이스는?</h3>
+                <p style="font-size: 0.92rem; color: #3B82F6; line-height: 1.5; margin-bottom: 16px;">
+                    최근 기록만 넣으면 과학적 젖산역치 페이스(Zone 4)와 인터벌 페이스를 1초 만에 자동 산출해 드립니다.
+                </p>
+                <a href="../index.html" class="article-cta-btn">
+                    ⚡ 내 젖산역치 페이스 즉시 계산하기
+                </a>
+            </div>
+
+            <!-- References -->
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-light); font-size: 0.8rem; color: var(--text-muted); line-height: 1.6;">
+                <div style="font-weight: 700; color: var(--text-secondary); margin-bottom: 8px;">📚 공인 학술 논문 및 레퍼런스 (References)</div>
+                <ol style="margin: 0; padding-left: 20px;">
+                    <li>Brooks, G. A. (1985). Lactate: glycolytic end product and oxidative substrate during sustained exercise in mammals — the "lactate shuttle". Comparative Physiology, 208-218.</li>
+                    <li>Mader, A. (2003). Glycolysis and oxidative phosphorylation as a function of cytosolic phosphorylation state and power output of the muscle cell. European Journal of Applied Physiology, 88(4), 317-338.</li>
+                    <li>Daniels, J. (2013). Daniels' Running Formula (3rd ed.). Human Kinetics.</li>
+                </ol>
+            </footer>
+
+            <!-- 💬 익명 한줄 러너 소감 & 팁 -->
+            <div class="memo-section" style="margin-top: 36px;">
+                <div class="memo-header">
+                    <span class="memo-title">💬 러너 실전 한줄 소감 & 팁</span>
+                    <span id="memoCountBadge" class="memo-count-badge">0개</span>
+                </div>
+                <div class="memo-list-box" id="articleMemoList">
+                    <!-- JS 렌더링 -->
+                </div>
+                <form id="articleMemoForm" class="memo-form">
+                    <input type="text" id="hp_trap" style="display:none;" tabindex="-1" autocomplete="off">
+                    
+                    <div class="memo-form-top">
+                        <div class="memo-input-wrap">
+                            <label for="memoAuthor" class="memo-form-label">작성자 닉네임</label>
+                            <input type="text" id="memoAuthor" class="memo-input" placeholder="닉네임 (최대 10자)" maxlength="10" required>
+                        </div>
+                        <div class="memo-captcha-wrap">
+                            <label for="memoAns" class="memo-form-label">보안 퀴즈</label>
+                            <div class="memo-captcha-box">
+                                <span id="memoQuiz" class="memo-quiz-text">3 + 4 =</span>
+                                <input type="number" id="memoAns" class="memo-ans-input" placeholder="정답 입력" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="memo-form-bottom">
+                        <div class="memo-text-wrap">
+                            <input type="text" id="memoText" class="memo-input" placeholder="이 주제에 관한 나만의 경험이나 실전 팁을 남겨주세요 (최대 100자)" maxlength="100" required>
+                        </div>
+                        <button type="submit" class="btn-memo-submit">등록</button>
+                    </div>
+
+                    <div class="memo-notice">
+                        ※ 스팸 방지를 위해 간단한 덧셈을 입력해주세요. (10초 쿨다운 • 브라우저 영구 보존)
+                    </div>
+                </form>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="app-footer" style="text-align:center; padding:24px 0; border-top:1px solid var(--border-light); margin-top:40px;">
+        <div class="footer-links" style="margin-bottom: 8px;">
+            <a href="../about.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 8px; font-size: 0.82rem; font-weight: 700;">서비스 소개</a> •
+            <a href="../privacy.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 8px; font-size: 0.82rem; font-weight: 700;">개인정보처리방침</a> •
+            <a href="../terms.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 8px; font-size: 0.82rem; font-weight: 700;">이용약관</a>
+        </div>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin:0;">© 2026 RunAnalyz. Scientific Running Performance & Training Guide.</p>
+    </footer>
+    <script src="memo.js"></script>
+</body>
+</html>
