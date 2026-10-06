@@ -1607,6 +1607,13 @@ body {
     box-shadow: var(--shadow-md);
 }
 
+.article-meta-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
 .article-tag {
     display: inline-block;
     padding: 3px 8px;
@@ -1615,7 +1622,21 @@ body {
     color: var(--primary-blue);
     background: #EFF6FF;
     border-radius: 6px;
-    margin-bottom: 8px;
+}
+
+.badge-new {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 7px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: #DC2626;
+    background: #FEE2E2;
+    border: 1px solid #FECACA;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
 }
 
 .article-title {
