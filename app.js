@@ -540,7 +540,7 @@ function formatTime(totalSec) {
 }
 
 /**
- * 3. 독립 훈련 플래너 (거리/기간/빈도/직접 요일 지정 & ICS 캘린더)
+ * 3. 독립 훈련 플래너 (PB 기반 VDOT & 안전 주간 마일리지 & 세션별 목표 페이스 산출)
  */
 function initStandalonePlanner() {
     const startDateInput = document.getElementById('plan-start-date');
@@ -557,16 +557,44 @@ function initStandalonePlanner() {
     const btnGenerate = document.getElementById('btn-generate-plan');
     const btnIcs = document.getElementById('btn-download-ics');
 
+    // PB 프리셋 버튼 바 이벤트 바인딩
+    initPbPresetButtons();
+
+    // PB 입력값 변경 시 프리셋 active 해제 및 자동 재계산
+    const pbInputs = ['plan-pb-dist', 'plan-pb-hour', 'plan-pb-min', 'plan-pb-sec'];
+    pbInputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', () => {
+                document.querySelectorAll('.btn-pb-preset').forEach(b => b.classList.remove('active'));
+            });
+            el.addEventListener('change', () => {
+                const resultBox = document.getElementById('planner-result-box');
+                if (resultBox && resultBox.style.display !== 'none') {
+                    generateStandalonePlan();
+                }
+            });
+        }
+    });
+
     if (targetSelect) {
         targetSelect.addEventListener('change', () => {
             updatePlannerDaysOptions();
             syncPlannerDaysWithCheckboxes();
+            const resultBox = document.getElementById('planner-result-box');
+            if (resultBox && resultBox.style.display !== 'none') {
+                generateStandalonePlan();
+            }
         });
     }
 
     if (daysSelect) {
         daysSelect.addEventListener('change', () => {
             syncPlannerDaysWithCheckboxes();
+            const resultBox = document.getElementById('planner-result-box');
+            if (resultBox && resultBox.style.display !== 'none') {
+                generateStandalonePlan();
+            }
         });
     }
 
@@ -590,6 +618,40 @@ function initStandalonePlanner() {
     // 초기 옵션 로드 및 체크박스 동기화
     updatePlannerDaysOptions();
     syncPlannerDaysWithCheckboxes();
+}
+
+/**
+ * PB 원터치 프리셋 버튼 핸들러
+ */
+function initPbPresetButtons() {
+    const presetBtns = document.querySelectorAll('.btn-pb-preset');
+    const pbDistSelect = document.getElementById('plan-pb-dist');
+    const pbHourInput = document.getElementById('plan-pb-hour');
+    const pbMinInput = document.getElementById('plan-pb-min');
+    const pbSecInput = document.getElementById('plan-pb-sec');
+
+    presetBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            presetBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const dist = btn.dataset.dist;
+            const h = btn.dataset.h;
+            const m = btn.dataset.m;
+            const s = btn.dataset.s;
+
+            if (pbDistSelect) pbDistSelect.value = dist;
+            if (pbHourInput) pbHourInput.value = h;
+            if (pbMinInput) pbMinInput.value = m;
+            if (pbSecInput) pbSecInput.value = s;
+
+            // 결과창이 열려있으면 즉시 실시간 재반영
+            const resultBox = document.getElementById('planner-result-box');
+            if (resultBox && resultBox.style.display !== 'none') {
+                generateStandalonePlan();
+            }
+        });
+    });
 }
 
 /**
@@ -734,10 +796,50 @@ function updatePlannerDaysOptions() {
 }
 
 function generateStandalonePlan() {
-    const target = document.getElementById('plan-target').value;
-    const weeks = parseInt(document.getElementById('plan-weeks').value, 10) || 8;
-    const daysPerWeek = parseInt(document.getElementById('plan-days').value, 10) || 4;
-    const startDateVal = document.getElementById('plan-start-date').value;
+    // 1) PB 값 파싱
+    const pbDist = parseFloat(document.getElementById('plan-pb-dist')?.value) || 10;
+    const pbH = parseInt(document.getElementById('plan-pb-hour')?.value, 10) || 0;
+    const pbM = parseInt(document.getElementById('plan-pb-min')?.value, 10) || 0;
+    const pbS = parseInt(document.getElementById('plan-pb-sec')?.value, 10) || 0;
+
+    let pbTotalSec = pbH * 3600 + pbM * 60 + pbS;
+    if (pbTotalSec <= 0) {
+        pbTotalSec = 2910; // 기본 48분 30초 (10km 기준)
+    }
+
+    // PB 기반 VDOT 산출
+    const vdot = estimateVDOT(pbDist, pbTotalSec);
+
+    // 10km 환산 표준 페이스 도출 (Riegel 공식)
+    const std10kSec = pbTotalSec * Math.pow(10 / pbDist, 1.06);
+    const std10kPaceSec = std10kSec / 10; // 초/km
+
+    // 4대 핵심 훈련 페이스 (초/km)
+    // 조깅 (Zone 2 Easy): 10k 페이스 대비 122% ~ 132%
+    const easyFastSec = std10kPaceSec * 1.22;
+    const easySlowSec = std10kPaceSec * 1.32;
+    const easyMidSec = (easyFastSec + easySlowSec) / 2;
+
+    // 마라톤 페이스 (MP): 10k 페이스 대비 107% ~ 112%
+    const mFastSec = std10kPaceSec * 1.07;
+    const mSlowSec = std10kPaceSec * 1.12;
+    const mMidSec = (mFastSec + mSlowSec) / 2;
+
+    // 젖산역치 템포런 (Threshold / Tempo): 10k 페이스 대비 98% ~ 102%
+    const tFastSec = std10kPaceSec * 0.98;
+    const tSlowSec = std10kPaceSec * 1.02;
+    const tMidSec = (tFastSec + tSlowSec) / 2;
+
+    // VO2max 인터벌 페이스 (Interval): 10k 페이스 대비 90% ~ 94%
+    const iFastSec = std10kPaceSec * 0.90;
+    const iSlowSec = std10kPaceSec * 0.94;
+    const iMidSec = (iFastSec + iSlowSec) / 2;
+
+    // 목표 대회 설정 파싱
+    const target = document.getElementById('plan-target')?.value || '10k';
+    const weeks = parseInt(document.getElementById('plan-weeks')?.value, 10) || 8;
+    const daysPerWeek = parseInt(document.getElementById('plan-days')?.value, 10) || 4;
+    const startDateVal = document.getElementById('plan-start-date')?.value;
 
     if (!startDateVal) {
         alert('훈련 시작 날짜를 선택해주세요.');
@@ -751,9 +853,7 @@ function generateStandalonePlan() {
         return;
     }
 
-    // 월요일(1) ~ 일요일(0->7) 순서로 정렬
     const dayNames = { 0: "일요일", 1: "월요일", 2: "화요일", 3: "수요일", 4: "목요일", 5: "금요일", 6: "토요일" };
-    // 월요일 기준 주간 오프셋: 월=0, 화=1, 수=2, 목=3, 금=4, 토=5, 일=6
     const mondayOffsets = { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5, 0: 6 };
 
     const selectedDays = checkedBoxes
@@ -763,20 +863,63 @@ function generateStandalonePlan() {
     const startDate = new Date(startDateVal);
     plannerCustomEvents = [];
 
+    // VDOT 기반 러너 레벨 & 권장 주간 마일리지 산출
+    let tierName = "꾸준한 취미 러너";
+    let vdotMult = 1.0;
+    if (vdot >= 60) {
+        tierName = "최상위 엘리트/마스터스";
+        vdotMult = 1.35;
+    } else if (vdot >= 52) {
+        tierName = "상위 5% 싱글 러너";
+        vdotMult = 1.22;
+    } else if (vdot >= 45) {
+        tierName = "탄탄한 중상급 러너";
+        vdotMult = 1.10;
+    } else if (vdot >= 38) {
+        tierName = "서브4 타겟 취미 러너";
+        vdotMult = 1.0;
+    } else {
+        tierName = "기초 유산소 건강 러너";
+        vdotMult = 0.85;
+    }
+
     let baseEasy = 5;
     let baseLSD = 8;
     let targetName = "10km 단축마라톤";
     let routineBadgeText = "유산소 베이스 빌드업";
+    let targetMileageMin = 30;
+    let targetMileageMax = 38;
 
     if (target === '5k') {
-        baseEasy = 3; baseLSD = 5; targetName = "5km 완주 코스"; routineBadgeText = "부상 방지 조깅 중심";
+        baseEasy = 4; baseLSD = 6; targetName = "5km 스피드 코스"; routineBadgeText = "부상 방지 조깅 중심";
+        targetMileageMin = Math.round(20 * vdotMult);
+        targetMileageMax = Math.round(28 * vdotMult);
     } else if (target === '10k') {
-        baseEasy = 5; baseLSD = 8; targetName = "10km 단축마라톤"; routineBadgeText = "유산소 베이스 빌드업";
+        baseEasy = 5; baseLSD = 9; targetName = "10km 단축마라톤"; routineBadgeText = "유산소 베이스 빌드업";
+        targetMileageMin = Math.round(30 * vdotMult);
+        targetMileageMax = Math.round(40 * vdotMult);
     } else if (target === 'half') {
-        baseEasy = 7; baseLSD = 14; targetName = "하프마라톤(21.1km)"; routineBadgeText = "지구력 & 페이스 지속주";
+        baseEasy = 7; baseLSD = 14; targetName = "하프마라톤 (21.1km)"; routineBadgeText = "지구력 & 페이스 지속주";
+        targetMileageMin = Math.round(38 * vdotMult);
+        targetMileageMax = Math.round(52 * vdotMult);
     } else if (target === 'full') {
-        baseEasy = 8; baseLSD = 20; targetName = "풀마라톤(42.2km)"; routineBadgeText = "마일리지 & LSD 완주 루틴";
+        baseEasy = 8; baseLSD = 20; targetName = "풀마라톤 (42.2km)"; routineBadgeText = "마일리지 & LSD 완주 루틴";
+        targetMileageMin = Math.round(48 * vdotMult);
+        targetMileageMax = Math.round(68 * vdotMult);
     }
+
+    // 상단 브리핑 카드 업데이트
+    const vdotBadgeEl = document.getElementById('plan-vdot-badge');
+    const weeklyMileageValEl = document.getElementById('plan-weekly-mileage-val');
+    const paceEasyValEl = document.getElementById('plan-pace-easy-val');
+    const paceTempoValEl = document.getElementById('plan-pace-tempo-val');
+    const paceIntervalValEl = document.getElementById('plan-pace-interval-val');
+
+    if (vdotBadgeEl) vdotBadgeEl.textContent = `VDOT ${vdot.toFixed(1)}점 • ${tierName}`;
+    if (weeklyMileageValEl) weeklyMileageValEl.textContent = `평균 ${targetMileageMin} ~ ${targetMileageMax} km`;
+    if (paceEasyValEl) paceEasyValEl.textContent = `${formatPace(easyFastSec)} ~ ${formatPace(easySlowSec)}`;
+    if (paceTempoValEl) paceTempoValEl.textContent = `${formatPace(tFastSec)} ~ ${formatPace(tSlowSec)}`;
+    if (paceIntervalValEl) paceIntervalValEl.textContent = `${formatPace(iFastSec)} ~ ${formatPace(iSlowSec)}`;
 
     const badgeEl = document.getElementById('plan-routine-badge');
     if (badgeEl) badgeEl.textContent = routineBadgeText;
@@ -784,16 +927,56 @@ function generateStandalonePlan() {
     const container = document.getElementById('plan-weeks-container');
     container.innerHTML = '';
 
+    // 훈련 주차 생성 (3주 점진적 증량 + 1주 회복주(-20%) + 마지막 테이퍼링 주기화)
     for (let w = 1; w <= weeks; w++) {
         const weekDiv = document.createElement('div');
         weekDiv.className = 'schedule-week';
         weekDiv.style.marginBottom = '20px';
 
+        // 주기화 상태 판단
+        let weekStatus = "베이스 빌드업";
+        let weekMult = 1.0;
+
         const isTaper = (w === weeks);
-        const lsdDist = isTaper ? Math.round(baseLSD * 0.6) : Math.min(baseLSD + (w - 1) * (target === 'full' ? 2 : 1), target === 'full' ? 35 : 20);
-        const easyDist = Math.max(3, baseEasy + Math.floor((w - 1) / 2));
-        const tempoDist = Math.max(4, Math.round(easyDist * 0.9));
-        const recoveryDist = Math.max(3, Math.round(easyDist * 0.7));
+        const isPreTaper = (weeks >= 8 && w === weeks - 1);
+        const isRecoveryWeek = (!isTaper && !isPreTaper && w % 4 === 0);
+
+        if (isTaper) {
+            weekStatus = "대회 직전 테이퍼링 (-40%)";
+            weekMult = 0.60;
+        } else if (isPreTaper) {
+            weekStatus = "테이퍼링 1단계 (-20%)";
+            weekMult = 0.80;
+        } else if (isRecoveryWeek) {
+            weekStatus = "부상 방지 회복주 (Rest Week -20%)";
+            weekMult = 0.80;
+        } else {
+            // 점진적 증량 (주차마다 약 3~5%씩 누적 빌드업)
+            const buildStep = (w - 1) - Math.floor((w - 1) / 4);
+            weekMult = 1.0 + (buildStep * 0.05);
+            weekStatus = `점진적 마일리지 확장 (+${Math.round((weekMult - 1) * 100)}%)`;
+        }
+
+        // 주차별 세션 거리 계산
+        let currentLsdDist = Math.round(baseLSD * weekMult);
+        if (target === 'full') {
+            currentLsdDist = isTaper ? 15 : Math.min(35, currentLsdDist);
+        } else if (target === 'half') {
+            currentLsdDist = isTaper ? 10 : Math.min(22, currentLsdDist);
+        } else {
+            currentLsdDist = isTaper ? 5 : Math.min(15, currentLsdDist);
+        }
+
+        const currentEasyDist = Math.max(3, Math.round(baseEasy * weekMult));
+        const currentTempoDist = Math.max(4, Math.round(currentEasyDist * 0.85));
+        const currentRecoveryDist = Math.max(3, Math.round(currentEasyDist * 0.65));
+
+        // 세션별 구체적 페이스 텍스트 매핑
+        const easyPaceText = formatPace(easyMidSec);
+        const tempoPaceText = formatPace(tMidSec);
+        const marathonPaceText = formatPace(mMidSec);
+        const intervalPaceText = formatPace(iMidSec);
+        const recoveryPaceText = formatPace(easySlowSec * 1.05);
 
         // 사용자가 선택한 요일에 맞춤형 훈련 세션 지능형 매핑
         const daysSchedule = [];
@@ -801,38 +984,150 @@ function generateStandalonePlan() {
             const dayName = dayNames[dayNum];
             const offset = mondayOffsets[dayNum];
 
-            let session = { dayName, offset, type: "이지 조깅", dist: easyDist, badge: "badge-easy", desc: "편안한 대화 속도 유산소 조깅" };
+            let session = {
+                dayName,
+                offset,
+                type: "이지 조깅",
+                dist: currentEasyDist,
+                targetPace: easyPaceText,
+                badge: "badge-easy",
+                desc: `Zone 2 편안한 유산소 (대화가 가능한 속도)`
+            };
 
             if (selectedDays.length === 3) {
-                if (idx === 0) session = { dayName, offset, type: "이지 조깅", dist: easyDist, badge: "badge-easy", desc: "편안한 유산소 조깅 (대화 속도)" };
-                else if (idx === 1) session = { dayName, offset, type: "템포런", dist: tempoDist, badge: "badge-tempo", desc: "실전 목표 스피드 유지 훈련" };
-                else session = { dayName, offset, type: "주말 LSD", dist: lsdDist, badge: "badge-long", desc: "심장 연비 강화 장거리 지속주" };
+                if (idx === 0) {
+                    session = {
+                        dayName, offset,
+                        type: "이지 조깅",
+                        dist: currentEasyDist,
+                        targetPace: easyPaceText,
+                        badge: "badge-easy",
+                        desc: `유산소 기초 체력 확장 (심박 안정화)`
+                    };
+                } else if (idx === 1) {
+                    session = {
+                        dayName, offset,
+                        type: "젖산역치 템포런",
+                        dist: currentTempoDist,
+                        targetPace: tempoPaceText,
+                        badge: "badge-tempo",
+                        desc: `젖산 분해 한계 속도 적응`
+                    };
+                } else {
+                    session = {
+                        dayName, offset,
+                        type: "주말 LSD",
+                        dist: currentLsdDist,
+                        targetPace: formatPace(easySlowSec),
+                        badge: "badge-long",
+                        desc: `심장 배기량 & 체지방 연소 지속주`
+                    };
+                }
             } else if (selectedDays.length === 4) {
-                if (idx === 0) session = { dayName, offset, type: "이지 조깅", dist: easyDist, badge: "badge-easy", desc: "편안한 유산소 조깅" };
-                else if (idx === 1) session = { dayName, offset, type: "템포런", dist: tempoDist, badge: "badge-tempo", desc: "실전 페이스 유지주" };
-                else if (idx === 2) session = { dayName, offset, type: "회복 조깅", dist: recoveryDist, badge: "badge-rest", desc: "피로 털어내는 가벼운 조깅" };
-                else session = { dayName, offset, type: "주말 LSD", dist: lsdDist, badge: "badge-long", desc: "지구력 확장 장거리 훈련" };
+                if (idx === 0) {
+                    session = {
+                        dayName, offset,
+                        type: "이지 조깅",
+                        dist: currentEasyDist,
+                        targetPace: easyPaceText,
+                        badge: "badge-easy",
+                        desc: `유산소 베이스 조깅`
+                    };
+                } else if (idx === 1) {
+                    session = {
+                        dayName, offset,
+                        type: "템포런 / 페이스주",
+                        dist: currentTempoDist,
+                        targetPace: (target === 'full' ? marathonPaceText : tempoPaceText),
+                        badge: "badge-tempo",
+                        desc: `실전 레이스 페이스 적응`
+                    };
+                } else if (idx === 2) {
+                    session = {
+                        dayName, offset,
+                        type: "회복 조깅",
+                        dist: currentRecoveryDist,
+                        targetPace: recoveryPaceText,
+                        badge: "badge-rest",
+                        desc: `피로 털어내는 초경량 리커버리`
+                    };
+                } else {
+                    session = {
+                        dayName, offset,
+                        type: "주말 LSD",
+                        dist: currentLsdDist,
+                        targetPace: formatPace(easySlowSec),
+                        badge: "badge-long",
+                        desc: `지구력 확장 장거리 훈련`
+                    };
+                }
             } else if (selectedDays.length === 5) {
-                if (idx === 0) session = { dayName, offset, type: "이지 조깅", dist: easyDist, badge: "badge-easy", desc: "Zone 2 편안한 유산소" };
-                else if (idx === 1) session = { dayName, offset, type: "회복 조깅", dist: recoveryDist, badge: "badge-rest", desc: "가벼운 피로 회복런" };
-                else if (idx === 2) session = { dayName, offset, type: "마라톤 페이스주", dist: tempoDist, badge: "badge-tempo", desc: "대회 목표 페이스 지속 훈련" };
-                else if (idx === 3) session = { dayName, offset, type: "주말 LSD", dist: lsdDist, badge: "badge-long", desc: "풀코스 대비 메인 지속주" };
-                else session = { dayName, offset, type: "모닝 리커버리", dist: recoveryDist, badge: "badge-easy", desc: "LSD 후 젖산 분해 조깅" };
-            } else if (selectedDays.length === 6) {
-                if (idx === 0) session = { dayName, offset, type: "모닝 조깅", dist: easyDist, badge: "badge-easy", desc: "유산소 베이스 확장" };
-                else if (idx === 1) session = { dayName, offset, type: "인터벌 / 템포", dist: tempoDist, badge: "badge-tempo", desc: "심폐 배기량 향상" };
-                else if (idx === 2) session = { dayName, offset, type: "회복 조깅", dist: recoveryDist, badge: "badge-rest", desc: "하체 피로 털어내기" };
-                else if (idx === 3) session = { dayName, offset, type: "컨디셔닝 런", dist: easyDist, badge: "badge-easy", desc: "주말 LSD 전 가볍게 웜업" };
-                else if (idx === 4) session = { dayName, offset, type: "주말 장거리(LSD)", dist: lsdDist, badge: "badge-long", desc: "풀코스 30km 벽 넘기" };
-                else session = { dayName, offset, type: "액티브 리커버리", dist: recoveryDist, badge: "badge-easy", desc: "가벼운 산책 & 조깅" };
+                if (idx === 0) {
+                    session = {
+                        dayName, offset,
+                        type: "이지 조깅",
+                        dist: currentEasyDist,
+                        targetPace: easyPaceText,
+                        badge: "badge-easy",
+                        desc: `Zone 2 유산소 베이스 확장`
+                    };
+                } else if (idx === 1) {
+                    session = {
+                        dayName, offset,
+                        type: "스피드 인터벌",
+                        dist: Math.max(4, Math.round(currentTempoDist * 0.9)),
+                        targetPace: intervalPaceText,
+                        badge: "badge-tempo",
+                        desc: `VO2max 최대산소섭취량 자극 (질주 구간)`
+                    };
+                } else if (idx === 2) {
+                    session = {
+                        dayName, offset,
+                        type: "회복 조깅",
+                        dist: currentRecoveryDist,
+                        targetPace: recoveryPaceText,
+                        badge: "badge-rest",
+                        desc: `가벼운 피로 회복런`
+                    };
+                } else if (idx === 3) {
+                    session = {
+                        dayName, offset,
+                        type: target === 'full' ? "마라톤 페이스주" : "템포런",
+                        dist: currentTempoDist,
+                        targetPace: target === 'full' ? marathonPaceText : tempoPaceText,
+                        badge: "badge-tempo",
+                        desc: `목표 페이스 몸에 익히기`
+                    };
+                } else {
+                    session = {
+                        dayName, offset,
+                        type: "주말 LSD",
+                        dist: currentLsdDist,
+                        targetPace: formatPace(easySlowSec),
+                        badge: "badge-long",
+                        desc: `대회 완주용 지구력 장거리`
+                    };
+                }
             } else {
-                if (idx === 0) session = { dayName, offset, type: "쉐이크아웃런", dist: 5, badge: "badge-rest", desc: "새로운 한 주 컨디션 점검" };
-                else if (idx === 1) session = { dayName, offset, type: "모닝 조깅", dist: easyDist, badge: "badge-easy", desc: "유산소 베이스 유지" };
-                else if (idx === 2) session = { dayName, offset, type: "스피드 훈련", dist: tempoDist, badge: "badge-tempo", desc: "1000m 인터벌 또는 템포런" };
-                else if (idx === 3) session = { dayName, offset, type: "이지 조깅", dist: easyDist, badge: "badge-easy", desc: "Zone 2 페이스 유지" };
-                else if (idx === 4) session = { dayName, offset, type: "가벼운 런", dist: recoveryDist, badge: "badge-easy", desc: "LSD 전 컨디션 최적화" };
-                else if (idx === 5) session = { dayName, offset, type: "주말 장거리(LSD)", dist: lsdDist, badge: "badge-long", desc: "풀마라톤 실전 롱런" };
-                else session = { dayName, offset, type: "회복 조깅", dist: recoveryDist, badge: "badge-rest", desc: "주간 피로 회복" };
+                // 6회 또는 7회
+                const types = [
+                    { type: "모닝 조깅", dist: currentEasyDist, pace: easyPaceText, badge: "badge-easy", desc: `기초 유산소` },
+                    { type: "스피드 세션", dist: currentTempoDist, pace: (idx % 2 === 0 ? tempoPaceText : intervalPaceText), badge: "badge-tempo", desc: `심폐 부하 자극` },
+                    { type: "회복 조깅", dist: currentRecoveryDist, pace: recoveryPaceText, badge: "badge-rest", desc: `피로 분해 조깅` },
+                    { type: "컨디셔닝 런", dist: currentEasyDist, pace: easyPaceText, badge: "badge-easy", desc: `밸런스 유지주` },
+                    { type: "주말 LSD", dist: currentLsdDist, pace: formatPace(easySlowSec), badge: "badge-long", desc: `지속주 마일리지` },
+                    { type: "액티브 리커버리", dist: currentRecoveryDist, pace: recoveryPaceText, badge: "badge-rest", desc: `가벼운 쉐이크아웃` },
+                    { type: "가벼운 런", dist: currentRecoveryDist, pace: recoveryPaceText, badge: "badge-rest", desc: `컨디션 조율` }
+                ];
+                const t = types[idx % types.length];
+                session = {
+                    dayName, offset,
+                    type: t.type,
+                    dist: t.dist,
+                    targetPace: t.pace,
+                    badge: t.badge,
+                    desc: t.desc
+                };
             }
 
             daysSchedule.push(session);
@@ -846,14 +1141,19 @@ function generateStandalonePlan() {
                     <span class="schedule-day-title"><strong>${item.dayName}</strong> · ${item.type}</span>
                     <span class="schedule-dist-badge ${item.badge}">${item.dist}km</span>
                 </div>
-                <div class="schedule-day-sub">${item.desc}</div>
+                <div class="schedule-day-sub">
+                    <span style="display:inline-block; font-weight:800; color:var(--primary-blue); background:#EFF6FF; padding:1px 6px; border-radius:4px; font-size:0.78rem; margin-right:4px;">
+                        🎯 목표 페이스: ${item.targetPace}/km
+                    </span>
+                    <span>${item.desc}</span>
+                </div>
             </div>
         `).join('');
 
         weekDiv.innerHTML = `
             <div class="schedule-week-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; padding-bottom:6px; border-bottom:1px dashed var(--border-light);">
-                <span style="font-weight:800; font-size:0.95rem; color:var(--text-primary);">${w}주차 (${isTaper ? '대회 직전 테이퍼링' : '유산소 베이스 확장'})</span>
-                <span style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">주간 약 ${weeklyKm}km</span>
+                <span style="font-weight:800; font-size:0.95rem; color:var(--text-primary);">${w}주차 (${weekStatus})</span>
+                <span style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">주간 합계 약 ${weeklyKm}km</span>
             </div>
             ${cardsHtml}
         `;
@@ -872,8 +1172,8 @@ function generateStandalonePlan() {
             eventDate.setHours(item.offset === 5 || item.offset === 6 ? 8 : 19, 0, 0);
             plannerCustomEvents.push({
                 date: eventDate,
-                summary: `[RunAnalyz] ${item.type} ${item.dist}km`,
-                desc: `${item.desc} (목표: ${targetName})`
+                summary: `[RunAnalyz] ${item.type} ${item.dist}km (목표: ${item.targetPace}/km)`,
+                desc: `${item.desc}\n목표 페이스: ${item.targetPace}/km | 훈련 목표: ${targetName} (${w}주차)`
             });
         });
     }
