@@ -1864,9 +1864,9 @@ table p {
     text-indent: 0 !important;
 }
 
-/* 🔗 아티클 내부 하이퍼링크 스타일 (파란 밑줄 방지 & 세련된 디자인) */
-.article-section a,
-.article-detail a:not(.header-nav-link):not(.brand-text a) {
+/* 🔗 아티클 내부 하이퍼링크 스타일 (파란 밑줄 방지 & 세련된 디자인, 버튼류 제외) */
+.article-section a:not(.article-cta-btn):not(.btn):not(.btn-primary),
+.article-detail a:not(.header-nav-link):not(.brand-text a):not(.article-cta-btn):not(.btn):not(.btn-primary) {
     color: var(--primary-blue);
     font-weight: 700;
     text-decoration: none;
@@ -1875,8 +1875,8 @@ table p {
     transition: all 0.15s ease;
 }
 
-.article-section a:hover,
-.article-detail a:not(.header-nav-link):not(.brand-text a):hover {
+.article-section a:not(.article-cta-btn):not(.btn):not(.btn-primary):hover,
+.article-detail a:not(.header-nav-link):not(.brand-text a):not(.article-cta-btn):not(.btn):not(.btn-primary):hover {
     color: #1D4ED8;
     border-bottom-color: #1D4ED8;
     background: #EFF6FF;
@@ -1903,33 +1903,44 @@ table p {
     color: #0F172A;
 }
 
-/* 프리미엄 인아티클 CTA 버튼 (글자/이모지 완벽 수직 정렬) */
-.article-cta-btn {
+/* 프리미엄 인아티클 CTA 버튼 (순백색 글씨 & 파란 배경 고정) */
+.article-cta-btn,
+.article-detail .btn-primary,
+.article-detail a.article-cta-btn,
+.article-detail a.btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     min-height: 48px;
     padding: 12px 28px;
-    background: var(--primary-blue);
+    background: var(--primary-blue) !important;
     color: #FFFFFF !important;
     font-size: 0.98rem;
     font-weight: 800;
     line-height: 1;
     border-radius: var(--radius-md);
-    text-decoration: none;
+    border-bottom: none !important;
+    text-decoration: none !important;
     box-shadow: 0 4px 14px rgba(49, 130, 246, 0.28);
     transition: all 0.2s ease;
     margin-top: 6px;
 }
 
-.article-cta-btn:hover {
-    background: var(--primary-blue-hover);
+.article-cta-btn:hover,
+.article-detail .btn-primary:hover,
+.article-detail a.article-cta-btn:hover,
+.article-detail a.btn-primary:hover {
+    background: var(--primary-blue-hover) !important;
+    color: #FFFFFF !important;
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(49, 130, 246, 0.35);
 }
 
-.article-cta-btn:active {
+.article-cta-btn:active,
+.article-detail .btn-primary:active,
+.article-detail a.article-cta-btn:active,
+.article-detail a.btn-primary:active {
     transform: scale(0.98);
 }
 
