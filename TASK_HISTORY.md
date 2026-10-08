@@ -2,6 +2,22 @@
 
 ---
 
+## [2026-10-09] GA4 독립 분리 완료: ThePathLab(G-K3PFHN6VW7) 잔여 태그 전수 제거 및 RunAnalyz(G-QREC5DVG9M) 단독 정돈
+- **1. 요청사항**:
+  - runanalyz.com을 thepathlab.com(chicstory.github.io)에서 분리했는데도 ThePathLab 애널리틱스에 runanalyz 트래픽이 계속 합산 집계되는 현상 원인 규명 및 완전 분리 요청.
+- **2. 솔루션 & 구현**:
+  - **원인 규명**:
+    - `index.html`, `guide.html` 등 주요 페이지 및 30여 개 아티클 헤더에 ThePathLab 전용 GA4 태그(`G-K3PFHN6VW7`)가 이중 호출(Double Firing)되거나 단독 호출되고 있었음.
+  - **전수 정돈 및 완전 분리 (36개 HTML 파일 일괄 교정)**:
+    - `G-K3PFHN6VW7` 호출 코드 100% 전수 제거.
+    - 모든 페이지가 RunAnalyz 전용 GA4 속성인 `G-QREC5DVG9M`만 단독으로 정확하게 호출하도록 표준화.
+    - 루트 6개 파일(`index.html`, `guide.html`, `about.html`, `gear.html`, `privacy.html`, `terms.html`) 및 `articles/` 30개 전체 아티클 검증 완료.
+- **3. 결과 & 검증**:
+  - `G-K3PFHN6VW7` 검색 결과 0건 확인.
+  - 이제 ThePathLab 애널리틱스 혼선 없이, runanalyz.com 트래픽은 오직 RunAnalyz 전용 GA4 속성으로만 100% 독립 집계됨.
+
+---
+
 ## [2026-10-09] 스몰 미디어 전략 연계: 신규 킬러 아티클 3편 발행(총 29편) & 훈련/수면 실측 에셋 아카이빙
 - **1. 요청사항**:
   - 사진에 억지로 집착하지 않고 에셋으로 체계적 보관.
