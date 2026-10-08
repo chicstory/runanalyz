@@ -26,6 +26,24 @@
   </url>
   <!-- Science & Gear Articles -->
   <url>
+    <loc>https://runanalyz.com/articles/lt1-lt2-heart-rate-zones-science.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://runanalyz.com/articles/smartwatch-sleep-score-deep-recovery.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://runanalyz.com/articles/continuous-vs-split-running-science.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://runanalyz.com/articles/runrepeat-shoe-specs-guide.html</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
