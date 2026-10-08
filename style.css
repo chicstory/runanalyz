@@ -2391,6 +2391,75 @@ table p {
     }
 }
 
+/* ==========================================================================
+   🏃 5,000km 마스터즈 러너 실전 랩 노트 (E-E-A-T 콜아웃 & 실물 이미지)
+   ========================================================================== */
+.real-runner-box {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid var(--primary-blue);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 28px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.real-runner-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.real-runner-badge {
+    background: #EFF6FF;
+    color: #1D4ED8;
+    border: 1px solid #BFDBFE;
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.real-runner-title {
+    font-size: 1.02rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.real-runner-desc {
+    font-size: 0.94rem;
+    color: #334155;
+    line-height: 1.7;
+    margin: 0 0 16px 0;
+}
+
+.real-runner-img-wrap {
+    text-align: center;
+    margin: 16px 0 10px;
+}
+
+.real-runner-img {
+    width: 100%;
+    max-width: 540px;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: inline-block;
+}
+
+.real-runner-caption {
+    font-size: 0.8rem;
+    color: #64748B;
+    margin-top: 6px;
+    line-height: 1.4;
+    text-align: center;
+}
+
 
 
 
