@@ -2,6 +2,19 @@
 
 ---
 
+## [2026-10-09] GitHub 레포 초경량 슬림화: insta_cards git 제외 및 순수 웹 파일 3.2MB 축소
+- **1. 요청사항**:
+  - `shoef/runanalyz` 레포지토리 용량 다이어트 및 불필요한 에셋의 GitHub 제외 요청.
+- **2. 솔루션 & 구현**:
+  - `insta_cards/` (인스타그램 홍보용 3개 PNG, 약 2.05MB)를 `git rm -r --cached`로 원격 추적에서 안전하게 제외.
+  - `.gitignore`에 `insta_cards/` 등록하여 로컬 파일은 보존하되 향후 GitHub 업로드 방지.
+  - 커밋 및 원격 `origin/main` 푸시 완료 (`d7b8e8b`).
+- **3. 결과 & 검증**:
+  - GitHub 원격 레포지토리의 순수 웹 소스 파일 크기가 기존 5.3MB에서 **3.2MB**로 약 40% 추가 다이어트 달성.
+  - 로컬 원본 파일은 그대로 유지되어 업무에 지장 없음.
+
+---
+
 ## [2026-10-09] GA4 독립 분리 완료: ThePathLab(G-K3PFHN6VW7) 잔여 태그 전수 제거 및 RunAnalyz(G-QREC5DVG9M) 단독 정돈
 - **1. 요청사항**:
   - runanalyz.com을 thepathlab.com(chicstory.github.io)에서 분리했는데도 ThePathLab 애널리틱스에 runanalyz 트래픽이 계속 합산 집계되는 현상 원인 규명 및 완전 분리 요청.
