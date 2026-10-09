@@ -19,3 +19,6 @@ strava_*.json
 Thumbs.db
 __pycache__/
 *.log
+
+# Promotional assets (Local only)
+insta_cards/
