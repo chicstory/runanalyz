@@ -20,5 +20,6 @@ Thumbs.db
 __pycache__/
 *.log
 
-# Promotional assets (Local only)
+# Promotional & Raw Data (Local only)
 insta_cards/
+data/

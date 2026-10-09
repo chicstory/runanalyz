@@ -2,6 +2,24 @@
 
 ---
 
+## [2026-10-09] 워크스페이스 루트 독립 이관 및 신규 킬러 아티클 3편 발행 (총 32편 완공)
+- **1. 요청사항**:
+  - `shoef` 구버전 잔재와 `runanalyz_mk2` 스냅샷을 D드라이브 백업으로 안전하게 이동하고, 워크스페이스 루트에 `runanalyz`를 단독 독립 배치.
+  - 새 독립 구조에서 배포 파이프라인 무결성을 검증하기 위해 신규 아티클 3편 추가 발행 및 연동 테스트 요청.
+- **2. 솔루션 & 구현**:
+  - **신규 킬러 런로그 3편 발행 (`articles/`)**:
+    1. **Card 32 (`articles/cold-weather-running-layering-hypothermia.html`)**: '추운 날 달리기 옷차림의 과학: 땀 식음 방지와 3단계 레이어링(Base-Mid-Outer)'
+    2. **Card 31 (`articles/marathon-energy-gel-timing-gi-distress.html`)**: '마라톤 대회 에너지젤 섭취 공식: 시간대별 보급과 위장 트러블(GI) 예방 생리학'
+    3. **Card 30 (`articles/hamstring-strain-glute-activation-running.html`)**: '달릴 때 뒷허벅지가 뻐근한 이유: 햄스트링 부상 방지와 죽은 엉덩이(둔근) 깨우기'
+  - **메인 및 사이트맵 연동**:
+    - `index.html` 카테고리 칩 카운트 갱신 (전체 32, 초보 7, 중급 14, 상급 6, 기어 5) 및 아티클 그리드 상단 카드 3종 탑재.
+    - `sitemap.xml` 검색엔진용 우선순위 0.9 신규 URL 3종 등록.
+- **3. 결과 & 검증**:
+  - 디스크 아티클 파일 32개와 `index.html` 링크 32개 100% 일치 무결성 검증 완료.
+  - 워크스페이스 루트 단독 `runanalyz` 체제에서도 Git 배포 및 사이트맵 연동 완벽 작동 확인.
+
+---
+
 ## [2026-10-09] GitHub 레포 초경량 슬림화: insta_cards git 제외 및 순수 웹 파일 3.2MB 축소
 - **1. 요청사항**:
   - `shoef/runanalyz` 레포지토리 용량 다이어트 및 불필요한 에셋의 GitHub 제외 요청.
