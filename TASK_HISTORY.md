@@ -2,6 +2,27 @@
 
 ---
 
+## [2026-10-18] 실시간 검색엔진 색인 촉진용 RSS 2.0 피드(rss.xml) 구축 및 자동 빌더 배포
+- **1. 요청사항**: 구글 및 네이버 검색엔진의 신규 아티클 색인 지연 문제를 해결하기 위해 표준 RSS 2.0 피드(`rss.xml`) 구축 및 자동화 파이프라인 적용 요청.
+- **2. 솔루션 & 구현**:
+  - **독립형 RSS 2.0 빌더 개발 (`generate_rss.py`)**:
+    - 외부 의존성(pip/bs4 등) 없이 표준 Python(`re`, `xml.etree`, `email.utils`)만으로 구동되는 자립형 스크립트 작성.
+    - `sitemap.xml`과 `articles/*.html` 메타데이터(제목, 설명, 카테고리, 업데이트 일자)를 파싱하여 최신순 63개 전수 아티클을 담은 `rss.xml` 생성.
+    - 검색엔진 표준에 맞춰 RFC 822 포맷(`Sun, 18 Oct 2026 09:00:00 +0900`) 적용 및 `<atom:link rel="self">`, CDATA 텍스트 이스케이프 완비.
+    - 템플릿(`_gear-template.html`) 자동 제외 및 결측 메타데이터 자동 추출 폴백 탑재.
+  - **검색엔진 크롤러 자동 감지 태그 탑재**:
+    - `index.html`: `<head>` 내 `<link rel="alternate" type="application/rss+xml" title="RunAnalyz 러닝 사이언스 매거진" href="https://runanalyz.com/rss.xml">` 탑재.
+    - `robots.txt`: `Sitemap: https://runanalyz.com/rss.xml` 추가 명시.
+  - **기존 아티클 메타데이터 보강**:
+    - `articles/cardiac-drift-aerobic-decoupling.html` 누락된 meta description 및 canonical 태그 보강.
+- **3. 결과 & 검증**:
+  - `rss.xml` 내 63편 아티클 XML 무결성 파싱 검증 완료 (공백 description 제로).
+  - 구글 서치 콘솔(GSC) 및 네이버 서치어드바이저 RSS 제출 규격 100% 충족.
+- **4. 주요 합의 사항**:
+  - 향후 신규 아티클 발행 시 `python generate_rss.py` 한 줄로 `rss.xml`을 최신 상태로 유지할 것.
+
+---
+
 ## [2026-10-18] 마라톤 온라인 벤치마킹 3대 킬러 아티클 발행 (총 63편 완공) & 뇌과학·크로스트레이닝·파틀렉 전수 동기화
 - **1. 요청사항**:
   - 마라톤 온라인(marathon_raw 259편 데이터셋) 아티클들과 RunAnalyz 기존 60편을 비교 분석하여 빠진 부분과 필수적인 킬러 아티클 3편 선정 및 현대적 스포츠 과학으로 업그레이드 발행.

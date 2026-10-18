@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://runanalyz.com/sitemap.xml
+Sitemap: https://runanalyz.com/rss.xml

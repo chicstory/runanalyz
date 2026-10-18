@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RunAnalyz 러닝 사이언스 &amp; 체력 진단 랩</title>
+    <link>https://runanalyz.com/</link>
+    <description>스포츠 생체역학과 운동생리학 연구 기반의 러닝 사이언스, 부상 재활, 마라톤 코스 공략 및 체력 진단 매거진</description>
+    <language>ko</language>
+    <lastBuildDate>Sun, 18 Oct 2026 11:59:58 +0900</lastBuildDate>
+    <atom:link href="https://runanalyz.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>러너스 하이(Runner&#x27;s High)의 진실: 엔도르핀 미신과 뇌를 춤추게 하는 엔도카나비노이드의 과학</title>
+      <link>https://runanalyz.com/articles/runners-high-science-endocannabinoid-anandamide.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/runners-high-science-endocannabinoid-anandamide.html</guid>
+      <pubDate>Sun, 18 Oct 2026 09:00:00 +0900</pubDate>
+      <category>초보 입문 · 뇌신경과학 &amp; 러너스 하이</category>
+      <description><![CDATA[달릴 때 찾아오는 극도의 황홀감과 통증 소멸 상태인 러너스 하이(Runner's High). 뇌혈관 장벽을 통과하지 못하는 엔도르핀의 진실, 뇌 속 행복 분자 아난다미드(Anandamide)와 러너스 하이를 켜는 Zone 2~3 45분 달리기 조건.]]></description>
+    </item>
+    <item>
+      <title>트랙 없이 빨라지는 파틀렉(Fartlek) 러닝의 과학: 지형지물을 이용한 스피드 놀이와 실전 세션</title>
+      <link>https://runanalyz.com/articles/fartlek-training-running-speed-play-protocols.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/fartlek-training-running-speed-play-protocols.html</guid>
+      <pubDate>Sun, 18 Oct 2026 09:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 스피드 훈련 &amp; 파틀렉(Fartlek)</category>
+      <description><![CDATA[우레탄 트랙 없이 일반 도로와 공원에서 스피드와 심폐를 폭발시키는 파틀렉(Fartlek) 훈련법. 스웨덴 스피드 놀이의 생리학, 트랙 인터벌과의 차이점, 전설적인 모나 파틀렉(Mona Fartlek) 20분 실전 프로토콜.]]></description>
+    </item>
+    <item>
+      <title>부상 중에도 심폐를 유지하는 크로스 트레이닝(Cross-Training)의 과학: 사이클·수영 심박수 환산과 실전 루틴</title>
+      <link>https://runanalyz.com/articles/cross-training-running-cycling-swimming-vo2max.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/cross-training-running-cycling-swimming-vo2max.html</guid>
+      <pubDate>Sun, 18 Oct 2026 09:00:00 +0900</pubDate>
+      <category>초보 입문 · 대체 훈련 &amp; 크로스 트레이닝</category>
+      <description><![CDATA[신스프린트나 족저근막염으로 달리지 못할 때 심폐 지구력(VO2max)을 100% 보존하는 크로스 트레이닝. 사이클과 러닝의 심박수 -10bpm 보정 공식, 아쿠아 조깅과 일립티컬의 하지 충격 제로 유산소 루틴.]]></description>
+    </item>
+    <item>
+      <title>달리기 시작 10분, 숨이 턱 끝까지 찰 때: 사점(Dead Point)을 뚫고 세컨드 윈드(Second Wind)를 여는 호흡의 과학</title>
+      <link>https://runanalyz.com/articles/running-breathing-dead-point-second-wind-science.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/running-breathing-dead-point-second-wind-science.html</guid>
+      <pubDate>Sat, 17 Oct 2026 09:00:00 +0900</pubDate>
+      <category>초보 입문 · 호흡 생리학 &amp; 페이스 조절</category>
+      <description><![CDATA[달리기 시작 후 5~10분 만에 찾아오는 극심한 호흡 곤란과 가슴 답답함. 산소 부채로 인한 사점(Dead Point)의 원리, 세컨드 윈드(Second Wind)가 열리는 생리학, 2-2 및 3-3 리듬 복식호흡법.]]></description>
+    </item>
+    <item>
+      <title>마라톤 급수대 5km마다 100% 흡수시키는 법: 종이컵 &#x27;V자 접기&#x27;와 게토레이 삼투압 공식</title>
+      <link>https://runanalyz.com/articles/marathon-water-station-hydration-cup-folding-technique.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-water-station-hydration-cup-folding-technique.html</guid>
+      <pubDate>Sat, 17 Oct 2026 09:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 급수대 실전 테크닉 &amp; 전해질 흡수</category>
+      <description><![CDATA[마라톤 대회 주로 5km마다 설치된 급수대 완벽 활용법. 달리는 속도에서 사레들리지 않는 종이컵 'V자 접기(V-pinch)' 기술, 맹물과 이온음료의 장내 흡수 삼투압 원리, 뇌를 속이는 탄수화물 마우스 린스(Mouth Rinse).]]></description>
+    </item>
+    <item>
+      <title>마라톤 대회 당일 심박수 급상승(아드레날린 서지)과 페이스 분배: 10km의 함정과 네거티브 스플릿</title>
+      <link>https://runanalyz.com/articles/marathon-race-day-adrenaline-surge-negative-split.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-race-day-adrenaline-surge-negative-split.html</guid>
+      <pubDate>Sat, 17 Oct 2026 09:00:00 +0900</pubDate>
+      <category>상급 마라톤 · 레이스 전술 &amp; 페이스 배분</category>
+      <description><![CDATA[마라톤 대회 출발선에 서면 조깅 속도에도 심박수가 160bpm으로 치솟는 생리학적 이유. 카테콜아민 서지의 착각, 초반 10km 오버페이스의 함정과 세계 신기록의 95%를 만든 네거티브 스플릿(Negative Split) 실전 전략.]]></description>
+    </item>
+    <item>
+      <title>아침 5℃ 가을 마라톤 체온 전략: 다이소 우비, 버릴 옷(Thrift), 싱글렛과 암슬리브의 과학</title>
+      <link>https://runanalyz.com/articles/fall-marathon-cold-weather-clothing-raincoat-thrift.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/fall-marathon-cold-weather-clothing-raincoat-thrift.html</guid>
+      <pubDate>Sat, 17 Oct 2026 09:00:00 +0900</pubDate>
+      <category>초보 입문 · 가을 레이스 복장 &amp; 체온 관리</category>
+      <description><![CDATA[가을철 아침 기온 5~8℃ 춘천·JTBC 마라톤 체온 관리 전략. 출발 대기 1시간 체온 1℃ 저하가 부르는 글리코겐 낭비, 1,000원짜리 비닐 우비 활용법, 버릴 옷(Thrift) 기부, 암슬리브와 장갑의 말초 혈관 보온 생리학.]]></description>
+    </item>
+    <item>
+      <title>2026 춘천마라톤 코스 완벽 공략: 의암호 42.195km 고저도와 30km 신매대교 역풍 극복법</title>
+      <link>https://runanalyz.com/articles/chuncheon-marathon-course-guide-elevation-tactics.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/chuncheon-marathon-course-guide-elevation-tactics.html</guid>
+      <pubDate>Sat, 17 Oct 2026 09:00:00 +0900</pubDate>
+      <category>상급 마라톤 · 춘천마라톤 코스 분석 &amp; 고저도 공략</category>
+      <description><![CDATA[가을의 전설 춘천마라톤 풀코스 의암호 순환 42.195km 코스 분석. 초반 10km 완만한 내리막의 함정, 28~32km 춘천댐 낙타등 고개, 35km 신매대교 강바람을 뚫는 실전 페이스 전략.]]></description>
+    </item>
+    <item>
+      <title>발목 삠(염좌) 후 자꾸 꺾이는 만성 발목 불안정증(CAI): 전거비인대 손상과 고유수용성 감각 재활</title>
+      <link>https://runanalyz.com/articles/ankle-sprain-chronic-instability-proprioception-rehab.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/ankle-sprain-chronic-instability-proprioception-rehab.html</guid>
+      <pubDate>Sat, 17 Oct 2026 09:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 발목 관절 &amp; 고유수용성 재활</category>
+      <description><![CDATA[러닝 중 발목을 접질린 후 반복적으로 발목이 불안정해지는 이유. 전거비인대(ATFL) 손상과 신경 센서인 고유수용성 감각(Proprioception) 상실, 비골근 반응 속도 회복과 한 발 밸런스 재활 프로토콜.]]></description>
+    </item>
+    <item>
+      <title>엉덩이 깊은 곳이 찌릿하고 다리가 저릴 때: 이상근 증후군(Piriformis Syndrome) vs 허리 디스크 감별법</title>
+      <link>https://runanalyz.com/articles/piriformis-syndrome-sciatic-nerve-running.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/piriformis-syndrome-sciatic-nerve-running.html</guid>
+      <pubDate>Fri, 16 Oct 2026 09:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 둔부 심부 통증 &amp; 신경 포착</category>
+      <description><![CDATA[러닝 중 엉덩이 깊숙한 곳의 뻐근함과 허벅지 뒤쪽 저림. 좌골신경을 압박하는 이상근 증후군과 허리 디스크(요추 추간판 탈출증) 자가 감별법, 폼롤러 직접 압박이 위험한 이유와 이상근 스트레칭·둔근 강화 프로토콜.]]></description>
+    </item>
+    <item>
+      <title>마라톤 35km 벽을 깨는 수정 카보로딩: 3일간 밥을 더 먹고 체중이 2kg 늘어야 완주하는 이유</title>
+      <link>https://runanalyz.com/articles/marathon-carbo-loading-modified-glycogen-water-weight.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-carbo-loading-modified-glycogen-water-weight.html</guid>
+      <pubDate>Fri, 16 Oct 2026 09:00:00 +0900</pubDate>
+      <category>상급 마라톤 · 마라톤 뉴트리션 &amp; 카보로딩</category>
+      <description><![CDATA[마라톤 풀코스 35km 지점의 벽(The Wall)을 넘어서는 현대식 수정 카보로딩(Modified Carbo-loading) 7일 프로토콜. 클래식 고갈법의 위험성, 글리코겐 1g당 수분 3g 결합의 원리, 대회 직전 체중 증가의 진실과 D-7 식단 가이드.]]></description>
+    </item>
+    <item>
+      <title>카본 러닝화의 수명은 정말 300km일까? PEBA 폼의 반발력 저하와 미드솔 꺼짐이 부르는 부상</title>
+      <link>https://runanalyz.com/articles/carbon-plate-shoes-lifespan-peba-foam-fatigue.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/carbon-plate-shoes-lifespan-peba-foam-fatigue.html</guid>
+      <pubDate>Fri, 16 Oct 2026 09:00:00 +0900</pubDate>
+      <category>기어 &amp; 테크 · 러닝화 테크 &amp; 장비 과학</category>
+      <description><![CDATA[30만 원대 카본 플레이트 러닝화의 실질 수명과 교체 주기. 초임계 PEBA 폼의 영구 압축 변형률(Compression Set), 에너지 리턴 감쇠 곡선, 쿠션 꺼짐이 아킬레스건과 발목에 미치는 부상 위험 및 관리 팁.]]></description>
+    </item>
+    <item>
+      <title>근육은 48시간, 뼈와 힘줄은 3개월: 초보 러너가 매일 달리면 뼈가 부러지는 생리학</title>
+      <link>https://runanalyz.com/articles/bone-remodeling-running-rest-days-tendon-science.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/bone-remodeling-running-rest-days-tendon-science.html</guid>
+      <pubDate>Fri, 16 Oct 2026 09:00:00 +0900</pubDate>
+      <category>초보 입문 · 조직 적응 생리학 &amp; 휴식 과학</category>
+      <description><![CDATA[달리기를 시작하고 근육통이 사라졌다고 매일 달리면 안 되는 생리학적 이유. 파골세포와 조골세포의 뼈 리모델링 주기, 혈관이 없는 건(Tendon)의 느린 회복, 피로골절(Stress Fracture)을 막는 휴식의 법칙.]]></description>
+    </item>
+    <item>
+      <title>종아리 깊은 속근육이 뻐근할 때: 가자미근(Soleus) 과부하와 만성 구획증후군(CECS) 감별법</title>
+      <link>https://runanalyz.com/articles/soleus-pain-compartment-syndrome-running.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/soleus-pain-compartment-syndrome-running.html</guid>
+      <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
+      <category>중급 러너 · 종아리 심부 통증 &amp; 구획압</category>
+      <description><![CDATA[종아리 겉이 아니라 깊숙한 곳에서 느껴지는 묵직한 통증. 마라톤 착지 시 체중의 8배를 흡수하는 가자미근의 피로 메커니즘, 만성 구획증후군과의 차이점, 벤트니 카프레이즈(Bent-knee Calf Raise) 재활법.]]></description>
+    </item>
+    <item>
+      <title>러닝 선글라스와 자외선(UV400)의 과학: 눈의 피로가 심박수를 올리는 신경학적 원리</title>
+      <link>https://runanalyz.com/articles/running-sunglasses-uv400-eye-fatigue-science.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/running-sunglasses-uv400-eye-fatigue-science.html</guid>
+      <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
+      <category>기어 &amp; 테크 · 러닝 선글라스 &amp; 시각 피로</category>
+      <description><![CDATA[멋이 아닌 필수 방어 장비 러닝 선글라스의 운동생리학. 강한 자외선과 삼차신경 자극에 의한 중추 피로, 안면 찌푸림과 호흡 경직 메커니즘, 편광 vs 변색 렌즈 및 25g 초경량 선택 가이드.]]></description>
+    </item>
+    <item>
+      <title>마라톤 후 콜라색 소변의 공포: 횡문근융해증과 진통제 복용의 치명적 위험</title>
+      <link>https://runanalyz.com/articles/rhabdomyolysis-running-kidney-failure-hydration.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/rhabdomyolysis-running-kidney-failure-hydration.html</guid>
+      <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
+      <category>상급 마라톤 · 횡문근융해증 &amp; 신장 보호</category>
+      <description><![CDATA[자신의 체력을 초과한 극한 레이스가 부르는 횡문근융해증(Rhabdomyolysis)과 급성 신부전. 근육 파괴 부산물 미오글로빈의 위험성, 대회 당일 소염진통제(NSAIDs) 복용 절대 금지 생리학 및 신장 보호 수칙.]]></description>
+    </item>
+    <item>
+      <title>내리막길 러닝 후 허벅지 앞쪽 통증: 단순 근육통(DOMS) vs 대퇴직근(Rectus Femoris) 염좌 감별법</title>
+      <link>https://runanalyz.com/articles/quadriceps-strain-rectus-femoris-running.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/quadriceps-strain-rectus-femoris-running.html</guid>
+      <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
+      <category>중급 러너 · 허벅지 앞쪽 통증 &amp; 제동 충격</category>
+      <description><![CDATA[다운힐 러닝과 풀코스 마라톤 후 허벅지 앞쪽이 찢어질 듯한 통증. 단순 지연성 근육통(DOMS)과 2관절 근육인 대퇴직근 염좌 구별법, 내리막 충격 흡수 착지법과 리버스 노르딕 컬(Reverse Nordic) 재활.]]></description>
+    </item>
+    <item>
+      <title>마라톤 대회 중 심정지(SCD)의 위험 신호: 피니시 라인 스퍼트의 함정과 기권(DNF)의 용기</title>
+      <link>https://runanalyz.com/articles/marathon-sudden-cardiac-arrest-red-flags-dnf.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-sudden-cardiac-arrest-red-flags-dnf.html</guid>
+      <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
+      <category>초보 입문 · 레이스 안전 &amp; 심장 보호</category>
+      <description><![CDATA[마라톤 대회 급사 사고의 70%가 발생하는 피니시 라인 전력 질주의 위험성. 카테콜아민 폭풍과 치명적 심실세동(VF), 즉시 달리기를 멈추어야 하는 4대 적신호와 생명을 지키는 DNF 수칙.]]></description>
+    </item>
+    <item>
+      <title>업힐 &amp; 다운힐 러닝의 생체역학: 언덕 훈련의 스피드 폭발 원리와 내리막 무릎 보호</title>
+      <link>https://runanalyz.com/articles/hill-repeats-running-biomechanics-uphill-downhill.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/hill-repeats-running-biomechanics-uphill-downhill.html</guid>
+      <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
+      <category>상급 마라톤 · 언덕 훈련 &amp; 업다운힐 주법</category>
+      <description><![CDATA[러너의 천연 웨이트 트레이닝 언덕 반복 훈련(Hill Repeats)의 생체역학. 오르막 지면 반발력과 대둔근 활성화, 내리막 무릎 슬개골 충격을 3배 줄이는 케이던스 185+ 주법 공식.]]></description>
+    </item>
+    <item>
+      <title>달리기 후 폼롤러 vs 마사지건의 과학: 근막 이완의 진실과 젖산 제거 미신</title>
+      <link>https://runanalyz.com/articles/foam-roller-vs-massage-gun-running-recovery.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/foam-roller-vs-massage-gun-running-recovery.html</guid>
+      <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
+      <category>초보 입문 · 러닝 회복 &amp; 케어</category>
+      <description><![CDATA[러너의 회복 도구 폼롤러와 마사지건의 신경생리학. 젖산 배출 미신 검증, 골지건기관(GTO) 자극과 통증 역치 조절, 장경인대(ITB) 직접 롤링 금지 이유 및 올바른 사용 부위 가이드.]]></description>
+    </item>
+    <item>
+      <title>과도한 마라톤 훈련과 심장의 역설: 심근 섬유화와 &#x27;U자형 수명 곡선&#x27;의 진실</title>
+      <link>https://runanalyz.com/articles/extreme-running-heart-health-u-curve-fibrosis.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/extreme-running-heart-health-u-curve-fibrosis.html</guid>
+      <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 심근 보호 &amp; 건강 러닝</category>
+      <description><![CDATA[달리기를 무한정 많이 하면 건강해질까? 코펜하겐 심장 연구가 밝힌 운동량과 사망률의 U자형 곡선, 만성 극단 훈련 시 심근 섬유화(Myocardial Fibrosis)와 심방세동 위험, 건강을 지키는 적정 주간 마일리지 골든존.]]></description>
+    </item>
+    <item>
+      <title>지연성 근육통(DOMS) vs 건염·인대 손상 구분법: 회복 조깅이 가능한 통증의 기준</title>
+      <link>https://runanalyz.com/articles/doms-muscle-soreness-vs-tendon-injury-running.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/doms-muscle-soreness-vs-tendon-injury-running.html</guid>
+      <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 근육통 vs 건염 감별 &amp; 회복</category>
+      <description><![CDATA[달리기 후 찾아오는 다리 통증 감별 진단. 단순 지연성 근육통(DOMS)과 위험한 건염·인대 손상 구별 3대 원칙(통증 위치, 5분 온기 반응, 편측성), 회복 조깅(Active Recovery) 가능 기준.]]></description>
+    </item>
+    <item>
+      <title>러닝 중 종아리 쥐(근육 경련) vs 테니스 레그(비복근 파열): 3초 감별법과 스트레칭 절대 금기</title>
+      <link>https://runanalyz.com/articles/calf-cramp-tennis-leg-gastrocnemius-strain.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/calf-cramp-tennis-leg-gastrocnemius-strain.html</guid>
+      <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
+      <category>초보 입문 · 종아리 통증 &amp; 근육 손상</category>
+      <description><![CDATA[러닝 중 갑작스러운 종아리 통증. 단순 전해질 결핍에 의한 쥐(Muscle Cramp)와 근섬유가 찢어진 테니스 레그(비복근 파열) 감별법, 파열 시 스트레칭이 치명적인 이유와 PEACE & LOVE 응급 대처법.]]></description>
+    </item>
+    <item>
+      <title>달릴 때 허벅지 안쪽이 찌릿할 때: 내전근(Adductor) 서혜부 염좌 원인과 코펜하겐 재활 운동</title>
+      <link>https://runanalyz.com/articles/adductor-groin-strain-inner-thigh-running.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/adductor-groin-strain-inner-thigh-running.html</guid>
+      <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
+      <category>상급 러너 · 허벅지 안쪽 통증 &amp; 골반 역학</category>
+      <description><![CDATA[러닝 시 사타구니와 허벅지 안쪽의 찌릿한 통증. 장내전근(Adductor Longus) 과부하 원인, 중둔근 약화와의 상관관계, 스포츠 탈장 감별법, 세계적인 코펜하겐 내전근 운동(Copenhagen Adduction) 3단계 프로토콜.]]></description>
+    </item>
+    <item>
+      <title>러닝 워치 심박 센서의 진실: 손목 광학식(PPG)의 케이던스 락과 가슴 심박계 비교</title>
+      <link>https://runanalyz.com/articles/running-watch-ppg-heart-rate-chest-strap.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/running-watch-ppg-heart-rate-chest-strap.html</guid>
+      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
+      <category>기어 &amp; 테크 · 스마트워치 심박 센서 &amp; 가슴 스트랩</category>
+      <description><![CDATA[스마트워치 손목 심박수 오류의 원인 케이던스 락(Cadence Lock)과 반응 지연(Lag) 현상. 광용적맥파(PPG) 센서 원리, 심전도(ECG) 가슴 심박 스트랩 비교 및 정확도 향상 착용법.]]></description>
+    </item>
+    <item>
+      <title>달리기 후 무릎 앞쪽 통증: 슬개대퇴 통증 증후군(PFPS)의 원인과 내측광근·둔근 재활</title>
+      <link>https://runanalyz.com/articles/pfps-patellofemoral-runners-knee-rehab.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/pfps-patellofemoral-runners-knee-rehab.html</guid>
+      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 무릎 통증 &amp; PFPS 재활</category>
+      <description><![CDATA[러너의 가장 흔한 무릎 통증 1위 슬개대퇴 통증 증후군(PFPS, 러너스 니). 슬개골 트래킹 불균형, 내측광근(VMO)과 중둔근 약화 생체역학, 스페니시 스쿼트와 TNE 3대 재활 처방.]]></description>
+    </item>
+    <item>
+      <title>아침 공복 러닝 vs 저녁 러닝의 운동생리학: 지방 연소 효율과 코르티솔, 수면 영향 분석</title>
+      <link>https://runanalyz.com/articles/morning-fasted-running-vs-evening-science.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/morning-fasted-running-vs-evening-science.html</guid>
+      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
+      <category>초보 입문 · 러닝 생체리듬 &amp; 시간대</category>
+      <description><![CDATA[아침 공복 달리기와 퇴근 후 저녁 달리기의 생리학적 차이. 유리지방산(FFA) 산화율과 근손실 방지 요령, 체온 일주기 리듬, 늦은 밤 고강도 러닝 시 수면 장애 예방 가이드.]]></description>
+    </item>
+    <item>
+      <title>마라톤 30km LSD 훈련의 생리학: 모세혈관 신생과 지방 산화 시스템 개조</title>
+      <link>https://runanalyz.com/articles/lsd-training-capillary-fat-adaptation.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/lsd-training-capillary-fat-adaptation.html</guid>
+      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
+      <category>상급 마라톤 · LSD 훈련 &amp; 모세혈관 신생</category>
+      <description><![CDATA[풀코스 마라톤 완주의 열쇠 LSD(Long Slow Distance) 훈련의 운동생리학. 모세혈관 신생(Angiogenesis), 글리코겐 절약과 지방 산화율 극대화, 90~150분 Zone 2 심박수 엄격 통제 가이드.]]></description>
+    </item>
+    <item>
+      <title>VO2max 올리는 인터벌 트레이닝 설계: 400m·1000m 질주와 불완전 휴식의 운동생리학</title>
+      <link>https://runanalyz.com/articles/vo2max-interval-training-protocols.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/vo2max-interval-training-protocols.html</guid>
+      <pubDate>Sat, 10 Oct 2026 09:00:00 +0900</pubDate>
+      <category>상급 마라톤 · 심폐 한계 돌파 &amp; 스피드</category>
+      <description><![CDATA[마라톤 기록 단축과 심폐 엔진 확장을 위한 VO2max 인터벌 공식. 최대산소섭취량 도달 시간(Tmax), 400m(1:1) vs 1000m(1:0.5) 질주-조깅 휴식 비율, VDOT I-페이스 설정과 부상 방지 주 1회 원칙.]]></description>
+    </item>
+    <item>
+      <title>달릴 때 옆구리가 찌르듯 아픈 이유(ETAP): 생리학적 원인과 즉시 없애는 3대 응급 호흡법</title>
+      <link>https://runanalyz.com/articles/side-stitch-running-etap-breathing.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/side-stitch-running-etap-breathing.html</guid>
+      <pubDate>Sat, 10 Oct 2026 09:00:00 +0900</pubDate>
+      <category>초보 입문 · 러닝 호흡 &amp; 급성 복통</category>
+      <description><![CDATA[달리기 중 찾아오는 불청객 옆구리 통증(운동 유발성 복통 ETAP)의 원인. 횡격막 인대 견인과 복막 마찰 생리학, 착지 발과 날숨을 맞추는 보행-호흡 위상 반전, 하복부 복식 호흡 응급 처치 가이드.]]></description>
+    </item>
+    <item>
+      <title>러닝 양말의 과학: 물집과 발톱 피멍을 막는 기능성 원사와 마찰 계수(토 양말 vs 이중직)</title>
+      <link>https://runanalyz.com/articles/running-socks-blister-prevention-materials.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/running-socks-blister-prevention-materials.html</guid>
+      <pubDate>Sat, 10 Oct 2026 09:00:00 +0900</pubDate>
+      <category>기어 &amp; 테크 · 러닝 양말 &amp; 발 보호</category>
+      <description><![CDATA[20만원대 카본화보다 중요한 러닝 양말 선택 공식. 발가락 물집과 흑색조갑(피멍)의 전단응력(Shear Stress) 메커니즘, 면(Cotton) 양말 탈피, 쿨맥스·메리노울 섬유 특성과 발가락(인진지) 양말 실전 검증.]]></description>
+    </item>
+    <item>
+      <title>스마트워치 수면 점수와 초회복(Supercompensation): 기기로 측정하는 깊은 수면과 달리기 기록의 상관관계</title>
+      <link>https://runanalyz.com/articles/smartwatch-sleep-score-deep-recovery.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/smartwatch-sleep-score-deep-recovery.html</guid>
+      <pubDate>Fri, 09 Oct 2026 09:00:00 +0900</pubDate>
+      <category>휴식 &amp; 초회복 과학</category>
+      <description><![CDATA[가민 스마트워치 수면 점수 87점과 99점 실측 데이터로 풀어내는 러너의 초회복 과학. 깊은 수면(Deep Sleep) 중 분비되는 성장호르몬과 심박변이도(HRV) 기반 훈련 가이드.]]></description>
+    </item>
+    <item>
+      <title>마라톤 대회 에너지젤 섭취 공식: 시간대별 보급과 위장 트러블(GI) 예방 생리학</title>
+      <link>https://runanalyz.com/articles/marathon-energy-gel-timing-gi-distress.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-energy-gel-timing-gi-distress.html</guid>
+      <pubDate>Fri, 09 Oct 2026 09:00:00 +0900</pubDate>
+      <category>마라톤 영양 &amp; 보급</category>
+      <description><![CDATA[풀코스 마라톤 완주를 위한 시간대별 에너지젤 보급 전략. 시간당 탄수화물 30~60g 한계, 고장액 삼투성 설사 방지, 포도당 대 과당 2:1 복합 탄수화물 원리.]]></description>
+    </item>
+    <item>
+      <title>LT1·LT2와 심박존(Zone 1~5) 완벽 가이드: 초급·중급·고급 러너를 위한 최신 운동생리학과 심박 훈련 공식</title>
+      <link>https://runanalyz.com/articles/lt1-lt2-heart-rate-zones-science.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/lt1-lt2-heart-rate-zones-science.html</guid>
+      <pubDate>Fri, 09 Oct 2026 09:00:00 +0900</pubDate>
+      <category>심박수 &amp; 생체역학</category>
+      <description><![CDATA[과거 220-나이 단순 심박 공식의 한계를 극복하는 유산소역치(LT1)와 젖산역치(LT2) 생리학. 5대 심박존 매핑과 초급·중급·고급 러너별 주간 훈련 배분 공식.]]></description>
+    </item>
+    <item>
+      <title>달릴 때 뒷허벅지가 뻐근한 이유: 햄스트링 부상 방지와 죽은 엉덩이(둔근) 깨우기</title>
+      <link>https://runanalyz.com/articles/hamstring-strain-glute-activation-running.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/hamstring-strain-glute-activation-running.html</guid>
+      <pubDate>Fri, 09 Oct 2026 09:00:00 +0900</pubDate>
+      <category>러닝 부상 &amp; 재활</category>
+      <description><![CDATA[러너의 고질병 햄스트링 당김의 생체역학적 원인. 대퇴사두근 우세와 대둔근 기억상실증 극복, 노르딕 컬과 싱글레그 루마니안 데드리프트 재활 가이드.]]></description>
+    </item>
+    <item>
+      <title>한 번에 오래 달리기 vs 두 번 나눠 달리기: 러너를 위한 지속주와 2분할 러닝의 과학</title>
+      <link>https://runanalyz.com/articles/continuous-vs-split-running-science.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/continuous-vs-split-running-science.html</guid>
+      <pubDate>Fri, 09 Oct 2026 09:00:00 +0900</pubDate>
+      <category>마라톤 훈련법</category>
+      <description><![CDATA[카와우치 유우키의 1회 집중 훈련 vs 엘리트 2부 훈련의 대립. 나베쿠라 켄지 교수의 성장호르몬 분비 연구와 2분할 템포런의 젖산역치 유지 메커니즘.]]></description>
+    </item>
+    <item>
+      <title>추운 날 달리기 옷차림의 과학: 땀 식음 방지와 3단계 레이어링(Base-Mid-Outer)</title>
+      <link>https://runanalyz.com/articles/cold-weather-running-layering-hypothermia.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/cold-weather-running-layering-hypothermia.html</guid>
+      <pubDate>Fri, 09 Oct 2026 09:00:00 +0900</pubDate>
+      <category>러닝 기어 &amp; 환경</category>
+      <description><![CDATA[겨울철·환절기 러닝 저체온증과 감기 예방을 위한 옷차림 공식. 체감 10도 룰, 면(Cotton) 소재 절대 금지 생리학, 흡습속건 베이스레이어와 통기 방풍 윈드브레이커 가이드.]]></description>
+    </item>
+    <item>
+      <title>달릴 때 입으로 쉴까 코로 쉴까? 옆구리 통증을 없애는 &#x27;발구름-호흡 동조&#x27;의 과학</title>
+      <link>https://runanalyz.com/articles/running-breathing-rhythm-locomotor-coupling.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/running-breathing-rhythm-locomotor-coupling.html</guid>
+      <pubDate>Thu, 08 Oct 2026 09:00:00 +0900</pubDate>
+      <category>초보 입문</category>
+      <description><![CDATA[달리기 중 코호흡 vs 입호흡의 생리학적 차이, 오른쪽 옆구리 콕콕 찌르는 통증(ETAP)의 원인, 횡격막 경련을 막는 발구름-호흡 동조(LRC) 홀수 리듬(3:2, 2:1) 완벽 가이드.]]></description>
+    </item>
+    <item>
+      <title>달릴 때 무릎 안쪽이 욱신거린다면? 거위발건염의 원인과 내전근·햄스트링 재활 프로토콜</title>
+      <link>https://runanalyz.com/articles/pes-anserine-bursitis-inner-knee-pain.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/pes-anserine-bursitis-inner-knee-pain.html</guid>
+      <pubDate>Thu, 08 Oct 2026 09:00:00 +0900</pubDate>
+      <category>부상 방지 &amp; 재활</category>
+      <description><![CDATA[러너의 무릎 안쪽 아래 찌릿한 통증, 내측 반월상 연골판 손상 vs 거위발건염(점액낭염) 자가 감별법, 과회내와 중둔근 약화의 생체역학 메커니즘 및 3단계 완치 운동법.]]></description>
+    </item>
+    <item>
+      <title>카본 러닝화의 두 얼굴: 4% 에너지 절약의 과학과 숨겨진 발목·아킬레스건 부상 메커니즘</title>
+      <link>https://runanalyz.com/articles/carbon-plate-shoes-injury-biomechanics.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/carbon-plate-shoes-injury-biomechanics.html</guid>
+      <pubDate>Thu, 08 Oct 2026 09:00:00 +0900</pubDate>
+      <category>기어 &amp; 테크</category>
+      <description><![CDATA[카본 플레이트 러닝화를 신으면 정말 모두가 빨라질까요? 나이키 베이퍼플라이 연구 논문으로 본 4% 반발력의 원리, 발목 관절 모멘트 증가와 중족골 피로골절 위험, 주력별 안전 착용 가이드.]]></description>
+    </item>
+    <item>
+      <title>러닝화 고를 때 이것만 보세요: 런리핏(RunRepeat) 실측 랩 보고서 읽는 법 - RunAnalyz</title>
+      <link>https://runanalyz.com/articles/runrepeat-shoe-specs-guide.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/runrepeat-shoe-specs-guide.html</guid>
+      <pubDate>Wed, 07 Oct 2026 09:00:00 +0900</pubDate>
+      <category>기어 &amp; 테크 · 런리핏 가이드</category>
+      <description><![CDATA[제조사 홍보 문구 뒤에 숨겨진 실측 수치. 힐-토 드롭, 스택 하이트, 미드솔 경도(HA), 토박스 너비가 내 주법과 무릎·아킬레스건 부상에 미치는 생체역학적 진실.]]></description>
+    </item>
+    <item>
+      <title>러너의 수분 보충 생리학: 맹물 과다 섭취가 부르는 저나트륨혈증과 전해질의 과학</title>
+      <link>https://runanalyz.com/articles/runner-hydration-electrolytes-hyponatremia.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/runner-hydration-electrolytes-hyponatremia.html</guid>
+      <pubDate>Wed, 07 Oct 2026 09:00:00 +0900</pubDate>
+      <category>영양 &amp; 초회복</category>
+      <description><![CDATA[달리기 중 탈수와 운동유발성 저나트륨혈증(EAH)의 위험선, 땀 손실률(Sweat Rate) 자가 측정 공식, 마라톤 쥐 예방과 전해질 음료 가이드.]]></description>
+    </item>
+    <item>
+      <title>젖산역치(LT)와 크리티컬 페이스: 왜 템포런이 마라톤 완주 시간을 바꾸는가</title>
+      <link>https://runanalyz.com/articles/lactate-threshold-tempo-run-science.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/lactate-threshold-tempo-run-science.html</guid>
+      <pubDate>Wed, 07 Oct 2026 09:00:00 +0900</pubDate>
+      <category>스피드 &amp; 레이스</category>
+      <description><![CDATA[젖산(Lactate) 대사의 최신 운동생리학적 진실, 젖산역치(Zone 4) 페이스 계산법, 크루즈 인터벌과 20분 템포런 실전 프로토콜.]]></description>
+    </item>
+    <item>
+      <title>아킬레스건염의 진실: 단순 염증이 아닌 퇴행증, 알프레드슨 편심성 재활의 과학</title>
+      <link>https://runanalyz.com/articles/achilles-tendonitis-eccentric-loading.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/achilles-tendonitis-eccentric-loading.html</guid>
+      <pubDate>Wed, 07 Oct 2026 09:00:00 +0900</pubDate>
+      <category>부상 방지 &amp; 재활</category>
+      <description><![CDATA[러너의 발목 뒤쪽 찌릿한 아킬레스건 통증의 병리학적 원인, 알프레드슨(Alfredson) 편심성 운동 프로토콜, 카본화 착용 주의점 및 재활 가이드.]]></description>
+    </item>
+    <item>
+      <title>심박수 Zone 2 훈련의 기적: 천천히 뛰어야 빨라지는 세포 생물학적 이유</title>
+      <link>https://runanalyz.com/articles/zone2-training-mitochondria.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/zone2-training-mitochondria.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>심폐 지구력 &amp; 유산소 기저</category>
+      <description><![CDATA[많은 러너들이 러닝을 할 때 '숨이 차서 헉헉거리고 온몸이 땀으로 범벅이 되어야 제대로 달렸다'는 성취감을 느낍니다.]]></description>
+    </item>
+    <item>
+      <title>800m 질주로 마라톤 기록을 예측한다? 야소 800(Yasso 800s) 실전 가이드</title>
+      <link>https://runanalyz.com/articles/yasso-800s-marathon-predictor.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/yasso-800s-marathon-predictor.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>스피드 인터벌 &amp; 마라톤 예측</category>
+      <description><![CDATA[마라톤 풀코스 완주 시간을 정확하게 예측하는 야소 800(Yasso 800s) 훈련법의 운동생리학적 원리, 젖산 완충 능력, 서브3/서브4 목표 페이스 및 10주 빌드업 가이드.]]></description>
+    </item>
+    <item>
+      <title>잭 다니엘스 VDOT 원리와 5대 훈련 페이스(E/M/T/I/R) 처방</title>
+      <link>https://runanalyz.com/articles/vdot-training-paces.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/vdot-training-paces.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>맞춤 달리기 속도</category>
+      <description><![CDATA[전설적인 러닝 코치 잭 다니엘스(Jack Daniels) 박사의 VDOT 공식 원리와 조깅(Easy), 마라톤(M), 역치(T), 인터벌(I), 반복(R) 5대 페이스 영역별 목적과 처방 가이드를 알아봅니다.]]></description>
+    </item>
+    <item>
+      <title>러닝머신 속도 10은 야외 600 페이스와 왜 다를까? 트레드밀 vs 로드러닝의 과학</title>
+      <link>https://runanalyz.com/articles/treadmill-vs-outdoor-running.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/treadmill-vs-outdoor-running.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>생체 역학 &amp; 실전 페이스</category>
+      <description><![CDATA[트레드밀 속도와 야외 로드러닝 페이스의 결정적 차이. 공기저항을 상쇄하는 경사도 1%의 법칙과 지면 반발력 생체역학, 스마트워치 보정법을 학술 논문 기반으로 명쾌하게 해설합니다.]]></description>
+    </item>
+    <item>
+      <title>쉬는 날이 없으면 기록은 퇴보한다: 초회복(Supercompensation)과 회복의 과학</title>
+      <link>https://runanalyz.com/articles/supercompensation-rest-recovery.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/supercompensation-rest-recovery.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>운동 생리학 &amp; 오버트레이닝 방지</category>
+      <description><![CDATA[달리기 후 휴식이 실력을 키우는 생리학적 메커니즘. 초회복 곡선, 오버트레이닝 증후군 진단법, 스마트워치 심박변이도(HRV)와 안정심박수로 읽는 최적의 훈련 타이밍.]]></description>
+    </item>
+    <item>
+      <title>러너의 체력은 잠자는 동안 만들어진다: 수면과 성장호르몬(HGH)의 초회복 과학</title>
+      <link>https://runanalyz.com/articles/sleep-science-runner-recovery.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/sleep-science-runner-recovery.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>휴식 &amp; 초회복 과학</category>
+      <description><![CDATA[많은 열정적인 러너들이 인터벌 훈련, 지속주, LSD를 소화하며 훈련 일지를 꼼꼼히 기록합니다.
+                    하지만 훈련을 아무리 열심히 해도 기대만큼 기록이 늘지 않고, 만성 피로와 잦은 잔부상에 시달리는 경우가 많습니다.]]></description>
+    </item>
+    <item>
+      <title>정강이 안쪽이 찢어질 듯 아픈 신스프린트(MTSS): 원인과 3단계 회복 재활법</title>
+      <link>https://runanalyz.com/articles/shin-splints-tibial-stress.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/shin-splints-tibial-stress.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>정강이 부상 &amp; 생체역학</category>
+      <description><![CDATA[러닝 입문 후 거리를 주당 15km, 20km로 빠르게 늘리거나 딱딱한 아스팔트 바닥을 달리다 보면, 
+                    어느 날 정강이 안쪽 아랫부분(경골 내측 1/3 지점)을 따라 둔탁하고 날카로운 통증이 찾아옵니다.]]></description>
+    </item>
+    <item>
+      <title>빠르게 걷기 vs 천천히 달리기: 체지방 연소와 무릎 하중의 결정적 차이</title>
+      <link>https://runanalyz.com/articles/running-vs-walking-fat-loss.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/running-vs-walking-fat-loss.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>체지방 감량 &amp; 운동 생리학</category>
+      <description><![CDATA[걷기와 달리기의 운동생리학 및 생체역학 비교. 지방 연소율(FatMax)의 진실, 무릎 관절에 가해지는 지면 반발력(GRF) 실측치, 운동 후 12시간 지속되는 애프터번(EPOC) 효과 총정리.]]></description>
+    </item>
+    <item>
+      <title>앞발 착지 억지로 따라 하다간 다칩니다: 내 몸에 맞는 진짜 발 착지법의 진실 (힐스트라이크 vs 포어풋)</title>
+      <link>https://runanalyz.com/articles/running-form-footstrike.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/running-form-footstrike.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>생체 역학과 부상 방지</category>
+      <description><![CDATA[유튜브에서 본 앞발(포어풋) 착지를 흉내 내다가 아킬레스건과 종아리 통증을 겪고 계신가요? 하버드대 연구와 2,000명 마라토너 데이터로 밝혀진 발 착지의 진실과 오버스트라이딩 해결법.]]></description>
+    </item>
+    <item>
+      <title>달린 직후 30분 &#x27;기회의 창&#x27;: 탄수화물과 단백질 4:1 황금 비율과 초코우유의 기적</title>
+      <link>https://runanalyz.com/articles/post-run-nutrition-glycogen-window.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/post-run-nutrition-glycogen-window.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>영양 &amp; 회복 생리학</category>
+      <description><![CDATA[많은 다이어트 러너들이 열심히 10km를 달리고 난 뒤 "지금 음식을 먹으면 운동한 게 말짱 도루묵이 된다"며 물만 들이켜고 공복을 유지합니다.
+                    하지만 운동생리학적으로 이것은 근육을 분해하고 만성 피로와 면역력 저하를 초래하는 최악의 선택입니다.]]></description>
+    </item>
+    <item>
+      <title>아침 첫 발을 디딜 때 찌릿? 족저근막염(Plantar Fasciitis) 원인과 자가 회복법</title>
+      <link>https://runanalyz.com/articles/plantar-fasciitis-rehab.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/plantar-fasciitis-rehab.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>발바닥 통증 &amp; 재활</category>
+      <description><![CDATA[러닝 마일리지를 갑작스럽게 늘렸거나, 낡은 러닝화를 신고 딱딱한 아스팔트를 달린 후 어느 날 아침, 침대에서 내려와 바닥을 딛는 순간 발뒤꿈치 안쪽에 전기가 통하듯 찌릿한 통증을 느껴보신 적이 있을 겁니다.]]></description>
+    </item>
+    <item>
+      <title>30km의 벽은 왜 올까? 마라톤 &#x27;셧다운&#x27;을 막는 호주 체육회 카보로딩 공식</title>
+      <link>https://runanalyz.com/articles/marathon-wall-carbo-loading.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-wall-carbo-loading.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>풀코스 실전 &amp; 에너지 대사</category>
+      <description><![CDATA[풀코스 마라톤을 뛰어본 러너라면 누구나 악명 높은 '30km의 벽(Hitting the Wall)'이라는 단어를 들어보셨을 것입니다.]]></description>
+    </item>
+    <item>
+      <title>대회 3주 전, 훈련량을 40% 줄여야 PB(개인 최고기록)가 터지는 생리학</title>
+      <link>https://runanalyz.com/articles/marathon-tapering-science.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-tapering-science.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>대회 직전 컨디셔닝 &amp; 피킹</category>
+      <description><![CDATA[풀코스나 하프 마라톤 대회를 2~3주 앞두고 수많은 러너들이 극심한 불안감(Taper Tantrums)에 시달립니다.]]></description>
+    </item>
+    <item>
+      <title>220-나이는 그만! 카보넨 공식과 젖산역치(LT1·LT2) 심박존</title>
+      <link>https://runanalyz.com/articles/karvonen-heart-rate-zones.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/karvonen-heart-rate-zones.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>진짜 내 심박수 찾기</category>
+      <description><![CDATA[단순 220-나이 심박수 공식이 틀린 이유와, 안정시 심박수를 반영한 카보넨 공식(Karvonen HRR)으로 나만의 1차 유산소 역치(LT1)와 2차 젖산 역치(LT2)를 정확히 찾는 법을 정리합니다.]]></description>
+    </item>
+    <item>
+      <title>무릎 바깥쪽이 찌릿하게 아프다면? 장경인대 증후군(ITBS)의 원인과 2주 재활 솔루션</title>
+      <link>https://runanalyz.com/articles/itbs-runner-knee-pain.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/itbs-runner-knee-pain.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>무릎 부상 &amp; 생체역학</category>
+      <description><![CDATA[달리기를 시작하고 체력이 붙어 기분 좋게 거리를 늘려가던 중, 갑자기 무릎 바깥쪽 관절 부위가 바늘로 쿡쿡 찌르거나 불타는 듯한 통증으로 걸음조차 떼기 힘들었던 경험이 있으실 겁니다.]]></description>
+    </item>
+    <item>
+      <title>매일 5km 뛰기 vs 이틀에 한 번 10km 뛰기: 관절과 심폐를 살리는 최적 빈도</title>
+      <link>https://runanalyz.com/articles/everyday-running-vs-rest-days.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/everyday-running-vs-rest-days.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>훈련 주기화 &amp; 부상 방지</category>
+      <description><![CDATA[매일 달리기와 격일 달리기의 효과 차이. 근육과 건(인대)의 서로 다른 회복 주기, 급성:만성 훈련 부하 비율(ACWR), 부상 없이 주간 마일리지를 늘리는 과학적 빈도 설계법.]]></description>
+    </item>
+    <item>
+      <title>유산소 효율(EF)과 심박 디커플링(Pw:Hr) 완전 정복</title>
+      <link>https://runanalyz.com/articles/ef-aerobic-efficiency.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/ef-aerobic-efficiency.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>내 몸의 심장 가성비</category>
+      <description><![CDATA[달리기 페이스보다 중요한 러너의 심폐 엔진 연비! 유산소 효율(EF, Efficiency Factor)의 공식, 해석 방법 및 후반부 심박 상승(Pw:Hr 디커플링) 해결 가이드를 소개합니다.]]></description>
+    </item>
+    <item>
+      <title>같은 속도인데 왜 심박수는 계속 치솟을까? &#x27;심박수 표류(Cardiac Drift)&#x27;의 생리학</title>
+      <link>https://runanalyz.com/articles/cardiac-drift-aerobic-decoupling.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/cardiac-drift-aerobic-decoupling.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>심폐 기능 &amp; 심박수</category>
+      <description><![CDATA[일정한 페이스로 달려도 체온 상승과 탈수로 심박수가 저절로 치솟는 심박수 표류(Cardiac Drift)와 유산소 디커플링의 운동생리학적 원인 및 해결책.]]></description>
+    </item>
+    <item>
+      <title>케이던스 180의 신화와 진실: 키 큰 러너도 무조건 180을 맞춰야 할까?</title>
+      <link>https://runanalyz.com/articles/cadence-180-spm-myth-facts.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/cadence-180-spm-myth-facts.html</guid>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
+      <category>스피드 &amp; 주법 생체역학</category>
+      <description><![CDATA[러닝 스마트워치를 사고 기록을 들여다보다 보면 누구나 한 번쯤 마주치는 숫자가 있습니다. 바로 케이던스(Cadence, 분당 발걸음 수, SPM)입니다.
+                    각종 러닝 커뮤니티나 유튜브에서는 "무조건 180 이상으로 발을 굴려야 한다", "160대는 초보자이고 부상 1순위다"라는 말이 상식처럼 통용됩니다.]]></description>
+    </item>
+  </channel>
+</rss>
