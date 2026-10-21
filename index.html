@@ -74,13 +74,16 @@
              VIEW 1: 올인원 종합 러닝 계산기
              ========================================== -->
         <div id="view-calc" class="main-view active">
-            <!-- 2대 계산기 서브 스위처 (페이스 & 심장연비 vs 트레드밀 환산기) -->
+            <!-- 3대 계산기 서브 스위처 (페이스 & 심장연비 vs 트레드밀 환산기 vs 심박존 계산기) -->
             <div class="sub-switch-group">
                 <button type="button" class="sub-switch-btn active" data-calc-tab="pace">
                     <span>⚡</span> 속도 & 심장연비 처방
                 </button>
                 <button type="button" class="sub-switch-btn" data-calc-tab="treadmill">
-                    <span>🏃</span> 트레드밀 속도(kph) ⇄ 페이스 환산기
+                    <span>🏃</span> 트레드밀 속도 ⇄ 페이스
+                </button>
+                <button type="button" class="sub-switch-btn" data-calc-tab="hrzone">
+                    <span>🫀</span> 심박존(Zone 1~5) 계산기
                 </button>
             </div>
 
@@ -440,6 +443,119 @@
                     </div>
                 </section>
             </div>
+
+            <!-- Calc Pane 3: 카보넨 정밀 심박존(Zone 1~5) 계산기 -->
+            <div id="calc-pane-hrzone" class="calc-pane" style="display:none;">
+                <section class="card">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">카보넨(Karvonen) 여유심박수 기반 정밀 심박존 계산기</h2>
+                            <p class="card-subtitle">
+                                단순 '220-나이' 공식의 치명적 오차(최대 20 bpm)를 바로잡고, 내 아침 안정심박수(RHR)와 여유심박수(HRR)를 반영한 진짜 유산소(Zone 2) 및 젖산역치(Zone 4) 훈련 구간을 처방합니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 입력 폼 -->
+                    <div class="form-grid">
+                        <div class="input-field">
+                            <label for="hrz-age">내 나이 (만 나이)</label>
+                            <input type="number" id="hrz-age" class="form-input" value="35" min="15" max="90" placeholder="예: 35">
+                        </div>
+
+                        <div class="input-field">
+                            <label>성별 (최대심박 정밀 보정)</label>
+                            <div class="gender-radio-group" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                                <label class="day-check-item" style="cursor:pointer; margin:0;">
+                                    <input type="radio" name="hrz-gender" value="male" class="day-check-input" checked>
+                                    <span class="day-check-btn" style="padding:11px; font-weight:700; width:100%; text-align:center;">👨 남성</span>
+                                </label>
+                                <label class="day-check-item" style="cursor:pointer; margin:0;">
+                                    <input type="radio" name="hrz-gender" value="female" class="day-check-input">
+                                    <span class="day-check-btn" style="padding:11px; font-weight:700; width:100%; text-align:center;">👩 여성</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="input-field">
+                            <label for="hrz-rest">아침 안정시 심박수 (Resting HR, bpm)</label>
+                            <input type="number" id="hrz-rest" class="form-input" value="60" min="35" max="110" placeholder="예: 60 (스마트워치 기상 평균)">
+                            <span style="font-size:0.75rem; color:var(--text-muted); margin-top:4px; display:block;">※ 스마트워치를 차고 자고 일어났을 때 아침 평균 심박수</span>
+                        </div>
+
+                        <div class="input-field">
+                            <label for="hrz-custom-max">실측 최대 심박수 (Max HR, bpm)</label>
+                            <input type="number" id="hrz-custom-max" class="form-input" placeholder="미입력 시 의학 공식(Tanaka) 자동 계산">
+                            <span style="font-size:0.75rem; color:var(--text-muted); margin-top:4px; display:block;">※ 인터벌 전력 질주 후 워치에 찍힌 최고 심박수가 있다면 입력</span>
+                        </div>
+                    </div>
+
+                    <!-- 3대 핵심 생체 지표 전광판 요약 -->
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin:20px 0;">
+                        <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:12px; padding:16px; text-align:center;">
+                            <span style="font-size:0.78rem; font-weight:700; color:var(--text-muted); display:block; margin-bottom:2px;">내 최대 심박수 (HRmax)</span>
+                            <span id="hrz-val-max" style="font-size:1.7rem; font-weight:800; color:var(--text-primary);">184 bpm</span>
+                            <span id="hrz-lbl-max-method" style="font-size:0.72rem; color:var(--text-secondary); display:block; margin-top:2px;">Tanaka 공식 기준 (208 - 0.7×나이)</span>
+                        </div>
+                        <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:12px; padding:16px; text-align:center;">
+                            <span style="font-size:0.78rem; font-weight:700; color:var(--text-muted); display:block; margin-bottom:2px;">안정시 심박수 (HRrest)</span>
+                            <span id="hrz-val-rest" style="font-size:1.7rem; font-weight:800; color:var(--primary-blue);">60 bpm</span>
+                            <span style="font-size:0.72rem; color:var(--text-secondary); display:block; margin-top:2px;">기초 심폐 회복력 우수</span>
+                        </div>
+                        <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:12px; padding:16px; text-align:center;">
+                            <span style="font-size:0.78rem; font-weight:800; color:#1E40AF; display:block; margin-bottom:2px;">여유 심박수 (HRR = Max - Rest)</span>
+                            <span id="hrz-val-hrr" style="font-size:1.7rem; font-weight:800; color:var(--primary-blue);">124 bpm</span>
+                            <span style="font-size:0.72rem; color:#3B82F6; display:block; margin-top:2px;">운동 시 가동 가능한 심폐 예비력</span>
+                        </div>
+                    </div>
+
+                    <!-- 220-나이 단순 공식과의 오차 분석 콜아웃 -->
+                    <div style="background:#FEF3C7; border:1px solid #FDE68A; border-radius:12px; padding:16px 20px; margin-bottom:24px; display:flex; align-items:flex-start; gap:12px;">
+                        <span style="font-size:1.5rem; line-height:1;">💡</span>
+                        <div style="font-size:0.88rem; color:#92400E; line-height:1.65;">
+                            <strong>카보넨 vs 220-나이 단순 공식 비교 분석:</strong><br>
+                            스마트워치 기본 공식(220-나이 단순 60~70%)은 당신의 Zone 2를 <span id="hrz-fox-zone2" style="font-weight:800; text-decoration:line-through;">111 ~ 129 bpm</span>으로 너무 낮게 잡아 걷기 수준을 강요합니다. 
+                            반면 안정심박수(60)를 반영한 <strong>진짜 카보넨 Zone 2는 <span id="hrz-karv-zone2" style="font-weight:800; color:#B45309; text-decoration:underline;">134 ~ 147 bpm</span></strong>입니다. 이 구간에서 편안하게 달려야 미토콘드리아와 심실 용적이 최대로 성장합니다!
+                        </div>
+                    </div>
+
+                    <!-- 5대 심박 구역 (Zone 1 ~ 5) 전수 카드 -->
+                    <div style="margin-bottom:20px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+                            <h3 style="font-size:1.05rem; font-weight:800; color:var(--text-primary); margin:0;">
+                                🎯 카보넨(HRR) 5대 심박 훈련 구역 처방
+                            </h3>
+                            <button type="button" id="btn-copy-hr-zones" class="btn" style="background:#FFFFFF; border:1px solid var(--border-light); font-size:0.82rem; font-weight:700; padding:6px 14px; border-radius:8px; cursor:pointer; color:var(--primary-blue); display:inline-flex; align-items:center; gap:6px;">
+                                <span>📋</span> <span id="copy-hr-btn-text">시계 설정용 수치 1초 복사</span>
+                            </button>
+                        </div>
+
+                        <div class="hr-zones-stack" id="hrZonesContainer" style="display:flex; flex-direction:column; gap:10px;">
+                            <!-- JS에서 5개 Zone 카드 자동 렌더링 -->
+                        </div>
+                    </div>
+
+                    <!-- 스마트워치(가민/애플/갤럭시) 입력 방법 안내 아코디언 -->
+                    <details style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:12px; padding:12px 16px; font-size:0.88rem; color:var(--text-secondary); margin-top:20px;">
+                        <summary style="cursor:pointer; font-weight:700; color:var(--primary-blue);">⌚ 가민 · 애플워치 · 갤럭시워치 심박존 수동 설정 방법</summary>
+                        <div style="margin-top:12px; line-height:1.7;">
+                            <ul style="padding-left:20px; margin:0;">
+                                <li><strong>가민 (Garmin Connect)</strong>: 앱 ➔ 설정(더보기) ➔ Garmin 장치 ➔ 사용자 설정 ➔ 심박수 및 파워 구역 ➔ <strong>[기준: %HRR(여유심박수%)]</strong> 선택 후 위 bpm 범위 입력.</li>
+                                <li><strong>애플워치 (Apple Watch)</strong>: 아이폰 Watch 앱 ➔ 나의 시계 ➔ 운동 ➔ 심박수 구역 ➔ <strong>[수동]</strong> 선택 후 각 Zone의 시작 심박수 입력.</li>
+                                <li><strong>갤럭시워치 (Samsung Health)</strong>: 스마트폰 삼성 헬스 앱 ➔ 달리기 운동 설정 ➔ 목표 심박수 구역 ➔ <strong>[사용자 지정]</strong> 선택 후 위 수치 입력.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- 추천 심박 사이언스 아티클 링크 -->
+                    <div style="margin-top:24px; padding-top:16px; border-top:1px dashed var(--border-light); font-size:0.85rem; color:var(--text-secondary);">
+                        <span style="font-weight:700; color:var(--text-primary);">📖 연관 러닝 사이언스: </span>
+                        <a href="articles/lt1-lt2-heart-rate-zones-science.html" style="color:var(--primary-blue); text-decoration:none; margin-right:12px;">• LT1·LT2와 심박존 과학</a>
+                        <a href="articles/zone2-training-mitochondria.html" style="color:var(--primary-blue); text-decoration:none; margin-right:12px;">• Zone 2 미토콘드리아 훈련</a>
+                        <a href="articles/running-watch-ppg-heart-rate-chest-strap.html" style="color:var(--primary-blue); text-decoration:none;">• 손목 광학(PPG) vs 가슴 스트랩(ECG)</a>
+                    </div>
+                </section>
+            </div>
         </div>
 
         <!-- ==========================================
@@ -639,31 +755,172 @@
                     <!-- 상단 1단: 전체 보기 긴 바 -->
                     <button type="button" class="filter-chip filter-chip-all active" data-filter="all">
                         <span>📚 전체 런로그 모아보기</span>
-                        <span class="chip-count-badge">67</span>
+                        <span class="chip-count-badge">75</span>
                     </button>
 
                     <!-- 하단 2단: 러너 수준별 + 기어 4대 카테고리 -->
                     <div class="filter-sub-grid">
                         <button type="button" class="filter-chip filter-sub-btn" data-filter="beginner">
                             <span class="chip-sub-label">🌱 초보·입문</span>
-                            <span class="chip-count-badge">19</span>
+                            <span class="chip-count-badge">21</span>
                         </button>
                         <button type="button" class="filter-chip filter-sub-btn" data-filter="intermediate">
                             <span class="chip-sub-label">🏃 중급·빌드업</span>
-                            <span class="chip-count-badge">24</span>
+                            <span class="chip-count-badge">26</span>
                         </button>
                         <button type="button" class="filter-chip filter-sub-btn" data-filter="advanced">
                             <span class="chip-sub-label">⚡ 상급·마라톤</span>
-                            <span class="chip-count-badge">15</span>
+                            <span class="chip-count-badge">17</span>
                         </button>
                         <button type="button" class="filter-chip filter-sub-btn" data-filter="gear">
                             <span class="chip-sub-label">👟 기어 & 테크</span>
-                            <span class="chip-count-badge">9</span>
+                            <span class="chip-count-badge">11</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="article-grid" id="articleGrid">
+                    <!-- Card 75: 스트라이드 vs 가민 RD팟 vs HRM 가슴스트랩 완벽 비교 (NEW & GEAR) -->
+                    <a href="articles/running-dynamics-sensors-stryd-vs-garmin-rd-pod-hrm.html" class="article-card" data-category="gear">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">기어 &amp; 테크 · 러닝 센서 &amp; 파워 미터</span>
+                                <span class="badge-new">✨ NEW</span>
+                            </div>
+                            <h3 class="article-title">스트라이드(Stryd) vs 가민 RD팟 vs HRM 가슴스트랩 완벽 비교: 러닝 파워와 다이내믹스 센서 종결 가이드</h3>
+                            <p class="article-desc">
+                                신발 풋팟의 제왕 스트라이드(Stryd), 허리춤 가민 RD팟, 가슴 심전도 HRM-Pro의 실측 지표, 좌우 밸런스, 바람 저항 및 러너 유형별 맞춤 종결 가이드.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 9분 • 러닝 파워 &amp; 센서</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+                    <!-- Card 74: 러닝화 힐드롭의 생체역학과 관절 부하 매칭 공식 (NEW & GEAR) -->
+                    <a href="articles/running-shoes-heel-to-toe-drop-biomechanics.html" class="article-card" data-category="gear">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">기어 &amp; 테크 · 러닝화 역학 &amp; 관절 부하</span>
+                                <span class="badge-new">✨ NEW</span>
+                            </div>
+                            <h3 class="article-title">러닝화 힐드롭(Drop)의 생체역학: 0mm 제로드롭 vs 10mm 하이드롭, 내 무릎과 아킬레스건을 지키는 매칭 공식</h3>
+                            <p class="article-desc">
+                                러닝화 스펙의 핵심 '힐투토 드롭'. 0~4mm 제로드롭과 10mm 하이드롭이 무릎 슬개골과 아킬레스건에 가하는 상반된 충격 부하와 내 부상 이력 맞춤 선택 가이드.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 러닝화 지오메트리</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 73: 장거리 러너의 숨은 복병 스포츠 빈혈과 발바닥 충격 용혈 (NEW & ADVANCED) -->
+                    <a href="articles/sports-anemia-footstrike-hemolysis-ferritin-running.html" class="article-card" data-category="advanced">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">상급 마라톤 · 영양 생리학 &amp; 혈액 검사</span>
+                                <span class="badge-new">✨ NEW</span>
+                            </div>
+                            <h3 class="article-title">장거리 러너의 숨은 복병 '스포츠 빈혈': 발바닥 착지 때 적혈구가 깨지는 충격 용혈과 페리틴(Ferritin) 가이드</h3>
+                            <p class="article-desc">
+                                달릴수록 피로가 안 풀리고 페이스가 떨어지는 이유. 발바닥 착지 충격으로 적혈구가 으깨지는 용혈 현상과 저장철 페리틴 30ng/mL의 경고 및 헴철 섭취 공식.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 지구력 영양 관리</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 72: 달리기 전 스트레칭의 역설과 건 강성의 과학 (NEW & INTERMEDIATE) -->
+                    <a href="articles/pre-run-static-vs-dynamic-stretching-tendon-stiffness.html" class="article-card" data-category="intermediate">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">중급 빌드업 · 웜업 &amp; 생체역학</span>
+                                <span class="badge-new">✨ NEW</span>
+                            </div>
+                            <h3 class="article-title">달리기 전 스트레칭의 역설: 정적 스트레칭이 탄성 에너지를 죽인다? 동적 웜업과 건(Tendon) 강성의 과학</h3>
+                            <p class="article-desc">
+                                달리기 직전 햄스트링을 늘리면 왜 파워가 5~8% 떨어질까? 아킬레스건의 용수철 탄성과 건 강성 보존의 생체역학, 10분 실전 동적 웜업 5대 프로토콜.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 웜업 퍼포먼스</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 71: 러너스 토 원인과 힐락 매듭법 (NEW & BEGINNER) -->
+                    <a href="articles/runners-toe-black-toenail-heel-lock-lacing.html" class="article-card" data-category="beginner">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">초보 입문 · 발톱 부상 &amp; 레이싱 테크닉</span>
+                                <span class="badge-new">✨ NEW</span>
+                            </div>
+                            <h3 class="article-title">러닝 후 까맣게 죽은 발톱의 진실: '러너스 토(Runner's Toe)' 원인과 발 밀림을 100% 막는 힐락 매듭법</h3>
+                            <p class="article-desc">
+                                달리기 후 발톱 밑에 피가 고여 시커멓게 멍들고 빠지는 러너스 토(조갑하 혈종). 신발 속 발 밀림을 원천 차단하는 러너스 루프(Heel Lock) 매듭법과 응급 대처법.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 7분 • 발톱 부상 방지</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+                    <!-- Card 70: 마라톤 35km의 벽을 무너뜨리는 4단계 인지 분할법 (NEW & ADVANCED) -->
+                    <a href="articles/marathon-mental-chunking-4-stage-pacing-strategy.html" class="article-card" data-category="advanced">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">상급 마라톤 · 풀코스 페이스 전략 &amp; 멘탈 훈련</span>
+                                <span class="badge-new">✨ NEW</span>
+                            </div>
+                            <h3 class="article-title">마라톤 35km의 벽을 무너뜨리는 4단계 인지 분할법: 10k-20k-10k-2.195k 구간별 생체역학과 페이스 통제</h3>
+                            <p class="article-desc">
+                                풀코스 42.195km를 한 덩어리로 달리면 뇌가 조기 셧다운을 명령한다. 4단계 인지 분할(Chunking)과 구간별 글리코겐 보존, 30km 이후 둔근 힙 드라이브 전환 실전 전략.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 풀코스 레이스 전략</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 69: 젖산 셔틀 메커니즘과 마라톤 교대 지속주 (NEW & INTERMEDIATE) -->
+                    <a href="articles/lactate-shuttle-alternating-tempo-run-science.html" class="article-card" data-category="intermediate">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">중급 빌드업 · 젖산 대사 &amp; 역치 훈련</span>
+                                <span class="badge-new">✨ NEW</span>
+                            </div>
+                            <h3 class="article-title">젖산은 피로물질이 아니라 최고의 에너지원: 젖산 셔틀(Lactate Shuttle) 메커니즘과 마라톤 교대 지속주</h3>
+                            <p class="article-desc">
+                                100년간 억울하게 누명 쓴 젖산의 생리학적 진실. 속근에서 생성된 젖산을 심장과 지근에서 태우는 셔틀 기전과 카노바식 교대 템포런(Alternating Tempo) 프로토콜.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 젖산 청소율 극대화</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 68: 찬 바람 러닝 후 마른기침과 기도 보온법 (NEW & BEGINNER) -->
+                    <a href="articles/cold-air-runners-cough-exercise-induced-bronchoconstriction.html" class="article-card" data-category="beginner">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">초보 입문 · 환절기 호흡기 &amp; 컨디셔닝</span>
+                                <span class="badge-new">✨ NEW</span>
+                            </div>
+                            <h3 class="article-title">찬 바람 맞으며 달린 후 목이 칼칼하고 마른기침이 나는 이유: 운동 유발성 기관지 수축(EIB)과 기도 보온법</h3>
+                            <p class="article-desc">
+                                찬 공기 속 러닝 후 멈추지 않는 마른기침(Runner's Cough). 차고 건조한 공기가 기도를 자극하는 EIB의 의학적 기전과 넥워머(버프)의 기도 열 교환기 활용 수칙.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 7분 • 호흡기 컨디셔닝</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
                     <!-- Card 67: 마라톤 완주 후 48시간 역전 회복 (NEW & BEGINNER) -->
                     <a href="articles/marathon-post-race-recovery-cold-bath-active-rest.html" class="article-card" data-category="beginner">
                         <div>

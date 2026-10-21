@@ -2471,6 +2471,92 @@ table p {
     text-align: center;
 }
 
+/* ==========================================
+   🫀 카보넨(HRR) 정밀 심박존 계산기 전용 스타일
+   ========================================== */
+.hr-zone-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: 100px 140px 1fr;
+    align-items: center;
+    gap: 14px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    border-left-width: 6px;
+}
+
+.hr-zone-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.hr-zone-card.zone-1 { border-left-color: #64748B; background: #F8FAFC; }
+.hr-zone-card.zone-2 { border-left-color: #10B981; background: #F0FDF4; }
+.hr-zone-card.zone-3 { border-left-color: #F59E0B; background: #FFFBEB; }
+.hr-zone-card.zone-4 { border-left-color: #F97316; background: #FFF7ED; }
+.hr-zone-card.zone-5 { border-left-color: #EF4444; background: #FEF2F2; }
+
+.hr-zone-badge {
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    text-align: center;
+}
+.zone-1 .hr-zone-badge { background: #E2E8F0; color: #334155; }
+.zone-2 .hr-zone-badge { background: #D1FAE5; color: #065F46; }
+.zone-3 .hr-zone-badge { background: #FDE68A; color: #92400E; }
+.zone-4 .hr-zone-badge { background: #FFEDD5; color: #9A3412; }
+.zone-5 .hr-zone-badge { background: #FEE2E2; color: #991B1B; }
+
+.hr-zone-bpm {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+.zone-2 .hr-zone-bpm { color: #059669; }
+.zone-4 .hr-zone-bpm { color: #C2410C; }
+.zone-5 .hr-zone-bpm { color: #DC2626; }
+
+.hr-zone-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.hr-zone-name {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.hr-zone-rpe {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+.hr-zone-purpose {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+    .hr-zone-card {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 12px 14px;
+    }
+    .hr-zone-bpm {
+        font-size: 1.25rem;
+    }
+}
+
+
 
 
 

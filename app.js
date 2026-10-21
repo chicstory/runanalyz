@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMemoSystem();
     initArticleFilters();
     initTreadmillConverter();
+    initHrZoneCalculator();
     // 초기 1회 기본 진단 실행 (10km 48분, 35세, RPE 7, 심박 145)
     calculateComprehensiveDiagnostics();
 });
@@ -1393,25 +1394,21 @@ function initArticleFilters() {
  * 6. 트레드밀 속도(kph) ⇄ 페이스(min/km) 양방향 환산기 & 거리별 완주 예측
  */
 function initTreadmillConverter() {
-    // 6-1. 서브 스위처 탭 전환
     const switchBtns = document.querySelectorAll('.sub-switch-btn');
     const panePace = document.getElementById('calc-pane-pace');
     const paneTreadmill = document.getElementById('calc-pane-treadmill');
+    const paneHrzone = document.getElementById('calc-pane-hrzone');
 
-    if (switchBtns.length && panePace && paneTreadmill) {
+    if (switchBtns.length) {
         switchBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const tab = btn.dataset.calcTab;
                 switchBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                if (tab === 'pace') {
-                    panePace.style.display = 'block';
-                    paneTreadmill.style.display = 'none';
-                } else {
-                    panePace.style.display = 'none';
-                    paneTreadmill.style.display = 'block';
-                }
+                if (panePace) panePace.style.display = (tab === 'pace') ? 'block' : 'none';
+                if (paneTreadmill) paneTreadmill.style.display = (tab === 'treadmill') ? 'block' : 'none';
+                if (paneHrzone) paneHrzone.style.display = (tab === 'hrzone') ? 'block' : 'none';
             });
         });
     }
@@ -1562,4 +1559,218 @@ function initTreadmillConverter() {
     // 초기 1회 환산 렌더링
     updateFromKph();
 }
+
+/**
+ * 7. 카보넨(Karvonen) 여유심박수 기반 정밀 심박존(Zone 1~5) 계산기
+ */
+function initHrZoneCalculator() {
+    const ageInput = document.getElementById('hrz-age');
+    const genderRadios = document.querySelectorAll('input[name="hrz-gender"]');
+    const restInput = document.getElementById('hrz-rest');
+    const customMaxInput = document.getElementById('hrz-custom-max');
+
+    const valMax = document.getElementById('hrz-val-max');
+    const lblMaxMethod = document.getElementById('hrz-lbl-max-method');
+    const valRest = document.getElementById('hrz-val-rest');
+    const valHrr = document.getElementById('hrz-val-hrr');
+
+    const foxZone2 = document.getElementById('hrz-fox-zone2');
+    const karvZone2 = document.getElementById('hrz-karv-zone2');
+    const container = document.getElementById('hrZonesContainer');
+    const copyBtn = document.getElementById('btn-copy-hr-zones');
+    const copyBtnText = document.getElementById('copy-hr-btn-text');
+
+    if (!ageInput || !restInput || !container) return;
+
+    let lastCalculatedZones = [];
+
+    function calculateHrZones() {
+        const age = Math.min(Math.max(parseInt(ageInput.value, 10) || 35, 10), 100);
+        const restHr = Math.min(Math.max(parseInt(restInput.value, 10) || 60, 30), 120);
+        const customMax = parseInt(customMaxInput.value, 10);
+
+        let maxHr = 0;
+        let maxMethod = '';
+
+        if (!isNaN(customMax) && customMax >= 100 && customMax <= 240) {
+            maxHr = customMax;
+            maxMethod = '워치 실측 최대심박수 직접 반영';
+        } else {
+            // Tanaka 의학 공식: 208 - (0.7 * 나이)
+            maxHr = Math.round(208 - (0.7 * age));
+            maxMethod = `Tanaka 의학 공식 기준 (208 - 0.7×${age})`;
+        }
+
+        const hrr = Math.max(maxHr - restHr, 20);
+
+        // 카보넨 5대 구역 산출: Target HR = Rest + (HRR * %)
+        const z1Low = Math.round(restHr + (hrr * 0.50));
+        const z1High = Math.round(restHr + (hrr * 0.60));
+
+        const z2Low = z1High;
+        const z2High = Math.round(restHr + (hrr * 0.70));
+
+        const z3Low = z2High;
+        const z3High = Math.round(restHr + (hrr * 0.80));
+
+        const z4Low = z3High;
+        const z4High = Math.round(restHr + (hrr * 0.90));
+
+        const z5Low = z4High;
+        const z5High = maxHr;
+
+        // 전통 220-나이 단순 공식(Fox)
+        const foxMax = Math.max(220 - age, 100);
+        const foxZ2Low = Math.round(foxMax * 0.60);
+        const foxZ2High = Math.round(foxMax * 0.70);
+
+        // 상단 요약 카드 갱신
+        if (valMax) valMax.textContent = `${maxHr} bpm`;
+        if (lblMaxMethod) lblMaxMethod.textContent = maxMethod;
+        if (valRest) valRest.textContent = `${restHr} bpm`;
+        if (valHrr) valHrr.textContent = `${hrr} bpm`;
+
+        // 비교 분석 인사이트
+        if (foxZone2) foxZone2.textContent = `${foxZ2Low} ~ ${foxZ2High} bpm`;
+        if (karvZone2) karvZone2.textContent = `${z2Low} ~ ${z2High} bpm`;
+
+        // 5대 Zone 데이터
+        lastCalculatedZones = [
+            {
+                num: 1,
+                cls: 'zone-1',
+                badge: 'Zone 1',
+                name: '액티브 리커버리 (회복 조깅)',
+                range: `${z1Low} ~ ${z1High} bpm`,
+                intensity: '50% ~ 60% HRR',
+                rpe: 'RPE 2~3 · 숨이 전혀 차지 않고 노래 부르며 달릴 수 있는 강도',
+                purpose: '혈류 순환 촉진, 젖산 부산물 세척, 고강도 훈련 다음 날 회복 러닝'
+            },
+            {
+                num: 2,
+                cls: 'zone-2',
+                badge: 'Zone 2 (황금존)',
+                name: '지방 대사 & 미토콘드리아 기초 유산소',
+                range: `${z2Low} ~ ${z2High} bpm`,
+                intensity: '60% ~ 70% HRR',
+                rpe: 'RPE 4~5 · 입 다물고 코로만 편안하게 호흡 가능 (완전한 대화 가능)',
+                purpose: '지방 산화율 극대화, 모세혈관망 확장, 심실 용적 확대, 부상 없는 장거리 마일리지 베이스'
+            },
+            {
+                num: 3,
+                cls: 'zone-3',
+                badge: 'Zone 3',
+                name: '에어로빅 템포 (마라톤 페이스)',
+                range: `${z3Low} ~ ${z3High} bpm`,
+                intensity: '70% ~ 80% HRR',
+                rpe: 'RPE 6~7 · 약간 숨이 차며 2~3문장 짧은 대화만 가능',
+                purpose: '풀 마라톤 목표 지속주, 글리코겐과 지방의 최적 연소 비율 확립'
+            },
+            {
+                num: 4,
+                cls: 'zone-4',
+                badge: 'Zone 4',
+                name: '젖산역치 LT2 (역치 템포)',
+                range: `${z4Low} ~ ${z4High} bpm`,
+                intensity: '80% ~ 90% HRR',
+                rpe: 'RPE 8 · 숨이 턱 끝까지 차며 단어 단위로만 말할 수 있는 한계선',
+                purpose: '젖산 축적 경계선(LT2) 돌파, 10k~하프 레이스 페이스 및 젖산 청소율 극대화'
+            },
+            {
+                num: 5,
+                cls: 'zone-5',
+                badge: 'Zone 5',
+                name: 'VO2max 인터벌 & 무산소 파워',
+                range: `${z5Low} ~ ${z5High} bpm`,
+                intensity: '90% ~ 100% HRR',
+                rpe: 'RPE 9~10 · 전력 질주, 대화 일절 불가능, 한계 쥐어짜기',
+                purpose: '최대 산소 섭취량(VO2max) 확장, 400m/800m 트랙 인터벌, 스피드 내구력'
+            }
+        ];
+
+        // 5대 카드 DOM 렌더링
+        container.innerHTML = lastCalculatedZones.map(z => `
+            <div class="hr-zone-card ${z.cls}">
+                <div>
+                    <span class="hr-zone-badge">${z.badge}</span>
+                </div>
+                <div>
+                    <span class="hr-zone-bpm">${z.range}</span>
+                    <span style="font-size:0.75rem; color:var(--text-secondary); display:block; margin-top:2px;">${z.intensity}</span>
+                </div>
+                <div class="hr-zone-info">
+                    <span class="hr-zone-name">${z.name}</span>
+                    <span class="hr-zone-rpe">🗣️ ${z.rpe}</span>
+                    <span class="hr-zone-purpose">🎯 ${z.purpose}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // 이벤트 리스너 바인딩
+    ageInput.addEventListener('input', calculateHrZones);
+    restInput.addEventListener('input', calculateHrZones);
+    customMaxInput.addEventListener('input', calculateHrZones);
+
+    genderRadios.forEach(radio => {
+        radio.addEventListener('change', calculateHrZones);
+    });
+
+    // 원클릭 복사 기능
+    if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+            if (!lastCalculatedZones.length) return;
+
+            const age = ageInput.value;
+            const maxVal = valMax ? valMax.textContent : '';
+            const restVal = valRest ? valRest.textContent : '';
+            const hrrVal = valHrr ? valHrr.textContent : '';
+
+            let copyText = `[RunAnalyz 카보넨(HRR) 정밀 심박존 처방 (만 ${age}세)]\n`;
+            copyText += `• 최대심박(HRmax): ${maxVal} / 안정심박(HRrest): ${restVal} / 여유심박(HRR): ${hrrVal}\n\n`;
+
+            lastCalculatedZones.forEach(z => {
+                copyText += `• ${z.badge} (${z.name}): ${z.range} [${z.intensity}]\n`;
+            });
+
+            copyText += `\n※ 스마트워치(가민/애플워치/갤럭시) 심박수 구역에 위 bpm을 입력하세요.\n출처: https://runanalyz.com/`;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(copyText).then(() => {
+                    if (copyBtnText) copyBtnText.textContent = '✅ 복사 완료!';
+                    setTimeout(() => {
+                        if (copyBtnText) copyBtnText.textContent = '시계 설정용 수치 1초 복사';
+                    }, 2000);
+                }).catch(() => {
+                    fallbackCopyText(copyText);
+                });
+            } else {
+                fallbackCopyText(copyText);
+            }
+        });
+    }
+
+    function fallbackCopyText(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            if (copyBtnText) copyBtnText.textContent = '✅ 복사 완료!';
+            setTimeout(() => {
+                if (copyBtnText) copyBtnText.textContent = '시계 설정용 수치 1초 복사';
+            }, 2000);
+        } catch (err) {
+            alert('복사에 실패했습니다. 수동으로 복사해주세요.');
+        }
+        document.body.removeChild(textArea);
+    }
+
+    // 초기 1회 실행 (기본 35세, 60bpm)
+    calculateHrZones();
+}
+
 
