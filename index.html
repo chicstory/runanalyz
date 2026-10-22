@@ -750,7 +750,16 @@
                     <span class="section-more">러너 실전 지식</span>
                 </div>
 
-                <!-- 🏷️ 러닝 사이언스 카테고리 필터 (1단: 전체 풀 와이드 바 / 2단: 4대 핵심 소메뉴) -->
+                <!-- 🔍 실시간 런로그 검색창 -->
+                <div class="article-search-container">
+                    <div class="article-search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="articleSearchInput" class="article-search-input" placeholder="궁금한 부상, 훈련법, 장비, 대회명 검색 (예: 정강이, Zone 2, 춘천, 카본화)" autocomplete="off">
+                        <button type="button" id="btnArticleSearchClear" class="search-clear-btn" style="display:none;" aria-label="검색어 지우기">✕</button>
+                    </div>
+                </div>
+
+                <!-- 🏷️ 런로그 5대 핵심 카테고리 필터 (1단: 전체 풀 와이드 바 / 2단: 5대 핵심 소메뉴) -->
                 <div class="article-filter-container" id="articleFilterBar">
                     <!-- 상단 1단: 전체 보기 긴 바 -->
                     <button type="button" class="filter-chip filter-chip-all active" data-filter="all">
@@ -758,30 +767,48 @@
                         <span class="chip-count-badge">78</span>
                     </button>
 
-                    <!-- 하단 2단: 러너 수준별 + 기어 4대 카테고리 -->
-                    <div class="filter-sub-grid">
-                        <button type="button" class="filter-chip filter-sub-btn" data-filter="beginner">
-                            <span class="chip-sub-label">🌱 초보·입문</span>
+                    <!-- 하단 2단: 5대 핵심 주제 칩 그리드 -->
+                    <div class="filter-topic-grid">
+                        <button type="button" class="filter-chip filter-sub-btn" data-filter="injury">
+                            <span class="chip-sub-label">🩹 부상 & 재활</span>
+                            <span class="chip-count-badge">20</span>
+                        </button>
+                        <button type="button" class="filter-chip filter-sub-btn" data-filter="training">
+                            <span class="chip-sub-label">🫀 훈련 & 심폐</span>
                             <span class="chip-count-badge">22</span>
                         </button>
-                        <button type="button" class="filter-chip filter-sub-btn" data-filter="intermediate">
-                            <span class="chip-sub-label">🏃 중급·빌드업</span>
-                            <span class="chip-count-badge">27</span>
+                        <button type="button" class="filter-chip filter-sub-btn" data-filter="nutrition">
+                            <span class="chip-sub-label">🥗 영양 & 회복</span>
+                            <span class="chip-count-badge">14</span>
                         </button>
-                        <button type="button" class="filter-chip filter-sub-btn" data-filter="advanced">
-                            <span class="chip-sub-label">⚡ 상급·마라톤</span>
-                            <span class="chip-count-badge">18</span>
+                        <button type="button" class="filter-chip filter-sub-btn" data-filter="race">
+                            <span class="chip-sub-label">🏁 대회 실전</span>
+                            <span class="chip-count-badge">11</span>
                         </button>
                         <button type="button" class="filter-chip filter-sub-btn" data-filter="gear">
-                            <span class="chip-sub-label">👟 기어 & 테크</span>
+                            <span class="chip-sub-label">👟 기어 & 랩</span>
                             <span class="chip-count-badge">11</span>
                         </button>
                     </div>
                 </div>
 
+                <!-- 검색 결과 카운트 및 초기화 바 (검색 시 노출) -->
+                <div id="articleSearchResultBar" class="search-result-bar" style="display:none;">
+                    <span id="searchResultText">검색 결과 0건</span>
+                    <button type="button" id="btnSearchFilterReset" class="search-reset-link">검색 초기화</button>
+                </div>
+
+                <!-- 📭 일치하는 결과 없음 (Empty State) -->
+                <div id="articleEmptyState" class="article-empty-state" style="display:none;">
+                    <div class="empty-icon">🔍</div>
+                    <h3 class="empty-title">일치하는 런로그를 찾을 수 없습니다</h3>
+                    <p class="empty-desc">다른 키워드로 검색하거나 선택된 카테고리를 변경해보세요.</p>
+                    <button type="button" id="btnResetFilters" class="btn-reset-filters">전체 런로그 다시 보기</button>
+                </div>
+
                 <div class="article-grid" id="articleGrid">
                     <!-- Card 78: 마라톤 카보로딩 3일 실전 식단표 (NEW & BEGINNER) -->
-                    <a href="articles/carbo-loading-3-day-diet-glycogen-depletion-protocol.html" class="article-card" data-category="beginner">
+                    <a href="articles/carbo-loading-3-day-diet-glycogen-depletion-protocol.html" class="article-card" data-category="nutrition" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보·입문 · 마라톤 뉴트리션 &amp; 보급</span>
@@ -799,7 +826,7 @@
                     </a>
 
                     <!-- Card 77: 러닝 케이던스 180의 신화와 보폭의 역학 (NEW & INTERMEDIATE) -->
-                    <a href="articles/running-cadence-180-spm-myth-stride-length-mechanics.html" class="article-card" data-category="intermediate">
+                    <a href="articles/running-cadence-180-spm-myth-stride-length-mechanics.html" class="article-card" data-category="training" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급·빌드업 · 러닝 생체역학 &amp; 폼</span>
@@ -817,7 +844,7 @@
                     </a>
 
                     <!-- Card 76: 마라톤 테이퍼링 3주 공식과 글리코겐 초과회복 (NEW & ADVANCED) -->
-                    <a href="articles/marathon-tapering-3-week-mileage-glycogen-science.html" class="article-card" data-category="advanced">
+                    <a href="articles/marathon-tapering-3-week-mileage-glycogen-science.html" class="article-card" data-category="race" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급·마라톤 · 실전 레이스 테이퍼링</span>
@@ -834,7 +861,7 @@
                         </div>
                     </a>
                     <!-- Card 75: 스트라이드 vs 가민 RD팟 vs HRM 가슴스트랩 완벽 비교 (NEW & GEAR) -->
-                    <a href="articles/running-dynamics-sensors-stryd-vs-garmin-rd-pod-hrm.html" class="article-card" data-category="gear">
+                    <a href="articles/running-dynamics-sensors-stryd-vs-garmin-rd-pod-hrm.html" class="article-card" data-category="gear" data-level="gear">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">기어 &amp; 테크 · 러닝 센서 &amp; 파워 미터</span>
@@ -851,7 +878,7 @@
                         </div>
                     </a>
                     <!-- Card 74: 러닝화 힐드롭의 생체역학과 관절 부하 매칭 공식 (NEW & GEAR) -->
-                    <a href="articles/running-shoes-heel-to-toe-drop-biomechanics.html" class="article-card" data-category="gear">
+                    <a href="articles/running-shoes-heel-to-toe-drop-biomechanics.html" class="article-card" data-category="gear" data-level="gear">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">기어 &amp; 테크 · 러닝화 역학 &amp; 관절 부하</span>
@@ -869,7 +896,7 @@
                     </a>
 
                     <!-- Card 73: 장거리 러너의 숨은 복병 스포츠 빈혈과 발바닥 충격 용혈 (NEW & ADVANCED) -->
-                    <a href="articles/sports-anemia-footstrike-hemolysis-ferritin-running.html" class="article-card" data-category="advanced">
+                    <a href="articles/sports-anemia-footstrike-hemolysis-ferritin-running.html" class="article-card" data-category="nutrition" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 영양 생리학 &amp; 혈액 검사</span>
@@ -887,7 +914,7 @@
                     </a>
 
                     <!-- Card 72: 달리기 전 스트레칭의 역설과 건 강성의 과학 (NEW & INTERMEDIATE) -->
-                    <a href="articles/pre-run-static-vs-dynamic-stretching-tendon-stiffness.html" class="article-card" data-category="intermediate">
+                    <a href="articles/pre-run-static-vs-dynamic-stretching-tendon-stiffness.html" class="article-card" data-category="training" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 웜업 &amp; 생체역학</span>
@@ -905,7 +932,7 @@
                     </a>
 
                     <!-- Card 71: 러너스 토 원인과 힐락 매듭법 (NEW & BEGINNER) -->
-                    <a href="articles/runners-toe-black-toenail-heel-lock-lacing.html" class="article-card" data-category="beginner">
+                    <a href="articles/runners-toe-black-toenail-heel-lock-lacing.html" class="article-card" data-category="injury" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 발톱 부상 &amp; 레이싱 테크닉</span>
@@ -922,7 +949,7 @@
                         </div>
                     </a>
                     <!-- Card 70: 마라톤 35km의 벽을 무너뜨리는 4단계 인지 분할법 (NEW & ADVANCED) -->
-                    <a href="articles/marathon-mental-chunking-4-stage-pacing-strategy.html" class="article-card" data-category="advanced">
+                    <a href="articles/marathon-mental-chunking-4-stage-pacing-strategy.html" class="article-card" data-category="race" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 풀코스 페이스 전략 &amp; 멘탈 훈련</span>
@@ -940,7 +967,7 @@
                     </a>
 
                     <!-- Card 69: 젖산 셔틀 메커니즘과 마라톤 교대 지속주 (NEW & INTERMEDIATE) -->
-                    <a href="articles/lactate-shuttle-alternating-tempo-run-science.html" class="article-card" data-category="intermediate">
+                    <a href="articles/lactate-shuttle-alternating-tempo-run-science.html" class="article-card" data-category="training" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 젖산 대사 &amp; 역치 훈련</span>
@@ -958,7 +985,7 @@
                     </a>
 
                     <!-- Card 68: 찬 바람 러닝 후 마른기침과 기도 보온법 (NEW & BEGINNER) -->
-                    <a href="articles/cold-air-runners-cough-exercise-induced-bronchoconstriction.html" class="article-card" data-category="beginner">
+                    <a href="articles/cold-air-runners-cough-exercise-induced-bronchoconstriction.html" class="article-card" data-category="injury" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 환절기 호흡기 &amp; 컨디셔닝</span>
@@ -975,7 +1002,7 @@
                         </div>
                     </a>
                     <!-- Card 67: 마라톤 완주 후 48시간 역전 회복 (NEW & BEGINNER) -->
-                    <a href="articles/marathon-post-race-recovery-cold-bath-active-rest.html" class="article-card" data-category="beginner">
+                    <a href="articles/marathon-post-race-recovery-cold-bath-active-rest.html" class="article-card" data-category="race" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 대회 후 회복 &amp; 컨디셔닝</span>
@@ -993,7 +1020,7 @@
                     </a>
 
                     <!-- Card 66: 마라톤 전날 불면과 수면 저축의 과학 (NEW & BEGINNER) -->
-                    <a href="articles/marathon-eve-insomnia-sleep-banking-performance-science.html" class="article-card" data-category="beginner">
+                    <a href="articles/marathon-eve-insomnia-sleep-banking-performance-science.html" class="article-card" data-category="race" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 레이스 심리학 &amp; 수면 과학</span>
@@ -1011,7 +1038,7 @@
                     </a>
 
                     <!-- Card 65: 후경골근건염 vs 족저근막염 3초 감별법 (NEW & INTERMEDIATE) -->
-                    <a href="articles/posterior-tibial-tendonitis-vs-plantar-fasciitis-running.html" class="article-card" data-category="intermediate">
+                    <a href="articles/posterior-tibial-tendonitis-vs-plantar-fasciitis-running.html" class="article-card" data-category="injury" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 발바닥 안쪽 통증 &amp; 아치 안정성</span>
@@ -1029,7 +1056,7 @@
                     </a>
 
                     <!-- Card 64: 2026 JTBC 서울마라톤 코스 완벽 공략 (NEW & ADVANCED) -->
-                    <a href="articles/jtbc-seoul-marathon-course-guide-elevation-tactics.html" class="article-card" data-category="advanced">
+                    <a href="articles/jtbc-seoul-marathon-course-guide-elevation-tactics.html" class="article-card" data-category="race" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · JTBC 서울마라톤 코스 분석 &amp; 고저도 공략</span>
@@ -1047,7 +1074,7 @@
                     </a>
 
                     <!-- Card 63: 러너스 하이의 신경과학과 아난다미드 (NEW & BEGINNER) -->
-                    <a href="articles/runners-high-science-endocannabinoid-anandamide.html" class="article-card" data-category="beginner">
+                    <a href="articles/runners-high-science-endocannabinoid-anandamide.html" class="article-card" data-category="training" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 뇌신경과학 &amp; 러너스 하이</span>
@@ -1065,7 +1092,7 @@
                     </a>
 
                     <!-- Card 62: 부상 중 심폐 유지 크로스 트레이닝 (NEW & BEGINNER) -->
-                    <a href="articles/cross-training-running-cycling-swimming-vo2max.html" class="article-card" data-category="beginner">
+                    <a href="articles/cross-training-running-cycling-swimming-vo2max.html" class="article-card" data-category="injury" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 대체 훈련 &amp; 크로스 트레이닝</span>
@@ -1083,7 +1110,7 @@
                     </a>
 
                     <!-- Card 61: 트랙 없이 빨라지는 파틀렉 러닝의 과학 (NEW & INTERMEDIATE) -->
-                    <a href="articles/fartlek-training-running-speed-play-protocols.html" class="article-card" data-category="intermediate">
+                    <a href="articles/fartlek-training-running-speed-play-protocols.html" class="article-card" data-category="training" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 스피드 훈련 &amp; 파틀렉(Fartlek)</span>
@@ -1101,7 +1128,7 @@
                     </a>
 
                     <!-- Card 60: 춘천마라톤 코스 고저도 완벽 공략 (ADVANCED) -->
-                    <a href="articles/chuncheon-marathon-course-guide-elevation-tactics.html" class="article-card" data-category="advanced">
+                    <a href="articles/chuncheon-marathon-course-guide-elevation-tactics.html" class="article-card" data-category="race" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 춘천마라톤 코스 분석 &amp; 고저도 공략</span>
@@ -1119,7 +1146,7 @@
                     </a>
 
                     <!-- Card 59: 가을 마라톤 아침 체온 전략과 다이소 우비 (NEW & BEGINNER) -->
-                    <a href="articles/fall-marathon-cold-weather-clothing-raincoat-thrift.html" class="article-card" data-category="beginner">
+                    <a href="articles/fall-marathon-cold-weather-clothing-raincoat-thrift.html" class="article-card" data-category="race" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 가을 레이스 복장 &amp; 체온 관리</span>
@@ -1137,7 +1164,7 @@
                     </a>
 
                     <!-- Card 58: 급수대 종이컵 V자 접기와 게토레이 삼투압 (NEW & INTERMEDIATE) -->
-                    <a href="articles/marathon-water-station-hydration-cup-folding-technique.html" class="article-card" data-category="intermediate">
+                    <a href="articles/marathon-water-station-hydration-cup-folding-technique.html" class="article-card" data-category="race" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 급수대 실전 테크닉 &amp; 전해질 흡수</span>
@@ -1155,7 +1182,7 @@
                     </a>
 
                     <!-- Card 57: 사점(Dead Point)과 세컨드 윈드 복식호흡법 (BEGINNER) -->
-                    <a href="articles/running-breathing-dead-point-second-wind-science.html" class="article-card" data-category="beginner">
+                    <a href="articles/running-breathing-dead-point-second-wind-science.html" class="article-card" data-category="training" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 호흡 생리학 &amp; 페이스 조절</span>
@@ -1173,7 +1200,7 @@
                     </a>
 
                     <!-- Card 56: 만성 발목 불안정증과 전거비인대 고유수용성 재활 (NEW & INTERMEDIATE) -->
-                    <a href="articles/ankle-sprain-chronic-instability-proprioception-rehab.html" class="article-card" data-category="intermediate">
+                    <a href="articles/ankle-sprain-chronic-instability-proprioception-rehab.html" class="article-card" data-category="injury" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 발목 관절 &amp; 고유수용성 재활</span>
@@ -1191,7 +1218,7 @@
                     </a>
 
                     <!-- Card 55: 마라톤 당일 아드레날린 서지와 네거티브 스플릿 (NEW & ADVANCED) -->
-                    <a href="articles/marathon-race-day-adrenaline-surge-negative-split.html" class="article-card" data-category="advanced">
+                    <a href="articles/marathon-race-day-adrenaline-surge-negative-split.html" class="article-card" data-category="race" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 레이스 전술 &amp; 페이스 배분</span>
@@ -1209,7 +1236,7 @@
                     </a>
 
                     <!-- Card 54: 뼈와 힘줄의 리모델링 주기와 휴식 생리학 (BEGINNER) -->
-                    <a href="articles/bone-remodeling-running-rest-days-tendon-science.html" class="article-card" data-category="beginner">
+                    <a href="articles/bone-remodeling-running-rest-days-tendon-science.html" class="article-card" data-category="nutrition" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 조직 적응 생리학 &amp; 휴식 과학</span>
@@ -1227,7 +1254,7 @@
                     </a>
 
                     <!-- Card 53: 이상근 증후군 vs 허리 디스크 감별 (NEW & INTERMEDIATE) -->
-                    <a href="articles/piriformis-syndrome-sciatic-nerve-running.html" class="article-card" data-category="intermediate">
+                    <a href="articles/piriformis-syndrome-sciatic-nerve-running.html" class="article-card" data-category="injury" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 둔부 심부 통증 &amp; 신경 포착</span>
@@ -1245,7 +1272,7 @@
                     </a>
 
                     <!-- Card 52: 마라톤 수정 카보로딩과 글리코겐 수분 결합 (NEW & ADVANCED) -->
-                    <a href="articles/marathon-carbo-loading-modified-glycogen-water-weight.html" class="article-card" data-category="advanced">
+                    <a href="articles/marathon-carbo-loading-modified-glycogen-water-weight.html" class="article-card" data-category="nutrition" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 마라톤 뉴트리션 &amp; 카보로딩</span>
@@ -1263,7 +1290,7 @@
                     </a>
 
                     <!-- Card 51: 카본 러닝화 수명과 PEBA 폼 피로도 (NEW & GEAR) -->
-                    <a href="articles/carbon-plate-shoes-lifespan-peba-foam-fatigue.html" class="article-card" data-category="gear">
+                    <a href="articles/carbon-plate-shoes-lifespan-peba-foam-fatigue.html" class="article-card" data-category="gear" data-level="gear">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">기어 &amp; 테크 · 러닝화 테크 &amp; 장비 과학</span>
@@ -1281,7 +1308,7 @@
                     </a>
 
                     <!-- Card 50: 종아리 쥐 vs 비복근 파열(테니스 레그) (BEGINNER) -->
-                    <a href="articles/calf-cramp-tennis-leg-gastrocnemius-strain.html" class="article-card" data-category="beginner">
+                    <a href="articles/calf-cramp-tennis-leg-gastrocnemius-strain.html" class="article-card" data-category="injury" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 종아리 통증 &amp; 근육 손상</span>
@@ -1299,7 +1326,7 @@
                     </a>
 
                     <!-- Card 49: 종아리 심부 가자미근 과부하와 구획증후군 (NEW & INTERMEDIATE) -->
-                    <a href="articles/soleus-pain-compartment-syndrome-running.html" class="article-card" data-category="intermediate">
+                    <a href="articles/soleus-pain-compartment-syndrome-running.html" class="article-card" data-category="injury" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 종아리 심부 통증 &amp; 구획압</span>
@@ -1317,7 +1344,7 @@
                     </a>
 
                     <!-- Card 48: 내리막길 러닝 후 허벅지 앞쪽 통증과 대퇴직근 염좌 (NEW & INTERMEDIATE) -->
-                    <a href="articles/quadriceps-strain-rectus-femoris-running.html" class="article-card" data-category="intermediate">
+                    <a href="articles/quadriceps-strain-rectus-femoris-running.html" class="article-card" data-category="injury" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 허벅지 앞쪽 통증 &amp; 제동 충격</span>
@@ -1335,7 +1362,7 @@
                     </a>
 
                     <!-- Card 47: 허벅지 안쪽 내전근 통증과 코펜하겐 재활 (NEW & ADVANCED) -->
-                    <a href="articles/adductor-groin-strain-inner-thigh-running.html" class="article-card" data-category="advanced">
+                    <a href="articles/adductor-groin-strain-inner-thigh-running.html" class="article-card" data-category="injury" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 허벅지 안쪽 통증 &amp; 골반 역학</span>
@@ -1353,7 +1380,7 @@
                     </a>
 
                     <!-- Card 46: 마라톤 대회 중 심정지의 위험 신호와 DNF의 용기 (BEGINNER) -->
-                    <a href="articles/marathon-sudden-cardiac-arrest-red-flags-dnf.html" class="article-card" data-category="beginner">
+                    <a href="articles/marathon-sudden-cardiac-arrest-red-flags-dnf.html" class="article-card" data-category="race" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 레이스 안전 &amp; 심장 보호</span>
@@ -1371,7 +1398,7 @@
                     </a>
 
                     <!-- Card 45: 과도한 마라톤 훈련과 심장의 역설 & 심근 섬유화 (NEW & INTERMEDIATE) -->
-                    <a href="articles/extreme-running-heart-health-u-curve-fibrosis.html" class="article-card" data-category="intermediate">
+                    <a href="articles/extreme-running-heart-health-u-curve-fibrosis.html" class="article-card" data-category="injury" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 심근 보호 &amp; 건강 러닝</span>
@@ -1389,7 +1416,7 @@
                     </a>
 
                     <!-- Card 44: 마라톤 횡문근융해증과 진통제 복용의 위험성 (NEW & ADVANCED) -->
-                    <a href="articles/rhabdomyolysis-running-kidney-failure-hydration.html" class="article-card" data-category="advanced">
+                    <a href="articles/rhabdomyolysis-running-kidney-failure-hydration.html" class="article-card" data-category="nutrition" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 횡문근융해증 &amp; 신장 보호</span>
@@ -1407,7 +1434,7 @@
                     </a>
 
                     <!-- Card 43: 달리기 후 폼롤러 vs 마사지건의 과학 (BEGINNER) -->
-                    <a href="articles/foam-roller-vs-massage-gun-running-recovery.html" class="article-card" data-category="beginner">
+                    <a href="articles/foam-roller-vs-massage-gun-running-recovery.html" class="article-card" data-category="nutrition" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 러닝 회복 &amp; 케어</span>
@@ -1424,7 +1451,7 @@
                     </a>
 
                     <!-- Card 42: 지연성 근육통(DOMS) vs 건염·인대 손상 감별법 (INTERMEDIATE) -->
-                    <a href="articles/doms-muscle-soreness-vs-tendon-injury-running.html" class="article-card" data-category="intermediate">
+                    <a href="articles/doms-muscle-soreness-vs-tendon-injury-running.html" class="article-card" data-category="injury" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 근육통 vs 건염 감별 &amp; 회복</span>
@@ -1441,7 +1468,7 @@
                     </a>
 
                     <!-- Card 41: 업힐 & 다운힐 러닝 생체역학과 언덕 훈련 (ADVANCED) -->
-                    <a href="articles/hill-repeats-running-biomechanics-uphill-downhill.html" class="article-card" data-category="advanced">
+                    <a href="articles/hill-repeats-running-biomechanics-uphill-downhill.html" class="article-card" data-category="training" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 언덕 훈련 &amp; 업다운힐 주법</span>
@@ -1458,7 +1485,7 @@
                     </a>
 
                     <!-- Card 40: 러닝 선글라스와 자외선(UV400)의 과학 (GEAR) -->
-                    <a href="articles/running-sunglasses-uv400-eye-fatigue-science.html" class="article-card" data-category="gear">
+                    <a href="articles/running-sunglasses-uv400-eye-fatigue-science.html" class="article-card" data-category="gear" data-level="gear">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">기어 &amp; 테크 · 러닝 선글라스 &amp; 시각 피로</span>
@@ -1475,7 +1502,7 @@
                     </a>
 
                     <!-- Card 39: 아침 공복 러닝 vs 저녁 러닝의 운동생리학 (BEGINNER) -->
-                    <a href="articles/morning-fasted-running-vs-evening-science.html" class="article-card" data-category="beginner">
+                    <a href="articles/morning-fasted-running-vs-evening-science.html" class="article-card" data-category="training" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 러닝 생체리듬 &amp; 시간대</span>
@@ -1492,7 +1519,7 @@
                     </a>
 
                     <!-- Card 38: 달리기 후 무릎 앞쪽 통증 PFPS 러너스 니 재활 (INTERMEDIATE) -->
-                    <a href="articles/pfps-patellofemoral-runners-knee-rehab.html" class="article-card" data-category="intermediate">
+                    <a href="articles/pfps-patellofemoral-runners-knee-rehab.html" class="article-card" data-category="injury" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 무릎 통증 &amp; PFPS 재활</span>
@@ -1509,7 +1536,7 @@
                     </a>
 
                     <!-- Card 37: 마라톤 30km LSD 훈련과 모세혈관 신생 (ADVANCED) -->
-                    <a href="articles/lsd-training-capillary-fat-adaptation.html" class="article-card" data-category="advanced">
+                    <a href="articles/lsd-training-capillary-fat-adaptation.html" class="article-card" data-category="training" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · LSD 훈련 &amp; 모세혈관 신생</span>
@@ -1526,7 +1553,7 @@
                     </a>
 
                     <!-- Card 36: 러닝 워치 광학식 심박 센서와 케이던스 락 (GEAR) -->
-                    <a href="articles/running-watch-ppg-heart-rate-chest-strap.html" class="article-card" data-category="gear">
+                    <a href="articles/running-watch-ppg-heart-rate-chest-strap.html" class="article-card" data-category="gear" data-level="gear">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">기어 &amp; 테크 · 스마트워치 심박 센서 &amp; 가슴 스트랩</span>
@@ -1543,7 +1570,7 @@
                     </a>
 
                     <!-- Card 35: 달릴 때 옆구리 통증(ETAP)과 3대 응급 호흡법 (BEGINNER) -->
-                    <a href="articles/side-stitch-running-etap-breathing.html" class="article-card" data-category="beginner">
+                    <a href="articles/side-stitch-running-etap-breathing.html" class="article-card" data-category="injury" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 호흡 &amp; 급성 복통</span>
@@ -1560,7 +1587,7 @@
                     </a>
 
                     <!-- Card 34: VO2max 인터벌 트레이닝 설계 공식 (ADVANCED) -->
-                    <a href="articles/vo2max-interval-training-protocols.html" class="article-card" data-category="advanced">
+                    <a href="articles/vo2max-interval-training-protocols.html" class="article-card" data-category="training" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 심폐 한계 돌파 &amp; 스피드</span>
@@ -1577,7 +1604,7 @@
                     </a>
 
                     <!-- Card 33: 러닝 양말의 과학과 발 보호 (GEAR) -->
-                    <a href="articles/running-socks-blister-prevention-materials.html" class="article-card" data-category="gear">
+                    <a href="articles/running-socks-blister-prevention-materials.html" class="article-card" data-category="gear" data-level="gear">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">기어 &amp; 테크 · 러닝 양말 &amp; 발 보호</span>
@@ -1594,7 +1621,7 @@
                     </a>
 
                     <!-- Card 32: 겨울철 러닝 옷차림과 3단계 레이어링 (GEAR) -->
-                    <a href="articles/cold-weather-running-layering-hypothermia.html" class="article-card" data-category="gear">
+                    <a href="articles/cold-weather-running-layering-hypothermia.html" class="article-card" data-category="gear" data-level="gear">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">기어 & 테크 · 환절기·겨울 의류</span>
@@ -1611,7 +1638,7 @@
                     </a>
 
                     <!-- Card 31: 마라톤 대회 에너지젤 섭취 공식 (ADVANCED) -->
-                    <a href="articles/marathon-energy-gel-timing-gi-distress.html" class="article-card" data-category="advanced">
+                    <a href="articles/marathon-energy-gel-timing-gi-distress.html" class="article-card" data-category="nutrition" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 풀코스 보급 전략</span>
@@ -1628,7 +1655,7 @@
                     </a>
 
                     <!-- Card 30: 햄스트링 당김과 둔근 활성화 (INTERMEDIATE) -->
-                    <a href="articles/hamstring-strain-glute-activation-running.html" class="article-card" data-category="intermediate">
+                    <a href="articles/hamstring-strain-glute-activation-running.html" class="article-card" data-category="injury" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 햄스트링 & 둔근 재활</span>
@@ -1645,7 +1672,7 @@
                     </a>
 
                     <!-- Card 29: LT1/LT2 심박존 과학 -->
-                    <a href="articles/lt1-lt2-heart-rate-zones-science.html" class="article-card" data-category="intermediate">
+                    <a href="articles/lt1-lt2-heart-rate-zones-science.html" class="article-card" data-category="training" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 심박수 생체역학</span>
@@ -1662,7 +1689,7 @@
                     </a>
 
                     <!-- Card 28: 스마트워치 수면 점수와 초회복 (NEW) -->
-                    <a href="articles/smartwatch-sleep-score-deep-recovery.html" class="article-card" data-category="intermediate">
+                    <a href="articles/smartwatch-sleep-score-deep-recovery.html" class="article-card" data-category="nutrition" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 휴식 & 초회복</span>
@@ -1680,7 +1707,7 @@
                     </a>
 
                     <!-- Card 27: 지속주 vs 2분할 달리기 (NEW) -->
-                    <a href="articles/continuous-vs-split-running-science.html" class="article-card" data-category="advanced">
+                    <a href="articles/continuous-vs-split-running-science.html" class="article-card" data-category="training" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 분할 훈련법</span>
@@ -1698,7 +1725,7 @@
                     </a>
 
                     <!-- Card 26: 거위발건염 무릎 안쪽 통증 -->
-                    <a href="articles/pes-anserine-bursitis-inner-knee-pain.html" class="article-card" data-category="intermediate">
+                    <a href="articles/pes-anserine-bursitis-inner-knee-pain.html" class="article-card" data-category="injury" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 무릎 안쪽 통증</span>
@@ -1716,7 +1743,7 @@
                     </a>
 
                     <!-- Card 25: 달리기 호흡법과 옆구리 통증 (NEW) -->
-                    <a href="articles/running-breathing-rhythm-locomotor-coupling.html" class="article-card" data-category="beginner">
+                    <a href="articles/running-breathing-rhythm-locomotor-coupling.html" class="article-card" data-category="training" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 호흡 생리학</span>
@@ -1734,7 +1761,7 @@
                     </a>
 
                     <!-- Card 24: 카본 러닝화 생체역학과 부상 (NEW & GEAR) -->
-                    <a href="articles/carbon-plate-shoes-injury-biomechanics.html" class="article-card" data-category="gear">
+                    <a href="articles/carbon-plate-shoes-injury-biomechanics.html" class="article-card" data-category="gear" data-level="gear">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">기어 & 테크 · 카본화 부상</span>
@@ -1752,7 +1779,7 @@
                     </a>
 
                     <!-- Card 23: 런리핏 실측 랩 보고서 읽는 법 (GEAR) -->
-                    <a href="articles/runrepeat-shoe-specs-guide.html" class="article-card" data-category="gear">
+                    <a href="articles/runrepeat-shoe-specs-guide.html" class="article-card" data-category="gear" data-level="gear">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">기어 & 테크 · 런리핏 가이드</span>
@@ -1769,7 +1796,7 @@
                     </a>
 
                     <!-- Card 22: 러너의 수분 보충 생리학 & 저나트륨혈증 -->
-                    <a href="articles/runner-hydration-electrolytes-hyponatremia.html" class="article-card" data-category="intermediate">
+                    <a href="articles/runner-hydration-electrolytes-hyponatremia.html" class="article-card" data-category="nutrition" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 수분 전해질</span>
@@ -1786,7 +1813,7 @@
                     </a>
 
                     <!-- Card 21: 젖산역치와 템포런의 과학 -->
-                    <a href="articles/lactate-threshold-tempo-run-science.html" class="article-card" data-category="advanced">
+                    <a href="articles/lactate-threshold-tempo-run-science.html" class="article-card" data-category="training" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 젖산역치</span>
@@ -1803,7 +1830,7 @@
                     </a>
 
                     <!-- Card 20: 아킬레스건염과 편심성 운동 -->
-                    <a href="articles/achilles-tendonitis-eccentric-loading.html" class="article-card" data-category="gear">
+                    <a href="articles/achilles-tendonitis-eccentric-loading.html" class="article-card" data-category="injury" data-level="gear">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">기어 & 테크 · 카본화 부하</span>
@@ -1820,7 +1847,7 @@
                     </a>
 
                     <!-- Card 19: 운동 직후 30분 영양 회복 -->
-                    <a href="articles/post-run-nutrition-glycogen-window.html" class="article-card" data-category="intermediate">
+                    <a href="articles/post-run-nutrition-glycogen-window.html" class="article-card" data-category="nutrition" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 회복 영양</span>
@@ -1837,7 +1864,7 @@
                     </a>
 
                     <!-- Card 18: 러너와 수면의 과학 -->
-                    <a href="articles/sleep-science-runner-recovery.html" class="article-card" data-category="intermediate">
+                    <a href="articles/sleep-science-runner-recovery.html" class="article-card" data-category="nutrition" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 수면 & 초회복</span>
@@ -1854,7 +1881,7 @@
                     </a>
 
                     <!-- Card 17: 케이던스 180의 신화와 과학 -->
-                    <a href="articles/cadence-180-spm-myth-facts.html" class="article-card" data-category="intermediate">
+                    <a href="articles/cadence-180-spm-myth-facts.html" class="article-card" data-category="training" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 케이던스와 충격 분산</span>
@@ -1871,7 +1898,7 @@
                     </a>
 
                     <!-- Card 16: 심박수 표류(Cardiac Drift) -->
-                    <a href="articles/cardiac-drift-aerobic-decoupling.html" class="article-card" data-category="intermediate">
+                    <a href="articles/cardiac-drift-aerobic-decoupling.html" class="article-card" data-category="training" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 심박수 표류와 디커플링</span>
@@ -1888,7 +1915,7 @@
                     </a>
 
                     <!-- Card 15: 신스프린트(MTSS) -->
-                    <a href="articles/shin-splints-tibial-stress.html" class="article-card" data-category="beginner">
+                    <a href="articles/shin-splints-tibial-stress.html" class="article-card" data-category="injury" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 정강이 통증과 부상 방지</span>
@@ -1905,7 +1932,7 @@
                     </a>
 
                     <!-- Card 14: 마라톤 3주 전 테이퍼링 -->
-                    <a href="articles/marathon-tapering-science.html" class="article-card" data-category="advanced">
+                    <a href="articles/marathon-tapering-science.html" class="article-card" data-category="race" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 대회 직전 테이퍼링 피킹</span>
@@ -1922,7 +1949,7 @@
                     </a>
 
                     <!-- Card 13: 족저근막염 자가 회복법 -->
-                    <a href="articles/plantar-fasciitis-rehab.html" class="article-card" data-category="beginner">
+                    <a href="articles/plantar-fasciitis-rehab.html" class="article-card" data-category="injury" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 발바닥 족저근막 통증 완화</span>
@@ -1939,7 +1966,7 @@
                     </a>
 
                     <!-- Card 12: Zone 2 심박수와 미토콘드리아 -->
-                    <a href="articles/zone2-training-mitochondria.html" class="article-card" data-category="intermediate">
+                    <a href="articles/zone2-training-mitochondria.html" class="article-card" data-category="training" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · Zone 2와 미토콘드리아</span>
@@ -1956,7 +1983,7 @@
                     </a>
 
                     <!-- Card 11: 마라톤 30km의 벽 & 카보로딩 -->
-                    <a href="articles/marathon-wall-carbo-loading.html" class="article-card" data-category="advanced">
+                    <a href="articles/marathon-wall-carbo-loading.html" class="article-card" data-category="nutrition" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 30km의 벽과 카보로딩</span>
@@ -1973,7 +2000,7 @@
                     </a>
 
                     <!-- Card 10: 장경인대 증후군 (ITBS) -->
-                    <a href="articles/itbs-runner-knee-pain.html" class="article-card" data-category="beginner">
+                    <a href="articles/itbs-runner-knee-pain.html" class="article-card" data-category="injury" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 무릎 외측 장경인대 통증</span>
@@ -1990,7 +2017,7 @@
                     </a>
 
                     <!-- Card 9: 심장 연비 EF -->
-                    <a href="articles/ef-aerobic-efficiency.html" class="article-card" data-category="intermediate">
+                    <a href="articles/ef-aerobic-efficiency.html" class="article-card" data-category="training" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 심장 연비와 유산소 효율</span>
@@ -2007,7 +2034,7 @@
                     </a>
 
                     <!-- Card 8: 카보넨 심박수 존 -->
-                    <a href="articles/karvonen-heart-rate-zones.html" class="article-card" data-category="intermediate">
+                    <a href="articles/karvonen-heart-rate-zones.html" class="article-card" data-category="training" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 카보넨 맞춤 심박존</span>
@@ -2024,7 +2051,7 @@
                     </a>
 
                     <!-- Card 7: VDOT 맞춤 속도 -->
-                    <a href="articles/vdot-training-paces.html" class="article-card" data-category="intermediate">
+                    <a href="articles/vdot-training-paces.html" class="article-card" data-category="training" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · VDOT 맞춤 훈련 속도</span>
@@ -2041,7 +2068,7 @@
                     </a>
 
                     <!-- Card 6: 초회복과 휴식의 과학 -->
-                    <a href="articles/supercompensation-rest-recovery.html" class="article-card" data-category="intermediate">
+                    <a href="articles/supercompensation-rest-recovery.html" class="article-card" data-category="nutrition" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 초회복과 컨디션 관리</span>
@@ -2058,7 +2085,7 @@
                     </a>
 
                     <!-- Card 5: 야소 800 풀코스 예측 -->
-                    <a href="articles/yasso-800s-marathon-predictor.html" class="article-card" data-category="advanced">
+                    <a href="articles/yasso-800s-marathon-predictor.html" class="article-card" data-category="training" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마라톤 · 야소 800 풀코스 예측</span>
@@ -2075,7 +2102,7 @@
                     </a>
 
                     <!-- Card 4: 걷기 vs 달리기 다이어트 -->
-                    <a href="articles/running-vs-walking-fat-loss.html" class="article-card" data-category="beginner">
+                    <a href="articles/running-vs-walking-fat-loss.html" class="article-card" data-category="training" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 걷기 vs 달리기 다이어트</span>
@@ -2092,7 +2119,7 @@
                     </a>
 
                     <!-- Card 3: 매일 vs 격일 달리기 -->
-                    <a href="articles/everyday-running-vs-rest-days.html" class="article-card" data-category="beginner">
+                    <a href="articles/everyday-running-vs-rest-days.html" class="article-card" data-category="nutrition" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 달리기 빈도와 관절 보호</span>
@@ -2109,7 +2136,7 @@
                     </a>
 
                     <!-- Card 2: 트레드밀 vs 야외 -->
-                    <a href="articles/treadmill-vs-outdoor-running.html" class="article-card" data-category="gear">
+                    <a href="articles/treadmill-vs-outdoor-running.html" class="article-card" data-category="gear" data-level="gear">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">기어 & 테크 · 트레드밀 vs 로드러닝</span>
@@ -2126,7 +2153,7 @@
                     </a>
 
                     <!-- Card 1: 발 착지법 -->
-                    <a href="articles/running-form-footstrike.html" class="article-card" data-category="beginner">
+                    <a href="articles/running-form-footstrike.html" class="article-card" data-category="gear" data-level="beginner">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">초보 입문 · 안전한 착지법과 주법</span>

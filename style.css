@@ -1627,15 +1627,87 @@ body {
     gap: 8px;
 }
 
-/* 하단 2단: 4대 핵심 소메뉴 4열 그리드 */
-.filter-sub-grid {
+/* 🔍 실시간 런로그 검색창 */
+.article-search-container {
+    margin-bottom: 10px;
+}
+
+.article-search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s ease;
+}
+
+.article-search-box:focus-within {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.article-search-box .search-icon {
+    position: absolute;
+    left: 14px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.article-search-input {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 38px 10px 40px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-radius: var(--radius-md);
+    box-sizing: border-box;
+}
+
+.article-search-input::placeholder {
+    color: #94A3B8;
+    font-weight: 500;
+}
+
+.search-clear-btn {
+    position: absolute;
+    right: 12px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: none;
+    background: #E2E8F0;
+    color: #475569;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.search-clear-btn:hover {
+    background: #CBD5E1;
+    color: #0F172A;
+}
+
+/* 하단 2단: 5대 핵심 주제 그리드 (데스크탑 5열) */
+.filter-topic-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 8px;
 }
 
+.filter-topic-btn,
 .filter-sub-btn {
-    min-height: 38px;
+    min-height: 40px;
     padding: 8px 6px;
     border-radius: var(--radius-sm);
     font-size: 0.82rem;
@@ -1644,6 +1716,79 @@ body {
     justify-content: center;
     gap: 5px;
     white-space: nowrap;
+}
+
+/* 검색 결과 상태 바 */
+.search-result-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 14px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 10px;
+    font-size: 0.84rem;
+    color: #1E40AF;
+    margin-bottom: 14px;
+}
+
+.search-reset-link {
+    background: transparent;
+    border: none;
+    color: var(--primary-blue);
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 2px 4px;
+}
+
+.search-reset-link:hover {
+    color: #1D4ED8;
+}
+
+/* 📭 일치하는 결과 없음 (Empty State) */
+.article-empty-state {
+    padding: 44px 20px;
+    text-align: center;
+    background: #FFFFFF;
+    border: 1px dashed #CBD5E1;
+    border-radius: var(--radius-lg);
+    margin: 16px 0 24px;
+}
+
+.article-empty-state .empty-icon {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+}
+
+.article-empty-state .empty-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.article-empty-state .empty-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.btn-reset-filters {
+    padding: 9px 18px;
+    background: var(--primary-blue);
+    color: #FFFFFF;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-reset-filters:hover {
+    background: #1D4ED8;
 }
 
 /* ==========================================================================
@@ -1975,24 +2120,45 @@ table p {
         padding: 6px 2px;
     }
 
-    /* 🏷️ 러닝 사이언스 필터 메뉴: 상단 전체 긴 바 + 하단 4분할 버튼 */
+    /* 🔍 실시간 런로그 검색창 모바일 최적화 */
+    .article-search-container {
+        margin-bottom: 8px;
+    }
+    .article-search-input {
+        min-height: 40px;
+        font-size: 0.84rem;
+        padding: 8px 34px 8px 34px;
+    }
+    .article-search-box .search-icon {
+        left: 11px;
+        font-size: 0.85rem;
+    }
+    .search-clear-btn {
+        right: 9px;
+        width: 20px;
+        height: 20px;
+        font-size: 0.7rem;
+    }
+
+    /* 🏷️ 런로그 5대 주제 필터 메뉴 모바일 최적화 (상단 전체 + 하단 3열 그리드) */
     .article-filter-container {
         gap: 6px;
         margin: 6px 0 12px;
     }
     .filter-chip-all {
-        min-height: 40px;
-        padding: 8px 12px;
-        font-size: 0.88rem;
+        min-height: 38px;
+        padding: 7px 12px;
+        font-size: 0.85rem;
         border-radius: var(--radius-sm);
     }
-    .filter-sub-grid {
-        grid-template-columns: repeat(4, 1fr);
+    .filter-topic-grid {
+        grid-template-columns: repeat(3, 1fr);
         gap: 5px;
     }
+    .filter-topic-btn,
     .filter-sub-btn {
         min-height: 36px;
-        padding: 6px 2px;
+        padding: 6px 4px;
         font-size: 0.74rem;
         gap: 3px;
         border-radius: var(--radius-sm);

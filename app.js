@@ -1357,37 +1357,116 @@ function escapeHtml(str) {
 }
 
 /**
- * 5. 러닝 사이언스 카테고리 칩 필터링
+ * 5. 런로그 5대 카테고리 필터링 & 초고속 실시간 검색 통합 엔진
  */
 function initArticleFilters() {
     const filterContainer = document.getElementById('articleFilterBar');
-    if (!filterContainer) return;
-    const filterChips = filterContainer.querySelectorAll('.filter-chip');
+    const searchInput = document.getElementById('articleSearchInput');
+    const clearBtn = document.getElementById('btnArticleSearchClear');
+    const searchResultBar = document.getElementById('articleSearchResultBar');
+    const searchResultText = document.getElementById('searchResultText');
+    const resetSearchBtn = document.getElementById('btnSearchFilterReset');
+    const emptyState = document.getElementById('articleEmptyState');
+    const resetFiltersBtn = document.getElementById('btnResetFilters');
     const articleCards = document.querySelectorAll('.article-card');
 
-    if (!filterChips.length || !articleCards.length) return;
+    if (!articleCards.length) return;
 
-    filterChips.forEach(chip => {
-        chip.addEventListener('click', () => {
-            const filter = chip.dataset.filter;
+    let currentCategory = 'all';
+    let currentQuery = '';
 
-            // 칩 active 토글
-            filterChips.forEach(c => c.classList.remove('active'));
-            chip.classList.add('active');
+    const filterChips = filterContainer ? filterContainer.querySelectorAll('.filter-chip') : [];
 
-            // 아티클 카드 표시/숨김
-            let matchCount = 0;
-            articleCards.forEach(card => {
-                const category = card.dataset.category;
-                if (filter === 'all' || category === filter) {
-                    card.style.display = 'flex';
-                    matchCount++;
-                } else {
-                    card.style.display = 'none';
-                }
+    function applyFilter() {
+        let matchCount = 0;
+        const q = currentQuery.trim().toLowerCase();
+
+        articleCards.forEach(card => {
+            const cat = card.dataset.category || '';
+            const catMatch = (currentCategory === 'all' || cat === currentCategory);
+
+            let searchMatch = true;
+            if (q) {
+                const text = card.textContent.toLowerCase();
+                searchMatch = text.includes(q);
+            }
+
+            if (catMatch && searchMatch) {
+                card.style.display = 'flex';
+                matchCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // 검색창 X 버튼 표시/숨김
+        if (clearBtn) {
+            clearBtn.style.display = q ? 'flex' : 'none';
+        }
+
+        // 검색 결과 상태 바
+        if (searchResultBar && searchResultText) {
+            if (q) {
+                searchResultBar.style.display = 'flex';
+                searchResultText.innerHTML = `검색어: <strong>"${escapeHtml(q)}"</strong> · 일치하는 런로그 <strong>${matchCount}</strong>편`;
+            } else {
+                searchResultBar.style.display = 'none';
+            }
+        }
+
+        // Empty state 처리
+        if (emptyState) {
+            emptyState.style.display = (matchCount === 0) ? 'block' : 'none';
+        }
+    }
+
+    // 1) 카테고리 칩 클릭
+    if (filterChips.length) {
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                currentCategory = chip.dataset.filter || 'all';
+                filterChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                applyFilter();
             });
         });
-    });
+    }
+
+    // 2) 실시간 검색 인풋
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            currentQuery = e.target.value;
+            applyFilter();
+        });
+    }
+
+    // 3) 검색창 X 버튼 클릭
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.focus();
+            }
+            currentQuery = '';
+            applyFilter();
+        });
+    }
+
+    // 4) 초기화 버튼 (결과 바 및 Empty State)
+    function resetAllFilters() {
+        currentCategory = 'all';
+        currentQuery = '';
+        if (searchInput) searchInput.value = '';
+        if (filterChips.length) {
+            filterChips.forEach(c => c.classList.remove('active'));
+            const allBtn = filterContainer.querySelector('[data-filter="all"]');
+            if (allBtn) allBtn.classList.add('active');
+        }
+        applyFilter();
+    }
+
+    if (resetSearchBtn) resetSearchBtn.addEventListener('click', resetAllFilters);
+    if (resetFiltersBtn) resetFiltersBtn.addEventListener('click', resetAllFilters);
 }
 
 /**
