@@ -50,11 +50,18 @@ function initMainViews() {
         });
     });
 
-    // URL 파라미터 처리 (?view=planner 등)
+    // URL 파라미터 처리 (?view=planner, ?sub=hrzone, ?sub=treadmill 등)
     const urlParams = new URLSearchParams(window.location.search);
-    const initialView = urlParams.get('view');
+    const initialView = urlParams.get('view') || (urlParams.get('tab') === 'calc' ? 'calc' : null);
     if (initialView && ['calc', 'planner', 'articles'].includes(initialView)) {
         switchView(initialView);
+    }
+
+    const subTab = urlParams.get('sub');
+    if (subTab && ['pace', 'treadmill', 'hrzone'].includes(subTab)) {
+        switchView('calc');
+        const subBtn = document.querySelector(`.sub-switch-btn[data-calc-tab="${subTab}"]`);
+        if (subBtn) subBtn.click();
     }
 }
 
