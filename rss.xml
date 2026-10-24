@@ -5,8 +5,40 @@
     <link>https://runanalyz.com/</link>
     <description>스포츠 생체역학과 운동생리학 연구 기반의 러닝 사이언스, 부상 재활, 마라톤 코스 공략 및 체력 진단 매거진</description>
     <language>ko</language>
-    <lastBuildDate>Fri, 23 Oct 2026 02:01:11 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 24 Oct 2026 18:31:22 +0900</lastBuildDate>
     <atom:link href="https://runanalyz.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>데일리 러닝화 미드솔 폼의 수명과 반발력 한계: EVA vs PEBA vs 초임계 폼의 압축 주름과 교체 신호</title>
+      <link>https://runanalyz.com/articles/running-shoe-midsole-foam-lifespan-compression-creases.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/running-shoe-midsole-foam-lifespan-compression-creases.html</guid>
+      <pubDate>Sat, 24 Oct 2026 09:00:00 +0900</pubDate>
+      <category>상급 마스터 · 기어 &amp; 미드솔 소재공학</category>
+      <description><![CDATA[겉은 멀쩡한데 왜 달릴 때마다 무릎이 쑤실까? EVA, 초임계 TPU, PEBA(Pebax) 폼의 영구 압축 줄음율(Compression Set)과 주름 발생 메커니즘. 5,000km 러너의 실측 미드솔 주름 판정법, 힐 칼라 내부 마모와 발목 안정성.]]></description>
+    </item>
+    <item>
+      <title>계단 하나로 끝내는 러너 전용 편심성(Eccentric) 보강운동: 종아리·대퇴사두근 충격 흡수력 2배 높이기</title>
+      <link>https://runanalyz.com/articles/runner-stair-eccentric-training-knee-achilles-rehab.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/runner-stair-eccentric-training-knee-achilles-rehab.html</guid>
+      <pubDate>Sat, 24 Oct 2026 09:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 부상 예방 &amp; 실전 보강운동</category>
+      <description><![CDATA[러닝 착지 시 체중 3배의 충격을 버텨내는 편심성 수축(Eccentric Contraction)의 물리학. 아파트 계단 끝을 활용한 알프레드슨 변형 힐드롭, 편심성 스텝다운 스쿼트로 무릎 연골과 아킬레스건을 보호하는 실전 보강 루틴.]]></description>
+    </item>
+    <item>
+      <title>러닝 직후 발바닥 피로와 족저압 분산: 리커버리 슬라이드(쿠션 슬리퍼)의 족부 생체역학</title>
+      <link>https://runanalyz.com/articles/post-run-recovery-slides-plantar-pressure-biomechanics.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/post-run-recovery-slides-plantar-pressure-biomechanics.html</guid>
+      <pubDate>Sat, 24 Oct 2026 09:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 영양 &amp; 피로 회복</category>
+      <description><![CDATA[달리기 직후 맨발로 단단한 바닥을 디딜 때 발생하는 족저근막과 아킬레스건 미세 손상 위험. 딥 힐컵(Deep Heel Cup)과 아치 서포트 구조가 족저 압력을 40% 분산시키는 생체역학, 훈련 후 30분 골든타임 회복 풋웨어 가이드.]]></description>
+    </item>
+    <item>
+      <title>고혈압 전단계에서 매일 아침 7~8km 지속주로 혈관 탄력과 혈압을 잡은 러닝 심혈관 과학</title>
+      <link>https://runanalyz.com/articles/hypertension-morning-running-cardiovascular-health.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/hypertension-morning-running-cardiovascular-health.html</guid>
+      <pubDate>Sat, 24 Oct 2026 09:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 심폐과학 &amp; 혈관 적응</category>
+      <description><![CDATA[건강검진 수축기 130~140mmHg 고혈압 경고 후 매일 아침 7~8km 지속주(4분대 후반 페이스)로 혈압을 정상화한 생체역학. 운동 후 저혈압(PEH)의 24시간 혈관 확장 기전, 산화질소(NO) 분비, 서파 수면(Deep Sleep)과 자율신경계 밸런스.]]></description>
+    </item>
     <item>
       <title>러닝화 굽 높이(스택 하이트 40mm)의 역설: 두꺼운 맥스쿠셔닝화가 발목 인대를 비트는 회전 토크 역학</title>
       <link>https://runanalyz.com/articles/running-shoes-stack-height-ankle-torque.html</link>

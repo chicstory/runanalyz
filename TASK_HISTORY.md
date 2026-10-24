@@ -2,6 +2,43 @@
 
 ---
 
+## [2026-10-24] 실측 에셋 6종 구원 & 러닝 심혈관·회복·보강·기어 4대 킬러 아티클 신규 발행 (총 86편 돌파) & 전수 동기화
+- **1. 요청사항**: 
+  - `articles/assets/` 내 잠자고 있던 미사용 실측 에셋을 전수 발굴하여 탑재할 것.
+  - 기존 82편 글과의 중복을 철저히 배제하고, 일상 보행(2.5만보) 언급 없이 순수 '러닝'과 심혈관·회복·보강·기어 역학에 집중할 것.
+  - 신규 아티클 4편 제작 및 포털 전수 동기화(index.html, sitemap.xml, rss.xml, 카테고리 칩 등) 완성 요청.
+- **2. 솔루션 & 구현**:
+  - **러너 실측 에셋 기반 4대 킬러 아티클 신규 집필 및 발행 (`articles/`)**:
+    1. **Card 86 (`articles/running-shoe-midsole-foam-lifespan-compression-creases.html`)**:
+       - '데일리 러닝화 미드솔 폼의 수명과 반발력 한계: EVA vs PEBA vs 초임계 폼의 압축 주름과 교체 신호'
+       - 탑재 에셋: `foam-compression-creases.webp`, `adidas-lightstrike-foam-closeup.webp`, `asics-ffblast-midsole.webp`, `heel-collar-wear-5000km.webp` (실측 4종).
+       - 영구 압축 줄음율(Compression Set)에 따른 잔주름 발생 메커니즘, 폼 사망 3초 판정법(엄지 덴트, 틸트 테스트), 힐 칼라 내부 마모와 발목 회전 토크.
+       - 카테고리: `기어 & 랩 (gear)` / 레벨: `상급 (advanced)`
+    2. **Card 85 (`articles/runner-stair-eccentric-training-knee-achilles-rehab.html`)**:
+       - '계단 하나로 끝내는 러너 전용 편심성(Eccentric) 보강운동: 종아리·대퇴사두근 충격 흡수력 2배 높이기'
+       - 탑재 에셋: `runner-quad-calf-stairs.jpg` (계단 편심성 부하 실측).
+       - 착지 제동 충격을 버텨내는 편심성 수축(Eccentric)의 물리학, 알프레드슨 변형 힐드롭 + 편심성 스텝다운 스쿼트로 무릎 연골과 아킬레스건을 보호하는 3대 드릴.
+       - 카테고리: `부상 & 재활 (injury)` / 레벨: `중급 (intermediate)`
+    3. **Card 84 (`articles/post-run-recovery-slides-plantar-pressure-biomechanics.html`)**:
+       - '러닝 직후 발바닥 피로와 족저압 분산: 리커버리 슬라이드(쿠션 슬리퍼)의 족부 생체역학'
+       - 탑재 에셋: `post-run-recovery-slide.jpg` (10km 지속주 직후 착용 실측).
+       - 달리기 직후 맨발 착지가 아킬레스건과 족저근막을 찢는 원리, 딥 힐컵과 아치 서포트 구조의 족저 피크 압력 40% 분산 메커니즘, 훈련 후 30분 골든타임 착용법.
+       - 카테고리: `영양 & 회복 (nutrition)` / 레벨: `중급 (intermediate)`
+    4. **Card 83 (`articles/hypertension-morning-running-cardiovascular-health.html`)**:
+       - '고혈압 전단계에서 매일 아침 7~8km 지속주로 혈관 탄력과 혈압을 잡은 러닝 심혈관 과학'
+       - 보행 완전 배제, 순수 아침 7~8km 4분대 지속주 기준.
+       - 운동 후 저혈압(PEH, Post-Exercise Hypotension)의 24시간 혈관 확장 기전, 혈관 내피세포 전단응력(Shear Stress)과 산화질소(NO) 분비, 야간 서파 수면(Deep Sleep) 증가와 자율신경계 밸런스.
+       - 카테고리: `훈련 & 심폐 (training)` / 레벨: `중급 (intermediate)`
+  - **포털 및 인프라 전수 동기화**:
+    - `index.html`: 필터 칩 카운트 갱신 (전체 86, 부상 23, 훈련 23, 영양 16, 대회 11, 기어 13) 및 최상단 카드 4종 탑재 (`✨ NEW` 뱃지 부착, 기존 Card 82~79 뱃지 갱신).
+    - `sitemap.xml`: 신규 4개 URL 등록 (priority: 0.9, lastmod: 2026-10-24).
+    - `generate_rss.py` 실행: `rss.xml` 내 86개 전수 아티클 최신 RFC 822 포맷 자동 생성.
+- **3. 결과 & 검증**:
+  - 디스크 내 86개 아티클, `index.html` 86개 카드, `sitemap.xml` 86개 URL, `rss.xml` 86개 아이템 무결성 100% 일치.
+  - 전 신규 아티클 GA4, AdSense, 맞춤 계산기 CTA 배너, 영구 댓글 시스템 연동 완료.
+
+---
+
 ## [2026-10-23] 실전 러닝 사이언스 & 기어 역학 4대 킬러 아티클 신규 발행 (총 82편 돌파) & 전수 동기화
 - **1. 요청사항**: 5대 핵심 주제별 카테고리 정돈에 맞춰 러너들의 절박한 검색 수요가 집중된 4대 핵심 킬러 아티클(발등 피로골절, 고관절 충돌 FAI, 러너스 트롯 급똥 방지, 스택 하이트 40mm 발목 토크) 신규 제작 및 시스템 전수 동기화 요청.
 - **2. 솔루션 & 구현**:
