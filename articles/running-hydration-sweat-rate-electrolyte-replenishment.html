@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>러닝 중 탈수와 전해질 고갈의 과학: 땀 손실률(Sweat Rate) 자가 측정과 러너 전용 수분 보충법 | RunAnalyz</title>
+    <meta name="description" content="체중의 2%만 수분이 빠져도 심박수가 치솟고 페이스가 무너지는 생체역학. 달리기 전후 체중으로 내 시간당 땀 배출량(Sweat Rate) 계산하는 공식, 맹물 과다 섭취 시 저나트륨혈증 위험과 나트륨·전해질 황금 배합비, 실전 스포츠 보틀 급수 프로토콜.">
+    <link rel="canonical" href="https://runanalyz.com/articles/running-hydration-sweat-rate-electrolyte-replenishment.html">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QREC5DVG9M"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-QREC5DVG9M');
+    </script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1876940323402065" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <a href="../index.html" style="text-decoration:none; display:flex; align-items:center; gap:10px;">
+                    <span class="brand-logo">⚡</span>
+                    <div class="brand-text">
+                        <span class="brand-name">RunAnalyz</span>
+                        <span class="brand-tagline">과학적 러닝 사이언스 &amp; 훈련 처방</span>
+                    </div>
+                </a>
+            </div>
+            <nav class="header-nav-links">
+                <a href="../index.html" class="header-nav-link">러닝 분석 도구</a>
+                <a href="../index.html?view=articles" class="header-nav-link active">러닝 사이언스</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Breadcrumb -->
+        <nav style="font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 20px;">
+            <a href="../index.html" style="color: var(--primary-blue); text-decoration: none;">홈</a> &gt; 
+            <a href="../index.html?view=articles" style="color: var(--primary-blue); text-decoration: none;">러닝 사이언스</a> &gt; 
+            <span>러너 수분 섭취와 땀 손실률의 과학</span>
+        </nav>
+
+        <article class="card article-detail">
+            <header class="article-header">
+                <span class="article-tag">중급 빌드업 · 영양 &amp; 수분 전해질 역학</span>
+                <h1>러닝 중 탈수와 전해질 고갈의 과학: 땀 손실률(Sweat Rate) 자가 측정과 러너 전용 수분 보충법</h1>
+                <div class="article-meta">
+                    <span>작성: RunAnalyz Science Lab</span>
+                    <span>•</span>
+                    <span>읽는 시간: 약 8분</span>
+                    <span>•</span>
+                    <span>업데이트: 2026. 10. 25</span>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <div class="lead-box">
+                    <strong>"10km 지점까지는 페이스가 완벽했는데, 후반부에 갑자기 다리에 쥐가 나고 심박수가 치솟으며 페이스가 30초 이상 곤두박질쳤습니다."</strong><br>
+                    많은 러너들이 이를 근지구력 부족으로 오해하지만, 주된 원인은 <strong>'체내 수분 2% 손실로 인한 혈액 순환계 쇼크'</strong>입니다. 
+                    체온을 식히기 위해 땀이 배출되면 혈액량이 줄어들고 심장은 1회 박출량을 유지하지 못해 심박수를 억지로 끌어올립니다(심장 드리프트). 
+                    내 몸의 시간당 땀 손실률(Sweat Rate)을 정확히 계산하는 법과 맹물만 마실 때 발생하는 저나트륨혈증의 위험, 실전 전해질 배합 공식을 정리합니다.
+                </div>
+
+                <!-- 러너 실측 에셋 탑재 -->
+                <div style="margin: 28px 0; background: #F8FAFC; border: 1px solid var(--border-light); border-radius: 12px; padding: 16px; text-align: center;">
+                    <img src="assets/hydration-sports-bottle.jpg" alt="장거리 러닝 및 지속주 훈련 시 수분과 전해질을 보충하는 러너의 스포츠 보틀 실측" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" loading="lazy">
+                    <p style="margin: 12px 0 0; font-size: 0.85rem; color: var(--text-tertiary); text-align: left; line-height: 1.5;">
+                        📸 <strong>실측 에셋: 지속주 훈련 전용 하이드레이션 보틀</strong>: 60분 이상 중장거리 훈련 시 맹물이 아닌 전해질(나트륨·칼륨)과 6% 등장성 탄수화물을 배합해 15~20분 간격으로 소량씩 섭취할 때 심박 드리프트와 근육 경련을 원천 차단할 수 있습니다.
+                    </p>
+                </div>
+
+                <h2>1. 탈수 2%의 법칙: 왜 수분이 조금만 빠져도 심장이 폭주할까?</h2>
+                <p>
+                    인체는 체온을 37도 안팎으로 유지하기 위해 끊임없이 피부 모세혈관으로 피를 보내고 땀을 증발시킵니다. 
+                    하지만 땀으로 빠져나가는 수분은 결국 <strong>'혈장(혈액 속 수분)'</strong>에서 빠져나오는 것입니다.
+                </p>
+                <div style="background: #FEF2F2; border-left: 4px solid #DC2626; padding: 16px 20px; border-radius: 8px; margin: 20px 0;">
+                    <h4 style="margin: 0 0 8px; color: #991B1B; font-size: 0.95rem;">⚠️ 체중의 2% 탈수가 신체에 미치는 도미노 현상</h4>
+                    <ol style="margin: 0; padding-left: 20px; font-size: 0.9rem; line-height: 1.7; color: #7F1D1D;">
+                        <li><strong>혈액 점도 상승 및 혈장량 감소</strong>: 피가 끈적해지며 심장으로 돌아오는 정맥 환류량(Venous Return)이 감소합니다.</li>
+                        <li><strong>1회 심박출량(Stroke Volume) 급감</strong>: 심장이 한 번 뛸 때 뿜어내는 피의 양이 줄어듭니다.</li>
+                        <li><strong>심장 드리프트(Cardiac Drift) 발생</strong>: 속도를 올리지 않았는데도 동일한 산소를 공급하기 위해 분당 심박수가 <strong>10~20 bpm 가량 가파르게 상승</strong>합니다.</li>
+                        <li><strong>근육 산소 공급 차단 및 젖산 축적</strong>: 피부로 피를 빼앗긴 다리 근육에 산소가 부족해지며 조기 파진과 다리 쥐(경련)가 발생합니다.</li>
+                    </ol>
+                </div>
+
+                <h2>2. 내 시간당 땀 배출량(Sweat Rate) 자가 측정 공식</h2>
+                <p>
+                    모든 러너의 땀 배출량은 체중, 달리는 페이스, 유전, 기온에 따라 시간당 500ml에서 2,000ml까지 천차만별입니다. 
+                    다음 공식으로 자신의 시간당 땀 손실량을 한 번만 측정해두면 평생 나만의 급수 기준이 생깁니다.
+                </p>
+
+                <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 20px; margin: 20px 0;">
+                    <h4 style="margin: 0 0 10px; color: #1E40AF; font-size: 1rem;">📐 시간당 땀 손실률(Sweat Rate) 계산 공식</h4>
+                    <p style="font-size: 0.95rem; font-weight: 700; color: #1E3A8A; margin: 0 0 12px; font-family: monospace;">
+                        시간당 땀 배출량 (L/h) = [운동 전 체중(kg) - 운동 후 체중(kg) + 마신 수분(L) - 소변 배출량(L)] ÷ 달린 시간(h)
+                    </p>
+                    <div style="font-size: 0.85rem; color: #1E40AF; line-height: 1.6;">
+                        <strong>실전 예시</strong>: <br>
+                        - 60분 지속주 전 체중: 70.0 kg / 훈련 직후 체중: 69.2 kg (손실 0.8kg)<br>
+                        - 달리는 동안 보틀로 마신 물: 0.2 L (200ml) / 소변 배출: 없음<br>
+                        ➔ <strong>내 시간당 땀 손실량 = (70.0 - 69.2 + 0.2) ÷ 1 = 1.0 L/h (시간당 1,000ml)</strong><br>
+                        ➔ 훈련 중에는 위장 부담을 고려하여 이 손실량의 <strong>약 60~80%(시간당 600~800ml)를 15분 간격(회당 150~200ml)</strong>으로 나누어 보충해야 합니다.
+                    </div>
+                </div>
+
+                <h2>3. 맹물만 마실 때 찾아오는 공포: 운동유발성 저나트륨혈증(EAH)</h2>
+                <p>
+                    달리며 땀을 흘릴 때 수분만 빠져나가는 것이 아닙니다. 땀 1리터당 약 <strong>800~1,500mg의 나트륨(소금)</strong>이 함께 소실됩니다. 
+                    이 상태에서 갈증이 난다고 소금이 없는 순수 '맹물'만 대량으로 마시면 치명적인 결과가 발생합니다.
+                </p>
+
+                <div style="overflow-x: auto; margin: 20px 0;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+                        <thead>
+                            <tr style="background: #F1F5F9; border-bottom: 2px solid #CBD5E1;">
+                                <th style="padding: 12px 14px;">구분</th>
+                                <th style="padding: 12px 14px; color: #2563EB;">단순 탈수 (Dehydration)</th>
+                                <th style="padding: 12px 14px; color: #DC2626;">저나트륨혈증 (Hyponatremia)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #E2E8F0;">
+                                <td style="padding: 12px 14px; font-weight: 700;">발생 원인</td>
+                                <td style="padding: 12px 14px;">수분 보충 부족으로 혈액량 감소</td>
+                                <td style="padding: 12px 14px;"><strong>땀 배출 후 맹물만 과다 섭취해 혈중 나트륨 희석</strong></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E2E8F0;">
+                                <td style="padding: 12px 14px; font-weight: 700;">초기 증상</td>
+                                <td style="padding: 12px 14px;">입 마름, 짙은 소변, 심박수 증가</td>
+                                <td style="padding: 12px 14px;">두통, 메스꺼움, 손가락 붓기(반지가 낌), 어지럼증</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 14px; font-weight: 700;">위험성</td>
+                                <td style="padding: 12px 14px;">근육 경련, 일사병, 페이스 저하</td>
+                                <td style="padding: 12px 14px;">삼투압 역전으로 <strong>뇌부종(Brain Edema), 혼수 상태, 의식 소실</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>4. 마라토너와 중장거리 러너의 황금 급수 프로토콜</h2>
+                <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: 12px; padding: 20px; margin: 24px 0;">
+                    <h4 style="margin: 0 0 12px; color: var(--text-primary);">💧 실전 수분 &amp; 전해질 보충 수칙</h4>
+                    <ul style="margin: 0; padding-left: 20px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                        <li><strong>달리기 2시간 전 (사전 수화)</strong>: 500ml의 수분을 천천히 섭취하여 연한 볏짚 색의 소변 색을 확인합니다.</li>
+                        <li><strong>달리는 중 (15~20분 간격 급수)</strong>: 목이 마를 때까지 기다리지 말고, 15~20분마다 150~200ml씩 규칙적으로 입에 머금듯 마십니다.</li>
+                        <li><strong>60분 이상 지속주 전해질 세팅</strong>: 물 500ml당 나트륨 250~350mg(소금 약 0.7~0.9g) 또는 러너 전용 전해질 타블렛 1알을 녹여 지참합니다.</li>
+                        <li><strong>탄수화물 농도 6~8% (등장성)</strong>: 위장 장애 없이 혈관으로 가장 빠르게 수분이 흡수되는 당류 농도는 6~8%입니다. 시판 이온 음료나 에너지젤을 물과 함께 섭취합니다.</li>
+                    </ul>
+                </div>
+
+                <!-- 🫀 카보넨 심박존 계산기 CTA -->
+                <div class="article-cta-tool">
+                    <h3>🫀 탈수와 심장 드리프트를 방어하는 내 안전 심박존은?</h3>
+                    <p>내 체력과 심폐 한계에 맞는 정확한 Zone 1~5 심박 구간을 확인하고, 무리한 오버페이스로 인한 조기 탈수를 예방해보세요.</p>
+                    <a href="../index.html?sub=hrzone" class="article-cta-btn">
+                        🫀 카보넨 심박존 계산기 실행하기 ›
+                    </a>
+                </div>
+
+                <!-- Scientific References -->
+                <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: 12px; padding: 20px; margin: 30px 0;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                        <span style="font-size: 1.1rem;">📚</span>
+                        <span style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">학술 연구 및 데이터 출처 (Scientific References)</span>
+                    </div>
+                    <ol style="margin: 0; padding-left: 20px; font-size: 0.85rem; color: var(--text-tertiary); line-height: 1.7;">
+                        <li>Sawka, M. N., et al. (2007). <em>American College of Sports Medicine position stand. Exercise and fluid replacement.</em> Medicine &amp; Science in Sports &amp; Exercise, 39(2), 377-390.</li>
+                        <li>Hew-Butler, T., et al. (2015). <em>Statement of the Third International Exercise-Associated Hyponatremia Consensus Development Conference, Carlsbad, California, 2015.</em> British Journal of Sports Medicine, 49(22), 1432-1446.</li>
+                        <li>Coyle, E. F. (2004). <em>Fluid and fuel intake during exercise.</em> Journal of Sports Sciences, 22(1), 39-55.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <footer class="article-footer-nav" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-light);">
+                <a href="../index.html?view=articles" class="btn-back" style="color: var(--primary-blue); font-weight: 700; text-decoration: none;">← 전체 런로그 목록으로 돌아가기</a>
+            </footer>
+
+            <!-- 실시간 러너 댓글 & 팁 메모장 -->
+            <section class="article-memo-section">
+                <div class="memo-header">
+                    <div class="memo-title-group">
+                        <h3 class="memo-title">💬 러너 실전 한줄 소감 &amp; 팁</h3>
+                        <span class="memo-subtitle">달리기 중 탈수 증상이나 전해질 음료 보충 노하우를 나눠주세요.</span>
+                    </div>
+                </div>
+                <div class="memo-input-box">
+                    <input type="text" id="memo-author" class="memo-author-input" placeholder="러너 닉네임" maxlength="10">
+                    <textarea id="memo-content" class="memo-textarea" placeholder="장거리 러닝 시 물통 휴대 방법이나 쥐(경련) 예방을 위한 전해질 섭취 팁을 공유해주세요." rows="3"></textarea>
+                    <div class="memo-action-bar">
+                        <div class="memo-quiz-group">
+                            <span id="memo-quiz-label" class="memo-quiz-question">보안 퀴즈: 7 + 2 =</span>
+                            <input type="number" id="memo-quiz-ans" class="memo-quiz-input" placeholder="정답">
+                        </div>
+                        <button type="button" id="btn-submit-memo" class="btn-memo-submit">소감 등록하기</button>
+                    </div>
+                </div>
+                <div id="memo-list" class="memo-list">
+                    <!-- JS 실시간 렌더링 -->
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <p class="copyright">© 2026 RunAnalyz. 직접 달리며 기록한 러너의 실전 과학 노트.</p>
+            <div class="footer-links">
+                <a href="../about.html">소개</a>
+                <a href="../privacy.html">개인정보처리방침</a>
+                <a href="../terms.html">이용약관</a>
+            </div>
+        </div>
+    </footer>
+    <script src="memo.js"></script>
+</body>
+
+</html>

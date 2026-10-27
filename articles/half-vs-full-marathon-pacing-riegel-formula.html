@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하프 마라톤 기록 2배가 풀코스 기록이 되지 않는 이유: 리겔 공식(Riegel's Formula)과 젖산역치 vs 글리코겐 고갈의 역설 | RunAnalyz</title>
+    <meta name="description" content="하프 1시간 40분 러너가 풀코스에서 3시간 20분이 아니라 3시간 50분으로 무너지는 생리학적 이유. 하프의 젖산역치(LT2) 레이스 vs 풀코스의 지방대사(FatMax)와 글리코겐 고갈(The Wall), 피터 리겔의 완주 예측 공식(Riegel's Formula)과 아마추어 러너의 현실 보정 계수.">
+    <link rel="canonical" href="https://runanalyz.com/articles/half-vs-full-marathon-pacing-riegel-formula.html">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QREC5DVG9M"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-QREC5DVG9M');
+    </script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1876940323402065" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <a href="../index.html" style="text-decoration:none; display:flex; align-items:center; gap:10px;">
+                    <span class="brand-logo">⚡</span>
+                    <div class="brand-text">
+                        <span class="brand-name">RunAnalyz</span>
+                        <span class="brand-tagline">과학적 러닝 사이언스 &amp; 훈련 처방</span>
+                    </div>
+                </a>
+            </div>
+            <nav class="header-nav-links">
+                <a href="../index.html" class="header-nav-link">러닝 분석 도구</a>
+                <a href="../index.html?view=articles" class="header-nav-link active">러닝 사이언스</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Breadcrumb -->
+        <nav style="font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 20px;">
+            <a href="../index.html" style="color: var(--primary-blue); text-decoration: none;">홈</a> &gt; 
+            <a href="../index.html?view=articles" style="color: var(--primary-blue); text-decoration: none;">러닝 사이언스</a> &gt; 
+            <span>하프 vs 풀코스 기록 배수의 역설</span>
+        </nav>
+
+        <article class="card article-detail">
+            <header class="article-header">
+                <span class="article-tag">상급 마스터 · 대회 실전 &amp; 레이스 예측</span>
+                <h1>하프 마라톤 기록 2배가 풀코스 기록이 되지 않는 이유: 리겔 공식(Riegel's Formula)과 젖산역치 vs 글리코겐 고갈의 역설</h1>
+                <div class="article-meta">
+                    <span>작성: RunAnalyz Science Lab</span>
+                    <span>•</span>
+                    <span>읽는 시간: 약 9분</span>
+                    <span>•</span>
+                    <span>업데이트: 2026. 10. 27</span>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <div class="lead-box">
+                    <strong>"하프 마라톤을 1시간 40분(km당 4분 44초)에 완주했으니, 풀코스는 2배인 3시간 20분에 들어올 수 있겠죠?"</strong><br>
+                    마라톤 풀코스에 처음 도전하는 러너들이 가장 많이 저지르는 치명적인 계산 착오입니다. 
+                    하프를 1시간 40분에 달린 러너의 실제 첫 풀코스 기록은 3시간 20분이 아니라 <strong>3시간 45분에서 4시간</strong>으로 무너지는 경우가 대부분입니다. 
+                    하프와 풀코스는 단순히 '거리 2배'가 아니라, 신체가 사용하는 <strong>'에너지 대사 연료 시스템 자체가 완전히 다른 종목'</strong>이기 때문입니다. 
+                    피터 리겔의 완주 예측 공식(Riegel's Formula)과 아마추어 러너의 현실적 페이스 보정법을 밝힙니다.
+                </div>
+
+                <h2>1. 생리학적 분기점: 하프는 젖산역치(LT2), 풀코스는 지방대사(FatMax)</h2>
+                <p>
+                    인간의 신체에 저장할 수 있는 탄수화물(근육 및 간 글리코겐)은 체중 70kg 성인 기준 약 <strong>2,000 kcal (탄수화물 약 500g)</strong>가 한계입니다.
+                </p>
+                <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: 12px; padding: 20px; margin: 20px 0;">
+                    <h4 style="margin: 0 0 12px; color: var(--text-primary);">🔬 두 종목의 에너지 연료 소모 비교</h4>
+                    <ul style="margin: 0; padding-left: 20px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                        <li><strong>하프 마라톤 (21.0975km)</strong>: 소모 칼로리는 약 1,300~1,500 kcal입니다. 체내에 저장된 글리코겐만으로 완주선까지 연료가 바닥나지 않습니다. 따라서 <strong>'젖산역치(LT2, 젖산이 쌓이기 직전의 빠른 속도)'</strong> 한계선까지 심박수를 85~90%로 밀어붙여 질주할 수 있습니다.</li>
+                        <li><strong>풀코스 마라톤 (42.195km)</strong>: 소모 칼로리가 <strong>2,800~3,200 kcal</strong>에 달합니다. 체내 글리코겐을 100% 다 쓰고 에너지젤을 먹어도 무려 1,000kcal 이상이 부족합니다. 결국 <strong>'지방을 태워 달리는 유산소 능력(FatMax)'</strong>이 받쳐주지 않으면 32~35km에서 연료가 끊기는 <strong>'벽(The Wall)'</strong>에 부딪혀 다리가 마비됩니다.</li>
+                    </ul>
+                </div>
+
+                <h2>2. 거리 배수의 수학적 모델: 피터 리겔 공식 (Riegel's Formula)</h2>
+                <p>
+                    1977년 미국의 엔지니어 피터 리겔(Peter Riegel)은 육상 경기에서 거리가 늘어남에 따라 피로로 인해 속도가 떨어지는 비율을 지수 함수로 모델링했습니다.
+                </p>
+
+                <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 20px; margin: 20px 0;">
+                    <h4 style="margin: 0 0 10px; color: #1E40AF; font-size: 1rem;">📐 리겔의 마라톤 완주 시간 예측 공식</h4>
+                    <p style="font-size: 0.95rem; font-weight: 700; color: #1E3A8A; margin: 0 0 10px; font-family: monospace;">
+                        T2 = T1 × (D2 / D1) ^ 1.06
+                    </p>
+                    <div style="font-size: 0.88rem; color: #1E40AF; line-height: 1.7;">
+                        - <strong>T1, D1</strong>: 기존에 달린 거리와 시간 (예: 하프 21.0975km, 100분)<br>
+                        - <strong>T2, D2</strong>: 예측할 거리와 시간 (풀코스 42.195km)<br>
+                        - <strong>지수 1.06</strong>: 엘리트 선수들의 피로도 감속 계수 (거리가 2배가 되면 약 <strong>2.085배</strong>의 시간이 소요됨).
+                    </div>
+                </div>
+
+                <h2>3. 엘리트 지수(1.06) vs 아마추어 러너의 현실 지수(1.08 ~ 1.12)</h2>
+                <p>
+                    리겔 공식의 기본 지수인 <strong>1.06</strong>은 주당 150~200km를 달리며 지방 대사 시스템이 완벽히 발달한 엘리트 마라토너 기준입니다. 
+                    주간 마일리지가 40~70km 수준인 주말 러너에게 1.06을 적용하면 후반부에 반드시 참사가 일어납니다.
+                </p>
+
+                <div style="overflow-x: auto; margin: 20px 0;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+                        <thead>
+                            <tr style="background: #F1F5F9; border-bottom: 2px solid #CBD5E1;">
+                                <th style="padding: 12px 14px;">러너 수준</th>
+                                <th style="padding: 12px 14px; color: #2563EB;">적용 피로 지수</th>
+                                <th style="padding: 12px 14px;">하프 100분(1:40:00) 기준 예측</th>
+                                <th style="padding: 12px 14px; color: #16A34A;">실전 권장 페이스</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #E2E8F0;">
+                                <td style="padding: 12px 14px; font-weight: 700;">단순 2배 산술 (착시)</td>
+                                <td style="padding: 12px 14px;">1.00</td>
+                                <td style="padding: 12px 14px; color:#DC2626;"><strong>3시간 20분 00초 (99% 폭망)</strong></td>
+                                <td style="padding: 12px 14px;">4'44" / km (초반 오버페이스)</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E2E8F0;">
+                                <td style="padding: 12px 14px; font-weight: 700;">상급 엘리트 마스터즈</td>
+                                <td style="padding: 12px 14px;">1.06 (리겔 표준)</td>
+                                <td style="padding: 12px 14px;">3시간 28분 30초</td>
+                                <td style="padding: 12px 14px;">4'56" / km</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 14px; font-weight: 700;">일반 아마추어 / 첫 풀</td>
+                                <td style="padding: 12px 14px;"><strong>1.09 ~ 1.11 (현실)</strong></td>
+                                <td style="padding: 12px 14px; color:#1E40AF;"><strong>3시간 35분 ~ 3시간 42분</strong></td>
+                                <td style="padding: 12px 14px;"><strong>5'06" ~ 5'15" / km</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>4. 풀코스에서 '배수의 함정'을 깨부수는 3대 실전 훈련</h2>
+                <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: 12px; padding: 20px; margin: 24px 0;">
+                    <ol style="margin: 0; padding-left: 20px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                        <li><strong>주말 30km LSD (FatMax 훈련)</strong>: 심박수 Zone 2(최대심박의 65~75%)에서 최소 2시간 30분 이상 지속하여, 탄수화물이 줄어든 상태에서도 지방을 효율적으로 태우는 미토콘드리아 효소를 증식시킵니다.</li>
+                        <li><strong>패스트 피니시 롱런(Fast-Finish Long Run)</strong>: 25km 롱런 중 마지막 5km를 목표 마라톤 페이스(Zone 3)로 끌어올려, 다리에 글리코겐이 바닥난 상태에서 젖산 저항력을 기릅니다.</li>
+                        <li><strong>전반 5km 감속의 미학</strong>: 대회 당일 하프 페이스보다 최소 20~25초/km 느리게 출발하십시오. 전반에 아낀 2분의 체력이 35km 이후 20분의 기록 단축으로 보답합니다.</li>
+                    </ol>
+                </div>
+
+                <!-- ⚡ VDOT & 마라톤 목표 페이스 계산기 CTA -->
+                <div class="article-cta-tool">
+                    <h3>⚡ 내 하프 기록으로 계산하는 진짜 마라톤 풀코스 목표 스플릿</h3>
+                    <p>단순 2배의 함정에 빠지지 마세요. VDOT 과학 알고리즘을 통해 내 실제 하프/10K 기록에 최적화된 마라톤 완주 시간과 5km 구간별 스플릿을 1초 만에 확인해보세요.</p>
+                    <a href="../index.html?sub=pace" class="article-cta-btn">
+                        ⚡ VDOT 러닝 페이스 계산기 실행하기 ›
+                    </a>
+                </div>
+
+                <!-- Scientific References -->
+                <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: 12px; padding: 20px; margin: 30px 0;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                        <span style="font-size: 1.1rem;">📚</span>
+                        <span style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">학술 연구 및 데이터 출처 (Scientific References)</span>
+                    </div>
+                    <ol style="margin: 0; padding-left: 20px; font-size: 0.85rem; color: var(--text-tertiary); line-height: 1.7;">
+                        <li>Riegel, P. S. (1981). <em>Athletic records and human endurance.</em> American Scientist, 69(3), 285-290.</li>
+                        <li>Hawley, J. A., &amp; Leckey, J. J. (2015). <em>Carbohydrate dependence during prolonged, intense endurance exercise.</em> Sports Medicine, 45(1), 5-12.</li>
+                        <li>Rapoport, B. I. (2010). <em>Metabolic factors limiting performance in marathon runners.</em> PLoS Computational Biology, 6(10), e1000960.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <footer class="article-footer-nav" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-light);">
+                <a href="../index.html?view=articles" class="btn-back" style="color: var(--primary-blue); font-weight: 700; text-decoration: none;">← 전체 런로그 목록으로 돌아가기</a>
+            </footer>
+
+            <!-- 실시간 러너 댓글 & 팁 메모장 -->
+            <section class="article-memo-section">
+                <div class="memo-header">
+                    <div class="memo-title-group">
+                        <h3 class="memo-title">💬 러너 실전 한줄 소감 &amp; 팁</h3>
+                        <span class="memo-subtitle">하프 기록과 풀코스 기록 간의 격차나 후반 페이스 조절 경험을 나눠주세요.</span>
+                    </div>
+                </div>
+                <div class="memo-input-box">
+                    <input type="text" id="memo-author" class="memo-author-input" placeholder="러너 닉네임" maxlength="10">
+                    <textarea id="memo-content" class="memo-textarea" placeholder="하프 기록 대비 풀코스 완주 기록이나 35km 벽을 넘었던 경험을 공유해주세요." rows="3"></textarea>
+                    <div class="memo-action-bar">
+                        <div class="memo-quiz-group">
+                            <span id="memo-quiz-label" class="memo-quiz-question">보안 퀴즈: 3 + 5 =</span>
+                            <input type="number" id="memo-quiz-ans" class="memo-quiz-input" placeholder="정답">
+                        </div>
+                        <button type="button" id="btn-submit-memo" class="btn-memo-submit">소감 등록하기</button>
+                    </div>
+                </div>
+                <div id="memo-list" class="memo-list">
+                    <!-- JS 실시간 렌더링 -->
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <p class="copyright">© 2026 RunAnalyz. 직접 달리며 기록한 러너의 실전 과학 노트.</p>
+            <div class="footer-links">
+                <a href="../about.html">소개</a>
+                <a href="../privacy.html">개인정보처리방침</a>
+                <a href="../terms.html">이용약관</a>
+            </div>
+        </div>
+    </footer>
+    <script src="memo.js"></script>
+</body>
+
+</html>

@@ -16,12 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initArticleFilters();
     initTreadmillConverter();
     initHrZoneCalculator();
+    initRaceCalendar();
     // 초기 1회 기본 진단 실행 (10km 48분, 35세, RPE 7, 심박 145)
     calculateComprehensiveDiagnostics();
 });
 
 /**
- * 1. 3대 메인 뷰 전환 (계산기 / 플래너 / 사이언스)
+ * 1. 4대 메인 뷰 전환 (계산기 / 플래너 / 마라톤 일정 / 런로그)
  */
 function initMainViews() {
     const segmentBtns = document.querySelectorAll('.segment-btn');
@@ -38,7 +39,7 @@ function initMainViews() {
             view.style.display = (view.id === `view-${viewKey}`) ? 'block' : 'none';
         });
 
-        // 러닝 사이언스/플래너 선택 시 계산기용 히어로 배너를 숨겨 콘텐츠가 상단에 즉각 밀착되도록 최적화
+        // 런로그/플래너/대회일정 선택 시 계산기용 히어로 배너를 숨겨 콘텐츠가 상단에 즉각 밀착되도록 최적화
         if (heroSection) {
             heroSection.style.display = (viewKey === 'calc') ? 'block' : 'none';
         }
@@ -50,10 +51,10 @@ function initMainViews() {
         });
     });
 
-    // URL 파라미터 처리 (?view=planner, ?sub=hrzone, ?sub=treadmill 등)
+    // URL 파라미터 처리 (?view=planner, ?view=races, ?sub=hrzone, ?sub=treadmill 등)
     const urlParams = new URLSearchParams(window.location.search);
     const initialView = urlParams.get('view') || (urlParams.get('tab') === 'calc' ? 'calc' : null);
-    if (initialView && ['calc', 'planner', 'articles'].includes(initialView)) {
+    if (initialView && ['calc', 'planner', 'races', 'articles'].includes(initialView)) {
         switchView(initialView);
     }
 
@@ -1858,5 +1859,660 @@ function initHrZoneCalculator() {
     // 초기 1회 실행 (기본 35세, 60bpm)
     calculateHrZones();
 }
+
+/**
+ * ==========================================================================
+ * 8. 국내외 18대 메이저 마라톤 D-Day & 코스 분석 시스템
+ * ==========================================================================
+ */
+const MAJOR_RACES = [
+    // ----------------------------------------------------
+    // 🇰🇷 국내 메이저 대회
+    // ----------------------------------------------------
+    {
+        id: 'jtbc-seoul',
+        name: 'JTBC 서울마라톤',
+        nameEn: 'JTBC Seoul Marathon',
+        category: 'domestic',
+        isExpected: false,
+        date: '2026-11-01',
+        time: '08:00',
+        location: '서울 상암월드컵경기장 ~ 잠실종합운동장',
+        label: 'WA 골드 라벨',
+        distance: 'Full 42.195km / 10km',
+        difficulty: 3,
+        difficultyDesc: '보통 (후반 롤링힐 주의)',
+        elevation: '+112m',
+        tags: ['#상암출발', '#잠실피니시', '#마포대교', '#수서나들목'],
+        guide: '상암에서 양화대교를 거쳐 여의도까지는 평탄하나, 30km 이후 수서나들목과 탄천 합류 구간의 완만한 오르막에서 다리 경련이 잦습니다. 25km까지 이븐 페이스를 철저히 지키는 것이 후반 완주의 핵심입니다.',
+        officialUrl: 'https://marathon.jtbc.com/'
+    },
+    {
+        id: 'seoul-marathon',
+        name: '서울마라톤 (동아마라톤)',
+        nameEn: 'Seoul Marathon (Dong-A)',
+        category: 'domestic',
+        isExpected: true,
+        expectedMonth: '2027.03 예정 (3월 셋째주)',
+        date: '2027-03-21',
+        time: '08:00',
+        location: '서울 광화문광장 ~ 잠실종합운동장',
+        label: 'WA 플래티넘 라벨',
+        distance: 'Full 42.195km / 10km',
+        difficulty: 2,
+        difficultyDesc: '쉬움 (국내 최고 PB 코스)',
+        elevation: '+58m',
+        tags: ['#광화문출발', '#청계천순환', '#잠실피니시', '#국내최고PB'],
+        guide: '광화문에서 숭례문으로 이어지는 초반 약내리막에서 오버페이스하기 쉽습니다. 청계천의 완벽한 평지 주로에서 체력을 비축하고, 36km 잠실대교의 마지막 오르막만 넘기면 역대 최고 기록(PB)을 노릴 수 있는 최적의 고속 코스입니다.',
+        officialUrl: 'https://www.seoul-marathon.com/'
+    },
+    {
+        id: 'daegu-marathon',
+        name: '대구국제마라톤',
+        nameEn: 'Daegu International Marathon',
+        category: 'domestic',
+        isExpected: true,
+        expectedMonth: '2027.04 예정 (4월 첫째주)',
+        date: '2027-04-04',
+        time: '08:00',
+        location: '대구스타디움 및 도심 순환 주로',
+        label: 'WA 골드 라벨',
+        distance: 'Full 42.195km / 마스터즈 풀',
+        difficulty: 2,
+        difficultyDesc: '쉬움 (개편된 도심 순환 플랫 코스)',
+        elevation: '+75m',
+        tags: ['#대구스타디움', '#도심순환', '#세계육상골드', '#봄맞이레이스'],
+        guide: '코스가 대구 도심을 관통하는 순환 플랫 주로로 전면 개편되어 전반적인 고저차가 완만합니다. 4월 초순 대구 특유의 기온 상승이 발생할 수 있으므로 매 5km 급수대마다 전해질 섭취가 승부처입니다.',
+        officialUrl: 'https://www.daegurace.com/'
+    },
+    {
+        id: 'gunsan-marathon',
+        name: '군산새만금국제마라톤',
+        nameEn: 'Gunsan Saemangeum International Marathon',
+        category: 'domestic',
+        isExpected: true,
+        expectedMonth: '2027.04 예정 (4월 둘째주)',
+        date: '2027-04-11',
+        time: '08:00',
+        location: '군산 월명종합경기장 ~ 새만금방조제',
+        label: 'KAAF 공인',
+        distance: 'Full 42.195km / Half / 10km / 5km',
+        difficulty: 1,
+        difficultyDesc: '매우 쉬움 (초평탄 직선 주로)',
+        elevation: '+22m',
+        tags: ['#새만금방조제', '#국내최저고저차', '#직선주로', '#바닷바람변수'],
+        guide: '국내 마라톤 중 누적 상승고도가 가장 낮은(+22m) 초평탄 주로입니다. 언덕 부담은 제로에 가깝지만, 새만금 방조제 구간의 탁 트인 서해 바닷바람(맞바람/측풍)에 대비해 페이스메이커 뒤에 붙어 달리는 풍동 전략이 중요합니다.',
+        officialUrl: 'https://www.gunsanrun.co.kr/'
+    },
+    {
+        id: 'gyeongju-marathon',
+        name: '경주국제마라톤',
+        nameEn: 'Gyeongju International Marathon',
+        category: 'domestic',
+        isExpected: true,
+        expectedMonth: '2027.10 예정 (10월 셋째주)',
+        date: '2027-10-17',
+        time: '08:00',
+        location: '경주시민운동장 ~ 보문관광단지 순환',
+        label: 'KAAF 공인',
+        distance: 'Full 42.195km / Half / 10km / 5km',
+        difficulty: 2,
+        difficultyDesc: '보통 (보문호 완만한 경사)',
+        elevation: '+98m',
+        tags: ['#천년고도경주', '#보문단지', '#가을단풍주로', '#순환코스'],
+        guide: '가을 단풍이 절정인 보문호를 순환하는 코스로 풍광이 수려합니다. 보문단지로 진입하는 중반 구간에 길고 완만한 오르막이 있으나 경사도가 가팔라지지 않아 페이스 안배만 잘하면 안정적인 서브4 달성이 가능합니다.',
+        officialUrl: 'https://gyeongjumarathon.com/'
+    },
+    {
+        id: 'chuncheon-marathon',
+        name: '춘천마라톤',
+        nameEn: 'Chuncheon Marathon',
+        category: 'domestic',
+        isExpected: true,
+        expectedMonth: '2027.10 예정 (10월 넷째주)',
+        date: '2027-10-24',
+        time: '09:00',
+        location: '춘천 공지천교 ~ 의암호 일주 순환',
+        label: 'WA 골드 라벨',
+        distance: 'Full 42.195km / 10km',
+        difficulty: 4,
+        difficultyDesc: '어려움 (의암호 낙타등 & 후반 신매대교)',
+        elevation: '+165m',
+        tags: ['#조선의마라톤', '#가을의전설', '#의암호순환', '#낙타등언덕'],
+        guide: '15km부터 25km까지 이어지는 춘천 의암호의 낙타등 연속 언덕과 33km 신매대교 후반 오르막이 러너를 시험합니다. 전반부에 절대 속도를 내지 말고 에너지를 아껴두어야 가을의 전설 완주 메달을 목에 걸 수 있습니다.',
+        officialUrl: 'http://marathon.chosun.com/'
+    },
+    {
+        id: 'songdo-marathon',
+        name: '인천송도국제마라톤',
+        nameEn: 'Incheon Songdo International Marathon',
+        category: 'domestic',
+        isExpected: true,
+        expectedMonth: '2027.10 예정 (10월 초순)',
+        date: '2027-10-10',
+        time: '08:30',
+        location: '인천 송도 센트럴파크 및 신도시 해안도로',
+        label: 'KAAF 공인',
+        distance: 'Half 21.1km / 10km / 5km',
+        difficulty: 1,
+        difficultyDesc: '매우 쉬움 (신도시 초평탄 광폭 주로)',
+        elevation: '+18m',
+        tags: ['#송도센트럴파크', '#초평지', '#쾌적한도로', '#하프PB추천'],
+        guide: '송도 국제도시의 넓고 평탄한 아스팔트 대로를 달리는 대표적인 쾌속 코스입니다. 언덕이 거의 없어 가을 시즌 하프마라톤 PB 기록을 측정하기에 최고의 조건을 자랑합니다.',
+        officialUrl: 'https://songdorun.com/'
+    },
+
+    // ----------------------------------------------------
+    // 🌍 애보트 월드 마라톤 메이저스 (Abbott WMM)
+    // ----------------------------------------------------
+    {
+        id: 'nyc-marathon',
+        name: '뉴욕 마라톤',
+        nameEn: 'TCS New York City Marathon',
+        category: 'wmm',
+        isExpected: false,
+        date: '2026-11-01',
+        time: '09:00',
+        location: '미국 뉴욕 5개 자치구 (스태튼아일랜드 ~ 센트럴파크)',
+        label: 'Abbott WMM',
+        distance: 'Full 42.195km',
+        difficulty: 5,
+        difficultyDesc: '매우 어려움 (5대 교량 업힐 & 센트럴파크 롤링힐)',
+        elevation: '+255m',
+        tags: ['#뉴욕5개구', '#베라자노다리', '#퀸즈보로브릿지', '#센트럴파크피니시'],
+        guide: '출발 직후 베라자노 다리의 강풍 오르막과 25km 퀸즈보로 다리의 정적, 그리고 마지막 센트럴파크의 끝없는 롤링힐이 악명 높습니다. 기록보다는 2백만 관중의 응원을 즐기며 체계적인 파워 배분이 요구됩니다.',
+        officialUrl: 'https://www.nyrr.org/tcsnycmarathon'
+    },
+    {
+        id: 'tokyo-marathon',
+        name: '도쿄 마라톤',
+        nameEn: 'Tokyo Marathon',
+        category: 'wmm',
+        isExpected: false,
+        date: '2027-03-07',
+        time: '09:10',
+        location: '일본 도쿄 도청 ~ 도쿄역 교코도리',
+        label: 'Abbott WMM',
+        distance: 'Full 42.195km / 10.7km',
+        difficulty: 1,
+        difficultyDesc: '매우 쉬움 (아시아 최고속 초평탄 WMM 코스)',
+        elevation: '+42m',
+        tags: ['#도쿄도청', '#긴자', '#아사쿠사', '#도쿄역피니시'],
+        guide: '신주쿠 도청 출발 후 5km까지 시원한 내리막이 펼쳐지며, 이후 아사쿠사와 긴자를 통과하는 전 구간이 완벽에 가까운 평지입니다. 세계 7대 메이저 중 가장 빠른 기록을 낼 수 있는 꿈의 주로입니다.',
+        officialUrl: 'https://www.marathon.tokyo/'
+    },
+    {
+        id: 'boston-marathon',
+        name: '보스턴 마라톤',
+        nameEn: 'Boston Marathon',
+        category: 'wmm',
+        isExpected: false,
+        date: '2027-04-19',
+        time: '09:30',
+        location: '미국 매사추세츠 홉킨턴 ~ 보스턴 보이얼스턴가',
+        label: 'Abbott WMM',
+        distance: 'Full 42.195km',
+        difficulty: 5,
+        difficultyDesc: '매우 어려움 (초반 내리막 대퇴 파괴 & 32km 심장파열언덕)',
+        elevation: '+248m (순하강 -137m)',
+        tags: ['#패트리어츠데이', '#홉킨턴', '#하트브레이크힐', '#보이얼스턴'],
+        guide: '전체 고도는 순하강(-137m)이지만 초반 10km의 가파른 내리막에서 대퇴사두근이 털리면, 32km 뉴턴 언덕(하트브레이크 힐)에서 걷게 됩니다. 전반 내리막 속도 자제가 보스턴 완주의 알파이자 오메가입니다.',
+        officialUrl: 'https://www.baa.org/races/boston-marathon'
+    },
+    {
+        id: 'london-marathon',
+        name: '런던 마라톤',
+        nameEn: 'TCS London Marathon',
+        category: 'wmm',
+        isExpected: false,
+        date: '2027-04-25',
+        time: '09:30',
+        location: '영국 런던 그리니치 공원 ~ 버킹엄궁 더 몰',
+        label: 'Abbott WMM',
+        distance: 'Full 42.195km',
+        difficulty: 1,
+        difficultyDesc: '매우 쉬움 (플랫 & 패스트, 세계 기록 산실)',
+        elevation: '+38m',
+        tags: ['#그리니치', '#타워브리지', '#빅벤', '#버킹엄궁'],
+        guide: '그리니치에서 커티삭, 타워브리지를 거쳐 버킹엄궁까지 템스 강변을 따라 달리는 평탄하고 아름다운 코스입니다. 코너링이 일부 있으나 고저차가 거의 없어 세계적인 엘리트 PB가 쏟아지는 명품 레이스입니다.',
+        officialUrl: 'https://www.tcslondonmarathon.com/'
+    },
+    {
+        id: 'sydney-marathon',
+        name: '시드니 마라톤',
+        nameEn: 'TCS Sydney Marathon',
+        category: 'wmm',
+        isExpected: false,
+        date: '2027-08-29',
+        time: '07:00',
+        location: '호주 시드니 하버브리지 ~ 시드니 오페라하우스',
+        label: 'Abbott WMM (신규 승격)',
+        distance: 'Full 42.195km',
+        difficulty: 4,
+        difficultyDesc: '어려움 (하버브리지 진입 & 도심 롤링 언덕)',
+        elevation: '+210m',
+        tags: ['#7대메이저승격', '#하버브리지', '#오페라하우스', '#남반구겨울레이스'],
+        guide: '2025년 애보트 월드 마라톤 메이저스(WMM) 공식 7번째 멤버로 확정된 역사적인 대회입니다. 8월 남반구의 선선한 기온 속에 하버브리지를 건너며 도심의 롤링 언덕을 통과해 오페라하우스 앞 포어코트에 피니시합니다.',
+        officialUrl: 'https://sydneymarathon.com/'
+    },
+    {
+        id: 'berlin-marathon',
+        name: '베를린 마라톤',
+        nameEn: 'BMW Berlin Marathon',
+        category: 'wmm',
+        isExpected: true,
+        expectedMonth: '2027.09 예정 (9월 마지막주)',
+        date: '2027-09-26',
+        time: '09:15',
+        location: '독일 베를린 티어가르텐 ~ 브란덴부르크문',
+        label: 'Abbott WMM',
+        distance: 'Full 42.195km',
+        difficulty: 1,
+        difficultyDesc: '매우 쉬움 (인류 역사상 가장 빠른 세계신기록 산실)',
+        elevation: '+20m',
+        tags: ['#세계신기록산실', '#브란덴부르크문', '#완벽한초평지', '#킵초게2시간코스'],
+        guide: '킵초게의 세계 신기록이 탄생한 인류 역사상 가장 평평하고 넓은 아스팔트 주로입니다. 고저차가 사실상 0에 수렴하여 인생 최고의 퍼스널 베스트(PB)를 노리는 전 세계 러너들의 성지입니다.',
+        officialUrl: 'https://www.bmw-berlin-marathon.com/'
+    },
+    {
+        id: 'chicago-marathon',
+        name: '시카고 마라톤',
+        nameEn: 'Bank of America Chicago Marathon',
+        category: 'wmm',
+        isExpected: true,
+        expectedMonth: '2027.10 예정 (10월 둘째주)',
+        date: '2027-10-10',
+        time: '07:30',
+        location: '미국 시카고 그랜트 공원 순환',
+        label: 'Abbott WMM',
+        distance: 'Full 42.195km',
+        difficulty: 1,
+        difficultyDesc: '매우 쉬움 (초평탄 도심 쾌속 주로, 바람 변수)',
+        elevation: '+24m',
+        tags: ['#그랜트파크', '#루프도심', '#바람의도시', '#켈빈킵툼세계신기록'],
+        guide: '고(故) 켈빈 킵툼이 2시간 00분 35초의 경이적인 세계 신기록을 세운 초고속 코스입니다. 언덕이 전혀 없으며, 미시간호의 바람(Windy City) 변수만 제어한다면 최고의 스피드를 만끽할 수 있습니다.',
+        officialUrl: 'https://www.chicagomarathon.com/'
+    },
+
+    // ----------------------------------------------------
+    // 🇯🇵 일본 대도시 메이저 대회
+    // ----------------------------------------------------
+    {
+        id: 'kobe-marathon',
+        name: '고베 마라톤',
+        nameEn: 'Kobe Marathon',
+        category: 'japan',
+        isExpected: false,
+        date: '2026-11-15',
+        time: '09:00',
+        location: '일본 고베 시청 ~ 포트아일랜드 시민국제광장',
+        label: 'JAAF 공인 / WA 라벨',
+        distance: 'Full 42.195km',
+        difficulty: 3,
+        difficultyDesc: '보통 (35km 하버랜드 고가도로 오르막)',
+        elevation: '+85m',
+        tags: ['#고베시청', '#세토내해해안선', '#하버랜드', '#포트아일랜드'],
+        guide: '세토내해의 아름다운 해안도로를 따라 달리다 35km 지점에서 포트아일랜드로 진입하는 고가 교량 업힐이 마지막 복병입니다. 다리 진입 전까지 허벅지 근력을 비축하는 레이스 운영이 필수입니다.',
+        officialUrl: 'https://kobe-marathon.net/'
+    },
+    {
+        id: 'fukuoka-marathon',
+        name: '후쿠오카 국제마라톤',
+        nameEn: 'Fukuoka International Marathon',
+        category: 'japan',
+        isExpected: false,
+        date: '2026-12-06',
+        time: '12:10',
+        location: '일본 후쿠오카 헤이와다이 육상경기장 ~ 가시이 반환',
+        label: 'JAAF 공인 / 전통의 엘리트 명문',
+        distance: 'Full 42.195km',
+        difficulty: 1,
+        difficultyDesc: '매우 쉬움 (전통의 초평탄 엘리트 고속 주로)',
+        elevation: '+30m',
+        tags: ['#헤이와다이', '#일본최고권위', '#초평탄', '#엘리트명문코스'],
+        guide: '70년 넘는 역사를 지닌 아시아 최고 권위의 전통 주로입니다. 고저차가 거의 없는 평탄한 도로로 설계되어 강풍이 없는 12월 특유의 차분한 기온 속에서 정밀한 페이스 배분이 가능합니다.',
+        officialUrl: 'https://www.fukuoka-marathon.com/'
+    },
+    {
+        id: 'osaka-marathon',
+        name: '오사카 마라톤',
+        nameEn: 'Osaka Marathon',
+        category: 'japan',
+        isExpected: false,
+        date: '2027-02-28',
+        time: '09:15',
+        location: '일본 오사카성 공원 ~ 오사카시청 ~ 인텍스 오사카',
+        label: 'JAAF 공인 / WA 골드 라벨',
+        distance: 'Full 42.195km / 7.2km',
+        difficulty: 2,
+        difficultyDesc: '쉬움 (오사카성 중심 도심 쾌속 순환 코스)',
+        elevation: '+52m',
+        tags: ['#오사카성', '#도톤보리', '#미도스지', '#도심순환'],
+        guide: '오사카성과 미도스지 대로를 가로지르는 화려한 도심 코스로, 3만 명의 러너와 열정적인 오사카 시민들의 응원이 유명합니다. 코스가 완만하게 다듬어져 2월 말 서브3~서브4 도전지로 각광받고 있습니다.',
+        officialUrl: 'https://www.osaka-marathon.com/'
+    },
+    {
+        id: 'nagoya-women',
+        name: '나고야 우먼스 마라톤',
+        nameEn: 'Nagoya Women\'s Marathon',
+        category: 'japan',
+        isExpected: false,
+        date: '2027-03-14',
+        time: '09:10',
+        location: '일본 반테린 돔 나고야 ~ 나고야 시내 순환',
+        label: 'WA 플래티넘 라벨',
+        distance: 'Full 42.195km (여성 단독)',
+        difficulty: 1,
+        difficultyDesc: '매우 쉬움 (세계 최대 여성 풀마라톤 초평지)',
+        elevation: '+25m',
+        tags: ['#세계최대여성마라톤', '#기네스북', '#티파니목걸이완주', '#초평탄'],
+        guide: '기네스북에 등재된 세계 최대 여성 풀마라톤으로, 완주 시 턱시도 요원이 티파니앤코 펜던트 목걸이를 수여합니다. 돔구장 출발/피니시의 초평탄 주로로 제한시간도 7시간으로 넉넉하여 첫 풀마라톤에 최고입니다.',
+        officialUrl: 'https://womens-marathon.nagoya/'
+    }
+];
+
+function initRaceCalendar() {
+    const listContainer = document.getElementById('races-card-list');
+    if (!listContainer) return;
+
+    let currentStatusFilter = 'all'; // 'all' | 'confirmed' | 'expected'
+    let currentRegionFilter = 'all'; // 'all' | 'domestic' | 'wmm' | 'japan'
+
+    // D-Day 계산 헬퍼 함수
+    function getRaceDDayInfo(race) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (race.isExpected) {
+            return {
+                badgeText: race.expectedMonth.split(' ')[0],
+                subText: '시기 예정',
+                dateDisplay: race.expectedMonth,
+                isUrgent: false,
+                isExpected: true,
+                statusKey: 'expected'
+            };
+        }
+
+        const raceDate = new Date(race.date);
+        raceDate.setHours(0, 0, 0, 0);
+
+        const diffTime = raceDate.getTime() - today.getTime();
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        const yyyy = raceDate.getFullYear();
+        const mm = String(raceDate.getMonth() + 1).padStart(2, '0');
+        const dd = String(raceDate.getDate()).padStart(2, '0');
+        const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+        const dayName = dayNames[raceDate.getDay()];
+        const dateDisplay = `${yyyy}.${mm}.${dd} (${dayName}) ${race.time || ''}`;
+
+        if (diffDays < 0) {
+            return {
+                badgeText: '종료',
+                subText: '차기 시즌 예정',
+                dateDisplay: dateDisplay,
+                isUrgent: false,
+                isExpected: true,
+                isPast: true,
+                statusKey: 'expected'
+            };
+        } else if (diffDays === 0) {
+            return {
+                badgeText: 'D-Day',
+                subText: '오늘 결전!',
+                dateDisplay: dateDisplay,
+                isUrgent: true,
+                isExpected: false,
+                statusKey: 'confirmed'
+            };
+        } else {
+            return {
+                badgeText: `D-${diffDays}`,
+                subText: `${diffDays}일 남음`,
+                dateDisplay: dateDisplay,
+                isUrgent: diffDays <= 30,
+                isExpected: false,
+                statusKey: 'confirmed'
+            };
+        }
+    }
+
+    function renderStarIcons(diff) {
+        return '★'.repeat(diff) + '☆'.repeat(5 - diff);
+    }
+
+    function updateCountBadges() {
+        let confirmedCount = 0;
+        let expectedCount = 0;
+
+        MAJOR_RACES.forEach(race => {
+            const dday = getRaceDDayInfo(race);
+            if (dday.statusKey === 'confirmed') confirmedCount++;
+            else expectedCount++;
+        });
+
+        const badgeAll = document.getElementById('count-all');
+        const badgeConfirmed = document.getElementById('count-confirmed');
+        const badgeExpected = document.getElementById('count-expected');
+
+        if (badgeAll) badgeAll.textContent = MAJOR_RACES.length;
+        if (badgeConfirmed) badgeConfirmed.textContent = confirmedCount;
+        if (badgeExpected) badgeExpected.textContent = expectedCount;
+    }
+
+    function renderRaces() {
+        listContainer.innerHTML = '';
+
+        const filtered = MAJOR_RACES.filter(race => {
+            const dday = getRaceDDayInfo(race);
+            
+            // 상태 필터
+            if (currentStatusFilter === 'confirmed' && dday.statusKey !== 'confirmed') return false;
+            if (currentStatusFilter === 'expected' && dday.statusKey !== 'expected') return false;
+
+            // 지역 필터
+            if (currentRegionFilter !== 'all' && race.category !== currentRegionFilter) return false;
+
+            return true;
+        });
+
+        if (filtered.length === 0) {
+            listContainer.innerHTML = `
+                <div style="text-align:center; padding: 40px 20px; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; color:var(--text-muted);">
+                    <div style="font-size:2rem; margin-bottom:8px;">🔍</div>
+                    <div style="font-weight:700; color:var(--text-primary); margin-bottom:4px;">해당 조건의 대회가 없습니다.</div>
+                    <div style="font-size:0.82rem;">상단 필터를 '전체'로 변경해 보세요.</div>
+                </div>
+            `;
+            return;
+        }
+
+        filtered.forEach(race => {
+            const dday = getRaceDDayInfo(race);
+            const badgeClass = dday.isUrgent ? 'urgent' : (dday.isExpected ? 'expected' : '');
+            
+            const categoryLabel = race.category === 'domestic' ? '🇰🇷 국내' : (race.category === 'wmm' ? '🌍 WMM' : '🇯🇵 일본');
+            const labelClass = race.category === 'wmm' ? 'label-major' : (race.label.includes('플래티넘') ? 'label-platinum' : '');
+
+            const card = document.createElement('div');
+            card.className = 'race-card';
+            card.id = `race-card-${race.id}`;
+
+            card.innerHTML = `
+                <div class="race-card-main">
+                    <div class="race-left-col">
+                        <div class="race-dday-badge ${badgeClass}">
+                            ${dday.badgeText}
+                        </div>
+                        <div class="race-date-box">
+                            <span class="race-date-text">${dday.dateDisplay}</span>
+                            <span class="race-loc-text">${race.location}</span>
+                        </div>
+                    </div>
+
+                    <div class="race-center-col">
+                        <div class="race-title-row">
+                            <span class="race-title-ko">${race.name}</span>
+                            <span class="race-title-en">${race.nameEn}</span>
+                            <div class="race-tag-group">
+                                <span class="race-meta-badge">${categoryLabel}</span>
+                                <span class="race-meta-badge ${labelClass}">${race.label}</span>
+                            </div>
+                        </div>
+                        <div class="race-summary-specs">
+                            <span class="spec-chip spec-elev">누적 획득고도 ▲ ${race.elevation}</span>
+                            <span class="spec-chip spec-diff">난이도: ${renderStarIcons(race.difficulty)} (${race.difficultyDesc})</span>
+                        </div>
+                    </div>
+
+                    <div class="race-right-col">
+                        <button type="button" class="btn-race-toggle" data-race-id="${race.id}" aria-expanded="false" title="코스 분석 및 고저차 보기">
+                            <span>📊 코스분석</span>
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                        <a href="${race.officialUrl}" target="_blank" rel="noopener noreferrer" class="btn-race-link" title="${race.name} 공식 홈페이지 새창 이동">
+                            대회 공식홈페이지 바로가기 ↗
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 부드럽게 펼쳐지는 코스 분석 상세 영역 (아코디언) -->
+                <div class="race-card-detail" id="race-detail-${race.id}">
+                    <div class="race-detail-grid">
+                        <div class="race-detail-item">
+                            <div class="race-detail-label">종목 및 거리</div>
+                            <div class="race-detail-val">${race.distance}</div>
+                        </div>
+                        <div class="race-detail-item">
+                            <div class="race-detail-label">코스 고저차 및 프로필</div>
+                            <div class="race-detail-val" style="color:#166534;">누적상승 ${race.elevation}</div>
+                        </div>
+                        <div class="race-detail-item">
+                            <div class="race-detail-label">코스 지형 태그</div>
+                            <div class="race-detail-val" style="font-size:0.8rem; font-weight:700; color:var(--primary-blue);">
+                                ${race.tags.join(' ')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="race-guide-box">
+                        <div class="race-guide-title">
+                            <span>💡</span> 코치 실전 코스 공략 가이드
+                        </div>
+                        <p class="race-guide-text">${race.guide}</p>
+                    </div>
+
+                    <div class="race-detail-action-row">
+                        <button type="button" class="btn-race-plan-cta" data-race-id="${race.id}" data-race-name="${race.name}" data-race-date="${race.date}">
+                            <span>📅</span> 이 대회 목표로 D-100 주기화 플랜 세우기 →
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            listContainer.appendChild(card);
+        });
+
+        // 아코디언 토글 이벤트 등록
+        const toggleBtns = listContainer.querySelectorAll('.btn-race-toggle');
+        toggleBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const raceId = btn.dataset.raceId;
+                const detailEl = document.getElementById(`race-detail-${raceId}`);
+                if (!detailEl) return;
+
+                const isOpen = detailEl.classList.contains('open');
+                if (isOpen) {
+                    detailEl.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    detailEl.classList.add('open');
+                    btn.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // 훈련 플래너 연동 이벤트 등록
+        const planCtaBtns = listContainer.querySelectorAll('.btn-race-plan-cta');
+        planCtaBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const raceName = btn.dataset.raceName;
+                const raceDateStr = btn.dataset.raceDate;
+                linkRaceToPlanner(raceName, raceDateStr);
+            });
+        });
+    }
+
+    // 훈련 플래너 연동 함수 (가민 스타일 D-100 주기화 템플릿 세팅)
+    function linkRaceToPlanner(raceName, raceDateStr) {
+        // 1. 훈련 플래너 뷰로 전환
+        const plannerBtn = document.querySelector('.segment-btn[data-view="planner"]');
+        if (plannerBtn) plannerBtn.click();
+
+        // 2. 시작일을 대회일 100일(14주) 전 날짜 또는 오늘 날짜로 스마트 계산
+        const startDateInput = document.getElementById('plan-start-date');
+        if (startDateInput && raceDateStr) {
+            const rDate = new Date(raceDateStr);
+            const today = new Date();
+            today.setHours(0,0,0,0);
+
+            // 대회까지 남은 일수 계산
+            const diffDays = Math.ceil((rDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+            
+            if (diffDays > 0) {
+                // 시작일은 오늘 날짜로 세팅하여 남은 기간 동안의 플랜 준비
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                startDateInput.value = `${yyyy}-${mm}-${dd}`;
+            }
+        }
+
+        // 3. 플래너 기준 거리 풀코스 자동 선택
+        const distSelect = document.getElementById('plan-pb-dist');
+        if (distSelect) {
+            distSelect.value = '42.195';
+        }
+
+        // 4. 플래너 결과 박스 자동 트리거
+        const btnGenerate = document.getElementById('btn-generate-plan');
+        if (btnGenerate) {
+            btnGenerate.click();
+        }
+
+        // 5. 상단으로 부드러운 스크롤 & 알림 토스트
+        window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    // 필터 이벤트 바인딩
+    const statusTabs = document.querySelectorAll('.race-status-tab');
+    statusTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            statusTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentStatusFilter = tab.dataset.raceStatus;
+            renderRaces();
+        });
+    });
+
+    const regionChips = document.querySelectorAll('.race-chip');
+    regionChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            regionChips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            currentRegionFilter = chip.dataset.raceRegion;
+            renderRaces();
+        });
+    });
+
+    // 초기 카운트 계산 및 렌더링
+    updateCountBadges();
+    renderRaces();
+}
+
 
 

@@ -57,13 +57,16 @@
             </p>
         </section>
 
-        <!-- Main 3-Segment Switcher (모바일 360px 완벽 대응) -->
+        <!-- Main 4-Segment Switcher (모바일 360px 완벽 대응) -->
         <nav class="main-nav-segments" aria-label="메인 기능 선택">
             <button class="segment-btn active" data-view="calc">
                 <span class="segment-icon">⚡</span> 계산기
             </button>
             <button class="segment-btn" data-view="planner">
                 <span class="segment-icon">📅</span> 훈련 플래너
+            </button>
+            <button class="segment-btn" data-view="races">
+                <span class="segment-icon">🏆</span> 마라톤 일정
             </button>
             <button class="segment-btn" data-view="articles">
                 <span class="segment-icon">📖</span> 런로그
@@ -738,7 +741,59 @@
         </div>
 
         <!-- ==========================================
-             VIEW 3: 런로그 (RUNLOG)
+             VIEW 3: 마라톤 일정 (메이저 대회 D-Day & 코스 분석)
+             ========================================== -->
+        <div id="view-races" class="main-view" style="display:none;">
+            <section class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">🏆 국내외 메이저 마라톤 D-Day & 코스 분석</h2>
+                        <p class="card-subtitle">국내 대표 메이저 7선, 애보트 월드 마라톤(WMM) 7선, 일본 대도시 4선의 실시간 D-Day와 고저차·난이도를 한눈에 비교합니다.</p>
+                    </div>
+                </div>
+
+                <!-- 🧭 대회 상태 & 지역 복합 필터 바 -->
+                <div class="race-filter-wrapper">
+                    <!-- 1. 일정 상태 필터 (전체 / 확정 D-Day / 시기 예정) -->
+                    <div class="race-status-tabs" role="tablist" aria-label="일정 상태 선택">
+                        <button type="button" class="race-status-tab active" data-race-status="all">
+                            전체 일정 <span class="race-count-badge" id="count-all">18</span>
+                        </button>
+                        <button type="button" class="race-status-tab" data-race-status="confirmed">
+                            🔥 확정 D-Day <span class="race-count-badge" id="count-confirmed">10</span>
+                        </button>
+                        <button type="button" class="race-status-tab" data-race-status="expected">
+                            📌 시기 예정 <span class="race-count-badge" id="count-expected">8</span>
+                        </button>
+                    </div>
+
+                    <!-- 2. 지역 카테고리 칩 필터 -->
+                    <div class="race-region-chips" role="group" aria-label="지역별 필터">
+                        <button type="button" class="race-chip active" data-race-region="all">전체</button>
+                        <button type="button" class="race-chip" data-race-region="domestic">🇰🇷 국내 메이저 (7)</button>
+                        <button type="button" class="race-chip" data-race-region="wmm">🌍 Abbott WMM (7)</button>
+                        <button type="button" class="race-chip" data-race-region="japan">🇯🇵 일본 메이저 (4)</button>
+                    </div>
+                </div>
+
+                <!-- 📋 가로형 슬림 카드 리스트 컨테이너 -->
+                <div id="races-card-list" class="races-card-list">
+                    <!-- JS에서 동적 렌더링 -->
+                </div>
+
+                <!-- 💡 안내 푸터 박스 -->
+                <div class="race-info-banner">
+                    <span class="race-info-icon">💡</span>
+                    <div class="race-info-text">
+                        <strong>D-100 주기화 훈련 플래너 연동 안내:</strong><br>
+                        각 대회의 코스 분석을 펼친 후 <strong>[📅 이 대회 목표로 D-100 플랜 세우기]</strong>를 누르면, 대회 D-100일부터 시작하는 14주간의 기초 빌드업 ➔ 장거리 LSD ➔ 젖산역치 템포런 ➔ 테이퍼링 주기가 훈련 플래너에 자동 세팅됩니다.
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==========================================
+             VIEW 4: 런로그 (RUNLOG)
              ========================================== -->
         <div id="view-articles" class="main-view" style="display:none;">
             <section class="articles-section">
@@ -764,30 +819,30 @@
                     <!-- 상단 1단: 전체 보기 긴 바 -->
                     <button type="button" class="filter-chip filter-chip-all active" data-filter="all">
                         <span>📚 전체 런로그 모아보기</span>
-                        <span class="chip-count-badge">86</span>
+                        <span class="chip-count-badge">100</span>
                     </button>
 
                     <!-- 하단 2단: 5대 핵심 주제 칩 그리드 -->
                     <div class="filter-topic-grid">
                         <button type="button" class="filter-chip filter-sub-btn" data-filter="injury">
                             <span class="chip-sub-label">🩹 부상 & 재활</span>
-                            <span class="chip-count-badge">23</span>
+                            <span class="chip-count-badge">25</span>
                         </button>
                         <button type="button" class="filter-chip filter-sub-btn" data-filter="training">
                             <span class="chip-sub-label">🫀 훈련 & 심폐</span>
-                            <span class="chip-count-badge">23</span>
+                            <span class="chip-count-badge">25</span>
                         </button>
                         <button type="button" class="filter-chip filter-sub-btn" data-filter="nutrition">
                             <span class="chip-sub-label">🥗 영양 & 회복</span>
-                            <span class="chip-count-badge">16</span>
+                            <span class="chip-count-badge">19</span>
                         </button>
                         <button type="button" class="filter-chip filter-sub-btn" data-filter="race">
                             <span class="chip-sub-label">🏁 대회 실전</span>
-                            <span class="chip-count-badge">11</span>
+                            <span class="chip-count-badge">14</span>
                         </button>
                         <button type="button" class="filter-chip filter-sub-btn" data-filter="gear">
                             <span class="chip-sub-label">👟 기어 & 랩</span>
-                            <span class="chip-count-badge">13</span>
+                            <span class="chip-count-badge">17</span>
                         </button>
                     </div>
                 </div>
@@ -807,12 +862,252 @@
                 </div>
 
                 <div class="article-grid" id="articleGrid">
-                    <!-- Card 86: 러닝화 미드솔 폼 수명과 압축 주름 (NEW & GEAR) -->
+                    <!-- Card 100: 서브4에서 서브3 주기화 공식 (NEW & RACE) -->
+                    <a href="articles/sub4-to-sub3-marathon-periodization-training-formula.html" class="article-card" data-category="race" data-level="advanced">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">상급 마스터 · 대회 실전 &amp; 100호 기념 주기화</span>
+                                <span class="badge-new">✨ NEW</span>
+                            </div>
+                            <h3 class="article-title">마라톤 서브4에서 서브3로 도약하는 4대 훈련 주기화 공식: 주간 마일리지와 롱런의 질(Quality)의 차이</h3>
+                            <p class="article-desc">
+                                서브4와 서브3를 가르는 인체 엔진의 배기량 차이. 주간 마일리지 80~100km 안전 증량법, 정크 마일(Junk Miles) 제거와 젖산 셔틀을 자극하는 카노바식 교대주 로드맵.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 9분 • 100호 기념 서브3 주기화</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 99: 러닝 인솔 교체의 과학과 아치 서포트 (NEW & GEAR) -->
+                    <a href="articles/running-shoe-custom-insoles-arch-support-biomechanics.html" class="article-card" data-category="gear" data-level="intermediate">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">중급 빌드업 · 기어 &amp; 족부 생체역학</span>
+                                <span class="badge-new">✨ NEW</span>
+                            </div>
+                            <h3 class="article-title">러닝화 순정 인솔(깔창) 교체의 과학: 맞춤형 아치 인솔(Custom Insoles)이 족저 압력과 피로도에 미치는 실제 영향</h3>
+                            <p class="article-desc">
+                                20만 원짜리 신발 속 500원짜리 순정 깔창의 한계. 맞춤형 인솔의 족저 압력 30% 분산 효과, 너무 단단한 아치 서포트가 윈들라스(Windlass) 스프링을 꺾는 역설과 선택 가이드.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 인솔 생체역학 &amp; 선택표</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 98: 에너지젤 2:1 복합 탄수화물 흡수 (NEW & NUTRITION) -->
+                    <a href="articles/marathon-energy-gel-absorption-maltodextrin-fructose-ratio.html" class="article-card" data-category="nutrition" data-level="intermediate">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">중급 빌드업 · 영양 &amp; 소화 흡수 생화학</span>
+                                <span class="badge-new">✨ NEW</span>
+                            </div>
+                            <h3 class="article-title">마라톤 에너지젤 흡수의 생화학: 말토덱스트린 대 과당(Fructose) 2:1 비율과 시간당 90g 장 흡수 한계선</h3>
+                            <p class="article-desc">
+                                젤 먹고 설사하는 이유. 단일 포도당 수송체(SGLT1)의 시간당 60g 포화 한계와 삼투성 설사, 과당(GLUT5)을 2:1로 섞어 시간당 90g까지 흡수를 50% 늘리는 다중 수송의 과학.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 2:1 배합비 &amp; 4주 장 훈련</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 97: 하프 vs 풀코스 기록 배수와 리겔 공식 (RACE) -->
+                    <a href="articles/half-vs-full-marathon-pacing-riegel-formula.html" class="article-card" data-category="race" data-level="advanced">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">상급 마스터 · 대회 실전 &amp; 레이스 예측</span>
+                            </div>
+                            <h3 class="article-title">하프 마라톤 기록 2배가 풀코스 기록이 되지 않는 이유: 리겔 공식(Riegel's Formula)과 젖산역치 vs 글리코겐 고갈의 역설</h3>
+                            <p class="article-desc">
+                                하프 1시간 40분 러너가 풀코스 3시간 20분이 아니라 3시간 50분으로 무너지는 이유. 젖산역치(LT2) 레이스 vs 지방대사(FatMax)와 글리코겐 고갈의 벽, 아마추어 현실 보정 계수.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 9분 • 리겔 공식 &amp; 완주 예측</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 96: 러너를 위한 카페인 운동생리학 (NUTRITION) -->
+                    <a href="articles/caffeine-supplementation-running-performance-adenosine.html" class="article-card" data-category="nutrition" data-level="intermediate">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">중급 빌드업 · 영양 &amp; 경기력 향상 생화학</span>
+                            </div>
+                            <h3 class="article-title">러너를 위한 카페인의 운동생리학: 대회 60분 전 3~6mg/kg 섭취 타이밍과 아데노신 수용체 차단의 과학</h3>
+                            <p class="article-desc">
+                                카페인 에너지젤은 언제 먹어야 심박수 폭등 없이 효과를 낼까? 피로 물질 아데노신 차단 기전, 혈중 피크(Tmax 45~60분)에 맞춘 섭취법과 D-7 카페인 디로딩(Tapering).
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 카페인 투입 2단계 전략</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 95: 족저근막염 vs 발꿈치 지방패드 감별 (INJURY) -->
+                    <a href="articles/plantar-fasciitis-vs-heel-fat-pad-syndrome.html" class="article-card" data-category="injury" data-level="intermediate">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">중급 빌드업 · 부상 &amp; 족부 의학 감별 진단</span>
+                            </div>
+                            <h3 class="article-title">발뒤꿈치 통증의 오진: 족저근막염 vs 발꿈치 지방패드 증후군(Heel Fat Pad Syndrome) 3초 감별법과 실전 처방</h3>
+                            <p class="article-desc">
+                                치료해도 낫지 않는 뒤꿈치 통증의 진실. 충격 흡수 벌집 격실 붕괴 메커니즘, 윈들라스 vs 힐 스퀴즈 3초 감별법, 골프공 마사지의 치명적 위험과 실리콘 딥 힐컵 처방.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 3초 감별표 &amp; 딥 힐컵 처방</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 94: 마라톤 완주 후 3주 복귀 공식 (RACE) -->
+                    <a href="articles/marathon-post-race-3-week-recovery-reverse-tapering.html" class="article-card" data-category="race" data-level="advanced">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">상급 마스터 · 대회 실전 &amp; 전신 리커버리</span>
+                            </div>
+                            <h3 class="article-title">마라톤 완주 후 3주 복귀 공식: 면역계 오픈 윈도우(Open Window)와 리버스 테이퍼링(Reverse Tapering)의 과학</h3>
+                            <p class="article-desc">
+                                완주 후 72시간 면역 결핍 상태와 감기몸살의 기전. 근육통이 사라져도 근원섬유 손상이 14일간 지속되는 이유, 부상 없는 주로 복귀를 위한 3주 리버스 테이퍼링 스케줄.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 9분 • 3주 리버스 테이퍼링 로드맵</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 93: 트레드밀 계기판 칼로리의 진실 (GEAR) -->
+                    <a href="articles/treadmill-calories-vs-outdoor-running-metabolism.html" class="article-card" data-category="gear" data-level="intermediate">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">중급 빌드업 · 기어 &amp; 트레드밀 생체역학</span>
+                            </div>
+                            <h3 class="article-title">트레드밀 계기판 칼로리의 거짓말: 러닝머신 vs 야외 러닝의 실제 에너지 대사량과 심박수 차이</h3>
+                            <p class="article-desc">
+                                헬스장 러닝머신 칼로리가 20% 이상 부풀려지는 이유. 공기 저항 제로와 모터 벨트의 견인 효과, 야외와 동일한 대사 부하를 만드는 '경사도 1.0%의 법칙(Jones &amp; Doust 1996)'.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 계기판 실측 칼로리 보정</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 92: 비골건염 외측 복사뼈 통증 재활 (INJURY) -->
+                    <a href="articles/peroneal-tendonitis-outer-ankle-pain-running.html" class="article-card" data-category="injury" data-level="intermediate">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">중급 빌드업 · 부상 &amp; 발목 생체역학</span>
+                            </div>
+                            <h3 class="article-title">러닝 중 바깥쪽 복사뼈 아래가 찌릿한 통증: 비골건염(Peroneal Tendonitis) 원인과 3단계 재활법</h3>
+                            <p class="article-desc">
+                                장·단비골건의 도르래 마찰 메커니즘. 외전(Supination) 착지와 굽 높은 카본화가 가하는 회전 토크, 세라밴드 외번(Eversion) 편심성 강화와 신발 선택 가이드.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 비골건 3단계 재활 루틴</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 91: 러너의 안정시 심박수 서맥 스포츠 심장 (TRAINING) -->
+                    <a href="articles/runners-bradycardia-athletes-heart-vs-arrhythmia.html" class="article-card" data-category="training" data-level="advanced">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">상급 마스터 · 훈련 &amp; 심혈관 생리학</span>
+                            </div>
+                            <h3 class="article-title">러너의 안정시 심박수 40bpm 서맥(Bradycardia)의 진실: 스포츠 심장(Athlete's Heart) vs 부정맥 감별법</h3>
+                            <p class="article-desc">
+                                기상 시 심박수 42bpm은 위험할까? 지구력 러닝이 유도하는 좌심실 2배 확장과 1회 박출량(Stroke Volume) 증가의 과학, 병적 부정맥과 건강한 스포츠 심장 3초 감별법.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 심전도 및 서맥 감별표</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 90: 러닝화 발 실측 및 발볼 선택 (GEAR) -->
+                    <a href="articles/running-shoe-sizing-foot-measurement-width-guide.html" class="article-card" data-category="gear" data-level="beginner">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">초급 스타터 · 기어 &amp; 발 실측 사이언스</span>
+                            </div>
+                            <h3 class="article-title">러닝화 실패 없이 고르는 발 실측의 과학: 발길이·발볼(2E/4E) 측정법과 왜 5~10mm 업해야 하는가</h3>
+                            <p class="article-desc">
+                                착지 충격으로 발이 5mm 늘어나는 족궁 편평화 생체역학. A4 용지 실측 3단계 프로토콜, 한국인 맞춤 D vs 2E vs 4E 발볼 선택과 10~15mm 토박스 여유의 법칙.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 발 실측 3단계 프로토콜</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 89: 새 러닝화 브레이크인과 로테이션 (GEAR) -->
+                    <a href="articles/new-running-shoe-break-in-rotation-blister-prevention.html" class="article-card" data-category="gear" data-level="intermediate">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">중급 빌드업 · 기어 &amp; 부상 예방 적응학</span>
+                            </div>
+                            <h3 class="article-title">새 러닝화 첫 50km 적응 공식: 물집·아킬레스건 통증을 막는 브레이크인(Break-in)과 신발 로테이션</h3>
+                            <p class="article-desc">
+                                새 신발 신고 바로 대회 뛰면 안 되는 이유. 미드솔 폼의 초기 강성과 50km 3단계 적응 로드맵, 힐슬립·물집 0초 차단 힐락 매듭과 부상 위험 39%를 낮추는 2켤레 로테이션.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 7분 • 힐락 매듭 &amp; 로테이션 역학</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 88: 스마트워치 심박존 세팅 가이드 (TRAINING) -->
+                    <a href="articles/smartwatch-heart-rate-zone-setup-garmin-coros-apple.html" class="article-card" data-category="training" data-level="intermediate">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">중급 빌드업 · 훈련 &amp; 스마트워치 테크</span>
+                            </div>
+                            <h3 class="article-title">가민·코로스·애플워치 심박존 1초 세팅 가이드: 카보넨(HRR) 공식과 젖산역치(LTHR) 워치 입력법</h3>
+                            <p class="article-desc">
+                                220-나이 기본 공식의 오류와 Zone 2 걷기 해방. 안정시 심박수를 반영한 카보넨(HRR) 원리, 가민·코로스·애플·갤럭시 워치 앱에서 심박존 1~5를 수동 입력하는 실전 경로.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 4대 워치 앱 설정 매뉴얼</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 87: 러닝 탈수와 전해질 고갈의 과학 (NUTRITION) -->
+                    <a href="articles/running-hydration-sweat-rate-electrolyte-replenishment.html" class="article-card" data-category="nutrition" data-level="intermediate">
+                        <div>
+                            <div class="article-meta-header">
+                                <span class="article-tag">중급 빌드업 · 영양 &amp; 수분 전해질 역학</span>
+                            </div>
+                            <h3 class="article-title">러닝 중 탈수와 전해질 고갈의 과학: 땀 손실률(Sweat Rate) 자가 측정과 러너 전용 수분 보충법</h3>
+                            <p class="article-desc">
+                                체중 2% 탈수가 심장 드리프트와 다리 쥐를 부르는 원리. 달리기 전후 체중으로 시간당 땀 배출량(L/h) 계산법, 맹물 과다 섭취 시 저나트륨혈증 위험과 실전 전해질 배합비.
+                            </p>
+                        </div>
+                        <div class="article-footer">
+                            <span>읽는 시간 8분 • 스포츠 보틀 실측 에셋</span>
+                            <span class="article-read-link">아티클 읽기 ›</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 86: 러닝화 미드솔 폼 수명과 압축 주름 (GEAR) -->
                     <a href="articles/running-shoe-midsole-foam-lifespan-compression-creases.html" class="article-card" data-category="gear" data-level="advanced">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">상급 마스터 · 기어 &amp; 미드솔 소재공학</span>
-                                <span class="badge-new">✨ NEW</span>
                             </div>
                             <h3 class="article-title">데일리 러닝화 미드솔 폼의 수명과 반발력 한계: EVA vs PEBA vs 초임계 폼의 압축 주름과 교체 신호</h3>
                             <p class="article-desc">
@@ -825,12 +1120,11 @@
                         </div>
                     </a>
 
-                    <!-- Card 85: 계단 편심성 보강운동 (NEW & INJURY) -->
+                    <!-- Card 85: 계단 편심성 보강운동 (INJURY) -->
                     <a href="articles/runner-stair-eccentric-training-knee-achilles-rehab.html" class="article-card" data-category="injury" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 부상 예방 &amp; 실전 보강운동</span>
-                                <span class="badge-new">✨ NEW</span>
                             </div>
                             <h3 class="article-title">계단 하나로 끝내는 러너 전용 편심성(Eccentric) 보강운동: 종아리·대퇴사두근 충격 흡수력 2배 높이기</h3>
                             <p class="article-desc">
@@ -843,12 +1137,11 @@
                         </div>
                     </a>
 
-                    <!-- Card 84: 리커버리 슬라이드와 족저압 분산 (NEW & NUTRITION) -->
+                    <!-- Card 84: 리커버리 슬라이드와 족저압 분산 (NUTRITION) -->
                     <a href="articles/post-run-recovery-slides-plantar-pressure-biomechanics.html" class="article-card" data-category="nutrition" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 영양 &amp; 피로 회복</span>
-                                <span class="badge-new">✨ NEW</span>
                             </div>
                             <h3 class="article-title">러닝 직후 발바닥 피로와 족저압 분산: 리커버리 슬라이드(쿠션 슬리퍼)의 족부 생체역학</h3>
                             <p class="article-desc">
@@ -861,16 +1154,15 @@
                         </div>
                     </a>
 
-                    <!-- Card 83: 러닝과 혈압 심혈관 과학 (NEW & TRAINING) -->
+                    <!-- Card 83: 러닝과 혈압 심혈관 과학 (TRAINING) -->
                     <a href="articles/hypertension-morning-running-cardiovascular-health.html" class="article-card" data-category="training" data-level="intermediate">
                         <div>
                             <div class="article-meta-header">
                                 <span class="article-tag">중급 빌드업 · 심폐과학 &amp; 혈관 적응</span>
-                                <span class="badge-new">✨ NEW</span>
                             </div>
                             <h3 class="article-title">고혈압 전단계에서 매일 아침 7~8km 지속주로 혈관 탄력과 혈압을 잡은 러닝 심혈관 과학</h3>
                             <p class="article-desc">
-                                수축기 130~140mmHg 경고 후 4분대 지속주로 혈압을 정상화한 생체역학. 운동 후 저혈압(PEH)의 24시간 혈관 확장 기전, 산화질소(NO) 분비 및 야간 서파 수면 증가.
+                                운동 후 저혈압(PEH)의 24시간 혈관 확장 기전과 내피세포 산화질소(NO) 분비. 수축기 혈압 135에서 115로 안정화된 실측 지속주 심박존과 아침 러닝 생리학.
                             </p>
                         </div>
                         <div class="article-footer">

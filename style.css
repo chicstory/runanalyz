@@ -2114,10 +2114,16 @@ table p {
     }
     .main-nav-segments {
         margin-bottom: 14px;
+        gap: 4px;
+        padding: 4px;
     }
     .segment-btn {
-        font-size: 0.88rem;
+        font-size: 0.80rem;
         padding: 6px 2px;
+        gap: 3px;
+    }
+    .segment-icon {
+        font-size: 0.95rem;
     }
 
     /* 🔍 실시간 런로그 검색창 모바일 최적화 */
@@ -2719,6 +2725,523 @@ table p {
     }
     .hr-zone-bpm {
         font-size: 1.25rem;
+    }
+}
+
+/* ==========================================================================
+   VIEW 3: 마라톤 일정 (메이저 대회 D-Day & 슬림 가로형 카드)
+   Clean Light Tokens & 모바일 360px 완벽 대응
+   ========================================================================== */
+.race-filter-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* 1. 일정 상태 탭 (전체 / 확정 D-Day / 시기 예정) */
+.race-status-tabs {
+    display: flex;
+    background: #F1F5F9;
+    padding: 4px;
+    border-radius: 10px;
+    gap: 4px;
+}
+
+.race-status-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 10px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.race-status-tab:active {
+    transform: scale(0.98);
+}
+
+.race-status-tab.active {
+    background: #FFFFFF;
+    color: var(--primary-blue);
+    font-weight: 800;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.race-count-badge {
+    display: inline-block;
+    padding: 1px 7px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    border-radius: 999px;
+    background: #E2E8F0;
+    color: #475569;
+}
+
+.race-status-tab.active .race-count-badge {
+    background: #DBEAFE;
+    color: #1E40AF;
+}
+
+/* 2. 지역 카테고리 칩 */
+.race-region-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.race-chip {
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.race-chip:hover {
+    border-color: #94A3B8;
+    color: var(--text-primary);
+}
+
+.race-chip.active {
+    background: #EFF6FF;
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+    font-weight: 800;
+}
+
+/* 3. 대회 카드 리스트 */
+.races-card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 4. 슬림 가로형 카드 */
+.race-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+
+.race-card:hover {
+    border-color: #CBD5E1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* 메인 행 (헤더 & 기본 정보) */
+.race-card-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    gap: 16px;
+}
+
+/* 좌측 컬럼: D-Day & 날짜 */
+.race-left-col {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 175px;
+    flex-shrink: 0;
+}
+
+.race-dday-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 68px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-align: center;
+    white-space: nowrap;
+    background: #EFF6FF;
+    color: #1D4ED8;
+    border: 1px solid #BFDBFE;
+}
+
+.race-dday-badge.urgent {
+    background: #FEF2F2;
+    color: #DC2626;
+    border-color: #FECACA;
+}
+
+.race-dday-badge.expected {
+    background: #F1F5F9;
+    color: #475569;
+    border-color: #E2E8F0;
+    font-size: 0.78rem;
+    min-width: 76px;
+}
+
+.race-date-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.race-date-text {
+    font-size: 0.86rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.race-loc-text {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+/* 중앙 컬럼: 대회명 & 메타 뱃지 & 스펙 요약 */
+.race-center-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.race-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.race-title-ko {
+    font-size: 1.02rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.race-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.race-tag-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.race-meta-badge {
+    padding: 2px 7px;
+    font-size: 0.70rem;
+    font-weight: 700;
+    border-radius: 4px;
+    background: #F1F5F9;
+    color: #475569;
+    border: 1px solid #E2E8F0;
+}
+
+.race-meta-badge.label-major {
+    background: #FEF3C7;
+    color: #92400E;
+    border-color: #FDE68A;
+}
+
+.race-meta-badge.label-platinum {
+    background: #F3E8FF;
+    color: #6B21A8;
+    border-color: #E9D5FF;
+}
+
+.race-summary-specs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.spec-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    border-radius: 6px;
+}
+
+.spec-elev {
+    background: #F0FDF4;
+    color: #166534;
+    border: 1px solid #DCFCE7;
+}
+
+.spec-diff {
+    background: #FFFBEB;
+    color: #B45309;
+    border: 1px solid #FEF3C7;
+}
+
+/* 우측 컬럼: 액션 버튼들 */
+.race-right-col {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.btn-race-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #334155;
+    background: #F8FAFC;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.btn-race-toggle:hover {
+    background: #E2E8F0;
+    color: #0F172A;
+}
+
+.btn-race-toggle .toggle-icon {
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+}
+
+.btn-race-toggle.open .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.btn-race-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #1D4ED8;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.btn-race-link:hover {
+    background: #DBEAFE;
+    border-color: #93C5FD;
+}
+
+.btn-race-link:active {
+    transform: scale(0.98);
+}
+
+/* 5. 코스 분석 상세 아코디언 */
+.race-card-detail {
+    display: none;
+    padding: 16px 20px;
+    background: #F8FAFC;
+    border-top: 1px dashed var(--border-light);
+    animation: fadeInSlideDown 0.25s ease-out;
+}
+
+.race-card-detail.open {
+    display: block;
+}
+
+@keyframes fadeInSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.race-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.race-detail-item {
+    background: #FFFFFF;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+}
+
+.race-detail-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+.race-detail-val {
+    font-size: 0.90rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.race-guide-box {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+}
+
+.race-guide-title {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #1E40AF;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.race-guide-text {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.race-detail-action-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.btn-race-plan-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    font-size: 0.84rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    background: var(--primary-blue);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-race-plan-cta:hover {
+    background: #2563EB;
+}
+
+.btn-race-plan-cta:active {
+    transform: scale(0.98);
+}
+
+/* 6. 하단 안내 배너 */
+.race-info-banner {
+    display: flex;
+    gap: 12px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-top: 20px;
+    align-items: flex-start;
+}
+
+.race-info-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.race-info-text {
+    font-size: 0.82rem;
+    color: #1E40AF;
+    line-height: 1.55;
+}
+
+/* ==========================================================================
+   모바일 반응형 최적화 (360px ~ 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .race-card-main {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px 14px;
+    }
+
+    .race-left-col {
+        justify-content: space-between;
+        min-width: 100%;
+    }
+
+    .race-right-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    .btn-race-toggle,
+    .btn-race-link {
+        justify-content: center;
+        padding: 9px 6px;
+        font-size: 0.78rem;
+    }
+
+    .race-title-ko {
+        font-size: 0.95rem;
+    }
+
+    .race-status-tab {
+        font-size: 0.80rem;
+        padding: 7px 4px;
+    }
+
+    .race-chip {
+        font-size: 0.76rem;
+        padding: 5px 10px;
+    }
+
+    .race-card-detail {
+        padding: 12px 14px;
+    }
+
+    .btn-race-plan-cta {
+        width: 100%;
+        justify-content: center;
     }
 }
 

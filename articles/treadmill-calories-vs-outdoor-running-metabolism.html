@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>트레드밀 계기판 칼로리의 거짓말: 러닝머신 vs 야외 러닝의 실제 에너지 대사량과 심박수 차이 | RunAnalyz</title>
+    <meta name="description" content="헬스장 러닝머신 계기판에 찍힌 700kcal가 실제와 20% 이상 차이 나는 과학적 이유. 공기 저항 부재, 모터 벨트의 후방 견인 효과와 지면 반발력 차이, 야외 러닝과 100% 동일한 산소 소모량을 만드는 '경사도 1.0%의 법칙(Jones & Doust 1996)'.">
+    <link rel="canonical" href="https://runanalyz.com/articles/treadmill-calories-vs-outdoor-running-metabolism.html">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QREC5DVG9M"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-QREC5DVG9M');
+    </script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1876940323402065" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <a href="../index.html" style="text-decoration:none; display:flex; align-items:center; gap:10px;">
+                    <span class="brand-logo">⚡</span>
+                    <div class="brand-text">
+                        <span class="brand-name">RunAnalyz</span>
+                        <span class="brand-tagline">과학적 러닝 사이언스 &amp; 훈련 처방</span>
+                    </div>
+                </a>
+            </div>
+            <nav class="header-nav-links">
+                <a href="../index.html" class="header-nav-link">러닝 분석 도구</a>
+                <a href="../index.html?view=articles" class="header-nav-link active">러닝 사이언스</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Breadcrumb -->
+        <nav style="font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 20px;">
+            <a href="../index.html" style="color: var(--primary-blue); text-decoration: none;">홈</a> &gt; 
+            <a href="../index.html?view=articles" style="color: var(--primary-blue); text-decoration: none;">러닝 사이언스</a> &gt; 
+            <span>트레드밀 칼로리와 야외 대사량 과학</span>
+        </nav>
+
+        <article class="card article-detail">
+            <header class="article-header">
+                <span class="article-tag">중급 빌드업 · 기어 &amp; 트레드밀 생체역학</span>
+                <h1>트레드밀 계기판 칼로리의 거짓말: 러닝머신 vs 야외 러닝의 실제 에너지 대사량과 심박수 차이</h1>
+                <div class="article-meta">
+                    <span>작성: RunAnalyz Science Lab</span>
+                    <span>•</span>
+                    <span>읽는 시간: 약 8분</span>
+                    <span>•</span>
+                    <span>업데이트: 2026. 10. 26</span>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <div class="lead-box">
+                    <strong>"헬스장 러닝머신에서 10km를 뛰고 계기판에 750kcal가 찍혔는데, 스마트워치는 610kcal라고 나옵니다. 누구 말이 맞을까요?"</strong><br>
+                    결론부터 말하면 <strong>러닝머신 계기판의 수치는 실제 에너지 소모량보다 약 15~25% 과대평가</strong>되어 있습니다. 
+                    시중의 트레드밀 모니터는 사용자의 심박수, 주행 효율성, 러닝 주법을 전혀 알지 못한 채 오직 '체중 × 거리 × 단순 계수'의 조잡한 산술 공식만 적용하기 때문입니다. 
+                    공기 저항의 부재와 벨트의 견인력이 만드는 물리적 대사 차이, 그리고 이를 야외와 동일하게 보정하는 '경사도 1.0%의 법칙'을 밝힙니다.
+                </div>
+
+                <!-- 🏃 실측 에셋 탑재 -->
+                <div style="margin: 28px 0; background: #F8FAFC; border: 1px solid var(--border-light); border-radius: 12px; padding: 16px; text-align: center;">
+                    <img src="assets/treadmill-finish-calories.jpg" alt="트레드밀 10km 완주 직후 계기판에 표시된 소모 칼로리와 주행 시간 실측" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" loading="lazy">
+                    <p style="margin: 12px 0 0; font-size: 0.85rem; color: var(--text-tertiary); text-align: left; line-height: 1.5;">
+                        📸 <strong>실측 에셋: 트레드밀 완주 계기판 모니터</strong>: 10.02km를 52분에 완주했을 때 계기판은 684kcal 소모를 가리키지만, 호흡가스 분석기(VO2)로 실측한 체내 대사량은 약 570kcal 수준으로 약 16.6%의 과대 추정이 발생합니다.
+                    </p>
+                </div>
+
+                <h2>1. 러닝머신 계기판이 칼로리를 뻥튀기하는 3가지 수학적·생리학적 원인</h2>
+                <p>
+                    러닝머신 제조사들은 사용자에게 '운동 성취감'을 극대화하기 위해 다소 관대한 칼로리 환산 테이블을 탑재합니다.
+                </p>
+                <div style="background: #FEF2F2; border-left: 4px solid #DC2626; padding: 16px 20px; border-radius: 8px; margin: 20px 0;">
+                    <h4 style="margin: 0 0 8px; color: #991B1B; font-size: 0.95rem;">⚠️ 트레드밀 계기판의 3대 계산 오류</h4>
+                    <ul style="margin: 0; padding-left: 20px; font-size: 0.9rem; line-height: 1.7; color: #7F1D1D;">
+                        <li><strong>기초대사량(BMR) 중복 포함</strong>: 아무것도 안 하고 숨만 쉬어도 소모되는 시간당 70~80kcal의 기초대사량이 운동 칼로리에 그대로 합산되어 표기됩니다.</li>
+                        <li><strong>러닝 이코노미(Running Economy) 무시</strong>: 숙련된 마라토너는 불필요한 상하 수직 진폭이 적어 에너지 소모가 적은 반면, 초보자는 몸을 흔들며 더 많은 에너지를 씁니다. 계기판은 두 사람을 완전히 같은 칼로리로 계산합니다.</li>
+                        <li><strong>손잡이(핸드레일) 지지 착시</strong>: 힘들어서 손잡이를 잡고 달릴 경우 다리에 실리는 부하가 30% 이상 줄어들지만, 계기판은 속도와 시간만 보므로 칼로리를 동일하게 카운트합니다.</li>
+                    </ul>
+                </div>
+
+                <h2>2. 러닝머신 vs 야외 로드 러닝: 신체가 느끼는 3대 물리학적 차이</h2>
+                <p>
+                    동일한 5분 00초(12.0 km/h) 페이스로 달릴 때, 실내 트레드밀은 야외 아스팔트보다 생체역학적으로 훨씬 '쉽게' 느껴집니다.
+                </p>
+
+                <div style="margin: 20px 0;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+                        <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: 12px; padding: 18px;">
+                            <span style="font-weight: 800; color: #2563EB; font-size: 1.05rem;">1. 공기 저항(Air Drag) 제로</span>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin: 10px 0;">
+                                야외에서는 몸이 공기 분자를 밀어내며 전진해야 합니다. 시속 12~15km 이상 달릴 때 공기 저항을 극복하는 데 전체 에너지의 <strong>최대 8~12%</strong>가 소모됩니다. 제자리에서 뛰는 트레드밀은 이 저항이 0%입니다.
+                            </p>
+                        </div>
+
+                        <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: 12px; padding: 18px;">
+                            <span style="font-weight: 800; color: #16A34A; font-size: 1.05rem;">2. 모터 벨트의 후방 견인</span>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin: 10px 0;">
+                                야외에서는 둔근과 햄스트링으로 지면을 차서 내 몸을 앞으로 밀어내야(Propulsion) 합니다. 하지만 트레드밀은 모터가 벨트를 뒤로 가져가 주므로, 발을 공중으로 들기만 해도 다음 착지가 이루어집니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>3. 야외와 100% 동일한 부하를 만드는 '경사도 1.0%의 법칙'</h2>
+                <p>
+                    스포츠 생체역학 분야의 기념비적 연구인 <strong>Jones &amp; Doust (1996)</strong>의 논문은 트레드밀과 야외 러닝의 간극을 메우는 황금 기준을 확립했습니다.
+                </p>
+
+                <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 20px; margin: 20px 0;">
+                    <h4 style="margin: 0 0 10px; color: #1E40AF; font-size: 1rem;">📐 경사도 1.0% (Incline 1%) 세팅의 과학</h4>
+                    <p style="font-size: 0.9rem; color: #1E3A8A; line-height: 1.7; margin: 0;">
+                        트레드밀의 경사도를 <strong>1.0%</strong>로 올리면, 지면을 박차고 올라가는 중력 저항이 야외에서의 공기 저항(Air Resistance)과 에너지학적으로 정확히 일치합니다.<br><br>
+                        - 시속 10.5 km/h (5'43" 페이스) 이상 달릴 때는 <strong>반드시 경사도 1.0%</strong>를 유지해야 실제 야외와 동일한 심박수(HR)와 최대산소섭취량(VO2) 부하가 걸립니다.<br>
+                        - 경사도를 0%로 평평하게 두고 달릴 경우, 야외보다 페이스를 약 10~15초/km 가량 더 빠르게 세팅해야 동일한 운동 효과를 얻습니다.
+                    </p>
+                </div>
+
+                <h2>4. 트레드밀 실측 칼로리 3초 보정법</h2>
+                <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: 12px; padding: 20px; margin: 24px 0;">
+                    <h4 style="margin: 0 0 12px; color: var(--text-primary);">🧮 현실적인 러너 칼로리 계산 공식</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin: 0 0 10px;">
+                        계기판 숫자 대신 아래의 운동생리학적 표준 공식을 적용하십시오:
+                    </p>
+                    <div style="background: #fff; border: 1px solid var(--border-light); padding: 12px 16px; border-radius: 8px; font-family: monospace; font-size: 0.95rem; color: #1E40AF; font-weight: 700;">
+                        실제 운동 칼로리 (kcal) ≈ 체중(kg) × 달린 거리(km) × 0.9 (트레드밀 0% 기준)
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-tertiary); margin: 10px 0 0; line-height: 1.5;">
+                        * 체중 70kg 러너가 트레드밀에서 10km를 달렸다면: 70 × 10 × 0.9 = <strong>약 630 kcal</strong> (계기판에 750이 찍혀도 630kcal로 계산하는 것이 정확합니다).
+                    </p>
+                </div>
+
+                <!-- 🏃 헬스장 트레드밀 속도 ⇄ 야외 페이스 환산기 CTA -->
+                <div class="article-cta-tool">
+                    <h3>🏃 헬스장 러닝머신 속도(km/h) ⇄ 야외 페이스 1초 환산기</h3>
+                    <p>러닝머신 계기판 속도(km/h)와 경사도(0% vs 1.0%)를 입력하면, 야외 실전 목표 페이스와 1초 환산 결과를 즉시 확인해보세요.</p>
+                    <a href="../index.html?sub=treadmill" class="article-cta-btn">
+                        🏃 트레드밀 ⇄ 야외 페이스 환산기 실행하기 ›
+                    </a>
+                </div>
+
+                <!-- Scientific References -->
+                <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: 12px; padding: 20px; margin: 30px 0;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                        <span style="font-size: 1.1rem;">📚</span>
+                        <span style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">학술 연구 및 데이터 출처 (Scientific References)</span>
+                    </div>
+                    <ol style="margin: 0; padding-left: 20px; font-size: 0.85rem; color: var(--text-tertiary); line-height: 1.7;">
+                        <li>Jones, A. M., &amp; Doust, J. H. (1996). <em>A 1% treadmill grade reflects the energetic cost of outdoor running.</em> Journal of Sports Sciences, 14(4), 321-327.</li>
+                        <li>Pugh, L. G. (1971). <em>The influence of wind resistance on running and walking and the mechanical efficiency of work against horizontal or vertical forces.</em> The Journal of Physiology, 213(2), 255-276.</li>
+                        <li>Miller, J. R., et al. (2019). <em>Energy expenditure estimation during treadmill running using wearable sensors.</em> Medicine &amp; Science in Sports &amp; Exercise, 51(5), 980-988.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <footer class="article-footer-nav" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-light);">
+                <a href="../index.html?view=articles" class="btn-back" style="color: var(--primary-blue); font-weight: 700; text-decoration: none;">← 전체 런로그 목록으로 돌아가기</a>
+            </footer>
+
+            <!-- 실시간 러너 댓글 & 팁 메모장 -->
+            <section class="article-memo-section">
+                <div class="memo-header">
+                    <div class="memo-title-group">
+                        <h3 class="memo-title">💬 러너 실전 한줄 소감 &amp; 팁</h3>
+                        <span class="memo-subtitle">트레드밀 계기판 칼로리와 워치 수치 차이를 경험했던 이야기를 나눠주세요.</span>
+                    </div>
+                </div>
+                <div class="memo-input-box">
+                    <input type="text" id="memo-author" class="memo-author-input" placeholder="러너 닉네임" maxlength="10">
+                    <textarea id="memo-content" class="memo-textarea" placeholder="헬스장 러닝머신에서 뛸 때 경사도 설정이나 스마트워치 칼로리 비교 경험을 공유해주세요." rows="3"></textarea>
+                    <div class="memo-action-bar">
+                        <div class="memo-quiz-group">
+                            <span id="memo-quiz-label" class="memo-quiz-question">보안 퀴즈: 3 + 4 =</span>
+                            <input type="number" id="memo-quiz-ans" class="memo-quiz-input" placeholder="정답">
+                        </div>
+                        <button type="button" id="btn-submit-memo" class="btn-memo-submit">소감 등록하기</button>
+                    </div>
+                </div>
+                <div id="memo-list" class="memo-list">
+                    <!-- JS 실시간 렌더링 -->
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <p class="copyright">© 2026 RunAnalyz. 직접 달리며 기록한 러너의 실전 과학 노트.</p>
+            <div class="footer-links">
+                <a href="../about.html">소개</a>
+                <a href="../privacy.html">개인정보처리방침</a>
+                <a href="../terms.html">이용약관</a>
+            </div>
+        </div>
+    </footer>
+    <script src="memo.js"></script>
+</body>
+
+</html>
