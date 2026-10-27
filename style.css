@@ -2757,7 +2757,7 @@ table p {
     justify-content: center;
     gap: 6px;
     padding: 8px 10px;
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     font-weight: 700;
     color: var(--text-secondary);
     background: transparent;
@@ -2765,6 +2765,7 @@ table p {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.15s ease;
+    white-space: nowrap;
 }
 
 .race-status-tab:active {
@@ -2779,13 +2780,18 @@ table p {
 }
 
 .race-count-badge {
-    display: inline-block;
-    padding: 1px 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 7px;
     font-size: 0.72rem;
     font-weight: 800;
     border-radius: 999px;
     background: #E2E8F0;
     color: #475569;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 22px;
 }
 
 .race-status-tab.active .race-count-badge {
@@ -2810,6 +2816,7 @@ table p {
     border-radius: 999px;
     cursor: pointer;
     transition: all 0.15s ease;
+    white-space: nowrap;
 }
 
 .race-chip:hover {
@@ -2828,10 +2835,10 @@ table p {
 .races-card-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 
-/* 4. 슬림 가로형 카드 */
+/* 4. 슬림 가로형 카드 (3단 수직 스택형 레이아웃) */
 .race-card {
     background: #FFFFFF;
     border: 1px solid var(--border-light);
@@ -2846,21 +2853,45 @@ table p {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
-/* 메인 행 (헤더 & 기본 정보) */
 .race-card-main {
+    display: flex;
+    flex-direction: column;
+    padding: 18px 20px;
+    gap: 12px;
+}
+
+/* 1행: 대회명 - D-Day - 날짜/장소 */
+.race-row-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 18px;
-    gap: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
-/* 좌측 컬럼: D-Day & 날짜 */
-.race-left-col {
+.race-title-cluster {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.race-title-ko {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.race-title-en {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.race-dday-cluster {
     display: flex;
     align-items: center;
     gap: 12px;
-    min-width: 175px;
     flex-shrink: 0;
 }
 
@@ -2869,7 +2900,7 @@ table p {
     align-items: center;
     justify-content: center;
     min-width: 68px;
-    padding: 6px 10px;
+    padding: 5px 12px;
     border-radius: 8px;
     font-size: 0.95rem;
     font-weight: 800;
@@ -2890,7 +2921,7 @@ table p {
     background: #F1F5F9;
     color: #475569;
     border-color: #E2E8F0;
-    font-size: 0.78rem;
+    font-size: 0.80rem;
     min-width: 76px;
 }
 
@@ -2901,61 +2932,35 @@ table p {
 }
 
 .race-date-text {
-    font-size: 0.86rem;
+    font-size: 0.88rem;
     font-weight: 800;
     color: var(--text-primary);
     white-space: nowrap;
 }
 
 .race-loc-text {
-    font-size: 0.76rem;
+    font-size: 0.78rem;
     color: var(--text-muted);
     white-space: nowrap;
 }
 
-/* 중앙 컬럼: 대회명 & 메타 뱃지 & 스펙 요약 */
-.race-center-col {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    min-width: 0;
-}
-
-.race-title-row {
+/* 2행: 스펙/메타 정보 칩 (가로 스택형) */
+.race-row-specs {
     display: flex;
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
 }
 
-.race-title-ko {
-    font-size: 1.02rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    text-decoration: none;
-}
-
-.race-title-en {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-}
-
-.race-tag-group {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-wrap: wrap;
-}
-
 .race-meta-badge {
-    padding: 2px 7px;
-    font-size: 0.70rem;
+    padding: 3px 8px;
+    font-size: 0.74rem;
     font-weight: 700;
     border-radius: 4px;
     background: #F1F5F9;
     color: #475569;
     border: 1px solid #E2E8F0;
+    white-space: nowrap;
 }
 
 .race-meta-badge.label-major {
@@ -2970,21 +2975,15 @@ table p {
     border-color: #E9D5FF;
 }
 
-.race-summary-specs {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
 .spec-chip {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 2px 8px;
-    font-size: 0.76rem;
+    padding: 3px 9px;
+    font-size: 0.78rem;
     font-weight: 700;
     border-radius: 6px;
+    white-space: nowrap;
 }
 
 .spec-elev {
@@ -2999,19 +2998,27 @@ table p {
     border: 1px solid #FEF3C7;
 }
 
-/* 우측 컬럼: 액션 버튼들 */
-.race-right-col {
+.spec-dist {
+    background: #F8FAFC;
+    color: #475569;
+    border: 1px solid #E2E8F0;
+}
+
+/* 3행: 하단 액션 버튼 행 (한 칸 아래로 내림) */
+.race-row-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #F1F5F9;
 }
 
 .btn-race-toggle {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    padding: 8px 12px;
+    padding: 8px 14px;
     font-size: 0.82rem;
     font-weight: 700;
     color: #334155;
@@ -3041,7 +3048,7 @@ table p {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    padding: 8px 14px;
+    padding: 8px 16px;
     font-size: 0.82rem;
     font-weight: 700;
     color: #1D4ED8;
@@ -3195,44 +3202,42 @@ table p {
    ========================================================================== */
 @media (max-width: 768px) {
     .race-card-main {
-        flex-direction: column;
-        align-items: stretch;
+        padding: 14px 14px;
         gap: 10px;
-        padding: 12px 14px;
     }
 
-    .race-left-col {
+    .race-row-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .race-title-cluster {
+        width: 100%;
+    }
+
+    .race-title-ko {
+        font-size: 1.05rem;
+    }
+
+    .race-dday-cluster {
+        width: 100%;
         justify-content: space-between;
-        min-width: 100%;
     }
 
-    .race-right-col {
+    .race-row-actions {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 8px;
         width: 100%;
-        margin-top: 4px;
     }
 
     .btn-race-toggle,
     .btn-race-link {
+        width: 100%;
         justify-content: center;
         padding: 9px 6px;
         font-size: 0.78rem;
-    }
-
-    .race-title-ko {
-        font-size: 0.95rem;
-    }
-
-    .race-status-tab {
-        font-size: 0.80rem;
-        padding: 7px 4px;
-    }
-
-    .race-chip {
-        font-size: 0.76rem;
-        padding: 5px 10px;
     }
 
     .race-card-detail {
@@ -3242,6 +3247,30 @@ table p {
     .btn-race-plan-cta {
         width: 100%;
         justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .race-status-tabs {
+        gap: 2px;
+        padding: 3px;
+    }
+
+    .race-status-tab {
+        font-size: 0.76rem;
+        padding: 6px 4px;
+        gap: 3px;
+    }
+
+    .race-count-badge {
+        padding: 1px 5px;
+        font-size: 0.68rem;
+        min-width: 16px;
+    }
+
+    .race-chip {
+        font-size: 0.74rem;
+        padding: 4px 9px;
     }
 }
 

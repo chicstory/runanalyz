@@ -2341,32 +2341,34 @@ function initRaceCalendar() {
 
             card.innerHTML = `
                 <div class="race-card-main">
-                    <div class="race-left-col">
-                        <div class="race-dday-badge ${badgeClass}">
-                            ${dday.badgeText}
-                        </div>
-                        <div class="race-date-box">
-                            <span class="race-date-text">${dday.dateDisplay}</span>
-                            <span class="race-loc-text">${race.location}</span>
-                        </div>
-                    </div>
-
-                    <div class="race-center-col">
-                        <div class="race-title-row">
+                    <!-- 1행: 대회명 - D-Day - 날짜/장소 -->
+                    <div class="race-row-top">
+                        <div class="race-title-cluster">
                             <span class="race-title-ko">${race.name}</span>
                             <span class="race-title-en">${race.nameEn}</span>
-                            <div class="race-tag-group">
-                                <span class="race-meta-badge">${categoryLabel}</span>
-                                <span class="race-meta-badge ${labelClass}">${race.label}</span>
-                            </div>
                         </div>
-                        <div class="race-summary-specs">
-                            <span class="spec-chip spec-elev">누적 획득고도 ▲ ${race.elevation}</span>
-                            <span class="spec-chip spec-diff">난이도: ${renderStarIcons(race.difficulty)} (${race.difficultyDesc})</span>
+                        <div class="race-dday-cluster">
+                            <div class="race-dday-badge ${badgeClass}">
+                                ${dday.badgeText}
+                            </div>
+                            <div class="race-date-box">
+                                <span class="race-date-text">${dday.dateDisplay}</span>
+                                <span class="race-loc-text">${race.location}</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="race-right-col">
+                    <!-- 2행: 스펙/메타 정보 칩 (가로 스택형) -->
+                    <div class="race-row-specs">
+                        <span class="race-meta-badge">${categoryLabel}</span>
+                        <span class="race-meta-badge ${labelClass}">${race.label}</span>
+                        <span class="spec-chip spec-elev">누적 획득고도 ▲ ${race.elevation}</span>
+                        <span class="spec-chip spec-diff">난이도: ${renderStarIcons(race.difficulty)} (${race.difficultyDesc})</span>
+                        <span class="spec-chip spec-dist">${race.distance}</span>
+                    </div>
+
+                    <!-- 3행: 코스분석 및 공식홈페이지 바로가기 (하단 액션 행) -->
+                    <div class="race-row-actions">
                         <button type="button" class="btn-race-toggle" data-race-id="${race.id}" aria-expanded="false" title="코스 분석 및 고저차 보기">
                             <span>📊 코스분석</span>
                             <span class="toggle-icon">▼</span>
