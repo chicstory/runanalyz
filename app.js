@@ -570,6 +570,73 @@ function formatTime(totalSec) {
 }
 
 /**
+ * 🏆 메이저 대회 D-Day 및 날짜 포맷 계산 헬퍼 (글로벌 스코프)
+ */
+function getRaceDDayInfo(race) {
+    if (!race) return { badgeText: '-', subText: '', dateDisplay: '', isUrgent: false, isExpected: false, statusKey: 'all' };
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (race.isExpected) {
+        return {
+            badgeText: race.expectedMonth.split(' ')[0],
+            subText: '시기 예정',
+            dateDisplay: race.expectedMonth,
+            isUrgent: false,
+            isExpected: true,
+            statusKey: 'expected'
+        };
+    }
+
+    const raceDate = new Date(race.date);
+    raceDate.setHours(0, 0, 0, 0);
+
+    const diffTime = raceDate.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    const yyyy = raceDate.getFullYear();
+    const mm = String(raceDate.getMonth() + 1).padStart(2, '0');
+    const dd = String(raceDate.getDate()).padStart(2, '0');
+    const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+    const dayName = dayNames[raceDate.getDay()];
+    const dateDisplay = `${yyyy}.${mm}.${dd} (${dayName}) ${race.time || ''}`;
+
+    if (diffDays < 0) {
+        return {
+            badgeText: '종료',
+            subText: '차기 시즌 예정',
+            dateDisplay: dateDisplay,
+            isUrgent: false,
+            isExpected: true,
+            isPast: true,
+            statusKey: 'expected'
+        };
+    } else if (diffDays === 0) {
+        return {
+            badgeText: 'D-Day',
+            subText: '오늘 결전!',
+            dateDisplay: dateDisplay,
+            isUrgent: true,
+            isExpected: false,
+            statusKey: 'confirmed'
+        };
+    } else {
+        return {
+            badgeText: `D-${diffDays}`,
+            subText: `${diffDays}일 남음`,
+            dateDisplay: dateDisplay,
+            isUrgent: diffDays <= 30,
+            isExpected: false,
+            statusKey: 'confirmed'
+        };
+    }
+}
+
+function renderStarIcons(diff) {
+    return '★'.repeat(diff) + '☆'.repeat(5 - diff);
+}
+
+/**
  * 🏆 목표 메이저 대회 선택 시 훈련 플래너 입력값 및 D-100(14주) 일정 자동 적용
  */
 function applyRaceToPlannerForm(race) {
@@ -671,16 +738,13 @@ function initStandalonePlanner() {
                 const targetBanner = document.getElementById('plan-race-target-banner');
                 if (targetBanner) targetBanner.style.display = 'none';
             }
-            generateStandalonePlan();
+            generateStandalonePlan(false);
         });
     }
 
     if (weeksSelect) {
         weeksSelect.addEventListener('change', () => {
-            const resultBox = document.getElementById('planner-result-box');
-            if (resultBox && resultBox.style.display !== 'none') {
-                generateStandalonePlan();
-            }
+            generateStandalonePlan(false);
         });
     }
 
@@ -688,20 +752,21 @@ function initStandalonePlanner() {
         targetSelect.addEventListener('change', () => {
             updatePlannerDaysOptions();
             syncPlannerDaysWithCheckboxes();
-            const resultBox = document.getElementById('planner-result-box');
-            if (resultBox && resultBox.style.display !== 'none') {
-                generateStandalonePlan();
-            }
+            generateStandalonePlan(false);
         });
     }
 
     if (daysSelect) {
         daysSelect.addEventListener('change', () => {
             syncPlannerDaysWithCheckboxes();
-            const resultBox = document.getElementById('planner-result-box');
-            if (resultBox && resultBox.style.display !== 'none') {
-                generateStandalonePlan();
-            }
+            generateStandalonePlan(false);
+        });
+    }
+
+    const startDateEl = document.getElementById('plan-start-date');
+    if (startDateEl) {
+        startDateEl.addEventListener('change', () => {
+            generateStandalonePlan(false);
         });
     }
 
@@ -709,7 +774,10 @@ function initStandalonePlanner() {
     initPlannerDayCheckboxes();
 
     if (btnGenerate) {
-        btnGenerate.addEventListener('click', generateStandalonePlan);
+        btnGenerate.addEventListener('click', (e) => {
+            e.preventDefault();
+            generateStandalonePlan(true);
+        });
     }
 
     if (btnIcs) {
@@ -722,9 +790,10 @@ function initStandalonePlanner() {
         });
     }
 
-    // 초기 옵션 로드 및 체크박스 동기화
+    // 초기 옵션 로드 및 체크박스 동기화 & 기본 플랜 즉시 생성
     updatePlannerDaysOptions();
     syncPlannerDaysWithCheckboxes();
+    generateStandalonePlan(false);
 }
 
 /**
@@ -746,6 +815,11 @@ function initPlannerDayCheckboxes() {
             }
 
             updateDaySelectStatusUI();
+
+            const finalChecked = document.querySelectorAll('input[name="plan-day-check"]:checked');
+            if (finalChecked.length === targetCount) {
+                generateStandalonePlan(false);
+            }
         });
     });
 }
@@ -846,7 +920,8 @@ function updatePlannerDaysOptions() {
         'full': {
             badge: "마일리지 & LSD 완주 루틴",
             options: [
-                { val: 5, label: "주 5회 (풀마라톤 기본)", default: true },
+                { val: 4, label: "주 4회 (풀마라톤 기본 완주)" },
+                { val: 5, label: "주 5회 (풀마라톤 추천 루틴)", default: true },
                 { val: 6, label: "주 6회 (서브4 목표)" },
                 { val: 7, label: "주 7회 (매일 데일리 마일리지 / 마스터스)" }
             ]
@@ -868,7 +943,9 @@ function updatePlannerDaysOptions() {
     });
 }
 
-function generateStandalonePlan() {
+function generateStandalonePlan(isManual = false) {
+    const isManualTrigger = isManual === true || (typeof isManual === 'object' && isManual !== null && isManual.type === 'click');
+
     // 1) PB 값 파싱
     const pbDist = parseFloat(document.getElementById('plan-pb-dist')?.value) || 10;
     const pbH = parseInt(document.getElementById('plan-pb-hour')?.value, 10) || 0;
@@ -915,15 +992,24 @@ function generateStandalonePlan() {
     const startDateVal = document.getElementById('plan-start-date')?.value;
 
     if (!startDateVal) {
-        alert('훈련 시작 날짜를 선택해주세요.');
+        if (isManualTrigger) alert('훈련 시작 날짜를 선택해주세요.');
         return;
     }
 
     // 선택된 요일 확인 및 유효성 검사
     const checkedBoxes = Array.from(document.querySelectorAll('input[name="plan-day-check"]:checked'));
+    const warningMsg = document.getElementById('day-select-warning-msg');
     if (checkedBoxes.length !== daysPerWeek) {
-        alert(`⚠️ 선택하신 주간 훈련 빈도는 '주 ${daysPerWeek}회'입니다.\n현재 ${checkedBoxes.length}개 요일이 선택되어 있습니다. 요일을 정확히 ${daysPerWeek}개 체크해주세요.`);
+        if (warningMsg) {
+            warningMsg.style.display = 'block';
+            warningMsg.textContent = `※ 선택하신 주간 훈련 빈도는 '주 ${daysPerWeek}회'입니다. 현재 ${checkedBoxes.length}개 요일이 선택되어 있습니다. (${daysPerWeek}개 체크 필요)`;
+        }
+        if (isManualTrigger) {
+            alert(`⚠️ 선택하신 주간 훈련 빈도는 '주 ${daysPerWeek}회'입니다.\n현재 ${checkedBoxes.length}개 요일이 선택되어 있습니다. 요일을 정확히 ${daysPerWeek}개 체크해주세요.`);
+        }
         return;
+    } else {
+        if (warningMsg) warningMsg.style.display = 'none';
     }
 
     const dayNames = { 0: "일요일", 1: "월요일", 2: "화요일", 3: "수요일", 4: "목요일", 5: "금요일", 6: "토요일" };
@@ -1334,7 +1420,9 @@ function generateStandalonePlan() {
     const resultBox = document.getElementById('planner-result-box');
     if (resultBox) {
         resultBox.style.display = 'block';
-        resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        if (isManualTrigger) {
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 }
 
@@ -2367,69 +2455,7 @@ function initRaceCalendar() {
     let currentStatusFilter = 'all'; // 'all' | 'confirmed' | 'expected'
     let currentRegionFilter = 'all'; // 'all' | 'domestic' | 'wmm' | 'japan'
 
-    // D-Day 계산 헬퍼 함수
-    function getRaceDDayInfo(race) {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        if (race.isExpected) {
-            return {
-                badgeText: race.expectedMonth.split(' ')[0],
-                subText: '시기 예정',
-                dateDisplay: race.expectedMonth,
-                isUrgent: false,
-                isExpected: true,
-                statusKey: 'expected'
-            };
-        }
-
-        const raceDate = new Date(race.date);
-        raceDate.setHours(0, 0, 0, 0);
-
-        const diffTime = raceDate.getTime() - today.getTime();
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-        const yyyy = raceDate.getFullYear();
-        const mm = String(raceDate.getMonth() + 1).padStart(2, '0');
-        const dd = String(raceDate.getDate()).padStart(2, '0');
-        const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-        const dayName = dayNames[raceDate.getDay()];
-        const dateDisplay = `${yyyy}.${mm}.${dd} (${dayName}) ${race.time || ''}`;
-
-        if (diffDays < 0) {
-            return {
-                badgeText: '종료',
-                subText: '차기 시즌 예정',
-                dateDisplay: dateDisplay,
-                isUrgent: false,
-                isExpected: true,
-                isPast: true,
-                statusKey: 'expected'
-            };
-        } else if (diffDays === 0) {
-            return {
-                badgeText: 'D-Day',
-                subText: '오늘 결전!',
-                dateDisplay: dateDisplay,
-                isUrgent: true,
-                isExpected: false,
-                statusKey: 'confirmed'
-            };
-        } else {
-            return {
-                badgeText: `D-${diffDays}`,
-                subText: `${diffDays}일 남음`,
-                dateDisplay: dateDisplay,
-                isUrgent: diffDays <= 30,
-                isExpected: false,
-                statusKey: 'confirmed'
-            };
-        }
-    }
-
-    function renderStarIcons(diff) {
-        return '★'.repeat(diff) + '☆'.repeat(5 - diff);
-    }
+    // 내부 카운트 계산 및 렌더링
 
     function updateCountBadges() {
         let confirmedCount = 0;
