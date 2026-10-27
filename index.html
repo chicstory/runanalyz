@@ -607,8 +607,41 @@
 
                 <!-- 🎯 2단계: 목표 대회 & 준비 일정 -->
                 <div class="form-grid">
+                    <div class="input-field" style="grid-column: 1 / -1;">
+                        <label for="plan-race-select" style="display:flex; justify-content:space-between; align-items:center;">
+                            <span>🏆 목표 메이저 대회 연동 (D-100 스마트 주기화)</span>
+                            <span style="font-size:0.75rem; color:var(--primary-blue); font-weight:700;">대회 선택 시 14주(D-100) 일정 자동 역산</span>
+                        </label>
+                        <select id="plan-race-select" class="form-input" style="font-weight:700; background:#EFF6FF; border-color:#BFDBFE; color:#1E40AF;">
+                            <option value="">-- 직접 설정 (자유 코스) --</option>
+                            <optgroup label="🇰🇷 국내 메이저">
+                                <option value="jtbc-seoul">JTBC 서울마라톤 (2026.11.01)</option>
+                                <option value="seoul-marathon">서울마라톤 (동아) (2027.03.21 예정)</option>
+                                <option value="daegu-marathon">대구국제마라톤 (2027.04.04 예정)</option>
+                                <option value="gunsan-marathon">군산새만금국제마라톤 (2027.04.11 예정)</option>
+                                <option value="gyeongju-marathon">경주국제마라톤 (2027.10.17 예정)</option>
+                                <option value="chuncheon-marathon">춘천마라톤 (2027.10.24 예정)</option>
+                                <option value="songdo-marathon">인천송도국제마라톤 (2027.10.10 예정)</option>
+                            </optgroup>
+                            <optgroup label="🌍 애보트 월드 마라톤 메이저스 (WMM)">
+                                <option value="nyc-marathon">뉴욕 마라톤 (2026.11.01)</option>
+                                <option value="tokyo-marathon">도쿄 마라톤 (2027.03.07)</option>
+                                <option value="boston-marathon">보스턴 마라톤 (2027.04.19)</option>
+                                <option value="london-marathon">런던 마라톤 (2027.04.25)</option>
+                                <option value="sydney-marathon">시드니 마라톤 (2027.08.29)</option>
+                                <option value="berlin-marathon">베를린 마라톤 (2027.09.26 예정)</option>
+                                <option value="chicago-marathon">시카고 마라톤 (2027.10.10 예정)</option>
+                            </optgroup>
+                            <optgroup label="🇯🇵 일본 대도시 메이저">
+                                <option value="kobe-marathon">고베 마라톤 (2026.11.15)</option>
+                                <option value="fukuoka-marathon">후쿠오카 국제마라톤 (2026.12.06)</option>
+                                <option value="osaka-marathon">오사카 마라톤 (2027.02.28)</option>
+                                <option value="nagoya-women">나고야 우먼스 마라톤 (2027.03.14)</option>
+                            </optgroup>
+                        </select>
+                    </div>
                     <div class="input-field">
-                        <label for="plan-target">도전할 목표 대회 / 거리</label>
+                        <label for="plan-target">도전할 목표 거리</label>
                         <select id="plan-target" class="form-input">
                             <option value="5k">5km 완주 코스 (스피드 집중)</option>
                             <option value="10k" selected>10km 단축 마라톤 (기록 단축)</option>
@@ -621,7 +654,8 @@
                         <select id="plan-weeks" class="form-input">
                             <option value="4">4주 단기 완성 코스</option>
                             <option value="8" selected>8주 표준 코스 (권장)</option>
-                            <option value="12">12주 정석 코스 (풀코스 추천)</option>
+                            <option value="12">12주 정석 코스</option>
+                            <option value="14">🔥 14주 (D-100 마라톤 완성 주기화 코스)</option>
                         </select>
                     </div>
                     <div class="input-field">
@@ -681,9 +715,24 @@
                     </div>
                 </div>
 
-                <button id="btn-generate-plan" class="btn btn-primary" style="margin-top:10px;">⚡ 내 PB 기반 과학적 훈련 플랜 생성하기</button>
-
                 <div id="planner-result-box" style="display:none; margin-top:24px;">
+                    <!-- 🏆 목표 메이저 대회 D-100 연동 알림 배너 (선택 시 활성화) -->
+                    <div id="plan-race-target-banner" style="display:none; background:#FEF3C7; border:1px solid #FDE68A; border-radius:12px; padding:14px 18px; margin-bottom:16px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span style="font-size:1.3rem;">🏆</span>
+                                <div>
+                                    <span style="font-size:0.76rem; font-weight:800; color:#92400E; display:block;">목표 메이저 레이스 D-100 마스터 플랜</span>
+                                    <span id="target-banner-race-name" style="font-size:1.05rem; font-weight:800; color:#78350F;">대회명</span>
+                                </div>
+                            </div>
+                            <span id="target-banner-dday" style="background:#DC2626; color:#FFFFFF; font-size:0.84rem; font-weight:800; padding:4px 12px; border-radius:8px;">D-Day</span>
+                        </div>
+                        <div style="font-size:0.80rem; color:#92400E; margin-top:8px; line-height:1.45;" id="target-banner-desc">
+                            1~4주(기초 빌드업) ➔ 5~8주(LSD 25km 지구력) ➔ 9~12주(M페이스 피크 32km) ➔ 13~14주(테이퍼링) 4단계 주기화가 자동 적용되었습니다.
+                        </div>
+                    </div>
+
                     <!-- 🏅 내 PB 기반 훈련 메트릭스 브리핑 카드 -->
                     <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:12px; padding:18px 20px; margin-bottom:20px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">

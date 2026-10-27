@@ -570,6 +570,52 @@ function formatTime(totalSec) {
 }
 
 /**
+ * 🏆 목표 메이저 대회 선택 시 훈련 플래너 입력값 및 D-100(14주) 일정 자동 적용
+ */
+function applyRaceToPlannerForm(race) {
+    if (!race) return;
+
+    // 1. 목표 거리 풀코스로 세팅
+    const targetSelect = document.getElementById('plan-target');
+    if (targetSelect) {
+        targetSelect.value = 'full';
+        updatePlannerDaysOptions();
+    }
+
+    // 2. 훈련 기간 14주(D-100)로 세팅
+    const weeksSelect = document.getElementById('plan-weeks');
+    if (weeksSelect) {
+        weeksSelect.value = '14';
+    }
+
+    // 3. 주간 빈도 4회 권장 세팅
+    const daysSelect = document.getElementById('plan-days');
+    if (daysSelect) {
+        daysSelect.value = '4';
+        syncPlannerDaysWithCheckboxes();
+    }
+
+    // 4. 시작일 스마트 계산 (대회일로부터 98일 = 14주 전 날짜)
+    const startDateInput = document.getElementById('plan-start-date');
+    if (startDateInput && race.date) {
+        const rDate = new Date(race.date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        // 14주(98일) 전 날짜 계산
+        const d100Date = new Date(rDate.getTime() - (14 * 7 * 24 * 60 * 60 * 1000));
+        
+        // 만약 d100Date가 과거라면(대회까지 14주가 안 남았다면), 시작일은 오늘로 세팅
+        const effectiveStartDate = (d100Date.getTime() < today.getTime()) ? today : d100Date;
+
+        const yyyy = effectiveStartDate.getFullYear();
+        const mm = String(effectiveStartDate.getMonth() + 1).padStart(2, '0');
+        const dd = String(effectiveStartDate.getDate()).padStart(2, '0');
+        startDateInput.value = `${yyyy}-${mm}-${dd}`;
+    }
+}
+
+/**
  * 3. 독립 훈련 플래너 (PB 기반 VDOT & 안전 주간 마일리지 & 세션별 목표 페이스 산출)
  */
 function initStandalonePlanner() {
@@ -608,6 +654,35 @@ function initStandalonePlanner() {
             }
         }
     });
+
+    const raceSelect = document.getElementById('plan-race-select');
+    const weeksSelect = document.getElementById('plan-weeks');
+
+    // 🏆 메이저 대회 드롭다운 선택 시 D-100(14주) 일정 자동 동기화
+    if (raceSelect) {
+        raceSelect.addEventListener('change', () => {
+            const raceId = raceSelect.value;
+            if (raceId) {
+                const race = MAJOR_RACES.find(r => r.id === raceId);
+                if (race) {
+                    applyRaceToPlannerForm(race);
+                }
+            } else {
+                const targetBanner = document.getElementById('plan-race-target-banner');
+                if (targetBanner) targetBanner.style.display = 'none';
+            }
+            generateStandalonePlan();
+        });
+    }
+
+    if (weeksSelect) {
+        weeksSelect.addEventListener('change', () => {
+            const resultBox = document.getElementById('planner-result-box');
+            if (resultBox && resultBox.style.display !== 'none') {
+                generateStandalonePlan();
+            }
+        });
+    }
 
     if (targetSelect) {
         targetSelect.addEventListener('change', () => {
@@ -919,13 +994,45 @@ function generateStandalonePlan() {
     if (paceTempoValEl) paceTempoValEl.textContent = `${formatPace(tFastSec)} ~ ${formatPace(tSlowSec)}`;
     if (paceIntervalValEl) paceIntervalValEl.textContent = `${formatPace(iFastSec)} ~ ${formatPace(iSlowSec)}`;
 
+    // 🏆 목표 메이저 대회 연동 배너 처리
+    const raceSelect = document.getElementById('plan-race-select');
+    const targetBanner = document.getElementById('plan-race-target-banner');
+    const targetBannerName = document.getElementById('target-banner-race-name');
+    const targetBannerDday = document.getElementById('target-banner-dday');
+    const targetBannerDesc = document.getElementById('target-banner-desc');
+
+    if (raceSelect && raceSelect.value && targetBanner) {
+        const race = MAJOR_RACES.find(r => r.id === raceSelect.value);
+        if (race) {
+            targetBanner.style.display = 'block';
+            if (targetBannerName) {
+                targetBannerName.textContent = `${race.name} (${race.isExpected ? race.expectedMonth : race.date})`;
+            }
+            if (targetBannerDday) {
+                const ddayInfo = getRaceDDayInfo(race);
+                targetBannerDday.textContent = ddayInfo.badgeText;
+                targetBannerDday.style.background = ddayInfo.isUrgent ? '#DC2626' : '#1D4ED8';
+            }
+            if (targetBannerDesc) {
+                targetBannerDesc.innerHTML = `
+                    <strong>코스 분석:</strong> 누적고도 ▲ ${race.elevation} · ${race.tags.join(' ')}<br>
+                    <strong>코치 가이드:</strong> ${race.guide}
+                `;
+            }
+        }
+    } else if (targetBanner) {
+        targetBanner.style.display = 'none';
+    }
+
     const badgeEl = document.getElementById('plan-routine-badge');
-    if (badgeEl) badgeEl.textContent = routineBadgeText;
+    if (badgeEl) {
+        badgeEl.textContent = weeks === 14 ? "D-100 14주 주기화 마스터" : routineBadgeText;
+    }
 
     const container = document.getElementById('plan-weeks-container');
     container.innerHTML = '';
 
-    // 훈련 주차 생성 (3주 점진적 증량 + 1주 회복주(-20%) + 마지막 테이퍼링 주기화)
+    // 훈련 주차 생성 (14주 D-100 주기화 vs 일반 4/8/12주 주기화)
     for (let w = 1; w <= weeks; w++) {
         const weekDiv = document.createElement('div');
         weekDiv.className = 'schedule-week';
@@ -934,25 +1041,64 @@ function generateStandalonePlan() {
         // 주기화 상태 판단
         let weekStatus = "베이스 빌드업";
         let weekMult = 1.0;
+        let phaseBadge = "";
 
-        const isTaper = (w === weeks);
-        const isPreTaper = (weeks >= 8 && w === weeks - 1);
-        const isRecoveryWeek = (!isTaper && !isPreTaper && w % 4 === 0);
-
-        if (isTaper) {
-            weekStatus = "대회 직전 테이퍼링 (-40%)";
-            weekMult = 0.60;
-        } else if (isPreTaper) {
-            weekStatus = "테이퍼링 1단계 (-20%)";
-            weekMult = 0.80;
-        } else if (isRecoveryWeek) {
-            weekStatus = "부상 방지 회복주 (Rest Week -20%)";
-            weekMult = 0.80;
+        if (weeks === 14) {
+            // 🔥 가민 스타일 14주 (D-100) 마라톤 주기화 완성 로드맵
+            if (w <= 4) {
+                // 1단계: 유산소 베이스 빌드업 & 착지 안정화
+                phaseBadge = "1단계: 기초 베이스 빌드업";
+                const isStepRecovery = (w === 4);
+                weekMult = isStepRecovery ? 0.85 : (0.85 + (w * 0.05));
+                weekStatus = isStepRecovery ? "1단계 완료 회복주 (-15%)" : `유산소 적응 빌드업 (+${Math.round((weekMult - 0.85) * 100)}%)`;
+            } else if (w <= 8) {
+                // 2단계: 유산소 배기량 확장 & LSD 20~26km
+                phaseBadge = "2단계: 유산소 배기량 & LSD 강화";
+                const isStepRecovery = (w === 8);
+                weekMult = isStepRecovery ? 0.90 : (1.0 + ((w - 4) * 0.05));
+                weekStatus = isStepRecovery ? "2단계 완료 회복주 (-15%)" : `지구력 확장 롱런 (+${Math.round((weekMult - 1.0) * 100)}%)`;
+            } else if (w <= 12) {
+                // 3단계: 실전 마라톤 페이스(MP) & 32km 최종 LSD 피크
+                phaseBadge = "3단계: M페이스 실전 & 피크";
+                if (w === 12) {
+                    weekMult = 1.30;
+                    weekStatus = "🔥 14주 중 최고 마일리지 & 32km 최종 LSD 피크";
+                } else {
+                    weekMult = 1.10 + ((w - 8) * 0.05);
+                    weekStatus = `마라톤 실전 페이스 지속주 (+${Math.round((weekMult - 1.0) * 100)}%)`;
+                }
+            } else {
+                // 4단계: 피로 제거 테이퍼링 (D-14 ~ D-Day)
+                phaseBadge = "4단계: 피로 회복 테이퍼링";
+                if (w === 13) {
+                    weekMult = 0.75;
+                    weekStatus = "테이퍼링 1단계 (-25% 마일리지 축소)";
+                } else {
+                    weekMult = 0.50;
+                    weekStatus = "대회 주간 글리코겐 로딩 & 최종 컨디셔닝 (-50%)";
+                }
+            }
         } else {
-            // 점진적 증량 (주차마다 약 3~5%씩 누적 빌드업)
-            const buildStep = (w - 1) - Math.floor((w - 1) / 4);
-            weekMult = 1.0 + (buildStep * 0.05);
-            weekStatus = `점진적 마일리지 확장 (+${Math.round((weekMult - 1) * 100)}%)`;
+            // 일반 4/8/12주 주기화
+            const isTaper = (w === weeks);
+            const isPreTaper = (weeks >= 8 && w === weeks - 1);
+            const isRecoveryWeek = (!isTaper && !isPreTaper && w % 4 === 0);
+
+            if (isTaper) {
+                weekStatus = "대회 직전 테이퍼링 (-40%)";
+                weekMult = 0.60;
+            } else if (isPreTaper) {
+                weekStatus = "테이퍼링 1단계 (-20%)";
+                weekMult = 0.80;
+            } else if (isRecoveryWeek) {
+                weekStatus = "부상 방지 회복주 (Rest Week -20%)";
+                weekMult = 0.80;
+            } else {
+                // 점진적 증량 (주차마다 약 3~5%씩 누적 빌드업)
+                const buildStep = (w - 1) - Math.floor((w - 1) / 4);
+                weekMult = 1.0 + (buildStep * 0.05);
+                weekStatus = `점진적 마일리지 확장 (+${Math.round((weekMult - 1) * 100)}%)`;
+            }
         }
 
         // 주차별 세션 거리 계산
@@ -1149,8 +1295,11 @@ function generateStandalonePlan() {
         `).join('');
 
         weekDiv.innerHTML = `
-            <div class="schedule-week-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; padding-bottom:6px; border-bottom:1px dashed var(--border-light);">
-                <span style="font-weight:800; font-size:0.95rem; color:var(--text-primary);">${w}주차 (${weekStatus})</span>
+            <div class="schedule-week-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; padding-bottom:6px; border-bottom:1px dashed var(--border-light); flex-wrap:wrap; gap:6px;">
+                <span style="font-weight:800; font-size:0.95rem; color:var(--text-primary); display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+                    ${phaseBadge ? `<span style="font-size:0.72rem; background:#DBEAFE; color:#1E40AF; padding:2px 8px; border-radius:4px; font-weight:800;">${phaseBadge}</span>` : ''}
+                    <span>${w}주차 · ${weekStatus}</span>
+                </span>
                 <span style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">주간 합계 약 ${weeklyKm}km</span>
             </div>
             ${cardsHtml}
@@ -2442,52 +2591,40 @@ function initRaceCalendar() {
         const planCtaBtns = listContainer.querySelectorAll('.btn-race-plan-cta');
         planCtaBtns.forEach(btn => {
             btn.addEventListener('click', () => {
+                const raceId = btn.dataset.raceId;
                 const raceName = btn.dataset.raceName;
                 const raceDateStr = btn.dataset.raceDate;
-                linkRaceToPlanner(raceName, raceDateStr);
+                linkRaceToPlanner(raceName, raceDateStr, raceId);
             });
         });
     }
 
     // 훈련 플래너 연동 함수 (가민 스타일 D-100 주기화 템플릿 세팅)
-    function linkRaceToPlanner(raceName, raceDateStr) {
+    function linkRaceToPlanner(raceName, raceDateStr, raceId) {
         // 1. 훈련 플래너 뷰로 전환
         const plannerBtn = document.querySelector('.segment-btn[data-view="planner"]');
         if (plannerBtn) plannerBtn.click();
 
-        // 2. 시작일을 대회일 100일(14주) 전 날짜 또는 오늘 날짜로 스마트 계산
-        const startDateInput = document.getElementById('plan-start-date');
-        if (startDateInput && raceDateStr) {
-            const rDate = new Date(raceDateStr);
-            const today = new Date();
-            today.setHours(0,0,0,0);
-
-            // 대회까지 남은 일수 계산
-            const diffDays = Math.ceil((rDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-            
-            if (diffDays > 0) {
-                // 시작일은 오늘 날짜로 세팅하여 남은 기간 동안의 플랜 준비
-                const yyyy = today.getFullYear();
-                const mm = String(today.getMonth() + 1).padStart(2, '0');
-                const dd = String(today.getDate()).padStart(2, '0');
-                startDateInput.value = `${yyyy}-${mm}-${dd}`;
+        // 2. 목표 대회 드롭다운에서 해당 대회 선택 및 D-100 입력값 자동 세팅
+        const raceSelect = document.getElementById('plan-race-select');
+        if (raceSelect && raceId) {
+            raceSelect.value = raceId;
+            const race = MAJOR_RACES.find(r => r.id === raceId);
+            if (race) {
+                applyRaceToPlannerForm(race);
             }
         }
 
-        // 3. 플래너 기준 거리 풀코스 자동 선택
-        const distSelect = document.getElementById('plan-pb-dist');
-        if (distSelect) {
-            distSelect.value = '42.195';
-        }
+        // 3. 플래너 14주 D-100 플랜 즉시 생성 실행
+        generateStandalonePlan();
 
-        // 4. 플래너 결과 박스 자동 트리거
-        const btnGenerate = document.getElementById('btn-generate-plan');
-        if (btnGenerate) {
-            btnGenerate.click();
-        }
-
-        // 5. 상단으로 부드러운 스크롤 & 알림 토스트
-        window.scrollTo({ top: 120, behavior: 'smooth' });
+        // 4. 결과 화면으로 부드럽게 스크롤
+        setTimeout(() => {
+            const resultBox = document.getElementById('planner-result-box');
+            if (resultBox) {
+                resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 120);
     }
 
     // 필터 이벤트 바인딩
