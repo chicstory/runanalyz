@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스마트워치 광학 심박계(PPG)의 추위 오차: 케이던스 락(Cadence Lock) 현상과 영하권 가슴 스트랩(ECG) 권장 생체역학 | RunAnalyz</title>
+    <meta name="description" content="가을·겨울 환절기에 가민, 코로스, 애플워치 광학 센서가 심박수를 케이던스(170~180)와 똑같이 잘못 읽는 케이던스 락(Cadence Lock)의 공학적 기전. 혈관 수축으로 인한 빛 흡수 신호 감쇠와 손목 흔들림 노이즈 극복법, 심전도(ECG) 가슴 스트랩 비교 가이드.">
+    <link rel="canonical" href="https://runanalyz.com/articles/smartwatch-cold-weather-cadence-lock-ppg-hr.html">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QREC5DVG9M"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-QREC5DVG9M');
+    </script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1876940323402065" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <a href="../index.html" style="text-decoration:none; display:flex; align-items:center; gap:10px;">
+                    <span class="brand-logo">⚡</span>
+                    <div class="brand-text">
+                        <span class="brand-name">RunAnalyz</span>
+                        <span class="brand-tagline">과학적 러닝 사이언스 &amp; 훈련 처방</span>
+                    </div>
+                </a>
+            </div>
+            <nav class="header-nav-links">
+                <a href="../index.html" class="header-nav-link">러닝 분석 도구</a>
+                <a href="../index.html?view=articles" class="header-nav-link active">러닝 사이언스</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Breadcrumb -->
+        <nav style="font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 20px;">
+            <a href="../index.html" style="color: var(--primary-blue); text-decoration: none;">홈</a> &gt; 
+            <a href="../index.html?view=articles" style="color: var(--primary-blue); text-decoration: none;">러닝 사이언스</a> &gt; 
+            <span>스마트워치 추위 심박수 오차와 케이던스 락</span>
+        </nav>
+
+        <article class="card article-detail">
+            <header class="article-header">
+                <span class="article-tag">중급 빌드업 · 기어 &amp; 센서 공학</span>
+                <h1>스마트워치 광학 심박계(PPG)의 추위 오차: 케이던스 락(Cadence Lock) 현상과 영하권 가슴 스트랩(ECG) 권장 생체역학</h1>
+                <div class="article-meta">
+                    <span>작성: RunAnalyz Science Lab</span>
+                    <span>•</span>
+                    <span>읽는 시간: 약 8분</span>
+                    <span>•</span>
+                    <span>업데이트: 2026. 10. 30</span>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <div class="lead-box">
+                    <strong>"Zone 2 편안한 조깅을 하고 있는데 워치 심박수가 갑자기 180bpm으로 치솟아 깜짝 놀랐습니다. 발걸음 수(케이던스)와 완벽히 똑같네요."</strong><br>
+                    기온이 떨어지는 계절이 오면 러너 커뮤니티에 가장 많이 올라오는 질문 중 하나가 바로 <strong>'케이던스 락(Cadence Lock)'</strong>입니다. 
+                    손목형 스마트워치의 녹색 LED 센서(광전용적맥파, PPG)는 피부 모세혈관의 혈류 변화를 빛으로 감지하는데, <strong>찬 바람에 손목 혈관이 수축하면 혈류 신호가 미약해져 팔 흔들림 진동을 심박수로 오인</strong>하게 됩니다. 
+                    케이던스 락의 광학 신호처리 메커니즘과 겨울철 심박 신뢰도를 확보하는 실전 팁을 정리합니다.
+                </div>
+
+                <h2>1. 광학 심박계(PPG)의 작동 원리와 혈관 수축의 치명적 한계</h2>
+                <p>
+                    가민, 코로스, 애플워치 등 현대 스마트워치의 광학 심박 센서는 피부 표면에 녹색 빛(약 525~535nm 파장)을 쏘아 반사되는 빛의 양을 측정합니다.
+                </p>
+                <ul>
+                    <li><strong>정상 상태</strong>: 심장이 수축할 때마다 손목 모세혈관에 혈액량이 늘어나 헤모글로빈이 녹색 빛을 더 많이 흡수합니다. 워치 알고리즘은 이 빛의 파동 주기를 계산하여 심박수를 도출합니다.</li>
+                    <li><strong>추위 노출 시 혈관 수축</strong>: 기온이 떨어지면 체온 유지를 위해 손목과 손가락 말초 모세혈관이 급격히 닫힙니다. 그 결과 반사되는 혈류 신호(Signal)의 진폭이 평소의 10~20% 수준으로 쪼그라듭니다.</li>
+                </ul>
+
+                <h2>2. 케이던스 락(Cadence Lock)이 일어나는 신호처리(DSP) 과정</h2>
+                <p>
+                    워치 센서가 읽어 들이는 원시 데이터(Raw Data)에는 두 가지 주파수가 섞여 있습니다.
+                </p>
+                <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: 12px; padding: 20px; margin: 20px 0;">
+                    <div style="font-weight: 700; color: #1E293B; margin-bottom: 8px;">📊 광학 센서의 주파수 혼선 메커니즘</div>
+                    <ol style="margin: 0; padding-left: 20px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;">
+                        <li><strong>1번 신호 (혈류 맥파)</strong>: 실제 심박수 (예: 135 bpm). 추위로 인해 신호 세기가 매우 희미함.</li>
+                        <li><strong>2번 신호 (움직임 아티팩트)</strong>: 달릴 때 팔이 흔들리며 워치가 피부를 때리는 충격 주파수 = 발걸음 케이던스 (예: 175 spm). 신호 세기가 매우 강함.</li>
+                        <li><strong>알고리즘의 착오</strong>: 워치 내부의 가속도계 센서와 광학 필터가 희미한 심박수를 놓치고, 진폭이 압도적으로 큰 팔 흔들림 주파수(175)를 심장 박동으로 인식하여 표시창에 '락(Lock)'을 걸어버립니다.</li>
+                    </ol>
+                </div>
+
+                <h2>3. 광학 손목 심박계(PPG) vs 가슴 스트랩(ECG) 겨울철 정밀도 비교</h2>
+                <div style="overflow-x: auto; margin: 20px 0;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+                        <thead>
+                            <tr style="background: #F1F5F9; border-bottom: 2px solid #CBD5E1;">
+                                <th style="padding: 12px 14px;">비교 항목</th>
+                                <th style="padding: 12px 14px; color: #2563EB;">손목형 광학 심박계 (PPG)</th>
+                                <th style="padding: 12px 14px; color: #16A34A;">가슴 심박 스트랩 (ECG 심전도)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #E2E8F0;">
+                                <td style="padding: 12px 14px; font-weight: 700;">측정 방식</td>
+                                <td style="padding: 12px 14px;">모세혈관 적혈구 빛 흡수량 변화</td>
+                                <td style="padding: 12px 14px; font-weight: 700; color: #16A34A;">심근 수축 시 발생하는 미세 전기 신호 (R-R 간격)</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E2E8F0;">
+                                <td style="padding: 12px 14px; font-weight: 700;">추위(0℃ 이하) 오차율</td>
+                                <td style="padding: 12px 14px; color: #DC2626; font-weight:700;">높음 (초반 10~15분 케이던스 락 빈발)</td>
+                                <td style="padding: 12px 14px; font-weight: 700; color: #16A34A;">매우 낮음 (의료용 심전도 수준 99.8% 일치)</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E2E8F0;">
+                                <td style="padding: 12px 14px; font-weight: 700;">인터벌 반응 지연 (Lag)</td>
+                                <td style="padding: 12px 14px;">5~15초 지연 (혈류 이동 시간 소요)</td>
+                                <td style="padding: 12px 14px; font-weight: 700; color: #16A34A;">즉각 반응 (0.1초 이내)</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E2E8F0;">
+                                <td style="padding: 12px 14px; font-weight: 700;">장착 편의성</td>
+                                <td style="padding: 12px 14px; color: #2563EB; font-weight:700;">매우 편리 (워치 하나로 완결)</td>
+                                <td style="padding: 12px 14px;">가슴 착용 필요, 초기 전극 수분 적심 필요</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>4. 케이던스 락을 방지하는 손목 착용 3대 수칙</h2>
+                <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 20px; margin: 24px 0;">
+                    <h4 style="margin: 0 0 10px; color: #1E40AF; font-size: 1rem;">🛡️ 겨울철 스마트워치 심박 정확도 90% 끌어올리기</h4>
+                    <ul style="margin: 0; padding-left: 20px; font-size: 0.9rem; line-height: 1.7; color: #1E3A8A;">
+                        <li><strong>1. 복사뼈 위 손가락 2마디 위에 착용</strong>: 손목 관절 바로 위에 차면 뼈 융기에 센서가 떠서 외부 빛이 샙니다. 심장 방향으로 2~3cm 올려서 차야 근육층 혈류를 정확히 포착합니다.</li>
+                        <li><strong>2. 장갑 안쪽으로 워치 밀어 넣기</strong>: 워치가 찬 바람에 직접 노출되면 센서와 피부가 차갑게 식어 혈관이 닫힙니다. 긴팔 러닝탑이나 장갑 커프 안으로 워치를 덮어 손목 온도를 30℃ 이상 유지해야 합니다.</li>
+                        <li><strong>3. 한 칸 더 타이트하게 체결</strong>: 달릴 때 워치가 덜렁거리면 움직임 노이즈가 폭증합니다. 손가락 하나가 간신히 들어갈 정도로 밀착 체결하세요.</li>
+                    </ul>
+                </div>
+
+                <!-- 🫀 카보넨 심박존 계산기 연동 CTA -->
+                <div class="article-cta-tool">
+                    <h3>🫀 왜곡된 심박수를 바로잡는 내 정밀 심박 영역</h3>
+                    <p>센서 오차에 휘둘리지 않고, 내 안정시 심박수와 운동 강도에 맞춘 과학적 Zone 1~5 심박수 타깃을 산출해보세요.</p>
+                    <a href="../index.html?sub=hrzone" class="article-cta-btn">
+                        🫀 카보넨 정밀 심박존(Zone 1~5) 계산기 실행하기 ›
+                    </a>
+                </div>
+
+                <!-- Scientific References -->
+                <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: 12px; padding: 20px; margin: 30px 0;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                        <span style="font-size: 1.1rem;">📚</span>
+                        <span style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">학술 연구 및 데이터 출처 (Scientific References)</span>
+                    </div>
+                    <ol style="margin: 0; padding-left: 20px; font-size: 0.85rem; color: var(--text-tertiary); line-height: 1.7;">
+                        <li>Gillinov, S., et al. (2017). <em>Variable accuracy of wearable heart rate monitors during aerobic exercise.</em> Medicine &amp; Science in Sports &amp; Exercise, 49(8), 1697-1703.</li>
+                        <li>Tamura, T., et al. (2014). <em>Wearable photoplethysmographic sensors—past and present.</em> Electronics, 3(2), 282-302.</li>
+                        <li>Parak, J., et al. (2019). <em>Sensor location and skin temperature impact on the accuracy of wrist-worn photoplethysmography during running.</em> IEEE Journal of Biomedical and Health Informatics, 23(4), 1432-1440.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <footer class="article-footer-nav" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-light);">
+                <a href="../index.html?view=articles" class="btn-back" style="color: var(--primary-blue); font-weight: 700; text-decoration: none;">← 전체 런로그 목록으로 돌아가기</a>
+            </footer>
+
+            <!-- 실시간 러너 댓글 & 팁 메모장 -->
+            <section class="article-memo-section">
+                <div class="memo-header">
+                    <div class="memo-title-group">
+                        <h3 class="memo-title">💬 러너 실전 한줄 소감 &amp; 팁</h3>
+                        <span class="memo-subtitle">달릴 때 워치 심박수가 튀거나 케이던스 락을 겪었던 경험담을 남겨주세요.</span>
+                    </div>
+                </div>
+                <div class="memo-input-box">
+                    <input type="text" id="memo-author" class="memo-author-input" placeholder="러너 닉네임" maxlength="10">
+                    <textarea id="memo-content" class="memo-textarea" placeholder="스마트워치 착용 팁이나 가슴 스트랩 사용 후기를 공유해주세요." rows="3"></textarea>
+                    <div class="memo-action-bar">
+                        <div class="memo-quiz-group">
+                            <span id="memo-quiz-label" class="memo-quiz-question">보안 퀴즈: 7 + 2 =</span>
+                            <input type="number" id="memo-quiz-ans" class="memo-quiz-input" placeholder="정답">
+                        </div>
+                        <button type="button" id="btn-submit-memo" class="btn-memo-submit">소감 등록하기</button>
+                    </div>
+                </div>
+                <div id="memo-list" class="memo-list">
+                    <!-- JS 실시간 렌더링 -->
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <p class="copyright">© 2026 RunAnalyz. 직접 달리며 기록한 러너의 실전 과학 노트.</p>
+            <div class="footer-links">
+                <a href="../about.html">소개</a>
+                <a href="../privacy.html">개인정보처리방침</a>
+                <a href="../terms.html">이용약관</a>
+            </div>
+        </div>
+    </footer>
+    <script src="memo.js"></script>
+</body>
+
+</html>

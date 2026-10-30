@@ -5,8 +5,40 @@
     <link>https://runanalyz.com/</link>
     <description>스포츠 생체역학과 운동생리학 연구 기반의 러닝 사이언스, 부상 재활, 마라톤 코스 공략 및 체력 진단 매거진</description>
     <language>ko</language>
-    <lastBuildDate>Tue, 27 Oct 2026 12:42:56 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 30 Oct 2026 19:30:00 +0900</lastBuildDate>
     <atom:link href="https://runanalyz.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>스마트워치 광학 심박계(PPG)의 추위 오차: 케이던스 락(Cadence Lock) 현상과 영하권 가슴 스트랩(ECG) 권장 생체역학</title>
+      <link>https://runanalyz.com/articles/smartwatch-cold-weather-cadence-lock-ppg-hr.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/smartwatch-cold-weather-cadence-lock-ppg-hr.html</guid>
+      <pubDate>Fri, 30 Oct 2026 19:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 기어 &amp; 센서 공학</category>
+      <description><![CDATA[겨울철 조깅 시 워치 심박수가 발걸음 수(180)와 똑같이 치솟는 케이던스 락의 원인. 찬 바람 혈관 수축으로 인한 광학 신호 감쇠, 팔 흔들림 노이즈와 심박수 왜곡 극복 착용법.]]></description>
+    </item>
+    <item>
+      <title>환절기·겨울철 야외 러닝의 심혈관 과학: 찬 공기 급성 혈관 수축, 아침 혈압 급상승(Morning Surge)과 워밍업 15분 수칙</title>
+      <link>https://runanalyz.com/articles/winter-running-cardiovascular-blood-pressure-warmup.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/winter-running-cardiovascular-blood-pressure-warmup.html</guid>
+      <pubDate>Fri, 30 Oct 2026 19:00:00 +0900</pubDate>
+      <category>초보 입문 · 훈련 &amp; 심혈관 안전 생리학</category>
+      <description><![CDATA[기온 급강하 시 새벽 러닝의 심혈관계 위험. 급성 말초 혈관 수축과 혈압 스파이크, 심장 산소 소모량 폭증 메커니즘, 심장 쇼크를 막는 실내 15분 동적 웜업과 버프 기도 보온법.]]></description>
+    </item>
+    <item>
+      <title>달릴 때 발바닥·발가락 저림과 찌릿한 마비감: 족근관 증후군(발목 터널 증후군)과 신발 끈 압박의 신경역학</title>
+      <link>https://runanalyz.com/articles/tarsal-tunnel-syndrome-foot-numbness-running.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/tarsal-tunnel-syndrome-foot-numbness-running.html</guid>
+      <pubDate>Fri, 30 Oct 2026 19:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 부상 &amp; 신경생체역학</category>
+      <description><![CDATA[러닝 중 발바닥 앞쪽과 발가락 끝이 저리고 감각이 둔해지는 원인. 안쪽 복사뼈 뒤를 지나는 후경골신경 압박, 족저근막염과의 3초 감별법, 윈도우 레이싱 매듭법과 신경 글라이딩 재활.]]></description>
+    </item>
+    <item>
+      <title>풀마라톤 완주 후 48시간 급성기 관리법: 림프 마사지, 지연성 근육통(DOMS), 걷기 vs 완전 휴식의 생리학</title>
+      <link>https://runanalyz.com/articles/marathon-post-race-48h-acute-recovery-doms.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-post-race-48h-acute-recovery-doms.html</guid>
+      <pubDate>Fri, 30 Oct 2026 19:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 대회 실전 &amp; 급성기 리커버리</category>
+      <description><![CDATA[풀코스 42.195km 완주 직후 48시간 골든타임. 근섬유 파열과 전신 염증기, 폼롤러 강한 압박이 위험한 이유, 미세 손상 치유를 위한 림프 순환과 능동적 회복 걷기(Active Walking).]]></description>
+    </item>
     <item>
       <title>마라톤 서브4에서 서브3로 도약하는 4대 훈련 주기화 공식: 주간 마일리지와 롱런의 질(Quality)의 차이</title>
       <link>https://runanalyz.com/articles/sub4-to-sub3-marathon-periodization-training-formula.html</link>
