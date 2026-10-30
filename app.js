@@ -1128,6 +1128,7 @@ function generateStandalonePlan(isManual = false) {
         let weekStatus = "베이스 빌드업";
         let weekMult = 1.0;
         let phaseBadge = "";
+        let isTaper = false;
 
         if (weeks === 14) {
             // 🔥 가민 스타일 14주 (D-100) 마라톤 주기화 완성 로드맵
@@ -1156,6 +1157,7 @@ function generateStandalonePlan(isManual = false) {
             } else {
                 // 4단계: 피로 제거 테이퍼링 (D-14 ~ D-Day)
                 phaseBadge = "4단계: 피로 회복 테이퍼링";
+                isTaper = true;
                 if (w === 13) {
                     weekMult = 0.75;
                     weekStatus = "테이퍼링 1단계 (-25% 마일리지 축소)";
@@ -1166,7 +1168,7 @@ function generateStandalonePlan(isManual = false) {
             }
         } else {
             // 일반 4/8/12주 주기화
-            const isTaper = (w === weeks);
+            isTaper = (w === weeks);
             const isPreTaper = (weeks >= 8 && w === weeks - 1);
             const isRecoveryWeek = (!isTaper && !isPreTaper && w % 4 === 0);
 

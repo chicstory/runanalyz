@@ -2,6 +2,33 @@
 
 ---
 
+## [2026-10-31] 🐛 런로그 카테고리 필터 미작동 결함 수정 (플래너 isTaper 변수 스코프 예외 복구)
+- **1. 요청사항**: 
+  - `runanalyz.com`의 런로그 하단 5대 카테고리 필터(전체/부상/훈련/영양/대회/기어) 클릭 시 아무런 반응이 없는 결함 제보.
+- **2. 솔루션 & 구현**:
+  - **원인 분석**:
+    - `DOMContentLoaded` 실행 흐름에서 `initStandalonePlanner()`가 호출되고, 초기 플랜 자동 생성을 위해 `generateStandalonePlan(false)`가 실행됨.
+    - `generateStandalonePlan()` 내부에서 `isTaper` 변수가 `else` 블록(일반 4/8/12주 주기화) 내부에 `const isTaper`로 국소 선언되어 있었음.
+    - 이로 인해 블록 바깥인 주차별 LSD 세션 거리 계산(`currentLsdDist = isTaper ? 15 : ...`) 실행 시 `ReferenceError: isTaper is not defined` 예외가 발생.
+    - 자바스크립트 실행이 중단되면서 뒤이어 호출되어야 할 `initMemoSystem()`, `initArticleFilters()`, `initTreadmillConverter()`, `initHrZoneCalculator()`, `initRaceCalendar()` 등의 이벤트 바인딩이 일괄 누락됨.
+  - **코드 수정 (`app.js`)**:
+    - `generateStandalonePlan`의 주차별 루프(`for (let w = 1; w <= weeks; w++)`) 시작 시점에 `let isTaper = false;`를 외부 스코프로 선언.
+    - 14주 D-100 주기화 4단계 테이퍼링(`w >= 13`) 진입 시 `isTaper = true;`, 일반 주기화 진입 시 `isTaper = (w === weeks);`로 할당하여 블록 외부의 LSD 거리 계산식에서 안전하게 참조 가능하도록 수정.
+- **3. 결과 & 검증**:
+  - Edge Headless CDP 브라우저 자동화 검증 완료:
+    - 런타임 Uncaught Exception 0건 달성 (완전 무결점).
+    - 런로그 카테고리 칩 전수 클릭 테스트 통과:
+      - 전체: 104편 정상 노출 (Active 상태 정상)
+      - 부상 & 재활: 26편 정상 필터링
+      - 훈련 & 심폐: 26편 정상 필터링
+      - 영양 & 회복: 19편 정상 필터링
+      - 대회 실전: 15편 정상 필터링
+      - 기어 & 랩: 18편 정상 필터링
+- **4. 주요 합의 사항**:
+  - 조건 분기(if-else) 내에서 사용되는 플래그 변수는 반드시 외부 스코프에 선언하여 런타임 ReferenceError로 인한 스크립트 실행 중단 및 UI 인터랙션 먹통을 원천 방지함.
+
+---
+
 ## [2026-10-30] 🛡️ 애드센스 '가치가 별로 없는 콘텐츠' 대응 & 정체성 정화 (개인 러너 아카이브, 출처 투명화, 문의처 갱신)
 - **1. 요청사항**: 
   - 구글 애드센스 심사 결과 "가치가 별로 없는 콘텐츠 (Low Value Content)" 거절 통보 수신.
