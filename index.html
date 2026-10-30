@@ -746,7 +746,10 @@
                     </div>
                 </div>
 
-                <button type="button" id="btn-generate-plan" class="btn btn-primary" style="margin-top:16px; font-size:1.05rem; font-weight:800; padding:15px; width:100%; box-shadow:0 4px 14px rgba(49, 130, 246, 0.35); cursor:pointer;">⚡ 내 PB 기반 과학적 훈련 플랜 생성하기</button>
+                <!-- 🚀 훈련 플랜 생성 CTA 영역 (폼과 명확한 분리 및 넉넉한 여백) -->
+                <div style="margin-top:24px; padding-top:18px; border-top:1px dashed var(--border-light);">
+                    <button type="button" id="btn-generate-plan" class="btn btn-primary" style="font-size:1.05rem; font-weight:800; padding:15px; width:100%; box-shadow:0 4px 14px rgba(49, 130, 246, 0.35); cursor:pointer;">⚡ 내 PB 기반 맞춤 훈련 플랜 생성하기</button>
+                </div>
 
                 <div id="planner-result-box" style="display:none; margin-top:24px;">
                     <!-- 🏆 목표 메이저 대회 D-100 연동 알림 배너 (선택 시 활성화) -->
@@ -802,12 +805,18 @@
                     </div>
 
                     <div class="planner-schedule-box">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
                             <span style="font-weight:800; font-size:1.05rem; color:var(--text-primary);" id="plan-summary-title">8주 맞춤 훈련 스케줄</span>
                             <span class="badge-mk2" id="plan-routine-badge">유산소 베이스 빌드업</span>
                         </div>
-                        <div id="plan-weeks-container">
-                            <!-- JS 동적 생성 -->
+                        <div class="scroll-hint-bar">
+                            <span>↕ 스크롤박스 내부를 위아래로 스크롤하여 전체 주차별 세부 훈련을 확인하세요</span>
+                            <span style="font-size:0.72rem; color:var(--primary-blue); font-weight:700;">스크롤 지원</span>
+                        </div>
+                        <div class="planner-weeks-scrollbox" id="plannerWeeksScrollBox">
+                            <div id="plan-weeks-container">
+                                <!-- JS 동적 생성 -->
+                            </div>
                         </div>
                     </div>
 
@@ -846,6 +855,9 @@
                         </button>
                         <button type="button" class="race-status-tab" data-race-status="expected">
                             📌 시기 예정 <span class="race-count-badge" id="count-expected">8</span>
+                        </button>
+                        <button type="button" class="race-status-tab" data-race-status="archived">
+                            🏛️ 지난 대회 아카이브 <span class="race-count-badge" id="count-archived">0</span>
                         </button>
                     </div>
 

@@ -573,9 +573,21 @@ function formatTime(totalSec) {
  * 🏆 메이저 대회 D-Day 및 날짜 포맷 계산 헬퍼 (글로벌 스코프)
  */
 function getRaceDDayInfo(race) {
-    if (!race) return { badgeText: '-', subText: '', dateDisplay: '', isUrgent: false, isExpected: false, statusKey: 'all' };
+    if (!race) return { badgeText: '-', subText: '', dateDisplay: '', isUrgent: false, isExpected: false, isArchived: false, statusKey: 'all' };
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+
+    if (race.isArchived) {
+        return {
+            badgeText: '🏛️ 아카이브',
+            subText: '대회 종료',
+            dateDisplay: `${race.date} (종료)`,
+            isUrgent: false,
+            isExpected: false,
+            isArchived: true,
+            statusKey: 'archived'
+        };
+    }
 
     if (race.isExpected) {
         return {
@@ -584,6 +596,7 @@ function getRaceDDayInfo(race) {
             dateDisplay: race.expectedMonth,
             isUrgent: false,
             isExpected: true,
+            isArchived: false,
             statusKey: 'expected'
         };
     }
@@ -2116,15 +2129,26 @@ const MAJOR_RACES = [
         isExpected: false,
         date: '2026-11-01',
         time: '08:00',
-        location: '서울 상암월드컵경기장 ~ 잠실종합운동장',
+        location: '서울 광화문광장(풀) / 상암(10k) ~ 올림픽공원 평화의광장',
         label: 'WA 골드 라벨',
         distance: 'Full 42.195km / 10km',
         difficulty: 3,
-        difficultyDesc: '보통 (후반 롤링힐 주의)',
-        elevation: '+112m',
-        tags: ['#상암출발', '#잠실피니시', '#마포대교', '#수서나들목'],
-        guide: '상암에서 양화대교를 거쳐 여의도까지는 평탄하나, 30km 이후 수서나들목과 탄천 합류 구간의 완만한 오르막에서 다리 경련이 잦습니다. 25km까지 이븐 페이스를 철저히 지키는 것이 후반 완주의 핵심입니다.',
-        officialUrl: 'https://marathon.jtbc.com/'
+        difficultyDesc: '보통 (광화문 도심 출발 & 후반 둔촌 롤링힐)',
+        elevation: '+105m',
+        tags: ['#광화문출발', '#올림픽공원피니시', '#10K출발분리', '#둔촌롤링힐'],
+        guide: '풀코스 출발지가 광화문광장으로 전격 이전되어 10K와 완전 분리 출발합니다. 초반 도심 직선로에서 오버페이스를 자제하고, 30km 이후 천호대로~둔촌사거리 반환 구간의 낙타등 롤링힐과 맞바람에 대비한 이븐 페이스 유지가 완주의 열쇠입니다.',
+        officialUrl: 'https://marathon.jtbc.com/',
+        courseChange: {
+            title: '🚨 최근 코스 대규모 개편 (이전 vs 현재 코스 비교)',
+            summary: '풀/10K 동시 출발로 인한 상암 병목 현상과 잠실종합운동장 공사 여건을 반영하여 출발·도착지 및 주요 주로가 전면 개편되었습니다.',
+            points: [
+                { item: '풀코스 출발지', before: '상암월드컵공원 (10K와 합류 출발 ➔ 1시간 이상 극심한 대기/병목)', after: '광화문광장 출발 (10K 상암 출발과 완전 분리 ➔ 병목 100% 해소)' },
+                { item: '피니시 도착지', before: '잠실종합운동장 주경기장 트랙', after: '올림픽공원 평화의 광장 (잠실 돔구장 복합 리모델링 공사 반영)' },
+                { item: '청계천 반환점', before: '고산자교 부근 반환', after: '비우당교 부근 반환으로 코스 단축 및 안정화' },
+                { item: '피니시 직전 주로', before: '천호대로 직진 후 잠실대교 진입', after: '둔촌사거리 반환 왕복 구간 신설 후 올림픽공원 직선 진입' }
+            ],
+            strategyTip: '광화문 출발로 초반 주로가 넓어져 초반 5km 오버페이스 위험이 큽니다. 시청~종로 평지에서 VDOT M페이스를 철저히 지키고, 32km 둔촌사거리 구간의 미세한 오르막에 대비해 25km 지점까지 체력 15%를 비축하십시오.'
+        }
     },
     {
         id: 'seoul-marathon',
@@ -2447,6 +2471,113 @@ const MAJOR_RACES = [
         tags: ['#세계최대여성마라톤', '#기네스북', '#티파니목걸이완주', '#초평탄'],
         guide: '기네스북에 등재된 세계 최대 여성 풀마라톤으로, 완주 시 턱시도 요원이 티파니앤코 펜던트 목걸이를 수여합니다. 돔구장 출발/피니시의 초평탄 주로로 제한시간도 7시간으로 넉넉하여 첫 풀마라톤에 최고입니다.',
         officialUrl: 'https://womens-marathon.nagoya/'
+    },
+    // ----------------------------------------------------
+    // 🏛️ 지난 대회 아카이브 (과거 공식 결과 & 완주 데이터)
+    // ----------------------------------------------------
+    {
+        id: 'archive-2024-jtbc',
+        name: '2024 JTBC 서울마라톤',
+        nameEn: '2024 JTBC Seoul Marathon (Archive)',
+        category: 'domestic',
+        isExpected: false,
+        isArchived: true,
+        date: '2024-11-03',
+        time: '08:00',
+        location: '서울 상암월드컵공원 ~ 올림픽공원 평화의 광장',
+        label: 'WA 골드 라벨 (2024)',
+        distance: 'Full 42.195km / 10km',
+        difficulty: 3,
+        difficultyDesc: '보통 (상암 출발 풀/10K 합류 코스)',
+        elevation: '+112m',
+        tags: ['#2024아카이브', '#상암출발', '#올림픽공원', '#2시간5분대'],
+        guide: '2024년 대회는 상암월드컵공원에서 풀코스와 10K가 동시 진행된 마지막 대회로, 케냐의 마이클 기샤이(Michael Githae) 선수가 2시간 05분 29초로 대회 신기록을 세우며 우승을 차지했습니다. 국내부 1위는 2시간 16분 11초를 기록했습니다.',
+        officialUrl: 'https://marathon.jtbc.com/',
+        archiveStats: {
+            year: 2024,
+            winnerMen: '2:05:29 (Michael Githae · 케냐)',
+            winnerWomen: '2:27:08 (메셀레치 엠바예 · 에티오피아)',
+            finisherCount: '약 25,000명 완주',
+            weather: '맑음, 기온 11℃ ~ 18℃ (러닝 최적)'
+        }
+    },
+    {
+        id: 'archive-2024-chuncheon',
+        name: '2024 조선일보 춘천마라톤',
+        nameEn: '2024 Chuncheon Marathon (Archive)',
+        category: 'domestic',
+        isExpected: false,
+        isArchived: true,
+        date: '2024-10-27',
+        time: '09:00',
+        location: '춘천 공지천교 ~ 의암호 순환 주로',
+        label: 'KAAF 공인 (2024)',
+        distance: 'Full 42.195km / 10km',
+        difficulty: 4,
+        difficultyDesc: '어려움 (신매대교·의암댐 후반 롤링힐)',
+        elevation: '+145m',
+        tags: ['#가을의전설', '#의암호단풍', '#춘마2024', '#업다운명코스'],
+        guide: '가을 단풍이 절정인 의암호 순환 코스에서 펼쳐졌으며, 30km 신매대교 이후 연이은 언덕에도 불구하고 수많은 마스터즈 러너들이 완주의 감동을 나눴습니다. 남성 엘리트 우승 2시간 07분 03초를 기록했습니다.',
+        officialUrl: 'https://marathon.chosun.com/',
+        archiveStats: {
+            year: 2024,
+            winnerMen: '2:07:03 (에티오피아)',
+            winnerWomen: '2:29:45 (케냐)',
+            finisherCount: '약 18,000명 완주',
+            weather: '맑음, 단풍 최성기 (9℃ ~ 16℃)'
+        }
+    },
+    {
+        id: 'archive-2024-gyeongju',
+        name: '2024 동아일보 경주국제마라톤',
+        nameEn: '2024 Gyeongju International Marathon (Archive)',
+        category: 'domestic',
+        isExpected: false,
+        isArchived: true,
+        date: '2024-10-19',
+        time: '08:00',
+        location: '경주시민운동장 ~ 보문관광단지 순환',
+        label: 'KAAF 공인 (2024)',
+        distance: 'Full 42.195km / Half / 10km',
+        difficulty: 2,
+        difficultyDesc: '보통 (보문호 완만한 경사)',
+        elevation: '+98m',
+        tags: ['#천년고도', '#보문호수', '#경주2024', '#가을쾌속코스'],
+        guide: '신라 천년 고도의 유적지와 보문호를 순환하는 코스로 쾌적한 가을 날씨 속에 진행되었습니다. 케냐 엘리트 2시간 08분 42초 우승.',
+        officialUrl: 'https://www.gyeongjumarathon.com/',
+        archiveStats: {
+            year: 2024,
+            winnerMen: '2:08:42 (케냐)',
+            winnerWomen: '2:31:15 (에티오피아)',
+            finisherCount: '약 11,000명 완주',
+            weather: '쾌청, 기온 12℃ ~ 19℃'
+        }
+    },
+    {
+        id: 'archive-2024-chicago',
+        name: '2024 시카고 마라톤 (WMM)',
+        nameEn: '2024 Bank of America Chicago Marathon (Archive)',
+        category: 'wmm',
+        isExpected: false,
+        isArchived: true,
+        date: '2024-10-13',
+        time: '07:30',
+        location: '미국 시카고 그랜트 파크 순환 주로',
+        label: '애보트 월드 마라톤 메이저 (2024)',
+        distance: 'Full 42.195km',
+        difficulty: 1,
+        difficultyDesc: '매우 쉬움 (세계 최고 고속 플랫 코스)',
+        elevation: '+24m',
+        tags: ['#세계신기록', '#루스쳅게티', '#2시간9분56초', '#초평탄WMM'],
+        guide: '여자 마라톤 역사상 최초로 2시간 10분 벽을 허문 루스 쳅게티(케냐)의 2시간 09분 56초 세계 신기록이 탄생한 기념비적인 대회입니다. 시카고 도심 29개 동네를 관통하는 완벽한 평지 코스로 5만 명 이상이 완주했습니다.',
+        officialUrl: 'https://www.chicagomarathon.com/',
+        archiveStats: {
+            year: 2024,
+            winnerMen: '2:02:43 (존 코리르 · 케냐)',
+            winnerWomen: '2:09:56 (루스 쳅게티 · 세계 신기록 WR)',
+            finisherCount: '52,150명 완주 (역대 최다)',
+            weather: '맑음, 바람 잔잔 (10℃ ~ 17℃)'
+        }
     }
 ];
 
@@ -2454,7 +2585,7 @@ function initRaceCalendar() {
     const listContainer = document.getElementById('races-card-list');
     if (!listContainer) return;
 
-    let currentStatusFilter = 'all'; // 'all' | 'confirmed' | 'expected'
+    let currentStatusFilter = 'all'; // 'all' | 'confirmed' | 'expected' | 'archived'
     let currentRegionFilter = 'all'; // 'all' | 'domestic' | 'wmm' | 'japan'
 
     // 내부 카운트 계산 및 렌더링
@@ -2462,20 +2593,24 @@ function initRaceCalendar() {
     function updateCountBadges() {
         let confirmedCount = 0;
         let expectedCount = 0;
+        let archivedCount = 0;
 
         MAJOR_RACES.forEach(race => {
             const dday = getRaceDDayInfo(race);
             if (dday.statusKey === 'confirmed') confirmedCount++;
-            else expectedCount++;
+            else if (dday.statusKey === 'expected') expectedCount++;
+            else if (dday.statusKey === 'archived') archivedCount++;
         });
 
         const badgeAll = document.getElementById('count-all');
         const badgeConfirmed = document.getElementById('count-confirmed');
         const badgeExpected = document.getElementById('count-expected');
+        const badgeArchived = document.getElementById('count-archived');
 
         if (badgeAll) badgeAll.textContent = MAJOR_RACES.length;
         if (badgeConfirmed) badgeConfirmed.textContent = confirmedCount;
         if (badgeExpected) badgeExpected.textContent = expectedCount;
+        if (badgeArchived) badgeArchived.textContent = archivedCount;
     }
 
     function renderRaces() {
@@ -2484,9 +2619,10 @@ function initRaceCalendar() {
         const filtered = MAJOR_RACES.filter(race => {
             const dday = getRaceDDayInfo(race);
             
-            // 상태 필터
+            // 상태 필터 ('all' | 'confirmed' | 'expected' | 'archived')
             if (currentStatusFilter === 'confirmed' && dday.statusKey !== 'confirmed') return false;
             if (currentStatusFilter === 'expected' && dday.statusKey !== 'expected') return false;
+            if (currentStatusFilter === 'archived' && dday.statusKey !== 'archived') return false;
 
             // 지역 필터
             if (currentRegionFilter !== 'all' && race.category !== currentRegionFilter) return false;
@@ -2507,22 +2643,82 @@ function initRaceCalendar() {
 
         filtered.forEach(race => {
             const dday = getRaceDDayInfo(race);
-            const badgeClass = dday.isUrgent ? 'urgent' : (dday.isExpected ? 'expected' : '');
+            const badgeClass = dday.isUrgent ? 'urgent' : (dday.isExpected ? 'expected' : (dday.isArchived ? 'archived' : ''));
             
             const categoryLabel = race.category === 'domestic' ? '🇰🇷 국내' : (race.category === 'wmm' ? '🌍 WMM' : '🇯🇵 일본');
             const labelClass = race.category === 'wmm' ? 'label-major' : (race.label.includes('플래티넘') ? 'label-platinum' : '');
 
             const card = document.createElement('div');
-            card.className = 'race-card';
+            card.className = `race-card ${race.isArchived ? 'archived' : ''}`;
             card.id = `race-card-${race.id}`;
+
+            // 코스 변경점 비교 렌더링 HTML (JTBC 등)
+            let courseChangeHtml = '';
+            if (race.courseChange) {
+                const cc = race.courseChange;
+                const rows = cc.points.map(pt => `
+                    <tr>
+                        <td class="col-item">${escapeHtml(pt.item)}</td>
+                        <td class="col-before">${escapeHtml(pt.before)}</td>
+                        <td class="col-after">${escapeHtml(pt.after)}</td>
+                    </tr>
+                `).join('');
+
+                courseChangeHtml = `
+                    <div class="course-change-card">
+                        <div class="course-change-header">
+                            <span>${escapeHtml(cc.title)}</span>
+                        </div>
+                        <p style="font-size:0.80rem; color:#78350F; margin:0 0 10px; line-height:1.5;">
+                            ${escapeHtml(cc.summary)}
+                        </p>
+                        <table class="course-change-table">
+                            <thead>
+                                <tr>
+                                    <th>구분</th>
+                                    <th>이전 코스</th>
+                                    <th>현재 개편 코스</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${rows}
+                            </tbody>
+                        </table>
+                        <div class="course-change-note">
+                            <strong>💡 코스 변경 실전 공략 팁:</strong> ${escapeHtml(cc.strategyTip)}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 아카이브 전용 우승/기록 브리핑 HTML
+            let archiveStatsHtml = '';
+            if (race.archiveStats) {
+                const st = race.archiveStats;
+                archiveStatsHtml = `
+                    <div class="archive-record-box">
+                        <div style="font-weight:800; color:var(--text-primary); margin-bottom:6px; font-size:0.88rem;">
+                            🏆 ${st.year}년 공식 완주 기록 &amp; 대회 브리핑
+                        </div>
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:6px; margin-bottom:4px;">
+                            <div>• 남성 1위: <strong>${escapeHtml(st.winnerMen)}</strong></div>
+                            <div>• 여성 1위: <strong>${escapeHtml(st.winnerWomen)}</strong></div>
+                        </div>
+                        <div style="color:var(--text-secondary); font-size:0.78rem;">
+                            • 규모/날씨: ${escapeHtml(st.finisherCount)} · ${escapeHtml(st.weather)}
+                        </div>
+                    </div>
+                `;
+            }
 
             card.innerHTML = `
                 <div class="race-card-main">
                     <!-- 1행: 대회명 - D-Day - 날짜/장소 -->
                     <div class="race-row-top">
                         <div class="race-title-cluster">
-                            <span class="race-title-ko">${race.name}</span>
-                            <span class="race-title-en">${race.nameEn}</span>
+                            <span class="race-title-ko">${escapeHtml(race.name)}</span>
+                            <span class="race-title-en">${escapeHtml(race.nameEn)}</span>
+                            ${race.isArchived ? '<span class="archive-badge">🏛️ 아카이브</span>' : ''}
                         </div>
                         <div class="race-dday-cluster">
                             <div class="race-dday-badge ${badgeClass}">
@@ -2530,7 +2726,7 @@ function initRaceCalendar() {
                             </div>
                             <div class="race-date-box">
                                 <span class="race-date-text">${dday.dateDisplay}</span>
-                                <span class="race-loc-text">${race.location}</span>
+                                <span class="race-loc-text">${escapeHtml(race.location)}</span>
                             </div>
                         </div>
                     </div>
@@ -2538,30 +2734,32 @@ function initRaceCalendar() {
                     <!-- 2행: 스펙/메타 정보 칩 (가로 스택형) -->
                     <div class="race-row-specs">
                         <span class="race-meta-badge">${categoryLabel}</span>
-                        <span class="race-meta-badge ${labelClass}">${race.label}</span>
+                        <span class="race-meta-badge ${labelClass}">${escapeHtml(race.label)}</span>
                         <span class="spec-chip spec-elev">누적 획득고도 ▲ ${race.elevation}</span>
                         <span class="spec-chip spec-diff">난이도: ${renderStarIcons(race.difficulty)} (${race.difficultyDesc})</span>
-                        <span class="spec-chip spec-dist">${race.distance}</span>
+                        <span class="spec-chip spec-dist">${escapeHtml(race.distance)}</span>
                     </div>
 
                     <!-- 3행: 코스분석 및 공식홈페이지 바로가기 (하단 액션 행) -->
                     <div class="race-row-actions">
                         <button type="button" class="btn-race-toggle" data-race-id="${race.id}" aria-expanded="false" title="코스 분석 및 고저차 보기">
-                            <span>📊 코스분석</span>
+                            <span>📊 ${race.isArchived ? '대회 리뷰 & 분석' : '코스분석'}</span>
                             <span class="toggle-icon">▼</span>
                         </button>
-                        <a href="${race.officialUrl}" target="_blank" rel="noopener noreferrer" class="btn-race-link" title="${race.name} 공식 홈페이지 새창 이동">
-                            대회 공식홈페이지 바로가기 ↗
+                        <a href="${race.officialUrl}" target="_blank" rel="noopener noreferrer" class="btn-race-link" title="${escapeHtml(race.name)} 공식 웹사이트">
+                            ${race.isArchived ? '대회 공식 기록 확인 ↗' : '대회 공식홈페이지 바로가기 ↗'}
                         </a>
                     </div>
                 </div>
 
                 <!-- 부드럽게 펼쳐지는 코스 분석 상세 영역 (아코디언) -->
                 <div class="race-card-detail" id="race-detail-${race.id}">
+                    ${courseChangeHtml}
+                    ${archiveStatsHtml}
                     <div class="race-detail-grid">
                         <div class="race-detail-item">
                             <div class="race-detail-label">종목 및 거리</div>
-                            <div class="race-detail-val">${race.distance}</div>
+                            <div class="race-detail-val">${escapeHtml(race.distance)}</div>
                         </div>
                         <div class="race-detail-item">
                             <div class="race-detail-label">코스 고저차 및 프로필</div>
@@ -2570,7 +2768,7 @@ function initRaceCalendar() {
                         <div class="race-detail-item">
                             <div class="race-detail-label">코스 지형 태그</div>
                             <div class="race-detail-val" style="font-size:0.8rem; font-weight:700; color:var(--primary-blue);">
-                                ${race.tags.join(' ')}
+                                ${race.tags.map(t => escapeHtml(t)).join(' ')}
                             </div>
                         </div>
                     </div>
@@ -2579,14 +2777,15 @@ function initRaceCalendar() {
                         <div class="race-guide-title">
                             <span>💡</span> 코치 실전 코스 공략 가이드
                         </div>
-                        <p class="race-guide-text">${race.guide}</p>
+                        <p class="race-guide-text">${escapeHtml(race.guide)}</p>
                     </div>
 
+                    ${!race.isArchived ? `
                     <div class="race-detail-action-row">
-                        <button type="button" class="btn-race-plan-cta" data-race-id="${race.id}" data-race-name="${race.name}" data-race-date="${race.date}">
+                        <button type="button" class="btn-race-plan-cta" data-race-id="${race.id}" data-race-name="${escapeHtml(race.name)}" data-race-date="${race.date}">
                             <span>📅</span> 이 대회 목표로 D-100 주기화 플랜 세우기 →
                         </button>
-                    </div>
+                    </div>` : ''}
                 </div>
             `;
 
