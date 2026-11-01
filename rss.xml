@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>RunAnalyz 러닝 사이언스 &amp; 체력 진단 랩</title>
+    <title>RunAnalyz 러너의 실전 러닝 과학 아카이브</title>
     <link>https://runanalyz.com/</link>
-    <description>스포츠 생체역학과 운동생리학 연구 기반의 러닝 사이언스, 부상 재활, 마라톤 코스 공략 및 체력 진단 매거진</description>
+    <description>스포츠 생체역학과 운동생리학 연구 기반의 러닝 사이언스, 부상 재활, 마라톤 코스 공략 및 실전 러닝 지식 매거진</description>
     <language>ko</language>
-    <lastBuildDate>Fri, 30 Oct 2026 19:30:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 01 Nov 2026 12:00:00 +0900</lastBuildDate>
     <atom:link href="https://runanalyz.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JTBC 마라톤 결승선 직후 급성 저체온증과 어지럼증: 젖은 싱글렛, 혈액 풀링(Blood Pooling)과 보온 골든타임</title>
+      <link>https://runanalyz.com/articles/jtbc-marathon-finish-line-hypothermia-vasovagal-syncope.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/jtbc-marathon-finish-line-hypothermia-vasovagal-syncope.html</guid>
+      <pubDate>Sun, 01 Nov 2026 11:30:00 +0900</pubDate>
+      <category>대회 실전 · JTBC 서울마라톤 피니시 안전 &amp; 체온 조절</category>
+      <description><![CDATA[11월 JTBC 서울마라톤 잠실종합운동장 피니시 직후 닥쳐오는 급성 저체온증과 현기증. 결승선 통과 후 다리 정맥 펌프 중단으로 인한 혈액 풀링, 젖은 레이스 싱글렛의 증발 잠열, 물품보관소 이동 중 30분 보온 골든타임 관리법.]]></description>
+    </item>
+    <item>
+      <title>JTBC 마라톤 35km 수서 언덕 근육 경련: 마의 오르막에서 햄스트링 쥐가 터지는 신경근 생리학과 즉각 대처법</title>
+      <link>https://runanalyz.com/articles/jtbc-marathon-35k-suseo-hill-muscle-cramp-neuromuscular.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/jtbc-marathon-35k-suseo-hill-muscle-cramp-neuromuscular.html</guid>
+      <pubDate>Sun, 01 Nov 2026 11:30:00 +0900</pubDate>
+      <category>대회 실전 · JTBC 서울마라톤 35km 승부처 &amp; 근육 경련</category>
+      <description><![CDATA[JTBC 서울마라톤 35km 수서나들목 지하차도 급경사에서 러너들을 집단 침몰시키는 햄스트링·종아리 근육 경련(Cramp). 단순 염분 부족이 아닌 신경근 피로와 골지건 기관(GTO) 억제 기전, 오르막 주법 전환과 길항근 수축 응급 대처법.]]></description>
+    </item>
+    <item>
+      <title>마라톤 완주 직후 구토와 메스꺼움의 내장 생리학: 허혈성 위장 장애와 결승선 수분·당류 재공급 프로토콜</title>
+      <link>https://runanalyz.com/articles/marathon-post-race-nausea-gi-distress-gut-ischemia.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-post-race-nausea-gi-distress-gut-ischemia.html</guid>
+      <pubDate>Sun, 01 Nov 2026 11:30:00 +0900</pubDate>
+      <category>러닝 영양 · 완주 후 급성 위장장애 &amp; 내장 허혈</category>
+      <description><![CDATA[마라톤 풀코스·하프 완주 직후 물만 마셔도 구역질이 나고 속이 뒤집히는 원인. 달리는 동안 소화계 혈류가 80% 급감하는 내장 허혈(Splanchnic Ischemia)과 위 마비 증상, 결승선 통과 후 안전하게 위장을 깨우는 미세 흡수(Micro-sip) 프로토콜.]]></description>
+    </item>
+    <item>
+      <title>마라톤 완주 후 콜라색 소변과 신장 경고: 횡문근융해증 vs 발바닥 충격 혈뇨 감별과 소염진통제(NSAIDs) 금기</title>
+      <link>https://runanalyz.com/articles/marathon-post-race-dark-urine-rhabdomyolysis-nsaids-kidney.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-post-race-dark-urine-rhabdomyolysis-nsaids-kidney.html</guid>
+      <pubDate>Sun, 01 Nov 2026 11:30:00 +0900</pubDate>
+      <category>부상 예방 · 완주 후 비뇨기 이상 &amp; 급성 신장 보호</category>
+      <description><![CDATA[마라톤 풀코스 완주 후 나타나는 짙은 갈색·콜라색 소변의 위험 신호. 단순 탈수 소변, 발바닥 충격 용혈(Hemolysis)에 의한 혈뇨, 근육 파괴로 인한 횡문근융해증(Rhabdomyolysis)의 감별 진단과 급성 신부전을 부르는 소염진통제(NSAIDs) 절대 금기 생리학.]]></description>
+    </item>
     <item>
       <title>스마트워치 광학 심박계(PPG)의 추위 오차: 케이던스 락(Cadence Lock) 현상과 영하권 가슴 스트랩(ECG) 권장 생체역학</title>
       <link>https://runanalyz.com/articles/smartwatch-cold-weather-cadence-lock-ppg-hr.html</link>
