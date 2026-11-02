@@ -26,6 +26,24 @@
   </url>
   <!-- Science & Gear Articles -->
   <url>
+    <loc>https://runanalyz.com/articles/post-marathon-blues-dopamine-crash-mental-recovery.html</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://runanalyz.com/articles/marathon-open-window-theory-immunity-post-race-cold.html</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://runanalyz.com/articles/marathon-post-race-day1-stairs-eccentric-muscle-soreness.html</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://runanalyz.com/articles/jtbc-marathon-finish-line-hypothermia-vasovagal-syncope.html</loc>
     <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>

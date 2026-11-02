@@ -5,8 +5,32 @@
     <link>https://runanalyz.com/</link>
     <description>스포츠 생체역학과 운동생리학 연구 기반의 러닝 사이언스, 부상 재활, 마라톤 코스 공략 및 실전 러닝 지식 매거진</description>
     <language>ko</language>
-    <lastBuildDate>Sun, 01 Nov 2026 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 02 Nov 2026 12:30:00 +0900</lastBuildDate>
     <atom:link href="https://runanalyz.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>마라톤 완주 후 공허함과 무기력증: '러너스 블루(Post-Marathon Blues)'의 신경과학과 2주 멘탈 리셋법</title>
+      <link>https://runanalyz.com/articles/post-marathon-blues-dopamine-crash-mental-recovery.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/post-marathon-blues-dopamine-crash-mental-recovery.html</guid>
+      <pubDate>Mon, 02 Nov 2026 12:00:00 +0900</pubDate>
+      <category>훈련 생리학 · 마라톤 완주 후 심리학 &amp; 멘탈 리셋</category>
+      <description><![CDATA[수개월간 준비한 가을 마라톤 완주 후 찾아오는 극심한 허탈감과 무기력증, '러너스 블루(Post-Marathon Blues)'의 원인. 도파민 급락(Dopamine Crash)과 신경계 탈진 생리학, 충동적인 다음 대회 접수 방지와 2주 멘탈 리셋 프로토콜.]]></description>
+    </item>
+    <item>
+      <title>마라톤 완주 후 3일간의 면역 공백기(Open Window Theory): 감기·몸살의 과학과 바이러스 방어 면역 영양학</title>
+      <link>https://runanalyz.com/articles/marathon-open-window-theory-immunity-post-race-cold.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-open-window-theory-immunity-post-race-cold.html</guid>
+      <pubDate>Mon, 02 Nov 2026 12:00:00 +0900</pubDate>
+      <category>러닝 영양 · 완주 후 면역학 &amp; 상기도 감염 방어</category>
+      <description><![CDATA[풀마라톤 완주 후 72시간 동안 찾아오는 급성 면역 저하와 상기도 감염(감기·인후통). 니만 교수의 오픈 윈도우 이론(Open Window Theory), 타액 s-IgA 항체 50% 급감 기전, 바이러스 침투를 막는 비타민 C, 아연, 글루타민 영양 방어 전략.]]></description>
+    </item>
+    <item>
+      <title>마라톤 완주 다음 날(D+1) 계단 지옥의 생체역학: 편심성 근수축 손상과 '뒤로 걷기' 통증 감쇠 과학</title>
+      <link>https://runanalyz.com/articles/marathon-post-race-day1-stairs-eccentric-muscle-soreness.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-post-race-day1-stairs-eccentric-muscle-soreness.html</guid>
+      <pubDate>Mon, 02 Nov 2026 12:00:00 +0900</pubDate>
+      <category>부상 예방 · 완주 다음 날 급성 근육통 &amp; 하행 생체역학</category>
+      <description><![CDATA[풀마라톤 완주 다음 날 월요일 출근길, 지하철 계단을 내려갈 때 허벅지가 찢어질 듯한 통증(DOMS)의 원인. 대퇴사두근 신장성(편심성) 수축 손상 메커니즘과 계단을 거꾸로 내려갈 때 슬개대퇴 관절 압력이 70% 감소하는 생체역학적 원리.]]></description>
+    </item>
     <item>
       <title>JTBC 마라톤 결승선 직후 급성 저체온증과 어지럼증: 젖은 싱글렛, 혈액 풀링(Blood Pooling)과 보온 골든타임</title>
       <link>https://runanalyz.com/articles/jtbc-marathon-finish-line-hypothermia-vasovagal-syncope.html</link>
