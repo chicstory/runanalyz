@@ -5,8 +5,32 @@
     <link>https://runanalyz.com/</link>
     <description>스포츠 생체역학과 운동생리학 연구 기반의 러닝 사이언스, 부상 재활, 마라톤 코스 공략 및 실전 러닝 지식 매거진</description>
     <language>ko</language>
-    <lastBuildDate>Tue, 03 Nov 2026 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 05 Nov 2026 03:00:00 +0900</lastBuildDate>
     <atom:link href="https://runanalyz.com/rss.xml" rel="self" type="application/rss+xml" />
+        <item>
+            <title>로잉머신과 스키에르그(SkiErg) 크로스 트레이닝: 러너의 상하체 협응과 둔근·등 사슬(Posterior Chain) 활성화의 과학</title>
+            <link>https://runanalyz.com/articles/skierg-rowing-machine-cross-training-running.html</link>
+            <guid>https://runanalyz.com/articles/skierg-rowing-machine-cross-training-running.html</guid>
+            <description><![CDATA[하체만 과사용하는 러너가 마라톤 후반 상체가 굽고 호흡이 얕아지는 원인. 전신 근육 85%를 동원하는 로잉머신의 둔근 추진력(Glute Drive)과 스키에르그의 횡격막·전거근 강화 생체역학, 무릎 충격 0% 전신 인터벌 처방.]]></description>
+            <category>크로스트레이닝</category>
+            <pubDate>Thu, 05 Nov 2026 03:00:00 +0900</pubDate>
+        </item>
+        <item>
+            <title>실내 자전거(스핀바이크) 파워와 케이던스를 활용한 러너의 고강도 인터벌(HIIT/Threshold) 대체 프로토콜</title>
+            <link>https://runanalyz.com/articles/indoor-cycling-interval-cadence-power-running.html</link>
+            <guid>https://runanalyz.com/articles/indoor-cycling-interval-cadence-power-running.html</guid>
+            <description><![CDATA[다리 관절 착지 충격 0%에서 러닝의 심폐 부하와 고관절 굴곡근을 완벽히 모사하는 실내 자전거 크로스 트레이닝. 러닝 180 SPM과 일치하는 90~100 RPM 케이던스 세팅, 파워(FTP/와트) 기반 젖산역치(LT)·VO2max 극대화 3대 인터벌 프로토콜.]]></description>
+            <category>크로스트레이닝</category>
+            <pubDate>Thu, 05 Nov 2026 03:00:00 +0900</pubDate>
+        </item>
+        <item>
+            <title>러너를 위한 근력 트레이닝(웨이트 트레이닝)의 생체역학: 근비대가 아닌 주행 경제성(Running Economy)과 신경근 강화</title>
+            <link>https://runanalyz.com/articles/runner-strength-training-running-economy-reps.html</link>
+            <guid>https://runanalyz.com/articles/runner-strength-training-running-economy-reps.html</guid>
+            <description><![CDATA[러너가 웨이트 트레이닝을 하면 몸이 무거워져 느려진다는 편견의 생리학적 오류. 근육 비대 없이 힘줄 탄성(Tendon Stiffness)과 신경 동원율을 극대화해 주행 경제성(Running Economy)을 4~8% 끌어올리는 고중량 저반복(85%+ 1RM) 및 플라이오메트릭스 프로토콜, 4대 필수 복합 드릴.]]></description>
+            <category>웨이트트레이닝</category>
+            <pubDate>Thu, 05 Nov 2026 03:00:00 +0900</pubDate>
+        </item>
     <item>
       <title>찬 바람 맞으면 콧물이 줄줄 흐르는 이유: 한랭 유발 비염(Cold-Induced Rhinitis)과 복합 호흡법</title>
       <link>https://runanalyz.com/articles/cold-weather-runners-rhinitis-breathing-technique.html</link>
