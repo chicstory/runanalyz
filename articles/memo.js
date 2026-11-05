@@ -1,6 +1,7 @@
 /**
  * 💬 RunAnalyz 아티클 전용 러너 실전 소감 & 팁 시스템 (memo.js)
  * 각 아티클별 고유 키를 기반으로 LocalStorage에 영구 보존되며, 날짜(YYYY-MM-DD)를 기록합니다.
+ * 구형 마크업(.memo-form) 및 신형 모던 마크업(.article-memo-section)을 100% 동시 지원합니다.
  */
 
 (function () {
@@ -28,6 +29,18 @@
         ],
         'post-run-nutrition-glycogen-window': [
             { author: "초코러너", date: "2026-10-06", text: "10k 뛰고 편의점에서 초코우유 바로 마시기 시작했는데 다음 날 다리 무거움이 신기하게 사라졌습니다." }
+        ],
+        'skierg-rowing-machine-cross-training-running': [
+            { author: "크로스러너", date: "2026-11-05", text: "무릎 부상 때 로잉머신 5000m 탔는데 심폐도 유지되고 마라톤 후반 등에 힘 풀리던 게 확실히 잡혔습니다." }
+        ],
+        'runner-strength-training-running-economy-reps': [
+            { author: "쇠질러너", date: "2026-11-05", text: "맨몸 스쿼트 50개씩 하다가 트랩바 데드리프트 고중량으로 바꾸고 나서 발목 반발력이 완전 달라졌습니다." }
+        ],
+        'indoor-cycling-interval-cadence-power-running': [
+            { author: "스핀러너", date: "2026-11-05", text: "비 올 때 스핀바이크 95 RPM으로 3분 인터벌 5세트 돌리면 트랙 1000m 뛴 것처럼 땀 비 오듯 쏟아집니다." }
+        ],
+        'daily-cross-training-stairs-brisk-walking-jump-rope': [
+            { author: "출퇴근러너", date: "2026-11-05", text: "지하철 탈 때 1칸+2칸 섞어 오르니까 엉덩이 깊숙이 자극 오네요. 출근길 운동으로 최고입니다!" }
         ]
     };
 
@@ -57,7 +70,7 @@
             console.error(e);
         }
         return DEFAULT_SEED_MAP[articleId] || [
-            { author: "러너A", date: "2026-10-06", text: "아티클 읽고 오늘 러닝에 바로 적용해봤습니다. 도움 많이 되었습니다!" }
+            { author: "러너A", date: "2026-11-04", text: "아티클 읽고 오늘 러닝에 바로 적용해봤습니다. 도움 많이 되었습니다!" }
         ];
     }
 
@@ -65,14 +78,17 @@
         const num1 = Math.floor(Math.random() * 8) + 1;
         const num2 = Math.floor(Math.random() * 8) + 1;
         currentCaptchaAns = num1 + num2;
-        const quizEl = document.getElementById('memoQuiz');
+        
+        // 구형 & 신형 캡차 레이블 둘 다 지원
+        const quizEl = document.getElementById('memoQuiz') || document.getElementById('memo-quiz-label');
         if (quizEl) {
-            quizEl.textContent = `${num1} + ${num2} =`;
+            quizEl.textContent = `보안 퀴즈: ${num1} + ${num2} =`;
         }
     }
 
     function renderMemos() {
-        const listBox = document.getElementById('articleMemoList');
+        // 구형(#articleMemoList) & 신형(#memo-list) 둘 다 탐색
+        const listBox = document.getElementById('articleMemoList') || document.getElementById('memo-list');
         const badge = document.getElementById('memoCountBadge');
         if (!listBox) return;
 
@@ -91,7 +107,7 @@
     }
 
     function handleMemoSubmit(e) {
-        e.preventDefault();
+        if (e && e.preventDefault) e.preventDefault();
 
         const now = Date.now();
         if (now - lastSubmitTime < 10000) {
@@ -102,18 +118,22 @@
         const trap = document.getElementById('hp_trap');
         if (trap && trap.value) return;
 
-        const userAns = parseInt(document.getElementById('memoAns').value, 10);
+        // 구형(#memoAns) & 신형(#memo-quiz-ans) 인풋 탐색
+        const ansInput = document.getElementById('memoAns') || document.getElementById('memo-quiz-ans');
+        if (!ansInput) return;
+        const userAns = parseInt(ansInput.value, 10);
         if (userAns !== currentCaptchaAns) {
             alert('보안 퀴즈(덧셈) 정답이 올바르지 않습니다.');
             renderCaptcha();
             return;
         }
 
-        const authorInput = document.getElementById('memoAuthor');
-        const textInput = document.getElementById('memoText');
+        // 구형(#memoAuthor, #memoText) & 신형(#memo-author, #memo-content) 탐색
+        const authorInput = document.getElementById('memoAuthor') || document.getElementById('memo-author');
+        const textInput = document.getElementById('memoText') || document.getElementById('memo-content');
 
-        const author = authorInput.value.trim() || "익명러너";
-        const text = textInput.value.trim();
+        const author = (authorInput && authorInput.value.trim()) ? authorInput.value.trim() : "익명러너";
+        const text = textInput ? textInput.value.trim() : "";
 
         if (!text) {
             alert('한줄 소감이나 팁을 입력해주세요.');
@@ -136,8 +156,8 @@
         }
 
         lastSubmitTime = now;
-        textInput.value = '';
-        document.getElementById('memoAns').value = '';
+        if (textInput) textInput.value = '';
+        if (ansInput) ansInput.value = '';
         renderCaptcha();
         renderMemos();
     }
@@ -146,9 +166,16 @@
         renderCaptcha();
         renderMemos();
 
+        // 1. 구형 폼 전송 이벤트
         const form = document.getElementById('articleMemoForm');
         if (form) {
             form.addEventListener('submit', handleMemoSubmit);
+        }
+
+        // 2. 신형 버튼 클릭 이벤트
+        const submitBtn = document.getElementById('btn-submit-memo');
+        if (submitBtn) {
+            submitBtn.addEventListener('click', handleMemoSubmit);
         }
     });
 })();
