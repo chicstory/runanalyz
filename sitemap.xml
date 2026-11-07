@@ -2,10 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://runanalyz.com/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+    <url>
+        <loc>https://runanalyz.com/articles/heart-capillary-angiogenesis-running-coronary-circulation.html</loc>
+        <lastmod>2026-11-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://runanalyz.com/articles/runners-heart-eccentric-hypertrophy-stroke-volume.html</loc>
+        <lastmod>2026-11-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://runanalyz.com/articles/running-vascular-endothelial-nitric-oxide-arterial-stiffness.html</loc>
+        <lastmod>2026-11-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://runanalyz.com/articles/muscle-capillary-density-mitochondria-vo2max.html</loc>
+        <lastmod>2026-11-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
     <url>
         <loc>https://runanalyz.com/articles/daily-cross-training-stairs-brisk-walking-jump-rope.html</loc>
         <lastmod>2026-11-05</lastmod>

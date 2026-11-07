@@ -2,6 +2,36 @@
 
 ---
 
+## [2026-11-08] 🫀 심혈관 생리학 4대 킬러 아티클 구축 ("운동 전 vs 운동 후 심장" 혈관망 혁명)
+- **1. 요청사항**: 
+  - 사용자가 공유한 "운동 전 심장 vs 운동 후 심장" 혈관 조영 이미지(성긴 관상동맥 vs 빽빽한 모세혈관 숲)를 바탕으로, RunAnalyz의 전문성에 완벽히 부합하는 심혈관·운동생리학 심층 아티클 4편 신규 집필 및 발행.
+- **2. 솔루션 & 구현**:
+  - **신규 아티클 4편 전격 구축**:
+    1. `heart-capillary-angiogenesis-running-coronary-circulation.html`:
+       - 주제: "운동 전 vs 운동 후 심장": 달리기를 하면 왜 심장에 모세혈관 숲이 생길까? (심근 모세혈관 신생 & 측부순환의 기적)
+       - 실제 혈관 조영 비교 이미지(`assets/heart-exercise-capillaries-before-after.png`) 삽입.
+       - 전단응력(Shear Stress), VEGF/bFGF 분비, 천연 바이패스(우회로) 형성 기전, Zone 2 조깅 처방.
+    2. `runners-heart-eccentric-hypertrophy-stroke-volume.html`:
+       - 주제: 보디빌딩 심장 vs 마라토너 심장: 왜 러너의 심장은 1회 박출량(Stroke Volume)이 2배로 폭발할까? (편심성 좌심실 비대)
+       - 구심성 비대(Concentric) vs 편심성 비대(Eccentric), 프랑크-스탈링 법칙, 1회 140ml 박출로 안정시 40bpm 서맥의 비밀.
+    3. `running-vascular-endothelial-nitric-oxide-arterial-stiffness.html`:
+       - 주제: 달릴 때마다 혈관 속 찌꺼기가 녹아내린다: 혈관내피세포와 산화질소(NO)가 만드는 10년 젊은 혈관 탄력성
+       - eNOS 효소와 산화질소(NO), 맥파전파속도(baPWV) 10년 회복, 운동 후 저혈압(PEH, 24시간 혈압 강하) 임상 데이터.
+    4. `muscle-capillary-density-mitochondria-vo2max.html`:
+       - 주제: "3달 뛰었더니 다리가 하나도 안 무거워요": 하체 근육의 모세혈관 밀도 폭발과 동정맥 산소차(A-V O2 Diff)의 과학
+       - 하체 지근 섬유 모세혈관화(Capillarization, C:F 비율 2배), 동정맥 산소차(산소 90% 흡수), PGC-1α 유전자와 미토콘드리아 생합성.
+  - **파이프라인 및 허브 연동**:
+    - `index.html`: 최상단 신규 카드 4개(Card 119~122) 탑재 (`data-category`, 태그, 배지 연동).
+    - `sitemap.xml`: 신규 아티클 4개 URL 및 최신 날짜(2026-11-08) 반영.
+    - `generate_rss.py`: 실행하여 `rss.xml` 내 122개 전체 피드 자동 갱신 완료.
+- **3. 결과 & 검증**:
+  - 모바일 뷰포트 가로 스크롤 0px, 반응형 이미지/표/CTA/댓글 박스 정상 정렬.
+  - 카카오 애드핏(320x100 상단, 300x250 하단) 및 memo.js 연동 무결성 확보.
+- **4. 주요 합의 사항**:
+  - 심혈관계 및 세포생리학 등 대중의 호기심과 시각적 충격이 큰 주제는 직관적인 질문형 제목과 학술 논문 레퍼런스(Circulation, J Physiol 등)를 병기하여 권위와 체류 시간을 극대화한다.
+
+---
+
 ## [2026-11-05] 🛠️ 아티클 댓글(메모장) CSS·JS 전수 복구 및 하단 애드핏 배너 위치 최적화
 - **1. 요청사항**: 
   - 런로그 아티클 하단 댓글(메모) 영역이 스타일 미적용(기본 브라우저 폼)으로 깨져 보이는 문제 긴급 수정 및 광고로 인한 휑한 공백 해소.

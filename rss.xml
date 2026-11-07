@@ -1,113 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>RunAnalyz 러너의 실전 러닝 과학 아카이브</title>
+    <title>RunAnalyz 러닝 사이언스 &amp; 체력 진단 랩</title>
     <link>https://runanalyz.com/</link>
-    <description>스포츠 생체역학과 운동생리학 연구 기반의 러닝 사이언스, 부상 재활, 마라톤 코스 공략 및 실전 러닝 지식 매거진</description>
+    <description>스포츠 생체역학과 운동생리학 연구 기반의 러닝 사이언스, 부상 재활, 마라톤 코스 공략 및 체력 진단 매거진</description>
     <language>ko</language>
-    <lastBuildDate>Thu, 05 Nov 2026 03:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2026 00:25:09 +0900</lastBuildDate>
     <atom:link href="https://runanalyz.com/rss.xml" rel="self" type="application/rss+xml" />
-        <item>
-            <title>러닝화를 신지 않아도 매일 강해지는 일상 보강 루틴: 비대칭 계단 오르기(1칸+2칸·3칸), 파워 워킹, 줄넘기의 생체역학</title>
-            <link>https://runanalyz.com/articles/daily-cross-training-stairs-brisk-walking-jump-rope.html</link>
-            <guid>https://runanalyz.com/articles/daily-cross-training-stairs-brisk-walking-jump-rope.html</guid>
-            <description><![CDATA[매일 달리지 않아도 출퇴근길과 일상에서 러닝 근육을 단련하는 데일리 루틴. 1칸+2칸·3칸 변칙 계단 오르기의 둔근·고유수용감각 자극, 골반 추진 파워 워킹, 아킬레스건 탄성을 극대화하는 5분 줄넘기 생체역학.]]></description>
-            <category>크로스트레이닝</category>
-            <pubDate>Thu, 05 Nov 2026 03:10:00 +0900</pubDate>
-        </item>
-        <item>
-            <title>로잉머신과 스키에르그(SkiErg) 크로스 트레이닝: 러너의 상하체 협응과 둔근·등 사슬(Posterior Chain) 활성화의 과학</title>
-            <link>https://runanalyz.com/articles/skierg-rowing-machine-cross-training-running.html</link>
-            <guid>https://runanalyz.com/articles/skierg-rowing-machine-cross-training-running.html</guid>
-            <description><![CDATA[하체만 과사용하는 러너가 마라톤 후반 상체가 굽고 호흡이 얕아지는 원인. 전신 근육 85%를 동원하는 로잉머신의 둔근 추진력(Glute Drive)과 스키에르그의 횡격막·전거근 강화 생체역학, 무릎 충격 0% 전신 인터벌 처방.]]></description>
-            <category>크로스트레이닝</category>
-            <pubDate>Thu, 05 Nov 2026 03:00:00 +0900</pubDate>
-        </item>
-        <item>
-            <title>실내 자전거(스핀바이크) 파워와 케이던스를 활용한 러너의 고강도 인터벌(HIIT/Threshold) 대체 프로토콜</title>
-            <link>https://runanalyz.com/articles/indoor-cycling-interval-cadence-power-running.html</link>
-            <guid>https://runanalyz.com/articles/indoor-cycling-interval-cadence-power-running.html</guid>
-            <description><![CDATA[다리 관절 착지 충격 0%에서 러닝의 심폐 부하와 고관절 굴곡근을 완벽히 모사하는 실내 자전거 크로스 트레이닝. 러닝 180 SPM과 일치하는 90~100 RPM 케이던스 세팅, 파워(FTP/와트) 기반 젖산역치(LT)·VO2max 극대화 3대 인터벌 프로토콜.]]></description>
-            <category>크로스트레이닝</category>
-            <pubDate>Thu, 05 Nov 2026 03:00:00 +0900</pubDate>
-        </item>
-        <item>
-            <title>러너를 위한 근력 트레이닝(웨이트 트레이닝)의 생체역학: 근비대가 아닌 주행 경제성(Running Economy)과 신경근 강화</title>
-            <link>https://runanalyz.com/articles/runner-strength-training-running-economy-reps.html</link>
-            <guid>https://runanalyz.com/articles/runner-strength-training-running-economy-reps.html</guid>
-            <description><![CDATA[러너가 웨이트 트레이닝을 하면 몸이 무거워져 느려진다는 편견의 생리학적 오류. 근육 비대 없이 힘줄 탄성(Tendon Stiffness)과 신경 동원율을 극대화해 주행 경제성(Running Economy)을 4~8% 끌어올리는 고중량 저반복(85%+ 1RM) 및 플라이오메트릭스 프로토콜, 4대 필수 복합 드릴.]]></description>
-            <category>웨이트트레이닝</category>
-            <pubDate>Thu, 05 Nov 2026 03:00:00 +0900</pubDate>
-        </item>
+    <item>
+      <title>달릴 때마다 혈관 속 찌꺼기가 녹아내린다: 혈관내피세포와 산화질소(NO)가 만드는 10년 젊은 혈관 탄력성</title>
+      <link>https://runanalyz.com/articles/running-vascular-endothelial-nitric-oxide-arterial-stiffness.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/running-vascular-endothelial-nitric-oxide-arterial-stiffness.html</guid>
+      <pubDate>Sun, 08 Nov 2026 09:00:00 +0900</pubDate>
+      <category>혈관 의학 · 산화질소 &amp; 동맥 경직도</category>
+      <description><![CDATA[달리기가 혈관 나이를 10년 되돌리는 생리학적 비밀! 혈류 전단응력(Shear Stress)이 촉발하는 내피세포 산화질소(NO) 합성, 동맥 경직도(PWV) 개선, 플라크 억제 및 운동 후 저혈압(PEH)의 의학적 메커니즘 전격 분석.]]></description>
+    </item>
+    <item>
+      <title>보디빌딩 심장 vs 마라토너 심장: 왜 러너의 심장은 1회 박출량(Stroke Volume)이 2배로 폭발할까? (편심성 좌심실 비대의 비밀)</title>
+      <link>https://runanalyz.com/articles/runners-heart-eccentric-hypertrophy-stroke-volume.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/runners-heart-eccentric-hypertrophy-stroke-volume.html</guid>
+      <pubDate>Sun, 08 Nov 2026 09:00:00 +0900</pubDate>
+      <category>운동생리학 · 심실 리모델링 &amp; 박출량</category>
+      <description><![CDATA[고강도 웨이트 트레이닝의 구심성 심근 비대(Concentric)와 마라톤 러닝의 편심성 좌심실 비대(Eccentric Hypertrophy) 비교 분석. 1회 박출량(Stroke Volume)이 70ml에서 140ml로 2배 증가하며 안정시 심박수가 40bpm으로 떨어지는 심장 리모델링의 생리학.]]></description>
+    </item>
+    <item>
+      <title>&quot;3달 뛰었더니 다리가 하나도 안 무거워요&quot;: 하체 근육의 모세혈관 밀도 폭발과 동정맥 산소차(A-V O2 Diff)의 과학</title>
+      <link>https://runanalyz.com/articles/muscle-capillary-density-mitochondria-vo2max.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/muscle-capillary-density-mitochondria-vo2max.html</guid>
+      <pubDate>Sun, 08 Nov 2026 09:00:00 +0900</pubDate>
+      <category>세포 생리학 · 근육 모세혈관 &amp; 미토콘드리아</category>
+      <description><![CDATA[달리기 3개월 차에 다리가 가벼워지고 숨이 트이는 진짜 이유! 하체 골격근 지근 섬유 주위의 모세혈관 밀도(Capillarization) 증가, PGC-1α 유전자가 깨우는 미토콘드리아 생합성, 그리고 동정맥 산소차(A-V O2 Diff) 극대화의 세포 생리학.]]></description>
+    </item>
+    <item>
+      <title>&quot;운동 전 vs 운동 후 심장&quot;: 달리기를 하면 왜 심장에 모세혈관 숲이 생길까? (심근 모세혈관 신생 &amp; 측부순환의 기적)</title>
+      <link>https://runanalyz.com/articles/heart-capillary-angiogenesis-running-coronary-circulation.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/heart-capillary-angiogenesis-running-coronary-circulation.html</guid>
+      <pubDate>Sun, 08 Nov 2026 09:00:00 +0900</pubDate>
+      <category>심혈관 생리학 · 심근 모세혈관 &amp; 측부순환</category>
+      <description><![CDATA[운동 전 심장과 운동 후 심장의 충격적인 혈관 차이! 유산소 달리기가 촉발하는 심근 모세혈관 신생(Capillary Angiogenesis)과 관상동맥 측부순환(Collateral Circulation)의 과학. 러너가 심근경색에도 살아남는 천연 바이패스 혈관망 구축 원리.]]></description>
+    </item>
+    <item>
+      <title>로잉머신과 스키에르그(SkiErg) 크로스 트레이닝: 러너의 상하체 협응과 둔근·등 사슬(Posterior Chain) 활성화의 과학</title>
+      <link>https://runanalyz.com/articles/skierg-rowing-machine-cross-training-running.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/skierg-rowing-machine-cross-training-running.html</guid>
+      <pubDate>Thu, 05 Nov 2026 09:00:00 +0900</pubDate>
+      <category>훈련 프로토콜 · 크로스 트레이닝 &amp; 전신 협응·후면 사슬</category>
+      <description><![CDATA[하체만 과사용하는 러너가 마라톤 후반 상체가 굽고 호흡이 얕아지는 원인. 전신 근육 85%를 동원하는 로잉머신의 둔근 추진력(Glute Drive)과 스키에르그(SkiErg)의 횡격막·전거근 강화 생체역학, 무릎 충격 0% 전신 인터벌 처방.]]></description>
+    </item>
+    <item>
+      <title>러너를 위한 근력 트레이닝(웨이트 트레이닝)의 생체역학: 근비대가 아닌 주행 경제성(Running Economy)과 신경근 강화</title>
+      <link>https://runanalyz.com/articles/runner-strength-training-running-economy-reps.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/runner-strength-training-running-economy-reps.html</guid>
+      <pubDate>Thu, 05 Nov 2026 09:00:00 +0900</pubDate>
+      <category>훈련 프로토콜 · 주행 경제성 &amp; 웨이트 트레이닝 생체역학</category>
+      <description><![CDATA[러너가 웨이트 트레이닝을 하면 몸이 무거워져 느려진다는 편견의 생리학적 오류. 근육 비대 없이 힘줄 탄성(Tendon Stiffness)과 신경 동원율을 극대화해 주행 경제성(Running Economy)을 4~8% 끌어올리는 고중량 저반복(85%+ 1RM) 및 플라이오메트릭스 프로토콜, 4대 필수 복합 드릴.]]></description>
+    </item>
+    <item>
+      <title>실내 자전거(스핀바이크) 파워와 케이던스를 활용한 러너의 고강도 인터벌(HIIT/Threshold) 대체 프로토콜</title>
+      <link>https://runanalyz.com/articles/indoor-cycling-interval-cadence-power-running.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/indoor-cycling-interval-cadence-power-running.html</guid>
+      <pubDate>Thu, 05 Nov 2026 09:00:00 +0900</pubDate>
+      <category>훈련 프로토콜 · 크로스 트레이닝 &amp; 실내 자전거 고강도 인터벌</category>
+      <description><![CDATA[다리 관절 착지 충격 0%에서 러닝의 심폐 부하와 고관절 굴곡근을 완벽히 모사하는 실내 자전거 크로스 트레이닝. 러닝 180 SPM과 일치하는 90~100 RPM 케이던스 세팅, 파워(FTP/와트) 기반 젖산역치(LT)·VO2max 극대화 3대 인터벌 프로토콜.]]></description>
+    </item>
+    <item>
+      <title>러닝화를 신지 않아도 매일 강해지는 일상 보강 루틴: 비대칭 계단 오르기(1칸+2칸·3칸), 파워 워킹, 줄넘기의 생체역학</title>
+      <link>https://runanalyz.com/articles/daily-cross-training-stairs-brisk-walking-jump-rope.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/daily-cross-training-stairs-brisk-walking-jump-rope.html</guid>
+      <pubDate>Thu, 05 Nov 2026 09:00:00 +0900</pubDate>
+      <category>훈련 프로토콜 · 일상 보강 루틴 &amp; 생활 속 생체역학</category>
+      <description><![CDATA[매일 달리지 않아도 출퇴근길과 일상에서 러닝 근육을 단련하는 데일리 루틴. 1칸+2칸·3칸 변칙 계단 오르기의 둔근·고유수용감각 자극, 골반 추진 파워 워킹, 아킬레스건 탄성을 극대화하는 5분 줄넘기 플라이오메트릭스 생체역학.]]></description>
+    </item>
     <item>
       <title>찬 바람 맞으면 콧물이 줄줄 흐르는 이유: 한랭 유발 비염(Cold-Induced Rhinitis)과 복합 호흡법</title>
       <link>https://runanalyz.com/articles/cold-weather-runners-rhinitis-breathing-technique.html</link>
       <guid isPermaLink="true">https://runanalyz.com/articles/cold-weather-runners-rhinitis-breathing-technique.html</guid>
-      <pubDate>Tue, 03 Nov 2026 11:30:00 +0900</pubDate>
+      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
       <category>훈련 생리학 · 찬 바람 호흡 생체역학 &amp; 한랭 비염</category>
       <description><![CDATA[쌀쌀한 날씨에 달릴 때 콧물이 수도꼭지처럼 흐르고 기침이 나는 원인. 찬 건조한 공기로부터 폐를 보호하려는 비강 점막 혈관 팽창 메커니즘(한랭 비염), 기관지 수축을 막는 비강 70% 구강 30% 복합 호흡법과 넥게이터의 온습도 교환 과학.]]></description>
-    </item>
-    <item>
-      <title>쌀쌀해진 날씨 러닝 레이어링 공식: 윈드브레이커 vs 플리스, '체감 온도 +10도 법칙'의 열역학</title>
-      <link>https://runanalyz.com/articles/chilly-weather-running-layering-10-degree-rule.html</link>
-      <guid isPermaLink="true">https://runanalyz.com/articles/chilly-weather-running-layering-10-degree-rule.html</guid>
-      <pubDate>Tue, 03 Nov 2026 11:30:00 +0900</pubDate>
-      <category>러닝 기어 · 환절기 러닝 의류 &amp; 열역학 레이어링</category>
-      <description><![CDATA[기온이 5~10도로 쌀쌀해진 날씨에 러닝 복장 고르는 법. 춥다고 두껍게 입었다가 땀 범벅이 되어 땀 식음(Sweat Chilling)을 겪는 원인, '현재 기온 + 10도 법칙'과 흡한속건 베이스레이어, 벤틸레이션 윈드브레이커 3단계 스마트 레이어링.]]></description>
     </item>
     <item>
       <title>쌀쌀해진 날씨에 무릎이 시리고 굳는 생체역학: 활액(Synovial Fluid) 점도 상승과 슬개골 연골연화증 예방 웜업</title>
       <link>https://runanalyz.com/articles/cold-weather-knee-joint-stiffness-synovial-fluid.html</link>
       <guid isPermaLink="true">https://runanalyz.com/articles/cold-weather-knee-joint-stiffness-synovial-fluid.html</guid>
-      <pubDate>Tue, 03 Nov 2026 11:30:00 +0900</pubDate>
+      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
       <category>부상 예방 · 환절기 무릎 시림 &amp; 관절 활액 생리학</category>
       <description><![CDATA[기온이 뚝 떨어지면 러닝 초반 무릎 앞쪽이 시리고 삐걱거리는 원인. 관절 윤활액(활액)의 온도 저하로 인한 점도 상승, 슬개대퇴 관절 연골 마찰력 증가 메커니즘과 연골연화증을 막는 실내 5분 무부하 회전 웜업 프로토콜.]]></description>
     </item>
     <item>
-      <title>마라톤 완주 후 공허함과 무기력증: '러너스 블루(Post-Marathon Blues)'의 신경과학과 2주 멘탈 리셋법</title>
+      <title>쌀쌀해진 날씨 러닝 레이어링 공식: 윈드브레이커 vs 플리스, &#x27;체감 온도 +10도 법칙&#x27;의 열역학</title>
+      <link>https://runanalyz.com/articles/chilly-weather-running-layering-10-degree-rule.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/chilly-weather-running-layering-10-degree-rule.html</guid>
+      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
+      <category>러닝 기어 · 환절기 러닝 의류 &amp; 열역학 레이어링</category>
+      <description><![CDATA[기온이 5~10도로 쌀쌀해진 날씨에 러닝 복장 고르는 법. 춥다고 두껍게 입었다가 땀 범벅이 되어 땀 식음(Sweat Chilling)을 겪는 원인, '현재 기온 + 10도 법칙'과 흡한속건 베이스레이어, 벤틸레이션 윈드브레이커 3단계 스마트 레이어링.]]></description>
+    </item>
+    <item>
+      <title>마라톤 완주 후 공허함과 무기력증: &#x27;러너스 블루(Post-Marathon Blues)&#x27;의 신경과학과 2주 멘탈 리셋법</title>
       <link>https://runanalyz.com/articles/post-marathon-blues-dopamine-crash-mental-recovery.html</link>
       <guid isPermaLink="true">https://runanalyz.com/articles/post-marathon-blues-dopamine-crash-mental-recovery.html</guid>
-      <pubDate>Mon, 02 Nov 2026 12:00:00 +0900</pubDate>
+      <pubDate>Mon, 02 Nov 2026 09:00:00 +0900</pubDate>
       <category>훈련 생리학 · 마라톤 완주 후 심리학 &amp; 멘탈 리셋</category>
       <description><![CDATA[수개월간 준비한 가을 마라톤 완주 후 찾아오는 극심한 허탈감과 무기력증, '러너스 블루(Post-Marathon Blues)'의 원인. 도파민 급락(Dopamine Crash)과 신경계 탈진 생리학, 충동적인 다음 대회 접수 방지와 2주 멘탈 리셋 프로토콜.]]></description>
+    </item>
+    <item>
+      <title>마라톤 완주 다음 날(D+1) 계단 지옥의 생체역학: 편심성 근수축 손상과 &#x27;뒤로 걷기&#x27; 통증 감쇠 과학</title>
+      <link>https://runanalyz.com/articles/marathon-post-race-day1-stairs-eccentric-muscle-soreness.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-post-race-day1-stairs-eccentric-muscle-soreness.html</guid>
+      <pubDate>Mon, 02 Nov 2026 09:00:00 +0900</pubDate>
+      <category>부상 예방 · 완주 다음 날 급성 근육통 &amp; 하행 생체역학</category>
+      <description><![CDATA[풀마라톤 완주 다음 날 월요일 출근길, 지하철 계단을 내려갈 때 허벅지가 찢어질 듯한 통증(DOMS)의 원인. 대퇴사두근 신장성(편심성) 수축 손상 메커니즘과 계단을 거꾸로 내려갈 때 슬개대퇴 관절 압력이 70% 감소하는 생체역학적 원리.]]></description>
     </item>
     <item>
       <title>마라톤 완주 후 3일간의 면역 공백기(Open Window Theory): 감기·몸살의 과학과 바이러스 방어 면역 영양학</title>
       <link>https://runanalyz.com/articles/marathon-open-window-theory-immunity-post-race-cold.html</link>
       <guid isPermaLink="true">https://runanalyz.com/articles/marathon-open-window-theory-immunity-post-race-cold.html</guid>
-      <pubDate>Mon, 02 Nov 2026 12:00:00 +0900</pubDate>
+      <pubDate>Mon, 02 Nov 2026 09:00:00 +0900</pubDate>
       <category>러닝 영양 · 완주 후 면역학 &amp; 상기도 감염 방어</category>
       <description><![CDATA[풀마라톤 완주 후 72시간 동안 찾아오는 급성 면역 저하와 상기도 감염(감기·인후통). 니만 교수의 오픈 윈도우 이론(Open Window Theory), 타액 s-IgA 항체 50% 급감 기전, 바이러스 침투를 막는 비타민 C, 아연, 글루타민 영양 방어 전략.]]></description>
-    </item>
-    <item>
-      <title>마라톤 완주 다음 날(D+1) 계단 지옥의 생체역학: 편심성 근수축 손상과 '뒤로 걷기' 통증 감쇠 과학</title>
-      <link>https://runanalyz.com/articles/marathon-post-race-day1-stairs-eccentric-muscle-soreness.html</link>
-      <guid isPermaLink="true">https://runanalyz.com/articles/marathon-post-race-day1-stairs-eccentric-muscle-soreness.html</guid>
-      <pubDate>Mon, 02 Nov 2026 12:00:00 +0900</pubDate>
-      <category>부상 예방 · 완주 다음 날 급성 근육통 &amp; 하행 생체역학</category>
-      <description><![CDATA[풀마라톤 완주 다음 날 월요일 출근길, 지하철 계단을 내려갈 때 허벅지가 찢어질 듯한 통증(DOMS)의 원인. 대퇴사두근 신장성(편심성) 수축 손상 메커니즘과 계단을 거꾸로 내려갈 때 슬개대퇴 관절 압력이 70% 감소하는 생체역학적 원리.]]></description>
-    </item>
-    <item>
-      <title>JTBC 마라톤 결승선 직후 급성 저체온증과 어지럼증: 젖은 싱글렛, 혈액 풀링(Blood Pooling)과 보온 골든타임</title>
-      <link>https://runanalyz.com/articles/jtbc-marathon-finish-line-hypothermia-vasovagal-syncope.html</link>
-      <guid isPermaLink="true">https://runanalyz.com/articles/jtbc-marathon-finish-line-hypothermia-vasovagal-syncope.html</guid>
-      <pubDate>Sun, 01 Nov 2026 11:30:00 +0900</pubDate>
-      <category>대회 실전 · JTBC 서울마라톤 피니시 안전 &amp; 체온 조절</category>
-      <description><![CDATA[11월 JTBC 서울마라톤 잠실종합운동장 피니시 직후 닥쳐오는 급성 저체온증과 현기증. 결승선 통과 후 다리 정맥 펌프 중단으로 인한 혈액 풀링, 젖은 레이스 싱글렛의 증발 잠열, 물품보관소 이동 중 30분 보온 골든타임 관리법.]]></description>
-    </item>
-    <item>
-      <title>JTBC 마라톤 35km 수서 언덕 근육 경련: 마의 오르막에서 햄스트링 쥐가 터지는 신경근 생리학과 즉각 대처법</title>
-      <link>https://runanalyz.com/articles/jtbc-marathon-35k-suseo-hill-muscle-cramp-neuromuscular.html</link>
-      <guid isPermaLink="true">https://runanalyz.com/articles/jtbc-marathon-35k-suseo-hill-muscle-cramp-neuromuscular.html</guid>
-      <pubDate>Sun, 01 Nov 2026 11:30:00 +0900</pubDate>
-      <category>대회 실전 · JTBC 서울마라톤 35km 승부처 &amp; 근육 경련</category>
-      <description><![CDATA[JTBC 서울마라톤 35km 수서나들목 지하차도 급경사에서 러너들을 집단 침몰시키는 햄스트링·종아리 근육 경련(Cramp). 단순 염분 부족이 아닌 신경근 피로와 골지건 기관(GTO) 억제 기전, 오르막 주법 전환과 길항근 수축 응급 대처법.]]></description>
     </item>
     <item>
       <title>마라톤 완주 직후 구토와 메스꺼움의 내장 생리학: 허혈성 위장 장애와 결승선 수분·당류 재공급 프로토콜</title>
       <link>https://runanalyz.com/articles/marathon-post-race-nausea-gi-distress-gut-ischemia.html</link>
       <guid isPermaLink="true">https://runanalyz.com/articles/marathon-post-race-nausea-gi-distress-gut-ischemia.html</guid>
-      <pubDate>Sun, 01 Nov 2026 11:30:00 +0900</pubDate>
+      <pubDate>Sun, 01 Nov 2026 09:00:00 +0900</pubDate>
       <category>러닝 영양 · 완주 후 급성 위장장애 &amp; 내장 허혈</category>
       <description><![CDATA[마라톤 풀코스·하프 완주 직후 물만 마셔도 구역질이 나고 속이 뒤집히는 원인. 달리는 동안 소화계 혈류가 80% 급감하는 내장 허혈(Splanchnic Ischemia)과 위 마비 증상, 결승선 통과 후 안전하게 위장을 깨우는 미세 흡수(Micro-sip) 프로토콜.]]></description>
     </item>
@@ -115,41 +131,57 @@
       <title>마라톤 완주 후 콜라색 소변과 신장 경고: 횡문근융해증 vs 발바닥 충격 혈뇨 감별과 소염진통제(NSAIDs) 금기</title>
       <link>https://runanalyz.com/articles/marathon-post-race-dark-urine-rhabdomyolysis-nsaids-kidney.html</link>
       <guid isPermaLink="true">https://runanalyz.com/articles/marathon-post-race-dark-urine-rhabdomyolysis-nsaids-kidney.html</guid>
-      <pubDate>Sun, 01 Nov 2026 11:30:00 +0900</pubDate>
+      <pubDate>Sun, 01 Nov 2026 09:00:00 +0900</pubDate>
       <category>부상 예방 · 완주 후 비뇨기 이상 &amp; 급성 신장 보호</category>
       <description><![CDATA[마라톤 풀코스 완주 후 나타나는 짙은 갈색·콜라색 소변의 위험 신호. 단순 탈수 소변, 발바닥 충격 용혈(Hemolysis)에 의한 혈뇨, 근육 파괴로 인한 횡문근융해증(Rhabdomyolysis)의 감별 진단과 급성 신부전을 부르는 소염진통제(NSAIDs) 절대 금기 생리학.]]></description>
     </item>
     <item>
-      <title>스마트워치 광학 심박계(PPG)의 추위 오차: 케이던스 락(Cadence Lock) 현상과 영하권 가슴 스트랩(ECG) 권장 생체역학</title>
-      <link>https://runanalyz.com/articles/smartwatch-cold-weather-cadence-lock-ppg-hr.html</link>
-      <guid isPermaLink="true">https://runanalyz.com/articles/smartwatch-cold-weather-cadence-lock-ppg-hr.html</guid>
-      <pubDate>Fri, 30 Oct 2026 19:00:00 +0900</pubDate>
-      <category>중급 빌드업 · 기어 &amp; 센서 공학</category>
-      <description><![CDATA[겨울철 조깅 시 워치 심박수가 발걸음 수(180)와 똑같이 치솟는 케이던스 락의 원인. 찬 바람 혈관 수축으로 인한 광학 신호 감쇠, 팔 흔들림 노이즈와 심박수 왜곡 극복 착용법.]]></description>
+      <title>JTBC 마라톤 결승선 직후 급성 저체온증과 어지럼증: 젖은 싱글렛, 혈액 풀링(Blood Pooling)과 보온 골든타임</title>
+      <link>https://runanalyz.com/articles/jtbc-marathon-finish-line-hypothermia-vasovagal-syncope.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/jtbc-marathon-finish-line-hypothermia-vasovagal-syncope.html</guid>
+      <pubDate>Sun, 01 Nov 2026 09:00:00 +0900</pubDate>
+      <category>대회 실전 · JTBC 서울마라톤 피니시 안전 &amp; 체온 조절</category>
+      <description><![CDATA[11월 JTBC 서울마라톤 잠실종합운동장 피니시 직후 닥쳐오는 급성 저체온증과 현기증. 결승선 통과 후 다리 정맥 펌프 중단으로 인한 혈액 풀링, 젖은 레이스 싱글렛의 증발 잠열, 물품보관소 이동 중 30분 보온 골든타임 관리법.]]></description>
+    </item>
+    <item>
+      <title>JTBC 마라톤 35km 수서 언덕 근육 경련: 마의 오르막에서 햄스트링 쥐가 터지는 신경근 생리학과 즉각 대처법</title>
+      <link>https://runanalyz.com/articles/jtbc-marathon-35k-suseo-hill-muscle-cramp-neuromuscular.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/jtbc-marathon-35k-suseo-hill-muscle-cramp-neuromuscular.html</guid>
+      <pubDate>Sun, 01 Nov 2026 09:00:00 +0900</pubDate>
+      <category>대회 실전 · JTBC 서울마라톤 35km 승부처 &amp; 근육 경련</category>
+      <description><![CDATA[JTBC 서울마라톤 35km 수서나들목 지하차도 급경사에서 러너들을 집단 침몰시키는 햄스트링·종아리 근육 경련(Cramp). 단순 염분 부족이 아닌 신경근 피로와 골지건 기관(GTO) 억제 기전, 오르막 주법 전환과 길항근 수축 응급 대처법.]]></description>
     </item>
     <item>
       <title>환절기·겨울철 야외 러닝의 심혈관 과학: 찬 공기 급성 혈관 수축, 아침 혈압 급상승(Morning Surge)과 워밍업 15분 수칙</title>
       <link>https://runanalyz.com/articles/winter-running-cardiovascular-blood-pressure-warmup.html</link>
       <guid isPermaLink="true">https://runanalyz.com/articles/winter-running-cardiovascular-blood-pressure-warmup.html</guid>
-      <pubDate>Fri, 30 Oct 2026 19:00:00 +0900</pubDate>
+      <pubDate>Fri, 30 Oct 2026 09:00:00 +0900</pubDate>
       <category>초보 입문 · 훈련 &amp; 심혈관 안전 생리학</category>
-      <description><![CDATA[기온 급강하 시 새벽 러닝의 심혈관계 위험. 급성 말초 혈관 수축과 혈압 스파이크, 심장 산소 소모량 폭증 메커니즘, 심장 쇼크를 막는 실내 15분 동적 웜업과 버프 기도 보온법.]]></description>
+      <description><![CDATA[10월 말부터 시작되는 급격한 기온 강하와 새벽 러닝의 심혈관계 위험. 급성 말초 혈관 수축과 혈압 스파이크(Morning Blood Pressure Surge), 심장 관상동맥 허혈 메커니즘, 심박수 급등을 막는 실내 15분 동적 관절 워밍업 프로토콜.]]></description>
     </item>
     <item>
       <title>달릴 때 발바닥·발가락 저림과 찌릿한 마비감: 족근관 증후군(발목 터널 증후군)과 신발 끈 압박의 신경역학</title>
       <link>https://runanalyz.com/articles/tarsal-tunnel-syndrome-foot-numbness-running.html</link>
       <guid isPermaLink="true">https://runanalyz.com/articles/tarsal-tunnel-syndrome-foot-numbness-running.html</guid>
-      <pubDate>Fri, 30 Oct 2026 19:00:00 +0900</pubDate>
+      <pubDate>Fri, 30 Oct 2026 09:00:00 +0900</pubDate>
       <category>중급 빌드업 · 부상 &amp; 신경생체역학</category>
-      <description><![CDATA[러닝 중 발바닥 앞쪽과 발가락 끝이 저리고 감각이 둔해지는 원인. 안쪽 복사뼈 뒤를 지나는 후경골신경 압박, 족저근막염과의 3초 감별법, 윈도우 레이싱 매듭법과 신경 글라이딩 재활.]]></description>
+      <description><![CDATA[러닝 중 발바닥 앞쪽이나 발가락 끝이 저리고 감각이 둔해지는 원인. 안쪽 복사뼈 뒤를 지나는 후경골신경 압박(발목 터널 증후군, Tarsal Tunnel Syndrome), 과도한 오버프로네이션과 러닝화 갑피 압박의 신경역학, 텅(Tongue) 패딩 조절과 3대 교정 재활.]]></description>
+    </item>
+    <item>
+      <title>스마트워치 광학 심박계(PPG)의 추위 오차: 케이던스 락(Cadence Lock) 현상과 영하권 가슴 스트랩(ECG) 권장 생체역학</title>
+      <link>https://runanalyz.com/articles/smartwatch-cold-weather-cadence-lock-ppg-hr.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/smartwatch-cold-weather-cadence-lock-ppg-hr.html</guid>
+      <pubDate>Fri, 30 Oct 2026 09:00:00 +0900</pubDate>
+      <category>중급 빌드업 · 기어 &amp; 센서 공학</category>
+      <description><![CDATA[가을·겨울 환절기에 가민, 코로스, 애플워치 광학 센서가 심박수를 케이던스(170~180)와 똑같이 잘못 읽는 케이던스 락(Cadence Lock)의 공학적 기전. 혈관 수축으로 인한 빛 흡수 신호 감쇠와 손목 흔들림 노이즈 극복법, 심전도(ECG) 가슴 스트랩 비교 가이드.]]></description>
     </item>
     <item>
       <title>풀마라톤 완주 후 48시간 급성기 관리법: 림프 마사지, 지연성 근육통(DOMS), 걷기 vs 완전 휴식의 생리학</title>
       <link>https://runanalyz.com/articles/marathon-post-race-48h-acute-recovery-doms.html</link>
       <guid isPermaLink="true">https://runanalyz.com/articles/marathon-post-race-48h-acute-recovery-doms.html</guid>
-      <pubDate>Fri, 30 Oct 2026 19:00:00 +0900</pubDate>
+      <pubDate>Fri, 30 Oct 2026 09:00:00 +0900</pubDate>
       <category>중급 빌드업 · 대회 실전 &amp; 급성기 리커버리</category>
-      <description><![CDATA[풀코스 42.195km 완주 직후 48시간 골든타임. 근섬유 파열과 전신 염증기, 폼롤러 강한 압박이 위험한 이유, 미세 손상 치유를 위한 림프 순환과 능동적 회복 걷기(Active Walking).]]></description>
+      <description><![CDATA[풀코스 42.195km 완주 직후 48시간 동안 일어나는 근섬유 파열과 전신 염증 반응. 폼롤러 강한 압박이 위험한 이유, 미세 근육 손상 치유를 위한 림프 순환과 능동적 회복 걷기(Active Walking), 48시간 급성기 리커버리 골든타임 프로토콜.]]></description>
     </item>
     <item>
       <title>마라톤 서브4에서 서브3로 도약하는 4대 훈련 주기화 공식: 주간 마일리지와 롱런의 질(Quality)의 차이</title>
