@@ -5,8 +5,40 @@
     <link>https://runanalyz.com/</link>
     <description>스포츠 생체역학과 운동생리학 연구 기반의 러닝 사이언스, 부상 재활, 마라톤 코스 공략 및 체력 진단 매거진</description>
     <language>ko</language>
-    <lastBuildDate>Tue, 10 Nov 2026 12:01:28 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 12 Nov 2026 12:54:45 +0900</lastBuildDate>
     <atom:link href="https://runanalyz.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>&quot;추운 날 달릴 때 내 몸에서 일어나는 대사 혁명&quot;: 갈색지방(BAT) 활성화와 미토콘드리아 UCP-1이 만드는 체지방 연소의 과학</title>
+      <link>https://runanalyz.com/articles/winter-running-brown-fat-mitochondria-ucp1-thermogenesis.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/winter-running-brown-fat-mitochondria-ucp1-thermogenesis.html</guid>
+      <pubDate>Thu, 12 Nov 2026 09:00:00 +0900</pubDate>
+      <category>체온 &amp; 대사 생리학 · 갈색지방 활성화 &amp; UCP-1 열발생</category>
+      <description><![CDATA[겨울철 영하의 공기 속에서 달릴 때 지방이 더 폭발적으로 타는 생리학적 이유! 백색지방을 태우는 갈색지방(BAT), 아이리신(Irisin) 호르몬과 베이지색 지방화(Browning), 미토콘드리아 탈공역 단백질(UCP-1) 열발생과 안전한 겨울 러닝 수칙.]]></description>
+    </item>
+    <item>
+      <title>&quot;오늘 뛸까, 쉴까? 스마트워치 HRV의 진실&quot;: 부교감신경 rMSSD와 자율신경계 균형으로 판독하는 과훈련 증후군(OTS) 방어 과학</title>
+      <link>https://runanalyz.com/articles/hrv-heart-rate-variability-overtraining-rmssd-autonomic-nervous-system.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/hrv-heart-rate-variability-overtraining-rmssd-autonomic-nervous-system.html</guid>
+      <pubDate>Thu, 12 Nov 2026 09:00:00 +0900</pubDate>
+      <category>신경 생리학 · 심박변이도(HRV) &amp; 과훈련 증후군</category>
+      <description><![CDATA[심장은 메트로놈처럼 규칙적이면 오히려 위험하다! 심장 박동 간격(R-R)의 미세 변동으로 읽는 자율신경계 피로도, rMSSD 지표, 급성 과부하(Overreaching)와 만성 과훈련(Overtraining)의 경계선, 스마트워치 7일 이동평균 기반 훈련 조정 알고리즘.]]></description>
+    </item>
+    <item>
+      <title>&quot;엘리트 마라토너의 장 속에는 특별한 미생물이 산다&quot;: 장내 미생물 베이요넬라(Veillonella)와 젖산 대사의 장-근육 축(Gut-Muscle Axis)</title>
+      <link>https://runanalyz.com/articles/gut-microbiome-veillonella-lactate-metabolism-endurance.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/gut-microbiome-veillonella-lactate-metabolism-endurance.html</guid>
+      <pubDate>Thu, 12 Nov 2026 09:00:00 +0900</pubDate>
+      <category>미생물 &amp; 대사 생리학 · 장내 미생물 베이요넬라 &amp; 장-근육 축</category>
+      <description><![CDATA[하버드 의대(Nature Medicine)가 밝혀낸 마라토너 장내 미생물의 놀라운 비밀! 근육의 젖산을 먹고 프로피온산으로 변환해 다시 지구력 에너지로 공급하는 베이요넬라균(Veillonella atypica), 장-근육 축(Gut-Muscle Axis)과 러너의 식이 전략.]]></description>
+    </item>
+    <item>
+      <title>&quot;러너는 근육이 아니라 건(힘줄)의 탄력으로 달린다&quot;: 아킬레스건의 신장-단축 주기(SSC)와 달리기 경제성(Running Economy)의 생체역학</title>
+      <link>https://runanalyz.com/articles/achilles-tendon-elastic-energy-recoil-running-economy.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/achilles-tendon-elastic-energy-recoil-running-economy.html</guid>
+      <pubDate>Thu, 12 Nov 2026 09:00:00 +0900</pubDate>
+      <category>건 생체역학 · 아킬레스건 탄성에너지 &amp; SSC</category>
+      <description><![CDATA[매 걸음마다 93%의 탄성에너지를 공짜로 돌려주는 아킬레스건의 기적! 근육(등척성 수축 고정)과 건(용수철 신장·반동)의 상호작용, 신장-단축 주기(Stretch-Shortening Cycle), 건 강성(Tendon Stiffness)과 플라이오메트릭 훈련법.]]></description>
+    </item>
     <item>
       <title>&quot;달리기를 잘하려면 침대에서 뛰어라&quot;: 수면 중 글림프 시스템(Glymphatic)과 성장호르몬(GH) 폭발이 만드는 초회복의 과학</title>
       <link>https://runanalyz.com/articles/running-sleep-growth-hormone-glymphatic-deep-recovery.html</link>

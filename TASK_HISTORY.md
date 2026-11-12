@@ -2,6 +2,32 @@
 
 ---
 
+## [2026-11-12] 🫀 건역학·대사·미생물·자율신경 4대 킬러 생리학 아티클 발행 (아킬레스건, 갈색지방, 베이요넬라, HRV)
+- **1. 요청사항**: 
+  - RunAnalyz의 전문성과 검색 유입을 극대화하는 운동생리학·생체역학 심층 킬러 아티클 4편 신규 집필, 마크업 및 배포 요청.
+- **2. 솔루션 & 구현**:
+  - **신규 아티클 4편 집필 및 마크업 완비**:
+    1. `achilles-tendon-elastic-energy-recoil-running-economy.html` (Card 129):
+       - 주제: "러너는 근육이 아니라 건(힘줄)의 탄력으로 달린다": 아킬레스건의 신장-단축 주기(SSC)와 달리기 경제성(Running Economy)의 생체역학
+       - 캥거루 메커니즘과 93% 탄성에너지 반환, 등척성 수축 고정 근육 vs 용수철 건(MTU) 상호작용, 건 강성(Tendon Stiffness)과 플라이오메트릭 앤클 호핑 훈련 프로토콜.
+    2. `winter-running-brown-fat-mitochondria-ucp1-thermogenesis.html` (Card 130):
+       - 주제: "추운 날 달릴 때 내 몸에서 일어나는 대사 혁명": 갈색지방(BAT) 활성화와 미토콘드리아 UCP-1이 만드는 체지방 연소의 과학
+       - 백색지방 vs 갈색지방(BAT), 아이리신(Irisin) 호르몬과 베이지색 지방화(Browning), 미토콘드리아 UCP-1 탈공역 열발생과 기초대사량 300~400kcal 추가 소모, 체감 10도 룰 레이어링.
+    3. `gut-microbiome-veillonella-lactate-metabolism-endurance.html` (Card 131):
+       - 주제: "엘리트 마라토너의 장 속에는 특별한 미생물이 산다": 장내 미생물 베이요넬라(Veillonella)와 젖산 대사의 장-근육 축(Gut-Muscle Axis)
+       - 하버드 의대(Nature Medicine) 연구: 보스턴 마라톤 완주자의 장내 *Veillonella atypica* 폭증, 혈중 젖산 ➔ 프로피온산(SCFA) 변환 ➔ 지구력 에너지 재공급 셔틀, 장 허혈 방어 및 프리바이오틱스 식단.
+    4. `hrv-heart-rate-variability-overtraining-rmssd-autonomic-nervous-system.html` (Card 132):
+       - 주제: "오늘 뛸까, 쉴까? 스마트워치 HRV의 진실": 부교감신경 rMSSD와 자율신경계 균형으로 판독하는 과훈련 증후군(OTS) 방어 과학
+       - 메트로놈 심장의 역설(R-R 불규칙성 = 유연성), 미주신경 rMSSD 지표, 기능적 과도부하 vs 만성 과훈련(OTS), 7일 이동평균 기저선(Baseline) 기반 3단계(초록/노랑/빨강) 훈련 조정 알고리즘.
+  - **허브 및 파이프라인 동기화**:
+    - `index.html`: 최상단 Card 129~132 신규 등록 (`data-category="science"` 연동).
+    - `sitemap.xml`: 신규 아티클 4개 URL 및 최신 날짜(2026-11-12) 반영.
+    - `generate_rss.py`: 실행하여 `rss.xml` 총 132개 아이템 피드 자동 갱신 완료.
+- **3. 결과 & 검증**:
+  - 모바일 반응형 뷰포트 가로 스크롤 0px, 카카오 애드핏(상단 320x100, 하단 300x250) 및 memo.js 연동 무결성 확보.
+
+---
+
 ## [2026-11-10] 💤 수면 글림프·발 윈들라스·호흡 CO2 내성 3대 킬러 생리학 아티클 구축
 - **1. 요청사항**: 
   - 러너들의 실전 고민(초회복/수면, 발바닥 아치/추진력, 숨참/호흡 메커니즘)을 생리학·생체역학적으로 규명하는 킬러 아티클 3편 신규 발행.

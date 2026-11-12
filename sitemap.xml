@@ -2,10 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://runanalyz.com/</loc>
-    <lastmod>2026-11-10</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+    <url>
+        <loc>https://runanalyz.com/articles/hrv-heart-rate-variability-overtraining-rmssd-autonomic-nervous-system.html</loc>
+        <lastmod>2026-11-12</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://runanalyz.com/articles/gut-microbiome-veillonella-lactate-metabolism-endurance.html</loc>
+        <lastmod>2026-11-12</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://runanalyz.com/articles/winter-running-brown-fat-mitochondria-ucp1-thermogenesis.html</loc>
+        <lastmod>2026-11-12</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://runanalyz.com/articles/achilles-tendon-elastic-energy-recoil-running-economy.html</loc>
+        <lastmod>2026-11-12</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
     <url>
         <loc>https://runanalyz.com/articles/running-sleep-growth-hormone-glymphatic-deep-recovery.html</loc>
         <lastmod>2026-11-10</lastmod>
