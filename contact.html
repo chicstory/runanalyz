@@ -33,10 +33,15 @@
 <body>
     <header class="app-header">
         <div class="header-inner">
-            <a href="index.html" class="logo">
-                <span class="logo-icon">⚡</span>
-                <span class="logo-text">RunAnalyz</span>
-            </a>
+            <div class="brand">
+                <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:8px;">
+                    <span class="brand-logo">⚡</span>
+                    <div class="brand-text">
+                        <span class="brand-name">RunAnalyz</span>
+                        <span class="brand-tagline">과학적 러닝 사이언스 &amp; 훈련 처방</span>
+                    </div>
+                </a>
+            </div>
             <nav class="header-nav-links">
                 <a href="index.html" class="header-nav-link">← 메인으로 돌아가기</a>
             </nav>
@@ -46,7 +51,11 @@
     <main class="container">
         <div class="article-wrapper">
             <header class="article-header">
-                <span class="article-breadcrumb"><a href="index.html">RunAnalyz</a> › 문의하기</span>
+                <nav class="breadcrumb" style="margin-bottom: 10px;">
+                    <a href="index.html">RunAnalyz</a>
+                    <span>›</span>
+                    <span>문의하기</span>
+                </nav>
                 <h1>문의하기 &amp; 데이터 오류 제보</h1>
                 <div class="article-meta">
                     <span>RunAnalyz 운영팀 공식 연락처</span>
@@ -122,3 +131,4 @@
 </body>
 
 </html>
+
