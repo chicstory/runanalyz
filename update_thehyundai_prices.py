@@ -54,9 +54,14 @@ SEARCH_RULES = {
     "adidas-ultraboost-5x": ("아디다스 울트라부스트 5X", ["울트라부스트", "5X"]),
 }
 
-EXCLUDE_TOKENS = ("키즈", "주니어", "아동", "유아", "GS", "PS", "TD", "양말", "가방", "모자", "의류", "재킷", "티셔츠", "팬츠")
+EXCLUDE_TOKENS = ("키즈", "주니어", "아동", "유아", "인펀트", "토들러", "베이비", "어린이", "초등", "양말", "가방", "모자", "의류", "재킷", "티셔츠", "팬츠")
+EXCLUDE_EN_RE = re.compile(r"\b(?:KIDS?|JUNIOR|JR|INFANT|TODDLER|BABY|YOUTH|GS|PS|TD|EL\s+[IC])\b", re.I)
 CARD_RE = re.compile(r'href="/product/([^"?]+)[^"]*"(.*?)(?=ProdCard_root|$)', re.S)
 PRICE_RE = re.compile(r"(\d{2,3},\d{3})\s*원")
+
+
+def is_excluded_title(title: str) -> bool:
+    return any(bad in title for bad in EXCLUDE_TOKENS) or bool(EXCLUDE_EN_RE.search(title))
 
 
 def fetch_thehyundai_lowest(query: str, required_tokens: list[str]) -> tuple[int, str, str] | None:
@@ -75,7 +80,7 @@ def fetch_thehyundai_lowest(query: str, required_tokens: list[str]) -> tuple[int
     for pid, body in CARD_RE.findall(html):
         texts = [" ".join(t.split()) for t in re.findall(r">([^<]{2,80})<", body) if t.strip()]
         full_text = " ".join(texts)
-        if any(bad in full_text for bad in EXCLUDE_TOKENS):
+        if is_excluded_title(full_text):
             continue
         if not all(tok in full_text for tok in required_tokens):
             continue
@@ -117,8 +122,8 @@ def main() -> None:
                     updated += 1
                 else:
                     offer["price_krw"] = None
-                    offer["url"] = f"https://hi.thehyundai.com/search?tab=product&q={urllib.parse.quote(query)}&disPlaySize=36"
-                    print(f"--  {shoe['id']:22s} -> 매칭 상품 없음 (검색 링크 유지)")
+                    offer["url"] = ""
+                    print(f"--  {shoe['id']:22s} -> 성인용 매칭 상품 없음 (링크 미연결)")
 
     txt = json.dumps(data, ensure_ascii=False, indent=2)
     JSON_PATH.write_text(txt + "\n", encoding="utf-8")

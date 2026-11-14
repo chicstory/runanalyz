@@ -54,12 +54,17 @@ SEARCH_RULES = {
     "adidas-ultraboost-5x": ("아디다스 울트라부스트 5X", ["울트라부스트", "5X"]),
 }
 
-EXCLUDE_TOKENS = ("키즈", "주니어", "아동", "유아", "GS", "PS", "TD", "양말", "가방", "모자", "의류", "재킷", "티셔츠", "팬츠")
+EXCLUDE_TOKENS = ("키즈", "주니어", "아동", "유아", "인펀트", "토들러", "베이비", "어린이", "초등", "양말", "가방", "모자", "의류", "재킷", "티셔츠", "팬츠")
+EXCLUDE_EN_RE = re.compile(r"\b(?:KIDS?|JUNIOR|JR|INFANT|TODDLER|BABY|YOUTH|GS|PS|TD|EL\s+[IC])\b", re.I)
 
 CARD_RE = re.compile(
     r"goods_no\s*:\s*'(\d+)'.*?>([^<]+)</a></span></dt>.*?<dd class=\"gdCost\"><span class=\"prc\"><em class=\"ir\">판매가</em><b>([\d,]+)</b>원",
     re.S,
 )
+
+
+def is_excluded_title(title: str) -> bool:
+    return any(bad in title for bad in EXCLUDE_TOKENS) or bool(EXCLUDE_EN_RE.search(title))
 
 
 def fetch_galleria_lowest(query: str, required_tokens: list[str]) -> tuple[int, str, str] | None:
@@ -72,7 +77,7 @@ def fetch_galleria_lowest(query: str, required_tokens: list[str]) -> tuple[int, 
     matches = []
     for goods_no, title, price_str in CARD_RE.findall(html):
         clean_title = " ".join(title.split())
-        if any(bad in clean_title for bad in EXCLUDE_TOKENS):
+        if is_excluded_title(clean_title):
             continue
         if not all(tok in clean_title for tok in required_tokens):
             continue
@@ -106,10 +111,10 @@ def main() -> None:
                     print(f"OK  {shoe['id']:22s} -> {price:,}원 | {title}")
                     updated += 1
                 else:
-                    # Fallback to clean Galleria Mall search URL if no exact item found
+                    # Do not attach a link if no adult shoe item matched
                     offer["price_krw"] = None
-                    offer["url"] = "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=" + urllib.parse.quote(query)
-                    print(f"--  {shoe['id']:22s} -> 매칭 상품 없음 (검색 링크 유지)")
+                    offer["url"] = ""
+                    print(f"--  {shoe['id']:22s} -> 성인용 매칭 상품 없음 (링크 미연결)")
 
     txt = json.dumps(data, ensure_ascii=False, indent=2)
     JSON_PATH.write_text(txt + "\n", encoding="utf-8")
