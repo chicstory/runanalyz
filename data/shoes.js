@@ -1147,13 +1147,13 @@ window.SHOES_DATA = {
       "offers": [
         {
           "store": "더현대닷컴 (현대백화점)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 84500,
+          "url": "https://hi.thehyundai.com/product/40B1437149"
         },
         {
           "store": "갤러리아몰",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 146300,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2604265013"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -1208,13 +1208,13 @@ window.SHOES_DATA = {
       "offers": [
         {
           "store": "더현대닷컴 (현대백화점)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 112500,
+          "url": "https://hi.thehyundai.com/product/60B1087342"
         },
         {
           "store": "갤러리아몰",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 109250,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2509649961"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -1269,13 +1269,13 @@ window.SHOES_DATA = {
       "offers": [
         {
           "store": "더현대닷컴 (현대백화점)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 74500,
+          "url": "https://hi.thehyundai.com/product/40B1408018"
         },
         {
           "store": "갤러리아몰",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 90470,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2605350625"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -1331,12 +1331,12 @@ window.SHOES_DATA = {
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
-          "url": ""
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%20%ED%94%84%EB%A1%9C%20%EC%97%90%EB%B3%B4%202&disPlaySize=36"
         },
         {
           "store": "갤러리아몰",
           "price_krw": null,
-          "url": ""
+          "url": "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%20%ED%94%84%EB%A1%9C%20%EC%97%90%EB%B3%B4%202"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -1391,13 +1391,13 @@ window.SHOES_DATA = {
       "offers": [
         {
           "store": "더현대닷컴 (현대백화점)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 97950,
+          "url": "https://hi.thehyundai.com/product/40B1180423"
         },
         {
           "store": "갤러리아몰",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 115370,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2611552892"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -1452,13 +1452,13 @@ window.SHOES_DATA = {
       "offers": [
         {
           "store": "더현대닷컴 (현대백화점)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 75050,
+          "url": "https://hi.thehyundai.com/product/2239378027"
         },
         {
           "store": "갤러리아몰",
           "price_krw": null,
-          "url": ""
+          "url": "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%EB%9D%BC%EC%9D%B4%EC%A6%88%202"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -1514,12 +1514,12 @@ window.SHOES_DATA = {
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
-          "url": ""
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%ED%94%84%EB%A6%AC%EB%A7%88%203&disPlaySize=36"
         },
         {
           "store": "갤러리아몰",
           "price_krw": null,
-          "url": ""
+          "url": "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%ED%94%84%EB%A6%AC%EB%A7%88%203"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -1574,13 +1574,13 @@ window.SHOES_DATA = {
       "offers": [
         {
           "store": "더현대닷컴 (현대백화점)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 53100,
+          "url": "https://hi.thehyundai.com/product/60B1087299"
         },
         {
           "store": "갤러리아몰",
           "price_krw": null,
-          "url": ""
+          "url": "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%EC%9D%B4%EC%A6%88%202"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -1635,13 +1635,13 @@ window.SHOES_DATA = {
       "offers": [
         {
           "store": "더현대닷컴 (현대백화점)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 79500,
+          "url": "https://hi.thehyundai.com/product/40B0151094"
         },
         {
           "store": "갤러리아몰",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 46060,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2603210192"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -1696,13 +1696,13 @@ window.SHOES_DATA = {
       "offers": [
         {
           "store": "더현대닷컴 (현대백화점)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 47600,
+          "url": "https://hi.thehyundai.com/product/40B0609226"
         },
         {
           "store": "갤러리아몰",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 56640,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2603216585"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -1757,13 +1757,13 @@ window.SHOES_DATA = {
       "offers": [
         {
           "store": "더현대닷컴 (현대백화점)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 99500,
+          "url": "https://hi.thehyundai.com/product/40B1828603"
         },
         {
           "store": "갤러리아몰",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 140270,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2608457072"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -1818,13 +1818,13 @@ window.SHOES_DATA = {
       "offers": [
         {
           "store": "더현대닷컴 (현대백화점)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 191730,
+          "url": "https://hi.thehyundai.com/product/40B1478941"
         },
         {
           "store": "갤러리아몰",
           "price_krw": null,
-          "url": ""
+          "url": "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%ED%95%98%EC%9D%B4%ED%8D%BC%EB%B6%80%EC%8A%A4%ED%8A%B8%20%EC%97%A3%EC%A7%80"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -1880,12 +1880,12 @@ window.SHOES_DATA = {
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
-          "url": ""
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EB%93%80%EB%9D%BC%EB%AA%A8%20%EC%8A%A4%ED%94%BC%EB%93%9C%202&disPlaySize=36"
         },
         {
           "store": "갤러리아몰",
           "price_krw": null,
-          "url": ""
+          "url": "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EB%93%80%EB%9D%BC%EB%AA%A8%20%EC%8A%A4%ED%94%BC%EB%93%9C%202"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -1940,13 +1940,13 @@ window.SHOES_DATA = {
       "offers": [
         {
           "store": "더현대닷컴 (현대백화점)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 39500,
+          "url": "https://hi.thehyundai.com/product/40B0143439"
         },
         {
           "store": "갤러리아몰",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 52450,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2501878233"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -2001,13 +2001,13 @@ window.SHOES_DATA = {
       "offers": [
         {
           "store": "더현대닷컴 (현대백화점)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 47400,
+          "url": "https://hi.thehyundai.com/product/40B1358406"
         },
         {
           "store": "갤러리아몰",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 56810,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2608437865"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -2063,12 +2063,12 @@ window.SHOES_DATA = {
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
-          "url": ""
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EB%9F%B0%ED%8C%94%EC%BD%98%205&disPlaySize=36"
         },
         {
           "store": "갤러리아몰",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 68590,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2504123530"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -2124,12 +2124,12 @@ window.SHOES_DATA = {
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
-          "url": ""
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%20%ED%94%84%EB%A1%9C%205&disPlaySize=36"
         },
         {
           "store": "갤러리아몰",
           "price_krw": null,
-          "url": ""
+          "url": "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%20%ED%94%84%EB%A1%9C%205"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -2184,13 +2184,13 @@ window.SHOES_DATA = {
       "offers": [
         {
           "store": "더현대닷컴 (현대백화점)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 119600,
+          "url": "https://hi.thehyundai.com/product/40B0151375"
         },
         {
           "store": "갤러리아몰",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 219450,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2509652942"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -2246,12 +2246,12 @@ window.SHOES_DATA = {
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
-          "url": ""
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%20X3&disPlaySize=36"
         },
         {
           "store": "갤러리아몰",
           "price_krw": null,
-          "url": ""
+          "url": "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%20X3"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -2307,12 +2307,12 @@ window.SHOES_DATA = {
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
-          "url": ""
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%209&disPlaySize=36"
         },
         {
           "store": "갤러리아몰",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 142500,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2609485894"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -2368,12 +2368,12 @@ window.SHOES_DATA = {
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
-          "url": ""
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%20%EC%83%88%ED%8B%B0%EC%8A%A4%ED%8C%8C%EC%9D%B4&disPlaySize=36"
         },
         {
           "store": "갤러리아몰",
           "price_krw": null,
-          "url": ""
+          "url": "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%20%EC%83%88%ED%8B%B0%EC%8A%A4%ED%8C%8C%EC%9D%B4"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
@@ -2429,12 +2429,12 @@ window.SHOES_DATA = {
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
-          "url": ""
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4%20%EB%B3%B4%EC%8A%A4%ED%84%B4%2012&disPlaySize=36"
         },
         {
           "store": "갤러리아몰",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 113050,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2506363882"
         },
         {
           "store": "플릿러너 (공식 전문몰)",
