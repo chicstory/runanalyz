@@ -6,6 +6,12 @@
       "name": "Nike",
       "name_ko": "나이키",
       "count": 18
+    },
+    {
+      "id": "adidas",
+      "name": "Adidas",
+      "name_ko": "아디다스",
+      "count": 16
     }
   ],
   "shoes": [
@@ -1105,6 +1111,982 @@
         }
       ],
       "msrp_krw": 129000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-adizero-evo-sl",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Adizero Evo SL",
+      "name_ko": "아디다스 아디제로 에보 SL",
+      "category": "tempo",
+      "category_ko": "템포 · 경량 트레이너",
+      "level": "초중급 ~ 상급",
+      "plate": "나일론 섕크 (논카본)",
+      "has_carbon": false,
+      "foam": "전장 Lightstrike Pro",
+      "drop_mm": 6,
+      "stack_heel_mm": 39,
+      "weight_g": 224,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "가벼운 빠른 훈련, 템포런, 10K~하프 페이스업",
+      "summary": "아디제로 시리즈 중 가장 인기가 높은 올라운드 스피드 트레이너입니다. 220g대의 가벼운 무게에 전장 라이트스트라이크 프로 폼을 넣어 경쾌하게 속도를 올릴 수 있습니다.",
+      "caution": "스택이 높고 부드러워 발목이 약한 입문자는 느린 조깅보다 적당한 템포 주행에 더 잘 맞습니다.",
+      "image": "assets/shoes/adidas-adizero-evo-sl-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C%20%EC%97%90%EB%B3%B4%20SL",
+        "runrepeat": "https://runrepeat.com/adidas-adizero-evo-sl",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "에보1 감성의 초경량 훈련화이지만 카본이 없어 데일리 템포런에 부담 없이 신기 좋습니다. 발볼은 표준~다소 여유로운 편입니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 209000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-adizero-boston-13",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Adizero Boston 13",
+      "name_ko": "아디다스 아디제로 보스턴 13",
+      "category": "carbon",
+      "category_ko": "슈퍼 트레이너 · 에너지로드",
+      "level": "중급 ~ 상급",
+      "plate": "EnergyRods 2.0 (유리섬유)",
+      "has_carbon": true,
+      "foam": "Lightstrike Pro + Lightstrike 2.0",
+      "drop_mm": 7,
+      "stack_heel_mm": 38,
+      "weight_g": 255,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "하프·풀코스 장거리 템포, 마라톤 대비 포인트 훈련",
+      "summary": "단단하면서도 탄력 있게 밀어주는 에너지로드 2.0 덕분에 장거리 페이스 유지 훈련의 표준으로 꼽히는 슈퍼 트레이너입니다.",
+      "caution": "초보자가 매일 가벼운 조깅으로만 신기에는 로드가 다소 단단하게 느껴질 수 있습니다.",
+      "image": "assets/shoes/adidas-adizero-boston-13-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C%20%EB%B3%B4%EC%8A%A4%ED%84%B4%2013",
+        "runrepeat": "https://runrepeat.com/adidas-adizero-boston-13",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "앞코가 뾰족하지 않고 표준 발볼에 맞춰져 있으며, 발볼이 넓다면 반업(5mm)을 고려하세요.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 189000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-adizero-sl-2",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Adizero SL2",
+      "name_ko": "아디다스 아디제로 SL2",
+      "category": "daily",
+      "category_ko": "경량 올라운드 데일리",
+      "level": "입문 ~ 상급",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "Lightstrike Pro 코어 + Lightstrike 2.0",
+      "drop_mm": 9,
+      "stack_heel_mm": 36,
+      "weight_g": 243,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "매일 조깅과 인터벌을 한 켤레로 소화하고 싶은 러너",
+      "summary": "가성비와 경량성을 모두 잡은 아디다스의 핵심 데일리 트레이너입니다. 가운데 심어진 라이트스트라이크 프로 덕분에 조깅부터 빠른 달리기까지 무난합니다.",
+      "caution": "초장거리 회복 조깅용 맥스 쿠션보다는 경쾌한 데일리 주행에 초점이 맞춰져 있습니다.",
+      "image": "assets/shoes/adidas-adizero-sl-2-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C%20SL2",
+        "runrepeat": "https://runrepeat.com/adidas-adizero-sl2",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "전작보다 앞코 여유가 개선되었고 와이드 옵션도 있어 가벼운 데일리화를 찾는 분께 잘 맞습니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 149000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-adizero-adios-pro-evo-2",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Adizero Adios Pro Evo 2",
+      "name_ko": "아디다스 아디오스 프로 에보 2",
+      "category": "race",
+      "category_ko": "초경량 엘리트 마라톤",
+      "level": "상급 ~ 엘리트",
+      "plate": "카본 EnergyRods 2.0",
+      "has_carbon": true,
+      "foam": "초경량 비압축 Lightstrike Pro",
+      "drop_mm": 3,
+      "stack_heel_mm": 39,
+      "weight_g": 138,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "풀코스 마라톤 최고 기록 도전 (서브3 이상)",
+      "summary": "138g대의 믿기 힘든 무게로 마라톤 세계 기록 경쟁을 위해 제작된 아디다스의 최상위 레이싱화입니다.",
+      "caution": "가격이 매우 높고 내구성이 순수 대회용에 맞춰져 있어 일반 훈련용으로는 적합하지 않습니다.",
+      "image": "assets/shoes/adidas-adizero-adios-pro-evo-2-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%20%ED%94%84%EB%A1%9C%20%EC%97%90%EB%B3%B4%202",
+        "runrepeat": "https://runrepeat.com/adidas-adizero-adios-pro-evo-2",
+        "affiliate": ""
+      },
+      "toebox_width": "좁음",
+      "wide_available": false,
+      "fit_note": "극한의 경량화를 위해 갑피와 발볼 핏이 매우 타이트합니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 599000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-supernova-rise-3",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Supernova Rise 3",
+      "name_ko": "아디다스 슈퍼노바 라이즈 3",
+      "category": "daily",
+      "category_ko": "올라운드 데일리",
+      "level": "입문 ~ 중급",
+      "plate": "Support Rods (폼 내장)",
+      "has_carbon": false,
+      "foam": "Dreamstrike+",
+      "drop_mm": 10,
+      "stack_heel_mm": 36,
+      "weight_g": 275,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "첫 러닝화, 매일 5~15km 편안한 데일리 조깅",
+      "summary": "페가수스와 맞붙는 아디다스의 대표 데일리화입니다. 드림스트라이크+ 폼과 부드러운 서포트 로드가 발의 흔들림을 자연스럽게 잡아줍니다.",
+      "caution": "스피드 기록 단축보다는 안정적이고 편안한 데일리 조깅에 가장 잘 어울립니다.",
+      "image": "assets/shoes/adidas-supernova-rise-3-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%EB%9D%BC%EC%9D%B4%EC%A6%88%203",
+        "runrepeat": "https://runrepeat.com/adidas-supernova-rise-3",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "발볼과 발등이 압박 없이 편안한 표준 라스트로 입문자도 편하게 신을 수 있습니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 159000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-supernova-rise-2",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Supernova Rise 2",
+      "name_ko": "아디다스 슈퍼노바 라이즈 2",
+      "category": "daily",
+      "category_ko": "올라운드 데일리",
+      "level": "입문 ~ 중급",
+      "plate": "Support Rods (폼 내장)",
+      "has_carbon": false,
+      "foam": "Dreamstrike+",
+      "drop_mm": 10,
+      "stack_heel_mm": 36,
+      "weight_g": 275,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "이월 할인가로 찾는 입문·데일리 조깅화",
+      "summary": "라이즈 3과 같은 드림스트라이크+ 기반의 안정적인 데일리 러닝화입니다. 세일 가격으로 구할 수 있다면 가성비가 뛰어납니다.",
+      "caution": "통풍성이나 무게는 라이즈 3 대비 평범한 편입니다.",
+      "image": "assets/shoes/adidas-supernova-rise-2-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%EB%9D%BC%EC%9D%B4%EC%A6%88%202",
+        "runrepeat": "https://runrepeat.com/adidas-supernova-rise-2",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "표준 발볼 기준 무난하며 뒤꿈치 패딩이 넉넉해 발목이 편안합니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 159000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-supernova-prima-3",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Supernova Prima 3",
+      "name_ko": "아디다스 슈퍼노바 프리마 3",
+      "category": "max-cushion",
+      "category_ko": "맥스 쿠션 · 장거리 조깅",
+      "level": "입문 ~ 상급",
+      "plate": "Support Rods",
+      "has_carbon": false,
+      "foam": "Dreamstrike+ (하이 스택)",
+      "drop_mm": 8,
+      "stack_heel_mm": 38,
+      "weight_g": 290,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "무릎 보호 장거리 조깅, 체중이 있거나 푹신한 착지 선호",
+      "summary": "슈퍼노바 라인업 중 쿠션 두께를 가장 넉넉하게 키운 맥스 쿠션 모델입니다. 장거리 LSD에서도 발바닥 피로를 줄여줍니다.",
+      "caution": "부드러운 장거리용이라 빠른 인터벌 훈련에는 다소 묵직할 수 있습니다.",
+      "image": "assets/shoes/adidas-supernova-prima-3-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%ED%94%84%EB%A6%AC%EB%A7%88%203",
+        "runrepeat": "https://runrepeat.com/adidas-supernova-prima-3",
+        "affiliate": ""
+      },
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "라이즈보다 전족부 폭이 약간 더 여유로워 발볼이 넓은 러너도 편하게 신기 좋습니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 199000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-supernova-ease-2",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Supernova Ease 2",
+      "name_ko": "아디다스 슈퍼노바 이즈 2",
+      "category": "budget",
+      "category_ko": "입문 · 편안한 데일리",
+      "level": "입문 ~ 초급",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "Dreamstrike",
+      "drop_mm": 9,
+      "stack_heel_mm": 34,
+      "weight_g": 260,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "가벼운 3~5km 조깅, 걷기·달리기 병행 입문",
+      "summary": "부담 없는 가격에 슈퍼노바 시리즈의 부드러운 쿠션을 경험할 수 있는 엔트리 모델입니다.",
+      "caution": "15km 이상의 장거리에서는 상위 라이즈·프리마보다 쿠션이 얇게 느껴질 수 있습니다.",
+      "image": "assets/shoes/adidas-supernova-ease-2-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%8A%88%ED%8D%BC%EB%85%B8%EB%B0%94%20%EC%9D%B4%EC%A6%88%202",
+        "runrepeat": "",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "입문자용으로 앞코 압박이 적고 착화감이 부드러운 편입니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 99000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-adistar-5",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Adistar 5",
+      "name_ko": "아디다스 아디스타 5",
+      "category": "max-cushion",
+      "category_ko": "맥스 쿠션 · 안정형 장거리",
+      "level": "입문 ~ 중급",
+      "plate": "리페티터+ 로커 구조",
+      "has_carbon": false,
+      "foam": "REPETITOR+",
+      "drop_mm": 6,
+      "stack_heel_mm": 40,
+      "weight_g": 295,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "느린 속도의 장거리 조깅, 무릎·관절 충격 완화",
+      "summary": "두툼한 리페티터+ 폼과 부드러운 로커 곡선으로 천천히 오래 달릴 때 관절 부담을 덜어주는 맥스 쿠션화입니다.",
+      "caution": "빠른 페이스보다는 여유로운 회복·장거리 조깅에 맞춰져 있습니다.",
+      "image": "assets/shoes/adidas-adistar-5-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%95%84%EB%94%94%EC%8A%A4%ED%83%80%205",
+        "runrepeat": "",
+        "affiliate": ""
+      },
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "발볼과 미드솔 바닥 면적이 넓어 발이 편안하고 안정적입니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 199000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-adistar-3",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Adistar 3",
+      "name_ko": "아디다스 아디스타 3",
+      "category": "max-cushion",
+      "category_ko": "맥스 쿠션 · 장거리 조깅",
+      "level": "입문 ~ 중급",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "REPETITOR 2.0",
+      "drop_mm": 5,
+      "stack_heel_mm": 40,
+      "weight_g": 285,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "장거리 천천히 뛰기, 워킹·회복 조깅",
+      "summary": "전작 대비 훨씬 부드러워진 40mm 하이 스택 폼 덕분에 바닥 충격을 크게 줄여주는 쿠션 데일리화입니다.",
+      "caution": "반발력이 강한 레이스화는 아니므로 속도 훈련에는 보스턴이나 에보 SL이 더 적합합니다.",
+      "image": "assets/shoes/adidas-adistar-3-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%95%84%EB%94%94%EC%8A%A4%ED%83%80%203",
+        "runrepeat": "https://runrepeat.com/adidas-adistar-3",
+        "affiliate": ""
+      },
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "앞코 공간이 넉넉한 편이라 발볼이 넓은 러너에게도 부담이 적습니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 199000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-ultraboost-5x",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Ultraboost 5X",
+      "name_ko": "아디다스 울트라부스트 5X",
+      "category": "max-cushion",
+      "category_ko": "프리미엄 쿠션 · 라이프스타일",
+      "level": "입문 ~ 중급",
+      "plate": "Torsion System",
+      "has_carbon": false,
+      "foam": "Light BOOST V2",
+      "drop_mm": 10,
+      "stack_heel_mm": 39,
+      "weight_g": 278,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "가벼운 조깅과 일상 워킹·여행을 한 켤레로 겸용",
+      "summary": "기존 울트라부스트보다 훨씬 가벼워진 라이트 부스트 V2를 적용해 일상화와 러닝화를 겸하고 싶은 분께 좋습니다.",
+      "caution": "본격적인 마라톤 기록 훈련용으로는 아디제로·슈퍼노바 라인이 더 가성비가 좋습니다.",
+      "image": "assets/shoes/adidas-ultraboost-5x-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%9A%B8%ED%8A%B8%EB%9D%BC%EB%B6%80%EC%8A%A4%ED%8A%B8%205X",
+        "runrepeat": "",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "니트 갑피가 발을 쫀득하게 감싸주며 발등이 높으면 반업이 편합니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 199000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-hyperboost-edge",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Hyperboost Edge",
+      "name_ko": "아디다스 하이퍼부스트 엣지",
+      "category": "max-cushion",
+      "category_ko": "논플레이트 슈퍼 트레이너",
+      "level": "초중급 ~ 상급",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "Hyperboost 하이 스택 폼",
+      "drop_mm": 6,
+      "stack_heel_mm": 42,
+      "weight_g": 265,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "카본 없이 부드럽고 탄력 있는 장거리 마일리지 훈련",
+      "summary": "플레이트를 넣지 않고도 하이 스택 폼 자체의 탄성으로 장거리 피로를 줄여주는 아디다스의 프리미엄 슈퍼 트레이너입니다.",
+      "caution": "가격대가 높은 편이며 스택이 높아 급커브가 많은 코스에선 주의가 필요합니다.",
+      "image": "assets/shoes/adidas-hyperboost-edge-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%ED%95%98%EC%9D%B4%ED%8D%BC%EB%B6%80%EC%8A%A4%ED%8A%B8%20%EC%97%A3%EC%A7%80",
+        "runrepeat": "https://runrepeat.com/adidas-hyperboost-edge",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "표준 발볼 기준 편안한 핏으로 장거리 주행에도 압박이 적습니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 249000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-duramo-speed-2",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Duramo Speed 2",
+      "name_ko": "아디다스 듀라모 스피드 2",
+      "category": "budget",
+      "category_ko": "입문 · 가성비 스피드",
+      "level": "입문 ~ 초급",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "Lightstrike",
+      "drop_mm": 6,
+      "stack_heel_mm": 33,
+      "weight_g": 270,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "10만 원 이하 가성비 입문 러닝, 헬스장 트레드밀",
+      "summary": "10만 원 이하 가격대에서 단단하고 가벼운 라이트스트라이크 폼을 경험할 수 있는 실속형 트레이너입니다.",
+      "caution": "쿠션이 푹신한 편은 아니므로 부드러운 쿠션을 원하면 슈퍼노바 시리즈가 낫습니다.",
+      "image": "assets/shoes/adidas-duramo-speed-2-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EB%93%80%EB%9D%BC%EB%AA%A8%20%EC%8A%A4%ED%94%BC%EB%93%9C%202",
+        "runrepeat": "https://runrepeat.com/adidas-duramo-speed-2",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "표준 발볼이며 갑피 메쉬가 가볍고 통풍이 잘 됩니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 99000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-duramo-sl-2",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Duramo SL 2",
+      "name_ko": "아디다스 듀라모 SL 2",
+      "category": "budget",
+      "category_ko": "입문 · 엔트리 러닝",
+      "level": "입문",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "Lightmotion",
+      "drop_mm": 9,
+      "stack_heel_mm": 33,
+      "weight_g": 290,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "러닝 첫 입문, 걷기·가벼운 조깅",
+      "summary": "가성비 좋은 엔트리 러닝화로 처음 달리기를 시작할 때 부담 없이 선택하기 좋습니다.",
+      "caution": "주간 거리가 늘어나면 아디제로 SL2나 슈퍼노바 라이즈로 업그레이드하는 것이 좋습니다.",
+      "image": "assets/shoes/adidas-duramo-sl-2-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EB%93%80%EB%9D%BC%EB%AA%A8%20SL%202",
+        "runrepeat": "",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "입문용으로 무난한 핏이며 일상 운동화로도 편하게 신을 수 있습니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 89000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-galaxy-8",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Galaxy 8",
+      "name_ko": "아디다스 갤럭시 8",
+      "category": "budget",
+      "category_ko": "입문 · 생활 조깅",
+      "level": "입문",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "Cloudfoam",
+      "drop_mm": 10,
+      "stack_heel_mm": 34,
+      "weight_g": 305,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "가벼운 산책·걷기, 주 1~2회 짧은 조깅",
+      "summary": "아디다스에서 가장 접근성이 좋은 입문형 러닝·워킹화입니다.",
+      "caution": "본격적인 중장거리 러닝에는 폼 반발력이 부족할 수 있습니다.",
+      "image": "assets/shoes/adidas-galaxy-8-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EA%B0%A4%EB%9F%AD%EC%8B%9C%208",
+        "runrepeat": "https://runrepeat.com/adidas-galaxy-8",
+        "affiliate": ""
+      },
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "앞코와 발등이 넉넉해 발볼이 넓어도 편하게 신기 좋습니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 79000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-runpalcon-5",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Runfalcon 5",
+      "name_ko": "아디다스 런팔콘 5",
+      "category": "budget",
+      "category_ko": "입문 · 가성비 데일리",
+      "level": "입문",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "Cloudfoam",
+      "drop_mm": 10,
+      "stack_heel_mm": 33,
+      "weight_g": 295,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "실내 트레드밀, 가벼운 동네 조깅 및 일상 겸용",
+      "summary": "부담 없는 가격에 푹신한 클라우드폼과 와이드 옵션까지 갖춘 국민 입문 러닝화입니다.",
+      "caution": "5km 이상 장거리 러닝을 꾸준히 하신다면 슈퍼노바·SL2 이상 모델을 추천합니다.",
+      "image": "assets/shoes/adidas-runpalcon-5-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EB%9F%B0%ED%8C%94%EC%BD%98%205",
+        "runrepeat": "https://runrepeat.com/adidas-runfalcon-5",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "와이드(Wide) 버전도 별도 출시되어 발볼이 넓은 입문자도 고르기 쉽습니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 79000,
       "lifespan_km": 600
     }
   ]

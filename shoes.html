@@ -922,12 +922,12 @@
         <section class="shoef-hero">
             <div class="shoef-badge-row">
                 <span class="shoef-badge">👟 ShoeF 러닝화 비교 랩 · BETA</span>
-                <span class="shoef-badge shoef-badge-muted">1차 라인업: 나이키(Nike) 18종</span>
+                <span class="shoef-badge shoef-badge-muted">나이키 18종 · 아디다스 16종 (총 34종)</span>
             </div>
             <h1 class="shoef-title">내 달리기 목적에 맞는 러닝화 1초 찾기</h1>
             <p class="shoef-desc">
-                복잡한 마케팅 문구 대신 <strong>무게·쿠션 높이·드롭·카본 여부</strong>만 깔끔하게 모았습니다.<br>
-                마음에 드는 신발을 최대 3켤레까지 담아 나란히 비교해 보세요.
+                복잡한 마케팅 문구 대신 <strong>무게·쿠션 높이·드롭·발볼·600km 가성비</strong>만 깔끔하게 모았습니다.<br>
+                카드를 누르면 정품 판매처 가격과 RunRepeat 실측 리뷰를 바로 확인할 수 있습니다.
             </p>
         </section>
 
@@ -970,6 +970,11 @@
 
         <!-- 검색 및 세부 필터 -->
         <section class="filter-toolbar" aria-label="검색 및 필터">
+            <div class="chip-scroll-row" id="brandChips" role="group" aria-label="브랜드 선택">
+                <button type="button" class="cat-chip active" data-brand="all">전체 브랜드</button>
+                <button type="button" class="cat-chip" data-brand="nike">나이키 (Nike)</button>
+                <button type="button" class="cat-chip" data-brand="adidas">아디다스 (Adidas)</button>
+            </div>
             <div class="filter-top-row">
                 <div class="search-input-wrap">
                     <input type="search" id="shoeSearch" class="search-input" placeholder="모델명 또는 특징 검색 (예: 페가수스, 보메로, 줌X, 입문)" aria-label="러닝화 검색">
@@ -1018,6 +1023,7 @@
         (function () {
             const state = {
                 shoes: [],
+                brand: 'all',
                 category: 'all',
                 query: '',
                 wideOnly: false,
@@ -1031,6 +1037,7 @@
                 empty: document.getElementById('emptyState'),
                 countText: document.getElementById('resultCountText'),
                 search: document.getElementById('shoeSearch'),
+                brandBtns: document.querySelectorAll('#brandChips .cat-chip'),
                 wideBtn: document.getElementById('wideOnlyBtn'),
                 carbonBtn: document.getElementById('carbonOnlyBtn'),
                 pendingBtn: document.getElementById('includePendingBtn'),
@@ -1075,6 +1082,7 @@
                 const q = state.query.trim().toLowerCase();
                 let list = state.shoes.filter(shoe => {
                     if (!state.includePending && shoe.status === 'pending_image') return false;
+                    if (state.brand !== 'all' && shoe.brand !== state.brand) return false;
                     if (!matchesCategory(shoe, state.category)) return false;
                     if (state.wideOnly && !(shoe.toebox_width === '넓음' || shoe.wide_available)) return false;
                     if (state.carbonOnly && !shoe.has_carbon) return false;
@@ -1266,6 +1274,7 @@
             }
 
             function resetFilters() {
+                state.brand = 'all';
                 state.category = 'all';
                 state.query = '';
                 state.wideOnly = false;
@@ -1273,6 +1282,7 @@
                 state.sortBy = 'featured';
                 els.search.value = '';
                 els.sort.value = 'featured';
+                els.brandBtns.forEach(b => b.classList.toggle('active', b.dataset.brand === 'all'));
                 els.wideBtn.classList.remove('active');
                 els.wideBtn.setAttribute('aria-pressed', 'false');
                 els.carbonBtn.classList.remove('active');
@@ -1282,6 +1292,14 @@
             }
 
             // Event bindings
+            els.brandBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    state.brand = btn.dataset.brand;
+                    els.brandBtns.forEach(b => b.classList.toggle('active', b === btn));
+                    renderGrid();
+                });
+            });
+
             els.goalBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     state.category = btn.dataset.cat;
