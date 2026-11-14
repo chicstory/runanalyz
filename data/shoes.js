@@ -42,11 +42,6 @@ window.SHOES_DATA = {
       "fit_note": "표준 발볼(D) 기준 무난하며, 발볼이 넓다면 와이드(2E·4E) 또는 반업(5mm)을 추천합니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 91100,
           "url": "https://hi.thehyundai.com/product/40B0295876"
@@ -63,6 +58,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -103,11 +103,6 @@ window.SHOES_DATA = {
       "fit_note": "레이싱에 가까운 슬림한 핏이라 발볼이 넓거나 발등이 높다면 반업(5mm)을 고려하세요.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4%20%ED%94%8C%EB%9F%AC%EC%8A%A4&disPlaySize=36"
@@ -124,6 +119,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -164,11 +164,6 @@ window.SHOES_DATA = {
       "fit_note": "앞코는 보통이나 중족부(발 허리)가 다소 타이트하게 감싸는 편입니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84&disPlaySize=36"
@@ -185,6 +180,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -225,11 +225,6 @@ window.SHOES_DATA = {
       "fit_note": "데일리 맥스 쿠션답게 앞코 여유가 무난하며, 발볼러를 위한 와이드(2E) 옵션도 나옵니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 101880,
           "url": "https://hi.thehyundai.com/product/40B2030069"
@@ -246,6 +241,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -286,11 +286,6 @@ window.SHOES_DATA = {
       "fit_note": "보메로 18과 동일한 라스트로 발볼 여유가 무난합니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B3%B4%EB%A9%94%EB%A1%9C%2018%20SE&disPlaySize=36"
@@ -307,6 +302,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -347,11 +347,6 @@ window.SHOES_DATA = {
       "fit_note": "넓은 베이스와 여유로운 앞코 덕분에 발볼이 약간 넓은 편도 비교적 편하게 신을 수 있습니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B3%B4%EB%A9%94%EB%A1%9C%20%ED%94%8C%EB%9F%AC%EC%8A%A4&disPlaySize=36"
@@ -368,6 +363,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -408,11 +408,6 @@ window.SHOES_DATA = {
       "fit_note": "전족부 공간이 여유로운 편이지만, 발목·발등 핏을 확인하고 정사이즈~반업을 선택하세요.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B3%B4%EB%A9%94%EB%A1%9C%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84&disPlaySize=36"
@@ -429,6 +424,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -469,11 +469,6 @@ window.SHOES_DATA = {
       "fit_note": "안정화 특성상 앞코와 중족부가 안정적이며, 와이드(2E·4E) 출시 모델이라 발볼러에게 유리합니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 84500,
           "url": "https://hi.thehyundai.com/product/40A2211374"
@@ -490,6 +485,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -530,11 +530,6 @@ window.SHOES_DATA = {
       "fit_note": "스트럭처 26 기반에 쿠션을 높인 모델로 발볼과 발등 압박이 적은 편입니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98%20%ED%94%8C%EB%9F%AC%EC%8A%A4&disPlaySize=36"
@@ -551,6 +546,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -591,11 +591,6 @@ window.SHOES_DATA = {
       "fit_note": "스피드 훈련용 핏이라 앞코와 중족부가 날렵합니다. 발볼이 넓으면 반업(5mm)을 권장합니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 112660,
           "url": "https://hi.thehyundai.com/product/40A2309819"
@@ -612,6 +607,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -652,11 +652,6 @@ window.SHOES_DATA = {
       "fit_note": "기록 단축용 레이스 핏으로 발볼과 아치가 타이트합니다. 와이드 모델이 없어 발볼이 넓으면 시착이 필수입니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B2%A0%EC%9D%B4%ED%8D%BC%ED%94%8C%EB%9D%BC%EC%9D%B4%204&disPlaySize=36"
@@ -673,6 +668,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -713,11 +713,6 @@ window.SHOES_DATA = {
       "fit_note": "입문 데일리용으로 무난한 발볼이며, 와이드(4E) 옵션이 있어 발볼이 넓은 입문자에게 좋습니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 69500,
           "url": "https://hi.thehyundai.com/product/40B1125618"
@@ -734,6 +729,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -774,11 +774,6 @@ window.SHOES_DATA = {
       "fit_note": "여유가 극단적으로 좁지 않은 표준 입문 핏이며 와이드 옵션도 선택 가능합니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 53370,
           "url": "https://hi.thehyundai.com/product/40B1377748"
@@ -795,6 +790,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -835,11 +835,6 @@ window.SHOES_DATA = {
       "fit_note": "가벼운 조깅·워킹 겸용이라 앞코 공간이 비교적 넉넉하고 편안합니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 64150,
           "url": "https://hi.thehyundai.com/product/40B0408593"
@@ -856,6 +851,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -896,11 +896,6 @@ window.SHOES_DATA = {
       "fit_note": "3보다 앞코 공간이 소폭 여유로워졌지만 여전히 레이싱용 타이트 핏입니다. 발볼이 넓다면 반업(5mm) 시착을 권장합니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%95%8C%ED%8C%8C%ED%94%8C%EB%9D%BC%EC%9D%B4%204&disPlaySize=36"
@@ -917,6 +912,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -957,11 +957,6 @@ window.SHOES_DATA = {
       "fit_note": "아치 부분이 좁고 도드라진 레이싱 핏입니다. 평발·넓은 발볼은 반드시 시착 후 구매하세요.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%95%8C%ED%8C%8C%ED%94%8C%EB%9D%BC%EC%9D%B4%203&disPlaySize=36"
@@ -978,6 +973,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -1018,11 +1018,6 @@ window.SHOES_DATA = {
       "fit_note": "트랙 스파이크에 가까운 초슬림 핏입니다. 발볼이 넓다면 다른 모델을 권장합니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%8A%A4%ED%8A%B8%EB%A6%AD%ED%94%8C%EB%9D%BC%EC%9D%B4%202&disPlaySize=36"
@@ -1039,6 +1034,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
@@ -1079,11 +1079,6 @@ window.SHOES_DATA = {
       "fit_note": "스피드 트레이너 중에서는 앞코 압박이 심하지 않은 편이나 와이드 버전은 없습니다.",
       "offers": [
         {
-          "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
-        },
-        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 69540,
           "url": "https://hi.thehyundai.com/product/40B0484804"
@@ -1100,6 +1095,11 @@ window.SHOES_DATA = {
         },
         {
           "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
           "price_krw": null,
           "url": ""
         }
