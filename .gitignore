@@ -22,4 +22,7 @@ __pycache__/
 
 # Promotional & Raw Data (Local only)
 insta_cards/
-data/
+data/*
+!data/shoes.json
+!data/shoes.js
+shoes_raw/

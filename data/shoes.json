@@ -1,0 +1,1111 @@
+{
+  "updated_at": "2026-11-15",
+  "brands": [
+    {
+      "id": "nike",
+      "name": "Nike",
+      "name_ko": "나이키",
+      "count": 18
+    }
+  ],
+  "shoes": [
+    {
+      "id": "nike-pegasus-42",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Pegasus 42",
+      "name_ko": "나이키 페가수스 42",
+      "category": "daily",
+      "category_ko": "올라운드 데일리",
+      "level": "입문 ~ 중급",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "ReactX + 전·후족 에어 줌",
+      "drop_mm": 10,
+      "stack_heel_mm": 37,
+      "weight_g": 297,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "첫 러닝화, 매일 5~15km 조깅, 로드·트레드밀 겸용",
+      "summary": "무엇을 신을지 고민될 때 가장 실패 확률이 적은 기준점 같은 러닝화입니다. 과하게 푹신하거나 딱딱하지 않고 내구성이 좋아 초보자 첫 신발로도, 중급자의 데일리 훈련용으로도 무난합니다.",
+      "caution": "매우 가벼운 레이스용은 아니므로 풀코스 기록 단축용으로는 줌플라이나 베이퍼플라이가 더 유리합니다.",
+      "image": "assets/shoes/nike-pegasus-42-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4%2042",
+        "runrepeat": "https://runrepeat.com/nike-pegasus-42",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "표준 발볼(D) 기준 무난하며, 발볼이 넓다면 와이드(2E·4E) 또는 반업(5mm)을 추천합니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": 91100,
+          "url": "https://hi.thehyundai.com/product/40B0295876"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 83820,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2606370341"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 169000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-pegasus-plus",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Pegasus Plus",
+      "name_ko": "나이키 페가수스 플러스",
+      "category": "tempo",
+      "category_ko": "템포 · 경량 데일리",
+      "level": "초중급 ~ 상급",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "전장 ZoomX",
+      "drop_mm": 10,
+      "stack_heel_mm": 35,
+      "weight_g": 245,
+      "cushion_score": 3,
+      "stability_score": 3,
+      "responsiveness_score": 5,
+      "best_for": "빠른 조깅, 템포런, 5~10km 기록 단축 훈련",
+      "summary": "구 페가수스 터보 계보를 잇는 경량 모델입니다. 카본 플레이트 없이 전장 줌X 폼만 넣어 발이 자연스럽게 구르면서도 가볍고 경쾌한 반발력을 느낄 수 있습니다.",
+      "caution": "스택이 높지 않아 장거리 완주용 맥스 쿠션을 찾는 분에게는 다소 단단하게 느껴질 수 있습니다.",
+      "image": "assets/shoes/nike-pegasus-plus-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4%20%ED%94%8C%EB%9F%AC%EC%8A%A4",
+        "runrepeat": "https://runrepeat.com/nike-pegasus-plus",
+        "affiliate": ""
+      },
+      "toebox_width": "좁음",
+      "wide_available": false,
+      "fit_note": "레이싱에 가까운 슬림한 핏이라 발볼이 넓거나 발등이 높다면 반업(5mm)을 고려하세요.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4%20%ED%94%8C%EB%9F%AC%EC%8A%A4&disPlaySize=36"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 175440,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2605336258"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 219000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-pegasus-premium",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Pegasus Premium",
+      "name_ko": "나이키 페가수스 프리미엄",
+      "category": "daily",
+      "category_ko": "프리미엄 쿠션 데일리",
+      "level": "입문 ~ 중급",
+      "plate": "전장 에어 줌 유닛",
+      "has_carbon": false,
+      "foam": "ZoomX + 전장 Air Zoom + ReactX",
+      "drop_mm": 10,
+      "stack_heel_mm": 45,
+      "weight_g": 325,
+      "cushion_score": 5,
+      "stability_score": 3,
+      "responsiveness_score": 4,
+      "best_for": "탄력 있는 장거리 조깅, 일상 워킹 겸용 쿠션화",
+      "summary": "페가수스 라인업 중 가장 높은 쿠션과 존재감을 가진 모델입니다. 줌X, 전장 에어 줌, 리액트X 3중 구조로 발바닥 충격을 크게 줄여줍니다.",
+      "caution": "무게가 320g대로 가벼운 편은 아니며, 높은 스택 때문에 급격한 코너링이나 스피드 인터벌에는 둔할 수 있습니다.",
+      "image": "assets/shoes/nike-pegasus-premium-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84",
+        "runrepeat": "https://runrepeat.com/nike-pegasus-premium",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "앞코는 보통이나 중족부(발 허리)가 다소 타이트하게 감싸는 편입니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84&disPlaySize=36"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 161840,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2610534437"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 279000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-vomero-18",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Vomero 18",
+      "name_ko": "나이키 보메로 18",
+      "category": "max-cushion",
+      "category_ko": "맥스 쿠션 · 회복 조깅",
+      "level": "입문 ~ 상급",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "ZoomX + ReactX 이중 쿠셔닝",
+      "drop_mm": 10,
+      "stack_heel_mm": 46,
+      "weight_g": 325,
+      "cushion_score": 5,
+      "stability_score": 4,
+      "responsiveness_score": 3,
+      "best_for": "무릎·발목 부담 줄이는 조깅, 장거리 LSD, 회복 러닝",
+      "summary": "페가수스보다 한 단계 더 푹신한 맥스 쿠션 데일리화입니다. 46mm의 높은 뒤꿈치 쿠션 덕분에 체중이 있거나 관절 보호가 최우선인 러너에게 편안한 착지감을 줍니다.",
+      "caution": "가볍고 빠른 페이스보다는 편안하고 꾸준한 조깅 속도에 맞춰져 있습니다.",
+      "image": "assets/shoes/nike-vomero-18-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EB%B3%B4%EB%A9%94%EB%A1%9C%2018",
+        "runrepeat": "https://runrepeat.com/nike-vomero-18",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "데일리 맥스 쿠션답게 앞코 여유가 무난하며, 발볼러를 위한 와이드(2E) 옵션도 나옵니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": 101880,
+          "url": "https://hi.thehyundai.com/product/40B2030069"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 105840,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2605336080"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 169000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-vomero-18-se",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Vomero 18 SE",
+      "name_ko": "나이키 보메로 18 SE",
+      "category": "max-cushion",
+      "category_ko": "맥스 쿠션 · 스페셜 에디션",
+      "level": "입문 ~ 상급",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "ZoomX + ReactX 이중 쿠셔닝",
+      "drop_mm": 10,
+      "stack_heel_mm": 46,
+      "weight_g": 325,
+      "cushion_score": 5,
+      "stability_score": 4,
+      "responsiveness_score": 3,
+      "best_for": "무릎 보호 조깅, 야간·디자인 포인트 데일리 러닝",
+      "summary": "보메로 18의 푹신한 이중 폼 쿠션 플랫폼을 그대로 유지하면서 갑피 소재와 디테일을 차별화한 스페셜 에디션입니다.",
+      "caution": "스펙과 주행감은 보메로 18과 동일하므로 디자인·가격 조건에 맞춰 선택하면 됩니다.",
+      "image": "assets/shoes/nike-vomero-18-se-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EB%B3%B4%EB%A9%94%EB%A1%9C%2018",
+        "runrepeat": "https://runrepeat.com/nike-vomero-18",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "보메로 18과 동일한 라스트로 발볼 여유가 무난합니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B3%B4%EB%A9%94%EB%A1%9C%2018%20SE&disPlaySize=36"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B3%B4%EB%A9%94%EB%A1%9C%2018%20SE"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 169000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-vomero-plus",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Vomero Plus",
+      "name_ko": "나이키 보메로 플러스",
+      "category": "max-cushion",
+      "category_ko": "맥스 쿠션 · 줌X 풀스택",
+      "level": "초중급 ~ 상급",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "전장 ZoomX",
+      "drop_mm": 10,
+      "stack_heel_mm": 45,
+      "weight_g": 292,
+      "cushion_score": 5,
+      "stability_score": 3,
+      "responsiveness_score": 4,
+      "best_for": "부드러우면서 통통 튀는 장거리 조깅, 인빈서블 대체",
+      "summary": "보메로 18보다 줌X 비중을 극대화해 훨씬 가볍고 탄력 있는 쿠션을 제공합니다. 푹신하지만 발이 푹 꺼지지 않고 앞으로 밀어주는 느낌이 살아 있습니다.",
+      "caution": "매우 부드러운 폼 특성상 발목이 약한 초보자는 초반에 안쪽 쏠림이 없는지 확인이 필요합니다.",
+      "image": "assets/shoes/nike-vomero-plus-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EB%B3%B4%EB%A9%94%EB%A1%9C%20%ED%94%8C%EB%9F%AC%EC%8A%A4",
+        "runrepeat": "https://runrepeat.com/nike-vomero-plus",
+        "affiliate": ""
+      },
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "넓은 베이스와 여유로운 앞코 덕분에 발볼이 약간 넓은 편도 비교적 편하게 신을 수 있습니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B3%B4%EB%A9%94%EB%A1%9C%20%ED%94%8C%EB%9F%AC%EC%8A%A4&disPlaySize=36"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 122640,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2611548809"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 219000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-vomero-premium",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Vomero Premium",
+      "name_ko": "나이키 보메로 프리미엄",
+      "category": "max-cushion",
+      "category_ko": "울트라 맥스 쿠션",
+      "level": "입문 ~ 중급",
+      "plate": "전·후족 에어 줌 포드",
+      "has_carbon": false,
+      "foam": "ZoomX + 노출형 Air Zoom 포드",
+      "drop_mm": 10,
+      "stack_heel_mm": 55,
+      "weight_g": 351,
+      "cushion_score": 5,
+      "stability_score": 3,
+      "responsiveness_score": 4,
+      "best_for": "극강의 충격 흡수, 초저속 회복 조깅, 지면 충격 최소화",
+      "summary": "공식 경기 규정(40mm)을 훌쩍 넘는 55mm 초고스택에 줌X와 에어 줌 포드를 결합한 극대화된 쿠션 모델입니다. 지면의 딱딱함을 거의 느끼고 싶지 않을 때 적합합니다.",
+      "caution": "스택이 매우 높고 무게감(350g대)이 있어 공식 대회 규정 체크나 빠른 페이스 주행에는 맞지 않습니다.",
+      "image": "assets/shoes/nike-vomero-premium-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EB%B3%B4%EB%A9%94%EB%A1%9C%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84",
+        "runrepeat": "https://runrepeat.com/nike-vomero-premium",
+        "affiliate": ""
+      },
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "전족부 공간이 여유로운 편이지만, 발목·발등 핏을 확인하고 정사이즈~반업을 선택하세요.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B3%B4%EB%A9%94%EB%A1%9C%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84&disPlaySize=36"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B3%B4%EB%A9%94%EB%A1%9C%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 289000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-structure-26",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Structure 26",
+      "name_ko": "나이키 스트럭처 26",
+      "category": "stability",
+      "category_ko": "안정화 · 과내전 서포트",
+      "level": "입문 ~ 중급",
+      "plate": "미드풋 서포트 시스템",
+      "has_carbon": false,
+      "foam": "ReactX",
+      "drop_mm": 10,
+      "stack_heel_mm": 38,
+      "weight_g": 302,
+      "cushion_score": 4,
+      "stability_score": 5,
+      "responsiveness_score": 3,
+      "best_for": "평발·과내전(발목이 안으로 무너짐), 발목 안정이 필요한 초보자",
+      "summary": "달릴 때 발목이 안쪽으로 꺾이거나 무릎 안쪽·정강이 통증을 자주 겪는 러너를 위한 나이키의 대표 안정화입니다. 리액트X 폼으로 쿠션도 한층 부드러워졌습니다.",
+      "caution": "외전(발 바깥쪽 착지) 성향이 강하거나 매우 가벼운 신발을 찾는 분에게는 단단하게 느껴질 수 있습니다.",
+      "image": "assets/shoes/nike-structure-26-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98%2026",
+        "runrepeat": "https://runrepeat.com/nike-structure-26",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "안정화 특성상 앞코와 중족부가 안정적이며, 와이드(2E·4E) 출시 모델이라 발볼러에게 유리합니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": 84500,
+          "url": "https://hi.thehyundai.com/product/40A2211374"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 83820,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2509645375"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 169000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-structure-plus",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Structure Plus",
+      "name_ko": "나이키 스트럭처 플러스",
+      "category": "stability",
+      "category_ko": "하이쿠션 안정화",
+      "level": "입문 ~ 중급",
+      "plate": "미드풋 서포트 구조",
+      "has_carbon": false,
+      "foam": "ZoomX + ReactX",
+      "drop_mm": 10,
+      "stack_heel_mm": 42,
+      "weight_g": 310,
+      "cushion_score": 5,
+      "stability_score": 5,
+      "responsiveness_score": 4,
+      "best_for": "안정성과 맥스 쿠션을 동시에 원하는 과내전 러너",
+      "summary": "기존 안정화가 딱딱해서 아쉽던 러너를 위해 스트럭처의 지지 구조에 줌X+리액트X 하이 쿠션을 더한 모델입니다. 장거리 조깅에서도 발목 흔들림을 잡아줍니다.",
+      "caution": "보강 구조와 높은 폼 때문에 무게는 310g 전후로 묵직한 편입니다.",
+      "image": "assets/shoes/nike-structure-plus-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98%20%ED%94%8C%EB%9F%AC%EC%8A%A4",
+        "runrepeat": "https://runrepeat.com/nike-structure-plus",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "스트럭처 26 기반에 쿠션을 높인 모델로 발볼과 발등 압박이 적은 편입니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98%20%ED%94%8C%EB%9F%AC%EC%8A%A4&disPlaySize=36"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 168560,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2605336121"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 209000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-zoomfly-6",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Zoom Fly 6",
+      "name_ko": "나이키 줌 플라이 6",
+      "category": "carbon",
+      "category_ko": "카본 슈퍼 트레이너",
+      "level": "중급 ~ 상급",
+      "plate": "전장 카본 파이버 플레이트",
+      "has_carbon": true,
+      "foam": "ZoomX + SR-02",
+      "drop_mm": 8,
+      "stack_heel_mm": 42,
+      "weight_g": 265,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 5,
+      "best_for": "하프·풀코스 서브4~서브3.5, 템포런, 카본화 입문 레이싱",
+      "summary": "레이싱화(베이퍼플라이)의 비싼 가격과 짧은 수명이 부담스러울 때 가장 현실적인 대안입니다. 전작보다 훨씬 가벼워졌고 내구성이 좋아 훈련과 대회를 한 켤레로 소화하기 좋습니다.",
+      "caution": "카본 플레이트가 들어 있어 주 1~2회 포인트 훈련이나 대회용으로 쓰는 것이 종아리·아킬레스건 보호에 좋습니다.",
+      "image": "assets/shoes/nike-zoomfly-6-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EC%A4%8C%20%ED%94%8C%EB%9D%BC%EC%9D%B4%206",
+        "runrepeat": "https://runrepeat.com/nike-zoom-fly-6",
+        "affiliate": ""
+      },
+      "toebox_width": "좁음",
+      "wide_available": false,
+      "fit_note": "스피드 훈련용 핏이라 앞코와 중족부가 날렵합니다. 발볼이 넓으면 반업(5mm)을 권장합니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": 112660,
+          "url": "https://hi.thehyundai.com/product/40A2309819"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 103660,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2603156165"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 199000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-vaporfly-4",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Vaporfly 4",
+      "name_ko": "나이키 베이퍼플라이 4",
+      "category": "race",
+      "category_ko": "카본 레이싱 슈퍼슈즈",
+      "level": "중상급 ~ 엘리트",
+      "plate": "전장 카본 Flyplate",
+      "has_carbon": true,
+      "foam": "전장 ZoomX",
+      "drop_mm": 6,
+      "stack_heel_mm": 35,
+      "weight_g": 190,
+      "cushion_score": 4,
+      "stability_score": 2,
+      "responsiveness_score": 5,
+      "best_for": "5K·10K·하프·풀코스 개인 최고 기록(PB) 경신 레이스",
+      "summary": "200g 이하의 극단적인 경량과 줌X+카본 플레이트의 폭발적인 반발력으로 1초라도 기록을 줄이고 싶은 대회 당일용 슈퍼슈즈입니다.",
+      "caution": "안정감이 낮고 아웃솔 내구성이 레이스 특화이므로 매일 조깅용으로 신으면 부상 위험과 마모가 빠릅니다.",
+      "image": "assets/shoes/nike-vaporfly-4-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EB%B2%A0%EC%9D%B4%ED%8D%BC%ED%94%8C%EB%9D%BC%EC%9D%B4%204",
+        "runrepeat": "https://runrepeat.com/nike-vaporfly-4",
+        "affiliate": ""
+      },
+      "toebox_width": "좁음",
+      "wide_available": false,
+      "fit_note": "기록 단축용 레이스 핏으로 발볼과 아치가 타이트합니다. 와이드 모델이 없어 발볼이 넓으면 시착이 필수입니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EB%B2%A0%EC%9D%B4%ED%8D%BC%ED%94%8C%EB%9D%BC%EC%9D%B4%204&disPlaySize=36"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 293740,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2510713717"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 319000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-winflow-12",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Winflo 12",
+      "name_ko": "나이키 윈플로 12",
+      "category": "budget",
+      "category_ko": "입문 · 가성비 데일리",
+      "level": "입문 ~ 초급",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "Cushlon 3.0 + 전장 Air Unit",
+      "drop_mm": 10,
+      "stack_heel_mm": 34,
+      "weight_g": 285,
+      "cushion_score": 3,
+      "stability_score": 4,
+      "responsiveness_score": 3,
+      "best_for": "주 2~3회 3~5km 가벼운 조깅, 헬스장 트레드밀 입문",
+      "summary": "페가수스보다 부담 없는 가격대에서 나이키 에어 쿠셔닝을 경험할 수 있는 실속형 데일리 러닝화입니다.",
+      "caution": "15km 이상의 장거리나 빠른 페이스에서는 줌X·리액트X 모델보다 반발력과 쿠션 유지력이 떨어질 수 있습니다.",
+      "image": "assets/shoes/nike-winflow-12-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EC%9C%88%ED%94%8C%EB%A1%9C%2012",
+        "runrepeat": "https://runrepeat.com/nike-winflo-12",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "입문 데일리용으로 무난한 발볼이며, 와이드(4E) 옵션이 있어 발볼이 넓은 입문자에게 좋습니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": 69500,
+          "url": "https://hi.thehyundai.com/product/40B1125618"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 77840,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2603156164"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 139000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-quest-7",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Quest 7",
+      "name_ko": "나이키 퀘스트 7",
+      "category": "budget",
+      "category_ko": "입문 · 엔트리 러닝",
+      "level": "입문",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "초경량 EVA / Cushlon 계열 폼",
+      "drop_mm": 10,
+      "stack_heel_mm": 32,
+      "weight_g": 270,
+      "cushion_score": 3,
+      "stability_score": 3,
+      "responsiveness_score": 2,
+      "best_for": "러닝 입문 첫 달, 걷기·조깅 병행, 가성비 생활 러닝",
+      "summary": "러닝을 막 시작하면서 큰 비용을 들이지 않고 가볍게 3~5km를 뛰어보기에 적합한 엔트리 모델입니다.",
+      "caution": "본격적으로 주간 거리를 20km 이상 늘린다면 페가수스 42나 보메로 18 이상으로 업그레이드를 권장합니다.",
+      "image": "assets/shoes/nike-quest-7-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%ED%80%98%EC%8A%A4%ED%8A%B8%207",
+        "runrepeat": "https://runrepeat.com/nike-quest-7",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "여유가 극단적으로 좁지 않은 표준 입문 핏이며 와이드 옵션도 선택 가능합니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": 53370,
+          "url": "https://hi.thehyundai.com/product/40B1377748"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 49100,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2607405368"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 99000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-journey-run",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Journey Run",
+      "name_ko": "나이키 저니 런",
+      "category": "budget",
+      "category_ko": "입문 · 하이쿠션 가성비",
+      "level": "입문",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "foam": "ComfiRide 하이 스택 폼",
+      "drop_mm": 10,
+      "stack_heel_mm": 36,
+      "weight_g": 290,
+      "cushion_score": 4,
+      "stability_score": 3,
+      "responsiveness_score": 2,
+      "best_for": "딱딱한 아스팔트에서 천천히 걷고 뛰는 입문자",
+      "summary": "엔트리 가격대이지만 두툼한 폼 스택 덕분에 퀘스트·레볼루션보다 부드러운 착지감을 느낄 수 있는 입문용 쿠션화입니다.",
+      "caution": "스피드 훈련용이 아니라 편안한 속도의 가벼운 조깅과 걷기용으로 설계되었습니다.",
+      "image": "assets/shoes/nike-journey-run-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EC%A0%80%EB%8B%88%20%EB%9F%B0",
+        "runrepeat": "https://runrepeat.com/nike-journey-run",
+        "affiliate": ""
+      },
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "가벼운 조깅·워킹 겸용이라 앞코 공간이 비교적 넉넉하고 편안합니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": 64150,
+          "url": "https://hi.thehyundai.com/product/40B0408593"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 66640,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2601942369"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 119000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-alphafly-4",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Alphafly 4",
+      "name_ko": "나이키 알파플라이 4",
+      "category": "race",
+      "category_ko": "풀코스 마라톤 플래그십",
+      "level": "중상급 ~ 엘리트",
+      "plate": "와이드 전장 카본 Flyplate",
+      "has_carbon": true,
+      "foam": "ZoomX LT + ZoomX + 듀얼 Air Zoom 포드",
+      "drop_mm": 8,
+      "stack_heel_mm": 39,
+      "weight_g": 204,
+      "cushion_score": 5,
+      "stability_score": 4,
+      "responsiveness_score": 5,
+      "best_for": "풀코스 마라톤 기록 단축, 중·후반 페이스 유지, 최신 플래그십",
+      "summary": "알파플라이 3보다 가벼워진 ZoomX LT 상층 폼과 더 부드러워진 에어 줌 포드를 적용해 마라톤 페이스 접근성과 안정감을 한 단계 높인 최신 풀코스 플래그십입니다.",
+      "caution": "초경량 레이싱 아웃솔 구조이므로 매일 조깅용보다는 대회와 핵심 시뮬레이션 훈련에 아껴 신는 것이 좋습니다.",
+      "image": "assets/shoes/nike-alphafly-4-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EC%95%8C%ED%8C%8C%ED%94%8C%EB%9D%BC%EC%9D%B4%204",
+        "runrepeat": "https://runrepeat.com/nike-alphafly-4",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "3보다 앞코 공간이 소폭 여유로워졌지만 여전히 레이싱용 타이트 핏입니다. 발볼이 넓다면 반업(5mm) 시착을 권장합니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%95%8C%ED%8C%8C%ED%94%8C%EB%9D%BC%EC%9D%B4%204&disPlaySize=36"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%95%8C%ED%8C%8C%ED%94%8C%EB%9D%BC%EC%9D%B4%204"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 359000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-alphafly-3",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Alphafly 3",
+      "name_ko": "나이키 알파플라이 3",
+      "category": "race",
+      "category_ko": "풀코스 마라톤 플래그십",
+      "level": "중상급 ~ 엘리트",
+      "plate": "와이드 전장 카본 Flyplate",
+      "has_carbon": true,
+      "foam": "전장 ZoomX + 전족 듀얼 Air Zoom 포드",
+      "drop_mm": 8,
+      "stack_heel_mm": 40,
+      "weight_g": 218,
+      "cushion_score": 5,
+      "stability_score": 3,
+      "responsiveness_score": 5,
+      "best_for": "풀코스 마라톤 최고 기록 도전, 후반 30km 이후 추진력 유지",
+      "summary": "마라톤 풀코스를 위해 설계된 나이키 최상위 슈퍼슈즈입니다. 전족부 에어 줌 포드와 줌X 폼, 카본 플레이트가 42.195km 후반까지 강한 추진력을 제공합니다.",
+      "caution": "가격이 높고 아치가 도드라진 구조여서 발볼·아치 핏 확인 후 대회 전용으로 아껴 신는 편이 좋습니다.",
+      "image": "assets/shoes/nike-alphafly-3-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EC%95%8C%ED%8C%8C%ED%94%8C%EB%9D%BC%EC%9D%B4%203",
+        "runrepeat": "https://runrepeat.com/nike-alphafly-3",
+        "affiliate": ""
+      },
+      "toebox_width": "좁음",
+      "wide_available": false,
+      "fit_note": "아치 부분이 좁고 도드라진 레이싱 핏입니다. 평발·넓은 발볼은 반드시 시착 후 구매하세요.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%95%8C%ED%8C%8C%ED%94%8C%EB%9D%BC%EC%9D%B4%203&disPlaySize=36"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 195440,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2610534439"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 359000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-streakfly-2",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Streakfly 2",
+      "name_ko": "나이키 스트릭플라이 2",
+      "category": "race",
+      "category_ko": "단거리 · 5K/10K 레이서",
+      "level": "중상급 ~ 엘리트",
+      "plate": "전장 카본 Flyplate",
+      "has_carbon": true,
+      "foam": "전장 ZoomX (로우 스택)",
+      "drop_mm": 4,
+      "stack_heel_mm": 27,
+      "weight_g": 145,
+      "cushion_score": 2,
+      "stability_score": 3,
+      "responsiveness_score": 5,
+      "best_for": "트랙 인터벌, 5km·10km 고속 로드 레이스",
+      "summary": "두꺼운 마라톤화보다 지면 감각을 직접 느끼며 빠르게 발을 회전시키기 좋은 초경량 단거리 레이싱화입니다.",
+      "caution": "드롭이 낮고 스택이 얇아 하프·풀코스 장거리에서는 발바닥과 종아리 피로가 빠르게 쌓일 수 있습니다.",
+      "image": "assets/shoes/nike-streakfly-2-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EC%8A%A4%ED%8A%B8%EB%A6%AD%ED%94%8C%EB%9D%BC%EC%9D%B4%202",
+        "runrepeat": "https://runrepeat.com/nike-streakfly-2",
+        "affiliate": ""
+      },
+      "toebox_width": "좁음",
+      "wide_available": false,
+      "fit_note": "트랙 스파이크에 가까운 초슬림 핏입니다. 발볼이 넓다면 다른 모델을 권장합니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": "https://hi.thehyundai.com/search?tab=product&q=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%8A%A4%ED%8A%B8%EB%A6%AD%ED%94%8C%EB%9D%BC%EC%9D%B4%202&disPlaySize=36"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": "https://www.galleria.co.kr/search/totalSearch.action?searchTerm=%EB%82%98%EC%9D%B4%ED%82%A4%20%EC%8A%A4%ED%8A%B8%EB%A6%AD%ED%94%8C%EB%9D%BC%EC%9D%B4%202"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 219000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "nike-rival-fly-4",
+      "brand": "nike",
+      "brand_ko": "나이키",
+      "name": "Rival Fly 4",
+      "name_ko": "나이키 라이벌 플라이 4",
+      "category": "tempo",
+      "category_ko": "입문 스피드 · 트랙 트레이너",
+      "level": "입문 ~ 중급",
+      "plate": "미드풋 에어 줌 + 섕크",
+      "has_carbon": false,
+      "foam": "Cushlon 3.0 + 전족 Air Zoom",
+      "drop_mm": 8,
+      "stack_heel_mm": 30,
+      "weight_g": 258,
+      "cushion_score": 3,
+      "stability_score": 4,
+      "responsiveness_score": 4,
+      "best_for": "가성비 스피드 훈련, 10km 대회 입문, 트랙 인터벌",
+      "summary": "카본화 없이도 발이 지면을 차고 나가는 감각을 익히기 좋은 가성비 스피드 트레이너입니다.",
+      "caution": "쿠션량이 적은 편이므로 회복 조깅보다는 빠른 훈련이나 단거리 대회에 더 잘 어울립니다.",
+      "image": "assets/shoes/nike-rivalfly-4-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.nike.com/kr/w?q=%EB%9D%BC%EC%9D%B4%EB%B2%8C%20%ED%94%8C%EB%9D%BC%EC%9D%B4%204",
+        "runrepeat": "",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "스피드 트레이너 중에서는 앞코 압박이 심하지 않은 편이나 와이드 버전은 없습니다.",
+      "offers": [
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": 69540,
+          "url": "https://hi.thehyundai.com/product/40B0484804"
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": 63980,
+          "url": "https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2606385539"
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 129000,
+      "lifespan_km": 600
+    }
+  ]
+}
