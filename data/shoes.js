@@ -11,7 +11,7 @@ window.SHOES_DATA = {
       "id": "adidas",
       "name": "Adidas",
       "name_ko": "아디다스",
-      "count": 16
+      "count": 22
     }
   ],
   "shoes": [
@@ -2087,6 +2087,372 @@ window.SHOES_DATA = {
         }
       ],
       "msrp_krw": 79000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-adizero-adios-pro-5",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Adizero Adios Pro 5",
+      "name_ko": "아디다스 아디제로 아디오스 프로 5",
+      "category": "race",
+      "category_ko": "풀코스 마라톤 플래그십",
+      "level": "중상급 ~ 엘리트",
+      "plate": "카본 EnergyRods 2.0",
+      "has_carbon": true,
+      "foam": "전장 Lightstrike Pro",
+      "drop_mm": 6,
+      "stack_heel_mm": 39,
+      "weight_g": 198,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 5,
+      "best_for": "풀코스·하프 마라톤 최고 기록(PB) 경신 레이스",
+      "summary": "아디다스의 최신 마라톤 주력 슈퍼슈즈입니다. 5개의 카본 에너지로드와 가벼운 라이트스트라이크 프로 폼이 후반 30km 이후에도 추진력을 유지해 줍니다.",
+      "caution": "내구성과 안정감은 데일리화보다 낮으므로 대회와 핵심 시뮬레이션 훈련에 아껴 신으세요.",
+      "image": "assets/shoes/adidas-adizero-adios-pro-5-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%20%ED%94%84%EB%A1%9C%205",
+        "runrepeat": "https://runrepeat.com/adidas-adizero-adios-pro-5",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "레이싱화 특유의 타이트한 핏이지만 발볼 압박이 전작보다 개선되었습니다. 발볼이 넓다면 반업을 고려하세요.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 339000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-adizero-adios-pro-4",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Adizero Adios Pro 4",
+      "name_ko": "아디다스 아디제로 아디오스 프로 4",
+      "category": "race",
+      "category_ko": "풀코스 마라톤 슈퍼슈즈",
+      "level": "중상급 ~ 엘리트",
+      "plate": "카본 EnergyRods 2.0",
+      "has_carbon": true,
+      "foam": "전장 Lightstrike Pro",
+      "drop_mm": 6,
+      "stack_heel_mm": 39,
+      "weight_g": 200,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 5,
+      "best_for": "하프·풀코스 마라톤 레이스, 이월 할인가 노리기",
+      "summary": "프로 5 출시 이후에도 여전히 검증된 마라톤 최상위 레이싱화입니다. 부드럽게 구르는 앞코 로커가 자연스러운 페이스 유지를 돕습니다.",
+      "caution": "초보자의 느린 조깅에서는 카본 로드의 반발력을 끌어내기 어렵습니다.",
+      "image": "assets/shoes/adidas-adizero-adios-pro-4-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%20%ED%94%84%EB%A1%9C%204",
+        "runrepeat": "https://runrepeat.com/adidas-adizero-adios-pro-4",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "프로 3보다 갑피가 유연하고 앞코가 깔끔해졌지만 여전히 레이싱용 슬림 핏입니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 319000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-adizero-prime-x3-strung",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Adizero Prime X3 Strung",
+      "name_ko": "아디다스 아디제로 프라임 X3 스트렁",
+      "category": "race",
+      "category_ko": "초고스택 슈퍼 트레이너",
+      "level": "중상급 ~ 엘리트",
+      "plate": "카본 EnergyRods + 플레이트",
+      "has_carbon": true,
+      "foam": "3중 스택 Lightstrike Pro",
+      "drop_mm": 7,
+      "stack_heel_mm": 50,
+      "weight_g": 255,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 5,
+      "best_for": "규정 외 초고쿠션 장거리 훈련, 하프~풀코스 펀런",
+      "summary": "공식 엘리트 규정(40mm)을 넘는 50mm 초고스택에 폼을 겹쳐 넣은 극강의 반발력 머신입니다. 발바닥 충격을 줄이면서 빠르게 달릴 수 있습니다.",
+      "caution": "스택이 매우 높아 코너링이나 노면이 울퉁불퉁한 곳에서는 발목 흔들림에 주의해야 합니다.",
+      "image": "assets/shoes/adidas-adizero-prime-x3-strung-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%ED%94%84%EB%9D%BC%EC%9E%84%20X3%20%EC%8A%A4%ED%8A%B8%EB%A0%81",
+        "runrepeat": "https://runrepeat.com/adidas-adizero-prime-x-3-strung",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "스트렁 갑피가 발을 단단히 고정하지만 발등이 높거나 발볼이 넓으면 반업을 권장합니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 349000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-adizero-adios-9",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Adizero Adios 9",
+      "name_ko": "아디다스 아디제로 아디오스 9",
+      "category": "tempo",
+      "category_ko": "단거리 · 트랙 레이서",
+      "level": "중급 ~ 엘리트",
+      "plate": "토션 시스템 (논카본)",
+      "has_carbon": false,
+      "foam": "전장 Lightstrike Pro (로우 스택)",
+      "drop_mm": 7,
+      "stack_heel_mm": 27,
+      "weight_g": 175,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 5,
+      "best_for": "5km·10km 로드 레이스, 트랙 인터벌, 지면 감각 훈련",
+      "summary": "두꺼운 맥스 쿠션 대신 가볍고 낮은 바닥으로 발목 힘과 스피드를 직접 쓰기 좋은 5K~10K 레이서입니다.",
+      "caution": "쿠션이 얇은 편이므로 하프·풀코스 장거리에는 아디오스 프로나 보스턴이 더 안전합니다.",
+      "image": "assets/shoes/adidas-adizero-adios-9-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%209",
+        "runrepeat": "https://runrepeat.com/adidas-adizero-adios-9",
+        "affiliate": ""
+      },
+      "toebox_width": "좁음",
+      "wide_available": false,
+      "fit_note": "전통적인 단거리 레이싱 플랫 핏으로 발볼이 슬림합니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 169000,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-adizero-adios-satisfy",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Adizero Adios Satisfy",
+      "name_ko": "아디다스 아디제로 아디오스 새티스파이",
+      "category": "tempo",
+      "category_ko": "한정판 콜라보 레이서",
+      "level": "중급 ~ 엘리트",
+      "plate": "토션 시스템 (논카본)",
+      "has_carbon": false,
+      "foam": "전장 Lightstrike Pro (로우 스택)",
+      "drop_mm": 7,
+      "stack_heel_mm": 27,
+      "weight_g": 180,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 5,
+      "best_for": "5K~10K 스피드 런, 러닝 패션·콜라보 컬렉션",
+      "summary": "프랑스 러닝 브랜드 새티스파이(Satisfy)와 협업한 아디오스 한정판 에디션입니다. 경량 라이트스트라이크 프로 폼 기반의 경쾌한 주행감을 갖췄습니다.",
+      "caution": "한정판 콜라보 모델이라 재고가 적고 장거리용 맥스 쿠션과는 거리가 있습니다.",
+      "image": "assets/shoes/adidas-adizero-adios-satisfy-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4%20%EC%83%88%ED%8B%B0%EC%8A%A4%ED%8C%8C%EC%9D%B4",
+        "runrepeat": "",
+        "affiliate": ""
+      },
+      "toebox_width": "좁음",
+      "wide_available": false,
+      "fit_note": "아디오스 베이스의 슬림한 레이싱 핏입니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": null,
+      "lifespan_km": 600
+    },
+    {
+      "id": "adidas-adizero-boston-12",
+      "brand": "adidas",
+      "brand_ko": "아디다스",
+      "name": "Adizero Boston 12",
+      "name_ko": "아디다스 아디제로 보스턴 12",
+      "category": "carbon",
+      "category_ko": "슈퍼 트레이너 · 에너지로드",
+      "level": "중급 ~ 상급",
+      "plate": "EnergyRods 2.0 (유리섬유)",
+      "has_carbon": true,
+      "foam": "Lightstrike Pro + Lightstrike 2.0",
+      "drop_mm": 7,
+      "stack_heel_mm": 38,
+      "weight_g": 267,
+      "cushion_score": 4,
+      "stability_score": 4,
+      "responsiveness_score": 5,
+      "best_for": "이월 가성비로 찾는 장거리 템포런·마라톤 대비 훈련",
+      "summary": "보스턴 13 이전 세대이지만 완성도가 높아 세일 가격으로 구하면 가성비가 매우 뛰어난 검증된 슈퍼 트레이너입니다.",
+      "caution": "초기 몇 십 km는 폼이 약간 단단하게 느껴질 수 있어 적응 주행이 필요합니다.",
+      "image": "assets/shoes/adidas-adizero-boston-12-1.webp",
+      "status": "active",
+      "links": {
+        "official": "https://www.adidas.co.kr/search?q=%EB%B3%B4%EC%8A%A4%ED%84%B4%2012",
+        "runrepeat": "https://runrepeat.com/adidas-adizero-boston-12",
+        "affiliate": ""
+      },
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "앞코는 적당하나 신발 끈 주변 발등이 다소 낮게 나온 편이라 시착을 권장합니다.",
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ],
+      "msrp_krw": 189000,
       "lifespan_km": 600
     }
   ]
