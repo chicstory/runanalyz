@@ -3138,6 +3138,234 @@ window.SHOES_DATA = {
           "url": ""
         }
       ]
+    },
+    {
+      "id": "asics-metaspeed-sky-tokyo",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Metaspeed Sky Tokyo",
+      "name_ko": "아식스 메타스피드 스카이 도쿄",
+      "category": "race",
+      "category_ko": "최상급 레이싱 (카본 · 스트라이드형)",
+      "level": "중급~상급",
+      "weight_g": 170,
+      "stack_heel_mm": 39.5,
+      "drop_mm": 5,
+      "foam": "FF Turbo+ + FF Leap",
+      "plate": "풀 렝스 카본 플레이트 (전족부 상단 배치)",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "레이싱화 특성상 발을 단단히 감싸는 핏이므로 발볼이 넓다면 반 사이즈 업을 권장합니다.",
+      "msrp_krw": 329000,
+      "lifespan_km": 600,
+      "best_for": "풀/하프 마라톤 기록 단축 · 보폭을 넓혀 뛰는 스트라이드형 러너",
+      "summary": "속도를 낼 때 보폭(스트라이드)이 길어지는 러너를 위해 설계된 아식스 최상급 카본 레이싱화로, FF Leap 신소재 폼과 170g 초경량 무게로 폭발적인 반발력을 냅니다.",
+      "caution": "레이스 페이스에 맞춘 공격적인 세팅이라 일상 조깅용보다는 대회 및 포인트 훈련용으로 적합합니다.",
+      "image": "assets/shoes/asics-metaspeed-sky-tokyo-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EB%A9%94%ED%83%80%EC%8A%A4%ED%94%BC%EB%93%9C%20%EC%8A%A4%EC%B9%B4%EC%9D%B4%20%EB%8F%84%EC%BF%84",
+        "runrepeat": "https://runrepeat.com/asics-metaspeed-sky-tokyo"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-metaspeed-edge-tokyo",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Metaspeed Edge Tokyo",
+      "name_ko": "아식스 메타스피드 엣지 도쿄",
+      "category": "race",
+      "category_ko": "최상급 레이싱 (카본 · 피치형)",
+      "level": "중급~상급",
+      "weight_g": 170,
+      "stack_heel_mm": 39.5,
+      "drop_mm": 5,
+      "foam": "FF Turbo+ + FF Leap",
+      "plate": "풀 렝스 카본 플레이트 (피치형 튜닝)",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "스카이 도쿄와 동일한 170g 무게이며, 정사이즈 또는 발볼이 넓다면 반 사이즈 업을 권장합니다.",
+      "msrp_krw": 329000,
+      "lifespan_km": 600,
+      "best_for": "풀/하프 마라톤 기록 단축 · 발 회전수(케이던스)를 높여 뛰는 피치형 러너",
+      "summary": "속도를 올릴 때 보폭보다 발 회전수(피치)가 빨라지는 러너를 위해 카본 플레이트 각도를 조율한 아식스 최상급 레이싱화입니다.",
+      "caution": "보폭 위주로 크게 뻗어 뛰는 주법이라면 메타스피드 스카이 도쿄 쪽이 더 잘 맞습니다.",
+      "image": "assets/shoes/asics-metaspeed-edge-tokyo-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EB%A9%94%ED%83%80%EC%8A%A4%ED%94%BC%EB%93%9C%20%EC%97%A3%EC%A7%80%20%EB%8F%84%EC%BF%84",
+        "runrepeat": "https://runrepeat.com/asics-metaspeed-edge-tokyo"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-metaspeed-ray",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Metaspeed Ray",
+      "name_ko": "아식스 메타스피드 레이",
+      "category": "race",
+      "category_ko": "초경량 엘리트 레이싱 (카본)",
+      "level": "상급",
+      "weight_g": 129,
+      "stack_heel_mm": 39.5,
+      "drop_mm": 5,
+      "foam": "FF Leap (A-TPU 폼)",
+      "plate": "3/4 미니멀 카본 플레이트",
+      "has_carbon": true,
+      "toebox_width": "좁음",
+      "wide_available": false,
+      "fit_note": "초경량 Matryx 어퍼를 사용해 발에 딱 맞게 감기는 레이싱 핏입니다.",
+      "msrp_krw": 439000,
+      "lifespan_km": 600,
+      "best_for": "5km~마라톤 풀코스 PB 도전 · 앞발/미드풋 착지 엘리트 러너",
+      "summary": "129g이라는 믿기 힘든 초경량 무게에 FF Leap 폼과 미니멀 카본 플레이트를 담아낸 아식스 최상위 스페셜 레이싱화입니다.",
+      "caution": "뒤꿈치 안정성보다 극단적인 경량성과 반발력에 집중한 모델이라 뒤꿈치 착지나 입문자에게는 부담스러울 수 있습니다.",
+      "image": "assets/shoes/asics-metaspeed-ray-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EB%A9%94%ED%83%80%EC%8A%A4%ED%94%BC%EB%93%9C%20%EB%A0%88%EC%9D%B4",
+        "runrepeat": "https://runrepeat.com/asics-metaspeed-ray"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-evoride-speed-3",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Evoride Speed 3",
+      "name_ko": "아식스 에보라이드 스피드 3",
+      "category": "tempo",
+      "category_ko": "경량 템포 · 데일리 (논카본)",
+      "level": "입문~중급",
+      "weight_g": 230,
+      "stack_heel_mm": 35,
+      "drop_mm": 5,
+      "foam": "FF Blast+",
+      "plate": "없음 (논카본 롤링 솔)",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "와이드(2E) 버전도 출시되며 정사이즈 기준으로 발에 가볍게 잘 감깁니다.",
+      "msrp_krw": 169000,
+      "lifespan_km": 600,
+      "best_for": "카본 없는 템포런 · 인터벌 · 가벼운 데일리 조깅",
+      "summary": "앞굽이 살짝 들린 롤링 밑창(Guidesole)과 230g 가벼운 무게 덕분에 카본 플레이트 없이도 발목 힘 덜 들이고 경쾌하게 속도를 낼 수 있는 훈련화입니다.",
+      "caution": "두꺼운 맥스 쿠션화(40mm 이상)에 비해 바닥 두께가 얇은 편이라 초장거리 회복 조깅보다는 5~15km 템포 주행에 더 어울립니다.",
+      "image": "assets/shoes/asics-evoride-speed-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EC%97%90%EB%B3%B4%EB%9D%BC%EC%9D%B4%EB%93%9C%20%EC%8A%A4%ED%94%BC%EB%93%9C%203",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
     }
   ]
 };
