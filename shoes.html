@@ -1137,13 +1137,12 @@
                     const dropTxt = Number.isFinite(shoe.drop_mm) ? `${shoe.drop_mm}mm` : '-';
                     const widthTxt = `${shoe.toebox_width || '보통'}${shoe.wide_available ? ' (2E)' : ''}`;
                     const pInfo = getPriceInfo(shoe);
-                    const priceMainHtml = pInfo.minPrice
-                        ? `<span class="price-label">최저가</span><span class="price-val">${pInfo.minPrice.toLocaleString('ko-KR')}원</span>${pInfo.msrp ? `<span class="price-msrp-strike">${pInfo.msrp.toLocaleString('ko-KR')}원</span>` : ''}${pInfo.discountPct > 0 ? `<span class="price-discount-badge">-${pInfo.discountPct}%</span>` : ''}`
-                        : (pInfo.msrp
-                            ? `<span class="price-label">공식 출시가</span><span class="price-val">${pInfo.msrp.toLocaleString('ko-KR')}원</span>`
-                            : `<span class="price-label">공식 출시가 확인중</span>`);
-                    const costKmHtml = pInfo.costPerKm
-                        ? `<span class="price-cost-km">${pInfo.lifespan}km 기준 1km당 ${pInfo.costPerKm.toLocaleString('ko-KR')}원</span>`
+                    const msrpCostPerKm = (pInfo.msrp && pInfo.lifespan) ? Math.round(pInfo.msrp / pInfo.lifespan) : null;
+                    const priceMainHtml = pInfo.msrp
+                        ? `<span class="price-label">공식 출시가</span><span class="price-val">${pInfo.msrp.toLocaleString('ko-KR')}원</span>`
+                        : `<span class="price-label">공식 출시가 확인중</span>`;
+                    const costKmHtml = msrpCostPerKm
+                        ? `<span class="price-cost-km">${pInfo.lifespan}km 기준 1km당 ${msrpCostPerKm.toLocaleString('ko-KR')}원</span>`
                         : '';
 
                     return `
@@ -1208,13 +1207,15 @@
 
                 const links = s.links || {};
                 const offers = Array.isArray(s.offers) ? s.offers : [];
+                const activeOffers = offers.filter(o => Number.isFinite(o.price_krw) && o.price_krw > 0 && o.url && /^https?:\/\//i.test(o.url));
+                const hasCoupangOffer = activeOffers.some(o => String(o.store || '').includes('쿠팡'));
                 const pInfo = getPriceInfo(s);
                 const wideBadge = s.wide_available ? '와이드(2E) 출시' : '일반(D) 전용';
                 const priceBannerHtml = `
                     <div class="shoe-price-strip" style="margin-bottom:12px;">
                         <div class="price-main-group">
                             ${pInfo.minPrice
-                                ? `<span class="price-label">최저가</span><span class="price-val">${pInfo.minPrice.toLocaleString('ko-KR')}원</span>${pInfo.msrp ? `<span class="price-msrp-strike">${pInfo.msrp.toLocaleString('ko-KR')}원</span>` : ''}${pInfo.discountPct > 0 ? `<span class="price-discount-badge">-${pInfo.discountPct}%</span>` : ''}`
+                                ? `<span class="price-label">확인 최저가</span><span class="price-val">${pInfo.minPrice.toLocaleString('ko-KR')}원</span>${pInfo.msrp ? `<span class="price-msrp-strike">${pInfo.msrp.toLocaleString('ko-KR')}원</span>` : ''}${pInfo.discountPct > 0 ? `<span class="price-discount-badge">-${pInfo.discountPct}%</span>` : ''}`
                                 : (pInfo.msrp
                                     ? `<span class="price-label">공식 출시가</span><span class="price-val">${pInfo.msrp.toLocaleString('ko-KR')}원</span>`
                                     : `<span class="price-label">공식 출시가 확인중</span>`)
@@ -1223,23 +1224,23 @@
                         ${pInfo.costPerKm ? `<span class="price-cost-km">${pInfo.lifespan}km 기준 1km당 ${pInfo.costPerKm.toLocaleString('ko-KR')}원</span>` : ''}
                     </div>
                 `;
-                const offersHtml = offers.map(o => {
-                    const priceHtml = Number.isFinite(o.price_krw)
-                        ? `<span class="offer-price">${Number(o.price_krw).toLocaleString('ko-KR')}원</span>`
-                        : `<span class="offer-price pending">가격 연동 예정</span>`;
-                    const goBtn = (o.url && /^https?:\/\//i.test(o.url))
-                        ? `<a href="${escapeHtml(o.url)}" target="_blank" rel="noopener noreferrer" class="offer-go-btn">보러가기 ↗</a>`
-                        : `<span class="offer-go-btn disabled">준비중</span>`;
-                    return `
-                        <div class="offer-row">
-                            <span class="offer-store">${escapeHtml(o.store)}</span>
-                            <div style="display:flex; align-items:center; gap:10px;">
-                                ${priceHtml}
-                                ${goBtn}
-                            </div>
+                const offersHtml = activeOffers.map(o => `
+                    <div class="offer-row">
+                        <span class="offer-store">${escapeHtml(o.store)}</span>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <span class="offer-price">${Number(o.price_krw).toLocaleString('ko-KR')}원</span>
+                            <a href="${escapeHtml(o.url)}" target="_blank" rel="noopener noreferrer" class="offer-go-btn">보러가기 ↗</a>
                         </div>
-                    `;
-                }).join('');
+                    </div>
+                `).join('');
+                const offersSectionHtml = activeOffers.length > 0
+                    ? `
+                        <div class="detail-links-title">🛒 정품 보장 판매처 가격 비교</div>
+                        <p style="font-size:0.79rem; color:var(--text-muted); margin:-4px 0 10px;">🛡️ 가품 방지를 위해 현재 가격이 확인된 백화점 공식몰 · 공식 판매처만 표시합니다.</p>
+                        <div class="offers-list">${offersHtml}</div>
+                        ${hasCoupangOffer ? `<p style="font-size:0.76rem; color:var(--text-muted); margin:-4px 0 14px; line-height:1.45;">※ 쿠팡(로켓배송) 링크를 통한 구매 시 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>` : ''}
+                    `
+                    : '';
 
                 els.detailBody.innerHTML = `
                     ${heroImg}
@@ -1260,10 +1261,7 @@
                         <div class="detail-spec-box"><span>플레이트</span><strong>${escapeHtml(s.plate)}</strong></div>
                     </div>
                     <div class="shoe-caution"><strong>주의할 점:</strong> ${escapeHtml(s.caution)}</div>
-                    <div class="detail-links-title">🛒 정품 보장 판매처 가격 &amp; 구매처</div>
-                    <p style="font-size:0.79rem; color:var(--text-muted); margin:-4px 0 10px;">🛡️ 가품 방지를 위해 백화점 공식몰 · 공식 전문몰 · 쿠팡 로켓배송만 연결합니다.</p>
-                    <div class="offers-list">${offersHtml}</div>
-                    <p style="font-size:0.76rem; color:var(--text-muted); margin:-4px 0 14px; line-height:1.45;">※ 쿠팡(로켓배송) 링크를 통한 구매 시 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+                    ${offersSectionHtml}
                     <div class="detail-links-title">🔗 공식 · 실측 리뷰 바로가기</div>
                     <div class="detail-links-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
                         ${renderLinkBtn(links.official, '🏢 공식 홈페이지', false)}
