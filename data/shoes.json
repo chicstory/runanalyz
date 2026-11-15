@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-15",
+  "updated_at": "2026-11-16",
   "brands": [
     {
       "id": "nike",
@@ -2454,6 +2454,690 @@
       ],
       "msrp_krw": 189000,
       "lifespan_km": 600
+    },
+    {
+      "id": "asics-superblast-3",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Superblast 3",
+      "name_ko": "아식스 슈퍼블라스트 3",
+      "category": "daily",
+      "category_ko": "슈퍼 트레이너 (논카본)",
+      "level": "입문~상급",
+      "weight_g": 239,
+      "stack_heel_mm": 46.5,
+      "drop_mm": 8,
+      "foam": "FF Turbo+ + FF Blast+ Eco",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "정사이즈 기준 앞코 공간이 여유롭고 발등 압박이 적어 한국인 발에도 편하게 맞습니다.",
+      "msrp_krw": 259000,
+      "lifespan_km": 600,
+      "best_for": "장거리 마라톤 훈련 · 데일리부터 템포까지 전천후",
+      "summary": "카본 플레이트 없이도 46.5mm 두꺼운 폼과 239g의 가벼운 무게로 장거리와 빠른 페이스를 모두 소화하는 아식스 대표 슈퍼 트레이너입니다.",
+      "caution": "발목이 높고 폼이 두꺼워 급커브가 많은 코스에서는 착지에 조금 신경 쓰는 편이 좋습니다.",
+      "image": "assets/shoes/asics-superblast-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EC%8A%88%ED%8D%BC%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8%203",
+        "runrepeat": "https://runrepeat.com/asics-superblast-3"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-novablast-6",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Novablast 6",
+      "name_ko": "아식스 노바블라스트 6",
+      "category": "daily",
+      "category_ko": "데일리 트레이너",
+      "level": "입문~중급",
+      "weight_g": 255,
+      "stack_heel_mm": 41.5,
+      "drop_mm": 8,
+      "foam": "FF Blast Max",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "정사이즈 기준이며 발볼이 넓은 분은 와이드(2E) 버전을 선택하면 훨씬 편합니다.",
+      "msrp_krw": 179000,
+      "lifespan_km": 600,
+      "best_for": "매일 조깅 · 가벼운 템포런 · 입문자 첫 러닝화",
+      "summary": "트램폴린처럼 통통 튀는 반발력과 넉넉한 쿠션을 균형 있게 담아 초보자부터 중급자까지 매일 손이 가는 국민 데일리 러닝화입니다.",
+      "caution": "빗길에서 접지력이 살짝 미끄러울 수 있어 비 온 뒤 노면에서는 속도를 조금 줄여주세요.",
+      "image": "assets/shoes/asics-novablast-6-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EB%85%B8%EB%B0%94%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8%206",
+        "runrepeat": "https://runrepeat.com/asics-novablast-6"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-megablast",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Megablast",
+      "name_ko": "아식스 메가블라스트",
+      "category": "daily",
+      "category_ko": "맥스 쿠션 트레이너",
+      "level": "입문~상급",
+      "weight_g": 230,
+      "stack_heel_mm": 45,
+      "drop_mm": 8,
+      "foam": "FF Turbo Squared",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "정사이즈 기준이며 발볼이 아주 넓다면 반 사이즈 업을 고려해 주세요.",
+      "msrp_krw": 269000,
+      "lifespan_km": 600,
+      "best_for": "장거리 경량 쿠션 러닝 · 카본 없이 빠른 페이스",
+      "summary": "45mm의 높은 스택에도 230g에 불과한 초경량 폼을 적용해, 발목 부담 없이 가볍고 경쾌하게 오래 달릴 수 있는 논카본 맥스 쿠션화입니다.",
+      "caution": "가격대가 높은 편이며 카본화 특유의 강한 앞쪽 추진력보다는 부드러운 탄성 위주입니다.",
+      "image": "assets/shoes/asics-megablast-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EB%A9%94%EA%B0%80%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8",
+        "runrepeat": "https://runrepeat.com/asics-megablast"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-sonicblast",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Sonicblast",
+      "name_ko": "아식스 소닉블라스트",
+      "category": "tempo",
+      "category_ko": "스피드 트레이너",
+      "level": "중급~상급",
+      "weight_g": 256,
+      "stack_heel_mm": 45,
+      "drop_mm": 8,
+      "foam": "FF Blast Max + FF Turbo Squared",
+      "plate": "Astroplate (페바스 플레이트)",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "정사이즈 기준이며 미드풋 홀딩감이 탄탄한 편이라 발볼이 넓다면 시착을 권장합니다.",
+      "msrp_krw": 229000,
+      "lifespan_km": 600,
+      "best_for": "템포런 · 빌드업 주 · 하프/풀 마라톤 훈련",
+      "summary": "카본 대신 유연한 페바스 소재 플레이트(Astroplate)와 듀얼 폼을 조합해, 발에 무리를 덜 주면서도 경쾌하게 속도를 끌어올릴 수 있는 스피드 트레이너입니다.",
+      "caution": "카본 플레이트처럼 딱딱하게 튕겨 주는 느낌보다는 부드러운 반발력 중심입니다.",
+      "image": "assets/shoes/asics-sonicblast-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EC%86%8C%EB%8B%89%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8",
+        "runrepeat": "https://runrepeat.com/asics-sonicblast"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-sonicblast-2",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Sonicblast 2",
+      "name_ko": "아식스 소닉블라스트 2",
+      "category": "tempo",
+      "category_ko": "스피드 트레이너",
+      "level": "중급~상급",
+      "weight_g": 242,
+      "stack_heel_mm": 45,
+      "drop_mm": 8,
+      "foam": "FF Blast Max + FF Turbo Squared",
+      "plate": "Astroplate (페바스 플레이트)",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "전작보다 어퍼 통기성과 무게(242g)가 개선되었으며 정사이즈 기준으로 잘 맞습니다.",
+      "msrp_krw": 229000,
+      "lifespan_km": 600,
+      "best_for": "템포런 · 레이스 페이스 훈련 · 가벼운 장거리",
+      "summary": "전작 대비 무게를 줄이고 전족부 반발 포드와 아식스그립 아웃솔을 보강해, 젖은 노면에서도 안정적으로 속도를 낼 수 있는 2세대 모델입니다.",
+      "caution": "스택이 높아 느린 회복 조깅보다는 리듬감 있는 조깅~템포 페이스에서 장점이 살아납니다.",
+      "image": "assets/shoes/asics-sonicblast-2-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EC%86%8C%EB%8B%89%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8%202",
+        "runrepeat": "https://runrepeat.com/asics-sonicblast-2"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-magicspeed-4",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Magic Speed 4",
+      "name_ko": "아식스 매직스피드 4",
+      "category": "carbon",
+      "category_ko": "카본 레이싱 & 훈련",
+      "level": "중급~상급",
+      "weight_g": 242,
+      "stack_heel_mm": 43.5,
+      "drop_mm": 8,
+      "foam": "FF Blast+ + FF Turbo",
+      "plate": "풀 렝스 카본 플레이트",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "카본화 중에서도 와이드(2E) 버전이 별도 출시되어 발볼 넓은 한국인 러너에게 인기가 높습니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "인터벌 · 템포런 · 첫 카본 레이싱화",
+      "summary": "메타스피드 시리즈보다 부담 없는 19만 원대 가격으로 풀 렝스 카본 플레이트의 추진력과 두툼한 쿠션을 함께 경험할 수 있는 가성비 카본화입니다.",
+      "caution": "카본 플레이트가 꽤 단단한 편이라 종아리나 아킬레스건 근력이 부족한 완전 초보자는 천천히 적응하는 게 좋습니다.",
+      "image": "assets/shoes/asics-magicspeed-4-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EB%A7%A4%EC%A7%81%EC%8A%A4%ED%94%BC%EB%93%9C%204",
+        "runrepeat": "https://runrepeat.com/asics-magic-speed-4"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-gel-nimbus-28",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Gel-Nimbus 28",
+      "name_ko": "아식스 젤 님버스 28",
+      "category": "cushion",
+      "category_ko": "맥스 쿠션 (뉴트럴)",
+      "level": "입문~상급",
+      "weight_g": 281,
+      "stack_heel_mm": 42,
+      "drop_mm": 8,
+      "foam": "FF Blast+ Eco + PureGEL",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "기본 발볼도 넉넉하고 와이드(2E)·엑스트라 와이드(4E)까지 나와 발볼 넓은 분들에게 가장 편합니다.",
+      "msrp_krw": 219000,
+      "lifespan_km": 600,
+      "best_for": "장거리 회복 조깅 · 무릎/관절 보호 · 체중이 있는 입문자",
+      "summary": "구름 위를 걷는 듯한 푹신한 착지감으로 무릎과 발목 충격을 부드럽게 흡수해 주는 아식스 대표 맥스 쿠션 러닝화입니다.",
+      "caution": "속도를 빠르게 올리는 인터벌보다는 편안한 페이스에서 진가를 발휘합니다.",
+      "image": "assets/shoes/asics-gel-nimbus-28-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EC%A0%A4%20%EB%8B%98%EB%B2%84%EC%8A%A4%2028",
+        "runrepeat": "https://runrepeat.com/asics-gel-nimbus-28"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-gel-kayano-33",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Gel-Kayano 33",
+      "name_ko": "아식스 젤 카야노 33",
+      "category": "stability",
+      "category_ko": "안정화 (발목 흔들림 방지)",
+      "level": "입문~중급",
+      "weight_g": 298,
+      "stack_heel_mm": 40,
+      "drop_mm": 8,
+      "foam": "FF Blast+ Eco + PureGEL (4D Guidance)",
+      "plate": "4D 가이던스 서포트",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "아치 지지력이 뛰어나며 와이드(2E)·엑스트라 와이드(4E) 옵션이 풍부합니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "발목이 안쪽으로 무너지는 러너 · 평발/과내전 · 장거리 안정 주행",
+      "summary": "착지할 때 발목이 안쪽으로 꺾이는 것을 자연스럽게 잡아주면서 푹신한 쿠션까지 챙긴 세계에서 가장 유명한 안정화 시리즈입니다.",
+      "caution": "지지 구조와 두툼한 폼 때문에 무게(약 298g)가 가벼운 편은 아닙니다.",
+      "image": "assets/shoes/asics-gel-kayano-33-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EC%A0%A4%20%EC%B9%B4%EC%95%BC%EB%85%B8%2033",
+        "runrepeat": "https://runrepeat.com/asics-gel-kayano-33"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-gt2000-15",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS GT-2000 15",
+      "name_ko": "아식스 GT-2000 15",
+      "category": "stability",
+      "category_ko": "안정화 (데일리)",
+      "level": "입문~중급",
+      "weight_g": 252,
+      "stack_heel_mm": 38,
+      "drop_mm": 8,
+      "foam": "FF Blast+ + PureGEL (3D Guidance)",
+      "plate": "3D 가이던스 시스템",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "카야노보다 가볍고 날렵한 핏이며 와이드(2E) 선택이 가능합니다.",
+      "msrp_krw": 169000,
+      "lifespan_km": 600,
+      "best_for": "가벼운 안정화 · 매일 조깅 · 카야노가 무겁게 느껴질 때",
+      "summary": "젤 카야노의 발목 안정감은 유지하면서도 무게를 252g대로 덜어내 매일 경쾌하게 달리기 좋은 가성비 안정화입니다.",
+      "caution": "아주 심한 과내전이나 100kg 이상 체중이라면 카야노 33 쪽이 더 든든합니다.",
+      "image": "assets/shoes/asics-gt2000-15-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=GT-2000%2015",
+        "runrepeat": "https://runrepeat.com/asics-gt-2000-15"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-glideride-max-2",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Glideride Max 2",
+      "name_ko": "아식스 글라이드라이드 맥스 2",
+      "category": "cushion",
+      "category_ko": "롤링 맥스 쿠션",
+      "level": "입문~중급",
+      "weight_g": 261,
+      "stack_heel_mm": 46,
+      "drop_mm": 6,
+      "foam": "FF Blast Max + FF Blast+ Eco",
+      "plate": "EVA 가이드 플레이트",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "정사이즈 기준이며 앞코가 둥글게 들려 있어 발가락 압박이 적은 편입니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "장거리 LSD · 힘 덜 들이고 굴러가는 주행",
+      "summary": "배 바닥처럼 둥글게 휘어진 롤러 모양 밑창과 46mm 쿠션이 발을 앞으로 자연스럽게 굴려주어 장거리에서 종아리 피로를 줄여줍니다.",
+      "caution": "낮은 드롭(6mm)과 앞코 롤링 특성상 처음 신으면 앞으로 쏠리는 느낌이 낯설 수 있습니다.",
+      "image": "assets/shoes/asics-glideride-max-2-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EA%B8%80%EB%9D%BC%EC%9D%B4%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%93%9C%20%EB%A7%A5%EC%8A%A4%202",
+        "runrepeat": "https://runrepeat.com/asics-glideride-max-2"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-gel-slowqushi",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS GEL-SLOWCUSH",
+      "name_ko": "아식스 젤 슬로우쿠시",
+      "category": "cushion",
+      "category_ko": "회복 · 이지런 맥스 쿠션",
+      "level": "입문~상급",
+      "weight_g": 298,
+      "stack_heel_mm": 48,
+      "drop_mm": 8,
+      "foam": "FF Luxe+ + PureGEL+",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "남녀공용(Unisex) 표준 D폭 기준이므로 발볼이 넓다면 반 사이즈 업을 권장합니다.",
+      "msrp_krw": 249000,
+      "lifespan_km": 600,
+      "best_for": "존 2 이지런 · 고강도 훈련 다음 날 회복 조깅",
+      "summary": "48mm의 압도적인 굽 높이와 푹신한 FF 럭스 플러스 폼으로 천천히 오래 달리는 회복 조깅에 특화된 아식스 신규 맥스 쿠션화입니다.",
+      "caution": "무게(298g)와 높은 스택 때문에 빠른 스피드 훈련용으로는 적합하지 않습니다.",
+      "image": "assets/shoes/asics-gel-slowqushi-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EC%A0%A4%20%EC%8A%AC%EB%A1%9C%EC%9A%B0%EC%BF%A0%EC%8B%9C",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "asics-gel-contend-10",
+      "brand": "asics",
+      "brand_ko": "아식스",
+      "name": "ASICS Gel-Contend 10",
+      "name_ko": "아식스 젤 컨텐드 10",
+      "category": "budget",
+      "category_ko": "입문 가성비",
+      "level": "입문",
+      "weight_g": 317,
+      "stack_heel_mm": 30,
+      "drop_mm": 8,
+      "foam": "Amplifoam+ + Rearfoot GEL",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "발볼이 넉넉한 편이고 와이드(4E) 옵션도 있어 편하게 신기 좋습니다.",
+      "msrp_krw": 95000,
+      "lifespan_km": 600,
+      "best_for": "걷기 + 가벼운 3km 러닝 · 헬스장 트레드밀 · 10만 원 이하 입문",
+      "summary": "10만 원 이하 합리적인 가격에 튼튼한 내구성과 기본 젤 쿠션을 갖춰, 러닝 입문이나 워킹 겸용으로 부담 없이 시작하기 좋은 모델입니다.",
+      "caution": "무게가 무겁고 반발력이 적어 10km 이상 본격적인 달리기에는 노바블라스트 등 상위 모델이 훨씬 편합니다.",
+      "image": "assets/shoes/asics-gel-contend-10-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.asics.co.kr/search?keyword=%EC%A0%A4%20%EC%BB%A8%ED%85%90%EB%93%9C%2010",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
     }
   ]
 }
