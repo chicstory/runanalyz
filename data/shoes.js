@@ -1328,8 +1328,8 @@ window.SHOES_DATA = {
         },
         {
           "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 135000,
+          "url": "https://link.coupang.com/a/iOv94IYXqm"
         }
       ],
       "msrp_krw": 189000,
@@ -1394,8 +1394,8 @@ window.SHOES_DATA = {
         },
         {
           "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 74500,
+          "url": "https://link.coupang.com/a/iOvRii0ddB"
         }
       ],
       "msrp_krw": 149000,
@@ -1526,8 +1526,8 @@ window.SHOES_DATA = {
         },
         {
           "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 85260,
+          "url": "https://link.coupang.com/a/iOweifuLpA"
         }
       ],
       "msrp_krw": 159000,
@@ -1592,8 +1592,8 @@ window.SHOES_DATA = {
         },
         {
           "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 79600,
+          "url": "https://link.coupang.com/a/iOwhQ8gv4m"
         }
       ],
       "msrp_krw": 159000,
@@ -1856,8 +1856,8 @@ window.SHOES_DATA = {
         },
         {
           "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 64500,
+          "url": "https://link.coupang.com/a/iOwp7M7Bpk"
         }
       ],
       "msrp_krw": 199000,
@@ -2054,8 +2054,8 @@ window.SHOES_DATA = {
         },
         {
           "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 65860,
+          "url": "https://link.coupang.com/a/iOwDhEEFrw"
         }
       ],
       "msrp_krw": 99000,
@@ -2186,8 +2186,8 @@ window.SHOES_DATA = {
         },
         {
           "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 74260,
+          "url": "https://link.coupang.com/a/iOwG6Iq0WW"
         }
       ],
       "msrp_krw": 79000,
@@ -2252,8 +2252,8 @@ window.SHOES_DATA = {
         },
         {
           "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 53950,
+          "url": "https://link.coupang.com/a/iOwJVhWkDc"
         }
       ],
       "msrp_krw": 79000,
@@ -2384,8 +2384,8 @@ window.SHOES_DATA = {
         },
         {
           "store": "쿠팡 (로켓배송)",
-          "price_krw": null,
-          "url": ""
+          "price_krw": 195000,
+          "url": "https://link.coupang.com/a/iOv6sB5Z36"
         }
       ],
       "msrp_krw": 319000,
