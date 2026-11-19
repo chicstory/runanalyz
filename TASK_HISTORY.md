@@ -2,6 +2,13 @@
 
 ---
 
+## [2026-11-20] 🔗 러닝화 관련 아티클 12편 → `shoes.html` 내부 링크 CTA 일괄 탑재
+- **요청사항**: `runrepeat-shoe-specs-guide.html`을 비롯해 러닝화(스택·드롭·카본·사이즈·끈 묶기·블랙아이스 등) 관련 아티클에 `shoes.html`(133종 러닝화 비교 도감) 내부 연동 링크 탑재.
+- **수정한 내용**: `runrepeat-shoe-specs-guide.html` 기존 CTA 버튼을 `../shoes.html`로 연결하고, 나머지 러닝화 관련 아티클 11편 하단에 `../shoes.html` 내부 연동 CTA 카드(`.shoe-hub-cta`) 일괄 삽입.
+- **앞으로 지킬 규칙**: 러닝화 스펙·장비 관련 신규 아티클 작성 시 하단에 `../shoes.html` 내부 연동 CTA를 기본 탑재.
+
+---
+
 ## [2026-11-20] 👟 러닝화 끈 묶기(러너스 루프) 유튜브 임베드 아티클 발행
 - **요청사항**: `runanalyz.com`에 러닝화 끈 묶기를 주제로 실제 유튜브 영상을 임베드한 실전 아티클 추가.
 - **수정한 내용**: `articles/running-shoe-lacing-heel-lock-runners-loop-guide.html` 신규 작성(oEmbed 검증된 `Profeet Custom` 힐 락 유튜브 영상 `jG_XzEjD9Ls` 반응형 16:9 임베드 + 5단계 가이드 + 증상별 3대 매듭표), `index.html`(#articleGrid 최상단) 및 `sitemap.xml` 등록.
