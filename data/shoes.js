@@ -1,5 +1,5 @@
 window.SHOES_DATA = {
-  "updated_at": "2026-11-16",
+  "updated_at": "2026-11-19",
   "brands": [
     {
       "id": "nike",
@@ -3337,6 +3337,1374 @@ window.SHOES_DATA = {
       "status": "ready",
       "links": {
         "official": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EC%97%90%EB%B3%B4%EB%9D%BC%EC%9D%B4%EB%93%9C%20%EC%8A%A4%ED%94%BC%EB%93%9C%203",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-hyperwarp-pure",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Hyperwarp Pure",
+      "name_ko": "미즈노 하이퍼워프 퓨어",
+      "category": "race",
+      "category_ko": "초경량 엘리트 레이싱 (카본)",
+      "level": "상급",
+      "weight_g": 137,
+      "stack_heel_mm": 34,
+      "drop_mm": 3.5,
+      "foam": "Mizuno Enerzy XP (PEBA)",
+      "plate": "풀 렝스 카본 플레이트",
+      "has_carbon": true,
+      "toebox_width": "좁음",
+      "wide_available": false,
+      "fit_note": "극초경량 레이싱 핏으로 발에 딱 맞게 감기며 발볼이 넓다면 반 사이즈 업을 권장합니다.",
+      "msrp_krw": 309000,
+      "lifespan_km": 600,
+      "best_for": "5km~마라톤 기록 경신 · 137g 초경량 레이싱",
+      "summary": "137g이라는 극한 경량 무게에 PEBA 기반 Enerzy XP 폼과 풀 카본 플레이트를 담아낸 미즈노 차세대 최상급 레이싱화입니다.",
+      "caution": "낮은 드롭(3.5mm)과 얇은 레이싱 갑피 특성상 앞발·미드풋 착지 숙련자에게 적합합니다.",
+      "image": "assets/shoes/mizuno-hyperwarp-pure-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%ED%95%98%EC%9D%B4%ED%8D%BC%EC%9B%8C%ED%94%84%20%ED%93%A8%EC%96%B4",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-hyperwarp-elite",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Hyperwarp Elite",
+      "name_ko": "미즈노 하이퍼워프 엘리트",
+      "category": "race",
+      "category_ko": "최상급 마라톤 레이싱 (카본)",
+      "level": "중급~상급",
+      "weight_g": 164,
+      "stack_heel_mm": 38,
+      "drop_mm": 3.5,
+      "foam": "Enerzy XP + TPEE 듀얼 미드솔",
+      "plate": "3D 풀 렝스 카본 플레이트",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "정사이즈 기준이며 퓨어 모델보다 미드풋 홀딩과 안정감이 조금 더 탄탄합니다.",
+      "msrp_krw": 279000,
+      "lifespan_km": 600,
+      "best_for": "하프·풀 마라톤 PB 도전 · 안정감 있는 초경량 카본화",
+      "summary": "질소 주입 Enerzy XP와 TPEE 듀얼 밀도 폼, 3D 카본 플레이트를 조합해 164g 경량성과 마라톤 후반 안정성을 동시에 잡은 레이싱화입니다.",
+      "caution": "드롭이 3.5mm로 낮은 편이라 기존 고드롭(10mm) 신발을 신던 분은 종아리 적응이 필요합니다.",
+      "image": "assets/shoes/mizuno-hyperwarp-elite-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%ED%95%98%EC%9D%B4%ED%8D%BC%EC%9B%8C%ED%94%84%20%EC%97%98%EB%A6%AC%ED%8A%B8",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-hyperwarp-pro",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Hyperwarp Pro",
+      "name_ko": "미즈노 하이퍼워프 프로",
+      "category": "carbon",
+      "category_ko": "카본 레이스 · 스피드 훈련",
+      "level": "중급~상급",
+      "weight_g": 200,
+      "stack_heel_mm": 39,
+      "drop_mm": 5,
+      "foam": "Mizuno Enerzy XP",
+      "plate": "웨이브 카본 플레이트 (SSA)",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "정사이즈 기준이며 퓨어·엘리트보다 앞볼 공간이 조금 더 여유롭습니다.",
+      "msrp_krw": 249000,
+      "lifespan_km": 600,
+      "best_for": "템포런 · 인터벌 · 마라톤 겸용 카본 트레이너",
+      "summary": "200g의 가벼운 무게와 Smooth Speed Assist(SSA) 설계로 빠른 훈련과 실전 대회를 모두 소화할 수 있는 미즈노 카본화입니다.",
+      "caution": "가벼운 만큼 아웃솔 내구성은 데일리화보다 짧으므로 포인트 훈련과 대회 위주로 아껴 신는 편이 좋습니다.",
+      "image": "assets/shoes/mizuno-hyperwarp-pro-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%ED%95%98%EC%9D%B4%ED%8D%BC%EC%9B%8C%ED%94%84%20%ED%94%84%EB%A1%9C",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-wave-rebellion-pro-3",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Wave Rebellion Pro 3",
+      "name_ko": "미즈노 웨이브 리벨리온 프로 3",
+      "category": "race",
+      "category_ko": "초고스택 레이싱 (카본)",
+      "level": "상급",
+      "weight_g": 225,
+      "stack_heel_mm": 61,
+      "drop_mm": 4,
+      "foam": "Mizuno Enerzy XP",
+      "plate": "카본 혼입 나일론 웨이브 플레이트",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "정사이즈 기준이며 뒤꿈치가 크게 깎여 있어 미드풋~포어풋 착지에 맞춰 설계되었습니다.",
+      "msrp_krw": 259000,
+      "lifespan_km": 600,
+      "best_for": "앞발/중족 착지 서브3 마라토너 · 극강 롤링 추진력",
+      "summary": "뒤꿈치를 과감하게 덜어낸 독특한 형태와 초고스택 Enerzy XP 폼으로 발을 앞으로 강하게 굴려주는 미즈노의 개성 강한 슈퍼슈즈입니다.",
+      "caution": "뒤꿈치로 쿵 찍으며 느리게 뛰거나 서 있을 때는 불안정하게 느껴질 수 있습니다.",
+      "image": "assets/shoes/mizuno-wave-rebellion-pro-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EB%A6%AC%EB%B2%A8%EB%A6%AC%EC%98%A8%20%ED%94%84%EB%A1%9C%203",
+        "runrepeat": "https://runrepeat.com/mizuno-wave-rebellion-pro-3"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-wave-rebellion-pro-low",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Wave Rebellion Pro Low",
+      "name_ko": "미즈노 웨이브 리벨리온 프로 로우",
+      "category": "race",
+      "category_ko": "안정형 마라톤 레이싱 (카본)",
+      "level": "중급~상급",
+      "weight_g": 215,
+      "stack_heel_mm": 40,
+      "drop_mm": 4.5,
+      "foam": "Mizuno Enerzy XP (질소 주입)",
+      "plate": "유리섬유 강화 웨이브 플레이트",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "프로 3보다 착지 면적이 평탄하고 안정적이라 일반 러너도 정사이즈로 편하게 신을 수 있습니다.",
+      "msrp_krw": 259000,
+      "lifespan_km": 600,
+      "best_for": "리벨리온 프로 3가 부담스러운 러너 · 안정적인 마라톤 레이스",
+      "summary": "리벨리온 프로 3의 극단적인 뒤꿈치 각도를 완만하게 낮춰, 더 많은 러너가 안정적으로 빠른 페이스를 유지할 수 있게 다듬은 모델입니다.",
+      "caution": "프로 3 특유의 강렬한 앞쏠림보다는 균형 잡힌 추진력에 가깝습니다.",
+      "image": "assets/shoes/mizuno-wave-rebellion-pro-low-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EB%A6%AC%EB%B2%A8%EB%A6%AC%EC%98%A8%20%ED%94%84%EB%A1%9C%20%EB%A1%9C%EC%9A%B0",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-wave-rebellion-flash-3",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Wave Rebellion Flash 3",
+      "name_ko": "미즈노 웨이브 리벨리온 플래시 3",
+      "category": "tempo",
+      "category_ko": "스피드 트레이너",
+      "level": "입문~상급",
+      "weight_g": 241,
+      "stack_heel_mm": 38,
+      "drop_mm": 3,
+      "foam": "Enerzy XP + Enerzy NXT",
+      "plate": "유리섬유 강화 나일론 웨이브 플레이트",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "정사이즈 기준이며 카본 대신 유리섬유 플레이트라 발 압박이 덜합니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "템포런 · 빌드업 · 10km/하프 레이스 겸용 훈련화",
+      "summary": "상단 Enerzy XP의 탄성과 유리섬유 웨이브 플레이트를 결합해 카본화보다 부담 없이 속도를 끌어올릴 수 있는 스피드 트레이너입니다.",
+      "caution": "드롭이 3mm로 낮은 편이라 처음 신을 때는 거리를 조금씩 늘려가는 것이 좋습니다.",
+      "image": "assets/shoes/mizuno-wave-rebellion-flash-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EB%A6%AC%EB%B2%A8%EB%A6%AC%EC%98%A8%20%ED%94%8C%EB%9E%98%EC%8B%9C%203",
+        "runrepeat": "https://runrepeat.com/mizuno-wave-rebellion-flash-3"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-neo-vista-3",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Neo Vista 3",
+      "name_ko": "미즈노 네오 비스타 3",
+      "category": "daily",
+      "category_ko": "슈퍼 트레이너 (논카본)",
+      "level": "입문~상급",
+      "weight_g": 265,
+      "stack_heel_mm": 44.5,
+      "drop_mm": 8,
+      "foam": "Mizuno Enerzy NXT (질소 주입)",
+      "plate": "3D 유리섬유 강화 웨이브 플레이트",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "니트 어퍼가 발을 양말처럼 부드럽게 감싸주며 정사이즈 기준으로 잘 맞습니다.",
+      "msrp_krw": 219000,
+      "lifespan_km": 600,
+      "best_for": "장거리 훈련 · 조깅부터 빠른 페이스까지 전천후",
+      "summary": "44.5mm 두툼한 Enerzy NXT 폼과 부드러운 웨이브 플레이트, 양말형 니트 어퍼가 어우러져 편안하면서도 경쾌하게 나가는 미즈노 대표 슈퍼 트레이너입니다.",
+      "caution": "니트 어퍼 특성상 발목을 아주 단단하게 조여주는 느낌은 적어 급코너에서는 속도를 살짝 줄여주세요.",
+      "image": "assets/shoes/mizuno-neo-vista-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EB%84%A4%EC%98%A4%20%EB%B9%84%EC%8A%A4%ED%83%80%203",
+        "runrepeat": "https://runrepeat.com/mizuno-neo-vista-3"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-neo-zen-2",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Neo Zen 2",
+      "name_ko": "미즈노 네오 젠 2",
+      "category": "daily",
+      "category_ko": "데일리 트레이너",
+      "level": "입문~중급",
+      "weight_g": 248,
+      "stack_heel_mm": 40.5,
+      "drop_mm": 6,
+      "foam": "Mizuno Enerzy NXT (질소 주입)",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "메쉬와 니트 하이브리드 어퍼라 발등 압박이 적고 정사이즈로 편합니다.",
+      "msrp_krw": 169000,
+      "lifespan_km": 600,
+      "best_for": "매일 조깅 · 통통 튀는 논카본 데일리화",
+      "summary": "질소 주입 Enerzy NXT 폼을 플레이트 없이 온전히 사용해 가볍고 말랑하면서도 기분 좋게 튀어 오르는 데일리 러닝화입니다.",
+      "caution": "푹신한 폼 특성상 발목이 크게 안쪽으로 꺾이는 과내전 러너라면 웨이브 인스파이어가 더 안정적입니다.",
+      "image": "assets/shoes/mizuno-neo-zen-2-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EB%84%A4%EC%98%A4%20%EC%A0%A0%202",
+        "runrepeat": "https://runrepeat.com/mizuno-neo-zen-2"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-neo-cosmo-2",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Neo Cosmo 2",
+      "name_ko": "미즈노 네오 코스모 2",
+      "category": "daily",
+      "category_ko": "입문 · 데일리 조깅",
+      "level": "입문",
+      "weight_g": 245,
+      "stack_heel_mm": 35,
+      "drop_mm": 8,
+      "foam": "Mizuno Enerzy NXT",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "양말처럼 발을 편하게 감싸는 구조라 정사이즈 기준으로 부담 없이 맞습니다.",
+      "msrp_krw": 139000,
+      "lifespan_km": 600,
+      "best_for": "가벼운 3~5km 조깅 · 워킹 겸용 · 10만 원대 입문",
+      "summary": "네오 시리즈 중 가장 합리적인 가격에 가벼운 무게와 부드러운 착화감을 담아 처음 달리기를 시작하는 입문자도 편하게 신을 수 있는 모델입니다.",
+      "caution": "하프 이상 장거리나 빠른 스피드 훈련에는 네오 젠이나 네오 비스타가 더 적합합니다.",
+      "image": "assets/shoes/mizuno-neo-cosmo-2-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EB%84%A4%EC%98%A4%20%EC%BD%94%EC%8A%A4%EB%AA%A8%202",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-wave-rider-30",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Wave Rider 30",
+      "name_ko": "미즈노 웨이브 라이더 30",
+      "category": "daily",
+      "category_ko": "클래식 데일리 트레이너",
+      "level": "입문~상급",
+      "weight_g": 266,
+      "stack_heel_mm": 42.5,
+      "drop_mm": 8,
+      "foam": "Mizuno Enerzy NXT + EVA",
+      "plate": "풀 렝스 미즈노 웨이브 플레이트",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "한국인 발에 잘 맞는 넉넉한 발볼과 와이드(SW) 옵션이 강점입니다.",
+      "msrp_krw": 179000,
+      "lifespan_km": 600,
+      "best_for": "매일 꾸준한 조깅 · 탄탄하고 안정적인 데일리화",
+      "summary": "30년 역사를 이어온 미즈노 대표 데일리화로, 8mm 드롭과 더 두꺼워진 Enerzy NXT 폼 덕분에 너무 물렁거리지 않으면서도 부드럽게 받쳐줍니다.",
+      "caution": "구름처럼 극도로 말랑한 쿠션을 원한다면 스카이 9이나 스카이 프라임이 더 취향에 맞습니다.",
+      "image": "assets/shoes/mizuno-wave-rider-30-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EB%9D%BC%EC%9D%B4%EB%8D%94%2030",
+        "runrepeat": "https://runrepeat.com/mizuno-wave-rider-30"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-wave-rider-29",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Wave Rider 29",
+      "name_ko": "미즈노 웨이브 라이더 29",
+      "category": "daily",
+      "category_ko": "클래식 데일리 트레이너",
+      "level": "입문~상급",
+      "weight_g": 265,
+      "stack_heel_mm": 38.5,
+      "drop_mm": 10,
+      "foam": "Mizuno Enerzy NXT",
+      "plate": "식물성 페바스 웨이브 플레이트",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "와이드(2E/4E) 선택지가 풍부해 발볼 넓은 입문자에게 특히 편합니다.",
+      "msrp_krw": 169000,
+      "lifespan_km": 600,
+      "best_for": "입문자 첫 데일리화 · 뒤꿈치 착지 안정 주행",
+      "summary": "10mm 드롭과 단단한 웨이브 플레이트가 뒤꿈치 착지 시 흔들림을 잡아주며, 내구성이 뛰어나 오래 신기 좋은 검증된 데일리 러닝화입니다.",
+      "caution": "30 버전보다 앞굽 스택이 낮고 클래식한 착지감을 가졌습니다.",
+      "image": "assets/shoes/mizuno-wave-rider-29-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EB%9D%BC%EC%9D%B4%EB%8D%94%2029",
+        "runrepeat": "https://runrepeat.com/mizuno-wave-rider-29"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-wave-sky-9",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Wave Sky 9",
+      "name_ko": "미즈노 웨이브 스카이 9",
+      "category": "cushion",
+      "category_ko": "맥스 쿠션 (뉴트럴)",
+      "level": "입문~상급",
+      "weight_g": 286,
+      "stack_heel_mm": 44,
+      "drop_mm": 6,
+      "foam": "Enerzy NXT + Enerzy (Foam Wave)",
+      "plate": "없음 (폼 웨이브)",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "발볼이 넉넉하고 니트/메쉬 어퍼가 부드러워 장시간 뛰어도 발이 편합니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "무릎·발목 보호 · 장거리 회복 조깅 · 푹신한 쿠션 선호",
+      "summary": "딱딱한 플라스틱 플레이트 대신 44mm 두께의 폼 웨이브 구조를 적용해 둥실둥실 떠 있는 듯한 부드러운 쿠션감을 주는 맥스 쿠션화입니다.",
+      "caution": "무게(약 286g)가 있어 빠른 인터벌보다는 편안한 조깅용으로 적합합니다.",
+      "image": "assets/shoes/mizuno-wave-sky-9-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EC%8A%A4%EC%B9%B4%EC%9D%B4%209",
+        "runrepeat": "https://runrepeat.com/mizuno-wave-sky-9"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-sky-prim",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Sky Prime",
+      "name_ko": "미즈노 스카이 프라임",
+      "category": "cushion",
+      "category_ko": "최상급 맥스 쿠션",
+      "level": "입문~상급",
+      "weight_g": 295,
+      "stack_heel_mm": 47,
+      "drop_mm": 6,
+      "foam": "Enerzy NXT+ + Enerzy NXT",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "바닥 폭이 넓게 설계되어 높은 굽에도 안정감이 좋고 발볼 공간도 넉넉합니다.",
+      "msrp_krw": 239000,
+      "lifespan_km": 600,
+      "best_for": "장거리 회복주 · 관절 충격 최소화 · 최고 높이 쿠션",
+      "summary": "미즈노 역대 최고 높이인 47mm 스택에 질소 주입 Enerzy NXT+ 폼을 얹어 바닥 충격을 거의 완벽하게 걸러주는 최상급 맥스 쿠션화입니다.",
+      "caution": "무게(295g)와 두꺼운 솔 때문에 가벼운 스피드 주행에는 어울리지 않습니다.",
+      "image": "assets/shoes/mizuno-sky-prim-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EC%8A%A4%EC%B9%B4%EC%9D%B4%20%ED%94%84%EB%9D%BC%EC%9E%84",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-wave-inspire-22",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Wave Inspire 22",
+      "name_ko": "미즈노 웨이브 인스파이어 22",
+      "category": "stability",
+      "category_ko": "안정화 (과내전 보완)",
+      "level": "입문~중급",
+      "weight_g": 285,
+      "stack_heel_mm": 38.5,
+      "drop_mm": 10,
+      "foam": "Mizuno Enerzy NXT",
+      "plate": "내측 지지형 웨이브 플레이트",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "와이드(2E/4E) 옵션이 있어 발볼이 넓고 아치가 무너지는 러너에게 딱 맞습니다.",
+      "msrp_krw": 179000,
+      "lifespan_km": 600,
+      "best_for": "평발·과내전 러너 · 발목 안쪽 꺾임 방지",
+      "summary": "발 안쪽을 든든하게 받쳐주는 웨이브 플레이트와 10mm 드롭 덕분에 뛰다 보면 발목이 안쪽으로 무너지는 러너에게 가장 안정적인 데일리화입니다.",
+      "caution": "중립 발목 러너라면 안쪽 지지대가 살짝 단단하게 느껴질 수 있습니다.",
+      "image": "assets/shoes/mizuno-wave-inspire-22-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%EC%9D%B8%EC%8A%A4%ED%8C%8C%EC%9D%B4%EC%96%B4%2022",
+        "runrepeat": "https://runrepeat.com/mizuno-wave-inspire-22"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-wave-horizon-7",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Wave Horizon 7",
+      "name_ko": "미즈노 웨이브 호라이즌 7",
+      "category": "stability",
+      "category_ko": "맥스 쿠션 안정화",
+      "level": "입문~중급",
+      "weight_g": 330,
+      "stack_heel_mm": 38,
+      "drop_mm": 8,
+      "foam": "Mizuno Enerzy Core + Enerzy",
+      "plate": "비대칭 안정화 웨이브 폼",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "바닥이 넓고 발볼도 넉넉해 체중이 있는 편이거나 평발인 분에게 매우 편합니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "과체중 입문자 · 심한 과내전 · 푹신하면서 흔들리지 않는 러닝화",
+      "summary": "웨이브 스카이의 푹신한 쿠션과 인스파이어의 안정화 기능을 합쳐, 발목 흔들림은 잡아주면서 무릎 충격까지 줄여주는 맥스 서포트 모델입니다.",
+      "caution": "330g으로 무게가 꽤 나가는 편이라 느린 조깅·장거리 걷기 겸용으로 좋습니다.",
+      "image": "assets/shoes/mizuno-wave-horizon-7-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%ED%98%B8%EB%9D%BC%EC%9D%B4%EC%A6%8C%207",
+        "runrepeat": "https://runrepeat.com/mizuno-wave-horizon-7"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-wave-prophecy-15",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Wave Prophecy 15",
+      "name_ko": "미즈노 웨이브 프로페시 15",
+      "category": "cushion",
+      "category_ko": "기계식 쿠션 · 라이프스타일",
+      "level": "입문",
+      "weight_g": 370,
+      "stack_heel_mm": 41.5,
+      "drop_mm": 11,
+      "foam": "U4icX + 인피니티 웨이브 플레이트",
+      "plate": "풀 렝스 인피니티 웨이브 (듀얼 플레이트)",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "정사이즈 기준이며 폼이 아닌 듀얼 플레이트 구조라 단단하고 묵직한 착화감입니다.",
+      "msrp_krw": 329000,
+      "lifespan_km": 600,
+      "best_for": "체중이 많이 나가는 러너 · 폼 꺼짐 없는 내구성 · 일상 패션 겸용",
+      "summary": "밑창 전체가 비어 있는 독특한 인피니티 웨이브 구조로 폼이 푹 꺼지지 않으며, 뛰어난 내구성과 유니크한 디자인을 동시에 갖춘 모델입니다.",
+      "caution": "370g으로 상당히 무겁고 가격대가 높아 순수 러닝 기록용보다는 워킹·일상·헤비 러너용에 가깝습니다.",
+      "image": "assets/shoes/mizuno-wave-prophecy-15-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EC%9B%A8%EC%9D%B4%EB%B8%8C%20%ED%94%84%EB%A1%9C%ED%8E%98%EC%8B%9C%2015",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "mizuno-maximizer-26",
+      "brand": "mizuno",
+      "brand_ko": "미즈노",
+      "name": "Mizuno Maximizer 26",
+      "name_ko": "미즈노 맥시마이저 26",
+      "category": "budget",
+      "category_ko": "입문 가성비",
+      "level": "입문",
+      "weight_g": 260,
+      "stack_heel_mm": 30,
+      "drop_mm": 12,
+      "foam": "기본 EVA 미드솔",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "기본 와이드(3E) 핏으로 나와 발볼 넓은 분이나 학생·초보자가 편하게 신기 좋습니다.",
+      "msrp_krw": 79000,
+      "lifespan_km": 600,
+      "best_for": "10만 원 이하 가성비 입문 · 걷기/가벼운 조깅 · 헬스장",
+      "summary": "7만 원대 부담 없는 가격과 튼튼한 X10 고무 밑창, 넉넉한 와이드 발볼 덕분에 가벼운 운동과 일상 겸용으로 가장 접근하기 좋은 입문화입니다.",
+      "caution": "10km 이상 본격적인 장거리 러닝에는 쿠션이 단단하게 느껴질 수 있어 웨이브 라이더 이상 모델을 추천합니다.",
+      "image": "assets/shoes/mizuno-maximizer-26-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.mizuno.co.kr/search?keyword=%EB%A7%A5%EC%8B%9C%EB%A7%88%EC%9D%B4%EC%A0%80%2026",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "nb-1080-v15",
+      "brand": "newbalance",
+      "brand_ko": "뉴발란스",
+      "name": "New Balance 1080 v15",
+      "name_ko": "뉴발란스 프레쉬폼X 1080 v15",
+      "category": "cushion",
+      "category_ko": "프리미엄 데일리 쿠션",
+      "level": "입문~상급",
+      "weight_g": 261,
+      "stack_heel_mm": 36,
+      "drop_mm": 6,
+      "foam": "Infinion 슈퍼크리티컬 폼",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "발볼 옵션(2E/4E)이 잘 나오며 발등과 뒤꿈치를 포근하게 감싸줍니다.",
+      "msrp_krw": 219000,
+      "lifespan_km": 600,
+      "best_for": "매일 편안한 조깅 · 장거리 회복주 · 발볼 넓은 러너",
+      "summary": "뉴발란스 대표 쿠션화 1080 시리즈의 최신작으로, 새로운 인피니온(Infinion) 폼을 적용해 푹신함은 유지하면서 무게(261g)와 반응성을 개선했습니다.",
+      "caution": "빠른 인터벌보다는 편안한 데일리 조깅과 장거리 회복에 가장 잘 어울립니다.",
+      "image": "assets/shoes/nb-1080-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.nbkorea.com/search/searchList.action?schWord=1080",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "nb-860-v15",
+      "brand": "newbalance",
+      "brand_ko": "뉴발란스",
+      "name": "New Balance Fresh Foam X 860 v15",
+      "name_ko": "뉴발란스 프레쉬폼X 860 v15",
+      "category": "stability",
+      "category_ko": "안정화 (데일리)",
+      "level": "입문~중급",
+      "weight_g": 310,
+      "stack_heel_mm": 37,
+      "drop_mm": 6,
+      "foam": "Fresh Foam X (이중 경도)",
+      "plate": "3/4 EVA 스태빌리티 플레인",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "와이드(2E/4E) 출시로 발볼 넓고 발목이 안쪽으로 꺾이는 분들에게 안정적입니다.",
+      "msrp_krw": 189000,
+      "lifespan_km": 600,
+      "best_for": "과내전·평발 러너 · 흔들림 적은 데일리 조깅",
+      "summary": "이중 경도 프레쉬폼X와 미드솔 내부 안정화 구조로, 착지 시 발이 안쪽으로 무너지지 않게 부드럽게 잡아주는 뉴발란스 대표 안정화입니다.",
+      "caution": "안정화 특성상 무게가 묵직한 편이라 가벼운 스피드 훈련에는 레벨 v5가 낫습니다.",
+      "image": "assets/shoes/nb-860-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.nbkorea.com/search/searchList.action?schWord=860",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "nb-rebel-v5",
+      "brand": "newbalance",
+      "brand_ko": "뉴발란스",
+      "name": "New Balance FuelCell Rebel v5",
+      "name_ko": "뉴발란스 퓨어셀 레벨 v5",
+      "category": "tempo",
+      "category_ko": "초경량 데일리 · 템포",
+      "level": "입문~상급",
+      "weight_g": 225,
+      "stack_heel_mm": 35,
+      "drop_mm": 6,
+      "foam": "FuelCell (PEBA/EVA 블렌드)",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "발볼이 전작들처럼 넉넉한 편이고 와이드(2E) 옵션도 있어 한국인 발에 잘 맞습니다.",
+      "msrp_krw": 189000,
+      "lifespan_km": 600,
+      "best_for": "템포런 · 가벼운 데일리 조깅 · 카본 없는 빠른 러닝",
+      "summary": "225g의 가벼운 무게와 말랑하면서도 톡톡 튀는 퓨어셀 폼 덕분에, 카본 플레이트 없이도 발에 부담을 주지 않고 경쾌하게 달릴 수 있는 인기 모델입니다.",
+      "caution": "부드러운 폼 특성상 발목 힘이 부족한 초보자가 아주 오래 뛰면 뒤꿈치가 다소 물렁하게 느껴질 수 있습니다.",
+      "image": "assets/shoes/nb-rebel-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.nbkorea.com/search/searchList.action?schWord=%EB%A0%88%EB%B2%A8%20v5",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "nb-sc-elite-v6",
+      "brand": "newbalance",
+      "brand_ko": "뉴발란스",
+      "name": "New Balance FuelCell SuperComp Elite v6",
+      "name_ko": "뉴발란스 SC 엘리트 v6",
+      "category": "race",
+      "category_ko": "최상급 마라톤 레이싱 (카본)",
+      "level": "중급~상급",
+      "weight_g": 198,
+      "stack_heel_mm": 40,
+      "drop_mm": 8,
+      "foam": "Infinion (A-TPU) 폼",
+      "plate": "Energy Arc 카본 파이버 플레이트",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "타 브랜드 레이싱화 대비 앞볼이 답답하지 않고 와이드 옵션도 있어 착용감이 편한 편입니다.",
+      "msrp_krw": 349000,
+      "lifespan_km": 600,
+      "best_for": "풀/하프 마라톤 기록 도전 · 편안한 핏의 카본 레이싱화",
+      "summary": "새로운 A-TPU 인피니온 폼과 에너지 아크 카본 플레이트로 반발력을 끌어올리면서도, 뉴발란스 특유의 편안한 착화감을 유지한 플래그십 레이싱화입니다.",
+      "caution": "대회 및 포인트 훈련용에 최적화된 고가 레이싱화입니다.",
+      "image": "assets/shoes/nb-sc-elite-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.nbkorea.com/search/searchList.action?schWord=SC%20%EC%97%98%EB%A6%AC%ED%8A%B8",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "nb-sc-rebel-v1",
+      "brand": "newbalance",
+      "brand_ko": "뉴발란스",
+      "name": "New Balance SuperComp Rebel v1",
+      "name_ko": "뉴발란스 SC 레벨 v1",
+      "category": "carbon",
+      "category_ko": "경량 카본 슈퍼 트레이너",
+      "level": "중급~상급",
+      "weight_g": 218,
+      "stack_heel_mm": 40,
+      "drop_mm": 4,
+      "foam": "Infinion (A-TPU) 폼",
+      "plate": "Energy Arc 카본 혼입 페바스 플레이트",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "218g으로 가볍고 발에 밀착되는 퍼포먼스 핏입니다.",
+      "msrp_krw": 259000,
+      "lifespan_km": 600,
+      "best_for": "스피드 훈련 · 템포런 · 10km~하프 레이스",
+      "summary": "40mm 두툼한 인피니온 폼에 카본 혼입 에너지 아크 플레이트를 넣어, SC 엘리트보다 부담 적은 가격과 유연함으로 빠른 훈련을 소화하는 모델입니다.",
+      "caution": "드롭이 4mm로 낮아 앞발~중족 착지 스타일에 더 잘 맞습니다.",
+      "image": "assets/shoes/nb-sc-rebel-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.nbkorea.com/search/searchList.action?schWord=SC%20%EB%A0%88%EB%B2%A8",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "nb-elips-v1",
+      "brand": "newbalance",
+      "brand_ko": "뉴발란스",
+      "name": "New Balance Ellipse v1",
+      "name_ko": "뉴발란스 엘립스 v1",
+      "category": "cushion",
+      "category_ko": "데일리 쿠션 · 라이프스타일",
+      "level": "입문~중급",
+      "weight_g": 270,
+      "stack_heel_mm": 38,
+      "drop_mm": 8,
+      "foam": "Fresh Foam X (풀 렝스)",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "8mm 드롭과 넉넉한 미드풋 볼륨으로 일상화와 조깅화를 겸하기에 편합니다.",
+      "msrp_krw": 209000,
+      "lifespan_km": 600,
+      "best_for": "가벼운 데일리 조깅 · 여행/출퇴근 워킹 겸용",
+      "summary": "풀 렝스 프레쉬폼X의 부드러운 쿠션을 세련된 디자인에 담아, 가벼운 조깅부터 일상 외출까지 두루 신기 좋은 멀티 쿠션 러닝화입니다.",
+      "caution": "본격적인 마라톤 속도 훈련보다는 편안한 조깅·워킹 위주에 적합합니다.",
+      "image": "assets/shoes/nb-elips-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.nbkorea.com/search/searchList.action?schWord=%EC%97%98%EB%A6%BD%EC%8A%A4",
+        "runrepeat": "https://runrepeat.com/new-balance-ellipse"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "nb-ac-runner-v1",
+      "brand": "newbalance",
+      "brand_ko": "뉴발란스",
+      "name": "New Balance AC Runner v1",
+      "name_ko": "뉴발란스 AC 러너 v1",
+      "category": "daily",
+      "category_ko": "하이브리드 트레이닝 · 러닝",
+      "level": "입문~중급",
+      "weight_g": 314,
+      "stack_heel_mm": 36,
+      "drop_mm": 8,
+      "foam": "Fresh Foam X (3중 경도 + 안정성 레일)",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "좌우 방향 전환까지 버텨주는 단단한 측면 홀딩감이 특징입니다.",
+      "msrp_krw": 219000,
+      "lifespan_km": 600,
+      "best_for": "헬스장 트레드밀 + 근력·컨디셔닝 운동 · 일상 겸용",
+      "summary": "3중 경도 프레쉬폼X와 측면 안정 레일을 적용해, 직선 달리기뿐만 아니라 헬스장 웨이트·민첩성 훈련까지 한 켤레로 소화할 수 있는 하이브리드화입니다.",
+      "caution": "314g으로 무게가 있는 편이라 10km 이상 로드 장거리 러닝 전용으로는 1080이나 레벨 시리즈가 더 가볍습니다.",
+      "image": "assets/shoes/nb-ac-runner-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.nbkorea.com/search/searchList.action?schWord=AC%20%EB%9F%AC%EB%84%88",
         "runrepeat": ""
       },
       "offers": [
