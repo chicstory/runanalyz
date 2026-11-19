@@ -5475,6 +5475,633 @@
           "url": ""
         }
       ]
+    },
+    {
+      "id": "puma-fast-r-nitro-elite-3",
+      "brand": "puma",
+      "brand_ko": "푸마",
+      "name": "Puma Fast-R Nitro Elite 3",
+      "name_ko": "푸마 패스트-R 나이트로 엘리트 3",
+      "category": "race",
+      "category_ko": "최상급 레이싱 (카본)",
+      "level": "상급",
+      "weight_g": 170,
+      "stack_heel_mm": 40,
+      "drop_mm": 8,
+      "foam": "NITROFOAM Elite (A-TPU)",
+      "plate": "돌출형 풀 렝스 카본 PWRPLATE",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "앞뒤가 분리된 구조와 앞코로 길게 뻗은 카본 플레이트 때문에 미드풋~포어풋 착지에 최적화되어 있습니다.",
+      "msrp_krw": 379000,
+      "lifespan_km": 600,
+      "best_for": "풀/하프 마라톤 PB 도전 · 공격적인 앞발 추진력",
+      "summary": "170g의 초경량 무게에 A-TPU 나이트로 엘리트 폼과 앞코 밖으로 뻗은 캔틸레버 카본 플레이트를 담아낸 푸마 최상급 레이싱 슈퍼슈즈입니다.",
+      "caution": "뒤꿈치가 분리된 공격적인 지오메트리라 느린 조깅이나 뒤꿈치 착지 러너에게는 디비에이트 나이트로 엘리트 4가 훨씬 안정적입니다.",
+      "image": "assets/shoes/puma-fast-r-nitro-elite-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://kr.puma.com/kr/ko/search?q=Fast-R",
+        "runrepeat": "https://runrepeat.com/puma-fast-r-nitro-elite-3"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "puma-deviate-nitro-elite-4",
+      "brand": "puma",
+      "brand_ko": "푸마",
+      "name": "Puma Deviate Nitro Elite 4",
+      "name_ko": "푸마 디비에이트 나이트로 엘리트 4",
+      "category": "race",
+      "category_ko": "마라톤 레이싱 (카본)",
+      "level": "중급~상급",
+      "weight_g": 170,
+      "stack_heel_mm": 40,
+      "drop_mm": 8,
+      "foam": "듀얼 레이어 NITROFOAM Elite (A-TPU)",
+      "plate": "풀 렝스 카본 PWRPLATE",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "이전 세대보다 발볼이 답답하지 않고 170g으로 가벼워져 마라톤 풀코스에서도 부담이 적습니다.",
+      "msrp_krw": 289000,
+      "lifespan_km": 600,
+      "best_for": "하프·풀 마라톤 기록 단축 · 빗길 접지력 좋은 레이싱화",
+      "summary": "170g 초경량 무게와 A-TPU 나이트로 엘리트 폼, 그리고 푸마그립(PUMAGRIP)의 압도적인 빗길 접지력을 모두 갖춘 균형 잡힌 마라톤 레이싱화입니다.",
+      "caution": "경량 레이싱 갑피 특성상 발목을 단단히 잡아주는 일상화 느낌보다는 얇고 날렵한 핏입니다.",
+      "image": "assets/shoes/puma-deviate-nitro-elite-4-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://kr.puma.com/kr/ko/search?q=%EB%94%94%EB%B9%84%EC%97%90%EC%9D%B4%ED%8A%B8%20%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C%20%EC%97%98%EB%A6%AC%ED%8A%B8%204",
+        "runrepeat": "https://runrepeat.com/puma-deviate-nitro-elite-4"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "puma-fastforward-nitro-elite-2",
+      "brand": "puma",
+      "brand_ko": "푸마",
+      "name": "Puma Fast-FWD Nitro Elite 2",
+      "name_ko": "푸마 패스트-FWD 나이트로 엘리트 2",
+      "category": "race",
+      "category_ko": "단거리 5K·10K 레이싱 (카본)",
+      "level": "상급",
+      "weight_g": 130,
+      "stack_heel_mm": 31,
+      "drop_mm": 8,
+      "foam": "NITROFOAM Elite",
+      "plate": "풀 렝스 카본 PWRPLATE",
+      "has_carbon": true,
+      "toebox_width": "좁음",
+      "wide_available": false,
+      "fit_note": "뒤꿈치가 과감하게 깎여 있어 완전히 앞발(포어풋)로 빠르게 달리는 단거리 레이스 전용 핏입니다.",
+      "msrp_krw": 259000,
+      "lifespan_km": 600,
+      "best_for": "트랙 · 5km~10km 단거리 로드 레이스",
+      "summary": "130g 극초경량 무게와 앞뒤가 깎인 공격적인 섀시로 5km·10km 같은 단거리 레이스에서 폭발적인 회전수를 끌어내는 스페셜 카본화입니다.",
+      "caution": "스택이 낮고 뒤꿈치가 비어 있어 하프·풀 마라톤이나 천천히 뛰는 조깅에는 적합하지 않습니다.",
+      "image": "assets/shoes/puma-fastforward-nitro-elite-2-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://kr.puma.com/kr/ko/search?q=Fast-FWD",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "puma-deviate-nitro-4",
+      "brand": "puma",
+      "brand_ko": "푸마",
+      "name": "Puma Deviate Nitro 4",
+      "name_ko": "푸마 디비에이트 나이트로 4",
+      "category": "carbon",
+      "category_ko": "카본 데일리 · 템포 트레이너",
+      "level": "입문~상급",
+      "weight_g": 250,
+      "stack_heel_mm": 38,
+      "drop_mm": 8,
+      "foam": "듀얼 레이어 NITROFOAM",
+      "plate": "카본 컴포지트 PWRPLATE",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "정사이즈 기준이며 카본 복합 플레이트라 순수 레이싱 카본화보다 훨씬 부드럽고 편합니다.",
+      "msrp_krw": 219000,
+      "lifespan_km": 600,
+      "best_for": "템포런 · 데일리부터 대회까지 올라운더 · 빗길 훈련",
+      "summary": "질소 주입 나이트로 폼과 카본 복합 플레이트, 젖은 노면에서도 미끄러지지 않는 푸마그립 아웃솔까지 갖춰 '전천후 카본 트레이너'로 손꼽히는 4세대 모델입니다.",
+      "caution": "발볼이 아주 넓은 분은 반 사이즈 업 또는 AP(아시안 핏) 버전을 확인하는 편이 좋습니다.",
+      "image": "assets/shoes/puma-deviate-nitro-4-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://kr.puma.com/kr/ko/search?q=%EB%94%94%EB%B9%84%EC%97%90%EC%9D%B4%ED%8A%B8%20%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C%204",
+        "runrepeat": "https://runrepeat.com/puma-deviate-nitro-4"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "puma-deviate-nitro-3",
+      "brand": "puma",
+      "brand_ko": "푸마",
+      "name": "Puma Deviate Nitro 3",
+      "name_ko": "푸마 디비에이트 나이트로 3",
+      "category": "carbon",
+      "category_ko": "카본 데일리 · 템포 트레이너",
+      "level": "입문~상급",
+      "weight_g": 268,
+      "stack_heel_mm": 39,
+      "drop_mm": 10,
+      "foam": "NITROFOAM + NITROFOAM Elite",
+      "plate": "카본 파이버 PWRPLATE",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "발을 탄탄하게 잡아주는 핏이며 할인 시 가성비 카본 트레이너로 인기가 높습니다.",
+      "msrp_krw": 219000,
+      "lifespan_km": 600,
+      "best_for": "템포런 · 입문 첫 카본 트레이너 · 장거리 페이스 훈련",
+      "summary": "10mm 드롭과 튼튼한 푸마그립 아웃솔, 부담스럽지 않은 카본 추진력으로 매일 속도를 내며 달리기 좋은 검증된 3세대 카본 트레이너입니다.",
+      "caution": "4세대 대비 무게(268g)가 조금 더 나가며 앞볼 폭이 약간 좁게 느껴질 수 있습니다.",
+      "image": "assets/shoes/puma-deviate-nitro-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://kr.puma.com/kr/ko/search?q=%EB%94%94%EB%B9%84%EC%97%90%EC%9D%B4%ED%8A%B8%20%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C%203",
+        "runrepeat": "https://runrepeat.com/puma-deviate-nitro-3"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "puma-deviate-pure-nitro",
+      "brand": "puma",
+      "brand_ko": "푸마",
+      "name": "Puma Deviate Pure Nitro",
+      "name_ko": "푸마 디비에이트 퓨어 나이트로",
+      "category": "daily",
+      "category_ko": "경량 데일리 트레이너 (논카본)",
+      "level": "입문~중급",
+      "weight_g": 202,
+      "stack_heel_mm": 38,
+      "drop_mm": 10,
+      "foam": "소프트 NITROFOAM",
+      "plate": "없음 (플라스틱 샹크 서포트)",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "카본 플레이트를 빼서 발이 훨씬 유연하게 구부러지고 202g으로 매우 가볍습니다.",
+      "msrp_krw": 179000,
+      "lifespan_km": 600,
+      "best_for": "카본 없는 가벼운 데일리 조깅 · 발목 부담 적은 훈련",
+      "summary": "디비에이트 나이트로 라인의 경쾌한 실루엣을 유지하면서 카본 플레이트를 빼고 무게를 202g까지 줄여, 매일 부담 없이 신기 좋은 논카본 데일리화입니다.",
+      "caution": "카본 플레이트 특유의 강한 반발력보다는 자연스럽고 부드러운 주행감 중심입니다.",
+      "image": "assets/shoes/puma-deviate-pure-nitro-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://kr.puma.com/kr/ko/search?q=%EB%94%94%EB%B9%84%EC%97%90%EC%9D%B4%ED%8A%B8%20%ED%93%A8%EC%96%B4",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "puma-velocity-nitro-4-ap",
+      "brand": "puma",
+      "brand_ko": "푸마",
+      "name": "Puma Velocity Nitro 4 AP",
+      "name_ko": "푸마 벨로시티 나이트로 4 AP",
+      "category": "daily",
+      "category_ko": "데일리 트레이너 (아시안 핏)",
+      "level": "입문~상급",
+      "weight_g": 230,
+      "stack_heel_mm": 36,
+      "drop_mm": 10,
+      "foam": "질소 주입 NITROFOAM",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "AP(Asian Fit/와이드) 버전이라 발볼이 넓은 한국인 발에도 압박 없이 편하게 맞습니다.",
+      "msrp_krw": 179000,
+      "lifespan_km": 600,
+      "best_for": "매일 조깅 · 입문자 첫 러닝화 · 비 온 뒤 젖은 아스팔트",
+      "summary": "230g의 가벼운 무게, 푹신하면서도 탄탄한 나이트로 폼, 최고 수준의 푸마그립 접지력에 한국인 맞춤 넓은 발볼(AP)까지 더한 팔방미인 데일리화입니다.",
+      "caution": "10mm 드롭과 적당한 쿠션 두께(36mm)라 40mm 이상 극강 맥스 쿠션을 원하면 매그니파이나 매그맥스가 더 푹신합니다.",
+      "image": "assets/shoes/puma-velocity-nitro-4-ap-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://kr.puma.com/kr/ko/search?q=%EB%B2%A8%EB%A1%9C%EC%8B%9C%ED%8B%B0%20%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C%204",
+        "runrepeat": "https://runrepeat.com/puma-velocity-nitro-4"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "puma-magnify-nitro-3",
+      "brand": "puma",
+      "brand_ko": "푸마",
+      "name": "Puma Magnify Nitro 3",
+      "name_ko": "푸마 매그니파이 나이트로 3",
+      "category": "cushion",
+      "category_ko": "맥스 쿠션 데일리",
+      "level": "입문~상급",
+      "weight_g": 260,
+      "stack_heel_mm": 40,
+      "drop_mm": 10,
+      "foam": "풀 렝스 NITROFOAM",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "뒤꿈치와 설포 패딩이 두툼해 발을 포근하게 감싸주며 정사이즈 기준으로 잘 맞습니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "장거리 조깅 · 무릎 보호 · 편안한 회복 러닝",
+      "summary": "40mm 두께의 풀 렝스 나이트로 폼을 얹었음에도 260g으로 가벼워져, 무겁지 않게 관절 충격을 줄여주는 푸마 대표 쿠션 데일리화입니다.",
+      "caution": "스피드 훈련용보다는 편안한 페이스에서 진가를 발휘합니다.",
+      "image": "assets/shoes/puma-magnify-nitro-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://kr.puma.com/kr/ko/search?q=%EB%A7%A4%EA%B7%B8%EB%8B%88%ED%8C%8C%EC%9D%B4%20%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C%203",
+        "runrepeat": "https://runrepeat.com/puma-magnify-nitro-3"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "puma-magmax-nitro-2",
+      "brand": "puma",
+      "brand_ko": "푸마",
+      "name": "Puma MagMax Nitro 2",
+      "name_ko": "푸마 매그맥스 나이트로 2",
+      "category": "cushion",
+      "category_ko": "초고스택 맥스 쿠션",
+      "level": "입문~상급",
+      "weight_g": 275,
+      "stack_heel_mm": 46,
+      "drop_mm": 8,
+      "foam": "질소 주입 맥스 NITROFOAM",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "바닥 면적이 넓고 앞볼 공간이 넉넉해 46mm 높이에도 안정감이 좋습니다.",
+      "msrp_krw": 239000,
+      "lifespan_km": 600,
+      "best_for": "장거리 LSD · 관절 피로 최소화 · 통통 튀는 맥스 쿠션",
+      "summary": "46mm 압도적인 스택에도 275g에 불과해 묵직하지 않으며, 푹신한 충격 흡수와 경쾌한 반발력을 동시에 제공하는 푸마 최고스택 쿠션화입니다.",
+      "caution": "굽이 매우 높은 편이라 비포장 자갈길이나 급회전이 잦은 코스에서는 주의가 필요합니다.",
+      "image": "assets/shoes/puma-magmax-nitro-2-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://kr.puma.com/kr/ko/search?q=%EB%A7%A4%EA%B7%B8%EB%A7%A5%EC%8A%A4%20%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C%202",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "puma-foreverrun-nitro-3",
+      "brand": "puma",
+      "brand_ko": "푸마",
+      "name": "Puma ForeverRun Nitro 3",
+      "name_ko": "푸마 포에버런 나이트로 3",
+      "category": "stability",
+      "category_ko": "안정화 (데일리)",
+      "level": "입문~중급",
+      "weight_g": 285,
+      "stack_heel_mm": 38,
+      "drop_mm": 8,
+      "foam": "듀얼 밀도 NITROFOAM (Runguide)",
+      "plate": "없음 (Runguide 힐 클립 + 넓은 베이스)",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "바깥쪽은 부드럽고 안쪽은 단단한 이중 경도 폼이라 평발·과내전 러너에게 편안합니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "발목 안쪽 꺾임 방지 · 장거리 안정 주행 · 입문자 안정화",
+      "summary": "이중 밀도 나이트로 폼과 Runguide 힐 지지 구조 덕분에 푹신한 쿠션을 누리면서도 발목 흔들림을 안정적으로 잡아주는 데일리 안정화입니다.",
+      "caution": "안정화 특성상 무게가 285g대로 벨로시티 4보다 조금 묵직한 편입니다.",
+      "image": "assets/shoes/puma-foreverrun-nitro-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://kr.puma.com/kr/ko/search?q=%ED%8F%AC%EC%97%90%EB%B2%84%EB%9F%B0%20%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C%203",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "puma-darter-pro-2",
+      "brand": "puma",
+      "brand_ko": "푸마",
+      "name": "Puma Darter Pro 2",
+      "name_ko": "푸마 다터 프로 2",
+      "category": "budget",
+      "category_ko": "입문 가성비",
+      "level": "입문",
+      "weight_g": 270,
+      "stack_heel_mm": 32,
+      "drop_mm": 6,
+      "foam": "ProFoam (고탄성 EVA)",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "무난한 표준 핏으로 가벼운 조깅이나 헬스장·일상 겸용으로 부담 없이 신기 좋습니다.",
+      "msrp_krw": 119000,
+      "lifespan_km": 600,
+      "best_for": "10만 원대 가성비 입문 · 걷기/가벼운 3~5km 조깅 · 헬스장",
+      "summary": "정가 11만 원대(실구매가 5~7만 원대)의 합리적인 가격에 가벼운 ProFoam 쿠션과 ProTread 접지력을 갖춘 푸마 입문용 러닝화입니다.",
+      "caution": "NITRO 폼이 들어간 상위 모델에 비해 반발력과 장거리 쿠션은 기본적인 수준입니다.",
+      "image": "assets/shoes/puma-darter-pro-2-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://kr.puma.com/kr/ko/search?q=%EB%8B%A4%ED%84%B0%20%ED%94%84%EB%A1%9C%202",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
     }
   ]
 }
