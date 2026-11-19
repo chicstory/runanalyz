@@ -6843,6 +6843,918 @@
           "url": ""
         }
       ]
+    },
+    {
+      "id": "brooks-hyperion-elite-6",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Hyperion Elite 6",
+      "name_ko": "브룩스 하이페리온 엘리트 6",
+      "category": "race",
+      "category_ko": "최상급 레이싱 (카본)",
+      "level": "상급",
+      "weight_g": 193,
+      "stack_heel_mm": 41,
+      "drop_mm": 7,
+      "foam": "DNA GOLD (100% PEBA)",
+      "plate": "SpeedVault+ 카본 파이버 플레이트",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "193g 초경량 레이싱 핏으로 발을 단단히 감싸주며 정사이즈 기준으로 잘 맞습니다.",
+      "msrp_krw": 369000,
+      "lifespan_km": 600,
+      "best_for": "풀/하프 마라톤 PB 도전 · 빠른 반발력",
+      "summary": "100% PEBA 기반 DNA GOLD 폼과 SpeedVault+ 카본 플레이트를 결합해 193g 가벼운 무게로 폭발적인 추진력을 내는 브룩스 최상급 마라톤화입니다.",
+      "caution": "레이스 페이스에 맞춘 고가 모델이라 일상 조깅보다는 대회 및 포인트 훈련용으로 적합합니다.",
+      "image": "assets/shoes/brooks-hyperion-elite-6-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%ED%95%98%EC%9D%B4%ED%8E%98%EB%A6%AC%EC%98%A8%20%EC%97%98%EB%A6%AC%ED%8A%B8",
+        "runrepeat": "https://runrepeat.com/brooks-hyperion-elite-6"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-hyperion-max-4",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Hyperion Max 4",
+      "name_ko": "브룩스 하이페리온 맥스 4",
+      "category": "tempo",
+      "category_ko": "맥스 쿠션 스피드 트레이너",
+      "level": "중급~상급",
+      "weight_g": 288,
+      "stack_heel_mm": 46,
+      "drop_mm": 6,
+      "foam": "DNA GOLD + DNA FLASH v2",
+      "plate": "SpeedVault 나일론 플레이트",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "46mm 두툼한 굽과 나일론 플레이트 덕분에 발목 부담이 덜하며 정사이즈로 맞습니다.",
+      "msrp_krw": 269000,
+      "lifespan_km": 600,
+      "best_for": "장거리 템포런 · 마라톤 페이스 훈련 · 카본 대안",
+      "summary": "46mm 초고스택에 상단 DNA GOLD(PEBA) 폼과 나일론 플레이트를 얹어, 다리 보호와 빠른 페이스 유지를 동시에 잡은 슈퍼 트레이너입니다.",
+      "caution": "스택이 높고 무게(288g)가 있어 짧은 트랙 인터벌보다는 장거리 지속주에 더 잘 맞습니다.",
+      "image": "assets/shoes/brooks-hyperion-max-4-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%ED%95%98%EC%9D%B4%ED%8E%98%EB%A6%AC%EC%98%A8%20%EB%A7%A5%EC%8A%A4",
+        "runrepeat": "https://runrepeat.com/brooks-hyperion-max-4"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-ghost-18",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Ghost 18",
+      "name_ko": "브룩스 고스트 18",
+      "category": "daily",
+      "category_ko": "클래식 데일리 트레이너",
+      "level": "입문~상급",
+      "weight_g": 289,
+      "stack_heel_mm": 36,
+      "drop_mm": 10,
+      "foam": "질소 주입 DNA LOFT v3",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "한국인 발에 편한 넉넉한 발볼과 와이드(2E/4E) 옵션이 풍부해 입문자 첫 러닝화로 정평이 나 있습니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "매일 조깅 · 입문자 첫 러닝화 · 뒤꿈치 착지",
+      "summary": "전 세계 러너들에게 가장 사랑받는 클래식 데일리화 중 하나로, 10mm 드롭과 안정적인 DNA LOFT v3 쿠션이 발을 편안하게 받쳐줍니다.",
+      "caution": "최근 대세인 초경량 반발 폼에 비해 묵직하고 무난한 성격입니다.",
+      "image": "assets/shoes/brooks-ghost-18-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EA%B3%A0%EC%8A%A4%ED%8A%B8%2018",
+        "runrepeat": "https://runrepeat.com/brooks-ghost-18"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-ghost-max-4",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Ghost Max 4",
+      "name_ko": "브룩스 고스트 맥스 4",
+      "category": "cushion",
+      "category_ko": "맥스 쿠션 · 로커 데일리",
+      "level": "입문~상급",
+      "weight_g": 292,
+      "stack_heel_mm": 40,
+      "drop_mm": 6,
+      "foam": "DNA LOFT v3 + GlideRoll 로커",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "바닥 면적이 넓고 와이드(2E/4E) 지원으로 발볼 넓거나 발바닥 통증이 있는 분에게 매우 편합니다.",
+      "msrp_krw": 219000,
+      "lifespan_km": 600,
+      "best_for": "무릎·발바닥 보호 · 장거리 회복 조깅 · 워킹 겸용",
+      "summary": "고스트 18보다 드롭을 6mm로 낮추고 40mm 두꺼운 쿠션과 둥근 GlideRoll 로커를 적용해 발목과 발가락 관절 부담을 크게 줄여주는 모델입니다.",
+      "caution": "스피드 훈련보다는 편안하고 안정적인 보호 위주의 러닝에 적합합니다.",
+      "image": "assets/shoes/brooks-ghost-max-4-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EA%B3%A0%EC%8A%A4%ED%8A%B8%20%EB%A7%A5%EC%8A%A4",
+        "runrepeat": "https://runrepeat.com/brooks-ghost-max-4"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-ghost-amp",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Ghost Amp",
+      "name_ko": "브룩스 고스트 앰프",
+      "category": "tempo",
+      "category_ko": "경량 반응형 데일리 · 템포",
+      "level": "입문~상급",
+      "weight_g": 255,
+      "stack_heel_mm": 36,
+      "drop_mm": 6,
+      "foam": "DNA HYPE (PEBA/EVA 블렌드)",
+      "plate": "없음 (SpringRamp 로커)",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "일반 고스트보다 30g 이상 가볍고 날렵해 속도를 올릴 때 경쾌합니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "카본 없는 경쾌한 템포런 · 가벼운 데일리 조깅",
+      "summary": "고스트 시리즈에 PEBA 혼입 DNA HYPE 폼과 6mm 드롭을 결합해 기존 고스트보다 훨씬 가볍고 톡톡 튀는 주행감을 주는 모델입니다.",
+      "caution": "기존 고스트 18의 10mm 드롭·묵직한 안정감과는 성격이 다릅니다.",
+      "image": "assets/shoes/brooks-ghost-amp-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EA%B3%A0%EC%8A%A4%ED%8A%B8%20%EC%95%B0%ED%94%84",
+        "runrepeat": "https://runrepeat.com/brooks-ghost-amp"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-glycerin-23",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Glycerin 23",
+      "name_ko": "브룩스 글리세린 23",
+      "category": "cushion",
+      "category_ko": "프리미엄 맥스 쿠션",
+      "level": "입문~상급",
+      "weight_g": 300,
+      "stack_heel_mm": 38.5,
+      "drop_mm": 8,
+      "foam": "DNA Tuned (이중 셀 질소 주입)",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "뒤꿈치는 푹신하고 앞꿈치는 탄탄하게 조율된 폼과 넉넉한 발볼(2E/4E)이 강점입니다.",
+      "msrp_krw": 229000,
+      "lifespan_km": 600,
+      "best_for": "장거리 마라톤 조깅 · 무릎 보호 · 구름 같은 착화감",
+      "summary": "뒤꿈치에는 큰 기포 셀로 푹신함을, 앞발에는 작은 셀로 반발력을 준 DNA Tuned 폼을 탑재한 브룩스 대표 프리미엄 쿠션화입니다.",
+      "caution": "300g 무게로 가벼운 편은 아니지만 착용 시 무게 분산이 잘 되어 편합니다.",
+      "image": "assets/shoes/brooks-glycerin-23-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0%2023",
+        "runrepeat": "https://runrepeat.com/brooks-glycerin-23"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-glycerin-gts-23",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Glycerin GTS 23",
+      "name_ko": "브룩스 글리세린 GTS 23",
+      "category": "stability",
+      "category_ko": "프리미엄 쿠션 안정화 (GuideRails)",
+      "level": "입문~상급",
+      "weight_g": 306,
+      "stack_heel_mm": 38,
+      "drop_mm": 8,
+      "foam": "DNA Tuned",
+      "plate": "GuideRails (가이드레일 안정 시스템)",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "가이드레일이 무릎과 발목이 흔들릴 때만 개입해 이질감 없이 편안하게 받쳐줍니다.",
+      "msrp_krw": 239000,
+      "lifespan_km": 600,
+      "best_for": "과내전·무릎 흔들림 방지 + 프리미엄 쿠션",
+      "summary": "글리세린 23의 푹신한 DNA Tuned 쿠션에 브룩스 특유의 가이드레일(GuideRails) 지지 시스템을 더해 장거리에서도 무릎과 발목을 편안하게 지키는 안정화입니다.",
+      "caution": "안정화 특성상 306g으로 무게감이 있는 편입니다.",
+      "image": "assets/shoes/brooks-glycerin-gts-23-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0%20GTS%2023",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-glycerin-max-3",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Glycerin Max 3",
+      "name_ko": "브룩스 글리세린 맥스 3",
+      "category": "cushion",
+      "category_ko": "초고스택 맥스 쿠션",
+      "level": "입문~상급",
+      "weight_g": 302,
+      "stack_heel_mm": 45,
+      "drop_mm": 6,
+      "foam": "DNA RISE TUNED (EVA/TPEE)",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "45mm 높은 굽에도 GlideRoll 로커 덕분에 뒤꿈치에서 앞발로 자연스럽게 굴러갑니다.",
+      "msrp_krw": 265000,
+      "lifespan_km": 600,
+      "best_for": "장거리 회복 조깅 · 관절 충격 극소화",
+      "summary": "45mm 초고스택에 TPEE가 섞인 DNA RISE TUNED 폼을 적용해, 바닥 충격을 부드럽게 삼키면서도 앞으로 굴러가는 힘이 좋은 최상급 맥스 쿠션화입니다.",
+      "caution": "높은 굽과 가격대 때문에 일상용보다는 본격 장거리·회복 조깅용으로 추천합니다.",
+      "image": "assets/shoes/brooks-glycerin-max-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EA%B8%80%EB%A6%AC%EC%84%B8%EB%A6%B0%20%EB%A7%A5%EC%8A%A4",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-adrenaline-gts-26",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Adrenaline GTS 26",
+      "name_ko": "브룩스 아드레날린 GTS 26",
+      "category": "stability",
+      "category_ko": "클래식 안정화 (GuideRails)",
+      "level": "입문~중급",
+      "weight_g": 305,
+      "stack_heel_mm": 39,
+      "drop_mm": 10,
+      "foam": "DNA LOFT v3",
+      "plate": "GuideRails 안정 시스템",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "와이드(2E/4E) 지원이 뛰어나며 26년째 이어온 검증된 안정화 핏입니다.",
+      "msrp_krw": 219000,
+      "lifespan_km": 600,
+      "best_for": "평발·과내전 입문자 · 무릎이 안쪽으로 모일 때 · 매일 조깅",
+      "summary": "고스트와 쌍벽을 이루는 브룩스 대표 안정화로, DNA LOFT v3 쿠션과 가이드레일 덕분에 초보자도 무릎과 발목 걱정 없이 꾸준히 달릴 수 있습니다.",
+      "caution": "10mm 드롭과 305g 무게로 경량 스피드화 느낌은 아닙니다.",
+      "image": "assets/shoes/brooks-adrenaline-gts-26-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EC%95%84%EB%93%9C%EB%A0%88%EB%82%A0%EB%A6%B0%20GTS",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-launch-12",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Launch 12",
+      "name_ko": "브룩스 런치 12",
+      "category": "tempo",
+      "category_ko": "가성비 경량 스피드화",
+      "level": "입문~중급",
+      "weight_g": 252,
+      "stack_heel_mm": 27,
+      "drop_mm": 8,
+      "foam": "DNA FLASH v2 (앞) + v1 (뒤)",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "발에 가볍게 밀착되며 굽이 낮아 지면 감각이 생생합니다.",
+      "msrp_krw": 169000,
+      "lifespan_km": 600,
+      "best_for": "가성비 템포런 · 5~10km 속도 훈련 · 트레드밀",
+      "summary": "질소 주입 DNA FLASH 폼을 앞뒤로 다르게 배치해 가볍고 경쾌한 반발력을 합리적인 가격에 즐길 수 있는 클래식 경량 트레이너입니다.",
+      "caution": "스택(27mm)이 낮은 편이라 장거리 회복용으로는 고스트나 글리세린이 더 푹신합니다.",
+      "image": "assets/shoes/brooks-launch-12-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EB%9F%B0%EC%B9%98%2012",
+        "runrepeat": "https://runrepeat.com/brooks-launch-12"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-revel-9",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Revel 9",
+      "name_ko": "브룩스 레벨 9",
+      "category": "budget",
+      "category_ko": "입문 가성비 · 일상 겸용",
+      "level": "입문",
+      "weight_g": 270,
+      "stack_heel_mm": 32,
+      "drop_mm": 8,
+      "foam": "DNA LOFT v2",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "깔끔한 니트/엔지니어드 메쉬 어퍼로 일상복에도 잘 어울리는 편한 핏입니다.",
+      "msrp_krw": 139000,
+      "lifespan_km": 600,
+      "best_for": "가벼운 3~5km 조깅 · 헬스장 · 일상 워킹 겸용",
+      "summary": "합리적인 가격대와 깔끔한 디자인, 탄탄한 DNA LOFT v2 쿠션을 갖춰 가벼운 러닝과 일상 운동을 함께 시작하기 좋은 입문화입니다.",
+      "caution": "10km 이상 장거리에는 쿠션이 다소 단단하게 느껴질 수 있습니다.",
+      "image": "assets/shoes/brooks-revel-9-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EB%A0%88%EB%B2%A8%209",
+        "runrepeat": "https://runrepeat.com/brooks-revel-9"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-revel-max",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Revel Max",
+      "name_ko": "브룩스 레벨 맥스",
+      "category": "budget",
+      "category_ko": "가성비 맥스 쿠션 · 데일리",
+      "level": "입문~중급",
+      "weight_g": 278,
+      "stack_heel_mm": 38.5,
+      "drop_mm": 6,
+      "foam": "DNA LOFT v2 + GlideRoll 로커",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "레벨 9보다 쿠션 두께를 키우고 6mm 드롭·로커 구조를 넣어 발 구름이 한결 부드럽습니다.",
+      "msrp_krw": 169000,
+      "lifespan_km": 600,
+      "best_for": "10만 원대 가성비 쿠션 러닝 · 장거리 워킹/조깅",
+      "summary": "고스트 맥스보다 부담 적은 가격으로 38.5mm 두툼한 쿠션과 GlideRoll 로커의 부드러운 구름감을 경험할 수 있는 가성비 맥스 쿠션화입니다.",
+      "caution": "최상급 DNA Tuned 폼 대비 반발력은 차분한 편입니다.",
+      "image": "assets/shoes/brooks-revel-max-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EB%A0%88%EB%B2%A8%20%EB%A7%A5%EC%8A%A4",
+        "runrepeat": "https://runrepeat.com/brooks-revel-max"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-anthem-8",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Anthem 8",
+      "name_ko": "브룩스 앤썸 8",
+      "category": "budget",
+      "category_ko": "입문 가성비",
+      "level": "입문",
+      "weight_g": 269,
+      "stack_heel_mm": 34.5,
+      "drop_mm": 10,
+      "foam": "BioMoGo DNA",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "부담 없는 입문용 표준 핏으로 가벼운 조깅과 걷기에 잘 맞습니다.",
+      "msrp_krw": 129000,
+      "lifespan_km": 600,
+      "best_for": "가성비 입문 · 트레드밀 · 가벼운 조깅 및 걷기",
+      "summary": "브룩스 입문 라인업 중 가장 가성비가 좋은 모델로, 튼튼한 내구성과 무난한 쿠셔닝 덕분에 첫 운동용으로 부담 없이 시작할 수 있습니다.",
+      "caution": "본격적인 하프·풀 마라톤 훈련용으로는 고스트 18 이상 모델이 훨씬 편합니다.",
+      "image": "assets/shoes/brooks-anthem-8-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EC%95%A4%EC%8D%B8%208",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-defyance-max",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Defyance Max",
+      "name_ko": "브룩스 디파이언스 맥스",
+      "category": "cushion",
+      "category_ko": "편안한 쿠션 · 워킹 겸용",
+      "level": "입문",
+      "weight_g": 306,
+      "stack_heel_mm": 39,
+      "drop_mm": 6,
+      "foam": "DNA LOFT v2 + GlideRoll 로커",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "바닥이 넓고 편안해 오래 걷거나 천천히 조깅할 때 발 피로가 적습니다.",
+      "msrp_krw": 169000,
+      "lifespan_km": 600,
+      "best_for": "느린 조깅 · 장시간 걷기 · 발이 편한 쿠션화",
+      "summary": "39mm 두툼한 쿠션과 GlideRoll 로커를 실용적인 가격대에 담아내, 천천히 뛰는 입문자나 장시간 걷는 분들에게 편안한 러닝화입니다.",
+      "caution": "무게(306g)가 있어 빠른 속도를 내는 훈련에는 적합하지 않습니다.",
+      "image": "assets/shoes/brooks-defyance-max-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EB%94%94%ED%8C%8C%EC%9D%B4%EC%96%B8%EC%8A%A4",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-beast-gts-26",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Beast GTS 26",
+      "name_ko": "브룩스 비스트 GTS 26",
+      "category": "stability",
+      "category_ko": "최고지지 모션 컨트롤",
+      "level": "입문~중급",
+      "weight_g": 355,
+      "stack_heel_mm": 38,
+      "drop_mm": 10,
+      "foam": "DNA LOFT v3",
+      "plate": "GuideRails (최대 지지 세팅)",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "아주 넓은 바닥과 넉넉한 발볼(2E/4E), 교정용 깔창(인솔) 삽입까지 고려한 넉넉한 핏입니다.",
+      "msrp_krw": 239000,
+      "lifespan_km": 600,
+      "best_for": "심한 평발/과내전 · 과체중 입문자 · 발목 꺾임 최대 보호",
+      "summary": "브룩스에서 가장 강력한 지지력을 제공하는 모션 컨트롤 안정화로, 체중이 있거나 발목이 크게 무너지는 분도 흔들림 없이 안전하게 달릴 수 있습니다.",
+      "caution": "무게가 355g으로 상당히 무거운 편이라 가벼운 러너나 중립 발목에는 과할 수 있습니다.",
+      "image": "assets/shoes/brooks-beast-gts-26-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EB%B9%84%EC%8A%A4%ED%8A%B8%20GTS",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "brooks-addiction-gts-15",
+      "brand": "brooks",
+      "brand_ko": "브룩스",
+      "name": "Brooks Addiction GTS 15",
+      "name_ko": "브룩스 에딕션 GTS 15",
+      "category": "stability",
+      "category_ko": "고지지 모션 컨트롤 · 워킹 겸용",
+      "level": "입문",
+      "weight_g": 346,
+      "stack_heel_mm": 36,
+      "drop_mm": 12,
+      "foam": "BioMoGo DNA",
+      "plate": "GuideRails 안정 시스템",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "발볼이 매우 넓고(2E/4E) 튼튼해 기능성 워킹화와 가벼운 조깅화로 인기가 높습니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "심한 평발 · 장시간 서 있기/워킹 · 천천히 조깅",
+      "summary": "단단한 아치 지지와 넓은 앞볼, 가이드레일 시스템을 갖춰 발목이 약하거나 오래 서고 걸어야 하는 분들에게 든든한 모션 컨트롤 슈즈입니다.",
+      "caution": "무게가 무겁고 12mm 높은 드롭이라 빠른 로드 러닝보다는 보호·워킹 위주에 적합합니다.",
+      "image": "assets/shoes/brooks-addiction-gts-15-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.brooksrunning.co.kr/search?q=%EC%97%90%EB%94%95%EC%85%98%20GTS",
+        "runrepeat": "https://runrepeat.com/brooks-addiction-gts-15"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
     }
   ]
 }
