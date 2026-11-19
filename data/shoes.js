@@ -2686,6 +2686,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 259000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EC%8A%88%ED%8D%BC%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8%203"
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -2747,6 +2752,11 @@ window.SHOES_DATA = {
         "runrepeat": "https://runrepeat.com/asics-novablast-6"
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 179000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EB%85%B8%EB%B0%94%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8%206"
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 179000,
@@ -2810,6 +2820,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 299000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EB%A9%94%EA%B0%80%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8"
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -2871,6 +2886,11 @@ window.SHOES_DATA = {
         "runrepeat": "https://runrepeat.com/asics-sonicblast"
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 229000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EC%86%8C%EB%8B%89%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8"
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -2934,6 +2954,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 229000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EC%86%8C%EB%8B%89%EB%B8%94%EB%9D%BC%EC%8A%A4%ED%8A%B8%202"
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 229000,
           "url": "https://hi.thehyundai.com/product/60B1616295"
@@ -2995,6 +3020,11 @@ window.SHOES_DATA = {
         "runrepeat": "https://runrepeat.com/asics-magic-speed-4"
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 159200,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EB%A7%A4%EC%A7%81%EC%8A%A4%ED%94%BC%EB%93%9C%204"
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -3058,6 +3088,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 199000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EC%A0%A4%20%EB%8B%98%EB%B2%84%EC%8A%A4%2028"
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -3119,6 +3154,11 @@ window.SHOES_DATA = {
         "runrepeat": "https://runrepeat.com/asics-gel-kayano-33"
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 199000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EC%A0%A4%20%EC%B9%B4%EC%95%BC%EB%85%B8%2033"
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 199000,
@@ -3182,6 +3222,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 159000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=GT-2000%2015"
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -3243,6 +3288,11 @@ window.SHOES_DATA = {
         "runrepeat": "https://runrepeat.com/asics-glideride-max-2"
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 199000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EA%B8%80%EB%9D%BC%EC%9D%B4%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%93%9C%20%EB%A7%A5%EC%8A%A4%202"
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -3306,6 +3356,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 249000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EC%A0%A4%20%EC%8A%AC%EB%A1%9C%EC%9A%B0%EC%BF%A0%EC%8B%9C"
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -3367,6 +3422,11 @@ window.SHOES_DATA = {
         "runrepeat": ""
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 95000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EC%A0%A4%20%EC%BB%A8%ED%85%90%EB%93%9C%2010"
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -3430,6 +3490,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 329000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EB%A9%94%ED%83%80%EC%8A%A4%ED%94%BC%EB%93%9C%20%EC%8A%A4%EC%B9%B4%EC%9D%B4%20%EB%8F%84%EC%BF%84"
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -3491,6 +3556,11 @@ window.SHOES_DATA = {
         "runrepeat": "https://runrepeat.com/asics-metaspeed-edge-tokyo"
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 329000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EB%A9%94%ED%83%80%EC%8A%A4%ED%94%BC%EB%93%9C%20%EC%97%A3%EC%A7%80%20%EB%8F%84%EC%BF%84"
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -3554,6 +3624,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 439000,
+          "url": "https://www.asics.co.kr/goods/search?keyword_log_flag=Y&search_text=%EB%A9%94%ED%83%80%EC%8A%A4%ED%94%BC%EB%93%9C%20%EB%A0%88%EC%9D%B4"
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -3615,6 +3690,11 @@ window.SHOES_DATA = {
         "runrepeat": ""
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -5166,6 +5246,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -5227,6 +5312,11 @@ window.SHOES_DATA = {
         "runrepeat": "https://runrepeat.com/saucony-endorphin-pro-5"
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -5290,6 +5380,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 107100,
           "url": "https://hi.thehyundai.com/product/60B1095711"
@@ -5351,6 +5446,11 @@ window.SHOES_DATA = {
         "runrepeat": "https://runrepeat.com/saucony-endorphin-azura"
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -5414,6 +5514,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -5475,6 +5580,11 @@ window.SHOES_DATA = {
         "runrepeat": "https://runrepeat.com/saucony-triumph-24"
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -5538,6 +5648,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -5599,6 +5714,11 @@ window.SHOES_DATA = {
         "runrepeat": "https://runrepeat.com/saucony-guide-19"
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -5662,6 +5782,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -5723,6 +5848,11 @@ window.SHOES_DATA = {
         "runrepeat": ""
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -5786,6 +5916,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -5847,6 +5982,11 @@ window.SHOES_DATA = {
         "runrepeat": ""
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -5910,6 +6050,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -5971,6 +6116,11 @@ window.SHOES_DATA = {
         "runrepeat": "https://runrepeat.com/puma-fast-r-nitro-elite-3"
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 270000,
+          "url": "https://kr.puma.com/kr/ko/pd/%ED%8C%A8%EC%8A%A4%ED%8A%B8%EC%95%8C-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-%EC%97%98%EB%A6%AC%ED%8A%B8-3-%EC%9A%B0%EB%A8%BC%EC%8A%A4-%3Cbr%3Efast-r-nitro-elite-3-wns/312061.html?dwvar_312061_color=13"
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -6034,6 +6184,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 184960,
+          "url": "https://kr.puma.com/kr/ko/pd/%EB%94%94%EB%B9%84%EC%97%90%EC%9D%B4%ED%8A%B8-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-%EC%97%98%EB%A6%AC%ED%8A%B8-4-st-%3Cbr%3Edeviate-nitro-elite-4-st/313298.html?dwvar_313298_color=01"
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -6095,6 +6250,11 @@ window.SHOES_DATA = {
         "runrepeat": ""
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 287200,
+          "url": "https://kr.puma.com/kr/ko/pd/%ED%8C%A8%EC%8A%A4%ED%8A%B8-%ED%8F%AC%EC%9B%8C%EB%93%9C-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-%EC%97%98%EB%A6%AC%ED%8A%B8-2-%EC%9A%B0%EB%A8%BC%EC%8A%A4-%3Cbr%3Efast-fwd-nitro-elite-2-wns/313693.html?dwvar_313693_color=02"
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -6158,6 +6318,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 122640,
+          "url": "https://kr.puma.com/kr/ko/pd/%EB%94%94%EB%B9%84%EC%97%90%EC%9D%B4%ED%8A%B8-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-4-%3Cbr%3Edeviate-nitro-4/312123.html?dwvar_312123_color=27"
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -6219,6 +6384,11 @@ window.SHOES_DATA = {
         "runrepeat": "https://runrepeat.com/puma-deviate-nitro-3"
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 114500,
+          "url": "https://kr.puma.com/kr/ko/pd/%EB%94%94%EB%B9%84%EC%97%90%EC%9D%B4%ED%8A%B8-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-3-%EC%97%90%ED%82%A4%EB%8D%B4-%EC%9A%B0%EB%A8%BC%EC%8A%A4-%3Cbr%3Edeviate-nitro-3-ekiden-wns/313423.html?dwvar_313423_color=01"
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -6282,6 +6452,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 119000,
+          "url": "https://kr.puma.com/kr/ko/pd/%EB%94%94%EB%B9%84%EC%97%90%EC%9D%B4%ED%8A%B8-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-%ED%93%A8%EC%96%B4-%3Cbr%3Edeviate-pure-nitro/313904.html?dwvar_313904_color=22"
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 125010,
           "url": "https://hi.thehyundai.com/product/60B1717817"
@@ -6343,6 +6518,11 @@ window.SHOES_DATA = {
         "runrepeat": "https://runrepeat.com/puma-velocity-nitro-4"
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 85920,
+          "url": "https://kr.puma.com/kr/ko/pd/%EB%B2%A8%EB%A1%9C%EC%8B%9C%ED%8B%B0-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-4-ap-%3Cbr%3Evelocity-nitro-4-ap/312635.html?dwvar_312635_color=12"
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
@@ -6406,6 +6586,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 95520,
+          "url": "https://kr.puma.com/kr/ko/pd/%EB%A7%A4%EA%B7%B8%EB%8B%88%ED%8C%8C%EC%9D%B4-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-3-%EC%9A%B0%EB%A8%BC%EC%8A%A4-%3Cbr%3Emagnify-nitro-3-wns/311047.html?dwvar_311047_color=13"
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -6467,6 +6652,11 @@ window.SHOES_DATA = {
         "runrepeat": ""
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 119500,
+          "url": "https://kr.puma.com/kr/ko/pd/%EB%A7%A4%EA%B7%B8%EB%A7%A5%EC%8A%A4-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-2-%EC%9A%B0%EB%A8%BC%EC%8A%A4-%3Cbr%3Emagmax-nitro-2-wns/312126.html?dwvar_312126_color=13"
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 175700,
@@ -6530,6 +6720,11 @@ window.SHOES_DATA = {
       },
       "offers": [
         {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 159200,
+          "url": "https://kr.puma.com/kr/ko/pd/%ED%8F%AC%EC%97%90%EB%B2%84%EB%9F%B0-%EB%82%98%EC%9D%B4%ED%8A%B8%EB%A1%9C-3-%EC%9A%B0%EB%A8%BC%EC%8A%A4-%3Cbr%3Eforeverrun-nitro-3-wns/312943.html?dwvar_312943_color=07"
+        },
+        {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": null,
           "url": ""
@@ -6591,6 +6786,11 @@ window.SHOES_DATA = {
         "runrepeat": ""
       },
       "offers": [
+        {
+          "store": "공식 홈페이지 (브랜드 직영)",
+          "price_krw": 83300,
+          "url": "https://kr.puma.com/kr/ko/pd/darter-pro-2/312587.html?dwvar_312587_color=02"
+        },
         {
           "store": "더현대닷컴 (현대백화점)",
           "price_krw": 63900,
