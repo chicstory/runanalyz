@@ -6102,6 +6102,747 @@ window.SHOES_DATA = {
           "url": ""
         }
       ]
+    },
+    {
+      "id": "hoka-cielo-x1-3",
+      "brand": "hoka",
+      "brand_ko": "호카",
+      "name": "Hoka Cielo X1 3.0",
+      "name_ko": "호카 시엘로 X1 3.0",
+      "category": "race",
+      "category_ko": "최상급 레이싱 (카본)",
+      "level": "상급",
+      "weight_g": 212,
+      "stack_heel_mm": 38,
+      "drop_mm": 7,
+      "foam": "듀얼 밀도 PEBA 폼",
+      "plate": "윙드 카본 파이버 플레이트",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "메타로커 롤링이 강하고 윙드 카본 플레이트가 측면을 잡아주어 정사이즈로 잘 맞습니다.",
+      "msrp_krw": 359000,
+      "lifespan_km": 600,
+      "best_for": "풀/하프 마라톤 PB 도전 · 공격적인 롤링 추진력",
+      "summary": "212g의 가벼운 무게에 듀얼 밀도 PEBA 폼과 날개형(윙드) 카본 플레이트를 담아낸 호카 최상위 마라톤 레이싱 슈퍼슈즈입니다.",
+      "caution": "레이스 페이스에 맞춘 공격적인 메타로커 설계라 천천히 걷거나 느린 조깅에는 다소 쏠리는 느낌이 들 수 있습니다.",
+      "image": "assets/shoes/hoka-cielo-x1-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.hoka.com/ko/kr/search/?q=Cielo%20X1",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "hoka-rocket-x-3",
+      "brand": "hoka",
+      "brand_ko": "호카",
+      "name": "Hoka Rocket X 3",
+      "name_ko": "호카 로켓 X 3",
+      "category": "race",
+      "category_ko": "안정형 마라톤 레이싱 (카본)",
+      "level": "중급~상급",
+      "weight_g": 227,
+      "stack_heel_mm": 42,
+      "drop_mm": 7,
+      "foam": "PEBA 슈퍼폼",
+      "plate": "카본 파이버 플레이트",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "레이싱 카본화 중에서도 착화감과 좌우 안정감이 좋은 편이라 첫 마라톤 카본화로 인기가 높습니다.",
+      "msrp_krw": 329000,
+      "lifespan_km": 600,
+      "best_for": "풀/하프 마라톤 완주 및 기록 단축 · 안정적인 카본화",
+      "summary": "시엘로 X1보다 착지 안정성과 편안한 어퍼 핏에 집중해, 마라톤 후반 30km 이후에도 발목 부담을 덜어주는 호카 대표 레이싱화입니다.",
+      "caution": "극단적인 앞쏠림이나 초경량(170g대) 카본화를 찾는다면 타 브랜드 최상급 모델이 더 가볍습니다.",
+      "image": "assets/shoes/hoka-rocket-x-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.hoka.com/ko/kr/search/?q=Rocket%20X%203",
+        "runrepeat": "https://runrepeat.com/hoka-rocket-x-3"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "hoka-cielo-road",
+      "brand": "hoka",
+      "brand_ko": "호카",
+      "name": "Hoka Cielo Road",
+      "name_ko": "호카 시엘로 로드",
+      "category": "tempo",
+      "category_ko": "단거리 경량 레이싱 (논카본)",
+      "level": "중급~상급",
+      "weight_g": 207,
+      "stack_heel_mm": 33,
+      "drop_mm": 3,
+      "foam": "PEBA 폼",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "3mm 저드롭과 낮은 33mm 굽으로 지면을 직접 밀고 나가는 느낌이 강한 날렵한 핏입니다.",
+      "msrp_krw": 219000,
+      "lifespan_km": 600,
+      "best_for": "5km~10km 로드 레이스 · 트랙 인터벌 · 카본 없는 스피드",
+      "summary": "카본 플레이트 없이 PEBA 폼과 3mm 저드롭 조합만으로 5km~10km 단거리에서 빠르고 직관적인 반발력을 내는 경량 로드 레이싱화입니다.",
+      "caution": "굽이 낮고 드롭이 작아 하프·풀 마라톤 장거리에는 로켓 X나 마하 X가 더 편합니다.",
+      "image": "assets/shoes/hoka-cielo-road-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.hoka.com/ko/kr/search/?q=Cielo%20Road",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "hoka-skyward-x-2",
+      "brand": "hoka",
+      "brand_ko": "호카",
+      "name": "Hoka Skyward X 2",
+      "name_ko": "호카 스카이워드 X 2",
+      "category": "carbon",
+      "category_ko": "초고스택 카본 슈퍼 트레이너",
+      "level": "입문~상급",
+      "weight_g": 312,
+      "stack_heel_mm": 48,
+      "drop_mm": 5,
+      "foam": "PEBA + 슈퍼크리티컬 EVA",
+      "plate": "볼록한(Convex) 카본 파이버 플레이트",
+      "has_carbon": true,
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "바닥 면적이 넓고 볼륨이 넉넉해 높은 굽에도 흔들림이 적고 장거리 발 붓기에도 편합니다.",
+      "msrp_krw": 299000,
+      "lifespan_km": 600,
+      "best_for": "장거리 마라톤 훈련 · 무릎 보호하면서 빠른 페이스 유지",
+      "summary": "트램폴린처럼 굽은 카본 플레이트와 두툼한 PEBA 폼을 결합해, 관절 충격을 최소화하면서도 시원하게 앞으로 밀어주는 맥스 쿠션 카본 트레이너입니다.",
+      "caution": "무게가 312g으로 묵직한 편이라 짧은 트랙 인터벌보다는 장거리 지속주에 더 어울립니다.",
+      "image": "assets/shoes/hoka-skyward-x-2-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.hoka.com/ko/kr/search/?q=Skyward%20X",
+        "runrepeat": "https://runrepeat.com/hoka-skyward-x-2"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "hoka-mach-x-3",
+      "brand": "hoka",
+      "brand_ko": "호카",
+      "name": "Hoka Mach X 3",
+      "name_ko": "호카 마하 X 3",
+      "category": "tempo",
+      "category_ko": "플레이트 슈퍼 트레이너",
+      "level": "입문~상급",
+      "weight_g": 288,
+      "stack_heel_mm": 42,
+      "drop_mm": 5,
+      "foam": "PEBA + EVA 듀얼 폼",
+      "plate": "페바스(Pebax) 윙드 플레이트",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "정사이즈 기준이며 카본 대신 유연한 페바스 플레이트라 일상 조깅과 템포런을 모두 커버합니다.",
+      "msrp_krw": 249000,
+      "lifespan_km": 600,
+      "best_for": "템포런 · 빌드업 · 마라톤 훈련용 만능 슈즈",
+      "summary": "42mm 두툼한 PEBA/EVA 이중 폼 사이에 페바스 플레이트를 넣어, 카본화보다 발이 편하면서도 속도를 내기 쉬운 호카의 대표 슈퍼 트레이너입니다.",
+      "caution": "순수 마하 7에 비해서는 무게가 있는 편입니다.",
+      "image": "assets/shoes/hoka-mach-x-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.hoka.com/ko/kr/search/?q=Mach%20X%203",
+        "runrepeat": "https://runrepeat.com/hoka-mach-x-3"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "hoka-mach-7",
+      "brand": "hoka",
+      "brand_ko": "호카",
+      "name": "Hoka Mach 7",
+      "name_ko": "호카 마하 7",
+      "category": "tempo",
+      "category_ko": "경량 데일리 · 템포",
+      "level": "입문~상급",
+      "weight_g": 237,
+      "stack_heel_mm": 37,
+      "drop_mm": 5,
+      "foam": "슈퍼크리티컬 EVA",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "와이드(2E) 옵션이 있으며 237g의 가벼운 무게로 발에 부담 없이 감깁니다.",
+      "msrp_krw": 189000,
+      "lifespan_km": 600,
+      "best_for": "매일 조깅 + 템포런 · 카본 없는 가벼운 올라운더",
+      "summary": "플레이트 없이 슈퍼크리티컬 폼만으로 가벼운 무게(237g)와 경쾌한 반발력을 구현해, 데일리부터 빠른 페이스까지 두루 쓰기 좋은 베스트셀러입니다.",
+      "caution": "클리프톤이나 본디보다 쿠션이 탄탄한 편이라 아주 푹신한 회복용을 원하면 본디 9가 낫습니다.",
+      "image": "assets/shoes/hoka-mach-7-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.hoka.com/ko/kr/search/?q=Mach%207",
+        "runrepeat": "https://runrepeat.com/hoka-mach-7"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "hoka-clifton-11",
+      "brand": "hoka",
+      "brand_ko": "호카",
+      "name": "Hoka Clifton 11",
+      "name_ko": "호카 클리프톤 11",
+      "category": "daily",
+      "category_ko": "데일리 쿠션 트레이너",
+      "level": "입문~상급",
+      "weight_g": 283,
+      "stack_heel_mm": 42,
+      "drop_mm": 8,
+      "foam": "CMEVA 쿠션 폼",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "와이드(2E) 및 엑스트라 와이드(4E)까지 지원해 발볼 넓은 입문자도 편하게 신을 수 있습니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "매일 조깅 · 입문자 첫 호카 러닝화 · 장거리 데일리",
+      "summary": "호카를 대표하는 국민 데일리 러닝화 클리프톤의 11세대 모델로, 42mm 넉넉한 쿠션과 부드러운 메타로커가 발 피로를 크게 줄여줍니다.",
+      "caution": "최신 세대로 오면서 드롭이 8mm로 높아지고 무게가 살짝 늘어 스피드 훈련보다는 편안한 데일리 조깅에 더 어울립니다.",
+      "image": "assets/shoes/hoka-clifton-11-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.hoka.com/ko/kr/search/?q=Clifton%2011",
+        "runrepeat": "https://runrepeat.com/hoka-clifton-11"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "hoka-clifton-10",
+      "brand": "hoka",
+      "brand_ko": "호카",
+      "name": "Hoka Clifton 10",
+      "name_ko": "호카 클리프톤 10",
+      "category": "daily",
+      "category_ko": "데일리 쿠션 트레이너",
+      "level": "입문~상급",
+      "weight_g": 282,
+      "stack_heel_mm": 42,
+      "drop_mm": 8,
+      "foam": "CMEVA 쿠션 폼",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "넉넉한 앞볼과 와이드(2E/4E) 옵션 덕분에 장시간 걷기·조깅 모두 편안합니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "매일 조깅 · 입문자 데일리 · 워킹 겸용",
+      "summary": "기존 5mm에서 8mm 드롭으로 바뀌면서 뒤꿈치 쿠션이 한층 두터워져, 뒤꿈치 착지 비율이 높은 초보 러너도 안정적으로 달릴 수 있는 10세대 모델입니다.",
+      "caution": "폭발적인 반발력보다는 부드럽고 안정적인 보호 기능 중심입니다.",
+      "image": "assets/shoes/hoka-clifton-10-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.hoka.com/ko/kr/search/?q=Clifton%2010",
+        "runrepeat": "https://runrepeat.com/hoka-clifton-10"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "hoka-clifton-pro",
+      "brand": "hoka",
+      "brand_ko": "호카",
+      "name": "Hoka Clifton Pro",
+      "name_ko": "호카 클리프톤 프로",
+      "category": "daily",
+      "category_ko": "프리미엄 로커 데일리",
+      "level": "입문~상급",
+      "weight_g": 296,
+      "stack_heel_mm": 42,
+      "drop_mm": 8,
+      "foam": "SCF(슈퍼크리티컬) 폼",
+      "plate": "없음 (ProGlide 로커 지오메트리)",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "일반 클리프톤보다 앞코가 더 매끄럽게 들려 있어 추진력이 부드럽게 이어집니다.",
+      "msrp_krw": 229000,
+      "lifespan_km": 600,
+      "best_for": "장거리 편안한 페이스 유지 · 업그레이드된 클리프톤 감성",
+      "summary": "클리프톤의 편안한 쿠션에 슈퍼크리티컬 폼과 더 적극적인 앞굽 로커 설계를 더해, 발을 덜 들이고도 경쾌하게 굴러가는 프리미엄 모델입니다.",
+      "caution": "무게(296g)가 마하 7보다 무거워 빠른 인터벌보다는 중장거리 크루징에 적합합니다.",
+      "image": "assets/shoes/hoka-clifton-pro-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.hoka.com/ko/kr/search/?q=Clifton%20Pro",
+        "runrepeat": "https://runrepeat.com/hoka-clifton-pro"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "hoka-bondi-9",
+      "brand": "hoka",
+      "brand_ko": "호카",
+      "name": "Hoka Bondi 9",
+      "name_ko": "호카 본디 9",
+      "category": "cushion",
+      "category_ko": "최상급 맥스 쿠션",
+      "level": "입문~상급",
+      "weight_g": 306,
+      "stack_heel_mm": 44,
+      "drop_mm": 5,
+      "foam": "슈퍼크리티컬 EVA",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "와이드(2E)·엑스트라 와이드(4E) 지원으로 발볼이 매우 넓거나 발이 잘 붓는 분들에게 최고의 선택입니다.",
+      "msrp_krw": 219000,
+      "lifespan_km": 600,
+      "best_for": "무릎·허리 보호 · 회복 조깅 · 장시간 서 있기/워킹 겸용",
+      "summary": "호카 맥스 쿠션화의 상징 본디 시리즈에 슈퍼크리티컬 EVA 폼을 새로 적용해, 44mm 구름 같은 쿠션감은 키우고 반응성까지 개선한 9세대 모델입니다.",
+      "caution": "무게가 306g대라 빠른 페이스 훈련보다는 천천히 오래 달리는 회복주에 최적화되어 있습니다.",
+      "image": "assets/shoes/hoka-bondi-9-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.hoka.com/ko/kr/search/?q=Bondi%209",
+        "runrepeat": "https://runrepeat.com/hoka-bondi-9"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "hoka-rincon-5",
+      "brand": "hoka",
+      "brand_ko": "호카",
+      "name": "Hoka Rincon 5",
+      "name_ko": "호카 링컨 5",
+      "category": "budget",
+      "category_ko": "경량 가성비 데일리",
+      "level": "입문~중급",
+      "weight_g": 245,
+      "stack_heel_mm": 41,
+      "drop_mm": 8,
+      "foam": "경량 EVA 미드솔",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "호카 라인업 중 가장 합리적인 가격대와 가벼운 무게로 입문자가 신기 좋습니다.",
+      "msrp_krw": 169000,
+      "lifespan_km": 600,
+      "best_for": "가성비 호카 입문 · 가벼운 데일리 조깅",
+      "summary": "두툼한 호카 특유의 쿠션을 유지하면서도 가격과 무게 부담을 낮춰 가볍게 시작하기 좋은 가성비 데일리 러닝화입니다.",
+      "caution": "고무 아웃솔 내구성은 클리프톤이나 본디보다 약간 짧은 편입니다.",
+      "image": "assets/shoes/hoka-rincon-5-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.hoka.com/ko/kr/search/?q=Rincon%205",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "hoka-arahi-9",
+      "brand": "hoka",
+      "brand_ko": "호카",
+      "name": "Hoka Arahi 9",
+      "name_ko": "호카 아라히 9",
+      "category": "stability",
+      "category_ko": "경량 안정화 (H-Frame)",
+      "level": "입문~중급",
+      "weight_g": 280,
+      "stack_heel_mm": 39,
+      "drop_mm": 8,
+      "foam": "CMEVA + 강화 H-Frame 안정 구조",
+      "plate": "없음 (H-Frame)",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "와이드(2E) 옵션이 있으며 아치 부분을 억지로 찌르지 않고 자연스럽게 받쳐줍니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "가벼운 안정화 · 평발/과내전 · 매일 조깅",
+      "summary": "딱딱한 플라스틱 지지대 없이 H-Frame 구조로 발목 흔들림을 부드럽게 잡아주어, 클리프톤처럼 가볍고 편하게 신을 수 있는 호카 대표 안정화입니다.",
+      "caution": "심한 과내전이나 체중이 많이 나가는 경우에는 가비오타 6 쪽이 지지력이 더 강합니다.",
+      "image": "assets/shoes/hoka-arahi-9-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.hoka.com/ko/kr/search/?q=Arahi%209",
+        "runrepeat": "https://runrepeat.com/hoka-arahi-9"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "hoka-gaviota-6",
+      "brand": "hoka",
+      "brand_ko": "호카",
+      "name": "Hoka Gaviota 6",
+      "name_ko": "호카 가비오타 6",
+      "category": "stability",
+      "category_ko": "맥스 쿠션 안정화",
+      "level": "입문~중급",
+      "weight_g": 286,
+      "stack_heel_mm": 39,
+      "drop_mm": 6,
+      "foam": "플러시 EVA + 강화 H-Frame",
+      "plate": "없음 (넓은 H-Frame 안정 베이스)",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "앞볼이 넉넉하고 와이드(2E)까지 나와 발볼 넓고 평발인 러너에게 매우 안정적입니다.",
+      "msrp_krw": 229000,
+      "lifespan_km": 600,
+      "best_for": "과내전 + 무릎 보호 · 장거리 안정 주행 · 체중이 있는 입문자",
+      "summary": "본디 수준의 넉넉한 쿠션과 넓은 바닥 면적에 H-Frame 안정화 기술을 더해, 발목이 안쪽으로 무너지지 않게 든든히 받쳐주는 최상급 안정화입니다.",
+      "caution": "빠른 스피드 훈련보다는 편안하고 안정적인 조깅·장거리 주행에 적합합니다.",
+      "image": "assets/shoes/hoka-gaviota-6-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.hoka.com/ko/kr/search/?q=Gaviota%206",
+        "runrepeat": "https://runrepeat.com/hoka-gaviota-6"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
     }
   ]
 };
