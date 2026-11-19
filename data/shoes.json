@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-19",
+  "updated_at": "2026-11-20",
   "brands": [
     {
       "id": "nike",
@@ -4705,6 +4705,747 @@
       "status": "ready",
       "links": {
         "official": "https://www.nbkorea.com/search/searchList.action?schWord=AC%20%EB%9F%AC%EB%84%88",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "saucony-endorphin-elite-3",
+      "brand": "saucony",
+      "brand_ko": "써코니",
+      "name": "Saucony Endorphin Elite 3",
+      "name_ko": "써코니 엔돌핀 엘리트 3",
+      "category": "race",
+      "category_ko": "최상급 레이싱 (카본)",
+      "level": "상급",
+      "weight_g": 207,
+      "stack_heel_mm": 40,
+      "drop_mm": 8,
+      "foam": "듀얼 레이어 IncrediRUN",
+      "plate": "슬롯형 풀 카본 플레이트",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "타 브랜드 엘리트 레이싱화보다 앞볼이 비교적 넉넉한 편이며 정사이즈로 잘 맞습니다.",
+      "msrp_krw": 369000,
+      "lifespan_km": 600,
+      "best_for": "풀/하프 마라톤 PB 도전 · 부드럽고 강한 반발력",
+      "summary": "신소재 IncrediRUN 폼과 슬롯형 풀 카본 플레이트를 결합해 폭발적인 에너지 리턴과 말랑한 착지감을 동시에 구현한 써코니 최상급 마라톤화입니다.",
+      "caution": "매우 부드러운 폼 특성상 발목 근력이 부족한 초보자보다는 레이스 페이스에 익숙한 중상급자에게 적합합니다.",
+      "image": "assets/shoes/saucony-endorphin-elite-3-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.saucony.co.kr/search?q=%EC%97%94%EB%8F%8C%ED%95%80%20%EC%97%98%EB%A6%AC%ED%8A%B8%203",
+        "runrepeat": "https://runrepeat.com/saucony-endorphin-elite-3"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "saucony-endorphin-pro-5",
+      "brand": "saucony",
+      "brand_ko": "써코니",
+      "name": "Saucony Endorphin Pro 5",
+      "name_ko": "써코니 엔돌핀 프로 5",
+      "category": "race",
+      "category_ko": "마라톤 레이싱 (카본)",
+      "level": "중급~상급",
+      "weight_g": 206,
+      "stack_heel_mm": 39.5,
+      "drop_mm": 8,
+      "foam": "PWRRUN HG + PWRRUN PB",
+      "plate": "슬롯형 풀 카본 플레이트",
+      "has_carbon": true,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "편안한 어퍼와 안정적인 미드솔 설계 덕분에 첫 마라톤 카본화로도 인기가 많습니다.",
+      "msrp_krw": 299000,
+      "lifespan_km": 600,
+      "best_for": "하프·풀 마라톤 완주 및 기록 단축 · 첫 카본 레이싱화",
+      "summary": "상단 PWRRUN HG의 탄성과 하단 PWRRUN PB의 안정감을 조화시켜, 엘리트 3보다 다루기 쉽고 마라톤 후반까지 편안한 써코니 대표 레이싱화입니다.",
+      "caution": "일상 조깅용보다는 대회 및 포인트 훈련용으로 신는 것이 수명 관리에 좋습니다.",
+      "image": "assets/shoes/saucony-endorphin-pro-5-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.saucony.co.kr/search?q=%EC%97%94%EB%8F%8C%ED%95%80%20%ED%94%84%EB%A1%9C%205",
+        "runrepeat": "https://runrepeat.com/saucony-endorphin-pro-5"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "saucony-endorphin-speed-5",
+      "brand": "saucony",
+      "brand_ko": "써코니",
+      "name": "Saucony Endorphin Speed 5",
+      "name_ko": "써코니 엔돌핀 스피드 5",
+      "category": "tempo",
+      "category_ko": "스피드 트레이너 (나일론 플레이트)",
+      "level": "입문~상급",
+      "weight_g": 237,
+      "stack_heel_mm": 36,
+      "drop_mm": 8,
+      "foam": "듀얼 레이어 PWRRUN PB",
+      "plate": "윙드 나일론 플레이트",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "정사이즈 기준이며 카본 대신 유연한 나일론 플레이트라 발이 편합니다.",
+      "msrp_krw": 209000,
+      "lifespan_km": 600,
+      "best_for": "템포런 · 인터벌 · 데일리와 레이스를 한 켤레로 해결할 때",
+      "summary": "가벼운 PWRRUN PB 폼과 유연한 나일론 플레이트 조합으로 '만능 훈련화'로 불리는 엔돌핀 스피드의 5세대 모델입니다.",
+      "caution": "두꺼운 맥스 쿠션화에 비해 굽(36mm)이 과하지 않아 지면 감각이 조금 더 살아있는 편입니다.",
+      "image": "assets/shoes/saucony-endorphin-speed-5-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.saucony.co.kr/search?q=%EC%97%94%EB%8F%8C%ED%95%80%20%EC%8A%A4%ED%94%BC%EB%93%9C%205",
+        "runrepeat": "https://runrepeat.com/saucony-endorphin-speed-5"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "saucony-endorphin-azura",
+      "brand": "saucony",
+      "brand_ko": "써코니",
+      "name": "Saucony Endorphin Azura",
+      "name_ko": "써코니 엔돌핀 아주라",
+      "category": "daily",
+      "category_ko": "슈퍼 트레이너 (논카본)",
+      "level": "입문~상급",
+      "weight_g": 242,
+      "stack_heel_mm": 41,
+      "drop_mm": 8,
+      "foam": "풀 PWRRUN PB",
+      "plate": "없음 (논카본)",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "플레이트 없이 유연하게 구부러져 일상 조깅에서도 발 피로가 적습니다.",
+      "msrp_krw": 189000,
+      "lifespan_km": 600,
+      "best_for": "카본/플레이트 없는 경량 데일리 · 가벼운 템포런",
+      "summary": "플레이트를 빼고 41mm 두께의 PEBA 기반 PWRRUN PB 폼을 가득 채워, 자연스러운 발 움직임과 경쾌한 반발력을 모두 챙긴 논카본 트레이너입니다.",
+      "caution": "플레이트 지지가 없는 순수 탄성 폼이라 과내전이 심하다면 가이드·허리케인 라인이 더 안정적입니다.",
+      "image": "assets/shoes/saucony-endorphin-azura-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.saucony.co.kr/search?q=%EC%97%94%EB%8F%8C%ED%95%80%20%EC%95%84%EC%A3%BC%EB%9D%BC",
+        "runrepeat": "https://runrepeat.com/saucony-endorphin-azura"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "saucony-paramount-max",
+      "brand": "saucony",
+      "brand_ko": "써코니",
+      "name": "Saucony Paramount Max",
+      "name_ko": "써코니 파라마운트 맥스",
+      "category": "cushion",
+      "category_ko": "맥스 쿠션 슈퍼 트레이너",
+      "level": "입문~상급",
+      "weight_g": 269,
+      "stack_heel_mm": 43,
+      "drop_mm": 6,
+      "foam": "풀 IncrediRUN (TPEE)",
+      "plate": "없음 (논카본 안정형 지오메트리)",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": false,
+      "fit_note": "바닥 면적이 넓고 발볼 공간이 여유로워 장거리 주행 시 발이 붓더라도 편합니다.",
+      "msrp_krw": 249000,
+      "lifespan_km": 600,
+      "best_for": "장거리 마라톤 훈련 · 무릎 보호 맥스 쿠션 · 회복 조깅",
+      "summary": "레이싱화 엘리트 3에 쓰이는 IncrediRUN 폼을 일상 훈련 내구성에 맞게 조율해 43mm 두께로 얹은 써코니 최상급 맥스 쿠션화입니다.",
+      "caution": "두꺼운 맥스 쿠션화라 4분 초반대 이하 빠른 트랙 질주에는 무겁게 느껴질 수 있습니다.",
+      "image": "assets/shoes/saucony-paramount-max-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.saucony.co.kr/search?q=%ED%8C%8C%EB%9D%BC%EB%A7%88%EC%9A%B4%ED%8A%B8%20%EB%A7%A5%EC%8A%A4",
+        "runrepeat": "https://runrepeat.com/saucony-paramount-max"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "saucony-triumph-24",
+      "brand": "saucony",
+      "brand_ko": "써코니",
+      "name": "Saucony Triumph 24",
+      "name_ko": "써코니 트라이엄프 24",
+      "category": "cushion",
+      "category_ko": "프리미엄 맥스 쿠션",
+      "level": "입문~상급",
+      "weight_g": 250,
+      "stack_heel_mm": 43,
+      "drop_mm": 10,
+      "foam": "incrediLUX (A-TPU)",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "넉넉한 발볼과 폭신한 설포/힐 칼라 덕분에 발을 넣자마자 편한 착용감을 줍니다.",
+      "msrp_krw": 209000,
+      "lifespan_km": 600,
+      "best_for": "장거리 편안한 조깅 · 뒤꿈치 착지 · 관절 보호",
+      "summary": "43mm 두툼한 A-TPU 쿠션에도 250g에 불과한 가벼운 무게를 실현해, 무겁지 않으면서도 푹신하게 오래 달릴 수 있는 프리미엄 쿠션화입니다.",
+      "caution": "10mm 높은 드롭 세팅이라 낮은 드롭(4~6mm)에 익숙한 분은 뒤꿈치가 조금 높게 느껴질 수 있습니다.",
+      "image": "assets/shoes/saucony-triumph-24-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.saucony.co.kr/search?q=%ED%8A%B8%EB%9D%BC%EC%9D%B4%EC%97%84%ED%94%84%2024",
+        "runrepeat": "https://runrepeat.com/saucony-triumph-24"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "saucony-ride-19",
+      "brand": "saucony",
+      "brand_ko": "써코니",
+      "name": "Saucony Ride 19",
+      "name_ko": "써코니 라이드 19",
+      "category": "daily",
+      "category_ko": "데일리 트레이너",
+      "level": "입문~중급",
+      "weight_g": 255,
+      "stack_heel_mm": 36,
+      "drop_mm": 8,
+      "foam": "개선된 PWRRUN+ (eTPU)",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "한국인 발볼에 무난하게 맞고 와이드(2E) 옵션도 있어 입문자 첫 러닝화로 좋습니다.",
+      "msrp_krw": 179000,
+      "lifespan_km": 600,
+      "best_for": "매일 조깅 · 입문자 기본 러닝화 · 사계절 전천후",
+      "summary": "페가수스처럼 튼튼하고 균형 잡힌 써코니의 대표 데일리 러닝화로, 내구성과 탄성이 좋은 PWRRUN+ 폼 덕분에 오래 신어도 쿠션 꺼짐이 적습니다.",
+      "caution": "극도로 말랑한 쿠션을 원한다면 트라이엄프 24 쪽이 더 푹신합니다.",
+      "image": "assets/shoes/saucony-ride-19-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.saucony.co.kr/search?q=%EB%9D%BC%EC%9D%B4%EB%93%9C%2019",
+        "runrepeat": "https://runrepeat.com/saucony-ride-19"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "saucony-guide-19",
+      "brand": "saucony",
+      "brand_ko": "써코니",
+      "name": "Saucony Guide 19",
+      "name_ko": "써코니 가이드 19",
+      "category": "stability",
+      "category_ko": "안정화 (데일리)",
+      "level": "입문~중급",
+      "weight_g": 275,
+      "stack_heel_mm": 35,
+      "drop_mm": 6,
+      "foam": "PWRRUN (CenterPath 구조)",
+      "plate": "없음 (넓은 베이스 + 측벽 가이드)",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "발바닥을 감싸는 넓은 베이스와 여유로운 발볼 덕분에 평발·과내전 러너에게 편합니다.",
+      "msrp_krw": 179000,
+      "lifespan_km": 600,
+      "best_for": "발목 안쪽 흔들림 보완 · 입문자 안정화 · 매일 조깅",
+      "summary": "딱딱한 지지대 대신 넓은 밑창과 CenterPath 측벽 구조로 발을 자연스럽게 가운데로 모아주는 편안한 안정화입니다.",
+      "caution": "반발력 위주의 스피드 훈련용보다는 안정적인 조깅에 초점이 맞춰져 있습니다.",
+      "image": "assets/shoes/saucony-guide-19-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.saucony.co.kr/search?q=%EA%B0%80%EC%9D%B4%EB%93%9C%2019",
+        "runrepeat": "https://runrepeat.com/saucony-guide-19"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "saucony-hurricane-26",
+      "brand": "saucony",
+      "brand_ko": "써코니",
+      "name": "Saucony Hurricane 26",
+      "name_ko": "써코니 허리케인 26",
+      "category": "stability",
+      "category_ko": "맥스 쿠션 안정화",
+      "level": "입문~중급",
+      "weight_g": 263,
+      "stack_heel_mm": 41,
+      "drop_mm": 6,
+      "foam": "incrediLUX + PWRRUN 프레임",
+      "plate": "없음 (듀얼 쿠션 안정 프레임)",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "맥스 쿠션 안정화인데도 263g으로 가볍고 발볼 공간이 넉넉합니다.",
+      "msrp_krw": 209000,
+      "lifespan_km": 600,
+      "best_for": "발목 흔들림 + 무릎 충격 보호 · 장거리 안정 주행",
+      "summary": "41mm 두꺼운 incrediLUX 쿠션과 안정화 프레임을 조합해 푹신함과 발목 지지력을 동시에 잡은 프리미엄 맥스 쿠션 안정화입니다.",
+      "caution": "중립 발목 러너라면 트라이엄프 24가 조금 더 자연스럽게 느껴질 수 있습니다.",
+      "image": "assets/shoes/saucony-hurricane-26-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.saucony.co.kr/search?q=%ED%97%88%EB%A6%AC%EC%BC%80%EC%9D%B8%2026",
+        "runrepeat": "https://runrepeat.com/saucony-hurricane-26"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "saucony-omni-st-23",
+      "brand": "saucony",
+      "brand_ko": "써코니",
+      "name": "Saucony Omni ST 23",
+      "name_ko": "써코니 옴니 ST 23",
+      "category": "stability",
+      "category_ko": "고지지 안정화 (과내전)",
+      "level": "입문~중급",
+      "weight_g": 295,
+      "stack_heel_mm": 36,
+      "drop_mm": 8,
+      "foam": "PWRRUN PB + PWRRUN 프레임",
+      "plate": "Stable Zone 내측 지지 구조",
+      "has_carbon": false,
+      "toebox_width": "넓음",
+      "wide_available": true,
+      "fit_note": "전통적인 강한 아치 지지가 들어가 발목이 많이 무너지는 분들에게 적합합니다.",
+      "msrp_krw": 199000,
+      "lifespan_km": 600,
+      "best_for": "심한 과내전·평발 · 발목 안쪽 꺾임 집중 보완",
+      "summary": "가이드 19보다 한 단계 더 확실하게 아치를 받쳐주는 고지지 안정화로, 장거리에서 발목이 안쪽으로 주저앉는 현상을 강하게 막아줍니다.",
+      "caution": "발목이 정상 아치(중립)인 분에게는 안쪽 지지 구조가 딱딱하게 느껴질 수 있습니다.",
+      "image": "assets/shoes/saucony-omni-st-23-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.saucony.co.kr/search?q=%EC%98%B4%EB%8B%88%20ST%2023",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "saucony-kinvara-16",
+      "brand": "saucony",
+      "brand_ko": "써코니",
+      "name": "Saucony Kinvara 16",
+      "name_ko": "써코니 킨바라 16",
+      "category": "tempo",
+      "category_ko": "경량 미니멀 트레이너",
+      "level": "입문~상급",
+      "weight_g": 206,
+      "stack_heel_mm": 28,
+      "drop_mm": 4,
+      "foam": "업그레이드 PWRRUN",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": true,
+      "fit_note": "발과 하나처럼 가볍게 움직이며 앞발 착지나 발목 근력 강화에 좋습니다.",
+      "msrp_krw": 159000,
+      "lifespan_km": 600,
+      "best_for": "5~10km 가벼운 속도 훈련 · 트랙 · 트레드밀 · 발 근육 강화",
+      "summary": "요즘 대세인 두꺼운 맥스 쿠션화와 반대로 28mm 낮은 굽과 206g 초경량 무게로 맨발에 가까운 경쾌한 지면 감각을 살려주는 클래식 모델입니다.",
+      "caution": "쿠션이 얇고 4mm 저드롭이라 장거리 충격 보호용으로는 라이드·트라이엄프가 더 안전합니다.",
+      "image": "assets/shoes/saucony-kinvara-16-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.saucony.co.kr/search?q=%ED%82%A8%EB%B0%94%EB%9D%BC%2016",
+        "runrepeat": "https://runrepeat.com/saucony-kinvara-16"
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "saucony-kinvara-1",
+      "brand": "saucony",
+      "brand_ko": "써코니",
+      "name": "Saucony Kinvara 1",
+      "name_ko": "써코니 킨바라 1 (헤리티지)",
+      "category": "budget",
+      "category_ko": "헤리티지 경량 · 일상 겸용",
+      "level": "입문",
+      "weight_g": 218,
+      "stack_heel_mm": 22,
+      "drop_mm": 4,
+      "foam": "EVA+ (오리지널 로우 프로파일)",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "가벼운 메시 어퍼와 낮은 굽으로 가벼운 조깅 및 일상 스니커즈로 편합니다.",
+      "msrp_krw": 149000,
+      "lifespan_km": 600,
+      "best_for": "가벼운 트레드밀 · 일상 워킹/패션 겸용",
+      "summary": "2010년 미니멀 러닝 붐을 이끌었던 오리지널 킨바라 1세대를 현대적인 아카이브 스니커즈로 복각한 경량 모델입니다.",
+      "caution": "본격적인 장거리 로드 러닝용으로는 최신 킨바라 16이나 라이드 19가 훨씬 적합합니다.",
+      "image": "assets/shoes/saucony-kinvara-1-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.saucony.co.kr/search?q=%ED%82%A8%EB%B0%94%EB%9D%BC%201",
+        "runrepeat": ""
+      },
+      "offers": [
+        {
+          "store": "더현대닷컴 (현대백화점)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "갤러리아몰",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "플릿러너 (공식 전문몰)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "링크프라이스 (백화점 제휴)",
+          "price_krw": null,
+          "url": ""
+        },
+        {
+          "store": "쿠팡 (로켓배송)",
+          "price_krw": null,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "saucony-progrid-ride-1",
+      "brand": "saucony",
+      "brand_ko": "써코니",
+      "name": "Saucony ProGrid Ride 1",
+      "name_ko": "써코니 프로그리드 라이드 1",
+      "category": "budget",
+      "category_ko": "레트로 헤리티지 · 일상 겸용",
+      "level": "입문",
+      "weight_g": 290,
+      "stack_heel_mm": 30,
+      "drop_mm": 8,
+      "foam": "SRC 폼 + ProGrid 테크놀로지",
+      "plate": "없음",
+      "has_carbon": false,
+      "toebox_width": "보통",
+      "wide_available": false,
+      "fit_note": "2008년 오리지널 러닝화를 복각한 모델로 일상 착화감이 편안합니다.",
+      "msrp_krw": 179000,
+      "lifespan_km": 600,
+      "best_for": "가벼운 조깅 · 레트로 러닝화 스타일 일상화",
+      "summary": "2008년 오리지널 라이드 시리즈의 ProGrid 쿠셔닝을 재해석한 헤리티지 모델로, 투박한 Y2K 러닝화 감성과 편안한 착화감을 동시에 갖췄습니다.",
+      "caution": "현재 주력 퍼포먼스 러닝화라기보다 라이프스타일/워킹 겸용에 가깝습니다.",
+      "image": "assets/shoes/saucony-progrid-ride-1-1.webp",
+      "status": "ready",
+      "links": {
+        "official": "https://www.saucony.co.kr/search?q=%ED%94%84%EB%A1%9C%EA%B7%B8%EB%A6%AC%EB%93%9C%20%EB%9D%BC%EC%9D%B4%EB%93%9C",
         "runrepeat": ""
       },
       "offers": [
