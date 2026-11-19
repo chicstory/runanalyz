@@ -16,6 +16,18 @@ EDGE_EXE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 CARD_RE = re.compile(r'href="/product/([^"?]+)[^"]*"(.*?)(?=ProdCard_root|$)', re.S)
 PRICE_RE = re.compile(r"(\d{2,3},\d{3})\s*원")
 
+BRAND_TOKENS = {
+    "nike": ("나이키", "NIKE"),
+    "adidas": ("아디다스", "ADIDAS"),
+    "asics": ("아식스", "ASICS"),
+    "mizuno": ("미즈노", "MIZUNO"),
+    "newbalance": ("뉴발란스", "NEW BALANCE"),
+    "saucony": ("써코니", "SAUCONY"),
+    "puma": ("푸마", "PUMA"),
+    "hoka": ("호카", "HOKA"),
+    "brooks": ("브룩스", "BROOKS"),
+}
+
 
 def _search_once(query: str, brand: str, rule: dict) -> list[tuple[int, str, str]]:
     url = f"https://hi.thehyundai.com/search?tab=product&q={urllib.parse.quote(query)}&disPlaySize=36"
@@ -28,12 +40,13 @@ def _search_once(query: str, brand: str, rule: dict) -> list[tuple[int, str, str
         timeout=25,
     )
     html = proc.stdout or ""
-    brand_kw = "나이키" if brand == "nike" else "아디다스"
+    b_tokens = BRAND_TOKENS.get(brand, (brand,))
     matches = []
     for pid, body in CARD_RE.findall(html):
         texts = [" ".join(t.split()) for t in re.findall(r">([^<]{2,80})<", body) if t.strip()]
         full_text = " ".join(texts)
-        if brand_kw not in full_text:
+        upper_text = full_text.upper()
+        if not any(bt in upper_text for bt in b_tokens):
             continue
         if not matches_rule(full_text, rule):
             continue
