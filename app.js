@@ -2190,7 +2190,7 @@ const MAJOR_RACES = [
         elevation: '+75m',
         tags: ['#대구스타디움', '#도심순환', '#세계육상골드', '#봄맞이레이스'],
         guide: '코스가 대구 도심을 관통하는 순환 플랫 주로로 전면 개편되어 전반적인 고저차가 완만합니다. 4월 초순 대구 특유의 기온 상승이 발생할 수 있으므로 매 5km 급수대마다 전해질 섭취가 승부처입니다.',
-        officialUrl: 'https://www.daegurace.com/'
+        officialUrl: 'https://daegumarathon.daegu.go.kr/'
     },
     {
         id: 'gunsan-marathon',
