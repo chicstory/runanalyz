@@ -122,15 +122,17 @@ def shorten_sentence(text, max_chars=58):
     return first[: max_chars - 1].rstrip() + "…"
 
 
-def detect_category(slug):
-    s = slug.lower()
-    if any(k in s for k in ("winter", "cold", "subzero", "black-ice")):
-        return "winter"
-    if any(k in s for k in ("shoe", "carbon", "foam")):
-        return "shoes"
-    if any(k in s for k in ("interval", "vo2", "yasso", "cadence", "pace", "marathon")):
-        return "track"
-    return "road"
+def detect_category(slug, title=""):
+    s = f"{slug} {title}".lower()
+    if any(k in s for k in ("injury", "pain", "tendon", "knee", "shin", "ankle", "plantar", "it-band", "pfps", "achilles", "rehab", "doms", "hamstring", "calf", "soleus", "hip", "부상", "통증", "재활", "아킬레스", "무릎", "정강이", "발목")):
+        return "부상재활"
+    if any(k in s for k in ("nutrition", "sleep", "recovery", "hydration", "carbo", "caffeine", "anemia", "ferritin", "foam-roller", "massage", "rest", "cough", "airway", "수면", "영양", "회복", "수분", "카페인", "빈혈", "휴식", "기침", "감기")):
+        return "영양회복"
+    if any(k in s for k in ("marathon", "race", "chuncheon", "sub4", "sub3", "yasso", "마라톤", "대회", "춘천", "완주")):
+        return "대회"
+    if any(k in s for k in ("shoe", "gear", "watch", "garmin", "coros", "layering", "treadmill", "carbon", "foam", "ppg", "chest-strap", "러닝화", "기어", "스마트워치", "가민", "복장", "레이어링", "트레드밀")):
+        return "기어랩"
+    return "훈련심폐"
 
 
 def pick_bg_image(category):
@@ -300,19 +302,19 @@ def main():
     parser.add_argument("--article", help="Article filename or keyword slug", default=None)
     args = parser.parse_args()
 
-    for sub in ("winter", "shoes", "track", "road"):
+    for sub in ("부상재활", "훈련심폐", "영양회복", "대회", "기어랩"):
         os.makedirs(os.path.join(BG_ROOT, sub), exist_ok=True)
     os.makedirs(OUT_ROOT, exist_ok=True)
 
     article_path = pick_article(args.article)
     slug = os.path.splitext(os.path.basename(article_path))[0]
-    category = detect_category(slug)
-    bg_path = pick_bg_image(category)
 
     ap = ArticleParser()
     ap.feed(open(article_path, "r", encoding="utf-8").read())
 
     title = ap.title or slug
+    category = detect_category(slug, title)
+    bg_path = pick_bg_image(category)
     desc = ap.description or "달리기 데이터와 운동생리학을 바탕으로 정리한 실전 러닝 가이드입니다."
     sections = [s for s in ap.sections if s["points"]][:3]
     total_pages = 2 + len(sections)
