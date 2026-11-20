@@ -162,7 +162,52 @@
         renderMemos();
     }
 
+    function injectArticleShareBar() {
+        if (document.getElementById('article-share-bar')) return;
+        const anchor = document.querySelector('.article-memo-section') || document.querySelector('.article-footer-nav');
+        if (!anchor || !anchor.parentNode) return;
+
+        const bar = document.createElement('div');
+        bar.id = 'article-share-bar';
+        bar.style.cssText = 'margin: 22px 0 18px; padding: 14px 16px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;';
+
+        const titleText = document.querySelector('h1') ? document.querySelector('h1').textContent.trim() : document.title;
+        const pageUrl = window.location.href.split('#')[0];
+
+        bar.innerHTML = `
+            <span style="font-size: 0.88rem; font-weight: 700; color: #334155;">📣 이 런로그가 도움됐다면 러닝 크루에 공유해 보세요</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <button type="button" id="btn-art-copy" style="min-height: 38px; padding: 7px 13px; border-radius: 8px; border: 1px solid #CBD5E1; background: #FFFFFF; color: #0F172A; font-size: 0.82rem; font-weight: 700; cursor: pointer;">🔗 링크 복사</button>
+                <button type="button" id="btn-art-share" style="min-height: 38px; padding: 7px 13px; border-radius: 8px; border: 1px solid #2563EB; background: #2563EB; color: #FFFFFF; font-size: 0.82rem; font-weight: 700; cursor: pointer;">📱 SNS 공유</button>
+                <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(titleText)}&url=${encodeURIComponent(pageUrl)}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; min-height: 38px; padding: 7px 13px; border-radius: 8px; border: 1px solid #0F172A; background: #0F172A; color: #FFFFFF; font-size: 0.82rem; font-weight: 700; text-decoration: none;">𝕏 공유</a>
+            </div>
+        `;
+        anchor.parentNode.insertBefore(bar, anchor);
+
+        const copyBtn = document.getElementById('btn-art-copy');
+        const shareBtn = document.getElementById('btn-art-share');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(pageUrl).then(() => {
+                        copyBtn.textContent = '✅ 복사 완료!';
+                        setTimeout(() => { copyBtn.textContent = '🔗 링크 복사'; }, 1800);
+                    });
+                }
+            });
+        }
+        if (shareBtn) {
+            shareBtn.addEventListener('click', async () => {
+                if (navigator.share) {
+                    try { await navigator.share({ title: titleText, url: pageUrl }); return; } catch (e) {}
+                }
+                if (copyBtn) copyBtn.click();
+            });
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
+        injectArticleShareBar();
         renderCaptcha();
         renderMemos();
 

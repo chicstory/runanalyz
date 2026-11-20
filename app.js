@@ -2910,6 +2910,17 @@ function initMarathonPaceCalculator() {
     const mEl = document.getElementById('mp-min');
     if (!hEl || !mEl) return;
 
+    const params = new URLSearchParams(window.location.search);
+    const secParam = parseInt(params.get('sec'), 10);
+    const stratParam = params.get('strat');
+    if (secParam && secParam >= 3600 && secParam <= 28800) {
+        const matchBtn = document.querySelector(`.mp-preset-btn[data-sec="${secParam}"]`);
+        selectMarathonPreset(secParam, matchBtn);
+    }
+    if (stratParam && ['negative', 'even', 'positive'].includes(stratParam)) {
+        mpActiveStrategy = stratParam;
+    }
+
     const onCustomInput = () => {
         const h = Math.min(7, Math.max(1, parseInt(hEl.value, 10) || 3));
         const m = Math.min(59, Math.max(0, parseInt(mEl.value, 10) || 0));
@@ -3054,6 +3065,195 @@ function calculateMarathonStrategy() {
                 </tr>
             `;
         }).join('');
+    }
+}
+
+/**
+ * 📸 계산기 SNS 요약 카드 (1080x1350 PNG) 생성 & 결과 링크 공유
+ */
+function renderSummaryCardCanvas(title, subtitle, highlightLabel, highlightValue, rows, footerNote) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext('2d');
+
+    // Clean Light 배경
+    ctx.fillStyle = '#F8FAFC';
+    ctx.fillRect(0, 0, 1080, 1350);
+
+    // 상단 브랜드 바
+    ctx.fillStyle = '#0F172A';
+    ctx.fillRect(0, 0, 1080, 150);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '800 40px Pretendard, sans-serif';
+    ctx.fillText('🏃 RunAnalyz', 72, 92);
+    ctx.fillStyle = '#94A3B8';
+    ctx.font = '600 26px Pretendard, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('runanalyz.com', 1008, 90);
+    ctx.textAlign = 'left';
+
+    // 제목 & 부제
+    ctx.fillStyle = '#0F172A';
+    ctx.font = '800 50px Pretendard, sans-serif';
+    ctx.fillText(title, 72, 248);
+    ctx.fillStyle = '#475569';
+    ctx.font = '500 28px Pretendard, sans-serif';
+    ctx.fillText(subtitle, 72, 298);
+
+    // 하이라이트 카드
+    ctx.fillStyle = '#EFF6FF';
+    ctx.strokeStyle = '#BFDBFE';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.roundRect(72, 344, 936, 210, 24);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#2563EB';
+    ctx.font = '800 26px Pretendard, sans-serif';
+    ctx.fillText(highlightLabel, 112, 405);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = '900 72px Pretendard, sans-serif';
+    ctx.fillText(highlightValue, 112, 498);
+
+    // 상세 행 카드
+    ctx.fillStyle = '#FFFFFF';
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(72, 590, 936, 580, 24);
+    ctx.fill();
+    ctx.stroke();
+
+    let y = 665;
+    rows.forEach((r, idx) => {
+        if (idx > 0) {
+            ctx.strokeStyle = '#F1F5F9';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(112, y - 48);
+            ctx.lineTo(968, y - 48);
+            ctx.stroke();
+        }
+        ctx.fillStyle = '#475569';
+        ctx.font = '700 30px Pretendard, sans-serif';
+        ctx.fillText(r.label, 112, y);
+        ctx.fillStyle = '#0F172A';
+        ctx.font = '800 32px Pretendard, sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText(r.value, 968, y);
+        ctx.textAlign = 'left';
+        y += 105;
+    });
+
+    // 하단 워터마크
+    ctx.fillStyle = '#64748B';
+    ctx.font = '600 24px Pretendard, sans-serif';
+    ctx.fillText(footerNote, 72, 1255);
+    ctx.fillStyle = '#2563EB';
+    ctx.font = '700 24px Pretendard, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('기록: runanalyz.com', 1008, 1255);
+    ctx.textAlign = 'left';
+
+    return canvas;
+}
+
+function triggerCanvasDownloadOrShare(canvas, filename, shareTitle) {
+    canvas.toBlob(async (blob) => {
+        if (!blob) return;
+        const file = new File([blob], filename, { type: 'image/png' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+                await navigator.share({ title: shareTitle, files: [file] });
+                return;
+            } catch (e) {}
+        }
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }, 'image/png');
+}
+
+function downloadPaceSummaryCard() {
+    const levelText = (document.getElementById('vdot-level')?.textContent || '러닝 진단 결과').trim();
+    const easyVal = (document.getElementById('pace-easy-val')?.textContent || '-').trim();
+    const mVal = (document.getElementById('pace-marathon-val')?.textContent || '-').trim();
+    const tVal = (document.getElementById('pace-threshold-val')?.textContent || '-').trim();
+    const iVal = (document.getElementById('pace-interval-val')?.textContent || '-').trim();
+    const vdotVal = (document.getElementById('vdot-score')?.textContent || '-').trim();
+
+    const canvas = renderSummaryCardCanvas(
+        '내 러닝 페이스 & 심장 연비',
+        'RunAnalyz 4단계 훈련 존 처방',
+        '현재 VDOT 등급',
+        `${vdotVal} · ${levelText}`.slice(0, 26),
+        [
+            { label: '1. 이지 / 조깅 (Zone 2)', value: easyVal },
+            { label: '2. 마라톤 실전 (Zone 3)', value: mVal },
+            { label: '3. 젖산 역치 (Zone 4)', value: tVal },
+            { label: '4. VO2max 인터벌 (Zone 5)', value: iVal },
+            { label: '처방 기준', value: 'runanalyz.com 계산기' }
+        ],
+        '당신의 오늘 훈련 페이스를 크루와 공유해 보세요'
+    );
+    triggerCanvasDownloadOrShare(canvas, 'runanalyz-pace-card.png', 'RunAnalyz 내 러닝 페이스 요약');
+}
+
+function downloadMarathonSummaryCard() {
+    const avgPace = (document.getElementById('mp-avg-pace')?.textContent || '5:41 /km').trim();
+    const stratNames = {
+        negative: '네거티브 스플릿 (후반 가속)',
+        even: '이븐 스플릿 (정속 주행)',
+        positive: '파지티브 스플릿 (초반 세이브)'
+    };
+    const deltas = { negative: 5, even: 0, positive: -6 };
+    const d = deltas[mpActiveStrategy] || 0;
+    const avgPaceSec = mpTargetTotalSec / 42.195;
+    const p1 = avgPaceSec + d;
+    const p2 = avgPaceSec - d;
+
+    const canvas = renderSummaryCardCanvas(
+        '마라톤 완주 페이스 전략',
+        stratNames[mpActiveStrategy] || '네거티브 스플릿',
+        `목표 기록 ${fmtHMS(mpTargetTotalSec)} (42.195km)`,
+        `평균 ${avgPace}`,
+        [
+            { label: '전반 페이스 (0 ~ 21.1km)', value: `${fmtPaceSec(p1)} /km` },
+            { label: '후반 페이스 (21.1 ~ 42.2km)', value: `${fmtPaceSec(p2)} /km` },
+            { label: '10 km 예상 통과', value: fmtHMS(10 * p1) },
+            { label: '하프(21.1km) 통과', value: fmtHMS(21.0975 * p1) },
+            { label: '30 km 마의 구간 통과', value: fmtHMS(21.0975 * p1 + 8.9025 * p2) }
+        ],
+        'Zone 2(초반) ➔ Zone 3(중반) ➔ Zone 4(후반) 기준'
+    );
+    triggerCanvasDownloadOrShare(canvas, 'runanalyz-marathon-card.png', 'RunAnalyz 마라톤 완주 전략');
+}
+
+function shareRunAnalyzUrl(tab, btnEl) {
+    const base = `${window.location.origin}${window.location.pathname}`;
+    const url = tab === 'marathon'
+        ? `${base}?view=calc&sub=marathon&sec=${mpTargetTotalSec}&strat=${mpActiveStrategy}`
+        : `${base}?view=calc&sub=pace`;
+
+    if (navigator.share && /Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+        navigator.share({ title: 'RunAnalyz 러닝 계산기 결과', url }).catch(() => {});
+        return;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+            if (btnEl) {
+                const orig = btnEl.textContent;
+                btnEl.textContent = '✅ 링크 복사됨!';
+                setTimeout(() => { btnEl.textContent = orig; }, 1800);
+            }
+        });
     }
 }
 

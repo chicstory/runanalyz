@@ -1277,7 +1277,33 @@
                         ${renderLinkBtn(links.official, '🏢 공식 홈페이지', false)}
                         ${renderLinkBtn(links.runrepeat, '🔬 RunRepeat 실측', true)}
                     </div>
+                    <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-light); display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end;">
+                        <button type="button" id="btn-shoe-copy-link" style="min-height: 40px; padding: 8px 14px; border-radius: 10px; border: 1px solid var(--border-light); background: #FFFFFF; color: var(--text-primary); font-size: 0.84rem; font-weight: 700; cursor: pointer;">🔗 이 러닝화 링크 복사</button>
+                        <button type="button" id="btn-shoe-native-share" style="min-height: 40px; padding: 8px 14px; border-radius: 10px; border: 1px solid #2563EB; background: #2563EB; color: #FFFFFF; font-size: 0.84rem; font-weight: 700; cursor: pointer;">📱 SNS 공유하기</button>
+                    </div>
                 `;
+                const shoeShareUrl = `${window.location.origin}${window.location.pathname}?shoe=${encodeURIComponent(s.id)}`;
+                const copyShoeBtn = document.getElementById('btn-shoe-copy-link');
+                const shareShoeBtn = document.getElementById('btn-shoe-native-share');
+                if (copyShoeBtn) {
+                    copyShoeBtn.addEventListener('click', () => {
+                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                            navigator.clipboard.writeText(shoeShareUrl).then(() => {
+                                copyShoeBtn.textContent = '✅ 링크 복사됨!';
+                                setTimeout(() => { copyShoeBtn.textContent = '🔗 이 러닝화 링크 복사'; }, 1800);
+                            });
+                        }
+                    });
+                }
+                if (shareShoeBtn) {
+                    shareShoeBtn.addEventListener('click', async () => {
+                        const shareText = `${s.name_ko} (${s.weight_g ? s.weight_g + 'g' : ''}${Number.isFinite(s.drop_mm) ? ' · 드롭 ' + s.drop_mm + 'mm' : ''}) 스펙 & 최저가 비교`;
+                        if (navigator.share) {
+                            try { await navigator.share({ title: s.name_ko, text: shareText, url: shoeShareUrl }); return; } catch (e) {}
+                        }
+                        if (copyShoeBtn) copyShoeBtn.click();
+                    });
+                }
                 els.detailModal.classList.add('open');
             }
 
@@ -1374,6 +1400,10 @@
                     els.pendingBtn.style.display = pendingCount > 0 ? 'inline-flex' : 'none';
                 }
                 renderGrid();
+                const shoeParam = new URLSearchParams(window.location.search).get('shoe');
+                if (shoeParam) {
+                    openDetailModal(shoeParam);
+                }
             }
 
             if (window.location.protocol === 'file:' && window.SHOES_DATA) {
