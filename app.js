@@ -17,6 +17,31 @@ document.addEventListener('DOMContentLoaded', () => {
     initTreadmillConverter();
     initHrZoneCalculator();
     initRaceCalendar();
+
+    // URL 파라미터 기반 페이스 입력 복원 (?dist=...&h=...&m=...&s=...&age=...&rpe=...)
+    const initParams = new URLSearchParams(window.location.search);
+    if (initParams.has('dist')) {
+        const dEl = document.getElementById('dist-select');
+        const hEl = document.getElementById('time-hour');
+        const mEl = document.getElementById('time-min');
+        const sEl = document.getElementById('time-sec');
+        const aEl = document.getElementById('user-age');
+        const rEl = document.getElementById('user-rpe');
+        if (dEl && initParams.get('dist')) dEl.value = initParams.get('dist');
+        if (hEl && initParams.get('h') !== null) hEl.value = initParams.get('h');
+        if (mEl && initParams.get('m') !== null) mEl.value = initParams.get('m');
+        if (sEl && initParams.get('s') !== null) sEl.value = initParams.get('s');
+        if (aEl && initParams.get('age')) aEl.value = initParams.get('age');
+        if (rEl && initParams.get('rpe')) rEl.value = initParams.get('rpe');
+    }
+
+    // URL sub-tab 활성화 (initTreadmillConverter 리스너 등록 이후 실행)
+    const subTab = initParams.get('sub');
+    if (subTab && ['pace', 'treadmill', 'hrzone', 'marathon'].includes(subTab)) {
+        const subBtn = document.querySelector(`.sub-switch-btn[data-calc-tab="${subTab}"]`);
+        if (subBtn) subBtn.click();
+    }
+
     // 초기 1회 기본 진단 실행 (10km 48분, 35세, RPE 7, 심박 145)
     calculateComprehensiveDiagnostics();
 });
@@ -61,8 +86,6 @@ function initMainViews() {
     const subTab = urlParams.get('sub');
     if (subTab && ['pace', 'treadmill', 'hrzone', 'marathon'].includes(subTab)) {
         switchView('calc');
-        const subBtn = document.querySelector(`.sub-switch-btn[data-calc-tab="${subTab}"]`);
-        if (subBtn) subBtn.click();
     }
 }
 
@@ -3071,6 +3094,20 @@ function calculateMarathonStrategy() {
 /**
  * 📸 계산기 SNS 요약 카드 (1080x1350 PNG) 생성 & 결과 링크 공유
  */
+function drawRoundedRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+}
+
 function renderSummaryCardCanvas(title, subtitle, highlightLabel, highlightValue, rows, footerNote) {
     const canvas = document.createElement('canvas');
     canvas.width = 1080;
@@ -3105,8 +3142,7 @@ function renderSummaryCardCanvas(title, subtitle, highlightLabel, highlightValue
     ctx.fillStyle = '#EFF6FF';
     ctx.strokeStyle = '#BFDBFE';
     ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.roundRect(72, 344, 936, 210, 24);
+    drawRoundedRect(ctx, 72, 344, 936, 210, 24);
     ctx.fill();
     ctx.stroke();
 
@@ -3121,8 +3157,7 @@ function renderSummaryCardCanvas(title, subtitle, highlightLabel, highlightValue
     ctx.fillStyle = '#FFFFFF';
     ctx.strokeStyle = '#E2E8F0';
     ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.roundRect(72, 590, 936, 580, 24);
+    drawRoundedRect(ctx, 72, 590, 936, 580, 24);
     ctx.fill();
     ctx.stroke();
 
@@ -3161,24 +3196,51 @@ function renderSummaryCardCanvas(title, subtitle, highlightLabel, highlightValue
 }
 
 function triggerCanvasDownloadOrShare(canvas, filename, shareTitle) {
-    canvas.toBlob(async (blob) => {
-        if (!blob) return;
-        const file = new File([blob], filename, { type: 'image/png' });
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            try {
-                await navigator.share({ title: shareTitle, files: [file] });
-                return;
-            } catch (e) {}
-        }
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
-    }, 'image/png');
+    const dataUrl = canvas.toDataURL('image/png');
+    let modal = document.getElementById('snsCardPreviewModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'snsCardPreviewModal';
+        modal.style.cssText = 'position:fixed; inset:0; z-index:9999; background:rgba(15,23,42,0.72); display:flex; align-items:center; justify-content:center; padding:16px;';
+        modal.innerHTML = `
+            <div style="background:#FFFFFF; border-radius:16px; max-width:420px; width:100%; padding:18px; box-shadow:0 20px 50px rgba(0,0,0,0.3); display:flex; flex-direction:column; gap:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <strong style="font-size:1rem; color:#0F172A;">📸 SNS 요약 카드 미리보기</strong>
+                    <button type="button" id="snsCardCloseBtn" style="border:none; background:#F1F5F9; color:#334155; width:34px; height:34px; border-radius:8px; font-size:1.1rem; cursor:pointer; font-weight:700;">✕</button>
+                </div>
+                <img id="snsCardPreviewImg" alt="RunAnalyz 요약 카드" style="width:100%; height:auto; max-height:62vh; object-fit:contain; border-radius:10px; border:1px solid #E2E8F0;">
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <a id="snsCardDownloadLink" href="#" download="" style="flex:1; min-height:42px; display:inline-flex; align-items:center; justify-content:center; background:#2563EB; color:#FFFFFF; font-weight:700; font-size:0.88rem; border-radius:10px; text-decoration:none;">⬇️ PNG 저장하기</a>
+                    <button type="button" id="snsCardShareBtn" style="flex:1; min-height:42px; background:#0F172A; color:#FFFFFF; border:none; font-weight:700; font-size:0.88rem; border-radius:10px; cursor:pointer;">📱 SNS 공유하기</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+        document.getElementById('snsCardCloseBtn').addEventListener('click', () => { modal.style.display = 'none'; });
+    }
+
+    const imgEl = document.getElementById('snsCardPreviewImg');
+    const dlEl = document.getElementById('snsCardDownloadLink');
+    const shEl = document.getElementById('snsCardShareBtn');
+    if (imgEl) imgEl.src = dataUrl;
+    if (dlEl) {
+        dlEl.href = dataUrl;
+        dlEl.download = filename;
+    }
+    if (shEl) {
+        shEl.onclick = () => {
+            canvas.toBlob(async (blob) => {
+                if (!blob) return;
+                const file = new File([blob], filename, { type: 'image/png' });
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    try { await navigator.share({ title: shareTitle, files: [file] }); return; } catch (e) {}
+                }
+                if (dlEl) dlEl.click();
+            }, 'image/png');
+        };
+    }
+    modal.style.display = 'flex';
 }
 
 function downloadPaceSummaryCard() {
@@ -3238,9 +3300,18 @@ function downloadMarathonSummaryCard() {
 
 function shareRunAnalyzUrl(tab, btnEl) {
     const base = `${window.location.origin}${window.location.pathname}`;
-    const url = tab === 'marathon'
-        ? `${base}?view=calc&sub=marathon&sec=${mpTargetTotalSec}&strat=${mpActiveStrategy}`
-        : `${base}?view=calc&sub=pace`;
+    let url = `${base}?view=calc&sub=pace`;
+    if (tab === 'marathon') {
+        url = `${base}?view=calc&sub=marathon&sec=${mpTargetTotalSec}&strat=${mpActiveStrategy}`;
+    } else {
+        const d = document.getElementById('dist-select')?.value || '10';
+        const h = document.getElementById('time-hour')?.value || '0';
+        const m = document.getElementById('time-min')?.value || '48';
+        const s = document.getElementById('time-sec')?.value || '0';
+        const age = document.getElementById('user-age')?.value || '35';
+        const rpe = document.getElementById('user-rpe')?.value || '7';
+        url = `${base}?view=calc&sub=pace&dist=${encodeURIComponent(d)}&h=${h}&m=${m}&s=${s}&age=${age}&rpe=${rpe}`;
+    }
 
     if (navigator.share && /Mobi|Android|iPhone/i.test(navigator.userAgent)) {
         navigator.share({ title: 'RunAnalyz 러닝 계산기 결과', url }).catch(() => {});
