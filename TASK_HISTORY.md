@@ -2,12 +2,11 @@
 
 ---
 
-## [2026-11-21] 📸 인스타그램 4:5 카드뉴스 자동 생성기 구축 & 모바일 가독성 개선
-- **요청사항**: `articles/*.html` 아티클을 인스타 1일 1업로드용 1080×1350 카드뉴스 PNG + 캡션으로 자동 변환하는 스크립트 구축 및 모바일 헤더/서브탭 줄바꿈·이모지 정리.
+## [2026-11-21] 📱 모바일 가독성 개선 & GA4/AEO 정리
+- **요청사항**: 모바일 헤더/서브탭 줄바꿈·이모지 정리, 내 접속 제외 스위치, `llms.txt` 최신화.
 - **수정한 내용**:
-  - `generate_insta_cards.py`, `run_insta_cards.bat`: 클린 라이트 UI 기반 표지·핵심 포인트 3장·CTA 마무리 5장 PNG + `caption.txt` 자동 생성 및 `generated_history.json` 중복 방지.
   - `style.css`, `index.html`, `shoes.html`: 모바일 `RunAnalyz` 로고 쪼개짐 방지, 4개 계산기 서브탭 2×2 그리드화, 장식용 이모지 제거, GA4 `?exclude_me=1` 영구 제외 스위치 및 `llms.txt` 최신화.
-- **앞으로 지킬 규칙**: `insta_cards/`는 `.gitignore`에 유지해 생성된 PNG가 Git 저장소를 비대화시키지 않도록 관리.
+- **앞으로 지킬 규칙**: `runanalyz.com` 콘텐츠는 주 1회 직접 아티클 작성에 집중.
 
 ---
 
