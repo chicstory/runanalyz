@@ -2,6 +2,13 @@
 
 ---
 
+## [2026-11-20] 🏁 마라톤 완주 페이스 전략 계산기 (`Sub-2 ~ Sub-5` / 3대 스플릿) 탑재
+- **요청사항**: 계산기 탭에 `Sub-2`부터 `Sub-5`까지 선택 가능한 마라톤 완주 페이스 계산기 추가 및 Zone 2~Zone 4 흐름 기준 네거티브·이븐·파지티브 스플릿 3가지 전략안 제공.
+- **수정한 내용**: `index.html` 계산기 4번째 서브탭(`data-calc-tab="marathon"`, `#calc-pane-marathon`) 신설 및 `app.js`에 `initMarathonPaceCalculator()`·`calculateMarathonStrategy()` 구현(Sub-2~Sub-5 프리셋 + 직접 입력 + 3대 스플릿 비교 카드 + 5/10/하프/30/42.195km 스플릿 통과 표).
+- **앞으로 지킬 규칙**: 42.195km(전반 21.0975 + 후반 21.0975) 대칭 보정으로 스플릿 선택 시에도 최종 완주 시간이 목표와 정확히 일치하도록 유지.
+
+---
+
 ## [2026-11-20] 🔗 러닝화 관련 아티클 12편 → `shoes.html` 내부 링크 CTA 일괄 탑재
 - **요청사항**: `runrepeat-shoe-specs-guide.html`을 비롯해 러닝화(스택·드롭·카본·사이즈·끈 묶기·블랙아이스 등) 관련 아티클에 `shoes.html`(133종 러닝화 비교 도감) 내부 연동 링크 탑재.
 - **수정한 내용**: `runrepeat-shoe-specs-guide.html` 기존 CTA 버튼을 `../shoes.html`로 연결하고, 나머지 러닝화 관련 아티클 11편 하단에 `../shoes.html` 내부 연동 CTA 카드(`.shoe-hub-cta`) 일괄 삽입.

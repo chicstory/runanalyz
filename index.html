@@ -96,6 +96,9 @@
                 <button type="button" class="sub-switch-btn" data-calc-tab="hrzone">
                     <span>🫀</span> 심박존(Zone 1~5) 계산기
                 </button>
+                <button type="button" class="sub-switch-btn" data-calc-tab="marathon">
+                    <span>🏁</span> 마라톤 완주 페이스 전략
+                </button>
             </div>
 
             <!-- Calc Pane 1: 속도 & 심장연비 종합 처방 -->
@@ -621,6 +624,87 @@
                         <a href="articles/lt1-lt2-heart-rate-zones-science.html" style="color:var(--primary-blue); text-decoration:none; margin-right:12px;">• LT1·LT2와 심박존 과학</a>
                         <a href="articles/zone2-training-mitochondria.html" style="color:var(--primary-blue); text-decoration:none; margin-right:12px;">• Zone 2 미토콘드리아 훈련</a>
                         <a href="articles/running-watch-ppg-heart-rate-chest-strap.html" style="color:var(--primary-blue); text-decoration:none;">• 손목 광학(PPG) vs 가슴 스트랩(ECG)</a>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Calc Pane 4: 🏁 마라톤 완주 페이스 전략 계산기 (Sub-2 ~ Sub-5 / 3대 스플릿 전략) -->
+            <div id="calc-pane-marathon" class="calc-pane" style="display:none;">
+                <section class="card">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">🏁 마라톤 완주 페이스 전략 (Sub-2 ~ Sub-5)</h2>
+                            <p class="card-subtitle">
+                                목표 완주 등급을 선택하면 42.195km 평균 페이스를 산출하고, <strong>Zone 2~Zone 4 심박 흐름</strong>에 맞춘 <strong>네거티브 · 이븐 · 파지티브 스플릿 3가지 전략안</strong>과 구간별 통과 시간을 비교해 드립니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 목표 완주 프리셋 버튼 -->
+                    <div style="margin-bottom: 16px;">
+                        <label style="display:block; font-size:0.85rem; font-weight:700; color:var(--text-secondary); margin-bottom:8px;">목표 완주 시간 선택 (Sub-2 ~ Sub-5)</label>
+                        <div id="mp-presets" style="display:flex; flex-wrap:wrap; gap:8px;">
+                            <button type="button" class="chip-btn mp-preset-btn" data-sec="7199" onclick="selectMarathonPreset(7199, this)">Sub-2 (1:59:59)</button>
+                            <button type="button" class="chip-btn mp-preset-btn" data-sec="9000" onclick="selectMarathonPreset(9000, this)">Sub-2:30</button>
+                            <button type="button" class="chip-btn mp-preset-btn" data-sec="10799" onclick="selectMarathonPreset(10799, this)">Sub-3 (2:59:59)</button>
+                            <button type="button" class="chip-btn mp-preset-btn" data-sec="12600" onclick="selectMarathonPreset(12600, this)">Sub-3:30</button>
+                            <button type="button" class="chip-btn mp-preset-btn active" data-sec="14399" onclick="selectMarathonPreset(14399, this)" style="background:#2563EB; color:#fff; border-color:#2563EB;">Sub-4 (3:59:59)</button>
+                            <button type="button" class="chip-btn mp-preset-btn" data-sec="16200" onclick="selectMarathonPreset(16200, this)">Sub-4:30</button>
+                            <button type="button" class="chip-btn mp-preset-btn" data-sec="17999" onclick="selectMarathonPreset(17999, this)">Sub-5 (4:59:59)</button>
+                        </div>
+                    </div>
+
+                    <!-- 직접 입력 (시 / 분) -->
+                    <div class="form-grid" style="margin-bottom: 18px;">
+                        <div class="input-field">
+                            <label for="mp-hour">직접 조정: 목표 시간 (시)</label>
+                            <input type="number" id="mp-hour" class="form-input" value="3" min="1" max="7">
+                        </div>
+                        <div class="input-field">
+                            <label for="mp-min">직접 조정: 목표 분 (분)</label>
+                            <input type="number" id="mp-min" class="form-input" value="59" min="0" max="59">
+                        </div>
+                    </div>
+
+                    <!-- 핵심 요약 박스 -->
+                    <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:14px; padding:16px 18px; margin-bottom:20px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px;">
+                        <div>
+                            <div style="font-size:0.8rem; font-weight:800; color:#2563EB;">42.195 km 목표 평균 페이스</div>
+                            <div id="mp-avg-pace" style="font-size:1.8rem; font-weight:900; color:#0F172A; line-height:1.2; margin-top:2px;">5:41 /km</div>
+                            <div id="mp-target-label" style="font-size:0.82rem; color:#475569; margin-top:4px;">목표 기록 3시간 59분 · 하프(21.1km) 평균 통과 1시간 59분 30초</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-size:0.78rem; font-weight:700; color:#475569;">표준 심박 운용 흐름</div>
+                            <div style="font-size:0.9rem; font-weight:800; color:#1E40AF; margin-top:2px;">Zone 2 (초반) ➔ Zone 3 (중반) ➔ Zone 4 (후반)</div>
+                        </div>
+                    </div>
+
+                    <!-- 3가지 스플릿 전략 카드 -->
+                    <h3 style="font-size:1rem; font-weight:800; color:var(--text-primary); margin-bottom:10px;">📊 3가지 주행 전략 비교 (클릭하면 아래 랩타임 표가 바뀝니다)</h3>
+                    <div id="mp-strategy-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px; margin-bottom:20px;">
+                        <!-- JS 렌더링 -->
+                    </div>
+
+                    <!-- 선택 전략 5km/10km/하프/30km/완주 통과 테이블 -->
+                    <div style="border:1px solid var(--border-light); border-radius:12px; overflow:hidden;">
+                        <div id="mp-table-header" style="background:#F1F5F9; padding:10px 14px; font-size:0.86rem; font-weight:800; color:var(--text-primary);">
+                            ⏱️ 선택한 전략 기준 구간별 통과 시간 (스플릿 표)
+                        </div>
+                        <div style="overflow-x:auto;">
+                            <table style="width:100%; border-collapse:collapse; font-size:0.86rem; text-align:left;">
+                                <thead>
+                                    <tr style="border-bottom:1px solid #E2E8F0; color:#64748B; font-size:0.78rem;">
+                                        <th style="padding:9px 12px;">지점</th>
+                                        <th style="padding:9px 12px;">구간 페이스</th>
+                                        <th style="padding:9px 12px;">권장 심박존</th>
+                                        <th style="padding:9px 12px;">예상 누적 통과 시간</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mp-split-tbody">
+                                    <!-- JS 렌더링 -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </section>
             </div>

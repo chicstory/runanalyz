@@ -59,7 +59,7 @@ function initMainViews() {
     }
 
     const subTab = urlParams.get('sub');
-    if (subTab && ['pace', 'treadmill', 'hrzone'].includes(subTab)) {
+    if (subTab && ['pace', 'treadmill', 'hrzone', 'marathon'].includes(subTab)) {
         switchView('calc');
         const subBtn = document.querySelector(`.sub-switch-btn[data-calc-tab="${subTab}"]`);
         if (subBtn) subBtn.click();
@@ -1737,6 +1737,7 @@ function initTreadmillConverter() {
     const panePace = document.getElementById('calc-pane-pace');
     const paneTreadmill = document.getElementById('calc-pane-treadmill');
     const paneHrzone = document.getElementById('calc-pane-hrzone');
+    const paneMarathon = document.getElementById('calc-pane-marathon');
 
     if (switchBtns.length) {
         switchBtns.forEach(btn => {
@@ -1748,9 +1749,12 @@ function initTreadmillConverter() {
                 if (panePace) panePace.style.display = (tab === 'pace') ? 'block' : 'none';
                 if (paneTreadmill) paneTreadmill.style.display = (tab === 'treadmill') ? 'block' : 'none';
                 if (paneHrzone) paneHrzone.style.display = (tab === 'hrzone') ? 'block' : 'none';
+                if (paneMarathon) paneMarathon.style.display = (tab === 'marathon') ? 'block' : 'none';
             });
         });
     }
+
+    initMarathonPaceCalculator();
 
     // 6-2. DOM 요소 바인딩
     const kphInput = document.getElementById('treadmill-kph-input');
@@ -2878,6 +2882,179 @@ function initRaceCalendar() {
     // 초기 카운트 계산 및 렌더링
     updateCountBadges();
     renderRaces();
+}
+
+/**
+ * 🏁 마라톤 완주 페이스 전략 계산기 (Sub-2 ~ Sub-5 / 네거티브·이븐·파지티브 3대 전략)
+ */
+let mpTargetTotalSec = 14399; // 기본값: Sub-4 (3:59:59)
+let mpActiveStrategy = 'negative'; // 'negative' | 'even' | 'positive'
+
+function fmtPaceSec(sec) {
+    const s = Math.max(120, Math.round(sec));
+    const m = Math.floor(s / 60);
+    const r = s % 60;
+    return `${m}:${String(r).padStart(2, '0')}`;
+}
+
+function fmtHMS(totalSec) {
+    const s = Math.max(0, Math.round(totalSec));
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const r = s % 60;
+    return `${h}:${String(m).padStart(2, '0')}:${String(r).padStart(2, '0')}`;
+}
+
+function initMarathonPaceCalculator() {
+    const hEl = document.getElementById('mp-hour');
+    const mEl = document.getElementById('mp-min');
+    if (!hEl || !mEl) return;
+
+    const onCustomInput = () => {
+        const h = Math.min(7, Math.max(1, parseInt(hEl.value, 10) || 3));
+        const m = Math.min(59, Math.max(0, parseInt(mEl.value, 10) || 0));
+        mpTargetTotalSec = h * 3600 + m * 60;
+        document.querySelectorAll('.mp-preset-btn').forEach(b => {
+            b.classList.remove('active');
+            b.style.background = '';
+            b.style.color = '';
+            b.style.borderColor = '';
+        });
+        calculateMarathonStrategy();
+    };
+
+    hEl.addEventListener('input', onCustomInput);
+    mEl.addEventListener('input', onCustomInput);
+    calculateMarathonStrategy();
+}
+
+function selectMarathonPreset(sec, btnEl) {
+    mpTargetTotalSec = sec;
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    const hEl = document.getElementById('mp-hour');
+    const mEl = document.getElementById('mp-min');
+    if (hEl) hEl.value = h;
+    if (mEl) mEl.value = m;
+
+    document.querySelectorAll('.mp-preset-btn').forEach(b => {
+        b.classList.remove('active');
+        b.style.background = '';
+        b.style.color = '';
+        b.style.borderColor = '';
+    });
+    if (btnEl) {
+        btnEl.classList.add('active');
+        btnEl.style.background = '#2563EB';
+        btnEl.style.color = '#FFFFFF';
+        btnEl.style.borderColor = '#2563EB';
+    }
+    calculateMarathonStrategy();
+}
+
+function selectMarathonStrategy(key) {
+    mpActiveStrategy = key;
+    calculateMarathonStrategy();
+}
+
+function calculateMarathonStrategy() {
+    const DIST = 42.195;
+    const HALF = 21.0975;
+    const avgPaceSec = mpTargetTotalSec / DIST;
+
+    const avgEl = document.getElementById('mp-avg-pace');
+    const lblEl = document.getElementById('mp-target-label');
+    if (avgEl) avgEl.textContent = `${fmtPaceSec(avgPaceSec)} /km`;
+    if (lblEl) {
+        lblEl.textContent = `목표 기록 ${fmtHMS(mpTargetTotalSec)} · 하프(21.1km) 평균 통과 ${fmtHMS(mpTargetTotalSec / 2)}`;
+    }
+
+    const strategies = [
+        {
+            key: 'negative',
+            badge: '추천 1안 · 후반 가속',
+            title: '네거티브 스플릿 (Negative)',
+            firstDelta: 5,
+            secondDelta: -5,
+            zoneFlow: '전반 Zone 2~3 ➔ 후반 Zone 3~4',
+            desc: '전반을 +5초/km 아껴 뛰어 글리코겐을 보존하고, 30km 이후 남는 힘으로 추월하는 가장 안정적인 완주 전략.'
+        },
+        {
+            key: 'even',
+            badge: '2안 · 정속 주행',
+            title: '이븐 스플릿 (Even)',
+            firstDelta: 0,
+            secondDelta: 0,
+            zoneFlow: '전 구간 Zone 3 고정',
+            desc: '출발부터 결승선까지 평균 페이스를 일정하게 유지. 페이스메이커 그룹에 붙어 심박 변동을 줄이기 좋습니다.'
+        },
+        {
+            key: 'positive',
+            badge: '3안 · 초반 세이브',
+            title: '파지티브 스플릿 (Positive)',
+            firstDelta: -6,
+            secondDelta: 6,
+            zoneFlow: '전반 Zone 3~4 ➔ 후반 Zone 2~3',
+            desc: '전반에 -6초/km 시간을 벌어두고 후반 체력 저하(+6초/km)를 감안해 버티는 전략. 초반 오버페이스 주의가 필요합니다.'
+        }
+    ];
+
+    const grid = document.getElementById('mp-strategy-grid');
+    if (grid) {
+        grid.innerHTML = strategies.map(st => {
+            const isActive = st.key === mpActiveStrategy;
+            const p1 = avgPaceSec + st.firstDelta;
+            const p2 = avgPaceSec + st.secondDelta;
+            const halfTime = fmtHMS(p1 * HALF);
+            return `
+                <button type="button" onclick="selectMarathonStrategy('${st.key}')" style="text-align:left; background:${isActive ? '#EFF6FF' : '#FFFFFF'}; border:${isActive ? '2px solid #2563EB' : '1px solid #E2E8F0'}; border-radius:12px; padding:14px; cursor:pointer; display:flex; flex-direction:column; gap:8px; transition:all 0.15s;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; width:100%;">
+                        <span style="font-size:0.72rem; font-weight:800; padding:2px 8px; border-radius:999px; background:${isActive ? '#2563EB' : '#F1F5F9'}; color:${isActive ? '#FFFFFF' : '#475569'};">${st.badge}</span>
+                        <span style="font-size:0.74rem; font-weight:700; color:#2563EB;">${isActive ? '선택됨 ✓' : '보기 ›'}</span>
+                    </div>
+                    <div style="font-size:0.98rem; font-weight:800; color:#0F172A;">${st.title}</div>
+                    <div style="font-size:0.82rem; font-weight:700; color:#1E40AF;">전반 ${fmtPaceSec(p1)}/km ➔ 후반 ${fmtPaceSec(p2)}/km</div>
+                    <div style="font-size:0.78rem; color:#475569;">하프 통과: <strong>${halfTime}</strong> · ${st.zoneFlow}</div>
+                    <p style="font-size:0.78rem; color:#64748B; line-height:1.45; margin:0;">${st.desc}</p>
+                </button>
+            `;
+        }).join('');
+    }
+
+    const activeSt = strategies.find(s => s.key === mpActiveStrategy) || strategies[0];
+    const p1 = avgPaceSec + activeSt.firstDelta;
+    const p2 = avgPaceSec + activeSt.secondDelta;
+
+    const tblHeader = document.getElementById('mp-table-header');
+    if (tblHeader) {
+        tblHeader.textContent = `⏱️ [${activeSt.title}] 기준 구간별 통과 시간 (목표 ${fmtHMS(mpTargetTotalSec)})`;
+    }
+
+    const checkpoints = [
+        { label: '5 km (초반 워밍업)', km: 5, zone: activeSt.key === 'positive' ? 'Zone 3' : 'Zone 2' },
+        { label: '10 km (리듬 안착)', km: 10, zone: activeSt.key === 'positive' ? 'Zone 3~4' : 'Zone 2~3' },
+        { label: '21.1 km (하프 반환)', km: HALF, zone: 'Zone 3' },
+        { label: '30 km (마의 구간 진입)', km: 30, zone: activeSt.key === 'negative' ? 'Zone 3~4' : 'Zone 3~4' },
+        { label: '42.195 km (피니시)', km: DIST, zone: activeSt.key === 'negative' ? 'Zone 4' : 'Zone 3~4' }
+    ];
+
+    const tbody = document.getElementById('mp-split-tbody');
+    if (tbody) {
+        tbody.innerHTML = checkpoints.map(cp => {
+            const pace = cp.km <= HALF ? p1 : p2;
+            const cumSec = cp.km <= HALF
+                ? cp.km * p1
+                : (HALF * p1) + ((cp.km - HALF) * p2);
+            return `
+                <tr style="border-bottom:1px solid #F1F5F9;">
+                    <td style="padding:10px 12px; font-weight:700; color:#0F172A;">${cp.label}</td>
+                    <td style="padding:10px 12px; font-family:var(--font-mono, monospace); font-weight:700; color:#2563EB;">${fmtPaceSec(pace)} /km</td>
+                    <td style="padding:10px 12px; color:#475569; font-weight:600;">${cp.zone}</td>
+                    <td style="padding:10px 12px; font-family:var(--font-mono, monospace); font-weight:800; color:#0F172A;">${fmtHMS(cumSec)}</td>
+                </tr>
+            `;
+        }).join('');
+    }
 }
 
 
