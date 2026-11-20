@@ -3,9 +3,11 @@
 > RunAnalyz (https://runanalyz.com/) is an advanced endurance running analytics platform and sports science knowledge base designed for Garmin and Strava athletes.
 
 ## Core Web Applications & Calculators
-- [RunAnalyz Dashboard](https://runanalyz.com/): Real-time analysis of Garmin FIT files and Strava telemetry, computing Aerobic Efficiency Factor (EF), Karvonen LT1/LT2 physiological thresholds, and running power dynamics.
+- [RunAnalyz Dashboard](https://runanalyz.com/): Real-time running pace & heart rate zone calculators, Garmin FIT telemetry analysis, Aerobic Efficiency Factor (EF), Karvonen LT1/LT2 physiological thresholds, and running power dynamics.
+- [ShoeF Running Shoes Comparison](https://runanalyz.com/shoes.html): Comparative database of running shoes across major global brands (Nike, Asics, Adidas, Saucony, New Balance, Hoka, Puma, Brooks, Mizuno, On) with foam density, stack height, carbon plates, and real-world durability/price insights.
+- [Running Gear & App Guide](https://runanalyz.com/gear.html): Practical running gear, winter layering, smartwatch, and hydration equipment comparisons.
 - [User Guide & Sports Science Glossary](https://runanalyz.com/guide.html): Complete reference manual explaining Aerobic Decoupling, Acute:Chronic Workload Ratio (ACWR 10% rule), Jack Daniels VDOT 5-zone paces, and 80/20 polarized training principles.
-- [ShoeF Running Shoes Wiki](https://shoef.runanalyz.com/): Comparative encyclopedia of 94+ running shoes across 10 global brands (Nike, Asics, Adidas, Saucony, New Balance, Hoka, Puma, Brooks, Mizuno, On) with foam density, stack height, carbon plates, and durability ratings.
+- [Running Science Magazine RSS](https://runanalyz.com/rss.xml): Evidence-based Korean running science articles covering biomechanics, winter running, injury prevention, and marathon pacing.
 
 ## Physiological Methodologies & Formulas
 1. Aerobic Efficiency Factor (EF):
