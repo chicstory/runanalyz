@@ -2,6 +2,15 @@
 
 ---
 
+## [2026-11-21] 📸 인스타그램 4:5 카드뉴스 자동 생성기 구축 & 모바일 가독성 개선
+- **요청사항**: `articles/*.html` 아티클을 인스타 1일 1업로드용 1080×1350 카드뉴스 PNG + 캡션으로 자동 변환하는 스크립트 구축 및 모바일 헤더/서브탭 줄바꿈·이모지 정리.
+- **수정한 내용**:
+  - `generate_insta_cards.py`, `run_insta_cards.bat`: 클린 라이트 UI 기반 표지·핵심 포인트 3장·CTA 마무리 5장 PNG + `caption.txt` 자동 생성 및 `generated_history.json` 중복 방지.
+  - `style.css`, `index.html`, `shoes.html`: 모바일 `RunAnalyz` 로고 쪼개짐 방지, 4개 계산기 서브탭 2×2 그리드화, 장식용 이모지 제거, GA4 `?exclude_me=1` 영구 제외 스위치 및 `llms.txt` 최신화.
+- **앞으로 지킬 규칙**: `insta_cards/`는 `.gitignore`에 유지해 생성된 PNG가 Git 저장소를 비대화시키지 않도록 관리.
+
+---
+
 ## [2026-11-20] 🔗 마라톤 일정(`MAJOR_RACES`) 22개 공식 홈페이지 링크 전수 점검 & 깨진 URL 3건 복구
 - **요청사항**: 마라톤 일정 내 대회 공식 홈페이지 바로가기 링크 중 깨진 URL 점검 및 수정.
 - **수정한 내용**: `app.js` 내 22개 대회 `officialUrl` HTTP 상태 전수 검증 후 도메인 만료/변경된 3개 대회 URL 교체 (`군산새만금` → `gunsanmarathon.com`, `인천송도` → `songdorun.net`, `후쿠오카 국제마라톤` → `fukuoka-international-marathon.jp`, 모두 HTTP 200 확인).
