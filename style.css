@@ -89,6 +89,8 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .badge-mk2 {
@@ -3429,15 +3431,43 @@ table p {
    📱 모바일 헤더 겹침 및 세부 반응형 최적화
    ========================================================================== */
 @media (max-width: 640px) {
+    .header-inner {
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 14px;
+    }
     .header-nav {
+        width: 100%;
+        justify-content: space-between;
         gap: 8px !important;
+        padding: 6px 10px;
     }
-    .header-nav-static {
-        gap: 8px !important;
-        font-size: 0.76rem !important;
+    .header-nav-static,
+    .header-nav-links {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: nowrap !important;
+        gap: 4px !important;
+        font-size: 0.78rem !important;
     }
-    .header-nav .status-label {
+    .header-nav-static a,
+    .header-nav-link {
+        white-space: nowrap;
+        padding: 6px 4px;
+        font-size: 0.78rem;
+    }
+    .header-nav .status-label,
+    .header-nav .status-indicator {
         display: none !important;
+    }
+    .sub-switch-group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    .sub-switch-btn {
+        font-size: 0.82rem;
+        padding: 10px 8px;
     }
     .course-change-table th,
     .course-change-table td {

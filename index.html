@@ -42,8 +42,8 @@
             </div>
             <nav class="header-nav" style="display:flex; align-items:center; gap:16px;">
                 <div class="header-nav-static" style="display:flex; gap:12px; font-size:0.85rem; font-weight:700;">
-                    <a href="shoes.html" style="color:var(--primary-blue); text-decoration:none;">👟 러닝화 비교</a>
-                    <a href="index.html?view=articles" style="color:var(--text-secondary); text-decoration:none;">📖 런로그</a>
+                    <a href="shoes.html" style="color:var(--primary-blue); text-decoration:none;">러닝화 비교</a>
+                    <a href="index.html?view=articles" style="color:var(--text-secondary); text-decoration:none;">런로그</a>
                     <a href="about.html" style="color:var(--text-secondary); text-decoration:none;">소개 &amp; 출처</a>
                     <a href="privacy.html" style="color:var(--text-tertiary); text-decoration:none;">정책</a>
                 </div>
@@ -68,18 +68,10 @@
 
         <!-- Main 4-Segment Switcher (모바일 360px 완벽 대응) -->
         <nav class="main-nav-segments" aria-label="메인 기능 선택">
-            <button class="segment-btn active" data-view="calc">
-                <span class="segment-icon">⚡</span> 계산기
-            </button>
-            <button class="segment-btn" data-view="planner">
-                <span class="segment-icon">📅</span> 훈련 플래너
-            </button>
-            <button class="segment-btn" data-view="races">
-                <span class="segment-icon">🏆</span> 마라톤 일정
-            </button>
-            <button class="segment-btn" data-view="articles">
-                <span class="segment-icon">📖</span> 런로그
-            </button>
+            <button class="segment-btn active" data-view="calc">계산기</button>
+            <button class="segment-btn" data-view="planner">훈련 플래너</button>
+            <button class="segment-btn" data-view="races">마라톤 일정</button>
+            <button class="segment-btn" data-view="articles">런로그</button>
         </nav>
 
         <!-- ==========================================
@@ -88,18 +80,10 @@
         <div id="view-calc" class="main-view active">
             <!-- 3대 계산기 서브 스위처 (페이스 & 심장연비 vs 트레드밀 환산기 vs 심박존 계산기) -->
             <div class="sub-switch-group">
-                <button type="button" class="sub-switch-btn active" data-calc-tab="pace">
-                    <span>⚡</span> 속도 & 심장연비 처방
-                </button>
-                <button type="button" class="sub-switch-btn" data-calc-tab="treadmill">
-                    <span>🏃</span> 트레드밀 속도 ⇄ 페이스
-                </button>
-                <button type="button" class="sub-switch-btn" data-calc-tab="hrzone">
-                    <span>🫀</span> 심박존(Zone 1~5) 계산기
-                </button>
-                <button type="button" class="sub-switch-btn" data-calc-tab="marathon">
-                    <span>🏁</span> 마라톤 완주 페이스 전략
-                </button>
+                <button type="button" class="sub-switch-btn active" data-calc-tab="pace">속도 &amp; 심장연비</button>
+                <button type="button" class="sub-switch-btn" data-calc-tab="treadmill">트레드밀 ⇄ 페이스</button>
+                <button type="button" class="sub-switch-btn" data-calc-tab="hrzone">심박존(Zone 1~5)</button>
+                <button type="button" class="sub-switch-btn" data-calc-tab="marathon">마라톤 완주 전략</button>
             </div>
 
             <!-- Calc Pane 1: 속도 & 심장연비 종합 처방 -->
