@@ -2209,7 +2209,7 @@ const MAJOR_RACES = [
         elevation: '+22m',
         tags: ['#새만금방조제', '#국내최저고저차', '#직선주로', '#바닷바람변수'],
         guide: '국내 마라톤 중 누적 상승고도가 가장 낮은(+22m) 초평탄 주로입니다. 언덕 부담은 제로에 가깝지만, 새만금 방조제 구간의 탁 트인 서해 바닷바람(맞바람/측풍)에 대비해 페이스메이커 뒤에 붙어 달리는 풍동 전략이 중요합니다.',
-        officialUrl: 'https://www.gunsanrun.co.kr/'
+        officialUrl: 'https://www.gunsanmarathon.com/'
     },
     {
         id: 'gyeongju-marathon',
@@ -2266,7 +2266,7 @@ const MAJOR_RACES = [
         elevation: '+18m',
         tags: ['#송도센트럴파크', '#초평지', '#쾌적한도로', '#하프PB추천'],
         guide: '송도 국제도시의 넓고 평탄한 아스팔트 대로를 달리는 대표적인 쾌속 코스입니다. 언덕이 거의 없어 가을 시즌 하프마라톤 PB 기록을 측정하기에 최고의 조건을 자랑합니다.',
-        officialUrl: 'https://songdorun.com/'
+        officialUrl: 'http://songdorun.net/'
     },
 
     // ----------------------------------------------------
@@ -2438,7 +2438,7 @@ const MAJOR_RACES = [
         elevation: '+30m',
         tags: ['#헤이와다이', '#일본최고권위', '#초평탄', '#엘리트명문코스'],
         guide: '70년 넘는 역사를 지닌 아시아 최고 권위의 전통 주로입니다. 고저차가 거의 없는 평탄한 도로로 설계되어 강풍이 없는 12월 특유의 차분한 기온 속에서 정밀한 페이스 배분이 가능합니다.',
-        officialUrl: 'https://www.fukuoka-marathon.com/'
+        officialUrl: 'https://www.fukuoka-international-marathon.jp/'
     },
     {
         id: 'osaka-marathon',
