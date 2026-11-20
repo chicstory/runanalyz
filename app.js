@@ -35,6 +35,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (rEl && initParams.get('rpe')) rEl.value = initParams.get('rpe');
     }
 
+    // URL 파라미터 기반 심박존 입력 복원 (?sub=hrzone&age=...&rest=...&gender=...&max=...)
+    if (initParams.get('sub') === 'hrzone') {
+        const hAge = document.getElementById('hrz-age');
+        const hRest = document.getElementById('hrz-rest');
+        const hMax = document.getElementById('hrz-custom-max');
+        if (hAge && initParams.get('age')) hAge.value = initParams.get('age');
+        if (hRest && initParams.get('rest')) hRest.value = initParams.get('rest');
+        if (hMax && initParams.get('max')) hMax.value = initParams.get('max');
+        if (initParams.get('gender')) {
+            const gRadio = document.querySelector(`input[name="hrz-gender"][value="${initParams.get('gender')}"]`);
+            if (gRadio) gRadio.checked = true;
+        }
+        if (hAge) hAge.dispatchEvent(new Event('input'));
+    }
+
     // URL sub-tab 활성화 (initTreadmillConverter 리스너 등록 이후 실행)
     const subTab = initParams.get('sub');
     if (subTab && ['pace', 'treadmill', 'hrzone', 'marathon'].includes(subTab)) {
@@ -3150,8 +3165,13 @@ function renderSummaryCardCanvas(title, subtitle, highlightLabel, highlightValue
     ctx.font = '800 26px Pretendard, sans-serif';
     ctx.fillText(highlightLabel, 112, 405);
     ctx.fillStyle = '#0F172A';
-    ctx.font = '900 72px Pretendard, sans-serif';
-    ctx.fillText(highlightValue, 112, 498);
+    let hlSize = 68;
+    ctx.font = `900 ${hlSize}px Pretendard, sans-serif`;
+    while (hlSize > 32 && ctx.measureText(highlightValue).width > 856) {
+        hlSize -= 2;
+        ctx.font = `900 ${hlSize}px Pretendard, sans-serif`;
+    }
+    ctx.fillText(highlightValue, 112, 492);
 
     // 상세 행 카드
     ctx.fillStyle = '#FFFFFF';
@@ -3249,13 +3269,13 @@ function downloadPaceSummaryCard() {
     const mVal = (document.getElementById('pace-marathon-val')?.textContent || '-').trim();
     const tVal = (document.getElementById('pace-threshold-val')?.textContent || '-').trim();
     const iVal = (document.getElementById('pace-interval-val')?.textContent || '-').trim();
-    const vdotVal = (document.getElementById('vdot-score')?.textContent || '-').trim();
+    const vdotVal = (document.getElementById('vdot-val')?.textContent || '-').trim();
 
     const canvas = renderSummaryCardCanvas(
         '내 러닝 페이스 & 심장 연비',
         'RunAnalyz 4단계 훈련 존 처방',
-        '현재 VDOT 등급',
-        `${vdotVal} · ${levelText}`.slice(0, 26),
+        `현재 VDOT ${vdotVal}`,
+        levelText,
         [
             { label: '1. 이지 / 조깅 (Zone 2)', value: easyVal },
             { label: '2. 마라톤 실전 (Zone 3)', value: mVal },
@@ -3266,6 +3286,36 @@ function downloadPaceSummaryCard() {
         '당신의 오늘 훈련 페이스를 크루와 공유해 보세요'
     );
     triggerCanvasDownloadOrShare(canvas, 'runanalyz-pace-card.png', 'RunAnalyz 내 러닝 페이스 요약');
+}
+
+function downloadHrZoneSummaryCard() {
+    const maxHr = (document.getElementById('hrz-val-max')?.textContent || '-').trim();
+    const restHr = (document.getElementById('hrz-val-rest')?.textContent || '-').trim();
+    const hrrVal = (document.getElementById('hrz-val-hrr')?.textContent || '-').trim();
+    const zone2 = (document.getElementById('hrz-karv-zone2')?.textContent || '-').trim();
+
+    const zoneCards = document.querySelectorAll('#hrZonesContainer > div');
+    const zoneRows = [];
+    zoneCards.forEach((card, idx) => {
+        if (idx >= 5) return;
+        const text = card.textContent.replace(/\s+/g, ' ').trim();
+        const bpmMatch = text.match(/(\d+\s*~\s*\d+\s*bpm)/i);
+        const zoneNames = ['Zone 1 (회복)', 'Zone 2 (지방연소)', 'Zone 3 (마라톤)', 'Zone 4 (역치)', 'Zone 5 (인터벌)'];
+        zoneRows.push({
+            label: zoneNames[idx] || `Zone ${idx + 1}`,
+            value: bpmMatch ? bpmMatch[1] : '-'
+        });
+    });
+
+    const canvas = renderSummaryCardCanvas(
+        '카보넨 정밀 심박존 (Zone 1~5)',
+        `최대 ${maxHr} · 안정 ${restHr} · 여유 ${hrrVal}`,
+        '진짜 유산소 핵심 구간 (Zone 2)',
+        zone2,
+        zoneRows.length ? zoneRows : [{ label: 'Zone 2 (유산소)', value: zone2 }],
+        '스마트워치 %HRR 기준 설정용 · runanalyz.com'
+    );
+    triggerCanvasDownloadOrShare(canvas, 'runanalyz-hrzone-card.png', 'RunAnalyz 내 심박존 요약');
 }
 
 function downloadMarathonSummaryCard() {
@@ -3303,6 +3353,12 @@ function shareRunAnalyzUrl(tab, btnEl) {
     let url = `${base}?view=calc&sub=pace`;
     if (tab === 'marathon') {
         url = `${base}?view=calc&sub=marathon&sec=${mpTargetTotalSec}&strat=${mpActiveStrategy}`;
+    } else if (tab === 'hrzone') {
+        const age = document.getElementById('hrz-age')?.value || '35';
+        const rest = document.getElementById('hrz-rest')?.value || '60';
+        const gender = document.querySelector('input[name="hrz-gender"]:checked')?.value || 'male';
+        const max = document.getElementById('hrz-custom-max')?.value || '';
+        url = `${base}?view=calc&sub=hrzone&age=${age}&rest=${rest}&gender=${gender}${max ? '&max=' + max : ''}`;
     } else {
         const d = document.getElementById('dist-select')?.value || '10';
         const h = document.getElementById('time-hour')?.value || '0';

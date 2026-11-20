@@ -613,6 +613,15 @@
                         <div class="hr-zones-stack" id="hrZonesContainer" style="display:flex; flex-direction:column; gap:10px;">
                             <!-- JS에서 5개 Zone 카드 자동 렌더링 -->
                         </div>
+
+                        <!-- 심박존 SNS 요약 카드 저장 & 링크 공유 바 -->
+                        <div style="margin-top: 16px; padding: 14px 16px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;">
+                            <span style="font-size: 0.86rem; font-weight: 700; color: #334155;">📸 내 카보넨 심박존(Zone 1~5)을 카드로 저장하거나 공유해 보세요</span>
+                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <button type="button" onclick="downloadHrZoneSummaryCard()" style="min-height: 40px; padding: 8px 14px; border-radius: 10px; border: 1px solid #2563EB; background: #2563EB; color: #FFFFFF; font-size: 0.84rem; font-weight: 700; cursor: pointer;">🖼️ SNS 요약 카드 저장 (PNG)</button>
+                                <button type="button" onclick="shareRunAnalyzUrl('hrzone', this)" style="min-height: 40px; padding: 8px 14px; border-radius: 10px; border: 1px solid #CBD5E1; background: #FFFFFF; color: #0F172A; font-size: 0.84rem; font-weight: 700; cursor: pointer;">🔗 심박존 링크 복사</button>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- 스마트워치(가민/애플/갤럭시) 입력 방법 안내 아코디언 -->
