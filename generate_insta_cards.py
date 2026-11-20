@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 RunAnalyz Instagram Editorial Carousel Generator (1080x1350, 4:5 Portrait)
-Uses real running background photos from ./insta_bg/ (winter, shoes, track, road)
-with magazine-style dark gradient overlays, bold typography, and concise takeaways.
+Uses real running background photos from ./insta_bg/ (5 RunLog categories)
+and extracts rich, complete, actionable takeaways (plus optional Gemini API polishing).
 """
 
 import os
@@ -10,7 +10,10 @@ import re
 import glob
 import json
 import random
+import ssl
 import argparse
+import urllib.request
+import urllib.parse
 from datetime import datetime
 from html.parser import HTMLParser
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance, ImageOps
@@ -20,12 +23,27 @@ ARTICLES_DIR = os.path.join(BASE_DIR, "articles")
 BG_ROOT = os.path.join(BASE_DIR, "insta_bg")
 OUT_ROOT = os.path.join(BASE_DIR, "insta_cards")
 HISTORY_FILE = os.path.join(OUT_ROOT, "generated_history.json")
+ENV_FILE = os.path.join(BASE_DIR, ".env")
 
 W, H = 1080, 1350
 DARK_BG = (12, 18, 32)
 WHITE = (248, 250, 252)
 MUTED = (148, 163, 184)
-ACCENT = (56, 189, 248)  # Crisp sky-cyan editorial accent
+ACCENT = (56, 189, 248)
+
+
+def load_env(path):
+    env = {}
+    if not os.path.exists(path):
+        return env
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            k, v = line.split("=", 1)
+            env[k.strip()] = v.strip().strip('"').strip("'")
+    return env
 
 
 def load_font(bold=False, size=36):
@@ -50,7 +68,10 @@ class ArticleParser(HTMLParser):
         self._in_h2 = False
         self._in_p = False
         self._in_li = False
+        self._in_tr = False
+        self._in_cell = False
         self._buf = []
+        self._row_cells = []
         self._cur_section = None
 
     def handle_starttag(self, tag, attrs):
@@ -69,6 +90,12 @@ class ArticleParser(HTMLParser):
         elif tag == "li" and self._cur_section is not None:
             self._in_li = True
             self._buf = []
+        elif tag == "tr" and self._cur_section is not None:
+            self._in_tr = True
+            self._row_cells = []
+        elif tag in ("td", "th") and self._in_tr:
+            self._in_cell = True
+            self._buf = []
 
     def handle_endtag(self, tag):
         if tag == "title" and self._in_title:
@@ -84,16 +111,28 @@ class ArticleParser(HTMLParser):
         elif tag == "p" and self._in_p:
             self._in_p = False
             txt = re.sub(r"\s+", " ", "".join(self._buf)).strip()
-            if txt and len(txt) > 12 and self._cur_section is not None:
+            if txt and len(txt) > 15 and self._cur_section is not None:
                 self._cur_section["points"].append(txt)
         elif tag == "li" and self._in_li:
             self._in_li = False
             txt = re.sub(r"\s+", " ", "".join(self._buf)).strip()
-            if txt and len(txt) > 8 and self._cur_section is not None:
+            if txt and len(txt) > 10 and self._cur_section is not None:
                 self._cur_section["points"].append(txt)
+        elif tag in ("td", "th") and self._in_cell:
+            self._in_cell = False
+            cell_txt = re.sub(r"\s+", " ", "".join(self._buf)).strip()
+            if cell_txt:
+                self._row_cells.append(cell_txt)
+        elif tag == "tr" and self._in_tr:
+            self._in_tr = False
+            if len(self._row_cells) >= 2 and self._cur_section is not None:
+                # Skip table header rows
+                joined = "  |  ".join(self._row_cells[:3])
+                if not any(h in self._row_cells[0] for h in ("구간", "기온", "구분", "항목")):
+                    self._cur_section["points"].append(joined)
 
     def handle_data(self, data):
-        if self._in_title or self._in_h2 or self._in_p or self._in_li:
+        if self._in_title or self._in_h2 or self._in_p or self._in_li or self._in_cell:
             self._buf.append(data)
 
 
@@ -115,11 +154,18 @@ def wrap_text(draw, text, font, max_width):
     return lines
 
 
-def shorten_sentence(text, max_chars=58):
-    first = re.split(r"(?<=[.!?다요])\s+", text.strip())[0]
-    if len(first) <= max_chars:
-        return first
-    return first[: max_chars - 1].rstrip() + "…"
+def clean_complete_point(text, max_chars=105):
+    sentences = re.split(r"(?<=[.!?])\s+", text.strip())
+    out = ""
+    for s in sentences:
+        cand = f"{out} {s}".strip() if out else s
+        if len(cand) <= max_chars:
+            out = cand
+        else:
+            break
+    if out:
+        return out
+    return text[: max_chars - 1].rstrip() + "…"
 
 
 def detect_category(slug, title=""):
@@ -154,7 +200,6 @@ def pick_bg_image(category):
 def prepare_bg_canvas(bg_path, blur_radius=0, brightness=0.55, gradient_bottom=True):
     if bg_path and os.path.exists(bg_path):
         im = ImageOps.exif_transpose(Image.open(bg_path)).convert("RGB")
-        # Center crop to 4:5 (1080x1350)
         target_ratio = W / H
         src_ratio = im.width / im.height
         if src_ratio > target_ratio:
@@ -178,105 +223,141 @@ def prepare_bg_canvas(bg_path, blur_radius=0, brightness=0.55, gradient_bottom=T
     if gradient_bottom:
         for y in range(H):
             ratio = y / H
-            alpha = int(max(40, min(230, (ratio ** 1.6) * 235)))
+            alpha = int(max(45, min(235, (ratio ** 1.55) * 240)))
             odraw.line([(0, y), (W, y)], fill=(8, 13, 25, alpha))
     else:
-        odraw.rectangle([0, 0, W, H], fill=(8, 13, 25, 175))
-    return Image.alpha_composite(im, overlay).convert("RGB")
+        odraw.rectangle([0, 0, W, H], fill=(8, 13, 25, 185))
+    return Image.alpha_composite(im, overlay).convert("RGBA")
 
 
 def draw_chrome(draw, page_num, total_pages):
     font_brand = load_font(bold=True, size=24)
-    draw.text((84, 72), "RUNANALYZ  |  RUNNING NOTE", font=font_brand, fill=ACCENT)
+    draw.text((80, 68), "RUNANALYZ  |  RUNNING NOTE", font=font_brand, fill=ACCENT)
     page_str = f"{page_num:02d} / {total_pages:02d}"
     pb = draw.textbbox((0, 0), page_str, font=font_brand)
-    draw.text((W - 84 - (pb[2] - pb[0]), 72), page_str, font=font_brand, fill=MUTED)
+    draw.text((W - 80 - (pb[2] - pb[0]), 68), page_str, font=font_brand, fill=MUTED)
 
 
 def render_cover(title, desc, bg_path, out_path, total_pages):
-    img = prepare_bg_canvas(bg_path, blur_radius=0, brightness=0.72, gradient_bottom=True)
+    img = prepare_bg_canvas(bg_path, blur_radius=0, brightness=0.72, gradient_bottom=True).convert("RGB")
     draw = ImageDraw.Draw(img)
     draw_chrome(draw, 1, total_pages)
 
-    font_title = load_font(bold=True, size=66)
+    font_title = load_font(bold=True, size=62)
     font_sub = load_font(bold=False, size=32)
     font_swipe = load_font(bold=True, size=24)
 
     short_title = title.split(":")[0].strip() if ":" in title else title
-    title_lines = wrap_text(draw, short_title, font_title, W - 168)[:3]
-    sub_lines = wrap_text(draw, shorten_sentence(desc, 68), font_sub, W - 168)[:2]
+    title_lines = wrap_text(draw, short_title, font_title, W - 160)[:3]
+    sub_lines = wrap_text(draw, clean_complete_point(desc, 85), font_sub, W - 160)[:3]
 
-    bottom_y = H - 150
+    bottom_y = H - 145
     sub_y = bottom_y - len(sub_lines) * 46 - 24
-    title_y = sub_y - len(title_lines) * 86 - 28
+    title_y = sub_y - len(title_lines) * 84 - 28
 
-    draw.rectangle([84, title_y - 28, 164, title_y - 20], fill=ACCENT)
+    draw.rectangle([80, title_y - 26, 160, title_y - 18], fill=ACCENT)
     for line in title_lines:
-        draw.text((84, title_y), line, font=font_title, fill=WHITE)
-        title_y += 86
+        draw.text((80, title_y), line, font=font_title, fill=WHITE)
+        title_y += 84
 
     for line in sub_lines:
-        draw.text((84, sub_y), line, font=font_sub, fill=(203, 213, 225))
+        draw.text((80, sub_y), line, font=font_sub, fill=(203, 213, 225))
         sub_y += 46
 
-    draw.text((84, H - 96), "SWIPE  >", font=font_swipe, fill=ACCENT)
+    draw.text((80, H - 92), "SWIPE  >", font=font_swipe, fill=ACCENT)
     img.save(out_path, quality=95)
 
 
 def render_section(idx, section, bg_path, out_path, total_pages):
-    img = prepare_bg_canvas(bg_path, blur_radius=8, brightness=0.45, gradient_bottom=False)
-    draw = ImageDraw.Draw(img)
-    draw_chrome(draw, idx, total_pages)
+    base = prepare_bg_canvas(bg_path, blur_radius=10, brightness=0.42, gradient_bottom=False)
+    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    odraw = ImageDraw.Draw(overlay)
 
-    font_num = load_font(bold=True, size=92)
-    font_h = load_font(bold=True, size=50)
-    font_pt = load_font(bold=False, size=36)
+    font_num = load_font(bold=True, size=56)
+    font_h = load_font(bold=True, size=44)
+    font_pt = load_font(bold=False, size=31)
 
-    draw.text((84, 210), f"0{idx - 1}", font=font_num, fill=ACCENT)
-    y = 330
-    for line in wrap_text(draw, section["heading"], font_h, W - 168)[:2]:
-        draw.text((84, y), line, font=font_h, fill=WHITE)
-        y += 68
+    odraw.text((80, 150), f"0{idx - 1}", font=font_num, fill=ACCENT)
+    y = 224
+    for line in wrap_text(odraw, section["heading"], font_h, W - 160)[:2]:
+        odraw.text((80, y), line, font=font_h, fill=WHITE)
+        y += 60
 
-    y += 46
-    for pt in section["points"][:2]:
-        concise = shorten_sentence(pt, 62)
-        lines = wrap_text(draw, concise, font_pt, W - 210)[:3]
-        draw.rectangle([84, y + 8, 92, y + len(lines) * 52 - 4], fill=ACCENT)
-        ty = y
+    y += 28
+    for pt in section["points"][:4]:
+        concise = clean_complete_point(pt, 105)
+        lines = wrap_text(odraw, concise, font_pt, W - 216)[:3]
+        box_h = len(lines) * 44 + 40
+        if y + box_h > H - 120:
+            break
+        odraw.rounded_rectangle(
+            [80, y, W - 80, y + box_h],
+            radius=20,
+            fill=(15, 23, 42, 195),
+            outline=(56, 189, 248, 80),
+            width=2,
+        )
+        ty = y + 20
         for l in lines:
-            draw.text((118, ty), l, font=font_pt, fill=(226, 232, 240))
-            ty += 52
-        y = ty + 46
+            odraw.text((108, ty), l, font=font_pt, fill=(226, 232, 240))
+            ty += 44
+        y += box_h + 20
 
-    draw.text((84, H - 96), "runanalyz.com", font=load_font(bold=True, size=24), fill=MUTED)
-    img.save(out_path, quality=95)
+    draw_chrome(odraw, idx, total_pages)
+    odraw.text((80, H - 92), "runanalyz.com", font=load_font(bold=True, size=24), fill=MUTED)
+    combined = Image.alpha_composite(base, overlay).convert("RGB")
+    combined.save(out_path, quality=95)
 
 
 def render_cta(title, bg_path, out_path, total_pages):
-    img = prepare_bg_canvas(bg_path, blur_radius=6, brightness=0.50, gradient_bottom=True)
+    img = prepare_bg_canvas(bg_path, blur_radius=6, brightness=0.50, gradient_bottom=True).convert("RGB")
     draw = ImageDraw.Draw(img)
     draw_chrome(draw, total_pages, total_pages)
 
-    font_h = load_font(bold=True, size=58)
+    font_h = load_font(bold=True, size=56)
     font_sub = load_font(bold=False, size=32)
     font_btn = load_font(bold=True, size=30)
 
-    y = 430
-    for line in wrap_text(draw, "저장해두고\n달리기 전에 확인하세요", font_h, W - 168):
-        draw.text((84, y), line, font=font_h, fill=WHITE)
-        y += 80
+    y = 420
+    for line in wrap_text(draw, "저장해두고\n달리기 전에 확인하세요", font_h, W - 160):
+        draw.text((80, y), line, font=font_h, fill=WHITE)
+        y += 78
 
     y += 30
-    for line in wrap_text(draw, "내 페이스·심박존 계산기와 러닝화 스펙 비교는\n프로필 링크에서 무료로 확인할 수 있습니다.", font_sub, W - 168):
-        draw.text((84, y), line, font=font_sub, fill=(203, 213, 225))
+    for line in wrap_text(draw, "내 페이스·심박존 계산기와 러닝화 스펙 비교는\n프로필 링크에서 무료로 확인할 수 있습니다.", font_sub, W - 160):
+        draw.text((80, y), line, font=font_sub, fill=(203, 213, 225))
         y += 48
 
-    draw.rounded_rectangle([84, H - 240, W - 84, H - 150], radius=16, fill=ACCENT)
+    draw.rounded_rectangle([80, H - 235, W - 80, H - 145], radius=16, fill=ACCENT)
     btn_txt = "프로필 링크  runanalyz.com"
     bb = draw.textbbox((0, 0), btn_txt, font=font_btn)
-    draw.text(((W - (bb[2] - bb[0])) // 2, H - 212), btn_txt, font=font_btn, fill=(8, 13, 25))
+    draw.text(((W - (bb[2] - bb[0])) // 2, H - 208), btn_txt, font=font_btn, fill=(8, 13, 25))
     img.save(out_path, quality=95)
+
+
+def summarize_with_gemini(title, sections, api_key):
+    ssl_ctx = ssl.create_default_context()
+    ssl_ctx.check_hostname = False
+    ssl_ctx.verify_mode = ssl.CERT_NONE
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={urllib.parse.quote(api_key)}"
+    prompt = (
+        "다음 러닝 과학 아티클을 인스타그램 카드뉴스 본문 슬라이드 3장으로 재구성하세요.\n"
+        "JSON 배열만 출력하세요: [{\"heading\": \"짧은 소제목\", \"points\": [\"완전한 문장 1(구체적 수치/기준 포함)\", \"문장 2\", \"문장 3\"]}]\n"
+        "규칙: 이모지 금지, 문장이 중간에 잘리지 않게 완결, 각 포인트는 50~90자 내외의 알찬 실전 팁으로 작성.\n\n"
+        f"제목: {title}\n원본 섹션: {json.dumps(sections[:5], ensure_ascii=False)}"
+    )
+    payload = {
+        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+        "generationConfig": {"temperature": 0.3, "responseMimeType": "application/json"},
+    }
+    req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"}, method="POST")
+    with urllib.request.urlopen(req, context=ssl_ctx, timeout=30) as resp:
+        res_data = json.loads(resp.read().decode("utf-8"))
+    txt = res_data["candidates"][0]["content"]["parts"][0]["text"]
+    parsed = json.loads(txt)
+    if isinstance(parsed, list) and len(parsed) >= 1:
+        return parsed[:3]
+    return None
 
 
 def pick_article(target_arg=None):
@@ -320,8 +401,18 @@ def main():
     bg_path = pick_bg_image(category)
     desc = ap.description or "달리기 데이터와 운동생리학을 바탕으로 정리한 실전 러닝 가이드입니다."
     sections = [s for s in ap.sections if s["points"]][:3]
-    total_pages = 2 + len(sections)
 
+    local_env = load_env(ENV_FILE)
+    gemini_key = os.environ.get("GEMINI_API_KEY") or local_env.get("GEMINI_API_KEY", "")
+    if gemini_key and sections:
+        try:
+            ai_sections = summarize_with_gemini(title, sections, gemini_key)
+            if ai_sections:
+                sections = ai_sections
+        except Exception as e:
+            print(f"[WARN] Gemini polish failed, using parsed HTML sections: {e}")
+
+    total_pages = 2 + len(sections)
     today_str = datetime.now().strftime("%Y-%m-%d")
     out_dir = os.path.join(OUT_ROOT, f"{today_str}_{slug[:40]}")
     os.makedirs(out_dir, exist_ok=True)
