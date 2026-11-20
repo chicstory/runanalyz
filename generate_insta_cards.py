@@ -13,7 +13,7 @@ import random
 import argparse
 from datetime import datetime
 from html.parser import HTMLParser
-from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
+from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance, ImageOps
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ARTICLES_DIR = os.path.join(BASE_DIR, "articles")
@@ -144,13 +144,16 @@ def pick_bg_image(category):
             candidates.extend(glob.glob(os.path.join(cat_dir, ext)))
     if not candidates and os.path.isdir(BG_ROOT):
         for ext in exts:
-            candidates.extend(glob.glob(os.path.join(BG_ROOT, "**", ext), recursive=True))
+            candidates.extend(
+                p for p in glob.glob(os.path.join(BG_ROOT, "**", ext), recursive=True)
+                if "_unused" not in p and "_heic" not in p
+            )
     return random.choice(candidates) if candidates else None
 
 
 def prepare_bg_canvas(bg_path, blur_radius=0, brightness=0.55, gradient_bottom=True):
     if bg_path and os.path.exists(bg_path):
-        im = Image.open(bg_path).convert("RGB")
+        im = ImageOps.exif_transpose(Image.open(bg_path)).convert("RGB")
         # Center crop to 4:5 (1080x1350)
         target_ratio = W / H
         src_ratio = im.width / im.height
