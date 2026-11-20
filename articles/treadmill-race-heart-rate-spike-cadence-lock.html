@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>러닝머신·대회 중 심박수 190 급상승: 실제 과부하 vs 스마트워치 케이던스 락 구별법 | RunAnalyz</title>
+    <meta name="description" content="러닝머신에서 심박수가 갑자기 180~195까지 치솟거나 마라톤 대회 초반에 심박이 높게 나올 때, 실제 심폐 과부하(심장 드리프트)인지 스마트워치 케이던스 락(Cadence Lock) 오류인지 10초 만에 구별하는 방법을 정리했습니다.">
+    <link rel="canonical" href="https://runanalyz.com/articles/treadmill-race-heart-rate-spike-cadence-lock.html">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QREC5DVG9M"></script>
+    <script>
+        (function(){var p=new URLSearchParams(location.search).get('exclude_me');if(p==='1')localStorage.setItem('ra_exclude_ga','1');else if(p==='0')localStorage.removeItem('ra_exclude_ga');if(localStorage.getItem('ra_exclude_ga')==='1')window['ga-disable-G-QREC5DVG9M']=true;})();
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-QREC5DVG9M');
+    </script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1876940323402065" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <a href="../index.html" style="text-decoration:none; display:flex; align-items:center; gap:10px;">
+                    <span class="brand-logo">⚡</span>
+                    <div class="brand-text">
+                        <span class="brand-name">RunAnalyz</span>
+                        <span class="brand-tagline">러너를 위한 실전 러닝 아카이브</span>
+                    </div>
+                </a>
+            </div>
+            <nav class="header-nav-links">
+                <a href="../index.html" class="header-nav-link">러닝 분석 도구</a>
+                <a href="../index.html?view=articles" class="header-nav-link active">러닝 사이언스</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <nav style="font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 20px;">
+            <a href="../index.html" style="color: var(--primary-blue); text-decoration: none;">홈</a> &gt;
+            <a href="../index.html?view=articles" style="color: var(--primary-blue); text-decoration: none;">러닝 사이언스</a> &gt;
+            <span>러닝머신·대회 심박수 급상승</span>
+        </nav>
+
+        <article class="card article-detail">
+            <header class="article-header">
+                <span class="article-tag">심박 데이터 · 트레드밀 &amp; 레이스</span>
+                <h1>러닝머신·대회 중 심박수 190 급상승: 실제 과부하 vs 스마트워치 케이던스 락 구별법</h1>
+                <div class="article-meta">
+                    <span>읽는 시간 4분</span> • <span>광학 심박계(PPG) &amp; 열 스트레스 분석</span>
+                </div>
+            </header>
+
+            <div class="article-body">
+                <p>
+                    평소 조깅할 때는 140~150bpm이던 심박수가 <strong>러닝머신(트레드밀)만 타면 갑자기 180 이상으로 튀거나</strong>, 마라톤 대회 10km 지점부터 190~195bpm이 찍혀 불안해지는 경우가 많습니다. 이때는 <strong>센서 오류(케이던스 락)</strong>인지 <strong>실제 생리적 상승</strong>인지부터 빠르게 구분해야 합니다.
+                </p>
+
+                <h2>1. 10초 구별법: 스마트워치 '케이던스 락'인가, 진짜 심박인가?</h2>
+                <p>
+                    손목 광학 심박계(PPG)는 팔을 흔드는 진동과 혈류 맥박을 헷갈려 <strong>내 분당 발걸음 수(케이던스, 175~190 spm)를 심박수로 착각</strong>해 그대로 찍어버리는 현상이 흔합니다. 이를 <strong>케이던스 락(Cadence Lock)</strong>이라고 합니다.
+                </p>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>구분 기준</th>
+                            <th>케이던스 락 (센서 오류)</th>
+                            <th>실제 심박 상승 (과부하/열 스트레스)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>상승 패턴</td>
+                            <td>145bpm에서 몇 초 만에 180bpm대로 <strong>계단처럼 수직 점프</strong></td>
+                            <td>시간이 지날수록 145 → 155 → 168 식으로 <strong>완만하게 우상향</strong></td>
+                        </tr>
+                        <tr>
+                            <td>호흡 자각도</td>
+                            <td>숨이 별로 안 차고 옆 사람과 말할 수 있음</td>
+                            <td>대화가 어렵고 거친 호흡과 흉부 압박감이 동반됨</td>
+                        </tr>
+                        <tr>
+                            <td>케이던스 일치</td>
+                            <td>워치의 케이던스 숫자와 심박수 숫자가 거의 똑같음</td>
+                            <td>케이던스(예: 180)와 무관하게 변동함</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>2. 러닝머신에서 유독 심박수가 높게 나오는 진짜 이유 3가지</h2>
+                <ul>
+                    <li><strong>맞바람(대류 냉각) 부재:</strong> 야외에서는 달리는 속도만큼 바람이 불어 땀을 식혀주지만, 실내 러닝머신은 공기가 정체되어 체온이 빠르게 오릅니다. 체온을 내리려고 피부로 혈액을 더 많이 보내면서 심박수가 10~15bpm 더 높아집니다.</li>
+                    <li><strong>건조한 헬스장 공기 &amp; 손목 땀:</strong> 땀이 워치 센서 밑에 고이거나 건조해지면 광학 센서가 진동에 취약해져 케이던스 락이 자주 걸립니다.</li>
+                    <li><strong>미세한 오르막과 일정 속도 강제:</strong> 페이스 변속 없이 벨트 속도를 계속 따라가야 하므로 후반 심장 드리프트(Cardiac Drift)가 더 도드라집니다.</li>
+                </ul>
+
+                <h2>3. 마라톤 대회 중 심박수 185~195bpm 찍혔을 때 대처</h2>
+                <ul>
+                    <li><strong>초반 5~10km부터 180 이상이면:</strong> 대회 긴장감(아드레날린) + 오버페이스 신호일 가능성이 큽니다. 10km 이전이라면 목표 페이스보다 km당 5~10초만 늦춰 호흡을 안정시키세요.</li>
+                    <li><strong>워치 착용 보정 팁:</strong> 뛰기 전 워치를 손목뼈(복사뼈)보다 1~2cm 위쪽에 손가락이 안 들어갈 정도로 한 칸 더 조여 매면 케이던스 락을 크게 줄일 수 있습니다.</li>
+                </ul>
+
+                <div class="callout-box">
+                    <strong>병원 확인이 필요한 경우:</strong> 워치를 벗고 손으로 목(경동맥)이나 손목 맥박을 15초 재서 4를 곱했을 때도 실제로 190 이상이 나오면서 <strong>가슴 통증·어지럼증·식은땀</strong>이 동반된다면 즉시 달리기를 멈추고 진료를 받으셔야 합니다.
+                </div>
+            </div>
+
+            <div class="article-memo-section" id="article-memo-root">
+                <div class="memo-header">
+                    <div class="memo-title-group">
+                        <h3 class="memo-title">러너 실전 메모 &amp; 질문 남기기</h3>
+                        <p class="memo-subtitle">트레드밀이나 대회에서 겪은 심박수 경험을 공유해 보세요.</p>
+                    </div>
+                    <span class="memo-count-badge" id="memo-count-badge">0개의 메모</span>
+                </div>
+                <div class="memo-list" id="memo-list"></div>
+                <form class="memo-form" id="memo-form">
+                    <div class="memo-form-row">
+                        <input type="text" id="memo-author" class="memo-input" placeholder="닉네임 (예: 트레드밀러너)" required maxlength="20">
+                    </div>
+                    <textarea id="memo-content" class="memo-textarea" placeholder="심박수가 튀었던 상황이나 해결 팁을 적어주세요..." required maxlength="500"></textarea>
+                    <div class="memo-captcha-row">
+                        <div class="memo-captcha-box">
+                            <span id="captcha-question">1 + 2 = ?</span>
+                            <input type="number" id="captcha-answer" class="memo-captcha-input" required placeholder="정답">
+                        </div>
+                        <button type="submit" class="memo-submit-btn">메모 등록하기</button>
+                    </div>
+                    <div class="memo-notice">※ 스팸 방지를 위해 간단한 덧셈을 입력해주세요. (10초 쿨다운 • 브라우저 영구 보존)</div>
+                </form>
+            </div>
+
+            <div class="article-cta-tool">
+                <h3>실내 트레드밀 속도와 야외 페이스가 헷갈린다면?</h3>
+                <p>트레드밀 계기판 속도(km/h)와 경사도를 넣으면 야외 등가 페이스로 1초 만에 환산해 줍니다.</p>
+                <a href="../index.html?sub=treadmill" class="article-cta-btn">트레드밀 속도 ⇄ 야외 페이스 환산하기 ›</a>
+            </div>
+        </article>
+    </main>
+
+    <footer class="app-footer" style="text-align:center; padding:24px 0; border-top:1px solid var(--border-light); margin-top:40px;">
+        <div class="footer-links" style="margin-bottom: 8px;">
+            <a href="../about.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 8px; font-size: 0.82rem; font-weight: 700;">서비스 소개</a> •
+            <a href="../privacy.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 8px; font-size: 0.82rem; font-weight: 700;">개인정보처리방침</a> •
+            <a href="../terms.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 8px; font-size: 0.82rem; font-weight: 700;">이용약관</a>
+        </div>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin:0;">© 2026 RunAnalyz. 직접 달리며 기록한 러너의 실전 과학 노트.</p>
+    </footer>
+    <script src="memo.js"></script>
+</body>
+
+</html>

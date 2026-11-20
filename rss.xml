@@ -5,8 +5,72 @@
     <link>https://runanalyz.com/</link>
     <description>스포츠 생체역학과 운동생리학 연구 기반의 러닝 사이언스, 부상 재활, 마라톤 코스 공략 및 체력 진단 매거진</description>
     <language>ko</language>
-    <lastBuildDate>Sun, 15 Nov 2026 01:31:10 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 21 Nov 2026 03:36:04 +0900</lastBuildDate>
     <atom:link href="https://runanalyz.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>러닝머신·대회 중 심박수 190 급상승: 실제 과부하 vs 스마트워치 케이던스 락 구별법</title>
+      <link>https://runanalyz.com/articles/treadmill-race-heart-rate-spike-cadence-lock.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/treadmill-race-heart-rate-spike-cadence-lock.html</guid>
+      <pubDate>Sat, 21 Nov 2026 09:00:00 +0900</pubDate>
+      <category>심박 데이터 · 트레드밀 &amp; 레이스</category>
+      <description><![CDATA[러닝머신에서 심박수가 갑자기 180~195까지 치솟거나 마라톤 대회 초반에 심박이 높게 나올 때, 실제 심폐 과부하(심장 드리프트)인지 스마트워치 케이던스 락(Cadence Lock) 오류인지 10초 만에 구별하는 방법을 정리했습니다.]]></description>
+    </item>
+    <item>
+      <title>러너 안정시 심박수 40대·서맥: 정상 스포츠 심장 vs 병원 가야 하는 위험 신호</title>
+      <link>https://runanalyz.com/articles/runner-bradycardia-resting-heart-rate-40s-guide.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/runner-bradycardia-resting-heart-rate-40s-guide.html</guid>
+      <pubDate>Sat, 21 Nov 2026 09:00:00 +0900</pubDate>
+      <category>심폐 생리 · 안정시 심박수</category>
+      <description><![CDATA[달리기를 꾸준히 하면 안정시 심박수가 40대까지 내려가거나 잘 때 30~40대가 찍히기도 합니다. 운동으로 인한 정상 서맥(스포츠 심장)과 심전도 검사가 필요한 위험 신호를 쉽게 구분해 드립니다.]]></description>
+    </item>
+    <item>
+      <title>마라톤 완주 후 점점 다리가 아파오는 이유 &amp;amp; 회복런 하면 안 되는 3가지 경우</title>
+      <link>https://runanalyz.com/articles/post-marathon-doms-recovery-run-timing.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/post-marathon-doms-recovery-run-timing.html</guid>
+      <pubDate>Sat, 21 Nov 2026 09:00:00 +0900</pubDate>
+      <category>대회 회복 · DOMS &amp; 부상 예방</category>
+      <description><![CDATA[마라톤 완주 직후보다 다음 날과 이틀 뒤에 다리가 점점 더 아파오는 이유(지연성 근육통 DOMS)와, 마라톤 이후 무리한 회복런을 절대 하면 안 되는 3가지 위험 신호 및 72시간 회복 루틴을 정리했습니다.]]></description>
+    </item>
+    <item>
+      <title>러닝화 끈 묶기 완벽 가이드: 뒤꿈치 들림과 발등 통증을 잡는 러너스 루프</title>
+      <link>https://runanalyz.com/articles/running-shoe-lacing-heel-lock-runners-loop-guide.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/running-shoe-lacing-heel-lock-runners-loop-guide.html</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 +0900</pubDate>
+      <category>장비 &amp; 기어 · 러닝화 피팅</category>
+      <description><![CDATA[새 러닝화를 샀는데 뒤꿈치가 들리거나 발등이 저리다면 신발이 아니라 끈 묶기 문제일 수 있습니다. 유튜브 영상과 함께 따라 하는 러너스 루프(힐 락)와 발 모양별 매듭법 3가지를 정리했습니다.]]></description>
+    </item>
+    <item>
+      <title>갑자기 영하로 뚝 떨어진 날, 다치지 않고 뛰는 러닝 요령</title>
+      <link>https://runanalyz.com/articles/sudden-cold-snap-subzero-running-tips.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/sudden-cold-snap-subzero-running-tips.html</guid>
+      <pubDate>Thu, 19 Nov 2026 09:00:00 +0900</pubDate>
+      <category>겨울 달리기 · 급한파 대처</category>
+      <description><![CDATA[어제까지 영상권이다가 갑자기 영하권으로 떨어진 한파 날에는 근육과 힘줄이 아직 추위에 적응하지 못한 상태입니다. 바람 방향 코스 잡기부터 페이스 조절, 장비 체크까지 쉽게 정리했습니다.]]></description>
+    </item>
+    <item>
+      <title>감기·독감 걸렸을 때 러닝 중단해야 할까? 땀 빼기 속설과 복귀 기준</title>
+      <link>https://runanalyz.com/articles/running-with-cold-or-flu-rest-and-return-guide.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/running-with-cold-or-flu-rest-and-return-guide.html</guid>
+      <pubDate>Wed, 18 Nov 2026 09:00:00 +0900</pubDate>
+      <category>건강 &amp; 회복 · 감기·독감 대처</category>
+      <description><![CDATA[감기나 독감에 걸렸을 때 뛰어도 되는지 헷갈린다면 '목 위·목 아래' 기준만 기억하세요. 열이 나거나 잠을 못 잘 때 쉬어야 하는 이유와 안전하게 다시 뛰는 복귀 순서를 쉽게 정리했습니다.]]></description>
+    </item>
+    <item>
+      <title>일주일에 1~2번만 뛰어도 실력이 크게 안 떨어지는 이유와 유지 요령</title>
+      <link>https://runanalyz.com/articles/weekly-once-twice-running-fitness-maintenance.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/weekly-once-twice-running-fitness-maintenance.html</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <category>훈련 빈도 · 실력 유지법</category>
+      <description><![CDATA[바빠서 일주일에 1~2번만 달려도 체력이 생각보다 크게 떨어지지 않는 이유와, 적은 횟수로도 러닝 실력을 오래 지키는 현실적인 요령을 쉽게 정리했습니다.]]></description>
+    </item>
+    <item>
+      <title>잠잘 때와 달릴 때의 공통점: 위장을 비워야 심박수가 내려가고 몸이 편해진다</title>
+      <link>https://runanalyz.com/articles/empty-stomach-running-and-sleep-resting-heart-rate.html</link>
+      <guid isPermaLink="true">https://runanalyz.com/articles/empty-stomach-running-and-sleep-resting-heart-rate.html</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <category>수면 &amp; 컨디션 · 공복과 심박수</category>
+      <description><![CDATA[배가 부른 상태에서는 잠을 자도 안정심박수가 떨어지지 않고 달릴 때도 몸이 무겁습니다. 수면 회복과 러닝 컨디션을 동시에 끌어올리는 공복 시간 관리법을 쉽게 정리했습니다.]]></description>
+    </item>
     <item>
       <title>겨울 달리기 옷차림: 영하 10도에도 땀 식지 않게 입는 법</title>
       <link>https://runanalyz.com/articles/winter-running-layering-temperature-matrix-extremities-gear.html</link>
