@@ -993,13 +993,15 @@ body {
     margin-top: 10px;
 }
 
-.article-content {
+.article-content,
+.article-body {
     font-size: 1rem;
     line-height: 1.8;
     color: #1E293B;
 }
 
-.article-content h2 {
+.article-content h2,
+.article-body h2 {
     font-size: 1.35rem;
     font-weight: 800;
     color: var(--text-primary);
@@ -1008,23 +1010,55 @@ body {
     border-bottom: 2px solid #EFF6FF;
 }
 
-.article-content h3 {
+.article-content h3,
+.article-body h3 {
     font-size: 1.12rem;
     font-weight: 700;
     color: var(--text-primary);
     margin: 24px 0 10px;
 }
 
-.article-content p {
+.article-content p,
+.article-body p {
     margin-bottom: 18px;
 }
 
-.article-content ul, .article-content ol {
+.article-content ul, .article-content ol,
+.article-body ul, .article-body ol {
     margin: 0 0 20px 22px;
 }
 
-.article-content li {
+.article-content li,
+.article-body li {
     margin-bottom: 8px;
+}
+
+.article-content table,
+.article-body table,
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 22px 0;
+    font-size: 0.92rem;
+    border: 1px solid var(--border-light);
+    background: #FFFFFF;
+}
+
+.article-content th, .article-content td,
+.article-body th, .article-body td,
+.data-table th, .data-table td {
+    padding: 12px 14px;
+    border: 1px solid var(--border-light);
+    text-align: left;
+    line-height: 1.6;
+}
+
+.article-content th,
+.article-body th,
+.data-table th {
+    background: #F8FAFC;
+    font-weight: 700;
+    color: var(--text-primary);
 }
 
 .callout-box {
